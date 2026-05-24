@@ -1,1 +1,1 @@
-# edu_KNUmed
+# BI for MD-PhD @ KNU medicine

@@ -1,0 +1,503 @@
+---
+title: "Epigenomics I: DNA Methylation"
+subtitle: "Advanced Bioinformatics for Clinician-Scientists | Week 4"
+author: "Your Name"
+date: today
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    code-copy: true
+    highlight-style: github
+    transition: fade
+    background-transition: fade
+    footer: "Advanced Bioinformatics | W4 — DNA Methylation"
+    css: custom.css
+execute:
+  echo: true
+  eval: false
+---
+
+# What Is Epigenomics? {background-color="#1D9E75"}
+
+---
+
+## Beyond the DNA Sequence
+
+Same genome. Different cell types. Different functions.
+
+```
+Neuron  ─── DNA ──→  expresses NEFL, SNAP25, SYP
+Hepatocyte ─ DNA ──→  expresses ALB, CYP3A4, F2
+T cell  ─── DNA ──→  expresses CD3E, CD8A, GZMB
+```
+
+::: {.fragment}
+**The genome is the same. The epigenome is different.**
+
+Epigenomics studies the regulatory layer **on top of** the DNA sequence:
+- DNA methylation
+- Histone modifications
+- Chromatin accessibility (W5)
+- 3D genome organization (W5)
+:::
+
+---
+
+## Why Epigenomics for Clinicians?
+
+::: {.incremental}
+- **Cancer** — global hypomethylation + gene-specific hypermethylation → tumor suppressor silencing
+- **Aging** — epigenetic clocks predict biological age, mortality, disease risk
+- **Drug response** — methylation status of promoters predicts chemotherapy sensitivity
+- **Developmental disorders** — imprinting diseases (Prader-Willi, Angelman)
+- **Liquid biopsy** — cell-free DNA methylation → tissue of origin for cancer detection
+:::
+
+---
+
+# DNA Methylation {background-color="#534AB7"}
+
+---
+
+## The Biology
+
+```
+CpG dinucleotide:  5'─C─G─3'
+                   3'─G─C─5'
+
+Methylation:   5'─[m]C─G─3'   (5-methylcytosine)
+
+Maintained by: DNMT1 (maintenance methyltransferase)
+Written by:    DNMT3A / DNMT3B (de novo)
+Erased by:     TET enzymes (oxidation → demethylation)
+```
+
+::: {.fragment}
+**Effect on gene expression:**
+- Promoter methylation → gene **silencing**
+- Gene body methylation → associated with **active transcription** (context-dependent)
+- Enhancer methylation → **reduced enhancer activity**
+:::
+
+---
+
+## CpG Islands, Shores, and Shelves
+
+```
+                shore    CGI      shore
+──────────────[====][===========][====]──────────────
+              shelf                     shelf
+
+CpG Island (CGI): high CpG density, usually unmethylated in normal tissue
+Shore (0–2 kb):   variable methylation, most disease-relevant
+Shelf (2–4 kb):   lower CpG density
+Open sea:         remaining genome
+```
+
+::: {.callout-tip}
+## Clinically important
+Most cancer-associated methylation changes happen at **CGI shores**, not the islands themselves.
+:::
+
+---
+
+## Measurement Technologies
+
+| Technology | Resolution | Coverage | Throughput | Cost |
+|-----------|-----------|---------|-----------|------|
+| **Illumina EPIC array** | CpG-level | 935K sites | High | Low |
+| **450K array** | CpG-level | 485K sites | High | Low |
+| **WGBS** | CpG-level | All ~28M CpGs | Low | High |
+| **RRBS** | CpG-level | CpG-rich regions | Medium | Medium |
+| **MeDIP-seq** | Regional | Genome-wide | Medium | Medium |
+
+::: {.fragment}
+**For most clinical research:** EPIC array — cost-effective, validated, huge reference datasets  
+(GEO has thousands of EPIC datasets available now)
+:::
+
+---
+
+# Analysis Workflow {background-color="#185FA5"}
+
+---
+
+## Overview
+
+```
+Raw IDAT files (Illumina array)
+    │
+    ├── 1. Load & QC          → minfi / ChAMP
+    ├── 2. Normalization       → BMIQ / Noob
+    ├── 3. Filtering           → remove SNP-associated, cross-reactive probes
+    ├── 4. DMP analysis        → differentially methylated positions
+    ├── 5. DMR analysis        → differentially methylated regions
+    ├── 6. Functional annotation → gene, CGI context
+    └── 7. Epigenetic clock    → biological age estimation
+```
+
+---
+
+## Step 1: Load IDAT Files
+
+```{r}
+library(minfi)
+library(here)
+
+# Read sample sheet
+targets <- read.metharray.sheet(here("data", "raw", "methylation"),
+                                 pattern = "SampleSheet.csv")
+
+# Load raw IDAT files
+rgSet <- read.metharray.exp(targets = targets,
+                             verbose  = TRUE)
+rgSet
+
+# Check: should see ~935,000 probes (EPIC) or ~485,000 (450K)
+```
+
+---
+
+## Step 2: QC
+
+```{r}
+# QC report
+qcReport(rgSet,
+         sampNames = targets$Sample_Name,
+         sampGroups = targets$Sample_Group,
+         pdf       = here("results", "qc_report.pdf"))
+
+# Detection p-values — probes with p > 0.01 are unreliable
+detP <- detectionP(rgSet)
+failed <- detP > 0.01
+cat("Failed probes per sample:\n")
+colSums(failed)
+
+# Remove samples with > 1% failed probes
+keep <- colMeans(failed) < 0.01
+rgSet <- rgSet[, keep]
+cat("Samples remaining:", ncol(rgSet), "\n")
+```
+
+---
+
+## Step 3: Normalization
+
+```{r}
+# Noob + BMIQ normalization — recommended for EPIC
+mSet <- preprocessNoob(rgSet)
+mSet <- BMIQ(mSet)   # within-sample normalization
+
+# Extract beta values (0–1, proportion methylated)
+beta <- getBeta(mSet)
+
+# Extract M-values (logit of beta, better for statistics)
+mval <- getM(mSet)
+
+# Beta values for visualization, M-values for statistical testing
+cat("Beta matrix:", nrow(beta), "probes ×", ncol(beta), "samples\n")
+```
+
+---
+
+## Step 4: Probe Filtering
+
+```{r}
+library(maxprobes)   # cross-reactive probes list
+
+# Remove probes that:
+# 1. Failed QC in any sample
+keep_probes <- rowSums(detP > 0.01) == 0
+
+# 2. Are on sex chromosomes (if not studying sex differences)
+annot <- getAnnotation(mSet)
+keep_probes <- keep_probes & !(annot$chr %in% c("chrX", "chrY"))
+
+# 3. Contain known SNPs at CpG site
+keep_probes <- keep_probes & is.na(annot$Probe_maf)
+
+# 4. Are known cross-reactive
+xreact <- xreactive_probes(array_type = "EPIC")
+keep_probes <- keep_probes & !(rownames(mSet) %in% xreact)
+
+mSet_filtered <- mSet[keep_probes, ]
+cat("Probes after filtering:", nrow(mSet_filtered), "\n")
+```
+
+---
+
+## Step 5: Differential Methylation — DMPs
+
+```{r}
+library(limma)
+
+# Design matrix — adjust for age, sex, cell type composition
+design <- model.matrix(
+  ~ Group + age + sex + CD8T + CD4T + NK + Bcell + Mono + Gran,
+  data = targets
+)
+
+# Fit linear model on M-values
+fit <- lmFit(mval[keep_probes, ], design)
+fit <- eBayes(fit)
+
+# Extract DMPs
+dmps <- topTable(fit,
+                 coef    = "GroupCase",
+                 number  = Inf,
+                 sort.by = "p") |>
+  as_tibble(rownames = "probe")
+
+# Significant DMPs
+sig_dmps <- dmps |>
+  filter(adj.P.Val < 0.05, abs(logFC) > 0.1)
+
+cat("Significant DMPs:", nrow(sig_dmps), "\n")
+```
+
+---
+
+## Step 6: Differential Methylation — DMRs
+
+```{r}
+library(DMRcate)
+
+# DMR analysis — finds regions of co-methylated probes
+myannotation <- cpg.annotate(
+  object       = mval,
+  datatype     = "array",
+  what         = "M",
+  analysis.type = "differential",
+  design       = design,
+  coef         = "GroupCase",
+  arraytype    = "EPIC"
+)
+
+# Find DMRs
+dmrcoutput <- dmrcate(myannotation,
+                      lambda   = 1000,
+                      C        = 2)
+
+dmrs <- extractRanges(dmrcoutput, genome = "hg19")
+dmrs
+```
+
+---
+
+## Step 7: Visualization
+
+```{r}
+library(ggplot2)
+library(patchwork)
+
+# Volcano plot of DMPs
+ggplot(dmps, aes(x = logFC, y = -log10(adj.P.Val))) +
+  geom_point(aes(color = abs(logFC) > 0.1 & adj.P.Val < 0.05),
+             alpha = 0.5, size = 0.8) +
+  scale_color_manual(values = c("gray70", "#D85A30")) +
+  geom_hline(yintercept = -log10(0.05), linetype = "dashed") +
+  geom_vline(xintercept = c(-0.1, 0.1), linetype = "dashed") +
+  labs(x     = "Δβ (M-value logFC)",
+       y     = "-log10(adj. p-value)",
+       title = "Differentially Methylated Positions",
+       color = "Significant") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+---
+
+## Cell Type Deconvolution — Critical Confounder
+
+```{r}
+library(minfi)
+
+# Whole blood methylation is a mixture of cell types
+# Must estimate and correct for cell type composition
+
+cell_counts <- estimateCellCounts2(
+  rgSet,
+  referencePlatform = "IlluminaHumanMethylationEPIC",
+  returnAll         = FALSE
+)
+
+# Cell type proportions
+head(cell_counts)
+# CD8T  CD4T  NK  Bcell  Mono  Gran
+
+# Visualize
+cell_counts |>
+  as_tibble(rownames = "sample") |>
+  pivot_longer(-sample, names_to = "cell_type", values_to = "proportion") |>
+  ggplot(aes(sample, proportion, fill = cell_type)) +
+  geom_col() +
+  theme_minimal() +
+  labs(title = "Estimated blood cell type composition")
+```
+
+---
+
+# Epigenetic Clocks {background-color="#0F6E56"}
+
+---
+
+## Biological Age vs. Chronological Age
+
+::: {.incremental}
+- **Horvath clock (2013)** — multi-tissue, 353 CpGs → predicts chronological age
+- **Hannum clock (2013)** — blood-specific, 71 CpGs
+- **PhenoAge (2018)** — predicts mortality, not just age
+- **GrimAge (2019)** — predicts time-to-death and disease onset
+- **DunedinPACE (2022)** — pace of aging, not biological age point estimate
+:::
+
+::: {.fragment}
+**Epigenetic age acceleration** = (biological age) − (chronological age)
+
+Positive acceleration → aging faster → higher mortality, disease risk
+:::
+
+---
+
+## Computing Epigenetic Age
+
+```{r}
+library(methylclock)
+
+# Compute multiple epigenetic clocks at once
+clocks <- DNAmAge(
+  x        = beta,           # beta value matrix (probes × samples)
+  clocks   = c("Horvath",
+               "Hannum",
+               "PhenoAge",
+               "GrimAge"),
+  cell.count = TRUE          # adjust for cell composition
+)
+
+# Age acceleration
+clocks <- clocks |>
+  mutate(
+    AgeAccel_Horvath  = Horvath - age,
+    AgeAccel_Hannum   = Hannum  - age,
+    AgeAccel_PhenoAge = PhenoAge - age
+  )
+
+# Do cases age faster?
+t.test(AgeAccel_GrimAge ~ Group, data = clocks)
+```
+
+---
+
+# Hands-On {background-color="#BA7517"}
+
+---
+
+## Dataset: GEO — Colorectal Cancer Methylation
+
+GSE48684 — Colorectal cancer vs. normal tissue (450K array)
+
+```{r}
+library(GEOquery)
+library(minfi)
+library(here)
+
+# Download from GEO (pre-processed beta values)
+gse <- getGEO("GSE48684", GSEMatrix = TRUE)
+beta_geo <- exprs(gse[[1]])
+pheno    <- pData(gse[[1]])
+
+cat("Probes:", nrow(beta_geo), "\n")
+cat("Samples:", ncol(beta_geo), "\n")
+table(pheno$`tissue type:ch1`)
+```
+
+---
+
+## Hands-On: DMP Analysis
+
+```{r}
+library(limma)
+
+# M-values
+mval_geo <- logit2(beta_geo)
+mval_geo[!is.finite(mval_geo)] <- NA
+
+# Design
+group <- factor(pheno$`tissue type:ch1`)
+design <- model.matrix(~ group)
+
+# Fit
+fit    <- lmFit(mval_geo, design)
+fit    <- eBayes(fit)
+dmps   <- topTable(fit, coef = 2, number = Inf)
+
+# Top hypermethylated in cancer
+dmps |>
+  filter(logFC > 0, adj.P.Val < 0.01) |>
+  arrange(desc(logFC)) |>
+  head(20)
+```
+
+---
+
+## Hands-On: Pathway Enrichment on DMPs
+
+```{r}
+library(missMethyl)
+
+# Gene set testing for methylation data
+# (accounts for variable number of probes per gene)
+gst <- gometh(
+  sig.cpg   = rownames(sig_dmps),
+  all.cpg   = rownames(mval_geo),
+  plot.bias = TRUE,
+  collection = "KEGG"
+)
+
+topGSA(gst, number = 20)
+```
+
+---
+
+# Next Week {background-color="#534AB7"}
+
+---
+
+## W5 Preview — Epigenomics II: Chromatin Accessibility & 3D Genome
+
+**What we'll cover:**
+
+- ATAC-seq — open chromatin profiling
+- Peak calling, differential accessibility
+- Hi-C / 3D genome — TADs, compartments, loops
+- Connecting GWAS hits to regulatory elements
+
+**Install before next class:**
+
+```{r}
+BiocManager::install(c("ArchR", "chromVAR",
+                       "BSgenome.Hsapiens.UCSC.hg38",
+                       "TFBSTools"))
+install.packages("strawr")   # for Hi-C .hic files
+```
+
+---
+
+## Key Resources
+
+- **GEO** — [ncbi.nlm.nih.gov/geo](https://www.ncbi.nlm.nih.gov/geo) — thousands of methylation datasets
+- **ENCODE** — [encodeproject.org](https://www.encodeproject.org) — reference epigenomes
+- **minfi vignette** — [bioconductor.org/packages/minfi](https://bioconductor.org/packages/minfi)
+- **methylclock** — epigenetic clocks in R
+- **Illumina EPIC annotation** — pre-built annotation for all probes
+
+---
+
+## Questions? {background-color="#1D9E75"}
+
+::: {.center}
+Next week: **Epigenomics II — Chromatin Accessibility & 3D Genome**
+
+Course materials → [your GitHub Pages URL here]
+:::

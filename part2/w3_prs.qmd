@@ -1,0 +1,499 @@
+---
+title: "Polygenic Risk Scores (PRS)"
+subtitle: "Advanced Bioinformatics for Clinician-Scientists | Week 3"
+author: "Your Name"
+date: today
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    code-copy: true
+    highlight-style: github
+    transition: fade
+    background-transition: fade
+    footer: "Advanced Bioinformatics | W3 — Polygenic Risk Scores"
+    css: custom.css
+execute:
+  echo: true
+  eval: false
+---
+
+# From GWAS Hits to Clinical Risk {background-color="#1D9E75"}
+
+---
+
+## The Limitation of Single GWAS Hits
+
+From last week:
+
+- GWAS finds variants with **p < 5×10⁻⁸**
+- But most complex diseases are influenced by **thousands of variants**
+- Each with a **tiny effect size** (OR 1.02–1.15)
+- No single variant is clinically useful alone
+
+::: {.fragment}
+> **PRS aggregates the effects of thousands of SNPs into a single score per individual.**
+:::
+
+---
+
+## What a PRS Looks Like
+
+```
+Individual A:
+  rs1001  risk allele × 0.03
++ rs2045  risk allele × 0.02
++ rs8821  non-risk    × 0.00
++ ... (thousands more)
+─────────────────────────────
+= PRS: 1.42  (top 20% of population → 3× increased risk)
+```
+
+::: {.fragment}
+**Clinically:**  
+One number, derived from a saliva sample at birth,  
+that captures lifetime genetic predisposition to a disease.
+:::
+
+---
+
+## Clinical Utility — Where PRS Is Already Used
+
+::: {.incremental}
+- **Coronary artery disease** — PRS identifies high-risk individuals who benefit from early statin therapy
+- **Breast cancer** — PRS improves risk stratification beyond BRCA1/2
+- **Type 2 diabetes** — PRS + lifestyle factors → personalized prevention
+- **Atrial fibrillation** — PRS predicts incident AF beyond clinical risk scores
+- **Prostate cancer** — PRS guides screening intensity
+:::
+
+::: {.fragment}
+::: {.callout-tip}
+## The key point for clinicians
+PRS adds information **on top of** traditional risk factors — age, BMI, family history, biomarkers.  
+The question is always: does it change clinical management?
+:::
+:::
+
+---
+
+# PRS Methods {background-color="#534AB7"}
+
+---
+
+## Method 1: C+T (Clumping and Thresholding)
+
+The simplest approach:
+
+```
+1. Clumping: keep only one SNP per LD block
+   (remove correlated SNPs → independent signals only)
+
+2. Thresholding: keep SNPs below a p-value cutoff
+   (e.g., p < 0.05, p < 0.01, p < 5×10⁻⁸)
+
+3. PRS = Σ (effect size × allele count)
+```
+
+```{r}
+library(bigsnpr)
+
+# C+T with PRSice2 (via system call) or bigsnpr
+obj.bigsnp <- snp_attach(here("data", "raw", "target.rds"))
+G <- obj.bigsnp$genotypes
+
+# Clumping
+ind.keep <- snp_clumping(
+  G,
+  infos.chr = obj.bigsnp$map$chromosome,
+  infos.pos = obj.bigsnp$map$physical.pos,
+  S         = abs(sumstats$Z),     # use Z-score for clumping
+  thr.r2    = 0.1,
+  size      = 500
+)
+```
+
+---
+
+## Method 2: LDpred2 — The Current Standard
+
+Accounts for LD structure more accurately using a Bayesian framework:
+
+```{r}
+library(bigsnpr)
+
+# Step 1: Match summary stats to target genotypes
+sumstats <- snp_match(sumstats, obj.bigsnp$map)
+
+# Step 2: Compute LD reference matrix
+POS2 <- snp_asGeneticPos(
+  infos.chr = obj.bigsnp$map$chromosome,
+  infos.pos = obj.bigsnp$map$physical.pos,
+  dir       = here("data", "raw", "genetic_maps")
+)
+
+corr <- snp_cor(G, ind.col = sumstats$`_NUM_ID_`,
+                infos.pos = POS2, size = 3 / 1000)
+
+# Step 3: LDpred2-auto (no tuning needed)
+ldsc <- with(sumstats,
+             snp_ldsc(ld_score, ld_size = nrow(G),
+                      chi2  = (beta / beta_se)^2,
+                      sample_size = n_eff))
+
+h2_est <- ldsc[["h2"]]
+
+multi_auto <- snp_ldpred2_auto(
+  corr, sumstats, h2_init = h2_est,
+  vec_p_init = seq_log(1e-4, 0.2, length.out = 30),
+  burn_in = 500, num_iter = 500, report_step = 20
+)
+```
+
+---
+
+## Method 3: PRSice2 — Practical Workhorse
+
+```{r}
+# PRSice2 is a command-line tool
+# Call from R via system()
+system(paste(
+  "PRSice",
+  "--base",    here("data", "raw", "sumstats.txt"),
+  "--target",  here("data", "raw", "target_plink"),
+  "--binary-target", "T",
+  "--pheno",   here("data", "raw", "phenotype.txt"),
+  "--cov",     here("data", "raw", "covariates.txt"),
+  "--out",     here("results", "prsice_output"),
+  "--thread",  4
+))
+```
+
+::: {.callout-note}
+PRSice2 automatically optimizes the p-value threshold and produces  
+a bar chart, high-resolution plot, and quantile plot.
+:::
+
+---
+
+## Comparing Methods
+
+| Method | Pros | Cons |
+|--------|------|------|
+| **C+T** | Fast, interpretable | Loses information, arbitrary threshold |
+| **LDpred2** | Best predictive accuracy, principled | Slower, needs LD reference |
+| **PRSice2** | Easy to use, good visualization | Threshold-based |
+| **PRS-CS** | Handles diverse ancestries better | Needs Python |
+
+::: {.fragment}
+**For clinical research:** LDpred2 or PRSice2.  
+**For multi-ancestry:** PRS-CS or PRS-CSx.
+:::
+
+---
+
+# Evaluating PRS Performance {background-color="#185FA5"}
+
+---
+
+## Key Performance Metrics
+
+```{r}
+library(tidyverse)
+
+# Load PRS scores + phenotype
+prs_data <- read_tsv(here("results", "prsice_output.best")) |>
+  left_join(phenotype, by = "IID")
+
+# Nagelkerke R² — variance explained by PRS
+library(DescTools)
+
+# Null model (covariates only)
+null_model <- glm(disease ~ age + sex + PC1 + PC2 + PC3 + PC4 + PC5,
+                  data   = prs_data,
+                  family = binomial)
+
+# Full model (covariates + PRS)
+full_model <- glm(disease ~ PRS + age + sex + PC1 + PC2 + PC3 + PC4 + PC5,
+                  data   = prs_data,
+                  family = binomial)
+
+r2_prs <- PseudoR2(full_model, "Nagelkerke") -
+          PseudoR2(null_model, "Nagelkerke")
+cat("R² explained by PRS:", round(r2_prs, 4), "\n")
+```
+
+---
+
+## AUC and Discrimination
+
+```{r}
+library(pROC)
+
+# ROC curve — does PRS improve discrimination?
+roc_null <- roc(prs_data$disease,
+                predict(null_model, type = "response"))
+
+roc_full <- roc(prs_data$disease,
+                predict(full_model, type = "response"))
+
+# Compare AUCs
+roc.test(roc_null, roc_full)
+
+# Plot
+ggroc(list(Clinical = roc_null,
+           `Clinical + PRS` = roc_full)) +
+  labs(title = "ROC: Does PRS improve prediction?",
+       color  = "Model") +
+  theme_minimal()
+```
+
+---
+
+## Quantile Plot — Clinical Interpretation
+
+```{r}
+# Divide PRS into deciles
+prs_data <- prs_data |>
+  mutate(prs_decile = ntile(PRS, 10))
+
+# Odds ratio per decile vs. middle decile (reference)
+or_by_decile <- prs_data |>
+  group_by(prs_decile) |>
+  summarise(
+    n_cases    = sum(disease == 1),
+    n_controls = sum(disease == 0)
+  ) |>
+  mutate(
+    OR = (n_cases / n_controls) /
+         (n_cases[prs_decile == 5] / n_controls[prs_decile == 5])
+  )
+
+ggplot(or_by_decile, aes(prs_decile, OR)) +
+  geom_col(fill = "#185FA5") +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  labs(x = "PRS decile",
+       y = "Odds Ratio vs. middle decile",
+       title = "Disease risk by PRS decile") +
+  theme_minimal()
+```
+
+---
+
+# Clinical Considerations {background-color="#0F6E56"}
+
+---
+
+## PRS in Diverse Populations — A Real Problem
+
+::: {.incremental}
+- Most GWAS (and therefore PRS) are trained on **European-ancestry individuals**
+- PRS built on European GWAS **performs 4–5× worse** in African-ancestry populations
+- Applying biased PRS clinically could **widen health disparities**
+- Active research: PRS-CSx, multi-ancestry GWAS meta-analysis
+:::
+
+::: {.fragment}
+::: {.callout-important}
+## For Korean patients
+Korean-specific GWAS (KoGES, KCHIP, TOPMed Korean) exist for major diseases.  
+Always check whether the base GWAS matches your target population's ancestry.
+:::
+:::
+
+---
+
+## What PRS Cannot Do
+
+::: {.incremental}
+- **Causality** — high PRS ≠ will develop disease
+- **Rare variants** — PRS misses high-penetrance rare variants (BRCA1/2, Lynch syndrome)
+- **Gene–environment interaction** — genetic risk can be modified by lifestyle
+- **Replace clinical judgment** — PRS is one input, not a diagnosis
+:::
+
+---
+
+## PRS + Clinical Risk Scores
+
+```{r}
+# Example: CAD risk — PRS vs. traditional risk factors
+library(tidyverse)
+
+# Framingham Risk Score + PRS
+combined_model <- glm(
+  cad ~ PRS + age + sex + total_chol + hdl_chol +
+        systolic_bp + smoking + diabetes,
+  data   = prs_data,
+  family = binomial
+)
+
+# Net reclassification index
+library(PredictABEL)
+reclassification(
+  data         = prs_data,
+  cOutcome     = "cad",
+  predrisk1    = predict(null_model, type = "response"),
+  predrisk2    = predict(combined_model, type = "response"),
+  cutoff       = c(0, 0.1, 0.2, 1)
+)
+```
+
+---
+
+# Hands-On {background-color="#BA7517"}
+
+---
+
+## Dataset: CAD PRS from Public Summary Stats
+
+Using Khera et al. 2018 (Nature Genetics) CAD GWAS summary statistics  
++ 1000 Genomes Project target genotypes for demonstration
+
+```{r}
+library(bigsnpr)
+library(tidyverse)
+library(here)
+
+# Load pre-processed bigSNP object
+obj.bigsnp <- snp_attach(here("data", "raw", "1kg_eur.rds"))
+G   <- obj.bigsnp$genotypes
+map <- obj.bigsnp$map
+
+# Load CAD summary statistics
+sumstats <- read_tsv(here("data", "raw", "cad_sumstats.tsv"))
+glimpse(sumstats)
+```
+
+---
+
+## Hands-On: Match & Compute PRS
+
+```{r}
+# Match summary stats to target SNPs
+sumstats <- snp_match(sumstats, map)
+
+# Compute simple C+T PRS
+beta <- sumstats$beta
+ind  <- match(sumstats$`_NUM_ID_`, cols_along(G))
+
+prs_scores <- big_prodVec(G, beta[!is.na(ind)],
+                           ind.col = ind[!is.na(ind)])
+
+# Add to metadata
+prs_df <- obj.bigsnp$fam |>
+  mutate(PRS = prs_scores)
+
+summary(prs_df$PRS)
+```
+
+---
+
+## Hands-On: Visualize Distribution
+
+```{r}
+# PRS distribution by phenotype
+ggplot(prs_df, aes(PRS, fill = factor(affection))) +
+  geom_density(alpha = 0.6) +
+  scale_fill_manual(values = c("#1D9E75", "#D85A30"),
+                    labels  = c("Control", "Case")) +
+  labs(title = "PRS distribution — CAD cases vs. controls",
+       x     = "Polygenic Risk Score",
+       fill  = "Status") +
+  theme_minimal()
+
+# Odds ratio by PRS percentile
+prs_df <- prs_df |>
+  mutate(prs_pct = ntile(PRS, 100),
+         top10   = prs_pct >= 90,
+         bottom10 = prs_pct <= 10)
+
+# Risk in top 10% vs. bottom 10%
+table(prs_df$top10, prs_df$affection)
+```
+
+---
+
+## Hands-On: LDpred2-auto
+
+```{r}
+# Compute LD matrix (pre-computed for speed)
+corr <- readRDS(here("data", "processed", "ld_matrix.rds"))
+
+# Run LDpred2-auto
+ldsc    <- with(sumstats,
+                snp_ldsc(ld_score, ld_size = nrow(G),
+                         chi2  = (beta / beta_se)^2,
+                         sample_size = n_eff))
+h2_est  <- ldsc[["h2"]]
+
+multi_auto <- snp_ldpred2_auto(
+  corr, sumstats, h2_init = h2_est,
+  vec_p_init = seq_log(1e-4, 0.2, length.out = 30),
+  burn_in    = 200, num_iter  = 200
+)
+
+# Extract best beta weights
+beta_auto <- sapply(multi_auto, function(a) a$beta_est)
+prs_ldpred2 <- big_prodMat(G, beta_auto)
+```
+
+---
+
+## Save & Document
+
+```{r}
+# Save PRS scores
+prs_final <- prs_df |>
+  select(FID, IID, PRS_CT = PRS) |>
+  mutate(PRS_LDpred2 = rowMeans(prs_ldpred2))
+
+write_tsv(prs_final,
+          here("results", "tables", "prs_scores.tsv"))
+
+# Session info for reproducibility
+renv::snapshot()
+sessionInfo()
+```
+
+---
+
+# Next Week {background-color="#534AB7"}
+
+---
+
+## W4 Preview — Epigenomics I: DNA Methylation
+
+**What we'll cover:**
+
+- CpG methylation — what it is and what it regulates
+- Methylation arrays (EPIC, 450K) vs. WGBS
+- Differential methylation analysis with `minfi` and `ChAMP`
+- Epigenetic clocks — biological age from methylation data
+
+**Install before next class:**
+
+```{r}
+BiocManager::install(c("minfi", "ChAMP",
+                       "IlluminaHumanMethylationEPICanno.ilm10b4.hg19",
+                       "missMethyl"))
+```
+
+---
+
+## Key Resources
+
+- **PGS Catalog** — [pgscatalog.org](https://www.pgscatalog.org) — published PRS for hundreds of traits
+- **PRSice2** — [prsice.info](https://www.prsice.info)
+- **bigsnpr tutorial** — [privefl.github.io/bigsnpr](https://privefl.github.io/bigsnpr)
+- **Khera et al. 2018** — landmark PRS paper for CAD, T2D, AF, IBD, breast cancer
+
+---
+
+## Questions? {background-color="#1D9E75"}
+
+::: {.center}
+Next week: **Epigenomics I — DNA Methylation**
+
+Course materials → [your GitHub Pages URL here]
+:::

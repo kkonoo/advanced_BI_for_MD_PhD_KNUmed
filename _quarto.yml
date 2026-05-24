@@ -1,0 +1,73 @@
+project:
+  type: website
+  execute-dir: project
+ 
+website:
+  navbar:
+    logo: images/logo.jpg
+    left:
+      - href: index.qmd
+        text: Home
+      - href: part1/w1_intro_r_environment.qmd
+        text: 1. Intro
+      - href: part2/w2_gwas.qmd
+        text: 2. Clinical Genomics & Risk Prediction
+      - href: part3/w4_epigenomics_methylation.qmd
+        text: 3. High-Resolution Omics
+      - href: part4/w11_multiomics.qmd
+        text: 4. Multi-omics & Target Discovery
+      - href: part5/w13_visualization.qmd
+        text: 5. Capstone
+
+  sidebar:
+    style: docked
+    contents:
+      - section: "1. R env"
+        contents: "part1/*.qmd"
+      - section: "2. Genomics"
+        contents: "part2/*.qmd"
+      - section: "3. Omics"
+        contents: "part3/*.qmd"
+      - section: "4. Multi-Omics"
+        contents: "part4/*.qmd"
+      - section: "5. Capstone"
+        contents: "part5/*.qmd"
+
+  page-footer:
+    left: "Copyright 2026, Eunji"
+ 
+format:
+  html: 
+    theme: cosmo
+    css: custom.css
+    toc: true
+    toc-location: right
+    page-layout: full
+ 
+execute:
+  freeze: auto
+  warning: false
+  message: false
+  
+    # right:
+    #   - text: "EN"
+    #     href: en/index.qmd
+    #   - text: "KO"
+    #     href: ko/index.qmd
+
+  # sidebar:
+    #   contents: auto
+    # style: docked
+  #     background: dark
+    # pdf:
+    # mainfont: "KoPubWorldDotum"
+    # mainfontoptions:
+    #   - Path=C:/Windows/Fonts/
+    #   - Extension=.ttf
+    #   - UprightFont=KoPubWorld Dotum Medium
+    #   - BoldFont=KoPubWorld Dotum Bold
+    # pdf-engine: xelatex
+    # include-in-header:
+    #   text: |
+    #     \usepackage{emoji}
+    #     \setemojifont{Segoe UI Emoji}
