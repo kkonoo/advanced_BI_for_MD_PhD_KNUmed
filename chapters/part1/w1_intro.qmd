@@ -1,0 +1,296 @@
+---
+title: "W1. Advanced BI"
+author: "Eunji Ha"
+date: last-modified
+format: html
+execute:
+  echo: true
+  eval: false
+---
+
+## 1. Introduction
+
+### The Gap no one talks about
+
+::::: columns
+::: {.column width="50%"}
+**What's happening in research**
+
+-   Whole genome sequencing at clinical scale
+-   Single-cell atlases of every tissue
+-   Multi-omics datasets in public repositories
+-   AI/ML-driven drug discovery pipelines
+:::
+
+::: {.column width="50%"}
+**What most clinicians can do with it**
+
+-   Read the abstract
+-   Trust the figures
+-   Ask a bioinformatician
+:::
+:::::
+
+::: fragment
+▶️ Clinician-scientists who [can analyze their own data]{.underline} ask **better questions**
+:::
+
+------------------------------------------------------------------------
+
+### What you already know
+
+From last course:
+
+-   ✅ R basics — data wrangling, ggplot2, statistics
+-   ✅ Bulk RNA-seq — QC, alignment, DESeq2, pathway analysis
+-   ✅ Thinking computationally about biological questions
+
+::: fragment
+▶️ This course: we go **one (or several) levels deeper.**
+:::
+
+------------------------------------------------------------------------
+
+### Multi-Omics to understand diseases {background-color="#534AB7"}
+
+From a GWAS hit to a drug target — this is what this course builds toward:
+
+```         
+GWAS / PRS                            → Which genetic variants increase disease risk?
+    🔽
+Epigenomics                           → Which regulatory elements are involved?
+    🔽
+Metagenomics                          → Does the microbiome play a role?
+    🔽
+Transcriptomics (bulk RNA-seq)        → Which genes are involved?
+    🔽
+Transcriptomics (scRNA-seq/Spatial)   → Which cell types? In which tissue context?
+    🔽
+Proteomics                            → Which actual players are involved?
+    🔽
+Multi-omics                           → How do all these layers converge on a target?
+    🔽
+Disease prediction                    → Can we predict diseases?
+Drug Discovery                        → Can we reposition an existing drug?
+```
+
+::: fragment
+▶️ Every tool we learn is a **piece of the same puzzle**
+:::
+
+------------------------------------------------------------------------
+
+### Course Roadmap
+
+In this course, we skip epigenomics and metagenomics, unfortunately🥲
+
+::: {style="font-size: 0.9em"}
+| Section | Weeks | Topics |
+|----|----|----|
+| **Introduction** | W1 | R environment setup |
+| **Clinical Genomics & Risk Prediction** | W2–W3 | GWAS, Post-GWAS, PRS |
+| **High-Resolution Transcriptomics** | W4–W7 | scRNA-seq, Spatial |
+| **Proteomics** | W8–W9 | LC-MS, NGS-based, Biomarker |
+| **Integration** | W10-W11 | Integration, Network, Drug repositioning |
+| **Capstone** | W12–W14 | Your own data story |
+:::
+
+:::: {style="font-size: 0.8em"}
+### What you'll be able to do after this course (hopefully...)
+
+::: incremental
+-   Read a methods section and understand **what was actually done**
+-   Download public omics datasets and **run analyses yourself**
+-   Combine multiple data types to **generate a testable hypothesis**
+-   **Present a data-driven research proposal** at the final session
+:::
+::::
+
+------------------------------------------------------------------------
+
+### The R Ecosystem this semester ... or python (?)
+
+::: {style="font-size: 0.9em"}
+| Topic          | Key Packages                       |
+|----------------|------------------------------------|
+| GWAS / PRS     | `bigsnpr`, `PRSice`, `LDlinkR`     |
+| scRNA-seq      | `Seurat`, `SingleR`, `Monocle3`    |
+| Spatial        | `Seurat`, `SpatialDE`, `NNSVG`     |
+| Multi-omics    | `MOFA2`, `mixOmics`                |
+| Drug discovery | `igraph`, `drugTargetInteractions` |
+:::
+
+::: fragment
+Don't worry — we install these as we go
+:::
+
+------------------------------------------------------------------------
+
+## 2. R Environment Setup
+
+### Principles of a Reproducible Workflow
+
+Three things that will save you later:
+
+1.  **Project-based** working — never `setwd()` again
+2.  **Consistent directory structure** — know where everything lives
+3.  **Locked package versions** — your code runs the same in 2 years
+
+------------------------------------------------------------------------
+
+### 1) R Project (.Rproj)
+
+::: fragment
+R env file to fix your working directory
+:::
+
+::: fragment
+#### how to create R project
+
+```         
+RStudio → File → New Project → New Directory (or Existing Directory)
+```
+
+![](/assets/img/w1/R%20project.png){fig-align="center"}
+:::
+
+------------------------------------------------------------------------
+
+#### recommended structure of folders
+
+```         
+my_project/
+├── my_project.Rproj                 ← setting working directory where this file exists
+├── scripts/                         ← R scripts (.R)
+│   ├── 1_table1.R
+│   ├── 2_preprocessing.R
+│   └── 3_figure.R
+├── rawdata/                         ← raw data (never change)
+│   └── clinical_data.xlsx
+├── analysis/                        ← preprocessed data
+│   ├── 1_cleaned_data.rds
+│   ├── 1_df_pt.rds
+│   ├── 1_table1.rds
+│   ├── 2_df_pt_processed.rds
+│   ├── 3_cox_model.rds
+│   ├── 3_cox_tidy.rds
+└── results/                         ← final results
+│   ├── Table1.docx
+│   ├── KM_OS.tiff
+│   └── forest_OS.tiff
+└── logs/ or docs/                   ← whatever
+```
+
+::::: columns
+::: {.column width="50%"}
+![project folders](/assets/img/w1/project_folders.png){fig-align="center"}
+:::
+
+::: {.column width="50%"}
+![directory structure](/assets/img/w1/folder_structure.png){fig-align="center"}
+:::
+:::::
+
+------------------------------------------------------------------------
+
+### 2) renv: for reproducible environments
+
+```{r}
+# 1. Initialize — run once when starting a project
+renv::init()
+
+# 2. Install packages as usual
+install.packages("Seurat")
+BiocManager::install("DESeq2")
+
+# 3. Snapshot — lock your current package versions
+renv::snapshot()
+
+# 4. Restore — on a new machine or for a collaborator
+renv::restore()
+```
+
+::: callout-note
+### Why this helps
+
+Without `renv`, a Seurat update 6 months from now may silently break your code.
+:::
+
+------------------------------------------------------------------------
+
+### 3) Hands-On: Let's Set Up Together
+
+① Create a new R Project
+
+```         
+File → New Project → New Directory → New Project
+Name: "advanced_BI"
+```
+
+② Create directory structure
+
+```{r}
+dirs <- c("rawdata", "analysis", 
+          "results/figures", "results/tables", 
+          "scripts", "logs")
+sapply(dirs, dir.create, recursive = TRUE, showWarnings = FALSE)
+```
+
+③ Initialize renv
+
+```{r}
+install.packages("renv")
+renv::init()
+```
+
+------------------------------------------------------------------------
+
+④ Install core packages for this semester
+
+```{r}
+# CRAN packages
+install.packages(c("tidyverse", "BiocManager", 
+                   "ggplot2", "patchwork", "data.table"))
+
+# Bioconductor
+BiocManager::install(c("DESeq2", 
+                       "SingleR", "celldex"))
+
+# Snapshot your environment
+renv::snapshot()
+```
+
+::: callout-note
+Some packages (Seurat, ArchR) we'll install in the relevant week.\
+Bioconductor installs can take a few minutes — this is normal.
+:::
+
+------------------------------------------------------------------------
+
+## W2 Preview — GWAS & Post-GWAS
+
+**What we'll cover:**
+
+-   How GWAS works (and what it doesn't tell you)
+-   Reading a Manhattan plot like a reviewer
+-   LD, fine-mapping, functional annotation
+-   Hands-on: analyzing a public GWAS summary stat dataset
+
+**Before next class:**
+
+```{r}
+# Install in advance
+install.packages("bigsnpr")
+install.packages("bigreadr")
+install.packages("LDlinkR")
+```
+
+Download data → link will be shared on the course page.
+
+------------------------------------------------------------------------
+
+## [Questions?]{style="color:#ffffff"} {background-color="#5B4D80"}
+
+::: {.center style="color:#ffffff"}
+Next week: **Genome-wide Association Studies (GWAS) & Post-GWAS**
+:::

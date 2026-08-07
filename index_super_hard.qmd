@@ -1,0 +1,75 @@
+---
+title: "advanced bioinformatics (의사과학자 양성 사업)"
+sidebar: false
+author: "Eunji Ha"
+affiliation: 'School of Medicine, Kyungpook National Univ.'
+date: last-modified
+format: html
+editor: visual
+categories: [의학연구, bioinformatics, R, Omics]
+---
+
+## Course overview
+
+-   **Acquisition of Practical Bioinformatics Analysis Skills**
+
+    ✅ What is RNA-seq data and how to analyze them
+
+    ✅ Understanding fundamental statistics
+
+    ✅ How to interpret and visualize the results
+
+-   **Enhanced Data Convergence Capability for Translational Research**
+
+    ✅ How to link omics data to clinical data
+
+    ✅ How to explore public data of interest
+
+    ✅ What would be promising targets
+
+## Syllabus
+
+| week | Contents                                                            |
+|------|---------------------------------------------------------------------|
+| W1   | Introduction to advanced bioinformatics & R Environment Setup       |
+| W2   | Genome-wide Association Studies (GWAS) & Post-GWAS                  |
+| W3   | Polygenic Risk Scores (PRS)                                         |
+| W4   | Epigenomics I: DNA methylation                                      |
+| W5   | Epigenomics II: Chromatin accessibility & 3D Genome                 |
+| W6   | Metagenomics I: 16s rRNA-seq                                        |
+| W7   | Metagenomics II: WMS                                                |
+| W8   | Single-cell RNA-seq Fundamentals: Cell-type Specificity             |
+| W9   | Advanced Single-cell Analysis: Trajectory & cell-cell communication |
+| W10  | Spatial Transcriptomics                                             |
+| W11  | Multi-omics Integration & GWAS Gene Prioritization                  |
+| W12  | Network Analysis & Drug Repositioning (Clinical AI)                 |
+| W13  | Data interpretation & visualization                                 |
+| W14  | Rscript and vibe coding tips & Individual Project Design            |
+| W15  | Final Project Presentation (Pitching the Hypothesis)                |
+
+-   Part1: Intro (W1)
+
+-   Part2: Clinical Genomics & Risk Prediction (W2-W3)
+
+-   Part3: High-Resolution Omics (W4-W10)
+
+-   Part4: Multi-omics & Target Discovery (W11-W12)
+
+-   Part5: Capstone (W13-W15)
+
+주의사항
+
+-   W10 전날 밤에 Visium 데이터 집에서 받아오기
+
+-   패키지 전체 설치는 30분 이상 걸리니 W1 수업 전에 미리
+
+-   W11은 UCSC Xena 방법이 TCGAbiolinks보다 훨씬 빠름
+
+**개인 노트북에서 제일 주의할 점**
+
+| 위험도 | 주차              | 이유                     |
+|--------|-------------------|--------------------------|
+| ⚠⚠     | W10 Visium        | 2GB, H&E 이미지 포함     |
+| ⚠⚠     | W11 TCGA          | 1GB, 서버 느림           |
+| ⚠      | W3 1000G LD panel | 300MB, bigsnpr 전용 포맷 |
+| ⚠      | W12 STRINGdb      | 500MB, 첫 실행 시 자동   |

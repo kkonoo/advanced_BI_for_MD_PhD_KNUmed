@@ -1,0 +1,577 @@
+---
+title: "Single-cell RNA-seq Fundamentals: Cell-type Specificity"
+subtitle: "Advanced Bioinformatics for Clinician-Scientists | Week 8"
+author: "Your Name"
+date: today
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    code-copy: true
+    highlight-style: github
+    transition: fade
+    background-transition: fade
+    footer: "Advanced Bioinformatics | W8 — scRNA-seq Fundamentals"
+    css: custom.css
+execute:
+  echo: true
+  eval: false
+---
+
+# Why Single-Cell? {background-color="#1D9E75"}
+
+---
+
+## The Problem with Bulk RNA-seq
+
+From last semester — bulk RNA-seq:
+
+```
+Tumor biopsy → homogenize → RNA → counts per gene
+
+Gene X: 150 counts
+```
+
+::: {.fragment}
+But what does that mean?
+
+```
+Tumor cell A:    ████████  (high expression)
+Tumor cell B:    ██        (medium)
+Macrophage:      ████████  (high — confounding!)
+Fibroblast:      ░░        (zero)
+T cell:          ░░        (zero)
+
+Bulk average: ████  ← misleading
+```
+:::
+
+---
+
+## What scRNA-seq Resolves
+
+::: {.incremental}
+- Every cell gets its own expression profile
+- Identify **cell types** without prior knowledge
+- Find **rare cell populations** (<1% of tissue)
+- Discover **cell states** within a cell type
+- Map **gene expression heterogeneity** within tumors
+- Connect to **GWAS** — in which cell type is the risk gene expressed?
+:::
+
+::: {.fragment}
+> scRNA-seq is now standard in Nature/Cell/Science papers.  
+> As a clinician-scientist, you need to be able to interpret and run these analyses.
+:::
+
+---
+
+## How 10x Chromium Works
+
+```
+Single-cell suspension
+    ↓
+Microfluidic droplet formation
+(one cell + one bead + oil → GEM)
+    ↓
+Cell barcoding + UMI tagging
+    ↓
+cDNA synthesis + amplification
+    ↓
+Library sequencing
+    ↓
+Cell Ranger → count matrix
+(cells × genes)
+```
+
+---
+
+## The scRNA-seq Count Matrix
+
+```
+         Gene1  Gene2  Gene3  Gene4  ...
+Cell_1      0      3      0     12
+Cell_2      5      0      8      0
+Cell_3      0      0      1      0
+Cell_4      2      7      0      6
+...
+
+n_cells: 5,000–50,000
+n_genes: ~20,000 (but 80–90% are zeros → sparse matrix)
+```
+
+::: {.fragment}
+**The sparsity problem:**  
+Each cell captures only ~5–15% of all transcripts → lots of zeros  
+This is a technical artifact ("dropout") not true zero expression
+:::
+
+---
+
+# The Seurat Pipeline {background-color="#534AB7"}
+
+---
+
+## Overview
+
+```
+Cell Ranger output (barcodes, features, matrix)
+    │
+    ├── 1. Load & create Seurat object
+    ├── 2. QC → filter low-quality cells
+    ├── 3. Normalization → SCTransform
+    ├── 4. Feature selection → highly variable genes
+    ├── 5. Scaling & PCA
+    ├── 6. Clustering → FindNeighbors + FindClusters
+    ├── 7. UMAP visualization
+    ├── 8. Marker gene identification
+    └── 9. Cell type annotation → SingleR / manual
+```
+
+---
+
+## Step 1: Load Data
+
+```{r}
+library(Seurat)
+library(tidyverse)
+library(here)
+
+# Load 10x Cell Ranger output
+counts <- Read10X(data.dir = here("data", "raw",
+                                   "cellranger_output",
+                                   "filtered_feature_bc_matrix"))
+
+# Create Seurat object
+seurat <- CreateSeuratObject(
+  counts    = counts,
+  project   = "PBMC",
+  min.cells = 3,      # gene must be in ≥3 cells
+  min.features = 200  # cell must have ≥200 genes
+)
+
+seurat
+# 23,000 features × 8,000 samples (cells)
+```
+
+---
+
+## Step 2: QC — Three Key Metrics
+
+```{r}
+# Mitochondrial gene percentage
+seurat[["percent.mt"]] <- PercentageFeatureSet(seurat,
+                                                pattern = "^MT-")
+
+# Ribosomal gene percentage
+seurat[["percent.rb"]] <- PercentageFeatureSet(seurat,
+                                                pattern = "^RP[SL]")
+
+# Visualize
+VlnPlot(seurat,
+        features = c("nFeature_RNA",
+                     "nCount_RNA",
+                     "percent.mt"),
+        ncol     = 3,
+        pt.size  = 0)
+
+# Scatter plot — doublets have high nCount + high nFeature
+FeatureScatter(seurat, "nCount_RNA", "nFeature_RNA",
+               group.by = "orig.ident")
+```
+
+---
+
+## QC Thresholds
+
+```{r}
+# Filter cells
+seurat <- subset(seurat,
+  nFeature_RNA > 200   &    # too few genes = dead cell
+  nFeature_RNA < 5000  &    # too many genes = doublet
+  nCount_RNA   < 25000 &    # too many UMIs  = doublet
+  percent.mt   < 20)        # high MT% = damaged cell
+
+cat("Cells before QC:", ncol(counts), "\n")
+cat("Cells after QC: ", ncol(seurat), "\n")
+```
+
+::: {.callout-tip}
+## Thresholds are dataset-specific
+PBMC: MT% < 20% fine.  
+Cardiomyocytes: MT% up to 40% is normal (high mitochondrial content).  
+Always look at the distribution first, then set thresholds.
+:::
+
+---
+
+## Step 3: Normalization — SCTransform
+
+```{r}
+# SCTransform: regression-based normalization
+# Accounts for sequencing depth differences between cells
+seurat <- SCTransform(
+  seurat,
+  vars.to.regress = "percent.mt",   # regress out MT%
+  verbose         = FALSE
+)
+
+# Result: "SCT" assay added to Seurat object
+# Use SCT for all downstream analysis
+```
+
+---
+
+## Step 4–6: PCA & Clustering
+
+```{r}
+seurat <- RunPCA(seurat, verbose = FALSE)
+
+# Elbow plot — how many PCs to use?
+ElbowPlot(seurat, ndims = 50)
+
+# Use top 30 PCs (adjust based on elbow plot)
+seurat <- FindNeighbors(seurat, dims = 1:30, verbose = FALSE)
+seurat <- FindClusters(seurat,
+                        resolution = 0.5,   # higher = more clusters
+                        verbose    = FALSE)
+
+seurat <- RunUMAP(seurat, dims = 1:30, verbose = FALSE)
+
+DimPlot(seurat, reduction = "umap",
+        label = TRUE, pt.size = 0.5)
+```
+
+---
+
+## Step 7: Marker Genes per Cluster
+
+```{r}
+# Find markers for each cluster vs. all other cells
+all_markers <- FindAllMarkers(
+  seurat,
+  only.pos        = TRUE,    # only upregulated
+  min.pct         = 0.25,    # expressed in ≥25% of cells
+  logfc.threshold = 0.5,
+  test.use        = "wilcox"
+)
+
+# Top 5 markers per cluster
+top_markers <- all_markers |>
+  group_by(cluster) |>
+  slice_max(avg_log2FC, n = 5)
+
+# Heatmap of top markers
+DoHeatmap(seurat,
+          features = top_markers$gene,
+          size     = 3) +
+  theme(axis.text.y = element_text(size = 7))
+```
+
+---
+
+## Visualizing Marker Genes
+
+```{r}
+# Feature plots — expression on UMAP
+FeaturePlot(seurat,
+            features = c("CD3E",    # T cells
+                         "CD8A",    # CD8 T cells
+                         "MS4A1",   # B cells
+                         "CD14",    # Monocytes
+                         "GNLY",    # NK cells
+                         "PPBP"),   # Platelets
+            ncol = 3,
+            order = TRUE)
+
+# Violin plots
+VlnPlot(seurat,
+        features = c("CD3E", "CD8A", "MS4A1"),
+        ncol     = 3)
+```
+
+---
+
+# Cell Type Annotation {background-color="#185FA5"}
+
+---
+
+## Manual vs. Automated Annotation
+
+**Manual:**
+- Look at top marker genes per cluster
+- Check canonical markers (CD3E = T cell, CD14 = Monocyte...)
+- Time-consuming but gives full control
+
+**Automated — SingleR:**
+- Compares each cell to reference transcriptomes
+- Fast, reproducible, reference-dependent
+- Best used as a starting point → manually validate
+
+---
+
+## SingleR — Automated Annotation
+
+```{r}
+library(SingleR)
+library(celldex)
+
+# Reference dataset — Human Primary Cell Atlas
+hpca_ref <- HumanPrimaryCellAtlasData()
+
+# Get normalized expression matrix
+sce <- as.SingleCellExperiment(seurat)
+
+# Run SingleR
+predictions <- SingleR(
+  test      = sce,
+  ref       = hpca_ref,
+  labels    = hpca_ref$label.fine,
+  assay.type.test = "logcounts"
+)
+
+# Add predictions to Seurat object
+seurat$singler_labels <- predictions$labels
+
+# Visualize
+DimPlot(seurat, group.by = "singler_labels",
+        label = TRUE, repel = TRUE) +
+  NoLegend()
+```
+
+---
+
+## Doublet Detection
+
+```{r}
+library(DoubletFinder)
+
+# Doublets = two cells captured in one droplet
+# Look like cells with very high nFeature_RNA
+# Must be removed before analysis
+
+# Step 1: parameter sweep
+sweep_res <- paramSweep_v3(seurat, PCs = 1:30,
+                            sct = TRUE)
+sweep_stats <- summarizeSweep(sweep_res, GT = FALSE)
+bcmvn     <- find.pK(sweep_stats)
+pK_val    <- as.numeric(as.character(
+  bcmvn$pK[which.max(bcmvn$BCmetric)]))
+
+# Step 2: run DoubletFinder
+seurat <- doubletFinder_v3(
+  seurat,
+  PCs          = 1:30,
+  pN           = 0.25,
+  pK           = pK_val,
+  nExp         = round(0.075 * ncol(seurat)),  # 7.5% expected
+  reuse.pANN   = FALSE,
+  sct          = TRUE
+)
+
+# Remove doublets
+seurat <- subset(seurat, DF.classifications == "Singlet")
+```
+
+---
+
+## Finalizing Annotations
+
+```{r}
+# Add manual annotations based on marker genes + SingleR
+cell_type_map <- c(
+  "0" = "CD4 T cell",
+  "1" = "CD8 T cell",
+  "2" = "B cell",
+  "3" = "Classical Monocyte",
+  "4" = "NK cell",
+  "5" = "Non-classical Monocyte",
+  "6" = "Dendritic cell",
+  "7" = "Platelet"
+)
+
+seurat$cell_type <- recode(as.character(seurat$seurat_clusters),
+                            !!!cell_type_map)
+
+# Final UMAP
+DimPlot(seurat, group.by = "cell_type",
+        label = TRUE, repel = TRUE,
+        label.size = 4) +
+  ggtitle("PBMC — Cell type annotation") +
+  theme(legend.position = "none")
+```
+
+---
+
+# Differential Expression in scRNA-seq {background-color="#0F6E56"}
+
+---
+
+## Pseudobulk — The Right Way
+
+```{r}
+library(DESeq2)
+
+# Wrong: treat each cell as independent observation → inflated p-values
+# Right: aggregate cells per sample → pseudobulk → DESeq2
+
+# Aggregate counts per cell type per sample
+pseudobulk <- AggregateExpression(
+  seurat,
+  group.by     = c("cell_type", "sample_id"),
+  assays       = "RNA",
+  return.seurat = FALSE
+)
+
+# For each cell type, run DESeq2
+run_pseudobulk_de <- function(cell_type_name, seurat_obj) {
+  cells <- subset(seurat_obj, cell_type == cell_type_name)
+
+  bulk  <- AggregateExpression(cells,
+                                group.by   = "sample_id",
+                                assays     = "RNA")$RNA
+
+  meta  <- cells@meta.data |>
+    distinct(sample_id, .keep_all = TRUE) |>
+    column_to_rownames("sample_id")
+
+  dds   <- DESeqDataSetFromMatrix(bulk, meta, ~ condition)
+  dds   <- DESeq(dds)
+  results(dds)
+}
+
+de_cd8 <- run_pseudobulk_de("CD8 T cell", seurat)
+```
+
+---
+
+# Hands-On {background-color="#BA7517"}
+
+---
+
+## Dataset: PBMC 3k (10x Genomics)
+
+```{r}
+library(Seurat)
+library(SeuratData)
+library(tidyverse)
+library(here)
+
+# Install & load PBMC 3k dataset
+InstallData("pbmc3k")
+data("pbmc3k")
+
+pbmc3k
+# 2,700 cells, 13,714 genes
+```
+
+---
+
+## Hands-On: Full Pipeline
+
+```{r}
+pbmc <- pbmc3k
+
+# QC
+pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
+pbmc <- subset(pbmc,
+               nFeature_RNA > 200 &
+               nFeature_RNA < 2500 &
+               percent.mt   < 5)
+
+# Normalize + Variable features + Scale
+pbmc <- NormalizeData(pbmc)
+pbmc <- FindVariableFeatures(pbmc, nfeatures = 2000)
+pbmc <- ScaleData(pbmc)
+
+# Dim reduction + cluster
+pbmc <- RunPCA(pbmc, verbose = FALSE)
+pbmc <- FindNeighbors(pbmc, dims = 1:10)
+pbmc <- FindClusters(pbmc, resolution = 0.5)
+pbmc <- RunUMAP(pbmc, dims = 1:10)
+
+DimPlot(pbmc, label = TRUE)
+```
+
+---
+
+## Hands-On: Annotate & Explore
+
+```{r}
+# Top markers per cluster
+markers <- FindAllMarkers(pbmc, only.pos = TRUE,
+                           min.pct = 0.25,
+                           logfc.threshold = 0.25)
+
+markers |>
+  group_by(cluster) |>
+  slice_max(avg_log2FC, n = 3) |>
+  print(n = Inf)
+
+# Known PBMC markers
+FeaturePlot(pbmc,
+            features = c("MS4A1",   # B cells
+                         "CD8A",    # CD8 T
+                         "LYZ",     # Monocytes
+                         "GNLY",    # NK
+                         "FCGR3A",  # NK / Mono
+                         "FCER1A"), # DC
+            ncol = 3)
+```
+
+---
+
+## Save for Next Week
+
+```{r}
+# Annotate clusters
+pbmc$cell_type <- recode(pbmc$seurat_clusters,
+  `0` = "CD4 T",    `1` = "CD14 Mono", `2` = "CD4 T",
+  `3` = "B cell",   `4` = "CD8 T",     `5` = "FCGR3A Mono",
+  `6` = "NK",       `7` = "DC",        `8` = "Platelet")
+
+# Save for W9
+saveRDS(pbmc, here("data", "processed", "pbmc_annotated.rds"))
+```
+
+---
+
+# Next Week {background-color="#534AB7"}
+
+---
+
+## W9 Preview — Advanced scRNA-seq: Trajectory & Cell–Cell Communication
+
+**What we'll cover:**
+
+- Pseudotime trajectory analysis with Monocle3
+- RNA velocity — predicting cell fate direction
+- Cell–cell communication with CellChat
+- Multi-sample integration with Harmony
+
+**Install before next class:**
+
+```{r}
+BiocManager::install("monocle3")
+install.packages(c("CellChat", "harmony", "velocyto.R"))
+```
+
+---
+
+## Key Resources
+
+- **Seurat** — [satijalab.org/seurat](https://satijalab.org/seurat) — comprehensive tutorials
+- **SingleR** — [bioconductor.org/packages/SingleR](https://bioconductor.org/packages/SingleR)
+- **Human Cell Atlas** — [humancellatlas.org](https://www.humancellatlas.org) — reference for annotation
+- **10x Genomics datasets** — [10xgenomics.com/datasets](https://www.10xgenomics.com/datasets)
+- **Chan Zuckerberg CELLxGENE** — [cellxgene.cziscience.com](https://cellxgene.cziscience.com) — millions of cells
+
+---
+
+## Questions? {background-color="#1D9E75"}
+
+::: {.center}
+Next week: **Advanced Single-cell Analysis: Trajectory & Cell–Cell Communication**
+
+Course materials → [your GitHub Pages URL here]
+:::

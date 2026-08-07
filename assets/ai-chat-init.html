@@ -1,0 +1,18 @@
+<!-- AI Chat Widget 초기화 -->
+<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
+<script>
+  // ★ Cloudflare Worker 배포 후 URL로 교체하세요
+  const WORKER_URL = "https://falling-wave-447f.eh0129s.workers.dev/";
+
+  // 각 .qmd 파일의 YAML에서 ai-context를 읽어옵니다
+  // (없으면 빈 문자열 → 기본 안내 메시지)
+  const metaContext = document.querySelector('meta[name="ai-context"]');
+  const metaTitle   = document.querySelector('meta[name="ai-title"]') || { content: document.title };
+
+  window.AI_CHAT_CONFIG = {
+    workerUrl:      WORKER_URL,
+    chapterContext: metaContext ? metaContext.content : "",
+    chapterTitle:   metaTitle  ? metaTitle.content   : document.title,
+  };
+</script>
+<script src="../_extensions/ai-chat/ai-chat.js" defer></script>

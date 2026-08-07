@@ -1,0 +1,6 @@
+Patient_ID	Age	Sex	Diagnosis	HbA1c
+P001	55	M	Hypertension	6.5
+P002	32	F	None	5.4
+P003	45	M	Diabetes	7.8
+P004	60	F	Hypertension	6.9
+P005	28	M	None	5.2

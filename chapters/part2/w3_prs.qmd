@@ -1,0 +1,619 @@
+---
+title: "W3 — Polygenic Risk Scores (PRS)"
+subtitle: "Clinical Genomics for Bioinformatics"
+author: "Eunji Ha"
+date: last-modified
+format:
+  html
+execute:
+  eval: false      # code is for teaching; not executed at render time
+  echo: true
+  warning: false
+  message: false
+---
+
+# From GWAS hits to clinical risk {background-color="#1D9E75"}
+
+------------------------------------------------------------------------
+
+## The limitation of single GWAS hits
+
+From W2:
+
+::: incremental
+-   GWAS finds variants at **p \< 5×10⁻⁸**
+-   But most complex diseases are **polygenic / omnigenic** — thousands of variants
+-   Each with a **tiny effect** (OR ≈ 1.02–1.15)
+-   No single variant is clinically useful alone
+:::
+
+::: fragment
+> **A PRS aggregates the effects of (up to) millions of SNPs into one number per person.**
+:::
+
+------------------------------------------------------------------------
+
+## What a PRS is
+
+For person *i*, sum the GWAS effect size $\hat\beta_j$ × allele dosage $G_{ij}$ over all variants *j*:
+
+$$\text{PRS}_i = \sum_{j=1}^{M} \hat\beta_j \, G_{ij}$$
+
+```         
+Person A:
+  rs1001  risk allele × 0.03
++ rs2045  risk allele × 0.02
++ rs8821  non-risk    × 0.00
++ ... (thousands–millions more)
+─────────────────────────────────
+= PRS 1.42  → top 20% of population → ~3× risk
+```
+
+::: fragment
+Crucially, variants **below** genome-wide significance still carry real signal — PRS deliberately includes them *\[Reay & Cairns 2021\]*.
+:::
+
+------------------------------------------------------------------------
+
+## Why it works: the omnigenic premise
+
+::: incremental
+-   W2's **omnigenic model**: thousands of variants each nudge the trait
+-   Single hits capture a sliver of heritability; **aggregation** captures much more
+-   PRS is the clinical pay-off of polygenicity — *one saliva sample → lifetime genetic predisposition*
+:::
+
+::: callout-note
+A PRS is a **risk indicator**, not a diagnosis. It shifts a probability; it does not determine an outcome.
+:::
+
+------------------------------------------------------------------------
+
+## Where PRS is already being trialled
+
+::: incremental
+-   **Coronary artery disease** — flags high-risk people for earlier statins
+-   **Breast cancer** — stratifies risk *beyond* BRCA1/2; guides screening intensity
+-   **Type 2 diabetes** — PRS + lifestyle → targeted prevention
+-   **Atrial fibrillation** — predicts incident AF beyond clinical scores
+-   **Prostate / colorectal cancer** — screening intensity
+:::
+
+:::: fragment
+::: callout-tip
+## The clinician's question
+
+PRS adds information **on top of** age, BMI, family history, biomarkers. The bar is always: *does it change management?*
+:::
+::::
+
+# How a PRS is built {background-color="#534AB7"}
+
+------------------------------------------------------------------------
+
+## Method 1 — C+T (clumping + thresholding)
+
+The simplest, most interpretable approach:
+
+```         
+1. Clump  : keep one SNP per LD block (independent signals)
+2. Threshold : keep SNPs below a p-value cutoff (e.g. 5e-8, 0.05, ...)
+3. Score  : PRS = Σ (effect size × allele dosage)
+```
+
+```{r}
+library(bigsnpr)
+
+obj.bigsnp <- snp_attach(here::here("data", "raw", "target.rds"))
+G <- obj.bigsnp$genotypes
+
+ind.keep <- snp_clumping(
+  G,
+  infos.chr = obj.bigsnp$map$chromosome,
+  infos.pos = obj.bigsnp$map$physical.pos,
+  S         = abs(sumstats$beta / sumstats$beta_se),  # rank by |Z|
+  thr.r2    = 0.1,
+  size      = 500
+)
+```
+
+::: callout-warning
+The p-value threshold is **arbitrary** — C+T discards sub-threshold signal and needs tuning on a validation set.
+:::
+
+------------------------------------------------------------------------
+
+## Method 2 — LDpred2 (Bayesian, current standard)
+
+Models LD explicitly and **reweights all variants** (no hard cutoff) under a Bayesian prior *\[Reay & Cairns 2021\]*.
+
+```{r}
+# 1) Match summary stats to target
+sumstats <- snp_match(sumstats, obj.bigsnp$map)
+
+# 2) LD reference (genetic positions → correlation matrix)
+POS2 <- snp_asGeneticPos(obj.bigsnp$map$chromosome,
+                         obj.bigsnp$map$physical.pos,
+                         dir = here::here("data", "raw", "genetic_maps"))
+corr <- snp_cor(G, ind.col = sumstats$`_NUM_ID_`,
+                infos.pos = POS2, size = 3 / 1000)
+
+# 3) Estimate h2, then LDpred2-auto (no validation set needed)
+ldsc <- with(sumstats, snp_ldsc(ld_score, ld_size = nrow(G),
+                                chi2 = (beta / beta_se)^2, sample_size = n_eff))
+multi_auto <- snp_ldpred2_auto(corr, sumstats, h2_init = ldsc[["h2"]],
+                               vec_p_init = seq_log(1e-4, 0.2, 30),
+                               burn_in = 500, num_iter = 500)
+```
+
+------------------------------------------------------------------------
+
+## Method 3 — PRSice2 (practical workhorse)
+
+```{r}
+# Command-line tool, called from R
+system(paste(
+  "PRSice",
+  "--base",          here::here("data", "raw", "sumstats.txt"),
+  "--target",        here::here("data", "raw", "target_plink"),
+  "--binary-target", "T",
+  "--pheno",         here::here("data", "raw", "phenotype.txt"),
+  "--cov",           here::here("data", "raw", "covariates.txt"),
+  "--out",           here::here("results", "prsice_output"),
+  "--thread",        4
+))
+```
+
+::: callout-note
+PRSice2 auto-optimizes the p-value threshold and emits bar / high-resolution / quantile plots out of the box.
+:::
+
+------------------------------------------------------------------------
+
+## Choosing a method
+
+| Method | Pros | Cons |
+|----|----|----|
+| **C+T** | fast, interpretable | loses signal, arbitrary threshold |
+| **LDpred2** | best accuracy, principled, `-auto` needs no tuning | slower, needs LD reference |
+| **PRSice2** | easy, great plots | threshold-based |
+| **PRS-CS / PRS-CSx** | continuous shrinkage; **multi-ancestry** | needs Python; LD panel |
+
+::: fragment
+**Clinical research:** LDpred2 or PRSice2. **Multi-ancestry:** PRS-CSx. Consider a **composite** of several methods to reduce single-method assumptions *\[Kullo 2025\]*.
+:::
+
+# Evaluating a PRS {background-color="#185FA5"}
+
+------------------------------------------------------------------------
+
+## Incremental variance (Nagelkerke R²)
+
+Always report PRS performance **above** a clinical baseline — never PRS alone.
+
+```{r}
+library(tidyverse); library(DescTools)
+
+prs_data <- read_tsv(here::here("results", "prsice_output.best")) |>
+  left_join(phenotype, by = "IID")
+
+null_model <- glm(disease ~ age + sex + PC1+PC2+PC3+PC4+PC5,
+                  data = prs_data, family = binomial)
+full_model <- glm(disease ~ PRS + age + sex + PC1+PC2+PC3+PC4+PC5,
+                  data = prs_data, family = binomial)
+
+r2_prs <- PseudoR2(full_model, "Nagelkerke") -
+          PseudoR2(null_model, "Nagelkerke")
+cat("Incremental R² from PRS:", round(r2_prs, 4), "\n")
+```
+
+------------------------------------------------------------------------
+
+## Discrimination (AUC)
+
+```{r}
+library(pROC)
+
+roc_null <- roc(prs_data$disease, predict(null_model, type = "response"))
+roc_full <- roc(prs_data$disease, predict(full_model, type = "response"))
+
+roc.test(roc_null, roc_full)   # does PRS add discrimination?
+
+ggroc(list(Clinical = roc_null, `Clinical + PRS` = roc_full)) +
+  labs(title = "Does PRS improve prediction?", color = "Model") +
+  theme_minimal()
+```
+
+::: callout-note
+A statistically significant AUC bump can still be **clinically trivial**. Pair AUC with reclassification (NRI) and, above all, **calibration**.
+:::
+
+------------------------------------------------------------------------
+
+## Calibration — the underappreciated metric
+
+Calibration = do predicted probabilities match observed frequencies? *\[Kullo 2025\]*
+
+::: incremental
+-   Of people told "10% 10-year risk", do \~10% develop disease?
+-   A PRS **well-calibrated in one population can be miscalibrated in another** (different baseline risk, covariate distributions)
+-   Fix by **recalibration** (update baseline hazard / intercept); assess in independent, population-representative cohorts
+:::
+
+::: callout-important
+Good discrimination ≠ good calibration. A model can rank people correctly yet output systematically wrong probabilities.
+:::
+
+------------------------------------------------------------------------
+
+## Quantile plot — the clinical view
+
+```{r}
+prs_data <- prs_data |> mutate(prs_decile = ntile(PRS, 10))
+
+or_by_decile <- prs_data |>
+  group_by(prs_decile) |>
+  summarise(n_cases = sum(disease == 1),
+            n_ctrl  = sum(disease == 0), .groups = "drop") |>
+  mutate(odds = n_cases / n_ctrl,
+         OR   = odds / odds[prs_decile == 5])   # vs middle decile
+
+ggplot(or_by_decile, aes(prs_decile, OR)) +
+  geom_col(fill = "#185FA5") +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  labs(x = "PRS decile", y = "OR vs middle decile",
+       title = "Disease risk by PRS decile") +
+  theme_minimal()
+```
+
+------------------------------------------------------------------------
+
+## Same disease, different PRS → different person flagged
+
+::: incremental
+-   Two PRSs with similar **population** AUC can disagree on **which individual** is high-risk *\[Kullo 2025\]*
+-   Mitigations: **consensus thresholds** (high-risk only if top-tier across ≥2 scores) or a **composite** score
+-   Risk also **changes over time** (age, comorbidity, exposures) → re-score with up-to-date methods; keep raw genotypes
+:::
+
+# Is it clinically useful? The ACCE lens {background-color="#0F6E56"}
+
+------------------------------------------------------------------------
+
+## Four questions before the clinic (ACCE)
+
+The 2025 review frames PRS readiness with the **ACCE** framework *\[Kullo 2025\]*:
+
+::: incremental
+-   **A**nalytical validity — does the assay/pipeline measure the score accurately & reproducibly?
+-   **C**linical validity — does the score actually associate with the disease in the target population?
+-   **C**linical utility — does using it **improve outcomes**?
+-   **E**thical, legal, social implications — equity, consent, insurance, communication
+:::
+
+::: fragment
+Most PRSs clear analytical and clinical validity; the bottleneck is **utility** and **ELSI**.
+:::
+
+------------------------------------------------------------------------
+
+## Evidence for clinical utility is still thin
+
+Few completed RCTs *\[Kullo 2025\]*:
+
+::: incremental
+-   **MI-GENES** (CHD) — PRS-integrated risk → **lower LDL at 6 mo**, fewer events at 10 yr (earlier/longer statin use)
+-   **GenoVA** — PRS for 6 diseases (CHD, T2D, AF, breast/colorectal/prostate cancer): effect on time-to-diagnosis
+-   **WISDOM / PERSPECTIVE** — PRS-guided mammography intensity
+-   **eMERGE** (US, 10 conditions) and **Our Future Health** (UK, 5M) — implementation at scale
+:::
+
+::: callout-note
+RCTs are slow and costly — cohort, health-economics, simulation and implementation-science studies all contribute evidence.
+:::
+
+------------------------------------------------------------------------
+
+## Communicating risk: three framings
+
+A percentile alone is **not** enough — it doesn't say how much disease risk it explains *\[Kullo 2025\]*.
+
+| Framing | Example | Caveat |
+|----|----|----|
+| **Absolute risk** | "18% over 10 years" | needs incidence data (often missing) |
+| **Relative risk / OR** | "2.3× population average" | no baseline anchor |
+| **Percentile rank** | "top 5% of PRS" | says nothing about absolute magnitude |
+
+::: fragment
+**Absolute risk linked to a guideline action** is the most clinically actionable framing.
+:::
+
+------------------------------------------------------------------------
+
+## Integrating PRS into existing risk equations
+
+::: incremental
+-   **Breast cancer — BOADICEA**: the one clinical equation combining **PRS + family history + rare variants + clinical factors**
+-   **CHD — Pooled Cohort Equations**: PRS is \~orthogonal → add **log-additively**
+-   Most other diseases: **no validated absolute-risk equation** yet → estimate from epidemiological incidence
+-   Lifetime risk can vary dramatically by PRS centile — e.g. ER-positive breast cancer **\~2% to \~31%** bottom vs top centile
+:::
+
+------------------------------------------------------------------------
+
+## The human barriers
+
+::: incremental
+-   Patients hold **deterministic** views of genetics; risk is actually **probabilistic and modifiable** (MI-GENES framed it as mutable)
+-   Run many PRSs at once → most people flagged high-risk for **something** → alarm fatigue
+-   Primary-care providers often lack genomics training → need **CDS tools**, a trained **"champion user"**, and PRS in **medical curricula**
+:::
+
+# PRS meets the electronic health record {background-color="#185FA5"}
+
+------------------------------------------------------------------------
+
+## Why the EHR changes the game
+
+Biobanks now link **genotypes to EHRs** at population scale, so PRS can be built and applied without a bespoke study *\[Li 2020\]*.
+
+::: incremental
+-   Khera et al. 2018: a PRS can flag people with risk **equivalent to a monogenic mutation** (CAD, AF, T2D, IBD, breast cancer)
+-   Rich phenotypes: diagnoses, labs, imaging, meds — plus easy, well-defined **controls**
+-   Examples: Michigan Genomics Initiative, UK Biobank, **National Biobank of Korea**, Biobank Japan, China Kadoorie
+:::
+
+------------------------------------------------------------------------
+
+## Turning an EHR into phenotypes
+
+::: incremental
+-   **ICD codes** — first-line case/control definitions (but coding practices differ between systems)
+-   **NLP** on clinical notes — extract phenotypes from free text
+-   **PheKB** — 50+ portable phenotyping algorithms with high positive predictive value
+:::
+
+::: callout-warning
+## EHR data is messy
+
+-   **Sparse & irregular** — sicker patients have richer records (Geisinger: only 20/143 variables had \<25% missingness)
+-   **Medication adherence not captured** — prescribed ≠ taken
+-   Phenotyping errors propagate into PRS evaluation
+:::
+
+------------------------------------------------------------------------
+
+## Infrastructure for clinical PRS
+
+A workable pipeline needs more than a model *\[Kullo 2025\]*:
+
+::: incremental
+-   **PGS Catalog** — open repository of published scores (alleles + weights + metadata)
+-   **FHIR** — standard for moving genomic + clinical data between systems
+-   **TRE / cloud** — compute PRS on-demand with QC'd pipelines
+-   **CDS + EHR dashboard** — show PRS *alongside* family history, smoking, labs
+-   **Metadata** — record algorithm version + ancestry-specific performance for traceability
+:::
+
+# Beyond a single PRS: shared genetics {background-color="#534AB7"}
+
+------------------------------------------------------------------------
+
+## Genetic correlation — how much do two diseases share?
+
+**Genetic correlation (r_g)** quantifies the overlap in heritable basis between two traits *\[van Rheenen 2019\]*.
+
+::: incremental
+-   **Bivariate LDSC** — estimates r_g straight from **summary statistics**, robust to sample overlap (LD Hub hosts hundreds of traits)
+-   **Bivariate GREML** — from individual genotypes
+-   e.g. schizophrenia ↔ bipolar disorder **r_g ≈ 0.6**
+:::
+
+::: fragment
+A high r_g explains **comorbidity** and shared biology, and predicts **cross-disorder risk** in relatives — directly relevant when counselling families.
+:::
+
+------------------------------------------------------------------------
+
+## Why clinicians should care about r_g
+
+::: incremental
+-   **Comorbidity** — shared genetics anticipates co-occurring diagnoses
+-   **Borrowing power** — pleiotropy-informed methods (**MTAG**) boost a small GWAS using a correlated, larger one
+-   **Cross-disorder risk** — a relative's risk depends on r_g, kinship, heritability and prevalence
+:::
+
+::: callout-warning
+r_g estimates can be distorted by **assortative mating, misclassification, collider bias and stratification** — interpret with the same care as MR *\[van Rheenen 2019\]*.
+:::
+
+# Diversity & portability {background-color="#5B4D80"}
+
+------------------------------------------------------------------------
+
+## PRS does not transfer across ancestries
+
+::: incremental
+-   Most GWAS (→ PRS) are **European-ancestry**
+-   A European-trained PRS performs **\~4–5× worse** in African-ancestry individuals *\[Martin, in Li 2020\]*
+-   Roots: different **allele frequencies, LD, and effect sizes** from distinct population history (drift, selection, bottlenecks) *\[Kullo 2025\]*
+-   Deploying biased PRS clinically can **widen health disparities**
+:::
+
+------------------------------------------------------------------------
+
+## What to do about it
+
+::: incremental
+-   Prefer **ancestry-matched** base GWAS; use **PRS-CSx** / multi-ancestry meta-analysis
+-   Report **ancestry-specific** performance and **recalibrate** per population
+-   Invest in diverse cohorts — diversity also **sharpens fine-mapping** (W2)
+:::
+
+::: callout-important
+## For Korean patients
+
+Use Korean / East-Asian resources (**KoGES**, Korea Biobank Array "**KCHIP**", **National Biobank of Korea**, TOPMed). Always check the base GWAS ancestry matches your target before trusting a PRS.
+:::
+
+# What a PRS cannot do {background-color="#534AB7"}
+
+------------------------------------------------------------------------
+
+## Honest limitations
+
+::: incremental
+-   **Not causal** — high PRS ≠ will develop disease
+-   **Misses rare, high-penetrance variants** — BRCA1/2, Lynch syndrome need dedicated testing
+-   **Misses non-SNP variation** — CNV/SV/repeats (W2 §Beyond SNPs)
+-   **Gene × environment** — genetic risk is **modifiable** by lifestyle/medication
+-   **Not a diagnosis** — one input among many, not a verdict
+-   **Dynamic** — risk and methods both change over time
+:::
+
+# Hands-on {background-color="#BA7517"}
+
+------------------------------------------------------------------------
+
+## Dataset: CAD PRS from public summary stats
+
+CAD GWAS summary statistics (e.g. Khera et al. 2018) + 1000 Genomes target genotypes.
+
+```{r}
+library(bigsnpr); library(tidyverse); library(here)
+
+obj.bigsnp <- snp_attach(here("data", "raw", "1kg_eur.rds"))
+G   <- obj.bigsnp$genotypes
+map <- obj.bigsnp$map
+
+sumstats <- read_tsv(here("data", "raw", "cad_sumstats.tsv"))
+glimpse(sumstats)   # SNP, chr, pos, a0, a1, beta, beta_se, n_eff, ...
+```
+
+------------------------------------------------------------------------
+
+## Match & compute a C+T PRS
+
+```{r}
+sumstats <- snp_match(sumstats, map)
+
+ind  <- sumstats$`_NUM_ID_`
+prs_scores <- big_prodVec(G, sumstats$beta, ind.col = ind)
+
+prs_df <- obj.bigsnp$fam |> mutate(PRS = prs_scores)
+summary(prs_df$PRS)
+```
+
+------------------------------------------------------------------------
+
+## Visualize the distribution
+
+```{r}
+ggplot(prs_df, aes(PRS, fill = factor(affection))) +
+  geom_density(alpha = 0.6) +
+  scale_fill_manual(values = c("#1D9E75", "#D85A30"),
+                    labels = c("Control", "Case")) +
+  labs(title = "PRS — CAD cases vs controls",
+       x = "Polygenic Risk Score", fill = "Status") +
+  theme_minimal()
+
+prs_df <- prs_df |>
+  mutate(prs_pct  = ntile(PRS, 100),
+         top10    = prs_pct >= 90,
+         bottom10 = prs_pct <= 10)
+
+table(prs_df$top10, prs_df$affection)   # risk in top 10% vs rest
+```
+
+------------------------------------------------------------------------
+
+## LDpred2-auto (more accurate)
+
+```{r}
+corr <- readRDS(here("data", "processed", "ld_matrix.rds"))  # pre-computed
+
+ldsc <- with(sumstats, snp_ldsc(ld_score, ld_size = nrow(G),
+                                chi2 = (beta / beta_se)^2, sample_size = n_eff))
+
+multi_auto <- snp_ldpred2_auto(corr, sumstats, h2_init = ldsc[["h2"]],
+                               vec_p_init = seq_log(1e-4, 0.2, 30),
+                               burn_in = 200, num_iter = 200)
+
+beta_auto   <- sapply(multi_auto, function(a) a$beta_est)
+prs_ldpred2 <- big_prodMat(G, beta_auto)
+```
+
+------------------------------------------------------------------------
+
+## Save & document
+
+```{r}
+prs_final <- prs_df |>
+  select(FID, IID, PRS_CT = PRS) |>
+  mutate(PRS_LDpred2 = rowMeans(prs_ldpred2))
+
+write_tsv(prs_final, here("results", "tables", "prs_scores.tsv"))
+
+renv::snapshot()   # reproducibility
+sessionInfo()
+```
+
+# Wrap-up {background-color="#1D9E75"}
+
+------------------------------------------------------------------------
+
+## Key takeaways
+
+::: incremental
+-   PRS turns polygenicity into **one actionable number** — but it's a **risk indicator**, not a diagnosis
+-   Always evaluate **incremental** value, and don't forget **calibration**
+-   Clinical readiness = **ACCE**, not just AUC; utility evidence is still emerging
+-   The hard parts are **portability, communication, and EHR integration** — not the maths
+:::
+
+------------------------------------------------------------------------
+
+## Next week — Epigenomics I: DNA methylation
+
+::: incremental
+-   CpG methylation — what it is, what it regulates
+-   Arrays (EPIC, 450K) vs WGBS
+-   Differential methylation with `minfi` / `ChAMP`
+-   Epigenetic clocks — biological age
+:::
+
+```{r}
+BiocManager::install(c("minfi", "ChAMP",
+                       "IlluminaHumanMethylationEPICanno.ilm10b4.hg19",
+                       "missMethyl"))
+```
+
+------------------------------------------------------------------------
+
+## Key resources
+
+-   **PGS Catalog** — <https://www.pgscatalog.org>
+-   **PRSice2** — <https://www.prsice.info>
+-   **bigsnpr / LDpred2** — <https://privefl.github.io/bigsnpr>
+-   **PRS-CS / PRS-CSx** — <https://github.com/getian107/PRScs>
+-   **LD Hub** — <http://ldsc.broadinstitute.org/ldhub/>
+-   **PheKB** — <https://www.phekb.org>
+
+------------------------------------------------------------------------
+
+## References {#references}
+
+1.  Kullo IJ. **Clinical use of polygenic risk scores: current status, barriers and future directions.** *Nat Rev Genet* (2025).
+2.  Li R, Chen Y, Ritchie MD, Moore JH. **Electronic health records and polygenic risk scores for predicting disease risk.** *Nat Rev Genet* (2020).
+3.  van Rheenen W, Peyrot WJ, Schork AJ, Lee SH, Wray NR. **Genetic correlations of polygenic disease traits: from theory to practice.** *Nat Rev Genet* (2019).
+4.  Reay WR, Cairns MJ. **Advancing the use of GWAS for drug repurposing.** *Nat Rev Genet* (2021).
+5.  Wojcik GL et al. **Genetic analyses of diverse populations improves discovery for complex traits.** *Nature* (2019).
+6.  Khera AV et al. **Genome-wide polygenic scores for common diseases identify individuals with risk equivalent to monogenic mutations.** *Nat Genet* (2018).
+
+------------------------------------------------------------------------
+
+## [Questions?]{style="color:#ffffff"} {background-color="#5B4D80"}
+
+📧 eha\@knu.ac.kr
+
+Course materials → *\[your GitHub Pages URL\]*

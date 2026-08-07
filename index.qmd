@@ -1,5 +1,5 @@
 ---
-title: "advanced bioinformatics (의사과학자 양성 사업)"
+title: "advanced bioinformatics (융합형 의사과학자 양성 사업)"
 sidebar: false
 author: "Eunji Ha"
 affiliation: 'School of Medicine, Kyungpook National Univ.'
@@ -29,26 +29,19 @@ categories: [의학연구, bioinformatics, R, Omics]
 
 ## Syllabus
 
-| week | Contents                                                            |
-|-----------------|-------------------------------------------------------|
-| W1   | Introduction to advanced bioinformatics & R Environment Setup       |
-| W2   | Genome-wide Association Studies (GWAS) & Post-GWAS                  |
-| W3   | Polygenic Risk Scores (PRS)                                         |
-| W4   | Epigenomics I: DNA methylation                                      |
-| W5   | Epigenomics II: Chromatin accessibility & 3D Genome                 |
-| W6   | Metagenomics I: 16s rRNA-seq                                        |
-| W7   | Metagenomics II: WMS                                                |
-| W8   | Single-cell RNA-seq Fundamentals: Cell-type Specificity             |
-| W9   | Advanced Single-cell Analysis: Trajectory & cell-cell communication |
-| W10  | Spatial Transcriptomics                                             |
-| W11  | Multi-omics Integration & GWAS Gene Prioritization                  |
-| W12  | Network Analysis & Drug Repositioning (Clinical AI)                 |
-| W13  | Data interpretation & visualization                                 |
-| W14  | Rscript and vibe coding tips & Individual Project Design            |
-| W15  | Final Project Presentation (Pitching the Hypothesis)                |
-
--   Part1: Intro (W1)
--   Part2: Clinical Genomics & Risk Prediction (W2-W3)
--   Part3: High-Resolution Omics (W4-W10)
--   Part4: Multi-omics & Target Discovery (W11-W12)
--   Part5: Capstone (W13-W15)
+| Module | Week | Contents | Key tools |
+|----|----|----|----|
+| **Intro** | W1 | Review + Roadmap + R env | R, Bioconductor |
+| **Clinical Genomics** | W2 | GWAS & Post-GWAS | PLINK, LocusZoom |
+|  | W3 | PRS & Clinical application | PGPRSice, LDPred2 |
+| **Single-cell** | W4 | scRNA-seq tech, QC, Clustering | Seurat, scanpy |
+|  | W5 | Trajectory & Cell-cell communication | Monocle, CellChat |
+| **Spatial** | W6 | Spatial Transcriptomics 기초 | Seurat, Squidpy |
+|  | W7 | Spatial + scRNA integration, Deconvolution | CARD, SPOTlight |
+| **Proteomics** | W8 | MS/NGS-based Proteomics | theory |
+|  | W9 | Clinical proteomics & Biomarker | limma, MSstats |
+| **Integration** | W10 | Multi-omics integration | MOFA+, mixOmics |
+|  | W11 | Network & Drug target discovery | STRING, igraph |
+| **Capstone** | W12 | Result intepretation & visualization | ggplot2, Rmarkdown |
+|  | W13 | Rscript & vibe coding tips | — |
+|  | W14 | Individual project design | — |

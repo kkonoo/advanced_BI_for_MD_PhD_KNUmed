@@ -1,0 +1,7 @@
+Instrument: qPCR_Model_X9
+Date: 2025-12-08
+Operator: Dr.Ha
+Sample_01,24.5,Pass
+Sample_02,23.1,Pass
+Sample_03,NA,Fail
+Sample_04,25.0,Pass

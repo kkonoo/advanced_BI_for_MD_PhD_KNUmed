@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
+
+  <meta name="author" content="Your Name">
+  <meta name="dcterms.date" content="2026-06-02">
+  <title>advanced BI – Advanced Single-cell Analysis: Trajectory &amp; Cell–Cell Communication</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-8f256d708726d40fbff7d707db68e007.css">
+  <link rel="stylesheet" href="../../assets/revealjs.css">
+  <link rel="stylesheet" href="custom.css">
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Advanced Single-cell Analysis: Trajectory &amp; Cell–Cell Communication</h1>
+  <p class="subtitle">Advanced Bioinformatics for Clinician-Scientists | Week 9</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Your Name 
+</div>
+</div>
+</div>
+
+  <p class="date">2026-06-02</p>
+</section>
+<section>
+<section id="beyond-clustering" class="title-slide slide level1 center" data-background-color="#1D9E75">
+<h1>Beyond Clustering</h1>
+
+</section>
+<section id="what-clustering-doesnt-tell-you" class="slide level2">
+<h2>What Clustering Doesn’t Tell You</h2>
+<p>From last week — we can cluster cells and annotate them.</p>
+<p>But biology is <strong>dynamic</strong>, not static:</p>
+<ul>
+<li class="fragment">Stem cells → progenitors → differentiated cells</li>
+<li class="fragment">Naive T cells → activated → effector → exhausted</li>
+<li class="fragment">Fibroblasts → myofibroblasts → senescent cells</li>
+</ul>
+<div class="fragment">
+<blockquote>
+<p><strong>Pseudotime trajectory analysis</strong> asks:<br>
+Given a snapshot of cells, can we infer the <strong>order</strong> and <strong>direction</strong> of differentiation?</p>
+</blockquote>
+</div>
+</section>
+<section id="three-questions-this-week" class="slide level2">
+<h2>Three Questions This Week</h2>
+<ol type="1">
+<li><strong>Where are cells going?</strong> → Trajectory / pseudotime (Monocle3)</li>
+<li><strong>How fast and in which direction?</strong> → RNA velocity (scVelo)</li>
+<li><strong>Who is talking to whom?</strong> → Cell–cell communication (CellChat)</li>
+</ol>
+<p>Plus: <strong>Integration</strong> of multiple samples with Harmony</p>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="pseudotime-trajectory" class="title-slide slide level1 center" data-background-color="#534AB7">
+<h1>Pseudotime Trajectory</h1>
+
+</section>
+<section id="the-core-idea" class="slide level2">
+<h2>The Core Idea</h2>
+<pre><code>scRNA-seq is a snapshot:
+All cells captured at the same moment
+
+But cells are at different stages of a process:
+Cell A: early progenitor
+Cell B: mid-differentiation
+Cell C: terminal state
+
+Pseudotime: order cells along a trajectory
+             based on transcriptional similarity</code></pre>
+</section>
+<section id="monocle3-workflow" class="slide level2">
+<h2>Monocle3 Workflow</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(monocle3)</span>
+<span id="cb2-2"><a></a><span class="fu">library</span>(SeuratWrappers)</span>
+<span id="cb2-3"><a></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-4"><a></a><span class="fu">library</span>(here)</span>
+<span id="cb2-5"><a></a></span>
+<span id="cb2-6"><a></a><span class="co"># Load annotated Seurat object from W8</span></span>
+<span id="cb2-7"><a></a>seurat <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed"</span>, <span class="st">"pbmc_annotated.rds"</span>))</span>
+<span id="cb2-8"><a></a></span>
+<span id="cb2-9"><a></a><span class="co"># Convert to CellDataSet (Monocle3 format)</span></span>
+<span id="cb2-10"><a></a>cds <span class="ot">&lt;-</span> <span class="fu">as.cell_data_set</span>(seurat)</span>
+<span id="cb2-11"><a></a></span>
+<span id="cb2-12"><a></a><span class="co"># Preprocessing</span></span>
+<span id="cb2-13"><a></a>cds <span class="ot">&lt;-</span> <span class="fu">cluster_cells</span>(cds, <span class="at">resolution =</span> <span class="fl">0.5</span>)</span>
+<span id="cb2-14"><a></a>cds <span class="ot">&lt;-</span> <span class="fu">learn_graph</span>(cds, <span class="at">use_partition =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-15"><a></a>                    <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-16"><a></a></span>
+<span id="cb2-17"><a></a><span class="co"># Learn trajectory graph</span></span>
+<span id="cb2-18"><a></a><span class="fu">plot_cells</span>(cds,</span>
+<span id="cb2-19"><a></a>           <span class="at">color_cells_by   =</span> <span class="st">"cell_type"</span>,</span>
+<span id="cb2-20"><a></a>           <span class="at">label_groups_by_cluster =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-21"><a></a>           <span class="at">label_leaves     =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-22"><a></a>           <span class="at">label_branch_points =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="ordering-cells-in-pseudotime" class="slide level2">
+<h2>Ordering Cells in Pseudotime</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># Define the root — where does the trajectory start?</span></span>
+<span id="cb3-2"><a></a><span class="co"># Biologically: the most undifferentiated cell state</span></span>
+<span id="cb3-3"><a></a><span class="co"># Select the "root" cells interactively or by marker gene</span></span>
+<span id="cb3-4"><a></a></span>
+<span id="cb3-5"><a></a><span class="co"># Option 1: Automatic — cells with lowest UMI (proxy for progenitors)</span></span>
+<span id="cb3-6"><a></a>root_cells <span class="ot">&lt;-</span> <span class="fu">colnames</span>(cds)[<span class="fu">which</span>(</span>
+<span id="cb3-7"><a></a>  Matrix<span class="sc">::</span><span class="fu">colSums</span>(<span class="fu">counts</span>(cds)) <span class="sc">==</span> <span class="fu">min</span>(Matrix<span class="sc">::</span><span class="fu">colSums</span>(<span class="fu">counts</span>(cds)))</span>
+<span id="cb3-8"><a></a>)]</span>
+<span id="cb3-9"><a></a></span>
+<span id="cb3-10"><a></a><span class="co"># Option 2: Manual — set root by a known marker gene</span></span>
+<span id="cb3-11"><a></a><span class="co"># e.g., HSCs in a hematopoiesis dataset: CD34+ cells</span></span>
+<span id="cb3-12"><a></a></span>
+<span id="cb3-13"><a></a>cds <span class="ot">&lt;-</span> <span class="fu">order_cells</span>(cds, <span class="at">root_cells =</span> root_cells)</span>
+<span id="cb3-14"><a></a></span>
+<span id="cb3-15"><a></a><span class="co"># Visualize pseudotime</span></span>
+<span id="cb3-16"><a></a><span class="fu">plot_cells</span>(cds,</span>
+<span id="cb3-17"><a></a>           <span class="at">color_cells_by   =</span> <span class="st">"pseudotime"</span>,</span>
+<span id="cb3-18"><a></a>           <span class="at">label_cell_groups =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb3-19"><a></a>           <span class="at">label_leaves      =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb3-20"><a></a>           <span class="at">trajectory_graph_color =</span> <span class="st">"grey40"</span>,</span>
+<span id="cb3-21"><a></a>           <span class="at">trajectory_graph_segment_size =</span> <span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="pseudotime-dependent-gene-expression" class="slide level2">
+<h2>Pseudotime-Dependent Gene Expression</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="co"># Which genes change significantly along pseudotime?</span></span>
+<span id="cb4-2"><a></a>pr_test <span class="ot">&lt;-</span> <span class="fu">graph_test</span>(cds,</span>
+<span id="cb4-3"><a></a>                       <span class="at">neighbor_graph =</span> <span class="st">"principal_graph"</span>,</span>
+<span id="cb4-4"><a></a>                       <span class="at">cores          =</span> <span class="dv">4</span>)</span>
+<span id="cb4-5"><a></a></span>
+<span id="cb4-6"><a></a>pr_deg <span class="ot">&lt;-</span> pr_test <span class="sc">|&gt;</span></span>
+<span id="cb4-7"><a></a>  <span class="fu">filter</span>(q_value <span class="sc">&lt;</span> <span class="fl">0.01</span>, morans_I <span class="sc">&gt;</span> <span class="fl">0.1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-8"><a></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(morans_I))</span>
+<span id="cb4-9"><a></a></span>
+<span id="cb4-10"><a></a><span class="co"># Top pseudotime-variable genes</span></span>
+<span id="cb4-11"><a></a><span class="fu">cat</span>(<span class="st">"Pseudotime-variable genes:"</span>, <span class="fu">nrow</span>(pr_deg), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb4-12"><a></a><span class="fu">head</span>(pr_deg)</span>
+<span id="cb4-13"><a></a></span>
+<span id="cb4-14"><a></a><span class="co"># Visualize gene expression along pseudotime</span></span>
+<span id="cb4-15"><a></a><span class="fu">plot_genes_in_pseudotime</span>(</span>
+<span id="cb4-16"><a></a>  cds[<span class="fu">c</span>(<span class="st">"CD34"</span>, <span class="st">"GATA1"</span>, <span class="st">"HBA1"</span>, <span class="st">"HBB"</span>), ],</span>
+<span id="cb4-17"><a></a>  <span class="at">color_cells_by  =</span> <span class="st">"pseudotime"</span>,</span>
+<span id="cb4-18"><a></a>  <span class="at">min_expr        =</span> <span class="fl">0.5</span></span>
+<span id="cb4-19"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="gene-modules-along-trajectory" class="slide level2">
+<h2>Gene Modules Along Trajectory</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># Find co-regulated gene modules along pseudotime</span></span>
+<span id="cb5-2"><a></a>gene_modules <span class="ot">&lt;-</span> <span class="fu">find_gene_modules</span>(</span>
+<span id="cb5-3"><a></a>  cds[pr_deg<span class="sc">$</span>gene_id, ],</span>
+<span id="cb5-4"><a></a>  <span class="at">resolution     =</span> <span class="fl">0.01</span>,</span>
+<span id="cb5-5"><a></a>  <span class="at">random_seed    =</span> <span class="dv">42</span></span>
+<span id="cb5-6"><a></a>)</span>
+<span id="cb5-7"><a></a></span>
+<span id="cb5-8"><a></a>cell_group_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb5-9"><a></a>  <span class="at">cell    =</span> <span class="fu">row.names</span>(<span class="fu">colData</span>(cds)),</span>
+<span id="cb5-10"><a></a>  <span class="at">group   =</span> <span class="fu">colData</span>(cds)<span class="sc">$</span>cell_type</span>
+<span id="cb5-11"><a></a>)</span>
+<span id="cb5-12"><a></a></span>
+<span id="cb5-13"><a></a>agg_mat <span class="ot">&lt;-</span> <span class="fu">aggregate_gene_expression</span>(</span>
+<span id="cb5-14"><a></a>  cds, gene_modules, cell_group_df</span>
+<span id="cb5-15"><a></a>)</span>
+<span id="cb5-16"><a></a></span>
+<span id="cb5-17"><a></a>pheatmap<span class="sc">::</span><span class="fu">pheatmap</span>(</span>
+<span id="cb5-18"><a></a>  <span class="fu">t</span>(<span class="fu">scale</span>(<span class="fu">t</span>(agg_mat))),</span>
+<span id="cb5-19"><a></a>  <span class="at">clustering_method   =</span> <span class="st">"ward.D2"</span>,</span>
+<span id="cb5-20"><a></a>  <span class="at">fontsize            =</span> <span class="dv">10</span></span>
+<span id="cb5-21"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="rna-velocity" class="title-slide slide level1 center" data-background-color="#185FA5">
+<h1>RNA Velocity</h1>
+
+</section>
+<section id="the-idea-behind-rna-velocity" class="slide level2">
+<h2>The Idea Behind RNA Velocity</h2>
+<pre><code>For any gene in a cell:
+
+Unspliced pre-mRNA (u):  newly transcribed → proxy for FUTURE state
+Spliced mRNA (s):         mature message   → CURRENT state
+
+If u &gt; expected given s:  gene is being upregulated → cell moving in that direction
+If u &lt; expected given s:  gene is being downregulated → cell moving away</code></pre>
+<div class="fragment">
+<p>RNA velocity predicts the <strong>direction</strong> and <strong>speed</strong> of cell state transitions —<br>
+like an arrow on the UMAP showing where each cell is heading.</p>
+</div>
+</section>
+<section id="scvelo-in-r-via-reticulate" class="slide level2">
+<h2>scVelo in R via reticulate</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb7-2"><a></a><span class="fu">library</span>(Seurat)</span>
+<span id="cb7-3"><a></a><span class="fu">library</span>(here)</span>
+<span id="cb7-4"><a></a></span>
+<span id="cb7-5"><a></a><span class="co"># scVelo is Python-based — use via reticulate</span></span>
+<span id="cb7-6"><a></a>scv <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"scvelo"</span>)</span>
+<span id="cb7-7"><a></a></span>
+<span id="cb7-8"><a></a><span class="co"># Load loom file (contains spliced/unspliced counts)</span></span>
+<span id="cb7-9"><a></a><span class="co"># Generated by velocyto during Cell Ranger processing</span></span>
+<span id="cb7-10"><a></a>ldata <span class="ot">&lt;-</span> scv<span class="sc">$</span><span class="fu">read</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw"</span>, <span class="st">"sample.loom"</span>),</span>
+<span id="cb7-11"><a></a>                   <span class="at">cache =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-12"><a></a></span>
+<span id="cb7-13"><a></a><span class="co"># Basic preprocessing</span></span>
+<span id="cb7-14"><a></a>scv<span class="sc">$</span>pp<span class="sc">$</span><span class="fu">filter_and_normalize</span>(ldata,</span>
+<span id="cb7-15"><a></a>                              <span class="at">min_shared_counts =</span> <span class="dv">20</span>,</span>
+<span id="cb7-16"><a></a>                              <span class="at">n_top_genes       =</span> <span class="dv">2000</span>)</span>
+<span id="cb7-17"><a></a>scv<span class="sc">$</span>pp<span class="sc">$</span><span class="fu">moments</span>(ldata, <span class="at">n_pcs =</span> <span class="dv">30</span>, <span class="at">n_neighbors =</span> <span class="dv">30</span>)</span>
+<span id="cb7-18"><a></a></span>
+<span id="cb7-19"><a></a><span class="co"># Estimate RNA velocity</span></span>
+<span id="cb7-20"><a></a>scv<span class="sc">$</span>tl<span class="sc">$</span><span class="fu">velocity</span>(ldata, <span class="at">mode =</span> <span class="st">"stochastic"</span>)</span>
+<span id="cb7-21"><a></a>scv<span class="sc">$</span>tl<span class="sc">$</span><span class="fu">velocity_graph</span>(ldata)</span>
+<span id="cb7-22"><a></a></span>
+<span id="cb7-23"><a></a><span class="co"># Plot</span></span>
+<span id="cb7-24"><a></a>scv<span class="sc">$</span>pl<span class="sc">$</span><span class="fu">velocity_embedding_stream</span>(</span>
+<span id="cb7-25"><a></a>  ldata, <span class="at">basis =</span> <span class="st">"umap"</span>,</span>
+<span id="cb7-26"><a></a>  <span class="at">color         =</span> <span class="st">"cell_type"</span>,</span>
+<span id="cb7-27"><a></a>  <span class="at">title         =</span> <span class="st">"RNA Velocity"</span></span>
+<span id="cb7-28"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="interpreting-velocity-plots" class="slide level2">
+<h2>Interpreting Velocity Plots</h2>
+<p>What to look for:</p>
+<ul>
+<li class="fragment"><strong>Arrows pointing toward a cluster</strong> → that cluster is a terminal state (attractor)</li>
+<li class="fragment"><strong>Arrows pointing away from a cluster</strong> → that cluster is a progenitor</li>
+<li class="fragment"><strong>Circular arrows</strong> → cycling cells (proliferating)</li>
+<li class="fragment"><strong>Scattered / no arrows</strong> → cells in a stable state or not enough signal</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Caveat</strong></p>
+</div>
+<div class="callout-content">
+<p>RNA velocity requires <strong>unspliced</strong> count information (velocyto loom files).<br>
+Not all public datasets provide this.<br>
+When not available: use Monocle3 pseudotime as the alternative.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="cellcell-communication" class="title-slide slide level1 center" data-background-color="#0F6E56">
+<h1>Cell–Cell Communication</h1>
+
+</section>
+<section id="cells-dont-work-alone" class="slide level2">
+<h2>Cells Don’t Work Alone</h2>
+<ul>
+<li class="fragment"><strong>Cytokines</strong> — IL-6, TNF-α, IFN-γ → paracrine signaling</li>
+<li class="fragment"><strong>Growth factors</strong> — EGF, VEGF, FGF → receptor–ligand pairs</li>
+<li class="fragment"><strong>Extracellular matrix</strong> — integrins, collagen → structural signals</li>
+<li class="fragment"><strong>Direct contact</strong> — Notch–Jagged, E-cadherin</li>
+</ul>
+<div class="fragment">
+<p>scRNA-seq lets us infer these interactions from expression data:</p>
+<blockquote>
+<p>If cell type A expresses <strong>ligand X</strong> and cell type B expresses <strong>receptor Y</strong>,<br>
+and X–Y is a known signaling pair,<br>
+→ infer that A is signaling to B via X–Y.</p>
+</blockquote>
+</div>
+</section>
+<section id="cellchat-workflow" class="slide level2">
+<h2>CellChat Workflow</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">library</span>(CellChat)</span>
+<span id="cb8-2"><a></a><span class="fu">library</span>(Seurat)</span>
+<span id="cb8-3"><a></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb8-4"><a></a><span class="fu">library</span>(here)</span>
+<span id="cb8-5"><a></a></span>
+<span id="cb8-6"><a></a>seurat <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed"</span>, <span class="st">"pbmc_annotated.rds"</span>))</span>
+<span id="cb8-7"><a></a></span>
+<span id="cb8-8"><a></a><span class="co"># Create CellChat object</span></span>
+<span id="cb8-9"><a></a>cellchat <span class="ot">&lt;-</span> <span class="fu">createCellChat</span>(</span>
+<span id="cb8-10"><a></a>  <span class="at">object   =</span> seurat,</span>
+<span id="cb8-11"><a></a>  <span class="at">group.by =</span> <span class="st">"cell_type"</span>,</span>
+<span id="cb8-12"><a></a>  <span class="at">assay    =</span> <span class="st">"RNA"</span></span>
+<span id="cb8-13"><a></a>)</span>
+<span id="cb8-14"><a></a></span>
+<span id="cb8-15"><a></a><span class="co"># Use CellChatDB (human)</span></span>
+<span id="cb8-16"><a></a>CellChatDB <span class="ot">&lt;-</span> CellChatDB.human</span>
+<span id="cb8-17"><a></a>cellchat<span class="sc">@</span>DB <span class="ot">&lt;-</span> CellChatDB</span>
+<span id="cb8-18"><a></a></span>
+<span id="cb8-19"><a></a><span class="co"># Subset to signaling genes only</span></span>
+<span id="cb8-20"><a></a>cellchat <span class="ot">&lt;-</span> <span class="fu">subsetData</span>(cellchat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="infer-communication-network" class="slide level2">
+<h2>Infer Communication Network</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="co"># Identify overexpressed ligands and receptors</span></span>
+<span id="cb9-2"><a></a>cellchat <span class="ot">&lt;-</span> <span class="fu">identifyOverExpressedGenes</span>(cellchat)</span>
+<span id="cb9-3"><a></a>cellchat <span class="ot">&lt;-</span> <span class="fu">identifyOverExpressedInteractions</span>(cellchat)</span>
+<span id="cb9-4"><a></a></span>
+<span id="cb9-5"><a></a><span class="co"># Compute communication probability</span></span>
+<span id="cb9-6"><a></a>cellchat <span class="ot">&lt;-</span> <span class="fu">computeCommunProb</span>(cellchat,</span>
+<span id="cb9-7"><a></a>                               <span class="at">type    =</span> <span class="st">"triMean"</span>,</span>
+<span id="cb9-8"><a></a>                               <span class="at">nboot   =</span> <span class="dv">100</span>)</span>
+<span id="cb9-9"><a></a></span>
+<span id="cb9-10"><a></a><span class="co"># Filter out weak interactions (few cells)</span></span>
+<span id="cb9-11"><a></a>cellchat <span class="ot">&lt;-</span> <span class="fu">filterCommunication</span>(cellchat, <span class="at">min.cells =</span> <span class="dv">10</span>)</span>
+<span id="cb9-12"><a></a></span>
+<span id="cb9-13"><a></a><span class="co"># Infer at pathway level</span></span>
+<span id="cb9-14"><a></a>cellchat <span class="ot">&lt;-</span> <span class="fu">computeCommunProbPathway</span>(cellchat)</span>
+<span id="cb9-15"><a></a></span>
+<span id="cb9-16"><a></a><span class="co"># Aggregate network</span></span>
+<span id="cb9-17"><a></a>cellchat <span class="ot">&lt;-</span> <span class="fu">aggregateNet</span>(cellchat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="visualizing-communication" class="slide level2">
+<h2>Visualizing Communication</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="co"># Chord diagram — all interactions between cell types</span></span>
+<span id="cb10-2"><a></a><span class="fu">netVisual_circle</span>(</span>
+<span id="cb10-3"><a></a>  cellchat<span class="sc">@</span>net<span class="sc">$</span>count,</span>
+<span id="cb10-4"><a></a>  <span class="at">vertex.weight =</span> <span class="fu">as.numeric</span>(<span class="fu">table</span>(cellchat<span class="sc">@</span>idents)),</span>
+<span id="cb10-5"><a></a>  <span class="at">weight.scale  =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-6"><a></a>  <span class="at">label.edge    =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb10-7"><a></a>  <span class="at">title.name    =</span> <span class="st">"Number of interactions"</span></span>
+<span id="cb10-8"><a></a>)</span>
+<span id="cb10-9"><a></a></span>
+<span id="cb10-10"><a></a><span class="co"># Top pathways</span></span>
+<span id="cb10-11"><a></a>cellchat<span class="sc">@</span>netP<span class="sc">$</span>pathways</span>
+<span id="cb10-12"><a></a></span>
+<span id="cb10-13"><a></a><span class="co"># Visualize a specific pathway — e.g., MHC-II</span></span>
+<span id="cb10-14"><a></a><span class="fu">netVisual_aggregate</span>(</span>
+<span id="cb10-15"><a></a>  cellchat,</span>
+<span id="cb10-16"><a></a>  <span class="at">signaling       =</span> <span class="st">"MHC-II"</span>,</span>
+<span id="cb10-17"><a></a>  <span class="at">layout          =</span> <span class="st">"chord"</span>,</span>
+<span id="cb10-18"><a></a>  <span class="at">vertex.receiver =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)   <span class="co"># T cell clusters</span></span>
+<span id="cb10-19"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="comparing-cellchat-disease-vs.-control" class="slide level2">
+<h2>Comparing CellChat — Disease vs.&nbsp;Control</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="co"># Load two CellChat objects (disease vs. control)</span></span>
+<span id="cb11-2"><a></a>cc_disease <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed"</span>, <span class="st">"cellchat_disease.rds"</span>))</span>
+<span id="cb11-3"><a></a>cc_control <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed"</span>, <span class="st">"cellchat_control.rds"</span>))</span>
+<span id="cb11-4"><a></a></span>
+<span id="cb11-5"><a></a><span class="co"># Merge for comparison</span></span>
+<span id="cb11-6"><a></a>cc_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Control =</span> cc_control, <span class="at">Disease =</span> cc_disease)</span>
+<span id="cb11-7"><a></a>cc_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(cc_list, netAnalysis_computeCentrality)</span>
+<span id="cb11-8"><a></a></span>
+<span id="cb11-9"><a></a><span class="co"># Compare number of interactions</span></span>
+<span id="cb11-10"><a></a><span class="fu">compareInteractions</span>(cc_list,</span>
+<span id="cb11-11"><a></a>                    <span class="at">show.legend   =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb11-12"><a></a>                    <span class="at">group         =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb11-13"><a></a>                    <span class="at">measure       =</span> <span class="st">"count"</span>)</span>
+<span id="cb11-14"><a></a></span>
+<span id="cb11-15"><a></a><span class="co"># Differential interactions — gained/lost in disease</span></span>
+<span id="cb11-16"><a></a><span class="fu">netVisual_diffInteraction</span>(cc_list,</span>
+<span id="cb11-17"><a></a>                           <span class="at">weight.scale =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="multi-sample-integration-with-harmony" class="title-slide slide level1 center" data-background-color="#3B6D11">
+<h1>Multi-Sample Integration with Harmony</h1>
+
+</section>
+<section id="the-batch-effect-problem-in-scrna-seq" class="slide level2">
+<h2>The Batch Effect Problem in scRNA-seq</h2>
+<pre><code>Patient A (sample 1) ─┐
+Patient B (sample 2) ─┤ → Cluster by PATIENT, not cell type!
+Patient C (sample 3) ─┘
+(batch effect)</code></pre>
+<div class="fragment">
+<p><strong>Solution — Harmony:</strong> - Integrates multiple samples / batches - Preserves biological variation - Removes technical variation - Fast (minutes, not hours like Seurat integration)</p>
+</div>
+</section>
+<section id="harmony-integration" class="slide level2">
+<h2>Harmony Integration</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">library</span>(harmony)</span>
+<span id="cb13-2"><a></a><span class="fu">library</span>(Seurat)</span>
+<span id="cb13-3"><a></a><span class="fu">library</span>(here)</span>
+<span id="cb13-4"><a></a></span>
+<span id="cb13-5"><a></a><span class="co"># Load multi-sample Seurat object</span></span>
+<span id="cb13-6"><a></a>seurat_multi <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed"</span>,</span>
+<span id="cb13-7"><a></a>                              <span class="st">"multi_sample_seurat.rds"</span>))</span>
+<span id="cb13-8"><a></a></span>
+<span id="cb13-9"><a></a><span class="co"># Before Harmony — PCA colored by sample</span></span>
+<span id="cb13-10"><a></a><span class="fu">DimPlot</span>(seurat_multi, <span class="at">group.by =</span> <span class="st">"sample_id"</span>,</span>
+<span id="cb13-11"><a></a>        <span class="at">reduction =</span> <span class="st">"pca"</span>) <span class="sc">+</span></span>
+<span id="cb13-12"><a></a>  <span class="fu">ggtitle</span>(<span class="st">"Before integration — colored by sample"</span>)</span>
+<span id="cb13-13"><a></a></span>
+<span id="cb13-14"><a></a><span class="co"># Run Harmony</span></span>
+<span id="cb13-15"><a></a>seurat_multi <span class="ot">&lt;-</span> <span class="fu">RunHarmony</span>(</span>
+<span id="cb13-16"><a></a>  seurat_multi,</span>
+<span id="cb13-17"><a></a>  <span class="at">group.by.vars   =</span> <span class="st">"sample_id"</span>,</span>
+<span id="cb13-18"><a></a>  <span class="at">reduction       =</span> <span class="st">"pca"</span>,</span>
+<span id="cb13-19"><a></a>  <span class="at">reduction.save  =</span> <span class="st">"harmony"</span>,</span>
+<span id="cb13-20"><a></a>  <span class="at">verbose         =</span> <span class="cn">FALSE</span></span>
+<span id="cb13-21"><a></a>)</span>
+<span id="cb13-22"><a></a></span>
+<span id="cb13-23"><a></a><span class="co"># Use Harmony embeddings for downstream analysis</span></span>
+<span id="cb13-24"><a></a>seurat_multi <span class="ot">&lt;-</span> seurat_multi <span class="sc">|&gt;</span></span>
+<span id="cb13-25"><a></a>  <span class="fu">RunUMAP</span>(<span class="at">reduction =</span> <span class="st">"harmony"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-26"><a></a>  <span class="fu">FindNeighbors</span>(<span class="at">reduction =</span> <span class="st">"harmony"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-27"><a></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.5</span>)</span>
+<span id="cb13-28"><a></a></span>
+<span id="cb13-29"><a></a><span class="co"># After Harmony — cells should mix by biology, not sample</span></span>
+<span id="cb13-30"><a></a><span class="fu">DimPlot</span>(seurat_multi, <span class="at">group.by =</span> <span class="st">"sample_id"</span>) <span class="sc">+</span></span>
+<span id="cb13-31"><a></a>  <span class="fu">ggtitle</span>(<span class="st">"After Harmony — samples integrated"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="hands-on" class="title-slide slide level1 center" data-background-color="#BA7517">
+<h1>Hands-On</h1>
+
+</section>
+<section id="dataset-hematopoiesis-bioc" class="slide level2">
+<h2>Dataset: Hematopoiesis (BioC)</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">library</span>(Seurat)</span>
+<span id="cb14-2"><a></a><span class="fu">library</span>(monocle3)</span>
+<span id="cb14-3"><a></a><span class="fu">library</span>(SeuratWrappers)</span>
+<span id="cb14-4"><a></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb14-5"><a></a><span class="fu">library</span>(here)</span>
+<span id="cb14-6"><a></a></span>
+<span id="cb14-7"><a></a><span class="co"># Kleinberg et al. — human hematopoiesis</span></span>
+<span id="cb14-8"><a></a><span class="co"># HSC → progenitors → differentiated blood cells</span></span>
+<span id="cb14-9"><a></a><span class="co"># Perfect for trajectory analysis</span></span>
+<span id="cb14-10"><a></a></span>
+<span id="cb14-11"><a></a><span class="fu">library</span>(scRNAseq)</span>
+<span id="cb14-12"><a></a>sce_hsc <span class="ot">&lt;-</span> <span class="fu">KleinIESCData</span>(<span class="at">which =</span> <span class="st">"2i"</span>)</span>
+<span id="cb14-13"><a></a></span>
+<span id="cb14-14"><a></a><span class="co"># Convert to Seurat</span></span>
+<span id="cb14-15"><a></a>seurat_hsc <span class="ot">&lt;-</span> <span class="fu">as.Seurat</span>(sce_hsc)</span>
+<span id="cb14-16"><a></a></span>
+<span id="cb14-17"><a></a><span class="co"># Standard pipeline (abbreviated)</span></span>
+<span id="cb14-18"><a></a>seurat_hsc <span class="ot">&lt;-</span> <span class="fu">NormalizeData</span>(seurat_hsc) <span class="sc">|&gt;</span></span>
+<span id="cb14-19"><a></a>  <span class="fu">FindVariableFeatures</span>() <span class="sc">|&gt;</span></span>
+<span id="cb14-20"><a></a>  <span class="fu">ScaleData</span>() <span class="sc">|&gt;</span></span>
+<span id="cb14-21"><a></a>  <span class="fu">RunPCA</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-22"><a></a>  <span class="fu">FindNeighbors</span>(<span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-23"><a></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-24"><a></a>  <span class="fu">RunUMAP</span>(<span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="hands-on-trajectory" class="slide level2">
+<h2>Hands-On: Trajectory</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="co"># Convert to CellDataSet</span></span>
+<span id="cb15-2"><a></a>cds <span class="ot">&lt;-</span> <span class="fu">as.cell_data_set</span>(seurat_hsc)</span>
+<span id="cb15-3"><a></a>cds <span class="ot">&lt;-</span> <span class="fu">cluster_cells</span>(cds)</span>
+<span id="cb15-4"><a></a>cds <span class="ot">&lt;-</span> <span class="fu">learn_graph</span>(cds, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-5"><a></a></span>
+<span id="cb15-6"><a></a><span class="co"># Set root — HSC cluster (CD34+, highest expression)</span></span>
+<span id="cb15-7"><a></a>root_idx <span class="ot">&lt;-</span> <span class="fu">which.max</span>(</span>
+<span id="cb15-8"><a></a>  <span class="fu">rowMeans</span>(<span class="fu">t</span>(<span class="fu">assay</span>(cds, <span class="st">"logcounts"</span>)[<span class="fu">c</span>(<span class="st">"Cd34"</span>, <span class="st">"Slamf1"</span>), ]))</span>
+<span id="cb15-9"><a></a>)</span>
+<span id="cb15-10"><a></a></span>
+<span id="cb15-11"><a></a>cds <span class="ot">&lt;-</span> <span class="fu">order_cells</span>(cds,</span>
+<span id="cb15-12"><a></a>                   <span class="at">root_cells =</span> <span class="fu">colnames</span>(cds)[root_idx])</span>
+<span id="cb15-13"><a></a></span>
+<span id="cb15-14"><a></a><span class="fu">plot_cells</span>(cds,</span>
+<span id="cb15-15"><a></a>           <span class="at">color_cells_by =</span> <span class="st">"pseudotime"</span>,</span>
+<span id="cb15-16"><a></a>           <span class="at">label_branch_points =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb15-17"><a></a>           <span class="at">label_leaves =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb15-18"><a></a>           <span class="at">trajectory_graph_color =</span> <span class="st">"grey40"</span>) <span class="sc">+</span></span>
+<span id="cb15-19"><a></a>  <span class="fu">ggtitle</span>(<span class="st">"Hematopoiesis trajectory — pseudotime"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="hands-on-cellchat-on-pbmc" class="slide level2">
+<h2>Hands-On: CellChat on PBMC</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">library</span>(CellChat)</span>
+<span id="cb16-2"><a></a></span>
+<span id="cb16-3"><a></a>pbmc <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"processed"</span>, <span class="st">"pbmc_annotated.rds"</span>))</span>
+<span id="cb16-4"><a></a></span>
+<span id="cb16-5"><a></a><span class="co"># Quick CellChat</span></span>
+<span id="cb16-6"><a></a>cc <span class="ot">&lt;-</span> <span class="fu">createCellChat</span>(pbmc, <span class="at">group.by =</span> <span class="st">"cell_type"</span>, <span class="at">assay =</span> <span class="st">"RNA"</span>)</span>
+<span id="cb16-7"><a></a>cc<span class="sc">@</span>DB <span class="ot">&lt;-</span> CellChatDB.human</span>
+<span id="cb16-8"><a></a></span>
+<span id="cb16-9"><a></a>cc <span class="ot">&lt;-</span> <span class="fu">subsetData</span>(cc) <span class="sc">|&gt;</span></span>
+<span id="cb16-10"><a></a>  <span class="fu">identifyOverExpressedGenes</span>() <span class="sc">|&gt;</span></span>
+<span id="cb16-11"><a></a>  <span class="fu">identifyOverExpressedInteractions</span>() <span class="sc">|&gt;</span></span>
+<span id="cb16-12"><a></a>  <span class="fu">computeCommunProb</span>(<span class="at">nboot =</span> <span class="dv">20</span>) <span class="sc">|&gt;</span>   <span class="co"># low nboot for speed</span></span>
+<span id="cb16-13"><a></a>  <span class="fu">filterCommunication</span>(<span class="at">min.cells =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-14"><a></a>  <span class="fu">computeCommunProbPathway</span>() <span class="sc">|&gt;</span></span>
+<span id="cb16-15"><a></a>  <span class="fu">aggregateNet</span>()</span>
+<span id="cb16-16"><a></a></span>
+<span id="cb16-17"><a></a><span class="co"># How many interactions between each cell type pair?</span></span>
+<span id="cb16-18"><a></a>groupSize <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">table</span>(cc<span class="sc">@</span>idents))</span>
+<span id="cb16-19"><a></a><span class="fu">netVisual_circle</span>(cc<span class="sc">@</span>net<span class="sc">$</span>count,</span>
+<span id="cb16-20"><a></a>                  <span class="at">vertex.weight =</span> groupSize,</span>
+<span id="cb16-21"><a></a>                  <span class="at">weight.scale  =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb16-22"><a></a>                  <span class="at">title.name    =</span> <span class="st">"PBMC — interaction count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="next-week" class="title-slide slide level1 center" data-background-color="#534AB7">
+<h1>Next Week</h1>
+
+</section>
+<section id="w10-preview-spatial-transcriptomics" class="slide level2">
+<h2>W10 Preview — Spatial Transcriptomics</h2>
+<p><strong>What we’ll cover:</strong></p>
+<ul>
+<li>Visium, Xenium, CosMx — platform overview</li>
+<li>Seurat spatial pipeline</li>
+<li>Spatially variable genes (NNSVG)</li>
+<li>Cell type deconvolution (STdeconvolve)</li>
+<li>Integration with scRNA-seq reference</li>
+</ul>
+<p><strong>Install before next class:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"Seurat"</span>, <span class="st">"STdeconvolve"</span>))</span>
+<span id="cb17-2"><a></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"NNSVG"</span>)</span>
+<span id="cb17-3"><a></a><span class="fu">install.packages</span>(<span class="st">"SpatialDE"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="key-resources" class="slide level2">
+<h2>Key Resources</h2>
+<ul>
+<li><strong>Monocle3</strong> — <a href="https://cole-trapnell-lab.github.io/monocle3">cole-trapnell-lab.github.io/monocle3</a></li>
+<li><strong>CellChat</strong> — <a href="https://github.com/sqjin/CellChat">github.com/sqjin/CellChat</a></li>
+<li><strong>Harmony</strong> — <a href="https://github.com/immunogenomics/harmony">github.com/immunogenomics/harmony</a></li>
+<li><strong>scVelo</strong> — <a href="https://scvelo.readthedocs.io">scvelo.readthedocs.io</a></li>
+<li><strong>CELLxGENE</strong> — <a href="https://cellxgene.cziscience.com">cellxgene.cziscience.com</a> — public scRNA-seq datasets</li>
+</ul>
+</section>
+<section id="questions" class="slide level2" data-background-color="#1D9E75">
+<h2>Questions?</h2>
+<div class="center">
+<p>Next week: <strong>Spatial Transcriptomics</strong></p>
+<p>Course materials → [your GitHub Pages URL here]</p>
+</div>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>Advanced Bioinformatics | W9 — Trajectory &amp; CCC</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

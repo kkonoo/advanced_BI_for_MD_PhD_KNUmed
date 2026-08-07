@@ -1,73 +1,83 @@
 project:
   type: website
   execute-dir: project
- 
+  # output-dir: _site
+
+
 website:
+  title: "advanced BI"          # ← 변경
+  description: "융합형 의사과학자 양성 사업"           # ← 변경
   navbar:
     logo: images/logo.jpg
+    favicon: assets/img/logo.ico
     left:
       - href: index.qmd
         text: Home
-      - href: part1/w1_intro_r_environment.qmd
-        text: 1. Intro
-      - href: part2/w2_gwas.qmd
-        text: 2. Clinical Genomics & Risk Prediction
-      - href: part3/w4_epigenomics_methylation.qmd
-        text: 3. High-Resolution Omics
-      - href: part4/w11_multiomics.qmd
-        text: 4. Multi-omics & Target Discovery
-      - href: part5/w13_visualization.qmd
-        text: 5. Capstone
+    right:
+      - icon: github
+        href: https://github.com/kkonoo/advanced_BI_for_MD_PhD_KNUmed/
 
   sidebar:
-    style: docked
+    style: "floating"
+    search: true
     contents:
-      - section: "1. R env"
-        contents: "part1/*.qmd"
+      - text: "Home"
+        href: index.qmd
+      - section: "1. Intro"
+        contents:
+          - chapters/part1/w1_intro.qmd
       - section: "2. Genomics"
-        contents: "part2/*.qmd"
+        contents:
+          - chapters/part2/w2_gwas.qmd
       - section: "3. Omics"
-        contents: "part3/*.qmd"
+        contents:
+          - chapters/part3/w4_epigenomics_methylation.qmd
       - section: "4. Multi-Omics"
-        contents: "part4/*.qmd"
+        contents:
+          - chapters/part4/w11_multiomics.qmd
       - section: "5. Capstone"
-        contents: "part5/*.qmd"
+        contents:
+          - chapters/part5/w13_visualization.qmd
 
   page-footer:
     left: "Copyright 2026, Eunji"
- 
+
+
 format:
-  html: 
-    theme: cosmo
-    css: custom.css
+  html:
+    theme:
+      light: cosmo
+    css: assets/html.css
     toc: true
-    toc-location: right
+    toc-depth: 4
+    toc-title: "Contents"
+    toc-float: true
     page-layout: full
- 
+
+    code-fold: false  
+    code-copy: true
+    highlight-style: github 
+
+    number-sections: false
+    smooth-scroll: true
+
+    grid:                       
+      sidebar-width: 300px
+      body-width: 1000px
+      margin-width: 280px # toc
+
+    # AI 채팅 위젯 전역 설정
+    include-after-body: assets/ai-chat-init.html
+
+  revealjs:
+    css: assets/revealjs.css    # 슬라이드용
+    scrollable: true
+
+
 execute:
-  freeze: auto
+  freeze: auto          # 코드 실행 결과 캐시 (빠른 빌드)
+  echo: true
+  eval: false
   warning: false
   message: false
-  
-    # right:
-    #   - text: "EN"
-    #     href: en/index.qmd
-    #   - text: "KO"
-    #     href: ko/index.qmd
 
-  # sidebar:
-    #   contents: auto
-    # style: docked
-  #     background: dark
-    # pdf:
-    # mainfont: "KoPubWorldDotum"
-    # mainfontoptions:
-    #   - Path=C:/Windows/Fonts/
-    #   - Extension=.ttf
-    #   - UprightFont=KoPubWorld Dotum Medium
-    #   - BoldFont=KoPubWorld Dotum Bold
-    # pdf-engine: xelatex
-    # include-in-header:
-    #   text: |
-    #     \usepackage{emoji}
-    #     \setemojifont{Segoe UI Emoji}

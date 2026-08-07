@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eunji Ha">
+<meta name="dcterms.date" content="2026-06-02">
+
+<title>W2 — GWAS &amp; Post-GWAS – advanced BI</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../../assets/html.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/logo.jpg" alt="" class="navbar-logo light-content">
+    <img src="../../images/logo.jpg" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">advanced BI</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/kkonoo/advanced_BI_for_MD_PhD_KNUmed/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part2/w2_gwas.html">2. Genomics</a></li><li class="breadcrumb-item"><a href="../../chapters/part2/w2_gwas.html">W2 — GWAS &amp; Post-GWAS</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">1. Intro</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part1/w1_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W1. Advanced BI</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">2. Genomics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part2/w2_gwas.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">W2 — GWAS &amp; Post-GWAS</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">3. Omics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part3/w4_epigenomics_methylation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Epigenomics I: DNA Methylation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">4. Multi-Omics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part4/w11_multiomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multi-omics Integration &amp; GWAS Gene Prioritization</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">5. Capstone</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part5/w13_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Interpretation &amp; Visualization</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#why-gwas-belongs-in-this-course" id="toc-why-gwas-belongs-in-this-course" class="nav-link active" data-scroll-target="#why-gwas-belongs-in-this-course">Why GWAS belongs in this course</a>
+  <ul>
+  <li><a href="#gwas-is-directly-clinical" id="toc-gwas-is-directly-clinical" class="nav-link" data-scroll-target="#gwas-is-directly-clinical">GWAS is directly clinical</a></li>
+  <li><a href="#what-a-gwas-actually-asks" id="toc-what-a-gwas-actually-asks" class="nav-link" data-scroll-target="#what-a-gwas-actually-asks">What a GWAS actually asks</a></li>
+  </ul></li>
+  <li><a href="#sec-architecture" id="toc-sec-architecture" class="nav-link" data-scroll-target="#sec-architecture">Genetic architecture: the shape of the signal</a>
+  <ul>
+  <li><a href="#know-your-trait-before-you-run-anything" id="toc-know-your-trait-before-you-run-anything" class="nav-link" data-scroll-target="#know-your-trait-before-you-run-anything">Know your trait before you run anything</a></li>
+  <li><a href="#allele-frequency-effect-size" id="toc-allele-frequency-effect-size" class="nav-link" data-scroll-target="#allele-frequency-effect-size">Allele frequency × effect size</a></li>
+  </ul></li>
+  <li><a href="#sec-design" id="toc-sec-design" class="nav-link" data-scroll-target="#sec-design">Study design &amp; QC</a>
+  <ul>
+  <li><a href="#gwas-study-design" id="toc-gwas-study-design" class="nav-link" data-scroll-target="#gwas-study-design">GWAS study design</a></li>
+  <li><a href="#quality-control" id="toc-quality-control" class="nav-link" data-scroll-target="#quality-control">Quality control</a></li>
+  <li><a href="#population-stratification" id="toc-population-stratification" class="nav-link" data-scroll-target="#population-stratification">Population stratification</a></li>
+  </ul></li>
+  <li><a href="#sec-reading" id="toc-sec-reading" class="nav-link" data-scroll-target="#sec-reading">Reading GWAS results</a>
+  <ul>
+  <li><a href="#the-manhattan-plot" id="toc-the-manhattan-plot" class="nav-link" data-scroll-target="#the-manhattan-plot">The Manhattan plot</a></li>
+  <li><a href="#why-the-threshold-is-510⁸" id="toc-why-the-threshold-is-510⁸" class="nav-link" data-scroll-target="#why-the-threshold-is-510⁸">Why the threshold is 5×10⁻⁸</a></li>
+  <li><a href="#qq-plot-genomic-inflation-λ" id="toc-qq-plot-genomic-inflation-λ" class="nav-link" data-scroll-target="#qq-plot-genomic-inflation-λ">QQ plot &amp; genomic inflation (λ)</a></li>
+  </ul></li>
+  <li><a href="#sec-beyond" id="toc-sec-beyond" class="nav-link" data-scroll-target="#sec-beyond">Beyond SNPs</a>
+  <ul>
+  <li><a href="#variation-that-arrays-miss" id="toc-variation-that-arrays-miss" class="nav-link" data-scroll-target="#variation-that-arrays-miss">Variation that arrays miss</a></li>
+  <li><a href="#two-examples-worth-remembering" id="toc-two-examples-worth-remembering" class="nav-link" data-scroll-target="#two-examples-worth-remembering">Two examples worth remembering</a></li>
+  </ul></li>
+  <li><a href="#sec-postgwas" id="toc-sec-postgwas" class="nav-link" data-scroll-target="#sec-postgwas">Post-GWAS: from hit to biology</a>
+  <ul>
+  <li><a href="#a-hit-is-rarely-the-cause" id="toc-a-hit-is-rarely-the-cause" class="nav-link" data-scroll-target="#a-hit-is-rarely-the-cause">A hit is rarely the cause</a></li>
+  <li><a href="#step-0-linkage-disequilibrium" id="toc-step-0-linkage-disequilibrium" class="nav-link" data-scroll-target="#step-0-linkage-disequilibrium">Step 0 — Linkage disequilibrium</a></li>
+  <li><a href="#sec-finemap" id="toc-sec-finemap" class="nav-link" data-scroll-target="#sec-finemap">Step 1 — Fine-mapping</a></li>
+  <li><a href="#what-controls-fine-mapping-resolution" id="toc-what-controls-fine-mapping-resolution" class="nav-link" data-scroll-target="#what-controls-fine-mapping-resolution">What controls fine-mapping resolution</a></li>
+  <li><a href="#step-2-functional-annotation" id="toc-step-2-functional-annotation" class="nav-link" data-scroll-target="#step-2-functional-annotation">Step 2 — Functional annotation</a></li>
+  <li><a href="#sec-var2gene" id="toc-sec-var2gene" class="nav-link" data-scroll-target="#sec-var2gene">Step 3 — Variant → gene: colocalization</a></li>
+  <li><a href="#step-3-cont.-which-cell-type" id="toc-step-3-cont.-which-cell-type" class="nav-link" data-scroll-target="#step-3-cont.-which-cell-type">Step 3 (cont.) — which cell type?</a></li>
+  <li><a href="#step-4-mendelian-randomization" id="toc-step-4-mendelian-randomization" class="nav-link" data-scroll-target="#step-4-mendelian-randomization">Step 4 — Mendelian randomization</a></li>
+  </ul></li>
+  <li><a href="#sec-drugs" id="toc-sec-drugs" class="nav-link" data-scroll-target="#sec-drugs">GWAS for drug repurposing</a>
+  <ul>
+  <li><a href="#existing-drugs-sit-on-gwas-signals" id="toc-existing-drugs-sit-on-gwas-signals" class="nav-link" data-scroll-target="#existing-drugs-sit-on-gwas-signals">Existing drugs sit on GWAS signals</a></li>
+  <li><a href="#three-genetic-strategies-for-repurposing" id="toc-three-genetic-strategies-for-repurposing" class="nav-link" data-scroll-target="#three-genetic-strategies-for-repurposing">Three genetic strategies for repurposing</a></li>
+  </ul></li>
+  <li><a href="#sec-phewas" id="toc-sec-phewas" class="nav-link" data-scroll-target="#sec-phewas">PheWAS: flip the question</a>
+  <ul>
+  <li><a href="#one-variant-many-phenotypes" id="toc-one-variant-many-phenotypes" class="nav-link" data-scroll-target="#one-variant-many-phenotypes">One variant, many phenotypes</a></li>
+  </ul></li>
+  <li><a href="#sec-diversity" id="toc-sec-diversity" class="nav-link" data-scroll-target="#sec-diversity">Diversity: one ancestry is not enough</a>
+  <ul>
+  <li><a href="#why-diverse-cohorts-matter" id="toc-why-diverse-cohorts-matter" class="nav-link" data-scroll-target="#why-diverse-cohorts-matter">Why diverse cohorts matter</a></li>
+  </ul></li>
+  <li><a href="#sec-hands" id="toc-sec-hands" class="nav-link" data-scroll-target="#sec-hands">Hands-on</a>
+  <ul>
+  <li><a href="#dataset-t2d-summary-statistics" id="toc-dataset-t2d-summary-statistics" class="nav-link" data-scroll-target="#dataset-t2d-summary-statistics">Dataset: T2D summary statistics</a></li>
+  <li><a href="#step-1-qc-on-summary-stats" id="toc-step-1-qc-on-summary-stats" class="nav-link" data-scroll-target="#step-1-qc-on-summary-stats">Step 1 — QC on summary stats</a></li>
+  <li><a href="#step-2-qq-plot-λ" id="toc-step-2-qq-plot-λ" class="nav-link" data-scroll-target="#step-2-qq-plot-λ">Step 2 — QQ plot &amp; λ</a></li>
+  <li><a href="#step-3-manhattan-plot" id="toc-step-3-manhattan-plot" class="nav-link" data-scroll-target="#step-3-manhattan-plot">Step 3 — Manhattan plot</a></li>
+  <li><a href="#step-4-annotate-top-hits" id="toc-step-4-annotate-top-hits" class="nav-link" data-scroll-target="#step-4-annotate-top-hits">Step 4 — Annotate top hits</a></li>
+  <li><a href="#step-5-regional-locus-zoom-plot" id="toc-step-5-regional-locus-zoom-plot" class="nav-link" data-scroll-target="#step-5-regional-locus-zoom-plot">Step 5 — Regional (locus-zoom) plot</a></li>
+  <li><a href="#interrogating-any-locus" id="toc-interrogating-any-locus" class="nav-link" data-scroll-target="#interrogating-any-locus">Interrogating any locus</a></li>
+  </ul></li>
+  <li><a href="#wrap-up" id="toc-wrap-up" class="nav-link" data-scroll-target="#wrap-up">Wrap-up</a>
+  <ul>
+  <li><a href="#what-gwas-cannot-tell-you" id="toc-what-gwas-cannot-tell-you" class="nav-link" data-scroll-target="#what-gwas-cannot-tell-you">What GWAS cannot tell you</a></li>
+  <li><a href="#where-this-connects" id="toc-where-this-connects" class="nav-link" data-scroll-target="#where-this-connects">Where this connects</a></li>
+  <li><a href="#next-week-prs-w3" id="toc-next-week-prs-w3" class="nav-link" data-scroll-target="#next-week-prs-w3">Next week — PRS (W3)</a></li>
+  <li><a href="#key-resources" id="toc-key-resources" class="nav-link" data-scroll-target="#key-resources">Key resources</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions"><span style="color:#ffffff">Questions?</span></a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part2/w2_gwas.html">2. Genomics</a></li><li class="breadcrumb-item"><a href="../../chapters/part2/w2_gwas.html">W2 — GWAS &amp; Post-GWAS</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">W2 — GWAS &amp; Post-GWAS</h1>
+<p class="subtitle lead">Clinical Genomics for Bioinformatics</p>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eunji Ha </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 2, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="why-gwas-belongs-in-this-course" class="level1" data-background-color="#1D9E75">
+<h1 data-background-color="#1D9E75">Why GWAS belongs in this course</h1>
+<hr>
+<section id="gwas-is-directly-clinical" class="level2">
+<h2 class="anchored" data-anchor-id="gwas-is-directly-clinical">GWAS is directly clinical</h2>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Drug target validation</strong> — targets with human genetic support are ~2× more likely to succeed to approval <em>[Reay &amp; Cairns 2021]</em></li>
+<li><strong>Disease subtyping</strong> — same diagnosis, different genetic architecture → different biology &amp; treatment</li>
+<li><strong>Risk stratification</strong> — polygenic risk scores in preventive medicine (W3)</li>
+<li><strong>Shared aetiology</strong> — genetic correlation quantifies overlap between diseases</li>
+<li><strong>Causal inference</strong> — Mendelian randomization tests causality without an RCT</li>
+</ul>
+</div>
+<div class="fragment">
+<p>▶️ Open a recent <em>Nature Medicine</em> paper — there’s a good chance GWAS data sits underneath the clinical claim.</p>
+</div>
+<hr>
+</section>
+<section id="what-a-gwas-actually-asks" class="level2">
+<h2 class="anchored" data-anchor-id="what-a-gwas-actually-asks">What a GWAS actually asks</h2>
+<div class="fragment">
+<p><strong>“Which genetic variants are more common in people with disease X than in matched people without it?”</strong></p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>Compares allele frequencies at <strong>millions of variants</strong> at once</li>
+<li><strong>Hypothesis-free</strong> — agnostic to which gene matters</li>
+<li>Output is a list of associated <strong>loci</strong>, not causal <strong>genes</strong> (yet)</li>
+</ul>
+</div>
+<dl>
+<dt>SNP (single-nucleotide polymorphism)</dt>
+<dd>
+<p>a single base-pair position where two or more alleles occur commonly (MAF ≥1%).</p>
+<p>Humans carry ~10 million common SNPs; arrays measure 0.5–5M directly and <strong>impute</strong> the rest.</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="sec-architecture" class="level1" data-background-color="#534AB7">
+<h1 data-background-color="#534AB7">Genetic architecture: the shape of the signal</h1>
+<hr>
+<section id="know-your-trait-before-you-run-anything" class="level2">
+<h2 class="anchored" data-anchor-id="know-your-trait-before-you-run-anything">Know your trait before you run anything</h2>
+<p><strong>Genetic architecture</strong> = the landscape of genetic contributions: <em>how many</em> variants, <em>how large</em> their effects, <em>how frequent</em> they are, and how they interact <em>[Timpson 2017]</em>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Architecture</th>
+<th>Variants</th>
+<th>Example</th>
+<th>Tools</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Monogenic</strong></td>
+<td>one</td>
+<td>phenylketonuria, CF (<em>CFTR</em>)</td>
+<td>family, WES/WGS</td>
+</tr>
+<tr class="even">
+<td><strong>Oligogenic</strong></td>
+<td>few</td>
+<td>some lipid traits</td>
+<td>targeted seq</td>
+</tr>
+<tr class="odd">
+<td><strong>Polygenic</strong></td>
+<td>many, small</td>
+<td>height, T2D</td>
+<td>large GWAS</td>
+</tr>
+<tr class="even">
+<td><strong>Omnigenic</strong></td>
+<td>~all expressed genes</td>
+<td>most complex traits</td>
+<td>huge GWAS + networks</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>The <strong>omnigenic model</strong>: regulatory networks are so interconnected that nearly every expressed gene exerts a tiny “peripheral” effect, funnelled through fewer “core” genes — this is <em>why</em> PRS (W3) works.</p>
+</div>
+<hr>
+</section>
+<section id="allele-frequency-effect-size" class="level2">
+<h2 class="anchored" data-anchor-id="allele-frequency-effect-size">Allele frequency × effect size</h2>
+<p>Common variants tend to have <strong>small</strong> effects; large-effect variants tend to be <strong>rare</strong> (purifying selection removes common, large-effect, deleterious variants) <em>[Timpson 2017]</em>.</p>
+<pre><code> effect │ rare, large effect
+  size  │  •           (Mendelian-like)
+        │     • •
+        │        • • •
+        │             • • • • •   common, small effect
+        │                       • • • • •  (typical GWAS hits)
+        └──────────────────────────────────── MAF</code></pre>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Sample size is destiny</strong> — schizophrenia: ~0 hits at <em>n</em>≈hundreds, <strong>113 loci</strong> at <em>n</em> in tens of thousands</li>
+<li><strong>Effect size ≠ druggability</strong> — common <em>HMGCR</em> SNP explains ~0.26% of LDL variance, yet statins are transformative</li>
+</ul>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Architecture can’t be predicted from heritability alone. Choose your study design <em>after</em> you understand the likely architecture.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-design" class="level1" data-background-color="#185FA5">
+<h1 data-background-color="#185FA5">Study design &amp; QC</h1>
+<hr>
+<section id="gwas-study-design" class="level2">
+<h2 class="anchored" data-anchor-id="gwas-study-design">GWAS study design</h2>
+<pre><code>Participants
+├── Cases    (n ≥ 5,000)    patients with the disease
+└── Controls (n ≥ 10,000)   ancestry-matched, disease-free
+          ↓
+Genotyping array  →  imputation to a reference panel
+          ↓
+Quality control (samples + variants)
+          ↓
+Per-variant association test (+ covariates)
+          ↓
+Summary statistics → Manhattan / QQ → post-GWAS</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Sample size is everything.</strong> Early GWAS (<em>n</em>≈2,000) found almost nothing; biobank GWAS (<em>n</em>&gt;500K) find hundreds of loci. Most “failed” early studies were just underpowered for a polygenic architecture.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="quality-control" class="level2">
+<h2 class="anchored" data-anchor-id="quality-control">Quality control</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>QC step</th>
+<th>Threshold</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sample call rate</td>
+<td>&gt; 95–98%</td>
+<td>poor DNA / failed samples</td>
+</tr>
+<tr class="even">
+<td>SNP call rate</td>
+<td>&gt; 99%</td>
+<td>unreliable genotyping</td>
+</tr>
+<tr class="odd">
+<td>Hardy–Weinberg eq.</td>
+<td><em>p</em> &gt; 1×10⁻⁶ (controls)</td>
+<td>genotyping error</td>
+</tr>
+<tr class="even">
+<td>Minor allele freq.</td>
+<td>&gt; 1%</td>
+<td>underpowered for rarer variants</td>
+</tr>
+<tr class="odd">
+<td>Heterozygosity</td>
+<td>±3 SD</td>
+<td>contamination / inbreeding</td>
+</tr>
+<tr class="even">
+<td>Relatedness (kinship)</td>
+<td>π̂ &lt; 0.125</td>
+<td>inflated statistics</td>
+</tr>
+<tr class="odd">
+<td>Imputation INFO/R²</td>
+<td>&gt; 0.8</td>
+<td>unreliable dosages</td>
+</tr>
+<tr class="even">
+<td><strong>Stratification</strong></td>
+<td>PCA</td>
+<td><strong>biggest confounder</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="population-stratification" class="level2">
+<h2 class="anchored" data-anchor-id="population-stratification">Population stratification</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>If cases &amp; controls differ in <strong>ancestry</strong>, <em>any</em> ancestry-associated variant looks like a disease hit.</p>
+<p>▶️ <strong>Fix:</strong> PCA on genotypes → include top PCs as covariates so ancestry is absorbed by the model.</p>
+</div><div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(disease <span class="sc">~</span> SNP <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>      PC1 <span class="sc">+</span> PC2 <span class="sc">+</span> PC3 <span class="sc">+</span> PC4 <span class="sc">+</span> PC5 <span class="sc">+</span>  <span class="co"># ancestry</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>      age <span class="sc">+</span> sex <span class="sc">+</span> batch,             <span class="co"># nuisance</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> binomial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Always report ancestry — and its trade-off
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Mixing populations uncorrected → false positives. Restricting to one ancestry → cleaner stats but <strong>limited generalizability</strong> (see <a href="#sec-diversity">Diversity</a>).</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-reading" class="level1" data-background-color="#185FA5">
+<h1 data-background-color="#185FA5">Reading GWAS results</h1>
+<hr>
+<section id="the-manhattan-plot" class="level2">
+<h2 class="anchored" data-anchor-id="the-manhattan-plot">The Manhattan plot</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qqman)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">manhattan</span>(gwas_results,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">chr =</span> <span class="st">"CHR"</span>, <span class="at">bp =</span> <span class="st">"BP"</span>, <span class="at">p =</span> <span class="st">"P"</span>, <span class="at">snp =</span> <span class="st">"SNP"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"#185FA5"</span>, <span class="st">"#1D9E75"</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">suggestiveline =</span> <span class="sc">-</span><span class="fu">log10</span>(<span class="fl">1e-5</span>),   <span class="co"># dashed</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">genomewideline =</span> <span class="sc">-</span><span class="fu">log10</span>(<span class="fl">5e-8</span>),   <span class="co"># solid</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">highlight =</span> lead_snps,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">main =</span> <span class="st">"GWAS — Type 2 Diabetes (n = 150,000)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Each point = a variant; <em>x</em> = position, <em>y</em> = −log₁₀(<em>p</em>). “Skyscrapers” are associated loci.</p>
+<hr>
+</section>
+<section id="why-the-threshold-is-510⁸" class="level2">
+<h2 class="anchored" data-anchor-id="why-the-threshold-is-510⁸">Why the threshold is 5×10⁻⁸</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>~1 million <strong>independent</strong> common-variant tests after LD pruning</li>
+<li>Bonferroni: 0.05 / 1,000,000 = <strong>5×10⁻⁸</strong> → genome-wide significant</li>
+<li><code>p &lt; 1×10⁻⁵</code> → conventional <strong>suggestive</strong> line</li>
+</ul>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is calibrated for <strong>common SNPs</strong>. Rare-variant and structural-variant tests (see <a href="#sec-beyond">Beyond SNPs</a>) need their own thresholds.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="qq-plot-genomic-inflation-λ" class="level2">
+<h2 class="anchored" data-anchor-id="qq-plot-genomic-inflation-λ">QQ plot &amp; genomic inflation (λ)</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qq</span>(gwas_results<span class="sc">$</span>P, <span class="at">main =</span> <span class="st">"QQ — observed vs expected −log10(p)"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>chisq  <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(gwas_results<span class="sc">$</span>P, <span class="at">df =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fu">median</span>(chisq) <span class="sc">/</span> <span class="fu">qchisq</span>(<span class="fl">0.5</span>, <span class="at">df =</span> <span class="dv">1</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Genomic inflation λ ="</span>, <span class="fu">round</span>(lambda, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Well-calibrated</strong>: hug the diagonal, lift off at the tail (true signal)</li>
+<li><strong>Inflated (λ &gt; 1.05)</strong>: all above diagonal → uncorrected stratification / relatedness</li>
+<li><strong>Deflated (λ &lt; 0.95)</strong>: over-conservative QC → lost power</li>
+<li>At very large <em>n</em>, modest λ can be genuine <strong>polygenicity</strong> — LD-score regression separates the two</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="sec-beyond" class="level1" data-background-color="#BA7517">
+<h1 data-background-color="#BA7517">Beyond SNPs</h1>
+<hr>
+<section id="variation-that-arrays-miss" class="level2">
+<h2 class="anchored" data-anchor-id="variation-that-arrays-miss">Variation that arrays miss</h2>
+<p>For some traits, common-SNP GWAS nears <strong>signal saturation</strong> — the next frontier is variation arrays capture poorly <em>[Harris 2025]</em>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variant class</th>
+<th>What it is</th>
+<th>Clinical relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>CNV</strong></td>
+<td>del/dup, kb–Mb</td>
+<td>dosage effects; under-tested</td>
+</tr>
+<tr class="even">
+<td><strong>Structural</strong></td>
+<td>inversions, translocations</td>
+<td>disrupt genes / distal regulation</td>
+</tr>
+<tr class="odd">
+<td><strong>Tandem repeats</strong></td>
+<td>variable repeat counts</td>
+<td>expansions → neuro disorders</td>
+</tr>
+<tr class="even">
+<td><strong>HLA / MHC</strong></td>
+<td>hyper-polymorphic</td>
+<td>dominates autoimmune signals</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="two-examples-worth-remembering" class="level2">
+<h2 class="anchored" data-anchor-id="two-examples-worth-remembering">Two examples worth remembering</h2>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>UGT2B17 deletion → prostate cancer</strong> — alters testosterone metabolism; frequency varies by population → <strong>population-specific risk</strong>, invisible to SNP-only analysis <em>[Harris 2025]</em></li>
+<li><strong>CYP2D6 copy number → drug dosing</strong> — deletions vs duplications shift codeine→morphine conversion (poor vs ultra-rapid metabolizers). <strong>Pharmacogenetics</strong>: the variant changes the right <em>dose</em></li>
+</ul>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Dosage sensitivity &amp; “human knockouts”
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sequencing enables base-pair CNV calling at biobank scale. Aggregating loss-of-function variants (gnomAD <strong>LOEUF</strong>) builds <strong>dosage-sensitivity maps</strong> flagging genes intolerant to disruption — directly useful for clinical variant interpretation.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-postgwas" class="level1" data-background-color="#534AB7">
+<h1 data-background-color="#534AB7">Post-GWAS: from hit to biology</h1>
+<hr>
+<section id="a-hit-is-rarely-the-cause" class="level2">
+<h2 class="anchored" data-anchor-id="a-hit-is-rarely-the-cause">A hit is rarely the cause</h2>
+<p>A GWAS hit is usually a <strong>tag</strong> in LD with the real driver.</p>
+<pre><code>rs1234567  p = 3×10⁻²⁴            ← lead SNP (reported)
+   ├── rs1234568  r² = 0.98
+   ├── rs1234591  r² = 0.95       ← one (or more) is causal
+   └── rs1234612  r² = 0.91
+   (inherited together in a haplotype block)</code></pre>
+<p><strong>Post-GWAS pipeline:</strong> 1) Fine-mapping → 2) Functional annotation → 3) Variant→gene → 4) Causal inference</p>
+<hr>
+</section>
+<section id="step-0-linkage-disequilibrium" class="level2">
+<h2 class="anchored" data-anchor-id="step-0-linkage-disequilibrium">Step 0 — Linkage disequilibrium</h2>
+<p>LD both <strong>enables</strong> GWAS (one tag stands in for many) and <strong>complicates</strong> it (can’t tell tag from cause by <em>p</em> alone).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(LDlinkR)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>ld_matrix <span class="ot">&lt;-</span> <span class="fu">LDmatrix</span>(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">snps  =</span> <span class="fu">c</span>(<span class="st">"rs1234567"</span>, <span class="st">"rs1234568"</span>, <span class="st">"rs1234591"</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pop   =</span> <span class="st">"CEU"</span>,            <span class="co"># 1000 Genomes population</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">r2d   =</span> <span class="st">"r2"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">token =</span> <span class="st">"your_token"</span>      <span class="co"># free at ldlink.nci.nih.gov</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">LDproxy</span>(<span class="at">snp =</span> <span class="st">"rs1234567"</span>, <span class="at">pop =</span> <span class="st">"CEU"</span>, <span class="at">r2d =</span> <span class="st">"r2"</span>, <span class="at">token =</span> <span class="st">"your_token"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The LD reference panel <strong>must match your sample’s ancestry</strong> — a CEU panel on an East Asian cohort corrupts fine-mapping <em>[Schaid 2018]</em>.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="sec-finemap" class="level2">
+<h2 class="anchored" data-anchor-id="sec-finemap">Step 1 — Fine-mapping</h2>
+<p>Modern fine-mapping is <strong>Bayesian</strong>: compute a <strong>posterior inclusion probability (PIP)</strong> per variant, then a <strong>credible set</strong> — the smallest set containing the causal variant(s) with (e.g.) 95% probability <em>[Schaid 2018]</em>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(susieR)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># SuSiE = Sum of Single Effects — allows multiple causal signals</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>susie_fit <span class="ot">&lt;-</span> <span class="fu">susie</span>(<span class="at">X =</span> genotype_matrix, <span class="at">y =</span> phenotype_vector, <span class="at">L =</span> <span class="dv">10</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>cs  <span class="ot">&lt;-</span> <span class="fu">susie_get_cs</span>(susie_fit, <span class="at">coverage =</span> <span class="fl">0.95</span>)  <span class="co"># 95% credible set(s)</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>pip <span class="ot">&lt;-</span> <span class="fu">susie_get_pip</span>(susie_fit)                  <span class="co"># per-variant PIP</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Fine-mapping shrinks <strong>~200 correlated SNPs</strong> to a credible set of a handful — <em>if</em> the data allow it.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="what-controls-fine-mapping-resolution" class="level2">
+<h2 class="anchored" data-anchor-id="what-controls-fine-mapping-resolution">What controls fine-mapping resolution</h2>
+<p>Expected PIP rises with <strong>λ = N·R²/(1−R²)</strong> and falls as nearby SNPs get more correlated <em>[Schaid 2018]</em>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Larger <em>N</em></strong> → tighter credible sets (cheapest win)</li>
+<li><strong>High LD (ρ→1)</strong> → causal variants statistically indistinguishable in one sample</li>
+<li><strong>Functional annotation as a prior</strong> → modest help (90% set ~17.5 → ~13.5 SNPs for lipids); matters most in weak, high-LD regions</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Robustness checklist
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>PIPs spread across many SNPs? → you likely <strong>can’t</strong> resolve one variant here</li>
+<li>LD reference matches the sample? (compare allele frequencies)</li>
+<li>Do <strong>SuSiE / FINEMAP / PAINTOR</strong> agree?</li>
+<li>Multi-ancestry: assume <strong>shared causal variants</strong>, allow <strong>different effect sizes</strong></li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="step-2-functional-annotation" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-functional-annotation">Step 2 — Functional annotation</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Location</th>
+<th>Likely mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Coding (missense/nonsense)</td>
+<td>direct protein change</td>
+</tr>
+<tr class="even">
+<td>Splice site</td>
+<td>altered mRNA / isoform</td>
+</tr>
+<tr class="odd">
+<td>Promoter / 5′UTR</td>
+<td>transcription regulation</td>
+</tr>
+<tr class="even">
+<td>Enhancer</td>
+<td>distal gene regulation</td>
+</tr>
+<tr class="odd">
+<td><strong>Intergenic / intronic</strong></td>
+<td><strong>unknown — needs eQTL / chromatin</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>~90% of GWAS hits are non-coding</strong>, enriched in regulatory elements and eQTLs — which is exactly why epigenomics (W4–W5) is essential for interpretation.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="sec-var2gene" class="level2">
+<h2 class="anchored" data-anchor-id="sec-var2gene">Step 3 — Variant → gene: colocalization</h2>
+<p>An <strong>eQTL</strong> affects a gene’s expression. <strong>Colocalization</strong> tests whether the GWAS and eQTL signals share the <em>same</em> causal variant.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coloc)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>coloc_result <span class="ot">&lt;-</span> <span class="fu">coloc.abf</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataset1 =</span> <span class="fu">list</span>(<span class="at">pvalues =</span> gwas_pvals, <span class="at">N =</span> <span class="dv">150000</span>, <span class="at">type =</span> <span class="st">"cc"</span>, <span class="at">s =</span> <span class="fl">0.3</span>),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataset2 =</span> <span class="fu">list</span>(<span class="at">pvalues =</span> eqtl_pvals, <span class="at">N =</span> <span class="dv">500</span>,    <span class="at">type =</span> <span class="st">"quant"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>coloc_result<span class="sc">$</span>summary   <span class="co"># PP.H4 = share one causal variant</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>PP.H4 &gt; 0.8</strong> → strong evidence the variant acts <em>through</em> that gene → strong effector candidate.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Watch direction of effect (coherence)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A risk allele can <em>down</em>-regulate a gene that looks <em>up</em>-regulated in patients (“incoherence”) — often an impaired protective response. Direction decides agonist vs antagonist <em>[Reay &amp; Cairns 2021]</em>.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="step-3-cont.-which-cell-type" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-cont.-which-cell-type">Step 3 (cont.) — which cell type?</h2>
+<p>Colocalization names a gene; it doesn’t say <em>which cell</em>. Frameworks like <strong>sc-linker</strong> integrate <strong>scRNA-seq</strong> with GWAS via <strong>stratified LD-score regression (S-LDSC)</strong> <em>[Minton 2022]</em>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Recovered known biology (T cells in eczema; microglia in Alzheimer’s &amp; MS)</li>
+<li>Surfaced candidates (GABAergic neurons in depression — current drugs target serotonin)</li>
+<li>Separated <strong>disease-state</strong> programmes (M cells in ulcerative colitis) from healthy-state</li>
+</ul>
+</div>
+<div class="fragment">
+<p>A locus needs <strong>both</strong> a gene (coloc) <strong>and</strong> a cell type/state (single-cell) before you claim a mechanism.</p>
+</div>
+<hr>
+</section>
+<section id="step-4-mendelian-randomization" class="level2">
+<h2 class="anchored" data-anchor-id="step-4-mendelian-randomization">Step 4 — Mendelian randomization</h2>
+<blockquote class="blockquote">
+<p><em>Does elevated LDL <strong>cause</strong> CAD, or just correlate?</em></p>
+</blockquote>
+<p>Variants = <strong>instruments</strong>; randomized at conception → mimic a lifelong RCT, immune to lifestyle/SES confounding.</p>
+<pre><code>Genetic variants → LDL level → CAD
+   (instrument)    (exposure)  (outcome)</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TwoSampleMR)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>exposure_dat <span class="ot">&lt;-</span> <span class="fu">extract_instruments</span>(<span class="st">"ieu-a-300"</span>)            <span class="co"># LDL</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>outcome_dat  <span class="ot">&lt;-</span> <span class="fu">extract_outcome_data</span>(<span class="at">snps =</span> exposure_dat<span class="sc">$</span>SNP,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">outcomes =</span> <span class="st">"ieu-a-7"</span>)  <span class="co"># CAD</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>dat    <span class="ot">&lt;-</span> <span class="fu">harmonise_data</span>(exposure_dat, outcome_dat)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">mr</span>(dat)                                            <span class="co"># IVW + sensitivity</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>IV assumptions</strong>: (1) relevance, (2) independence of confounders, (3) exclusion restriction. #3 is broken by <strong>pleiotropy</strong> — always run MR-Egger / weighted median <em>[Reay &amp; Cairns 2021]</em>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-drugs" class="level1" data-background-color="#0F6E56">
+<h1 data-background-color="#0F6E56">GWAS for drug repurposing</h1>
+<hr>
+<section id="existing-drugs-sit-on-gwas-signals" class="level2">
+<h2 class="anchored" data-anchor-id="existing-drugs-sit-on-gwas-signals">Existing drugs sit on GWAS signals</h2>
+<p>Human genetic evidence ~doubles clinical success, so loci are mined for targets <em>[Reay &amp; Cairns 2021]</em>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Trait</th>
+<th>Gene</th>
+<th>Drug / class</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Schizophrenia</td>
+<td><em>DRD2</em></td>
+<td>antipsychotics</td>
+</tr>
+<tr class="even">
+<td>Type 2 diabetes</td>
+<td><em>PPARG</em></td>
+<td>thiazolidinediones</td>
+</tr>
+<tr class="odd">
+<td>Breast cancer</td>
+<td><em>ESR1</em></td>
+<td>tamoxifen</td>
+</tr>
+<tr class="even">
+<td>Bone mineral density</td>
+<td><em>RANKL</em></td>
+<td>denosumab</td>
+</tr>
+<tr class="odd">
+<td>Rheumatoid arthritis</td>
+<td><em>IL6R</em></td>
+<td>tocilizumab</td>
+</tr>
+<tr class="even">
+<td>Psoriasis</td>
+<td><em>IL23R</em></td>
+<td>ustekinumab</td>
+</tr>
+<tr class="odd">
+<td>LDL cholesterol</td>
+<td><em>HMGCR</em></td>
+<td>statins</td>
+</tr>
+<tr class="even">
+<td>Atrial fibrillation</td>
+<td><em>SCN5A</em></td>
+<td>class-1a antiarrhythmics</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A SNP <em>near</em> a gene doesn’t prove the gene is causal — follow-up required.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="three-genetic-strategies-for-repurposing" class="level2">
+<h2 class="anchored" data-anchor-id="three-genetic-strategies-for-repurposing">Three genetic strategies for repurposing</h2>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Locus → target</strong> — Open Targets Genetics, Priority index, MAGMA, TWAS (FUSION, S-PrediXcan)</li>
+<li><strong>MR for target validation</strong> — <em>cis</em>-variants in a druggable gene as instrument (PCSK9, IL6R)</li>
+<li><strong>Direction of effect</strong> — decides agonist vs antagonist (ties back to coherence)</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="sec-phewas" class="level1" data-background-color="#BA7517">
+<h1 data-background-color="#BA7517">PheWAS: flip the question</h1>
+<hr>
+<section id="one-variant-many-phenotypes" class="level2">
+<h2 class="anchored" data-anchor-id="one-variant-many-phenotypes">One variant, many phenotypes</h2>
+<pre><code>GWAS   : one disease  → scan all variants    → "which variants?"
+PheWAS : one variant  → scan all phenotypes   → "what else does it do?"</code></pre>
+<p>Typically run over <strong>electronic health records</strong> (ICD/CPT codes as phenotypes) <em>[Denny 2016]</em>.</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Pleiotropy mapping</strong> — repurposing leads <em>and</em> predictable side-effects</li>
+<li><strong>EHR-scale</strong> — one biobank → thousands of tests at once</li>
+<li><strong>Pharmacogenomic PheWAS (“MedWAS”)</strong> — variant → drug response / adverse events (free-text extraction is the bottleneck)</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="sec-diversity" class="level1" data-background-color="#5B4D80">
+<h1 data-background-color="#5B4D80">Diversity: one ancestry is not enough</h1>
+<hr>
+<section id="why-diverse-cohorts-matter" class="level2">
+<h2 class="anchored" data-anchor-id="why-diverse-cohorts-matter">Why diverse cohorts matter</h2>
+<p>Most GWAS (→ fine-mapping → PRS) are <strong>European-ancestry</strong> — a scientific <em>and</em> equity problem <em>[Wojcik 2019]</em>.</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Missed discovery</strong> — variants rare/absent in Europeans are invisible; multi-ethnic PAGE found new associations</li>
+<li><strong>Better fine-mapping</strong> — different LD patterns break haplotype blocks → <strong>smaller credible sets</strong></li>
+<li><strong>Poor portability</strong> — effect sizes &amp; risk scores don’t transfer → biased clinical use <strong>widens disparities</strong></li>
+</ul>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>For Korean cohorts
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use Korean / East-Asian resources (KoGES, Korea Biobank Array “KCHIP”, TOPMed). Check your <strong>base GWAS ancestry matches your target</strong> before trusting an association, credible set, or PRS.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-hands" class="level1" data-background-color="#BA7517">
+<h1 data-background-color="#BA7517">Hands-on</h1>
+<hr>
+<section id="dataset-t2d-summary-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-t2d-summary-statistics">Dataset: T2D summary statistics</h2>
+<p>Public T2D GWAS summary stats (e.g.&nbsp;Mahajan et al.&nbsp;2022, <em>Nat Genet</em>) — one row per variant, no individual genotypes, hence shareable.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qqman)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>gwas <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw"</span>, <span class="st">"t2d_gwas_summary.tsv"</span>))</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gwas)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># CHR, BP, SNP, A1, A2, FREQ, BETA, SE, P, N, INFO</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="step-1-qc-on-summary-stats" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-qc-on-summary-stats">Step 1 — QC on summary stats</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>gwas_clean <span class="ot">&lt;-</span> gwas <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(P), P <span class="sc">&gt;</span> <span class="dv">0</span>, P <span class="sc">&lt;=</span> <span class="dv">1</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>         FREQ <span class="sc">&gt;</span> <span class="fl">0.01</span>, FREQ <span class="sc">&lt;</span> <span class="fl">0.99</span>,   <span class="co"># common variants</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>         INFO <span class="sc">&gt;</span> <span class="fl">0.8</span>) <span class="sc">|&gt;</span>              <span class="co"># imputation quality</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">CHR =</span> <span class="fu">as.integer</span>(CHR),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">neglogP =</span> <span class="sc">-</span><span class="fu">log10</span>(P))</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"SNPs before QC:"</span>, <span class="fu">nrow</span>(gwas), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"SNPs after  QC:"</span>, <span class="fu">nrow</span>(gwas_clean), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="step-2-qq-plot-λ" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-qq-plot-λ">Step 2 — QQ plot &amp; λ</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>chisq  <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(gwas_clean<span class="sc">$</span>P, <span class="at">df =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fu">median</span>(chisq) <span class="sc">/</span> <span class="fu">qchisq</span>(<span class="fl">0.5</span>, <span class="at">df =</span> <span class="dv">1</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Lambda (GC) ="</span>, <span class="fu">round</span>(lambda, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qq</span>(gwas_clean<span class="sc">$</span>P,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>   <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">"QQ — T2D GWAS  (λ = "</span>, <span class="fu">round</span>(lambda, <span class="dv">3</span>), <span class="st">")"</span>),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>   <span class="at">col  =</span> <span class="st">"#185FA5"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="step-3-manhattan-plot" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-manhattan-plot">Step 3 — Manhattan plot</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sig_snps <span class="ot">&lt;-</span> gwas_clean <span class="sc">|&gt;</span> <span class="fu">filter</span>(P <span class="sc">&lt;</span> <span class="fl">5e-8</span>) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(P)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Genome-wide significant variants:"</span>, <span class="fu">nrow</span>(sig_snps), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">manhattan</span>(gwas_clean,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">chr =</span> <span class="st">"CHR"</span>, <span class="at">bp =</span> <span class="st">"BP"</span>, <span class="at">p =</span> <span class="st">"P"</span>, <span class="at">snp =</span> <span class="st">"SNP"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"#185FA5"</span>, <span class="st">"#1D9E75"</span>),</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">suggestiveline =</span> <span class="sc">-</span><span class="fu">log10</span>(<span class="fl">1e-5</span>),</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">genomewideline =</span> <span class="sc">-</span><span class="fu">log10</span>(<span class="fl">5e-8</span>),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">highlight      =</span> <span class="fu">head</span>(sig_snps<span class="sc">$</span>SNP, <span class="dv">10</span>),</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">main           =</span> <span class="st">"T2D GWAS — Manhattan plot"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="step-4-annotate-top-hits" class="level2">
+<h2 class="anchored" data-anchor-id="step-4-annotate-top-hits">Step 4 — Annotate top hits</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>mart     <span class="ot">&lt;-</span> <span class="fu">useMart</span>(<span class="st">"ensembl"</span>, <span class="at">dataset =</span> <span class="st">"hsapiens_gene_ensembl"</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>top_hits <span class="ot">&lt;-</span> sig_snps <span class="sc">|&gt;</span> <span class="fu">slice_min</span>(P, <span class="at">n =</span> <span class="dv">20</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>annotations <span class="ot">&lt;-</span> <span class="fu">getBM</span>(</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">"chromosome_name"</span>, <span class="st">"start_position"</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"end_position"</span>, <span class="st">"external_gene_name"</span>),</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">filters    =</span> <span class="st">"chromosomal_region"</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">values     =</span> <span class="fu">paste0</span>(top_hits<span class="sc">$</span>CHR, <span class="st">":"</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>                      top_hits<span class="sc">$</span>BP <span class="sc">-</span> <span class="fl">5e5</span>, <span class="st">":"</span>, top_hits<span class="sc">$</span>BP <span class="sc">+</span> <span class="fl">5e5</span>),</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">mart       =</span> mart</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(annotations)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="step-5-regional-locus-zoom-plot" class="level2">
+<h2 class="anchored" data-anchor-id="step-5-regional-locus-zoom-plot">Step 5 — Regional (locus-zoom) plot</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gassocplot)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># TCF7L2 — most replicated T2D locus</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>tcf7l2 <span class="ot">&lt;-</span> gwas_clean <span class="sc">|&gt;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CHR <span class="sc">==</span> <span class="dv">10</span>, BP <span class="sc">&gt;=</span> <span class="dv">114700000</span>, BP <span class="sc">&lt;=</span> <span class="dv">115000000</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">stack_assoc_plot</span>(</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">markers =</span> tcf7l2[, <span class="fu">c</span>(<span class="st">"SNP"</span>, <span class="st">"CHR"</span>, <span class="st">"BP"</span>)],</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">z       =</span> tcf7l2<span class="sc">$</span>neglogP,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">corr    =</span> ld_matrix_tcf7l2,   <span class="co"># from LDlinkR, ancestry-matched</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">traits  =</span> <span class="st">"T2D"</span>,</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab    =</span> <span class="st">"-log10(p)"</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="interrogating-any-locus" class="level2">
+<h2 class="anchored" data-anchor-id="interrogating-any-locus">Interrogating any locus</h2>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Replicated?</strong> in an independent cohort?</li>
+<li><strong>LD structure?</strong> how big is the credible set?</li>
+<li><strong>Functional context?</strong> coding, regulatory, eQTL?</li>
+<li><strong>Which gene &amp; cell type?</strong> nearest ≠ causal</li>
+<li><strong>Effect size &amp; direction?</strong> small; direction guides drug strategy</li>
+<li><strong>Druggable?</strong> known/tractable target?</li>
+</ol>
+</div>
+</section>
+</section>
+<section id="wrap-up" class="level1" data-background-color="#534AB7">
+<h1 data-background-color="#534AB7">Wrap-up</h1>
+<hr>
+<section id="what-gwas-cannot-tell-you" class="level2">
+<h2 class="anchored" data-anchor-id="what-gwas-cannot-tell-you">What GWAS cannot tell you</h2>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Causality alone</strong> — association ≠ causation (MR helps, with assumptions)</li>
+<li><strong>Rare variants</strong> — common-SNP GWAS misses MAF &lt; 1% (need WES/WGS)</li>
+<li><strong>Non-SNP variation</strong> — CNV/SV/repeats need dedicated methods</li>
+<li><strong>Mechanism alone</strong> — an enhancer hit says “something regulates something”</li>
+<li><strong>Transferability</strong> — Euro-centric results may not generalize</li>
+<li><strong>Gene × environment</strong> — static associations miss dynamic biology</li>
+</ul>
+</div>
+<div class="fragment">
+<blockquote class="blockquote">
+<p><strong>GWAS is the beginning of the story, not the end</strong> — which is why the rest of the course exists.</p>
+</blockquote>
+</div>
+<hr>
+</section>
+<section id="where-this-connects" class="level2">
+<h2 class="anchored" data-anchor-id="where-this-connects">Where this connects</h2>
+<pre><code>GWAS hit identified
+   ├─ W3       PRS            → genome-wide risk prediction
+   ├─ W4–W5    Epigenomics    → active enhancer?
+   ├─ W6–W7    Metagenomics   → microbiome mediation?
+   ├─ W8–W9    scRNA-seq      → which cell type?
+   ├─ W10      Spatial        → where in tissue?
+   ├─ W11      Multi-omics    → convergent evidence
+   └─ W12      Drug target    → druggable?</code></pre>
+<hr>
+</section>
+<section id="next-week-prs-w3" class="level2">
+<h2 class="anchored" data-anchor-id="next-week-prs-w3">Next week — PRS (W3)</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>Single hits → genome-wide prediction</li>
+<li>Construction: C+T, LDpred2, PRSice2, PRS-CS(x)</li>
+<li>Clinical utility — screening, stratification, barriers</li>
+<li>Hands-on: build a PRS from summary stats</li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"bigsnpr"</span>, <span class="st">"bigstatsr"</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># PRSice2 is a command-line binary: https://www.prsice.info/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="key-resources" class="level2">
+<h2 class="anchored" data-anchor-id="key-resources">Key resources</h2>
+<ul>
+<li><strong>GWAS Catalog</strong> — <a href="https://www.ebi.ac.uk/gwas" class="uri">https://www.ebi.ac.uk/gwas</a></li>
+<li><strong>Open Targets Genetics</strong> — <a href="https://genetics.opentargets.org" class="uri">https://genetics.opentargets.org</a></li>
+<li><strong>UK Biobank</strong> — <a href="https://www.ukbiobank.ac.uk" class="uri">https://www.ukbiobank.ac.uk</a></li>
+<li><strong>IEU OpenGWAS</strong> — <a href="https://gwas.mrcieu.ac.uk" class="uri">https://gwas.mrcieu.ac.uk</a></li>
+<li><strong>GTEx</strong> — <a href="https://gtexportal.org" class="uri">https://gtexportal.org</a></li>
+<li><strong>LDlink</strong> — <a href="https://ldlink.nci.nih.gov" class="uri">https://ldlink.nci.nih.gov</a></li>
+<li><strong>gnomAD</strong> — <a href="https://gnomad.broadinstitute.org" class="uri">https://gnomad.broadinstitute.org</a></li>
+</ul>
+<hr>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Timpson NJ et al.&nbsp;<strong>Genetic architecture: the shape of the genetic contribution to human traits and disease.</strong> <em>Nat Rev Genet</em> (2017).</li>
+<li>Schaid DJ, Chen W, Larson NB. <strong>From genome-wide associations to candidate causal variants by statistical fine-mapping.</strong> <em>Nat Rev Genet</em> (2018).</li>
+<li>Minton K. <strong>Linking disease-associated genetic variants to cell types and processes</strong> (on Jagadeesh, Dey et al., <em>sc-linker</em>). <em>Nat Rev Genet</em> (2022).</li>
+<li>Reay WR, Cairns MJ. <strong>Advancing the use of GWAS for drug repurposing.</strong> <em>Nat Rev Genet</em> (2021).</li>
+<li>Denny JC et al.&nbsp;<strong>Unravelling the human genome–phenome relationship using phenome-wide association studies.</strong> <em>Nat Rev Genet</em> (2016).</li>
+<li>Harris L et al.&nbsp;<strong>Genome-wide association testing beyond SNPs.</strong> <em>Nat Rev Genet</em> (2025).</li>
+<li>Wojcik GL et al.&nbsp;<strong>Genetic analyses of diverse populations improves discovery for complex traits.</strong> <em>Nature</em> (2019).</li>
+</ol>
+<hr>
+</section>
+<section id="questions" class="level2" data-background-color="#5B4D80">
+<h2 data-background-color="#5B4D80" class="anchored" data-anchor-id="questions"><span style="color:#ffffff">Questions?</span></h2>
+<p>📧 eha@knu.ac.kr</p>
+<p>Course materials → <em>[your GitHub Pages URL]</em></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- AI Chat Widget 초기화 -->
+<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
+<script>
+  // ★ Cloudflare Worker 배포 후 URL로 교체하세요
+  const WORKER_URL = "https://falling-wave-447f.eh0129s.workers.dev/";
+
+  // 각 .qmd 파일의 YAML에서 ai-context를 읽어옵니다
+  // (없으면 빈 문자열 → 기본 안내 메시지)
+  const metaContext = document.querySelector('meta[name="ai-context"]');
+  const metaTitle   = document.querySelector('meta[name="ai-title"]') || { content: document.title };
+
+  window.AI_CHAT_CONFIG = {
+    workerUrl:      WORKER_URL,
+    chapterContext: metaContext ? metaContext.content : "",
+    chapterTitle:   metaTitle  ? metaTitle.content   : document.title,
+  };
+</script>
+<script src="../_extensions/ai-chat/ai-chat.js" defer=""></script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2026, Eunji</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

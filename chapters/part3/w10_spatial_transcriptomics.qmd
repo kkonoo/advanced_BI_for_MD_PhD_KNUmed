@@ -1,0 +1,678 @@
+---
+title: "Spatial Transcriptomics"
+subtitle: "Advanced Bioinformatics for Clinician-Scientists | Week 10"
+author: "Your Name"
+date: today
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    code-copy: true
+    highlight-style: github
+    transition: fade
+    background-transition: fade
+    footer: "Advanced Bioinformatics | W10 — Spatial Transcriptomics"
+    css: custom.css
+execute:
+  echo: true
+  eval: false
+---
+
+# Why Spatial? {background-color="#1D9E75"}
+
+---
+
+## The Problem with Everything We've Done So Far
+
+| Method | What we lose |
+|--------|-------------|
+| Bulk RNA-seq | Cell type identity, spatial context |
+| scRNA-seq (W8–W9) | **Where in the tissue?** |
+| GWAS (W2–W3) | Cell type, tissue architecture |
+
+::: {.fragment}
+**The fundamental problem:**
+
+Dissociating tissue into single cells destroys the spatial information.  
+You know *what* cells are doing — but not *where*, *next to what*, and *in which microenvironment*.
+:::
+
+---
+
+## What Spatial Transcriptomics Adds
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**scRNA-seq tells you:**
+
+- This is a macrophage
+- It's in an inflammatory state
+- It's talking to a T cell
+:::
+
+::: {.column width="50%"}
+**Spatial adds:**
+
+- This macrophage is at the **tumor invasion front**
+- It's **5 cell-widths from a blood vessel**
+- The neighboring tumor cells are **hypoxic**
+:::
+
+::::
+
+::: {.fragment}
+> For a pathologist or oncologist, this is exactly how you think about tissue.  
+> Spatial transcriptomics is **digital pathology with transcriptomics layered on top.**
+:::
+
+---
+
+## Clinical Scenarios Where This Matters
+
+::: {.incremental}
+- **Tumor microenvironment** — immune exclusion zone vs. inflamed phenotype → immunotherapy response
+- **Tissue borders** — where does normal end and dysplasia begin? Molecularly.
+- **Fibrosis** — which cells drive progression at the fibrotic front?
+- **Brain** — layer-specific gene expression in neurodegeneration
+- **Gut** — crypt-villus axis disruption in IBD
+- **Cardiac** — spatial heterogeneity in ischemic zones
+:::
+
+---
+
+# Technologies {background-color="#534AB7"}
+
+---
+
+## The Landscape (2024)
+
+| Platform | Resolution | Genes | Throughput | Best for |
+|----------|-----------|-------|-----------|---------|
+| **10x Visium** | ~55 µm spot | Whole transcriptome | High | Discovery, large tissue |
+| **10x Xenium** | Single-cell | 100–500 genes | Very high | Validation, FFPE |
+| **NanoString CosMx** | Single-cell | 1,000+ genes | High | Clinical FFPE samples |
+| **Slide-seq v2** | ~10 µm | Whole transcriptome | Medium | Mouse brain |
+| **MERFISH / seqFISH** | Single-cell | 100–10,000 genes | Low | Mechanistic studies |
+
+::: {.fragment}
+::: {.callout-tip}
+## For clinical research
+**Visium** for discovery (fresh-frozen).  
+**Xenium / CosMx** for FFPE validation — the samples you already have in your biobank.
+:::
+:::
+
+---
+
+## How Visium Works
+
+```
+Fresh-frozen tissue section (10 µm)
+         ↓
+Placed on capture array
+(6,500 spots, each 55 µm, containing barcoded oligos)
+         ↓
+Permeabilization → mRNA released → captured by oligos
+         ↓
+cDNA synthesis + sequencing
+         ↓
+Each spot: ~10–20 cells + (x, y) coordinates + expression profile
+         ↓
+H&E image aligned to array
+```
+
+::: {.fragment}
+The result: a **gene expression matrix** where every row has a tissue coordinate.
+:::
+
+---
+
+## The Data Structure
+
+```
+Seurat object with spatial data:
+├── counts matrix   (spots × genes)  e.g., 3,000 spots × 30,000 genes
+├── spot coordinates (x, y) on tissue
+├── H&E image
+└── scalefactors    (pixel → µm conversion)
+```
+
+```{r}
+library(Seurat)
+library(here)
+
+# Load 10x Visium output
+visium <- Load10X_Spatial(
+  data.dir   = here("data", "raw", "visium_output"),
+  filename   = "filtered_feature_bc_matrix.h5",
+  assay      = "Spatial",
+  slice      = "slice1",
+  filter.matrix = TRUE
+)
+
+visium
+```
+
+---
+
+# Analysis Workflow {background-color="#185FA5"}
+
+---
+
+## Overview
+
+```
+Raw Visium data
+    │
+    ├── 1. QC           → filter low-quality spots
+    ├── 2. Normalization → SCTransform
+    ├── 3. Dim reduction → PCA → UMAP
+    ├── 4. Clustering   → spatial domains
+    ├── 5. SVGs         → spatially variable genes
+    ├── 6. Deconvolution → cell type per spot
+    └── 7. Integration  → scRNA-seq reference
+```
+
+---
+
+## Step 1: QC
+
+```{r}
+# Mitochondrial gene percentage
+visium[["percent.mt"]] <- PercentageFeatureSet(visium,
+                                               pattern = "^MT-")
+
+# Visualize QC metrics on tissue
+SpatialFeaturePlot(visium,
+                   features = c("nCount_Spatial",
+                                "nFeature_Spatial",
+                                "percent.mt"))
+```
+
+```{r}
+# Filter spots
+visium <- subset(visium,
+                 nCount_Spatial   > 500    &
+                 nFeature_Spatial > 200    &
+                 percent.mt       < 25)
+
+cat("Spots remaining:", ncol(visium), "\n")
+```
+
+---
+
+## Step 2: Normalization — SCTransform
+
+```{r}
+# SCTransform — accounts for technical variation
+# (sequencing depth varies across spots)
+visium <- SCTransform(visium,
+                      assay      = "Spatial",
+                      verbose    = FALSE,
+                      vars.to.regress = "percent.mt")
+```
+
+::: {.callout-note}
+## Why not standard normalization?
+Spatial data has strong sequencing depth variation across the tissue section  
+(edge spots often have fewer counts).  
+SCTransform handles this better than simple log-normalization.
+:::
+
+---
+
+## Step 3: Dimensionality Reduction & Clustering
+
+```{r}
+visium <- RunPCA(visium, assay = "SCT", verbose = FALSE)
+visium <- FindNeighbors(visium, reduction = "pca", dims = 1:30)
+visium <- FindClusters(visium, verbose = FALSE, resolution = 0.5)
+visium <- RunUMAP(visium, reduction = "pca", dims = 1:30)
+
+# Plot clusters in UMAP space AND on tissue
+p1 <- DimPlot(visium, reduction = "umap", label = TRUE)
+p2 <- SpatialDimPlot(visium, label = TRUE, label.size = 3)
+
+p1 + p2
+```
+
+::: {.fragment}
+Key question: do the **UMAP clusters** correspond to **anatomical regions**?  
+If yes → the spatial domains are transcriptionally distinct.
+:::
+
+---
+
+## Step 4: Spatially Variable Genes (SVGs)
+
+Which genes vary across tissue space — not just between clusters, but continuously?
+
+```{r}
+library(NNSVG)
+
+# NNSVG: fast, scalable SVG detection
+# Fits a spatial model per gene
+nnsvg_results <- nnsvg(
+  x        = counts(visium),
+  coords   = spatialCoords(visium),
+  n_threads = 4
+)
+
+# Top SVGs
+top_svgs <- nnsvg_results |>
+  arrange(desc(LR_stat)) |>
+  slice_head(n = 20)
+
+SpatialFeaturePlot(visium,
+                   features = top_svgs$gene_name[1:6],
+                   ncol = 3)
+```
+
+---
+
+## Step 5: Deconvolution — Cell Types per Spot
+
+Each Visium spot contains **10–20 cells** → what mix of cell types?
+
+```{r}
+library(STdeconvolve)
+
+# Reference: single-cell RNA-seq from same tissue type
+# (from W8–W9 analysis — this is why sc comes first!)
+counts_spatial <- GetAssayData(visium, slot = "counts",
+                               assay = "Spatial")
+
+# Run deconvolution
+ldaOut <- fitLDA(t(as.matrix(counts_spatial)),
+                 Ks = seq(4, 9, by = 1))
+
+# Optimal K
+optLDA <- optimalModel(models = ldaOut, opt = "min")
+results <- getBetaTheta(optLDA,
+                        perc.filt = 0.05,
+                        betaScale = 1000)
+
+# Map cell type proportions back to tissue
+vizAllTopics(theta        = results$theta,
+             pos          = spatialCoords(visium),
+             topicOrder   = seq(ncol(results$theta)),
+             topicCols    = rainbow(ncol(results$theta)))
+```
+
+---
+
+## Step 6: Integration with scRNA-seq Reference
+
+```{r}
+# Transfer cell type labels from scRNA-seq reference
+# (Seurat label transfer)
+
+# Load your W8-W9 scRNA-seq reference
+sc_ref <- readRDS(here("data", "processed", "scrna_annotated.rds"))
+
+# Find anchors between spatial and single-cell data
+anchors <- FindTransferAnchors(
+  reference      = sc_ref,
+  query          = visium,
+  normalization.method = "SCT"
+)
+
+# Transfer labels
+predictions <- TransferData(
+  anchorset    = anchors,
+  refdata      = sc_ref$celltype,
+  prediction.assay = TRUE,
+  weight.reduction = visium[["pca"]],
+  dims         = 1:30
+)
+
+visium[["predictions"]] <- predictions
+```
+
+---
+
+## Visualizing Cell Type Predictions on Tissue
+
+```{r}
+# Which cell types land where?
+DefaultAssay(visium) <- "predictions"
+
+SpatialFeaturePlot(
+  visium,
+  features  = c("Tumor", "Macrophage", "T_cell",
+                "Fibroblast", "Endothelial"),
+  pt.size.factor = 1.5,
+  ncol      = 3,
+  crop      = TRUE
+)
+```
+
+::: {.fragment}
+Now you can ask:  
+**"Where are the immune-excluded tumors, and what genes define that border?"**
+:::
+
+---
+
+# Clinical Applications {background-color="#0F6E56"}
+
+---
+
+## Tumor Microenvironment — Immune Exclusion
+
+```{r}
+library(tidyverse)
+
+# Score each spot for immune infiltration
+visium <- AddModuleScore(
+  visium,
+  features = list(
+    immune_score  = c("CD8A", "CD8B", "GZMB", "PRF1", "IFNG"),
+    exclusion_score = c("ACTA2", "FAP", "COL1A1", "POSTN")
+  ),
+  name = c("immune", "exclusion")
+)
+
+# Map scores onto tissue
+SpatialFeaturePlot(visium,
+                   features = c("immune1", "exclusion1"),
+                   ncol = 2)
+```
+
+::: {.fragment}
+**Clinical translation:**  
+High immune score + high exclusion score = **immune-excluded phenotype** → likely non-responder to checkpoint inhibitor.
+:::
+
+---
+
+## Identifying Spatially Distinct Disease Zones
+
+```{r}
+# Example: Colorectal cancer — tumor core vs. invasion front
+# Differentially expressed genes between spatial clusters
+
+Idents(visium) <- "seurat_clusters"
+
+# Compare invasion front (cluster 3) vs. tumor core (cluster 1)
+invasion_vs_core <- FindMarkers(
+  visium,
+  ident.1 = "3",     # invasion front cluster
+  ident.2 = "1",     # tumor core cluster
+  assay   = "SCT"
+)
+
+# Top markers of invasion front
+invasion_vs_core |>
+  filter(p_val_adj < 0.05, avg_log2FC > 1) |>
+  arrange(desc(avg_log2FC)) |>
+  head(20)
+```
+
+---
+
+## Cell–Cell Communication in Spatial Context
+
+```{r}
+library(CellChat)
+
+# Unlike standard CellChat (W9), spatial CellChat
+# only considers cells within a defined distance
+
+cellchat <- createCellChat(
+  object   = visium,
+  meta     = visium@meta.data,
+  group.by = "predicted.celltype",
+  datatype = "spatial",
+  coordinates = GetTissueCoordinates(visium),
+  spatial.factors = list(ratio = 0.1, tol = 0.08)
+)
+
+cellchat <- addMeta(cellchat, meta = visium@meta.data)
+cellchat <- setIdent(cellchat, ident.use = "predicted.celltype")
+```
+
+::: {.callout-tip}
+## Spatial constraint
+Standard cell–cell communication assumes all cells can talk to all cells.  
+Spatial CellChat only allows interactions between **physically neighboring spots** — far more biologically realistic.
+:::
+
+---
+
+## Spatial Trajectory — Along Tissue Axes
+
+```{r}
+library(spatialDE)
+
+# Test for expression gradients along a defined tissue axis
+# e.g., crypt → villus in intestine, or cortex → medulla in kidney
+
+# Define pseudospatial axis
+coords <- GetTissueCoordinates(visium)
+
+# SpatialDE: Gaussian process model for spatial variation
+norm_expr <- normalizeExpr(
+  counts   = GetAssayData(visium, slot = "counts"),
+  method   = "scran"
+)
+
+results <- spatialDE::run(norm_expr, sample_info = coords)
+
+# Genes with significant spatial expression patterns
+sig_spatial <- results[results$qvalue < 0.05, ]
+```
+
+---
+
+# Hands-On {background-color="#BA7517"}
+
+---
+
+## Dataset: Human Breast Cancer (10x Visium)
+
+Publicly available from 10x Genomics:  
+Human Breast Cancer Block A, Section 1
+
+```{r}
+library(Seurat)
+library(tidyverse)
+library(patchwork)
+library(here)
+
+# Load data (pre-downloaded)
+bc <- Load10X_Spatial(
+  data.dir = here("data", "raw", "breast_cancer_visium"),
+  filename = "filtered_feature_bc_matrix.h5"
+)
+
+# Quick look
+cat("Spots:", ncol(bc), "\n")
+cat("Genes:", nrow(bc), "\n")
+```
+
+---
+
+## Hands-On: QC & Normalization
+
+```{r}
+# MT genes
+bc[["percent.mt"]] <- PercentageFeatureSet(bc, pattern = "^MT-")
+
+# Visualize QC on tissue
+SpatialFeaturePlot(bc, features = "nCount_Spatial") +
+  theme(legend.position = "right")
+
+# Filter
+bc <- subset(bc,
+             nCount_Spatial   > 100 &
+             percent.mt       < 30)
+
+# Normalize
+bc <- SCTransform(bc, assay = "Spatial", verbose = FALSE)
+```
+
+---
+
+## Hands-On: Cluster & Visualize
+
+```{r}
+bc <- RunPCA(bc, assay = "SCT", verbose = FALSE)
+bc <- FindNeighbors(bc, dims = 1:30)
+bc <- FindClusters(bc, resolution = 0.5, verbose = FALSE)
+bc <- RunUMAP(bc, dims = 1:30)
+
+# Side-by-side: UMAP + tissue
+DimPlot(bc, label = TRUE) +
+SpatialDimPlot(bc, label = TRUE, label.size = 3)
+```
+
+---
+
+## Hands-On: Find Spatially Variable Genes
+
+```{r}
+# Built-in Seurat method (Moran's I)
+bc <- FindSpatiallyVariableFeatures(
+  bc,
+  assay    = "SCT",
+  features = VariableFeatures(bc)[1:1000],
+  selection.method = "moransi"
+)
+
+# Top SVGs
+top_svgs <- SpatiallyVariableFeatures(bc, 
+                                       selection.method = "moransi")
+
+# Visualize top 6 SVGs on tissue
+SpatialFeaturePlot(bc,
+                   features = top_svgs[1:6],
+                   ncol     = 3,
+                   alpha    = c(0.1, 1))
+```
+
+---
+
+## Hands-On: Marker Genes per Spatial Cluster
+
+```{r}
+# Find marker genes for each spatial cluster
+bc_markers <- FindAllMarkers(
+  bc,
+  assay      = "SCT",
+  only.pos   = TRUE,
+  min.pct    = 0.25,
+  logfc.threshold = 0.5
+)
+
+# Top 5 per cluster
+bc_markers |>
+  group_by(cluster) |>
+  slice_max(avg_log2FC, n = 5) |>
+  print(n = Inf)
+
+# Visualize a marker on tissue
+SpatialFeaturePlot(bc,
+                   features = c("ERBB2", "KRT7",
+                                "CD8A", "COL1A1"),
+                   ncol = 2)
+```
+
+---
+
+## Hands-On: Save Results
+
+```{r}
+# Save processed object
+saveRDS(bc, here("data", "processed", "breast_cancer_spatial.rds"))
+
+# Export cluster annotations for downstream use
+cluster_annot <- bc@meta.data |>
+  select(barcode = rownames(bc@meta.data),
+         cluster = seurat_clusters,
+         x = imagerow,
+         y = imagecol,
+         nCount_Spatial,
+         nFeature_Spatial)
+
+write_tsv(cluster_annot,
+          here("results", "tables", "spatial_clusters.tsv"))
+```
+
+---
+
+# Limitations & Considerations {background-color="#993C1D"}
+
+---
+
+## What to Watch Out For
+
+::: {.incremental}
+- **Visium resolution (55 µm)** — each spot is 10–20 cells, not single-cell → need deconvolution
+- **Tissue quality** — fresh-frozen preferred; FFPE works for Xenium/CosMx but not standard Visium
+- **Capture area** — 6.5 mm × 6.5 mm per section; large tumors need multiple sections
+- **Gene dropout** — spatial assays have higher dropout than scRNA-seq
+- **Batch effects** — section-to-section variation in permeabilization time matters
+- **Alignment** — H&E to array alignment errors propagate into all downstream analysis
+:::
+
+---
+
+## GWAS → Spatial: Closing the Loop
+
+Remember the W2 story:
+
+```
+GWAS hit: rs12345 near GENE_X (p = 3×10⁻²⁴)
+    │
+    ├─ eQTL: rs12345 increases GENE_X expression (GTEx)
+    ├─ scRNA-seq: GENE_X highly expressed in macrophages (W8)
+    └─ Spatial: GENE_X+ macrophages concentrated at tumor front (W10 ← you are here)
+    
+→ "Macrophages at the invasion front, driven by GENE_X, 
+    may facilitate tumor invasion in carriers of rs12345"
+→ Testable hypothesis → W13 Capstone
+```
+
+---
+
+# Next Week {background-color="#534AB7"}
+
+---
+
+## W11 Preview — Multi-omics Integration & GWAS Gene Prioritization
+
+**What we'll cover:**
+
+- MOFA2: factor analysis across omics layers
+- Integrating GWAS, epigenomics, and spatial data
+- Gene prioritization: from GWAS locus to candidate gene
+
+**Install before next class:**
+
+```{r}
+BiocManager::install("MOFA2")
+BiocManager::install("mixOmics")
+install.packages("OmicsPLS")
+```
+
+---
+
+## Key Resources
+
+- **10x Genomics datasets** — [10xgenomics.com/datasets](https://www.10xgenomics.com/datasets) — free Visium data
+- **Seurat Spatial vignette** — [satijalab.org/seurat/articles/spatial_vignette](https://satijalab.org/seurat/articles/spatial_vignette)
+- **NNSVG** — [bioconductor.org/packages/NNSVG](https://bioconductor.org/packages/NNSVG)
+- **STdeconvolve** — [bioconductor.org/packages/STdeconvolve](https://bioconductor.org/packages/STdeconvolve)
+- **Human Cell Atlas Spatial** — [humancellatlas.org](https://www.humancellatlas.org)
+
+---
+
+## Questions? {background-color="#1D9E75"}
+
+::: {.center}
+Next week: **Multi-omics Integration & GWAS Gene Prioritization**
+
+Course materials → [your GitHub Pages URL here]
+:::
