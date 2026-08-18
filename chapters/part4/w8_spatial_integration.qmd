@@ -1,0 +1,278 @@
+---
+title: "W8. Deconvolution & Spatial Integration"
+author: "Eunji Ha"
+date: last-modified
+format: html
+execute:
+  echo: true
+  eval: false
+---
+
+::: {.callout-note collapse="true"}
+## 🎯 Learning objectives
+
+By the end of this chapter you should be able to:
+
+-   Explain what deconvolution estimates, and what it cannot estimate
+-   ⚠️ Say why the reference dataset determines the answer, and what to check before trusting one
+-   Distinguish a cell-type map from a **niche** map, and say why the second is where the biology usually is
+-   ⚠️ Test co-localisation against a null that respects tissue structure
+-   ⚠️ Say why neighbouring spots inflate significance, and what to do about it
+-   Place any claim on the evidence ladder from description to demonstration
+-   Design a spatial validation step for a hypothesis generated in W5–W6
+:::
+
+> 🤔 **Motivating question**
+>
+> You deconvolve 4,000 spots and find that regulatory T cells and exhausted CD8 T cells co-occur (*p* \< 10⁻¹²). How much does that p-value tell you?
+
+------------------------------------------------------------------------
+
+# 1. Deconvolution 🧩 {#w8-s1}
+
+## 1) The problem, restated {#w8-s1-1}
+
+From 🔗 [W7 §3](w7_spatial_basics.qmd#w7-s3): a Visium spot is a **mixture**. Deconvolution asks what mixture of cell types best explains the observed profile — using single-cell data as the dictionary of what each cell type looks like.
+
+![The reference is not a technical detail. It is the assumption the whole result rests on.](/assets/img/w8/deconvolution.svg){fig-align="center"}
+
+| Method | Approach | Notes |
+|----------------------|--------------------|------------------------------|
+| **RCTD** | Statistical, models platform effects | robust, widely used |
+| **cell2location** | Bayesian, estimates absolute abundance | ✅ gives cell numbers, not only proportions |
+| **CARD** | Uses spatial correlation between spots | borrows information from neighbours |
+| **SPOTlight** | NMF-based | fast |
+| **Tangram** | Maps single cells onto space | useful when you have matched data |
+
+💡 Method choice matters less than reference choice. Benchmarks separate these methods by modest margins; a wrong reference changes the answer entirely.
+
+## 2) ⚠️ Reference bias {#w8-s1-2}
+
+::: {.callout-important collapse="true"}
+## The failure mode with no error message
+
+Deconvolution returns proportions that **sum to one over the cell types you supplied**. It has no way to report "there is something here I have never seen".
+
+-   ⚠️ **A cell type absent from the reference** does not appear as missing. Its signal is redistributed onto whichever reference type is closest. This is the single-cell version of reference bias, one layer down
+-   ⚠️ **A reference from healthy tissue** applied to tumour, or from PBMCs applied to tissue-resident cells, biases every proportion at once — not just the affected type
+-   ⚠️ **A reference from a different platform** (Smart-seq vs 10x, cells vs nuclei) carries systematic differences into the estimates
+
+✅ What to actually check:
+
+-   Same tissue, same condition, ideally the **same patients** as the spatial sections
+-   Verify with a marker gene you did **not** deconvolve — plot raw *CD3E* and see whether it lands where the T-cell proportions did
+-   Ask whether a rare-but-important population is in the reference at all
+:::
+
+## 3) What proportions can and cannot tell you {#w8-s1-3}
+
+-   ✅ "This region is enriched for macrophage signal relative to that region" — solid
+-   ✅ "Macrophage proportion correlates with distance from the invasion front" — solid, and interesting
+-   ⚠️ "This spot contains 2.3 macrophages" — only cell2location-style methods attempt absolute numbers, and with wide uncertainty
+-   ❌ "These particular macrophages express gene X" — you cannot get cell-type-specific expression out of a mixture without much stronger assumptions
+
+------------------------------------------------------------------------
+
+# 2. From Cell Types to Niches 🏘️ {#w8-s2}
+
+## 1) The question that spatial data is actually for {#w8-s2-1}
+
+A per-spot cell-type map is useful, and it is still one location at a time. The step that uses the geometry is asking what each location is **surrounded by**.
+
+![The interface exists only as a mixture. No single spot defines it.](/assets/img/w8/niches.svg){fig-align="center"}
+
+**How it works:** for each spot, build a vector of the cell-type composition of its neighbours (within *k* spots or a fixed radius), then cluster those vectors. The clusters are **niches** — recurrent tissue microenvironments.
+
+💡 Notice what the left panel hides. T cells and macrophages are present almost everywhere and **dominate almost nowhere**, so a "dominant cell type" map erases them entirely. The immune biology is invisible until you look at composition rather than identity.
+
+## 2) ⚠️ Testing co-localisation honestly {#w8-s2-2}
+
+::: {.callout-warning collapse="true"}
+## Against which null?
+
+"Cell type A and cell type B co-occur more than expected" requires a definition of *expected*.
+
+-   ❌ **Complete spatial randomness** is the wrong null. Tissue is not random — it has layers, vessels, capsules, glands. Almost any two cell types will beat this null
+-   ✅ **Permute labels within the tissue**, preserving the overall architecture and each cell type's total abundance
+-   ✅ Or compare against **matched control tissue** — the same anatomy, different disease state
+
+⚠️ And back to the motivating question: *p* \< 10⁻¹² across 4,000 spots is mostly telling you that you had 4,000 spots. Neighbouring spots are positively correlated by construction (🔗 [W7 §4.3](w7_spatial_basics.qmd#w7-s4-3)), so the effective sample size is far smaller than the nominal one.
+
+→ ✅ The number that matters is the **effect size**, replicated across **patients**.
+:::
+
+## 3) Mapping single cells into space {#w8-s2-3}
+
+The reverse direction: take a cluster you found in scRNA-seq and ask where it sits.
+
+-   **Tangram**, **Seurat anchor transfer** — project single-cell labels onto spatial data
+-   ✅ Genuinely useful for testing a specific hypothesis: *"the exhausted CD8 state we found — is it inside the tumour or at the margin?"*
+-   ⚠️ Circularity risk: if the mapping uses the same genes that defined the cluster, finding the cluster is not independent evidence
+
+------------------------------------------------------------------------
+
+# 3. ⚠️ Where This Sits in the Evidence 🪜 {#w8-s3}
+
+![The verb in your sentence should match the rung you are on.](/assets/img/w8/evidence_ladder.svg){fig-align="center"}
+
+::: {.callout-tip collapse="true"}
+## What spatial validation does and does not buy you
+
+Spatial data moves a claim from **② hypothesis** to **③ consistent with**. That is a genuine, meaningful promotion — and it is not proof.
+
+-   ✅ It rules out the most common failure of ligand–receptor inference: cells that were never in the same place
+-   ✅ It gives you a figure a clinician and a pathologist can both read
+-   ❌ It does not show the protein was made (rung ④), and it does not show causation (rung ⑤)
+
+💡 For a resident's project, ③ is often the honest and achievable ceiling — and it is publishable when stated as ③. What sinks papers is writing ⑤'s verb over ③'s evidence.
+:::
+
+------------------------------------------------------------------------
+
+# 4. Designing a Spatial Study 📋 {#w8-s4}
+
+You now have enough to design one. The order matters.
+
+**① Start from a hypothesis, not from a platform.** "We will do spatial on some tumours" is not a design. "We will test whether TAM-rich niches exclude CD8 T cells in non-responders" is.
+
+**② Decide what resolution the hypothesis needs** (🔗 [W7 §2.3](w7_spatial_basics.qmd#w7-s2-3)). If the answer is "are these two cell types touching", spot-based data will not settle it no matter how you analyse it.
+
+**③ Count patients, not sections.**
+
+| Design | Effective n | Verdict |
+|--------------------------|----------------|-----------------------------|
+| 3 sections, 1 patient | 1 | ❌ a case report with 4,000 spots |
+| 1 section each, 6 patients | 6 | ⚠️ a pilot; report it as one |
+| 1 section each, 20 patients selected by outcome | 20 | ✅ a study |
+
+**④ Select by outcome where you can.** Responders vs non-responders from the archive is a stronger design than consecutive consenting patients, and FFPE makes it possible (🔗 [W7 §2.2](w7_spatial_basics.qmd#w7-s2-2)).
+
+**⑤ Secure a matched single-cell reference** before you commit — from the same tissue and condition, or budget for generating one.
+
+**⑥ Book the pathologist first.** Block selection is a scientific decision, and it is made once.
+
+------------------------------------------------------------------------
+
+# 5. Hands-On 💻 {#w8-s5}
+
+## 1) Deconvolve, then check the reference {#w8-s5-1}
+
+```{r}
+library(Seurat); library(spacexr); library(tidyverse)   # spacexr = RCTD
+
+sp  <- readRDS(here::here("analysis", "7_visium.rds"))
+ref <- readRDS(here::here("analysis", "5_pbmc_annotated.rds"))   # ⚠️ is this the right reference?
+
+reference <- Reference(GetAssayData(ref, "counts"), factor(ref$cell_type))
+puck      <- SpatialRNA(GetTissueCoordinates(sp), GetAssayData(sp, "counts"))
+
+rctd <- create.RCTD(puck, reference, max_cores = 4) |> run.RCTD(doublet_mode = "full")
+props <- normalize_weights(rctd@results$weights)
+```
+
+⚠️ **Before believing any of it**, ask what a PBMC reference implies for a tissue section. Tissue-resident macrophages, fibroblasts and endothelium are not in it — where did their signal go?
+
+## 2) ✅ The verification that should be reflexive {#w8-s5-2}
+
+```{r}
+# Plot a raw marker gene next to the estimated proportion of its cell type
+p1 <- SpatialFeaturePlot(sp, features = "CD3E") + ggtitle("raw CD3E")
+sp$Tcell_prop <- props[, "CD8 T"]
+p2 <- SpatialFeaturePlot(sp, features = "Tcell_prop") + ggtitle("estimated CD8 T")
+p1 | p2
+```
+
+💡 If these two maps disagree, the deconvolution is telling you about your reference, not about the tissue.
+
+## 3) Niches {#w8-s5-3}
+
+```{r}
+library(FNN)
+
+coords <- GetTissueCoordinates(sp)
+nn     <- get.knn(as.matrix(coords), k = 6)$nn.index
+
+# neighbourhood composition per spot
+nbr_comp <- t(apply(nn, 1, \(idx) colMeans(props[idx, , drop = FALSE])))
+
+set.seed(1)
+sp$niche <- factor(kmeans(nbr_comp, centers = 5)$cluster)
+SpatialDimPlot(sp, group.by = "niche")
+```
+
+## 4) ✅ Change one thing {#w8-s5-4}
+
+```{r}
+# Does your co-localisation survive a structure-preserving null?
+observed <- cor(props[, "CD8 T"], props[, "Macrophage"])
+
+null <- replicate(1000, {
+  perm <- sample(nrow(props))          # ⚠️ a naive permutation — discuss why this is still too easy
+  cor(props[perm, "CD8 T"], props[, "Macrophage"])
+})
+
+cat("observed:", round(observed, 3),
+    " null 95%:", round(quantile(null, c(.025, .975)), 3), "\n")
+```
+
+⚠️ Then discuss: this permutation destroys **all** tissue structure, so it is the too-easy null from §2.2. What would a better one look like? (Hint: permute within anatomical region, or shift the whole label map rigidly.)
+
+## 5) Before next week {#w8-s5-5}
+
+**W9 — proteomics.** Everything so far measured RNA. Next we ask whether the protein was ever made — and find out how often the answer is no.
+
+Nothing to install; W9 is conceptual.
+
+------------------------------------------------------------------------
+
+# 📝 Summary
+
+-   Deconvolution estimates the cell-type mixture of each spot using a single-cell **reference**
+-   ⚠️ **The reference determines the answer.** A missing cell type is redistributed silently onto its nearest neighbour
+-   ✅ Check the reference for tissue, condition, platform, and patients — then verify with an un-deconvolved marker gene
+-   A dominant-cell-type map hides everything that is everywhere and dominates nowhere — usually the immune compartment
+-   ✅ **Niches** — clustering spots by their neighbourhood composition — is where the spatial biology lives
+-   ⚠️ Complete spatial randomness is the wrong null. Permute within tissue structure, or compare to matched control tissue
+-   ⚠️ Thousands of spots inflate p-values. **Effect size, replicated across patients**, is the claim
+-   Spatial validation promotes a claim from *hypothesis* to *consistent with* — not to *demonstrated*
+-   ✅ Design from a hypothesis, count patients not sections, select by outcome, and book the pathologist first
+
+------------------------------------------------------------------------
+
+# 🔑 Key terms
+
+| Term | One-line meaning |
+|-------------------------|-----------------------------------------|
+| Deconvolution | Estimating cell-type proportions within a mixed spot |
+| Reference | The single-cell dataset defining what each cell type looks like |
+| Reference bias | Anything absent from the reference cannot appear in the output |
+| RCTD / cell2location / CARD | Common deconvolution methods |
+| Absolute abundance | Estimated cell numbers rather than proportions |
+| Niche / neighbourhood | Recurrent local composition around a location |
+| Co-localisation | Two cell types occurring together more than expected |
+| Structure-preserving null | A permutation that keeps tissue architecture intact |
+| Label transfer | Projecting single-cell annotations onto spatial data |
+| Effective sample size | How many independent observations you really have |
+| Evidence ladder | Description → hypothesis → consistent with → supported → demonstrated |
+
+------------------------------------------------------------------------
+
+# ➕ References
+
+### Deconvolution
+
+Cable DM, et al. [*Robust decomposition of cell type mixtures in spatial transcriptomics.*](https://doi.org/10.1038/s41587-021-00830-w) Nat Biotechnol. 2022. (RCTD)\
+Kleshchevnikov V, et al. [*Cell2location maps fine-grained cell types in spatial transcriptomics.*](https://doi.org/10.1038/s41587-021-01139-4) Nat Biotechnol. 2022.\
+Ma Y, Zhou X. [*Spatially informed cell-type deconvolution for spatial transcriptomics.*](https://doi.org/10.1038/s41587-022-01273-7) Nat Biotechnol. 2022. (CARD)\
+Li B, et al. [*Benchmarking spatial and single-cell transcriptomics integration methods for transcript distribution prediction and cell type deconvolution.*](https://doi.org/10.1038/s41592-022-01480-9) Nat Methods. 2022. **← how little separates the methods, and how much the reference matters**
+
+### Niches and spatial statistics
+
+Palla G, et al. [*Squidpy: a scalable framework for spatial omics analysis.*](https://doi.org/10.1038/s41592-021-01358-2) Nat Methods. 2022.\
+Schürch CM, et al. [*Coordinated cellular neighborhoods orchestrate antitumoral immunity at the colorectal cancer invasive front.*](https://doi.org/10.1016/j.cell.2020.07.005) Cell. 2020. **← the paper that made "neighbourhood" a unit of analysis**\
+Chen Z, Soifer I, Hilton H, Keren L, Jojic V. [*Modeling multiplexed images with spatial-LDA reveals novel tissue microenvironments.*](https://doi.org/10.1089/cmb.2019.0340) J Comput Biol. 2020.
+
+### Integration and design
+
+Longo SK, et al. [*Integrating single-cell and spatial transcriptomics to elucidate intercellular tissue dynamics.*](https://doi.org/10.1038/s41576-021-00370-8) Nat Rev Genet. 2021.\
+Biancalani T, et al. [*Deep learning and alignment of spatially resolved single-cell transcriptomes with Tangram.*](https://doi.org/10.1038/s41592-021-01264-7) Nat Methods. 2021.

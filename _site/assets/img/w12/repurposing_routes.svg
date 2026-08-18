@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="450" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Three ways to get from your gene to an existing drug — and what each one is worth.</text>
+
+  <!-- route 1 -->
+  <rect x="24" y="46" width="272" height="290" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="2"/>
+  <rect x="24" y="46" width="272" height="38" rx="10" fill="#e8f5f0"/>
+  <rect x="24" y="74" width="272" height="10" fill="#e8f5f0"/>
+  <text x="46" y="71" font-size="13" font-weight="700" fill="#0F6E56">① Genetic support</text>
+  <text x="46" y="106" font-size="12" fill="#666">Does human genetics say this</text>
+  <text x="46" y="124" font-size="12" fill="#666">target causes the disease?</text>
+  <rect x="46" y="138" width="228" height="66" rx="6" fill="#f5f5f5"/>
+  <text x="60" y="158" font-size="11.5" fill="#666">cis-variant in a druggable gene</text>
+  <text x="60" y="176" font-size="11.5" fill="#666">→ MR against the outcome</text>
+  <text x="60" y="194" font-size="11.5" font-weight="700" fill="#4A3D6B">→ PCSK9, IL6R precedent</text>
+  <text x="46" y="228" font-size="12" font-weight="700" fill="#0F6E56">✅ Strongest evidence class</text>
+  <text x="46" y="248" font-size="12" fill="#3d7a68">Roughly doubles the chance a</text>
+  <text x="46" y="266" font-size="12" fill="#3d7a68">programme reaches approval.</text>
+  <text x="46" y="292" font-size="12" font-weight="700" fill="#a8401d">⚠️ Direction of effect decides</text>
+  <text x="46" y="310" font-size="12" font-weight="700" fill="#a8401d">agonist vs antagonist.</text>
+  <text x="46" y="328" font-size="11" fill="#8A7FA3">Get it backwards and you harm people.</text>
+
+  <!-- route 2 -->
+  <rect x="308" y="46" width="272" height="290" rx="10" fill="#ffffff" stroke="#BA7517" stroke-width="2"/>
+  <rect x="308" y="46" width="272" height="38" rx="10" fill="#f8f1e6"/>
+  <rect x="308" y="74" width="272" height="10" fill="#f8f1e6"/>
+  <text x="330" y="71" font-size="13" font-weight="700" fill="#8a6a1f">② Signature reversal</text>
+  <text x="330" y="106" font-size="12" fill="#666">Which drug produces the</text>
+  <text x="330" y="124" font-size="12" fill="#666">opposite expression pattern?</text>
+  <rect x="330" y="138" width="228" height="66" rx="6" fill="#f5f5f5"/>
+  <text x="344" y="158" font-size="11.5" fill="#666">disease signature: genes ↑↓</text>
+  <text x="344" y="176" font-size="11.5" fill="#666">→ match against LINCS / CMap</text>
+  <text x="344" y="194" font-size="11.5" font-weight="700" fill="#4A3D6B">→ rank by anti-correlation</text>
+  <text x="330" y="228" font-size="12" font-weight="700" fill="#8a6a1f">⚠️ Hypothesis-generating only</text>
+  <text x="330" y="248" font-size="12" fill="#a08850">Reference profiles come from cell</text>
+  <text x="330" y="266" font-size="12" fill="#a08850">lines at high doses — not patients,</text>
+  <text x="330" y="284" font-size="12" fill="#a08850">not your tissue, not your dose.</text>
+  <text x="330" y="310" font-size="12" font-weight="700" fill="#a8401d">⚠️ Reversing a signature is not</text>
+  <text x="330" y="328" font-size="12" font-weight="700" fill="#a8401d">the same as treating a disease.</text>
+
+  <!-- route 3 -->
+  <rect x="592" y="46" width="264" height="290" rx="10" fill="#ffffff" stroke="#534AB7" stroke-width="2"/>
+  <rect x="592" y="46" width="264" height="38" rx="10" fill="#eeecf8"/>
+  <rect x="592" y="74" width="264" height="10" fill="#eeecf8"/>
+  <text x="614" y="71" font-size="13" font-weight="700" fill="#4a4189">③ Network proximity</text>
+  <text x="614" y="106" font-size="12" fill="#666">Is an existing drug's target</text>
+  <text x="614" y="124" font-size="12" fill="#666">close to the disease module?</text>
+  <rect x="614" y="138" width="220" height="66" rx="6" fill="#f5f5f5"/>
+  <text x="628" y="158" font-size="11.5" fill="#666">disease genes → a module</text>
+  <text x="628" y="176" font-size="11.5" fill="#666">→ shortest path to drug targets</text>
+  <text x="628" y="194" font-size="11.5" font-weight="700" fill="#4A3D6B">→ rank by proximity</text>
+  <text x="614" y="228" font-size="12" font-weight="700" fill="#4a4189">⚠️ Inherits every network bias</text>
+  <text x="614" y="248" font-size="12" fill="#6d6088">Well-studied genes are closer to</text>
+  <text x="614" y="266" font-size="12" fill="#6d6088">everything, so well-studied drugs</text>
+  <text x="614" y="284" font-size="12" fill="#6d6088">score well by construction.</text>
+  <text x="614" y="310" font-size="12" font-weight="700" fill="#0F6E56">✅ Only meaningful against a</text>
+  <text x="614" y="328" font-size="12" font-weight="700" fill="#0F6E56">degree-matched null.</text>
+
+  <!-- footer -->
+  <rect x="24" y="352" width="832" height="82" rx="9" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="376" font-size="13" font-weight="700" fill="#4A3D6B">Where a clinician adds what none of the three can supply</text>
+  <text x="48" y="398" font-size="12.5" fill="#555">✅ Is this drug tolerable in <tspan font-weight="700" fill="#4A3D6B">this</tspan> population, at a dose that reaches <tspan font-weight="700" fill="#4A3D6B">this</tspan> tissue, for the duration this disease would need?</text>
+  <text x="48" y="420" font-size="12.5" fill="#555">💡 A repurposing candidate that fails on any of those three is not a candidate, however good the computational score.</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<rect width="880" height="340" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">The same score, the same code, applied to different patients.</text>
+<text x="196" y="110.0" font-size="13" font-weight="700" fill="#4A3D6B" text-anchor="end">European</text>
+<rect x="210" y="86.0" width="500" height="32" rx="4" fill="#f1eef7"/>
+<rect x="210" y="86.0" width="500" height="32" rx="4" fill="#1a4f80"/>
+<text x="722" y="108.0" font-size="13" font-weight="700" fill="#4A3D6B">100%</text>
+<text x="196" y="157.5" font-size="13" font-weight="700" fill="#4A3D6B" text-anchor="end">East Asian</text>
+<rect x="210" y="133.5" width="500" height="32" rx="4" fill="#f1eef7"/>
+<rect x="210" y="133.5" width="260" height="32" rx="4" fill="#2b6fa8"/>
+<text x="482" y="155.5" font-size="13" font-weight="700" fill="#4A3D6B">52%</text>
+<text x="196" y="205.0" font-size="13" font-weight="700" fill="#4A3D6B" text-anchor="end">South Asian</text>
+<rect x="210" y="181.0" width="500" height="32" rx="4" fill="#f1eef7"/>
+<rect x="210" y="181.0" width="220" height="32" rx="4" fill="#5f97c4"/>
+<text x="442" y="203.0" font-size="13" font-weight="700" fill="#4A3D6B">44%</text>
+<text x="196" y="252.5" font-size="13" font-weight="700" fill="#4A3D6B" text-anchor="end">African</text>
+<rect x="210" y="228.5" width="500" height="32" rx="4" fill="#f1eef7"/>
+<rect x="210" y="228.5" width="110" height="32" rx="4" fill="#9dbdd8"/>
+<text x="332" y="250.5" font-size="13" font-weight="700" fill="#4A3D6B">22%</text>
+<text x="460" y="302" font-size="11.5" fill="#8A7FA3" text-anchor="middle">predictive performance, relative to the European cohort the score was built in</text>
+<rect x="24" y="292" width="832" height="36" rx="8" fill="#fbeee8" stroke="#D85A30" stroke-width="1.5"/>
+<text x="48" y="315" font-size="13" fill="#a05a3f">⚠️ The patients it misses are not a random sample. Deploying this unchanged does not fail neutrally — it fails <tspan font-weight="700" fill="#a8401d">by ancestry</tspan>.</text>
+</svg>

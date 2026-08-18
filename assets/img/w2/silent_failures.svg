@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" width="880" height="470" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="470" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Three ways generated code runs perfectly and gives you the wrong answer.</text>
+
+  <!-- ① join -->
+  <rect x="24" y="46" width="832" height="122" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <rect x="24" y="46" width="6" height="122" rx="3" fill="#185FA5"/>
+  <text x="52" y="72" font-size="13.5" font-weight="700" fill="#4A3D6B">① The join that silently loses patients</text>
+  <rect x="52" y="84" width="470" height="30" rx="5" fill="#f5f5f5"/>
+  <text x="64" y="104" font-family="monospace" font-size="12" fill="#666">clin |&gt; left_join(expr, by = "sample_id")</text>
+  <text x="540" y="104" font-size="12.5" fill="#a05a3f">IDs are <tspan font-family="monospace" font-size="11.5">"P-001"</tspan> vs <tspan font-family="monospace" font-size="11.5">"P001"</tspan></text>
+  <text x="52" y="136" font-size="12.5" fill="#666">Runs. Returns a data frame. 34 of your 60 patients are now all-NA rows.</text>
+  <text x="52" y="156" font-size="12.5" font-weight="700" fill="#0F6E56">✅ Guard: <tspan font-family="monospace" font-size="12">nrow()</tspan> and <tspan font-family="monospace" font-size="12">sum(is.na())</tspan> before and after every join. Every time.</text>
+
+  <!-- ② p.adjust -->
+  <rect x="24" y="180" width="832" height="122" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <rect x="24" y="180" width="6" height="122" rx="3" fill="#BA7517"/>
+  <text x="52" y="206" font-size="13.5" font-weight="700" fill="#4A3D6B">② Multiple testing on an already-filtered list</text>
+  <rect x="52" y="218" width="470" height="30" rx="5" fill="#f5f5f5"/>
+  <text x="64" y="238" font-family="monospace" font-size="12" fill="#666">res |&gt; filter(pvalue &lt; .05) |&gt; mutate(padj = p.adjust(pvalue))</text>
+  <text x="540" y="238" font-size="12.5" fill="#a05a3f">denominator is now 812, not 20,000</text>
+  <text x="52" y="270" font-size="12.5" fill="#666">Runs. Produces a padj column. The correction is meaningless and far too permissive.</text>
+  <text x="52" y="290" font-size="12.5" font-weight="700" fill="#0F6E56">✅ Guard: adjust across <tspan font-weight="700">all</tspan> tests performed, then filter. Order is not cosmetic.</text>
+
+  <!-- ③ recode -->
+  <rect x="24" y="314" width="832" height="122" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <rect x="24" y="314" width="6" height="122" rx="3" fill="#1D9E75"/>
+  <text x="52" y="340" font-size="13.5" font-weight="700" fill="#4A3D6B">③ The relabel that quietly deletes a cluster</text>
+  <rect x="52" y="352" width="470" height="30" rx="5" fill="#f5f5f5"/>
+  <text x="64" y="372" font-family="monospace" font-size="12" fill="#666">recode(clusters, "0"="CD4 T", "1"="B cell", ... "7"="DC")</text>
+  <text x="540" y="372" font-size="12.5" fill="#a05a3f">clustering returned 9, map covers 8</text>
+  <text x="52" y="404" font-size="12.5" fill="#666">Runs. Cluster 8 becomes NA and vanishes from every downstream plot without comment.</text>
+  <text x="52" y="424" font-size="12.5" font-weight="700" fill="#0F6E56">✅ Guard: <tspan font-family="monospace" font-size="12">table()</tspan> the labels afterwards and confirm the counts add up to what you started with.</text>
+
+  <!-- footer -->
+  <rect x="24" y="448" width="832" height="0" fill="none"/>
+  <text x="24" y="462" font-size="12.5" fill="#8A7FA3">The common shape: a plausible object of the right class, with the wrong contents. Type-checking cannot catch it — only you can.</text>
+</svg>

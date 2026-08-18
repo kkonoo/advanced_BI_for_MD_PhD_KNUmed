@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eunji Ha">
+<meta name="dcterms.date" content="2026-08-17">
+
+<title>W6. Trajectory, Communication &amp; Integration</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/part4/w7_spatial_basics.html" rel="next">
+<link href="../../chapters/part3/w5_scrna_qc.html" rel="prev">
+<link href="../../assets/img/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../../assets/html.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../assets/img/logo.jpg" alt="" class="navbar-logo light-content">
+    <img src="../../assets/img/logo.jpg" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weeks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weeks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">    
+        <li>
+    <a class="dropdown-item" href="../../chapters/part1/w1_intro.html">
+ <span class="dropdown-text">W1 · Introduction &amp; Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part1/w2_scripts_ai.html">
+ <span class="dropdown-text">W2 · Scripts, AI &amp; Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part2/w3_gwas.html">
+ <span class="dropdown-text">W3 · GWAS &amp; Post-GWAS</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part2/w4_prs.html">
+ <span class="dropdown-text">W4 · Polygenic Risk Scores</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part3/w5_scrna_qc.html">
+ <span class="dropdown-text">W5 · scRNA-seq: QC &amp; Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part3/w6_scrna_dynamics.html">
+ <span class="dropdown-text">W6 · Trajectory, CCC &amp; Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part4/w7_spatial_basics.html">
+ <span class="dropdown-text">W7 · Spatial Transcriptomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part4/w8_spatial_integration.html">
+ <span class="dropdown-text">W8 · Deconvolution &amp; Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part5/w9_proteomics_tech.html">
+ <span class="dropdown-text">W9 · Proteomics Technology</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part5/w10_clinical_proteomics.html">
+ <span class="dropdown-text">W10 · Clinical Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part6/w11_multiomics.html">
+ <span class="dropdown-text">W11 · Multi-omics Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part6/w12_network_drug.html">
+ <span class="dropdown-text">W12 · Network &amp; Drug Targets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part7/w13_visualization.html">
+ <span class="dropdown-text">W13 · Interpretation &amp; Visualisation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part7/w14_project_design.html">
+ <span class="dropdown-text">W14 · Project Design</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part3/w5_scrna_qc.html">3 · Single-cell</a></li><li class="breadcrumb-item"><a href="../../chapters/part3/w6_scrna_dynamics.html">W6. Trajectory, Communication, Integration</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">1 · Intro</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part1/w1_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W1. Introduction &amp; Roadmap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part1/w2_scripts_ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W2. Scripts, AI &amp; Reproducibility</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">2 · Clinical Genomics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part2/w3_gwas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W3. GWAS &amp; Post-GWAS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part2/w4_prs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W4. Polygenic Risk Scores</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">3 · Single-cell</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part3/w5_scrna_qc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W5. Technology, QC, Clustering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part3/w6_scrna_dynamics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">W6. Trajectory, Communication, Integration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">4 · Spatial</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part4/w7_spatial_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W7. Spatial Transcriptomics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part4/w8_spatial_integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W8. Deconvolution &amp; Integration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">5 · Proteomics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part5/w9_proteomics_tech.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W9. How Proteins Are Measured</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part5/w10_clinical_proteomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W10. Clinical Proteomics &amp; Biomarkers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">6 · Integration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part6/w11_multiomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W11. Multi-omics Integration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part6/w12_network_drug.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W12. Network Analysis &amp; Drug Targets</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">7 · Capstone</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part7/w13_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W13. Interpretation &amp; Visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part7/w14_project_design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W14. Designing Your Own Project</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#w6-s1" id="toc-w6-s1" class="nav-link active" data-scroll-target="#w6-s1">1. Integration and What It Costs 🔗</a>
+  <ul>
+  <li><a href="#w6-s1-1" id="toc-w6-s1-1" class="nav-link" data-scroll-target="#w6-s1-1">1) The problem integration solves</a></li>
+  <li><a href="#w6-s1-2" id="toc-w6-s1-2" class="nav-link" data-scroll-target="#w6-s1-2">2) ⚠️ Integration is an assumption in disguise</a></li>
+  <li><a href="#w6-s1-3" id="toc-w6-s1-3" class="nav-link" data-scroll-target="#w6-s1-3">3) ⚠️ When integration cannot help at all</a></li>
+  </ul></li>
+  <li><a href="#w6-s2" id="toc-w6-s2" class="nav-link" data-scroll-target="#w6-s2">2. Trajectory and Pseudotime 🧭</a>
+  <ul>
+  <li><a href="#w6-s2-1" id="toc-w6-s2-1" class="nav-link" data-scroll-target="#w6-s2-1">1) The idea</a></li>
+  <li><a href="#w6-s2-2" id="toc-w6-s2-2" class="nav-link" data-scroll-target="#w6-s2-2">2) ⚠️ The algorithm always succeeds</a></li>
+  <li><a href="#w6-s2-3" id="toc-w6-s2-3" class="nav-link" data-scroll-target="#w6-s2-3">3) RNA velocity</a></li>
+  </ul></li>
+  <li><a href="#w6-s3" id="toc-w6-s3" class="nav-link" data-scroll-target="#w6-s3">3. ⚠️ Cell–Cell Communication 📡</a>
+  <ul>
+  <li><a href="#w6-s3-1" id="toc-w6-s3-1" class="nav-link" data-scroll-target="#w6-s3-1">1) What the tools actually compute</a></li>
+  <li><a href="#w6-s3-2" id="toc-w6-s3-2" class="nav-link" data-scroll-target="#w6-s3-2">2) Using them honestly</a></li>
+  </ul></li>
+  <li><a href="#w6-s4" id="toc-w6-s4" class="nav-link" data-scroll-target="#w6-s4">4. Putting the Week Together 🧩</a></li>
+  <li><a href="#w6-s5" id="toc-w6-s5" class="nav-link" data-scroll-target="#w6-s5">5. Hands-On 💻</a>
+  <ul>
+  <li><a href="#w6-s5-1" id="toc-w6-s5-1" class="nav-link" data-scroll-target="#w6-s5-1">1) Integration, with the honest diagnostic</a></li>
+  <li><a href="#w6-s5-2" id="toc-w6-s5-2" class="nav-link" data-scroll-target="#w6-s5-2">2) A trajectory, and its sanity check</a></li>
+  <li><a href="#w6-s5-3" id="toc-w6-s5-3" class="nav-link" data-scroll-target="#w6-s5-3">3) Cell–cell communication</a></li>
+  <li><a href="#w6-s5-4" id="toc-w6-s5-4" class="nav-link" data-scroll-target="#w6-s5-4">4) Before next week</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">📝 Summary</a></li>
+  <li><a href="#key-terms" id="toc-key-terms" class="nav-link" data-scroll-target="#key-terms">🔑 Key terms</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">➕ References</a>
+  <ul>
+  <li><a href="#integration" id="toc-integration" class="nav-link" data-scroll-target="#integration">Integration</a></li>
+  <li><a href="#trajectory-and-velocity" id="toc-trajectory-and-velocity" class="nav-link" data-scroll-target="#trajectory-and-velocity">Trajectory and velocity</a></li>
+  <li><a href="#cellcell-communication" id="toc-cellcell-communication" class="nav-link" data-scroll-target="#cellcell-communication">Cell–cell communication</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part3/w5_scrna_qc.html">3 · Single-cell</a></li><li class="breadcrumb-item"><a href="../../chapters/part3/w6_scrna_dynamics.html">W6. Trajectory, Communication, Integration</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">W6. Trajectory, Communication &amp; Integration</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eunji Ha </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 17, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>🎯 Learning objectives
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>By the end of this chapter you should be able to:</p>
+<ul>
+<li>Say what integration assumes, and ⚠️ recognise when it has erased the biology you were looking for</li>
+<li>✅ Demand the two colourings that make over-correction visible</li>
+<li>Explain what pseudotime orders — and ⚠️ why it is not time</li>
+<li>⚠️ Say why a trajectory algorithm always returns a trajectory</li>
+<li>Explain where RNA velocity’s direction comes from, and which of its assumptions are contested</li>
+<li>⚠️ Explain why ligand–receptor co-expression is not evidence of an interaction</li>
+<li>Decide which of these results belongs in a grant as a hypothesis, and which belongs in a paper as a finding</li>
+</ul>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>🤔 <strong>Motivating question</strong></p>
+<p>A paper shows a beautiful UMAP where patient and control cells overlap perfectly, then reports that a disease-specific fibroblast state exists. Are those two claims compatible?</p>
+</blockquote>
+<hr>
+<section id="w6-s1" class="level1">
+<h1>1. Integration and What It Costs 🔗</h1>
+<section id="w6-s1-1" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s1-1">1) The problem integration solves</h2>
+<p>In single-cell data the <strong>donor</strong> is usually the dominant source of variation. Cells cluster by patient before they cluster by cell type — which makes the data uninterpretable as biology.</p>
+<p><strong>Integration methods</strong> (Harmony, scVI, Seurat RPCA, scANVI) find a shared representation in which cells of the same type from different donors sit together.</p>
+</section>
+<section id="w6-s1-2" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s1-2">2) ⚠️ Integration is an assumption in disguise</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w6/integration_overcorrection.svg" class="img-fluid figure-img"></p>
+<figcaption>Both right-hand panels look perfectly mixed. Only one colouring reveals what happened.</figcaption>
+</figure>
+</div>
+<p>The assumption: <strong>the same cell types exist in every batch, and any batch-associated variation is technical.</strong></p>
+<p>⚠️ That assumption fails exactly when your biology is interesting:</p>
+<ul>
+<li>a disease-specific cell state</li>
+<li>a population present only in one condition</li>
+<li>a treatment-induced program</li>
+</ul>
+<p>→ Aggressive integration merges it away, and the resulting UMAP looks beautifully mixed.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>The diagnostic, and why it is rarely shown
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>✅ Colour by batch <strong>and</strong> by cell type. Publish both</li>
+<li>✅ Confirm that known cell-type markers still separate after integration</li>
+<li>✅ Confirm that a population unique to one condition <strong>survived</strong></li>
+<li>✅ Benchmarks such as <strong>scIB</strong> score exactly this batch-removal / biology-preservation trade-off</li>
+</ul>
+<p>⚠️ Most papers show only the batch colouring — because that is the one that demonstrates the method worked. It is also the one that cannot reveal the failure.</p>
+<p>💡 Back to the motivating question: a perfectly mixed UMAP and a disease-specific state are <strong>in tension</strong>. Not impossible — but the paper owes you the second colouring.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="w6-s1-3" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s1-3">3) ⚠️ When integration cannot help at all</h2>
+<p>If disease status is perfectly confounded with batch — all patients processed on one day, all controls on another — <strong>no integration method can separate them.</strong> Exactly the argument from 🔗 <a href="../../chapters/part1/w1_intro.html#w1-s3-3">W1 §3.3</a>, and just as unrecoverable here.</p>
+<hr>
+</section>
+</section>
+<section id="w6-s2" class="level1">
+<h1>2. Trajectory and Pseudotime 🧭</h1>
+<section id="w6-s2-1" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s2-1">1) The idea</h2>
+<p>Biology is dynamic; a single-cell experiment is a snapshot. If cells were caught mid-process, they can be <strong>ordered</strong> along an axis of transcriptional similarity — a <strong>pseudotime</strong>.</p>
+<ul>
+<li>Stem cell → progenitor → differentiated</li>
+<li>Naive T cell → activated → effector → exhausted</li>
+<li>Fibroblast → myofibroblast → senescent</li>
+</ul>
+<p>Tools: <strong>Monocle3</strong>, <strong>Slingshot</strong>, <strong>PAGA</strong>.</p>
+</section>
+<section id="w6-s2-2" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s2-2">2) ⚠️ The algorithm always succeeds</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w6/trajectory_caveats.svg" class="img-fluid figure-img"></p>
+<figcaption>Same tool, same settings, same confident output.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Three caveats worth stating plainly
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>⚠️ <strong>A trajectory algorithm returns a trajectory for any dataset</strong>, including one with no underlying process. There is no “no trajectory found” output</li>
+<li>⚠️ <strong>Pseudotime is not time.</strong> It measures neither rate nor duration. Two cells far apart in pseudotime may be minutes or months apart in reality — or the ordering may be reversed</li>
+<li>⚠️ <strong>The root has to be chosen by you.</strong> Reverse the root and the biology reverses with it. That choice is prior knowledge entering as if it were a result</li>
+</ul>
+<p>→ ✅ Sanity check: shuffle your cell labels, or run the algorithm on a homogeneous population, and see what comes back. It is a sobering five minutes.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="w6-s2-3" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s2-3">3) RNA velocity</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w6/rna_velocity.svg" class="img-fluid figure-img"></p>
+<figcaption>Where the arrows come from.</figcaption>
+</figure>
+</div>
+<p>RNA velocity adds <strong>direction</strong> by comparing unspliced (new) to spliced (mature) transcripts per gene. More unspliced than steady state predicts → the gene is turning on.</p>
+<p>⚠️ The assumptions about splicing and degradation kinetics are <strong>contested</strong>, and known to fail for some genes and systems. The arrows are also drawn on a UMAP, so they inherit every distortion from 🔗 <a href="../../chapters/part3/w5_scrna_qc.html#w5-s4-2">W5 §4.2</a>.</p>
+<p>✅ What settles a trajectory claim: a <strong>time course</strong>, or <strong>lineage tracing</strong>. Not a better algorithm.</p>
+<hr>
+</section>
+</section>
+<section id="w6-s3" class="level1">
+<h1>3. ⚠️ Cell–Cell Communication 📡</h1>
+<section id="w6-s3-1" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s3-1">1) What the tools actually compute</h2>
+<p>CellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster pairs based on <strong>co-expression</strong> — the ligand’s mRNA is high in cluster A, its receptor’s mRNA is high in cluster B.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w6/ccc_fallacy.svg" class="img-fluid figure-img"></p>
+<figcaption>The arrow in the figure is doing far more work than the data supports.</figcaption>
+</figure>
+</div>
+</section>
+<section id="w6-s3-2" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s3-2">2) Using them honestly</h2>
+<ul>
+<li>✅ <strong>As a hypothesis generator</strong> — “which axes are worth testing?” is exactly what these tools are for</li>
+<li>✅ <strong>Validated spatially</strong> — if the two cell types are physically adjacent (🔗 <a href="../../chapters/part4/w7_spatial_basics.html">W7</a>), the prediction becomes plausible</li>
+<li>✅ <strong>Validated functionally</strong> — blocking antibody, receptor knockout, ligand stimulation</li>
+<li>❌ <strong>As a standalone result</strong> — “macrophages signal to T cells via TNF” is not shown by co-expression</li>
+</ul>
+<p>💡 NicheNet is somewhat different in kind: it asks whether the <em>downstream target genes</em> of a ligand are induced in the receiver cell. That is still correlative, but it is a stronger correlation than co-expression alone.</p>
+<hr>
+</section>
+</section>
+<section id="w6-s4" class="level1">
+<h1>4. Putting the Week Together 🧩</h1>
+<p>Everything in this chapter produces a confident-looking output from data that cannot fully support it. That is not a reason to avoid these methods — it is a reason to be precise about what they are.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 36%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Result</th>
+<th>Strength of evidence</th>
+<th>Where it belongs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cluster + validated markers</td>
+<td>✅ Descriptive, solid</td>
+<td>Results</td>
+</tr>
+<tr class="even">
+<td>Pseudobulk DE across donors (W5)</td>
+<td>✅ Inferential, solid</td>
+<td>Results</td>
+</tr>
+<tr class="odd">
+<td>Differential abundance with a compositional method</td>
+<td>⚠️ Solid if n is donors</td>
+<td>Results, with caveats</td>
+</tr>
+<tr class="even">
+<td>Pseudotime ordering</td>
+<td>⚠️ Hypothesis</td>
+<td>Results, phrased as “consistent with”</td>
+</tr>
+<tr class="odd">
+<td>RNA velocity direction</td>
+<td>⚠️ Hypothesis, contested method</td>
+<td>Supplementary, or a hypothesis</td>
+</tr>
+<tr class="even">
+<td>Ligand–receptor prediction</td>
+<td>❌ Hypothesis only</td>
+<td>Discussion, or a grant aim</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>The sentence that gets a paper into trouble
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><em>“Trajectory analysis revealed that fibroblasts differentiate into myofibroblasts, and cell–cell communication analysis showed that macrophage-derived TGF-β drives this transition.”</em></p>
+<p>Nothing here was revealed or shown. Two algorithms produced two orderings from one snapshot of dissociated cells.</p>
+<p>✅ The honest version: <em>“Pseudotime ordering is consistent with a fibroblast-to-myofibroblast transition, and ligand–receptor analysis nominates macrophage TGF-β as a candidate driver. We are testing this by [spatial validation / receptor blockade].”</em></p>
+<p>→ The second version is also the one that reads like a fundable next step.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="w6-s5" class="level1">
+<h1>5. Hands-On 💻</h1>
+<section id="w6-s5-1" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s5-1">1) Integration, with the honest diagnostic</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat); <span class="fu">library</span>(harmony); <span class="fu">library</span>(patchwork)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"analysis"</span>, <span class="st">"5_pbmc_annotated.rds"</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> obj <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunHarmony</span>(<span class="at">group.by.vars =</span> <span class="st">"donor"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindNeighbors</span>(<span class="at">reduction =</span> <span class="st">"harmony"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunUMAP</span>(<span class="at">reduction =</span> <span class="st">"harmony"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ the two panels that must always appear together</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(obj, <span class="at">group.by =</span> <span class="st">"donor"</span>)     <span class="sc">|</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(obj, <span class="at">group.by =</span> <span class="st">"cell_type"</span>, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>✅ <strong>Change one thing:</strong> raise Harmony’s <code>theta</code> (more aggressive correction) and watch whether any small population disappears from the right-hand panel.</p>
+</section>
+<section id="w6-s5-2" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s5-2">2) A trajectory, and its sanity check</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(monocle3)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cds <span class="ot">&lt;-</span> <span class="fu">as.cell_data_set</span>(obj)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cds <span class="ot">&lt;-</span> <span class="fu">cluster_cells</span>(cds) <span class="sc">|&gt;</span> <span class="fu">learn_graph</span>()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>cds <span class="ot">&lt;-</span> <span class="fu">order_cells</span>(cds)              <span class="co"># ⚠️ you choose the root — that is an assumption</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_cells</span>(cds, <span class="at">color_cells_by =</span> <span class="st">"pseudotime"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>⚠️ <strong>Then do this</strong>, and look at the output honestly:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the same pipeline on one homogeneous cluster with no expected process</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mono <span class="ot">&lt;-</span> <span class="fu">subset</span>(obj, cell_type <span class="sc">==</span> <span class="st">"CD14 Mono"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cds_null <span class="ot">&lt;-</span> <span class="fu">as.cell_data_set</span>(mono) <span class="sc">|&gt;</span> <span class="fu">cluster_cells</span>() <span class="sc">|&gt;</span> <span class="fu">learn_graph</span>()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_cells</span>(cds_null, <span class="at">color_cells_by =</span> <span class="st">"pseudotime"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>💡 You will get a trajectory. Discuss what that means for the previous figure.</p>
+</section>
+<section id="w6-s5-3" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s5-3">3) Cell–cell communication</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CellChat)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>cc <span class="ot">&lt;-</span> <span class="fu">createCellChat</span>(obj, <span class="at">group.by =</span> <span class="st">"cell_type"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subsetData</span>() <span class="sc">|&gt;</span> <span class="fu">identifyOverExpressedGenes</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identifyOverExpressedInteractions</span>() <span class="sc">|&gt;</span> <span class="fu">computeCommunProb</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filterCommunication</span>(<span class="at">min.cells =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> <span class="fu">aggregateNet</span>()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_circle</span>(cc<span class="sc">@</span>net<span class="sc">$</span>weight, <span class="at">weight.scale =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>✅ Pick the strongest predicted interaction and write <strong>one sentence</strong> describing the experiment that would test it. That sentence is the deliverable, not the plot.</p>
+</section>
+<section id="w6-s5-4" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s5-4">4) Before next week</h2>
+<p><strong>W7 — spatial transcriptomics.</strong> Come with an answer to one question about your own department:</p>
+<blockquote class="blockquote">
+<p><em>Do we have FFPE blocks with linked outcome data, and roughly how many?</em></p>
+</blockquote>
+<p>Everything in W7–W8 depends on that answer.</p>
+<hr>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>📝 Summary</h1>
+<ul>
+<li>Integration assumes the same cell types exist in every batch and that batch variation is technical</li>
+<li>⚠️ <strong>Over-correction erases exactly the disease-specific population you were looking for</strong> — and the resulting UMAP looks perfect</li>
+<li>✅ Always colour by batch <strong>and</strong> cell type. Demand both panels when reviewing</li>
+<li>⚠️ Confounded design (all cases one day, all controls another) cannot be rescued by any integration method</li>
+<li>⚠️ <strong>A trajectory algorithm returns a trajectory for random data.</strong> There is no null output</li>
+<li>⚠️ <strong>Pseudotime is not time</strong> — no rate, no duration — and the root is your assumption, not a result</li>
+<li>RNA velocity’s kinetic assumptions are contested, and its arrows sit on a distorted 2D embedding</li>
+<li>⚠️ <strong>Ligand–receptor co-expression is not interaction</strong>: cells may never be adjacent, the protein may never be made, and the database is biased toward what is already known</li>
+<li>✅ These are hypothesis generators. Phrase them as “consistent with” and name the experiment that would test them</li>
+</ul>
+<hr>
+</section>
+<section id="key-terms" class="level1">
+<h1>🔑 Key terms</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>One-line meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Integration</td>
+<td>Aligning datasets so shared cell types co-cluster</td>
+</tr>
+<tr class="even">
+<td>Over-correction</td>
+<td>Integration that removes real biological differences</td>
+</tr>
+<tr class="odd">
+<td>scIB</td>
+<td>Benchmark scoring batch removal against biology preservation</td>
+</tr>
+<tr class="even">
+<td>Pseudotime</td>
+<td>Ordering of cells along an inferred process</td>
+</tr>
+<tr class="odd">
+<td>Root cell</td>
+<td>The chosen starting point — reverses the whole ordering</td>
+</tr>
+<tr class="even">
+<td>Trajectory inference</td>
+<td>Fitting a path through cells in expression space</td>
+</tr>
+<tr class="odd">
+<td>RNA velocity</td>
+<td>Direction inferred from unspliced vs spliced reads</td>
+</tr>
+<tr class="even">
+<td>Spliced / unspliced</td>
+<td>Mature mRNA vs intron-containing nascent transcript</td>
+</tr>
+<tr class="odd">
+<td>Ligand–receptor pair</td>
+<td>A curated interaction used to score communication</td>
+</tr>
+<tr class="even">
+<td>CellChat / CellPhoneDB / NicheNet</td>
+<td>Communication inference tools, all correlative</td>
+</tr>
+<tr class="odd">
+<td>Hypothesis generator</td>
+<td>A method whose output is a question, not an answer</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="references" class="level1">
+<h1>➕ References</h1>
+<section id="integration" class="level3">
+<h3 class="anchored" data-anchor-id="integration">Integration</h3>
+<p>Korsunsky I, et al.&nbsp;<a href="https://doi.org/10.1038/s41592-019-0619-0"><em>Fast, sensitive and accurate integration of single-cell data with Harmony.</em></a> Nat Methods. 2019.<br>
+Luecken MD, et al.&nbsp;<a href="https://doi.org/10.1038/s41592-021-01336-8"><em>Benchmarking atlas-level data integration in single-cell genomics.</em></a> Nat Methods. 2022. (scIB)<br>
+Lopez R, et al.&nbsp;<a href="https://doi.org/10.1038/s41592-018-0229-2"><em>Deep generative modeling for single-cell transcriptomics.</em></a> Nat Methods. 2018. (scVI)</p>
+</section>
+<section id="trajectory-and-velocity" class="level3">
+<h3 class="anchored" data-anchor-id="trajectory-and-velocity">Trajectory and velocity</h3>
+<p>Saelens W, et al.&nbsp;<a href="https://doi.org/10.1038/s41587-019-0071-9"><em>A comparison of single-cell trajectory inference methods.</em></a> Nat Biotechnol. 2019. <strong>← the benchmark that shows how much method choice matters</strong><br>
+Cao J, et al.&nbsp;<a href="https://doi.org/10.1038/s41586-019-0969-x"><em>The single-cell transcriptional landscape of mammalian organogenesis.</em></a> Nature. 2019. (Monocle3)<br>
+Bergen V, et al.&nbsp;<a href="https://doi.org/10.1038/s41587-020-0591-3"><em>Generalizing RNA velocity to transient cell states through dynamical modeling.</em></a> Nat Biotechnol. 2020. (scVelo)<br>
+Bergen V, Soldatov RA, Kharchenko PV, Theis FJ. <a href="https://doi.org/10.15252/msb.202110282"><em>RNA velocity — current challenges and future perspectives.</em></a> Mol Syst Biol. 2021. <strong>← read this before using velocity in a figure</strong></p>
+</section>
+<section id="cellcell-communication" class="level3">
+<h3 class="anchored" data-anchor-id="cellcell-communication">Cell–cell communication</h3>
+<p>Jin S, et al.&nbsp;<a href="https://doi.org/10.1038/s41467-021-21246-w"><em>Inference and analysis of cell-cell communication using CellChat.</em></a> Nat Commun. 2021.<br>
+Browaeys R, Saelens W, Saeys Y. <a href="https://doi.org/10.1038/s41592-019-0667-5"><em>NicheNet: modeling intercellular communication by linking ligands to target genes.</em></a> Nat Methods. 2020.<br>
+Dimitrov D, et al.&nbsp;<a href="https://doi.org/10.1038/s41467-022-30755-0"><em>Comparison of methods and resources for cell-cell communication inference from single-cell RNA-Seq data.</em></a> Nat Commun. 2022. <strong>← how much the answer depends on which tool and database you picked</strong></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- AI Chat Widget 초기화 -->
+<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
+<script>
+  // ★ Cloudflare Worker 배포 후 URL로 교체하세요
+  const WORKER_URL = "https://falling-wave-447f.eh0129s.workers.dev/";
+
+  // 각 .qmd 파일의 YAML에서 ai-context를 읽어옵니다
+  // (없으면 빈 문자열 → 기본 안내 메시지)
+  const metaContext = document.querySelector('meta[name="ai-context"]');
+  const metaTitle   = document.querySelector('meta[name="ai-title"]') || { content: document.title };
+
+  window.AI_CHAT_CONFIG = {
+    workerUrl:      WORKER_URL,
+    chapterContext: metaContext ? metaContext.content : "",
+    chapterTitle:   metaTitle  ? metaTitle.content   : document.title,
+  };
+</script>
+<script src="../_extensions/ai-chat/ai-chat.js" defer=""></script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/part3/w5_scrna_qc.html" class="pagination-link" aria-label="W5. Technology, QC, Clustering">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">W5. Technology, QC, Clustering</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/part4/w7_spatial_basics.html" class="pagination-link" aria-label="W7. Spatial Transcriptomics">
+        <span class="nav-page-text">W7. Spatial Transcriptomics</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2026, Eunji</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

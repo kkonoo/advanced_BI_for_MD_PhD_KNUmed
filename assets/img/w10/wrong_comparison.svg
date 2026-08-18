@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="460" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">The most common design error in biomarker studies is not statistical. It is choosing the wrong control group.</text>
+
+  <!-- the clinical question -->
+  <rect x="24" y="46" width="832" height="44" rx="8" fill="#f3f0f7" stroke="#5B4D80" stroke-width="1.5"/>
+  <text x="48" y="73" font-size="13.5" fill="#555">The clinical question: <tspan font-weight="700" fill="#4A3D6B">"This patient has vague abdominal symptoms. Is this pancreatic cancer, or pancreatitis?"</tspan></text>
+
+  <!-- WRONG -->
+  <rect x="24" y="106" width="400" height="228" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="2"/>
+  <rect x="24" y="106" width="400" height="40" rx="10" fill="#fbeee8"/>
+  <rect x="24" y="136" width="400" height="10" fill="#fbeee8"/>
+  <text x="48" y="132" font-size="14" font-weight="700" fill="#a8401d">❌ The study that gets run</text>
+
+  <g>
+    <rect x="48" y="164" width="164" height="52" rx="7" fill="#fbeee8"/>
+    <text x="130" y="186" font-size="12.5" font-weight="700" fill="#a8401d" text-anchor="middle">stage IV cancer</text>
+    <text x="130" y="204" font-size="11" fill="#a05a3f" text-anchor="middle">recruited in oncology</text>
+    <text x="224" y="194" font-size="14" font-weight="700" fill="#8A7FA3" text-anchor="middle">vs</text>
+    <rect x="236" y="164" width="164" height="52" rx="7" fill="#eaf1f8"/>
+    <text x="318" y="186" font-size="12.5" font-weight="700" fill="#185FA5" text-anchor="middle">healthy volunteers</text>
+    <text x="318" y="204" font-size="11" fill="#5d7fa0" text-anchor="middle">staff, health screening</text>
+  </g>
+
+  <text x="48" y="244" font-size="12.5" font-weight="700" fill="#4A3D6B">AUC = 0.94 🎉</text>
+  <text x="48" y="266" font-size="12" fill="#666">And it is real — those two groups differ enormously.</text>
+  <text x="48" y="288" font-size="12" fill="#a05a3f">⚠️ But they differ in cachexia, inflammation, medication,</text>
+  <text x="48" y="306" font-size="12" fill="#a05a3f">nutrition, age — and in how the blood was collected.</text>
+  <text x="48" y="326" font-size="12" font-weight="700" fill="#a8401d">You built a detector for "being very ill".</text>
+
+  <!-- RIGHT -->
+  <rect x="456" y="106" width="400" height="228" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="2"/>
+  <rect x="456" y="106" width="400" height="40" rx="10" fill="#e8f5f0"/>
+  <rect x="456" y="136" width="400" height="10" fill="#e8f5f0"/>
+  <text x="480" y="132" font-size="14" font-weight="700" fill="#0F6E56">✅ The study that answers the question</text>
+
+  <g>
+    <rect x="480" y="164" width="164" height="52" rx="7" fill="#e8f5f0"/>
+    <text x="562" y="186" font-size="12.5" font-weight="700" fill="#0F6E56" text-anchor="middle">early-stage cancer</text>
+    <text x="562" y="204" font-size="11" fill="#3d7a68" text-anchor="middle">at first presentation</text>
+    <text x="656" y="194" font-size="14" font-weight="700" fill="#8A7FA3" text-anchor="middle">vs</text>
+    <rect x="668" y="164" width="164" height="52" rx="7" fill="#f8f1e6"/>
+    <text x="750" y="186" font-size="12.5" font-weight="700" fill="#8a6a1f" text-anchor="middle">pancreatitis</text>
+    <text x="750" y="204" font-size="11" fill="#a08850" text-anchor="middle">same clinic, same symptoms</text>
+  </g>
+
+  <text x="480" y="244" font-size="12.5" font-weight="700" fill="#4A3D6B">AUC = 0.71</text>
+  <text x="480" y="266" font-size="12" fill="#666">A much less impressive number.</text>
+  <text x="480" y="288" font-size="12" fill="#3d7a68">✅ Both groups are ill, both were bled in the same clinic,</text>
+  <text x="480" y="306" font-size="12" fill="#3d7a68">and the comparison is the one you face at the bedside.</text>
+  <text x="480" y="326" font-size="12" font-weight="700" fill="#0F6E56">This 0.71 is worth more than that 0.94.</text>
+
+  <!-- rule -->
+  <rect x="24" y="350" width="832" height="94" rx="10" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="374" font-size="13.5" font-weight="700" fill="#4A3D6B">The rule: your control group is whoever you would actually have to tell apart</text>
+  <text x="48" y="398" font-size="12.5" fill="#555">✅ Recruit cases and controls <tspan font-weight="700" fill="#4A3D6B">at the same point in the care pathway</tspan> — same clinic, same symptoms, same tubes, same day.</text>
+  <text x="48" y="418" font-size="12.5" fill="#555">✅ Sample at the stage where the test would be <tspan font-weight="700" fill="#4A3D6B">used</tspan>, not the stage where the disease is most obvious.</text>
+  <text x="48" y="438" font-size="12.5" fill="#8A7FA3">💡 As a clinician you can see this design error faster than any statistician can. It is one of the things you are for.</text>
+</svg>

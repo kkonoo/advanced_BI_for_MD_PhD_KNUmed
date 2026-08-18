@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 640" width="880" height="640" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="640" fill="#fcfcfb"/>
+
+  <!-- header -->
+  <rect x="24" y="18" width="832" height="52" rx="9" fill="#f3f0f7" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="44" y="41" font-size="12" font-weight="700" fill="#8A7FA3" letter-spacing="1.1">YOU START WITH</text>
+  <text x="44" y="60" font-size="14.5" font-weight="700" fill="#4A3D6B">"Why do some of my patients with this diagnosis do so much worse?"</text>
+
+  <!-- spine -->
+  <line x1="130" y1="80" x2="130" y2="556" stroke="#ddd7e8" stroke-width="2.5"/>
+
+  <g font-size="13.5">
+    <!-- W3 -->
+    <circle cx="130" cy="106" r="7" fill="#185FA5"/>
+    <rect x="24" y="94" width="74" height="24" rx="12" fill="#eaf1f8"/>
+    <text x="61" y="110" font-size="11.5" font-weight="700" fill="#185FA5" text-anchor="middle">W3</text>
+    <text x="156" y="103" font-weight="700" fill="#4A3D6B">GWAS</text>
+    <text x="156" y="121" font-size="12.5" fill="#8A7FA3">Which variants differ?</text>
+    <text x="470" y="112" fill="#555"><tspan fill="#b3aac4">→</tspan> 40 risk loci, 90% non-coding</text>
+
+    <!-- W4 -->
+    <circle cx="130" cy="164" r="7" fill="#BA7517"/>
+    <rect x="24" y="152" width="74" height="24" rx="12" fill="#f8f1e6"/>
+    <text x="61" y="168" font-size="11.5" font-weight="700" fill="#BA7517" text-anchor="middle">W4</text>
+    <text x="156" y="161" font-weight="700" fill="#4A3D6B">PRS</text>
+    <text x="156" y="179" font-size="12.5" fill="#8A7FA3">Who carries the load?</text>
+    <text x="470" y="170" fill="#555"><tspan fill="#b3aac4">→</tspan> one risk number per patient</text>
+
+    <!-- W5-6 -->
+    <circle cx="130" cy="222" r="7" fill="#1D9E75"/>
+    <rect x="24" y="210" width="74" height="24" rx="12" fill="#e8f5f0"/>
+    <text x="61" y="226" font-size="11.5" font-weight="700" fill="#1D9E75" text-anchor="middle">W5–W6</text>
+    <text x="156" y="219" font-weight="700" fill="#4A3D6B">Single-cell</text>
+    <text x="156" y="237" font-size="12.5" fill="#8A7FA3">In which cell, in which state?</text>
+    <text x="470" y="228" fill="#555"><tspan fill="#b3aac4">→</tspan> the risk gene sits in macrophages</text>
+
+    <!-- W7-8 -->
+    <circle cx="130" cy="280" r="7" fill="#534AB7"/>
+    <rect x="24" y="268" width="74" height="24" rx="12" fill="#eeecf8"/>
+    <text x="61" y="284" font-size="11.5" font-weight="700" fill="#534AB7" text-anchor="middle">W7–W8</text>
+    <text x="156" y="277" font-weight="700" fill="#4A3D6B">Spatial</text>
+    <text x="156" y="295" font-size="12.5" fill="#8A7FA3">Where, and next to what?</text>
+    <text x="470" y="286" fill="#555"><tspan fill="#b3aac4">→</tspan> only at the lesion border</text>
+
+    <!-- W9-10 -->
+    <circle cx="130" cy="338" r="7" fill="#D85A30"/>
+    <rect x="24" y="326" width="74" height="24" rx="12" fill="#fbeee8"/>
+    <text x="61" y="342" font-size="11.5" font-weight="700" fill="#D85A30" text-anchor="middle">W9–W10</text>
+    <text x="156" y="335" font-weight="700" fill="#4A3D6B">Proteomics</text>
+    <text x="156" y="353" font-size="12.5" fill="#8A7FA3">Is the protein actually made?</text>
+    <text x="470" y="344" fill="#555"><tspan fill="#b3aac4">→</tspan> protein up, mRNA flat ⚠️</text>
+
+    <!-- W11 -->
+    <circle cx="130" cy="396" r="7" fill="#185FA5"/>
+    <rect x="24" y="384" width="74" height="24" rx="12" fill="#eaf1f8"/>
+    <text x="61" y="400" font-size="11.5" font-weight="700" fill="#185FA5" text-anchor="middle">W11</text>
+    <text x="156" y="393" font-weight="700" fill="#4A3D6B">Multi-omics</text>
+    <text x="156" y="411" font-size="12.5" fill="#8A7FA3">Do the layers converge?</text>
+    <text x="470" y="402" fill="#555"><tspan fill="#b3aac4">→</tspan> three layers point at one gene</text>
+
+    <!-- W12 -->
+    <circle cx="130" cy="454" r="7" fill="#1D9E75"/>
+    <rect x="24" y="442" width="74" height="24" rx="12" fill="#e8f5f0"/>
+    <text x="61" y="458" font-size="11.5" font-weight="700" fill="#1D9E75" text-anchor="middle">W12</text>
+    <text x="156" y="451" font-weight="700" fill="#4A3D6B">Network &amp; drug</text>
+    <text x="156" y="469" font-size="12.5" fill="#8A7FA3">Can it be targeted?</text>
+    <text x="470" y="460" fill="#555"><tspan fill="#b3aac4">→</tspan> an approved drug hits the pathway</text>
+
+    <!-- W13-14 -->
+    <circle cx="130" cy="512" r="7" fill="#5B4D80"/>
+    <rect x="24" y="500" width="74" height="24" rx="12" fill="#f0eef5"/>
+    <text x="61" y="516" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">W13–W14</text>
+    <text x="156" y="509" font-weight="700" fill="#4A3D6B">Interpret &amp; design</text>
+    <text x="156" y="527" font-size="12.5" fill="#8A7FA3">How do I show it, and what next?</text>
+    <text x="470" y="518" fill="#555"><tspan fill="#b3aac4">→</tspan> your own proposal</text>
+  </g>
+
+  <!-- arrow into footer -->
+  <path d="M130 556 l-5 -8 h10 z" fill="#ddd7e8"/>
+
+  <!-- footer -->
+  <rect x="24" y="566" width="832" height="52" rx="9" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="44" y="589" font-size="12" font-weight="700" fill="#0F6E56" letter-spacing="1.1">YOU END WITH</text>
+  <text x="44" y="608" font-size="14.5" font-weight="700" fill="#0F6E56">A specific, testable hypothesis — and the evidence that it is worth testing.</text>
+
+  <!-- side note -->
+  <text x="856" y="93" font-size="12" fill="#b3aac4" text-anchor="end">W1–W2 · setup and habits</text>
+</svg>

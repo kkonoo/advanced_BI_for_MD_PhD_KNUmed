@@ -1,0 +1,252 @@
+---
+title: "W14. Designing Your Own Project"
+author: "Eunji Ha"
+date: last-modified
+format: html
+execute:
+  echo: true
+  eval: false
+---
+
+::: {.callout-note collapse="true"}
+## 🎯 Learning objectives
+
+By the end of this chapter you should be able to:
+
+-   Narrow a broad interest into a question with a comparison, a measurement and a data source
+-   ⚠️ Judge feasibility honestly, and recognise the quadrant where most first projects die
+-   Plan four figures before running any analysis
+-   State which rung of the evidence ladder your project can reach, and name the next one
+-   ⚠️ Say why a negative result is a complete project
+-   Leave with a written one-page protocol
+:::
+
+> 🤔 **Motivating question**
+>
+> You have one afternoon a week for six months. What is worth doing with it?
+
+------------------------------------------------------------------------
+
+# 1. Narrowing the Question 🎯 {#w14-s1}
+
+![Each step removes something, and the last version is the only one you can act on.](/assets/img/w14/scoping.svg){fig-align="center"}
+
+A usable question names four things:
+
+-   **The population** — which patients, at which point in their care
+-   **The comparison** — what against what
+-   **The measurement** — what you will actually quantify
+-   **The data source** — where it comes from, and whether it already exists
+
+⚠️ If any of the four is missing, you have an interest, not a project.
+
+::: {.callout-tip collapse="true"}
+## The sentence template
+
+> *"In \_\_\_\_ [population], is \_\_\_\_ [measurement] different between \_\_\_\_ and \_\_\_\_ [comparison], using \_\_\_\_ [data source]?"*
+
+If you cannot fill every blank, the missing blank is your next task — and it is usually not an analysis task. It is a phone call to pathology, or an hour in a public database.
+:::
+
+------------------------------------------------------------------------
+
+# 2. ⚠️ Feasibility, Honestly 🗺️ {#w14-s2}
+
+![Most first projects fail in the bottom-left, and almost nobody notices until month five.](/assets/img/w14/feasibility.svg){fig-align="center"}
+
+## 1) What "data you already have" actually includes {#w14-s2-1}
+
+Residents consistently underestimate this list:
+
+-   ✅ **The pathology archive** — FFPE blocks with linked outcomes. Spatial and proteomics both work on FFPE (🔗 [W7 §2.2](../part4/w7_spatial_basics.qmd#w7-s2-2))
+-   ✅ **Residual clinical samples** — banked serum or plasma, under existing consent in some institutions
+-   ✅ **The EHR** — labs, imaging reports, medications, outcomes, already digital
+-   ✅ **Public data collected for another purpose** — GEO, CELLxGENE, TCGA, the UK Biobank return files. A dataset generated to answer question A very often contains the answer to your question B
+-   ✅ **Your department's own past studies** — data that was analysed once, for one aim
+
+💡 The best resident projects usually combine **one existing dataset** with **one clinical question nobody in the original study cared about**.
+
+## 2) The honest costs {#w14-s2-2}
+
+| Step | Realistic time |
+|-------------------------|-----------------------------------------|
+| IRB / ethics for archived samples | ⚠️ 1–4 months, and it starts the clock |
+| Locating and pulling blocks | 2–6 weeks, and someone must do it |
+| Sectioning, QC (DV200) | 2–4 weeks |
+| Assay turnaround at a core | 4–12 weeks |
+| Analysis | ⚠️ Always longer than planned |
+| Writing | Longer still |
+
+⚠️ Start the ethics application in week one. It is the only step that cannot be compressed by working harder.
+
+------------------------------------------------------------------------
+
+# 3. Plan the Figures First 🖼️ {#w14-s3}
+
+![If you cannot describe Figure 2 before starting, the question is not specific enough.](/assets/img/w14/capstone_plan.svg){fig-align="center"}
+
+## 1) Name your rung {#w14-s3-1}
+
+From 🔗 [W8 §3](../part4/w8_spatial_integration.qmd#w8-s3): description → hypothesis → consistent with → supported → demonstrated.
+
+A resident project realistically reaches **③ consistent with**. That is publishable, fundable, and honest — provided you say so and name the experiment that would take it to ④ or ⑤.
+
+⚠️ What sinks projects at review is not stopping at ③. It is writing ⑤'s verb over ③'s evidence.
+
+## 2) ✅ A negative result is a complete project {#w14-s3-2}
+
+::: {.callout-tip collapse="true"}
+## What makes a negative result complete
+
+Not "we found nothing". Rather:
+
+-   ✅ The hypothesis was **specific** enough to be wrong
+-   ✅ The design **could have detected** the effect — say how large an effect you had power for
+-   ✅ The measurement worked — positive controls behaved as expected
+-   ✅ You can say what you would do differently
+
+→ That is a better contribution than a fishing expedition that found a p-value. And in a fourteen-week course, it is a much more achievable target.
+:::
+
+------------------------------------------------------------------------
+
+# 4. The One-Page Protocol 📄 {#w14-s4}
+
+Write this before you touch data. One page, ten headings.
+
+```
+1. Question        one sentence, with all four blanks filled
+2. Why it matters  the decision it would change, in the clinic
+3. Population      inclusion, exclusion, and how many exist
+4. Comparison      group A vs group B, and how they are matched
+5. Measurement     platform, assay, what is quantified
+6. n               and what the unit of replication is  ⚠️
+7. Confounders     batch, collection site, tube type, operator — and the plan
+8. Analysis        the primary test, decided now, not after seeing the data
+9. Figures         four captions, written as sentences with blanks
+10. What would make me abandon this
+```
+
+::: {.callout-important collapse="true"}
+## Heading 10 is the one people skip, and the one that saves months
+
+Decide now what result would make you stop.
+
+-   "If fewer than 25 blocks have adequate DV200, the study is not powered and I stop"
+-   "If the positive control does not separate, the assay is not working and I stop"
+-   "If the effect is smaller than X, it cannot change management and I stop"
+
+⚠️ Written in advance, this is a protocol. Decided afterwards, it is rationalisation.
+:::
+
+------------------------------------------------------------------------
+
+# 5. Workshop 💻 {#w14-s5}
+
+## 1) Ten minutes each, in pairs {#w14-s5-1}
+
+-   ① **State your question** in one sentence. Your partner repeats it back. Did they get it right?
+-   ② **Which quadrant** is it in (§2)? Be honest
+-   ③ **Sketch Figure 2** — the answer figure — on paper. What are the axes?
+-   ④ **What is your n**, and what is the unit of replication?
+-   ⑤ **Name one confounder** that could produce your expected result on its own
+-   ⑥ **Heading 10** — what would make you stop?
+
+::: {.callout-warning collapse="true"}
+## The three failure modes you will hear most often today
+
+-   ❌ **Too broad.** "I want to look at the immune microenvironment." → apply §1 until a comparison appears
+-   ❌ **n is wrong.** "I have 40,000 cells." → from how many patients? (🔗 [W5 §5](../part3/w5_scrna_qc.qmd#w5-s5))
+-   ❌ **Data does not exist yet.** "I'll collect fresh samples." → how many will you have in six months? Usually the honest number is under ten
+:::
+
+## 2) Before the final session {#w14-s5-2}
+
+**Deliverables:**
+
+-   ✅ One-page protocol, all ten headings
+-   ✅ Figure 1 (cohort) drafted, even roughly
+-   ✅ Figure 2 (the answer) drafted — or the caption with the number still blank
+-   ✅ A Quarto document that renders, with no hand-typed numbers (🔗 [W2 §3](../part1/w2_scripts_ai.qmd#w2-s3))
+-   ✅ Code in a git repository (🔗 [W2 §4](../part1/w2_scripts_ai.qmd#w2-s4)) — ⚠️ with `rawdata/` in `.gitignore`
+
+**Presentation:** 15 minutes + 5 minutes questions.
+
+```
+Background            2 min   the clinical problem
+Question              1 min   one sentence, and why it is answerable
+Data & methods        3 min   what you had, what you did, what you excluded
+Results             5–7 min   your four figures, one message each
+Interpretation        2 min   which rung, and what would move it up
+Clinical implication  1 min   what changes if this is true
+```
+
+------------------------------------------------------------------------
+
+# 6. Where This Leaves You 🎓 {#w14-s6}
+
+You started this course able to run bulk RNA-seq and produce a gene list.
+
+You can now read a GWAS and say what it does not show; judge whether a PRS applies to your patients; tell when a single-cell paper has confused cells with donors; ask where in the tissue something happened; know that the protein may never have been made; recognise a network hub as a publication artifact; and see the wrong control group before anyone runs a statistic.
+
+None of that is coding. All of it is judgment — and it is the part that could not be delegated.
+
+::: {.callout-tip collapse="true"}
+## The three habits worth keeping
+
+-   ✅ **Ask what the unit of replication is.** In every paper, every meeting, every design. It is the single highest-yield question in this field
+-   ✅ **Look up whether the answer already exists** before generating data. One hour in the browser, routinely, has saved entire grants
+-   ✅ **Write the caption first.** For a figure, a paper, or a project — if the sentence is vague, the work will be
+
+💡 And one more: when a result looks too clean, ask what the design would have produced if the hypothesis were false.
+:::
+
+------------------------------------------------------------------------
+
+# 📝 Summary
+
+-   A usable question names a **population, a comparison, a measurement and a data source**
+-   ⚠️ Missing one of the four means you have an interest, not a project
+-   ✅ Start in the high-value, high-feasibility quadrant: **archived samples with outcomes**, or **public data asked a new question**
+-   ⚠️ Start the ethics application in week one — it is the step that cannot be compressed
+-   ✅ **Plan four figures before analysing**: cohort · the answer · the mechanism · the implication
+-   ✅ Name the **rung of the evidence ladder** you can reach, and the experiment that moves it up
+-   ✅ **A negative result is complete** if the hypothesis was specific and the design could have detected the effect
+-   ⚠️ Write **"what would make me abandon this"** in advance. Afterwards it is rationalisation
+-   ✅ Three habits: ask about the unit of replication, check whether the answer exists, write the caption first
+
+------------------------------------------------------------------------
+
+# 🔑 Key terms
+
+| Term | One-line meaning |
+|-------------------------|-----------------------------------------|
+| Scoping | Narrowing an interest into an answerable question |
+| Unit of replication | What you can independently repeat — usually the patient |
+| Feasibility | Whether the data can exist within your timeline |
+| One-page protocol | The ten headings, written before touching data |
+| Stopping rule | The result that would make you abandon the project |
+| Evidence ladder | Description → hypothesis → consistent with → supported → demonstrated |
+| Positive control | A signal you already know is there, proving the assay worked |
+| Pre-specification | Deciding the analysis before seeing the data |
+
+------------------------------------------------------------------------
+
+# ➕ References
+
+### Designing and reporting
+
+Lazic SE. [*Experimental Design for Laboratory Biologists.*](https://doi.org/10.1017/9781139696647) Cambridge University Press. 2016.\
+Collins GS, et al. [*TRIPOD: transparent reporting of a multivariable prediction model.*](https://doi.org/10.7326/M14-0697) Ann Intern Med. 2015.\
+Kilkenny C, et al. [*Improving bioscience research reporting: the ARRIVE guidelines.*](https://doi.org/10.1371/journal.pbio.1000412) PLoS Biol. 2010.
+
+### Why projects fail
+
+Ioannidis JPA. [*Why most published research findings are false.*](https://doi.org/10.1371/journal.pmed.0020124) PLoS Med. 2005.\
+Ioannidis JPA, Bossuyt PMM. [*Waste, leaks, and failures in the biomarker pipeline.*](https://doi.org/10.1373/clinchem.2016.254649) Clin Chem. 2017.\
+Munafò MR, et al. [*A manifesto for reproducible science.*](https://doi.org/10.1038/s41562-016-0021) Nat Hum Behav. 2017.
+
+### Practical
+
+Bryan J. [*Happy Git and GitHub for the useR.*](https://happygitwithr.com)\
+[Quarto publishing](https://quarto.org/docs/publishing/github-pages.html) · [Open Targets](https://platform.opentargets.org) · [CELLxGENE](https://cellxgene.cziscience.com) · [GEO](https://www.ncbi.nlm.nih.gov/geo/)

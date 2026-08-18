@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eunji Ha">
-<meta name="dcterms.date" content="2026-06-02">
+<meta name="dcterms.date" content="2026-08-18">
 
-<title>advanced bioinformatics (융합형 의사과학자 양성 사업) – advanced BI</title>
+<title>Advanced Bioinformatics (융합형 의사과학자 양성 사업)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +25,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -35,6 +70,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./chapters/part1/w1_intro.html" rel="next">
+<link href="./assets/img/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -44,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7f128302b46659ec05c1cdf12d27b5f1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -86,11 +123,8 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/logo.jpg" alt="" class="navbar-logo light-content">
-    <img src="./images/logo.jpg" alt="" class="navbar-logo dark-content">
-    </a>
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">advanced BI</span>
+    <img src="./assets/img/logo.jpg" alt="" class="navbar-logo light-content">
+    <img src="./assets/img/logo.jpg" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -103,33 +137,69 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link active" href="./index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./chapters/part1/w1_intro.html"> 
-<span class="menu-text">1. Intro</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weeks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weeks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">    
+        <li>
+    <a class="dropdown-item" href="./chapters/part1/w1_intro.html">
+ <span class="dropdown-text">W1 · Introduction &amp; Roadmap</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./chapters/part2/w2_gwas.html"> 
-<span class="menu-text">2. Clinical Genomics &amp; Risk Prediction</span></a>
+        <li>
+    <a class="dropdown-item" href="./chapters/part1/w2_scripts_ai.html">
+ <span class="dropdown-text">W2 · Scripts, AI &amp; Reproducibility</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./chapters/part3/w4_epigenomics_methylation.html"> 
-<span class="menu-text">3. High-Resolution Omics</span></a>
+        <li>
+    <a class="dropdown-item" href="./chapters/part2/w3_gwas.html">
+ <span class="dropdown-text">W3 · GWAS &amp; Post-GWAS</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./chapters/part4/w11_multiomics.html"> 
-<span class="menu-text">4. Multi-omics &amp; Target Discovery</span></a>
+        <li>
+    <a class="dropdown-item" href="./chapters/part2/w4_prs.html">
+ <span class="dropdown-text">W4 · Polygenic Risk Scores</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./chapters/part5/w13_visualization.html"> 
-<span class="menu-text">5. Capstone</span></a>
+        <li>
+    <a class="dropdown-item" href="./chapters/part3/w5_scrna_qc.html">
+ <span class="dropdown-text">W5 · scRNA-seq: QC &amp; Clustering</span></a>
   </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/kkonoo/advanced_BI_for_MD_PhD_KNUmed/"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
+        <li>
+    <a class="dropdown-item" href="./chapters/part3/w6_scrna_dynamics.html">
+ <span class="dropdown-text">W6 · Trajectory, CCC &amp; Integration</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./chapters/part4/w7_spatial_basics.html">
+ <span class="dropdown-text">W7 · Spatial Transcriptomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./chapters/part4/w8_spatial_integration.html">
+ <span class="dropdown-text">W8 · Deconvolution &amp; Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./chapters/part5/w9_proteomics_tech.html">
+ <span class="dropdown-text">W9 · Proteomics Technology</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./chapters/part5/w10_clinical_proteomics.html">
+ <span class="dropdown-text">W10 · Clinical Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./chapters/part6/w11_multiomics.html">
+ <span class="dropdown-text">W11 · Multi-omics Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./chapters/part6/w12_network_drug.html">
+ <span class="dropdown-text">W12 · Network &amp; Drug Targets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./chapters/part7/w13_visualization.html">
+ <span class="dropdown-text">W13 · Interpretation &amp; Visualisation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./chapters/part7/w14_project_design.html">
+ <span class="dropdown-text">W14 · Project Design</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -146,8 +216,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#course-overview" id="toc-course-overview" class="nav-link active" data-scroll-target="#course-overview">Course overview</a></li>
+  <li><a href="#what-this-course-is-for" id="toc-what-this-course-is-for" class="nav-link active" data-scroll-target="#what-this-course-is-for">What this course is for</a></li>
+  <li><a href="#what-you-should-be-able-to-do-in-december" id="toc-what-you-should-be-able-to-do-in-december" class="nav-link" data-scroll-target="#what-you-should-be-able-to-do-in-december">What you should be able to do in December</a></li>
   <li><a href="#syllabus" id="toc-syllabus" class="nav-link" data-scroll-target="#syllabus">Syllabus</a></li>
+  <li><a href="#how-each-chapter-is-built" id="toc-how-each-chapter-is-built" class="nav-link" data-scroll-target="#how-each-chapter-is-built">How each chapter is built</a></li>
+  <li><a href="#before-the-first-session" id="toc-before-the-first-session" class="nav-link" data-scroll-target="#before-the-first-session">Before the first session</a></li>
   </ul>
 </nav>
     </div>
@@ -156,7 +229,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">advanced bioinformatics (융합형 의사과학자 양성 사업)</h1>
+<h1 class="title">Advanced Bioinformatics (융합형 의사과학자 양성 사업)</h1>
   <div class="quarto-categories">
     <div class="quarto-category">의학연구</div>
     <div class="quarto-category">bioinformatics</div>
@@ -179,7 +252,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 2, 2026</p>
+      <p class="date">August 18, 2026</p>
     </div>
   </div>
   
@@ -191,28 +264,44 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="course-overview" class="level2">
-<h2 class="anchored" data-anchor-id="course-overview">Course overview</h2>
+<section id="what-this-course-is-for" class="level2">
+<h2 class="anchored" data-anchor-id="what-this-course-is-for">What this course is for</h2>
+<p>Last semester you learned to take a tissue, get counts, and produce a ranked gene list. That is a real skill.</p>
+<p>This course is about the layer above it: <strong>being able to tell when an omics result is wrong.</strong></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Two kinds of depth, and which one this course teaches
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Execution depth</strong> — tuning a doublet detector, building an LD reference panel, implementing spot deconvolution. That is a full-time job, and it belongs to your bioinformatician.</p>
+<p><strong>Judgment depth</strong> — is n = 3 patients or 30,000 cells the real n? Was this polygenic score built on people like my patients? Does this UMAP support the sentence next to it? Would this change what I do on Monday?</p>
+<p>→ This course lives on the second. Code appears so that you can <strong>read it and doubt it</strong>, not so that you maintain it.</p>
+<p>❌ It does not promise that you will run a spatial deconvolution pipeline unsupervised after fourteen sessions.<br>
+✅ It does promise that you will never again be the person in the room who cannot evaluate the analysis their own name will appear on.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="what-you-should-be-able-to-do-in-december" class="level2">
+<h2 class="anchored" data-anchor-id="what-you-should-be-able-to-do-in-december">What you should be able to do in December</h2>
 <ul>
-<li><p><strong>Acquisition of Practical Bioinformatics Analysis Skills</strong></p>
-<p>✅ What is RNA-seq data and how to analyze them</p>
-<p>✅ Understanding fundamental statistics</p>
-<p>✅ How to interpret and visualize the results</p></li>
-<li><p><strong>Enhanced Data Convergence Capability for Translational Research</strong></p>
-<p>✅ How to link omics data to clinical data</p>
-<p>✅ How to explore public data of interest</p>
-<p>✅ What would be promising targets</p></li>
+<li>✅ Read a methods section and say <strong>what was actually done</strong>, including what was quietly not done</li>
+<li>✅ Check whether public data already answers your question, before writing a grant to generate it</li>
+<li>✅ Sit in a study-design meeting and stop an unrecoverable mistake</li>
+<li>✅ Say why a published finding might not hold in Korean patients</li>
+<li>✅ Present a data-supported research proposal at the final session</li>
 </ul>
 </section>
 <section id="syllabus" class="level2">
 <h2 class="anchored" data-anchor-id="syllabus">Syllabus</h2>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Module</th>
@@ -224,90 +313,110 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><strong>Intro</strong></td>
-<td>W1</td>
-<td>Review + Roadmap + R env</td>
+<td><a href="./chapters/part1/w1_intro.html">W1</a></td>
+<td>Review, roadmap, study design before any data exists</td>
 <td>R, Bioconductor</td>
 </tr>
 <tr class="even">
-<td><strong>Clinical Genomics</strong></td>
-<td>W2</td>
-<td>GWAS &amp; Post-GWAS</td>
-<td>PLINK, LocusZoom</td>
+<td></td>
+<td><a href="./chapters/part1/w2_scripts_ai.html">W2</a></td>
+<td>R scripts, AI-assisted coding, reproducibility</td>
+<td>Quarto, git</td>
 </tr>
 <tr class="odd">
-<td></td>
-<td>W3</td>
-<td>PRS &amp; Clinical application</td>
-<td>PGPRSice, LDPred2</td>
+<td><strong>Clinical Genomics</strong></td>
+<td><a href="./chapters/part2/w3_gwas.html">W3</a></td>
+<td>GWAS &amp; post-GWAS</td>
+<td>GWAS Catalog, Open Targets</td>
 </tr>
 <tr class="even">
+<td></td>
+<td><a href="./chapters/part2/w4_prs.html">W4</a></td>
+<td>Polygenic risk scores &amp; clinical application</td>
+<td>PGS Catalog, PRSice-2</td>
+</tr>
+<tr class="odd">
 <td><strong>Single-cell</strong></td>
-<td>W4</td>
-<td>scRNA-seq tech, QC, Clustering</td>
+<td><a href="./chapters/part3/w5_scrna_qc.html">W5</a></td>
+<td>scRNA-seq technology, QC, clustering</td>
 <td>Seurat, scanpy</td>
 </tr>
-<tr class="odd">
-<td></td>
-<td>W5</td>
-<td>Trajectory &amp; Cell-cell communication</td>
-<td>Monocle, CellChat</td>
-</tr>
 <tr class="even">
+<td></td>
+<td><a href="./chapters/part3/w6_scrna_dynamics.html">W6</a></td>
+<td>Trajectory, cell–cell communication, integration</td>
+<td>Monocle3, CellChat, Harmony</td>
+</tr>
+<tr class="odd">
 <td><strong>Spatial</strong></td>
-<td>W6</td>
-<td>Spatial Transcriptomics 기초</td>
+<td><a href="./chapters/part4/w7_spatial_basics.html">W7</a></td>
+<td>Spatial transcriptomics — the basics</td>
 <td>Seurat, Squidpy</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td></td>
-<td>W7</td>
-<td>Spatial + scRNA integration, Deconvolution</td>
-<td>CARD, SPOTlight</td>
+<td><a href="./chapters/part4/w8_spatial_integration.html">W8</a></td>
+<td>Deconvolution &amp; spatial integration</td>
+<td>RCTD, cell2location, CARD</td>
+</tr>
+<tr class="odd">
+<td><strong>Proteomics</strong></td>
+<td><a href="./chapters/part5/w9_proteomics_tech.html">W9</a></td>
+<td>How proteins are actually measured</td>
+<td>MS, Olink, SomaScan</td>
 </tr>
 <tr class="even">
-<td><strong>Proteomics</strong></td>
-<td>W8</td>
-<td>MS/NGS-based Proteomics</td>
-<td>theory</td>
-</tr>
-<tr class="odd">
 <td></td>
-<td>W9</td>
-<td>Clinical proteomics &amp; Biomarker</td>
+<td><a href="./chapters/part5/w10_clinical_proteomics.html">W10</a></td>
+<td>Clinical proteomics &amp; biomarkers</td>
 <td>limma, MSstats</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><strong>Integration</strong></td>
-<td>W10</td>
+<td><a href="./chapters/part6/w11_multiomics.html">W11</a></td>
 <td>Multi-omics integration</td>
 <td>MOFA+, mixOmics</td>
 </tr>
-<tr class="odd">
-<td></td>
-<td>W11</td>
-<td>Network &amp; Drug target discovery</td>
-<td>STRING, igraph</td>
-</tr>
 <tr class="even">
+<td></td>
+<td><a href="./chapters/part6/w12_network_drug.html">W12</a></td>
+<td>Network analysis &amp; drug targets</td>
+<td>STRING, igraph, Open Targets</td>
+</tr>
+<tr class="odd">
 <td><strong>Capstone</strong></td>
-<td>W12</td>
-<td>Result intepretation &amp; visualization</td>
-<td>ggplot2, Rmarkdown</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>W13</td>
-<td>Rscript &amp; vibe coding tips</td>
-<td>—</td>
+<td><a href="./chapters/part7/w13_visualization.html">W13</a></td>
+<td>Interpretation &amp; visualisation</td>
+<td>ggplot2, clusterProfiler</td>
 </tr>
 <tr class="even">
 <td></td>
-<td>W14</td>
-<td>Individual project design</td>
+<td><a href="./chapters/part7/w14_project_design.html">W14</a></td>
+<td>Designing your own project</td>
 <td>—</td>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="how-each-chapter-is-built" class="level2">
+<h2 class="anchored" data-anchor-id="how-each-chapter-is-built">How each chapter is built</h2>
+<p>Every week follows the same shape, so you know where to look:</p>
+<ul>
+<li>🎯 <strong>Learning objectives</strong> — what you should be able to do afterwards</li>
+<li>🤔 <strong>Motivating question</strong> — a clinical situation, answered by the end of the chapter</li>
+<li>⚠️ <strong>Warnings</strong> — the specific ways this method misleads people, marked throughout</li>
+<li>💻 <strong>Hands-on</strong> — usually starting with a browser exercise that needs no code</li>
+<li>📝 <strong>Summary</strong> · 🔑 <strong>Key terms</strong> · ➕ <strong>References</strong></li>
+</ul>
+<p>💡 Sections marked ⚠️ are the ones worth reading twice. They are where results go wrong quietly.</p>
+</section>
+<section id="before-the-first-session" class="level2">
+<h2 class="anchored" data-anchor-id="before-the-first-session">Before the first session</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"BiocManager"</span>, <span class="st">"here"</span>, <span class="st">"renv"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">"DESeq2"</span>, <span class="st">"SingleR"</span>, <span class="st">"celldex"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Bring one disease you actually treat. We use it throughout.</p>
 
 
 </section>
@@ -731,6 +840,15 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
+<nav class="page-navigation column-page-left">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./chapters/part1/w1_intro.html" class="pagination-link" aria-label="W1. Introduction &amp; Roadmap">
+        <span class="nav-page-text">W1. Introduction &amp; Roadmap</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

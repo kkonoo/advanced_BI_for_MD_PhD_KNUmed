@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="440" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">If you cannot write the figure's caption as one sentence, the figure is not finished.</text>
+
+  <!-- before -->
+  <rect x="24" y="46" width="400" height="300" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="2"/>
+  <rect x="24" y="46" width="400" height="38" rx="10" fill="#fbeee8"/>
+  <rect x="24" y="74" width="400" height="10" fill="#fbeee8"/>
+  <text x="48" y="71" font-size="13.5" font-weight="700" fill="#a8401d">❌ Figure 3</text>
+  <text x="400" y="71" font-size="11.5" fill="#b58272" text-anchor="end">six panels, one page</text>
+
+  <g>
+    <rect x="48" y="100" width="108" height="66" rx="5" fill="#f1eef7"/><text x="102" y="138" font-size="10.5" fill="#8A7FA3" text-anchor="middle">UMAP</text>
+    <rect x="164" y="100" width="108" height="66" rx="5" fill="#f1eef7"/><text x="218" y="138" font-size="10.5" fill="#8A7FA3" text-anchor="middle">QC violins</text>
+    <rect x="280" y="100" width="108" height="66" rx="5" fill="#f1eef7"/><text x="334" y="138" font-size="10.5" fill="#8A7FA3" text-anchor="middle">heatmap</text>
+    <rect x="48" y="174" width="108" height="66" rx="5" fill="#f1eef7"/><text x="102" y="212" font-size="10.5" fill="#8A7FA3" text-anchor="middle">volcano</text>
+    <rect x="164" y="174" width="108" height="66" rx="5" fill="#f1eef7"/><text x="218" y="212" font-size="10.5" fill="#8A7FA3" text-anchor="middle">GO barplot</text>
+    <rect x="280" y="174" width="108" height="66" rx="5" fill="#f1eef7"/><text x="334" y="212" font-size="10.5" fill="#8A7FA3" text-anchor="middle">network</text>
+  </g>
+  <text x="48" y="268" font-size="12" fill="#666">Caption: "Characterisation of the cohort."</text>
+  <text x="48" y="292" font-size="12" fill="#a05a3f">Everything the analysis produced, arranged by</text>
+  <text x="48" y="310" font-size="12" fill="#a05a3f">the order it was produced in.</text>
+  <text x="48" y="332" font-size="12" font-weight="700" fill="#a8401d">The reader has to find the point themselves.</text>
+
+  <!-- after -->
+  <rect x="456" y="46" width="400" height="300" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="2"/>
+  <rect x="456" y="46" width="400" height="38" rx="10" fill="#e8f5f0"/>
+  <rect x="456" y="74" width="400" height="10" fill="#e8f5f0"/>
+  <text x="480" y="71" font-size="13.5" font-weight="700" fill="#0F6E56">✅ Figure 3</text>
+  <text x="832" y="71" font-size="11.5" fill="#7fa89a" text-anchor="end">one panel, one claim</text>
+
+  <rect x="480" y="100" width="352" height="140" rx="5" fill="#e8f5f0"/>
+  <text x="656" y="150" font-size="12" font-weight="700" fill="#0F6E56" text-anchor="middle">CD8 T-cell fraction, responders vs not</text>
+  <text x="656" y="172" font-size="11" fill="#3d7a68" text-anchor="middle">points per patient, box per group, n labelled</text>
+  <text x="656" y="200" font-size="11" fill="#7fa89a" text-anchor="middle">everything else → supplement</text>
+
+  <text x="480" y="268" font-size="12" fill="#666">Caption: "Responders have a higher CD8 T-cell</text>
+  <text x="480" y="286" font-size="12" fill="#666">fraction than non-responders (n = 14 vs 11, p = 0.004)."</text>
+  <text x="480" y="312" font-size="12" fill="#3d7a68">One sentence. States the direction, the n, and the number.</text>
+  <text x="480" y="332" font-size="12" font-weight="700" fill="#0F6E56">The reader gets the point in two seconds.</text>
+
+  <!-- footer -->
+  <rect x="24" y="362" width="832" height="62" rx="9" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="386" font-size="12.5" fill="#555">💡 The QC panels are not wasted — they belong in the supplement, where a careful reader will check them and nobody else has to.</text>
+  <text x="48" y="408" font-size="12.5" fill="#555">✅ Write every caption <tspan font-weight="700" fill="#4A3D6B">before</tspan> you draw the figure. If the sentence is vague, the figure will be too.</text>
+</svg>

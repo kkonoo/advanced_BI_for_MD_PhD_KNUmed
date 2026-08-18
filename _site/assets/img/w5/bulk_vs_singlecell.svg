@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="440" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">One bulk result. Three completely different biologies. This is the entire argument for single cell.</text>
+
+  <!-- bulk banner -->
+  <rect x="24" y="46" width="832" height="44" rx="8" fill="#185FA5"/>
+  <text x="48" y="74" font-size="14" font-weight="700" fill="#ffffff">Bulk RNA-seq says: gene X is 2.0× up in disease · p = 0.001</text>
+  <text x="832" y="74" font-size="12.5" fill="#bcd5ec" text-anchor="end">all three panels below produce exactly this</text>
+
+  <!-- ═══ panel template ═══ -->
+  <!-- ① uniform -->
+  <rect x="24" y="106" width="268" height="252" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="46" y="132" font-size="13" font-weight="700" fill="#4A3D6B">① Everyone shifts a little</text>
+  <text x="46" y="150" font-size="11.5" fill="#8A7FA3">control</text>
+  <g>
+    <rect x="46" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="70" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="94" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="118" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="142" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/>
+    <rect x="166" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="190" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="214" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="238" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/>
+  </g>
+  <text x="46" y="204" font-size="11.5" fill="#8A7FA3">disease</text>
+  <g>
+    <rect x="46" y="212" width="20" height="20" rx="3" fill="#5b8cba"/><rect x="70" y="212" width="20" height="20" rx="3" fill="#5b8cba"/><rect x="94" y="212" width="20" height="20" rx="3" fill="#5b8cba"/><rect x="118" y="212" width="20" height="20" rx="3" fill="#5b8cba"/><rect x="142" y="212" width="20" height="20" rx="3" fill="#5b8cba"/>
+    <rect x="166" y="212" width="20" height="20" rx="3" fill="#5b8cba"/><rect x="190" y="212" width="20" height="20" rx="3" fill="#5b8cba"/><rect x="214" y="212" width="20" height="20" rx="3" fill="#5b8cba"/><rect x="238" y="212" width="20" height="20" rx="3" fill="#5b8cba"/>
+  </g>
+  <line x1="46" y1="252" x2="270" y2="252" stroke="#e6e1ee" stroke-width="1.5"/>
+  <text x="46" y="276" font-size="12" fill="#666">Every cell responds modestly.</text>
+  <text x="46" y="298" font-size="12" fill="#8A7FA3">The case everyone silently assumes —</text>
+  <text x="46" y="316" font-size="12" font-weight="700" fill="#5B4D80">and the least interesting one.</text>
+  <text x="46" y="344" font-size="11.5" fill="#8A7FA3">bulk ✅ · single cell adds little</text>
+
+  <!-- ② rare subpopulation -->
+  <rect x="306" y="106" width="268" height="252" rx="10" fill="#ffffff" stroke="#BA7517" stroke-width="2"/>
+  <text x="328" y="132" font-size="13" font-weight="700" fill="#4A3D6B">② A rare population goes wild</text>
+  <text x="328" y="150" font-size="11.5" fill="#8A7FA3">control</text>
+  <g>
+    <rect x="328" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="352" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="376" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="400" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="424" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/>
+    <rect x="448" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="472" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="496" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="520" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/>
+  </g>
+  <text x="328" y="204" font-size="11.5" fill="#8A7FA3">disease</text>
+  <g>
+    <rect x="328" y="212" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="352" y="212" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="376" y="212" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="400" y="212" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="424" y="212" width="20" height="20" rx="3" fill="#bcd0e4"/>
+    <rect x="448" y="212" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="472" y="212" width="20" height="20" rx="3" fill="#bcd0e4"/>
+    <rect x="496" y="212" width="20" height="20" rx="3" fill="#0d3f6e"/><rect x="520" y="212" width="20" height="20" rx="3" fill="#0d3f6e"/>
+  </g>
+  <line x1="328" y1="252" x2="552" y2="252" stroke="#f3e6d2" stroke-width="1.5"/>
+  <text x="328" y="276" font-size="12" fill="#666">2 cells in 9 change enormously.</text>
+  <text x="328" y="298" font-size="12" fill="#8A7FA3">In bulk they are diluted by the 78%</text>
+  <text x="328" y="316" font-size="12" font-weight="700" fill="#8a6a1f">doing nothing — and often vanish.</text>
+  <text x="328" y="344" font-size="11.5" font-weight="700" fill="#8a6a1f">💡 usually the interesting case</text>
+
+  <!-- ③ composition -->
+  <rect x="588" y="106" width="268" height="252" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="2"/>
+  <text x="610" y="132" font-size="13" font-weight="700" fill="#4A3D6B">③ Nothing changed at all</text>
+  <text x="610" y="150" font-size="11.5" fill="#8A7FA3">control</text>
+  <g>
+    <rect x="610" y="158" width="20" height="20" rx="3" fill="#0d3f6e"/><rect x="634" y="158" width="20" height="20" rx="3" fill="#0d3f6e"/>
+    <rect x="658" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="682" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="706" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/>
+    <rect x="730" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="754" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="778" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="802" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/>
+  </g>
+  <text x="610" y="204" font-size="11.5" fill="#8A7FA3">disease</text>
+  <g>
+    <rect x="610" y="212" width="20" height="20" rx="3" fill="#0d3f6e"/><rect x="634" y="212" width="20" height="20" rx="3" fill="#0d3f6e"/><rect x="658" y="212" width="20" height="20" rx="3" fill="#0d3f6e"/><rect x="682" y="212" width="20" height="20" rx="3" fill="#0d3f6e"/><rect x="706" y="212" width="20" height="20" rx="3" fill="#0d3f6e"/>
+    <rect x="730" y="212" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="754" y="212" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="778" y="212" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="802" y="212" width="20" height="20" rx="3" fill="#bcd0e4"/>
+  </g>
+  <line x1="610" y1="252" x2="834" y2="252" stroke="#f3ddd2" stroke-width="1.5"/>
+  <text x="610" y="276" font-size="12" fill="#666">Every cell expresses exactly what it</text>
+  <text x="610" y="294" font-size="12" fill="#666">did before. There are simply more</text>
+  <text x="610" y="312" font-size="12" font-weight="700" fill="#a8401d">of the high-expressing cell type.</text>
+  <text x="610" y="344" font-size="11.5" font-weight="700" fill="#a8401d">⚠️ a composition shift, not regulation</text>
+
+  <!-- footer -->
+  <rect x="24" y="372" width="832" height="48" rx="8" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="392" font-size="13" fill="#555">Bulk cannot distinguish these, and the three imply completely different follow-up experiments.</text>
+  <text x="48" y="412" font-size="13" fill="#555">💡 ③ is more common than people expect in inflamed or infiltrated tissue — and it is often reported as if it were ①.</text>
+</svg>

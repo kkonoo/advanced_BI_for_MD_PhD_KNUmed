@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="420" fill="#fcfcfb"/>
+
+  <!-- ── LEFT: last semester ───────────────────────────── -->
+  <rect x="24" y="56" width="250" height="330" rx="10" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="44" y="40" font-size="13" font-weight="700" fill="#8A7FA3" letter-spacing="1.2">LAST SEMESTER</text>
+  <text x="44" y="82" font-size="16" font-weight="700" fill="#4A3D6B">Bulk RNA-seq</text>
+  <text x="44" y="102" font-size="12.5" fill="#8A7FA3">one question, one answer</text>
+
+  <!-- pipeline steps -->
+  <rect x="48" y="122" width="202" height="38" rx="7" fill="#ffffff" stroke="#c9d9ea" stroke-width="1.5"/>
+  <text x="149" y="146" font-size="13.5" fill="#555" text-anchor="middle">Tissue biopsy</text>
+  <path d="M149 160 L149 178" stroke="#b9b0cc" stroke-width="2"/>
+  <path d="M149 182 l-4.5 -7 h9 z" fill="#b9b0cc"/>
+
+  <rect x="48" y="184" width="202" height="38" rx="7" fill="#ffffff" stroke="#c9d9ea" stroke-width="1.5"/>
+  <text x="149" y="208" font-size="13.5" fill="#555" text-anchor="middle">Count matrix</text>
+  <path d="M149 222 L149 240" stroke="#b9b0cc" stroke-width="2"/>
+  <path d="M149 244 l-4.5 -7 h9 z" fill="#b9b0cc"/>
+
+  <rect x="48" y="246" width="202" height="38" rx="7" fill="#ffffff" stroke="#c9d9ea" stroke-width="1.5"/>
+  <text x="149" y="270" font-size="13.5" fill="#555" text-anchor="middle">DESeq2</text>
+  <path d="M149 284 L149 302" stroke="#b9b0cc" stroke-width="2"/>
+  <path d="M149 306 l-4.5 -7 h9 z" fill="#b9b0cc"/>
+
+  <rect x="48" y="308" width="202" height="54" rx="7" fill="#185FA5"/>
+  <text x="149" y="330" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">847 genes</text>
+  <text x="149" y="349" font-size="12" fill="#cfe0f2" text-anchor="middle">sorted by adjusted p</text>
+
+  <!-- ── BRIDGE ────────────────────────────────────────── -->
+  <path d="M282 221 L336 221" stroke="#8A7FA3" stroke-width="2.5"/>
+  <path d="M344 221 l-9 -5.5 v11 z" fill="#8A7FA3"/>
+  <text x="313" y="209" font-size="13" font-weight="700" fill="#8A7FA3" text-anchor="middle">so what?</text>
+
+  <!-- ── RIGHT: this semester ──────────────────────────── -->
+  <rect x="358" y="56" width="498" height="330" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="378" y="40" font-size="13" font-weight="700" fill="#5B4D80" letter-spacing="1.2">THIS SEMESTER</text>
+  <text x="378" y="82" font-size="16" font-weight="700" fill="#4A3D6B">Six questions that list cannot answer</text>
+
+  <!-- rows -->
+  <g font-size="13.5">
+    <rect x="378" y="98" width="4" height="30" rx="2" fill="#185FA5"/>
+    <text x="394" y="118" fill="#555">Why are <tspan font-weight="700" fill="#4A3D6B">these</tspan> genes involved at all?</text>
+    <rect x="770" y="102" width="66" height="22" rx="11" fill="#eaf1f8"/>
+    <text x="803" y="117" font-size="11.5" font-weight="700" fill="#185FA5" text-anchor="middle">W3</text>
+
+    <rect x="378" y="144" width="4" height="30" rx="2" fill="#BA7517"/>
+    <text x="394" y="164" fill="#555">Who is at risk <tspan font-weight="700" fill="#4A3D6B">before</tspan> symptoms?</text>
+    <rect x="770" y="148" width="66" height="22" rx="11" fill="#f8f1e6"/>
+    <text x="803" y="163" font-size="11.5" font-weight="700" fill="#BA7517" text-anchor="middle">W4</text>
+
+    <rect x="378" y="190" width="4" height="30" rx="2" fill="#1D9E75"/>
+    <text x="394" y="210" fill="#555">Which <tspan font-weight="700" fill="#4A3D6B">cell type</tspan> is doing it?</text>
+    <rect x="770" y="194" width="66" height="22" rx="11" fill="#e8f5f0"/>
+    <text x="803" y="209" font-size="11.5" font-weight="700" fill="#1D9E75" text-anchor="middle">W5–W6</text>
+
+    <rect x="378" y="236" width="4" height="30" rx="2" fill="#534AB7"/>
+    <text x="394" y="256" fill="#555"><tspan font-weight="700" fill="#4A3D6B">Where</tspan> in the tissue, next to what?</text>
+    <rect x="770" y="240" width="66" height="22" rx="11" fill="#eeecf8"/>
+    <text x="803" y="255" font-size="11.5" font-weight="700" fill="#534AB7" text-anchor="middle">W7–W8</text>
+
+    <rect x="378" y="282" width="4" height="30" rx="2" fill="#D85A30"/>
+    <text x="394" y="302" fill="#555">Do the <tspan font-weight="700" fill="#4A3D6B">proteins</tspan> agree with the mRNA?</text>
+    <rect x="770" y="286" width="66" height="22" rx="11" fill="#fbeee8"/>
+    <text x="803" y="301" font-size="11.5" font-weight="700" fill="#D85A30" text-anchor="middle">W9–W10</text>
+
+    <rect x="378" y="328" width="4" height="30" rx="2" fill="#5B4D80"/>
+    <text x="394" y="348" fill="#555">Can any of it be <tspan font-weight="700" fill="#4A3D6B">drugged</tspan>?</text>
+    <rect x="770" y="332" width="66" height="22" rx="11" fill="#f0eef5"/>
+    <text x="803" y="347" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">W11–W12</text>
+  </g>
+
+  <text x="378" y="378" font-size="12.5" fill="#8A7FA3">Each week attacks the same gene list from a different side.</text>
+</svg>

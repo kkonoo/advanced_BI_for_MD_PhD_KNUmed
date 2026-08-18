@@ -1,0 +1,441 @@
+---
+title: "W4. Polygenic Risk Scores"
+author: "Eunji Ha"
+date: last-modified
+format: html
+execute:
+  echo: true
+  eval: false
+---
+
+::: {.callout-note collapse="true"}
+## 🎯 Learning objectives
+
+By the end of this chapter you should be able to:
+
+-   Say what a PRS is, and what it changes for the patient in front of you
+-   Recognise the four method names in a methods section without needing to implement them
+-   ⚠️ Separate the **base** GWAS from the **target** cohort — and say why that distinction decides everything
+-   Read a PRS performance claim: incremental R², ΔAUC, calibration, and the decile trick
+-   ⚠️ Say why a European-derived PRS should not be applied to a Korean patient unchanged
+-   Judge clinical readiness with ACCE rather than with AUC
+-   Communicate a genetic risk result in a framing a patient can act on
+:::
+
+> 🤔 **Motivating question**
+>
+> A 42-year-old man with no family history brings a direct-to-consumer report: *"Coronary artery disease — 92nd percentile."* His LDL is 130 mg/dL. Do you start a statin?
+
+------------------------------------------------------------------------
+
+# 1. What a PRS Is 🧬 {#w4-s1}
+
+## 1) One variant is useless. A million are not {#w4-s1-1}
+
+From 🔗 [W3](w3_gwas.qmd): GWAS reports variants at *p* \< 5×10⁻⁸, each with an odds ratio of roughly **1.02–1.15**. No single one is worth acting on.
+
+A PRS sums them — each GWAS effect size $\hat\beta_j$ multiplied by that person's allele dosage $G_{ij}$:
+
+$$\text{PRS}_i = \sum_{j=1}^{M} \hat\beta_j \, G_{ij}$$
+
+💡 Crucially, a PRS deliberately includes variants **below** genome-wide significance. Individually they are noise; in aggregate they carry real signal. This is the clinical pay-off of the omnigenic model (🔗 [W3 §1.3](w3_gwas.qmd#w3-s1-3)).
+
+## 2) What it actually changes {#w4-s1-2}
+
+A PRS does **not** tell you whether someone has a disease. It shifts a **pre-test probability** — the same thing a family history does, arrived at differently.
+
+| It is | It is not |
+|---------------------------------------------|--------------------------|
+| A risk **indicator**, like LDL or a Framingham score | A **diagnosis** |
+| Fixed from birth, measured once | A monitoring biomarker |
+| **Modifiable in consequence** — statins work regardless of PRS | Deterministic |
+| One input alongside age, sex, BMI, family history, labs | A replacement for any of them |
+
+::: {.callout-tip collapse="true"}
+## The only question that matters at the bedside
+
+Does it **change management**?
+
+If a high PRS moves the patient across a guideline threshold you were going to act on anyway — earlier statin, earlier mammography, earlier colonoscopy — it is useful.
+
+If it does not cross a threshold, you have given the patient anxiety and yourself nothing.
+:::
+
+------------------------------------------------------------------------
+
+# 2. How a PRS Gets Built 🏗️ {#w4-s2}
+
+You will almost certainly never build one. But you will read papers that did, and be asked whether one applies to your patients.
+
+## 1) ⚠️ Two datasets that must never have met {#w4-s2-1}
+
+![Almost every inflated PRS result traces back to one of the two questions at the bottom.](/assets/img/w4/prs_construction.svg){fig-align="center"}
+
+::: {.callout-important collapse="true"}
+## The single most common way a PRS paper is wrong
+
+If any of the **target** individuals also contributed to the **base** GWAS, the score has partly memorised their disease status. Performance is inflated, sometimes dramatically.
+
+-   ⚠️ Sample overlap between base and target → **overfitting**
+-   ⚠️ Tuning the p-value threshold on the same set you report performance on → **overfitting**
+
+✅ A trustworthy paper states base and target explicitly, confirms independence, and evaluates in a **held-out** cohort.
+
+💡 When you read "we optimised the threshold and achieved AUC 0.71", check on *what data* that optimisation happened. It is often one sentence in the supplement.
+:::
+
+## 2) The four names you will see {#w4-s2-2}
+
+You need to recognise these, not run them.
+
+| Method | Idea in one line | When you see it |
+|-------------------|---------------------------|--------------------------|
+| **C+T** (clumping + thresholding) | Keep one variant per LD block, drop those above a *p* cutoff | Older papers; still a sane baseline |
+| **PRSice-2** | C+T with the threshold auto-tuned, plus standard plots | Very common in clinical papers |
+| **LDpred2** | Bayesian — models LD and reweights *all* variants, no hard cutoff | Current default for accuracy |
+| **PRS-CSx** | Continuous shrinkage across **multiple ancestries** at once | The one that matters for non-European cohorts |
+
+::: {.callout-note collapse="true"}
+## Does the method choice change your reading?
+
+Mostly no. Differences between modern methods are modest compared with the differences that follow from ancestry and cohort.
+
+Two exceptions worth flagging:
+
+-   ⚠️ A **threshold-based** method (C+T, PRSice-2) has a tunable knob. Ask where it was tuned
+-   ✅ A **multi-ancestry** method is the honest choice when the target is not European — its absence in a Korean-cohort paper is a fair criticism
+:::
+
+------------------------------------------------------------------------
+
+# 3. ⚠️ Reading a PRS Paper 🔍 {#w4-s3}
+
+This is the section to keep. Five numbers, in the order you should look for them.
+
+## 1) Incremental value, not the PRS alone {#w4-s3-1}
+
+A PRS **alone** reaching AUC 0.64 sounds respectable. Age and sex alone reach about that for many diseases.
+
+![Same model, two questions. Most papers answer only the left one.](/assets/img/w4/discrimination_vs_calibration.svg){fig-align="center"}
+
+The only meaningful comparison:
+
+```         
+Model A (clinical) : age + sex + BMI + family history + labs
+Model B (clinical + PRS)
+
+           ΔAUC  =  AUC(B) − AUC(A)
+  incremental R²  =  R²(B)  − R²(A)      (Nagelkerke, for binary outcomes)
+```
+
+-   ❌ "PRS AUC = 0.64" — uninterpretable on its own
+-   ✅ "Adding PRS raised AUC from 0.72 to 0.74 (*p* = 0.003)" — now you can judge it
+
+💡 ΔAUC of 0.01–0.03 is typical for a good PRS. In a biobank of 400,000 that is comfortably significant, and for one patient it is often negligible. Both statements are true at once.
+
+## 2) Calibration — the metric nobody shows {#w4-s3-2}
+
+**Discrimination** asks: does the model rank people correctly? \
+**Calibration** asks: are the predicted probabilities *right*?
+
+Of the people told "10% risk over 10 years", do about 10% develop the disease?
+
+::: {.callout-warning collapse="true"}
+## Good discrimination with terrible calibration is easy
+
+Look at the right-hand panel above. Both lines rank patients identically. One of them tells patients a number that is twice the truth.
+
+-   ⚠️ A PRS calibrated in the UK Biobank is **not** calibrated in a Korean hospital population — different baseline incidence, age structure, and competing risks
+-   ✅ Recalibration (updating the intercept or baseline hazard) is a routine fix — but it must be *done*, in a population-representative cohort
+-   ⚠️ Biobank volunteers are healthier than the general population, so absolute risks derived from them run systematically low
+
+→ If a paper reports AUC and no calibration plot, the absolute risks it quotes are not trustworthy.
+:::
+
+## 3) The framing decides what the patient hears {#w4-s3-3}
+
+| Framing | Example | ⚠️ Caveat |
+|-------------------|--------------------|---------------------------------|
+| **Percentile** | "top 5% of PRS" | Says nothing about how much risk that is |
+| **Relative risk / OR** | "2.3× the population average" | 2.3 × a 0.4% baseline is still 0.9% |
+| **Absolute risk** | "18% over 10 years" | Needs incidence data for *your* population |
+
+✅ **Absolute risk tied to a guideline action** is the only framing that is both honest and usable. Everything else needs translating before it reaches the patient.
+
+## 4) ⚠️ Which deciles are being compared? {#w4-s3-4}
+
+![Nothing here is fabricated. All three numbers describe the same ten bars.](/assets/img/w4/decile_trick.svg){fig-align="center"}
+
+⚠️ A headline "**5-fold increased risk**" is almost always top-versus-bottom decile. Against the middle, the same score gives 2.8×. Against everyone else — which is how it would actually be used — 2.4×.
+
+💡 Also check whether risk rises **smoothly** across deciles or only in the extreme tail. A score that separates only the top 1% is a screening tool for very few people.
+
+## 5) Whose genomes built it? {#w4-s3-5}
+
+Look for the ancestry of the **base** GWAS before anything else. §5 is entirely about why.
+
+------------------------------------------------------------------------
+
+# 4. Is It Ready for the Clinic? 🏥 {#w4-s4}
+
+## 1) ACCE, not AUC {#w4-s4-1}
+
+The standard framework for judging a genomic test:
+
+-   **A**nalytical validity — does the pipeline compute the score accurately and reproducibly?
+-   **C**linical validity — does the score associate with disease **in the target population**?
+-   **C**linical utility — does *using* it improve outcomes?
+-   **E**LSI — ethical, legal and social implications: equity, consent, insurance, communication
+
+💡 Most published PRSs clear the first two. The bottleneck is **utility** and **ELSI** — which is why PRS is not yet routine care despite twenty years of GWAS.
+
+## 2) What the trials actually show {#w4-s4-2}
+
+| Trial | Setting | What it found / is testing |
+|-----------------|-------------------|------------------------------------|
+| **MI-GENES** | CHD | PRS-integrated risk disclosure → **lower LDL at 6 months**, via earlier and longer statin use |
+| **GenoVA** | 6 diseases (CHD, T2D, AF, breast/colorectal/prostate cancer) | Effect of PRS results on time to diagnosis |
+| **WISDOM / PERSPECTIVE** | Breast cancer | PRS-guided mammography intensity |
+| **eMERGE**, **Our Future Health** | 10 conditions / 5 M participants | Implementation at scale, not efficacy |
+
+::: {.callout-note collapse="true"}
+## Read MI-GENES carefully
+
+The mechanism of benefit was **behavioural** — patients told they were high-risk took statins earlier and stayed on them.
+
+That is a real clinical effect. But note what it implies: much of the demonstrated value of PRS so far comes from **motivating adherence to treatments we already had**, not from identifying a biologically distinct group.
+
+→ Worth remembering when a paper claims PRS "reveals a new high-risk phenotype".
+:::
+
+## 3) Where PRS is already inside a clinical equation {#w4-s4-3}
+
+-   ✅ **Breast cancer — BOADICEA / CanRisk**: the one widely used equation combining PRS **with** family history, rare variants (BRCA1/2), and clinical factors. Lifetime risk of ER-positive disease ranges roughly **2% to 31%** between bottom and top centile
+-   ✅ **CHD — Pooled Cohort Equations**: PRS is close to orthogonal to the clinical factors, so it can be added log-additively
+-   ⚠️ **Everything else**: no validated absolute-risk equation. Absolute risk has to be reconstructed from population incidence, which is exactly where calibration problems enter
+
+## 4) The human barriers {#w4-s4-4}
+
+::: {.callout-warning collapse="true"}
+## Three failure modes that have nothing to do with the mathematics
+
+-   ⚠️ **Patients hear genetics as destiny.** Risk is probabilistic and modifiable — MI-GENES succeeded partly by framing it that way explicitly
+-   ⚠️ **Run twenty PRSs and almost everyone is top-decile for something.** Alarm fatigue, and a strong argument against untargeted panels
+-   ⚠️ **Most physicians have no genomics training.** Deployment needs decision support in the EHR and a trained champion in the department, not a PDF report
+:::
+
+------------------------------------------------------------------------
+
+# 5. ⚠️ Portability: The Korean Problem 🌏 {#w4-s5}
+
+## 1) PRS does not transfer across ancestries {#w4-s5-1}
+
+![Nothing about the score changed. Only the patients did.](/assets/img/w4/portability.svg){fig-align="center"}
+
+The reasons are structural, not fixable by collecting more of the same people:
+
+-   **Allele frequencies differ** — a variant common in Europeans may be rare or absent
+-   **LD patterns differ** — the tag SNP no longer tags the causal variant (🔗 [W3 §3.1](w3_gwas.qmd#w3-s3-1))
+-   **Effect sizes differ** — gene–environment and genetic-background interactions
+
+::: {.callout-important collapse="true"}
+## This is a clinical safety issue, not only an equity issue
+
+Deploying a miscalibrated PRS does not fail neutrally. It systematically under-flags the population it was not trained on.
+
+→ Applying a European CAD PRS to Korean patients means the high-risk group you identify is enriched for people who resemble the training population — and the patients you miss are **not a random sample**.
+
+⚠️ Widening a disparity with a tool marketed as precision medicine is worse than not using the tool.
+:::
+
+## 2) What to do instead {#w4-s5-2}
+
+-   ✅ Prefer an **ancestry-matched base GWAS** — Korean or East Asian
+-   ✅ Use **PRS-CSx** or multi-ancestry meta-analysis when a matched base is too small
+-   ✅ **Recalibrate** in your own population and report ancestry-specific performance
+-   ✅ Korean resources: **KoGES**, Korea Biobank Array (**KCHIP**), **National Biobank of Korea**; regionally **Biobank Japan**, **China Kadoorie**
+
+💡 Diversity is not only fairness — different LD structures break haplotype blocks and produce **smaller credible sets** in fine-mapping (🔗 [W3 §6](w3_gwas.qmd#w3-s6)).
+
+------------------------------------------------------------------------
+
+# 6. What a PRS Cannot Do 🚫 {#w4-s6}
+
+-   ❌ **Not causal** — a high PRS does not mean disease will occur
+-   ❌ **Misses rare high-penetrance variants** — BRCA1/2, Lynch syndrome need dedicated testing. A reassuring PRS does not exclude them
+-   ❌ **Misses non-SNP variation** — CNVs, structural variants, repeat expansions (🔗 [W3 §4](w3_gwas.qmd#w3-s4))
+-   ❌ **Ignores gene × environment** — the same score means different things in a smoker and a non-smoker
+-   ❌ **Not a diagnosis** — one input, not a verdict
+-   ⚠️ **Not static in practice** — methods improve and reference panels grow. Keep raw genotypes so the score can be recomputed
+
+::: {.callout-tip collapse="true"}
+## Back to the motivating question
+
+A 42-year-old man, CAD PRS 92nd percentile, LDL 130, no family history.
+
+What you would want to know before answering:
+
+-   ① **Which base GWAS?** If European and the patient is Korean → the percentile is not interpretable as stated
+-   ② **92nd percentile of what absolute risk?** For a 42-year-old man, even 3× a low baseline may stay below the treatment threshold
+-   ③ **Does it cross a guideline line?** 10-year risk moving from 4% to 7% is a real conversation. From 1.2% to 2.1% is not
+-   ④ **What would change?** If the answer is "discuss statins and lifestyle" — that conversation was available without the test
+
+→ The PRS is not useless here. It is **not sufficient on its own**, and the percentile is the least informative part of the report.
+:::
+
+------------------------------------------------------------------------
+
+# 7. Hands-On 💻 {#w4-s7}
+
+## 1) No code: read a real score in the PGS Catalog {#w4-s7-1}
+
+The **PGS Catalog** ([pgscatalog.org](https://www.pgscatalog.org)) is the public registry of published scores — weights, metadata, and evaluated performance.
+
+Pick a disease relevant to your specialty, then answer:
+
+-   ① How many variants does the score use? (Published scores range from 6 to over a million)
+-   ② What was the **ancestry** of the development cohort?
+-   ③ Has it been **evaluated in an East Asian sample**? What happened to the effect size?
+-   ④ Is calibration reported anywhere, or only discrimination?
+-   ⑤ Are there several scores for the same disease? Do they agree on which individuals are high-risk?
+
+💡 ⑤ is the underrated one. Two scores with near-identical population AUC routinely disagree about **which specific person** sits in the top decile. Some groups therefore require top-tier status across ≥2 scores before flagging anyone.
+
+## 2) Minimal code: turn a score into a clinical figure {#w4-s7-2}
+
+We provide a pre-computed score table (`prs_scores.tsv`) so the session is about **interpretation**, not compute. One row per person: `IID`, `PRS`, `disease`, `age`, `sex`.
+
+```{r}
+library(tidyverse)
+library(here)
+
+prs <- read_tsv(here("rawdata", "prs_scores.tsv"))
+
+# Standardise so the score reads as SD units — always do this before reporting
+prs <- prs |> mutate(PRS_z = as.numeric(scale(PRS)))
+```
+
+**Incremental value over a clinical model:**
+
+```{r}
+library(pROC)
+
+m_clin <- glm(disease ~ age + sex,         data = prs, family = binomial)
+m_prs  <- glm(disease ~ age + sex + PRS_z, data = prs, family = binomial)
+
+roc_clin <- roc(prs$disease, predict(m_clin, type = "response"))
+roc_prs  <- roc(prs$disease, predict(m_prs,  type = "response"))
+
+roc.test(roc_clin, roc_prs)   # ← the number that belongs in the abstract
+```
+
+**Risk by decile — against an honest reference:**
+
+```{r}
+by_decile <- prs |>
+  mutate(decile = ntile(PRS_z, 10)) |>
+  group_by(decile) |>
+  summarise(n = n(), cases = sum(disease), .groups = "drop") |>
+  mutate(risk = cases / n,
+         OR_vs_middle = (risk / (1 - risk)) /
+                        (risk[decile == 5] / (1 - risk[decile == 5])))
+
+ggplot(by_decile, aes(decile, OR_vs_middle)) +
+  geom_col(fill = "#185FA5") +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  scale_x_continuous(breaks = 1:10) +
+  labs(x = "PRS decile", y = "OR vs middle decile",
+       title = "Risk by PRS decile — referenced to the middle, not the bottom") +
+  theme_minimal()
+```
+
+✅ **Now change one thing:** re-run with `decile == 1` as the reference and compare the top bar. That difference is the one you will meet in abstracts.
+
+::: {.callout-tip collapse="true"}
+## If you want to build one yourself
+
+Not required for this course, but the entry points are:
+
+-   `bigsnpr` (R) — implements C+T and LDpred2; [privefl.github.io/bigsnpr](https://privefl.github.io/bigsnpr)
+-   `PRSice-2` — command-line, auto-tunes the threshold; [prsice.info](https://www.prsice.info)
+-   `PRS-CSx` — Python, multi-ancestry; [github.com/getian107/PRScsx](https://github.com/getian107/PRScsx)
+
+⚠️ Each needs an LD reference panel matched to your target ancestry. That requirement, not the modelling, is what usually stops a clinical project.
+:::
+
+## 3) Before next week {#w4-s7-3}
+
+**W5 — single-cell RNA-seq: technology, QC, clustering.** Install in advance:
+
+```{r}
+install.packages("Seurat")
+BiocManager::install(c("SingleR", "celldex"))
+renv::snapshot()
+```
+
+------------------------------------------------------------------------
+
+# 📝 Summary
+
+-   A PRS aggregates thousands to millions of small effects into one number — a **risk indicator**, never a diagnosis
+-   ⚠️ **Base and target must be independent.** Tuning and evaluating on the same data inflates every reported number
+-   Method names (C+T, PRSice-2, LDpred2, PRS-CSx) matter less than ancestry and cohort — recognise them, don't implement them
+-   ❌ PRS AUC alone is meaningless. ✅ **ΔAUC and incremental R² over a clinical model** are the claim
+-   ⚠️ **Calibration is usually missing**, and it is what makes an absolute risk trustworthy
+-   ⚠️ "5-fold risk" is almost always top-vs-bottom decile. Ask for the comparison against the middle, or against everyone else
+-   Percentile → relative risk → **absolute risk tied to a guideline action**: only the last is usable at the bedside
+-   Clinical readiness is **ACCE**, not AUC. Utility evidence is thin, and much of it works through adherence
+-   ⚠️ **A European-derived PRS is not valid for a Korean patient unchanged** — use matched or multi-ancestry scores, and recalibrate
+-   The hard parts are portability, communication, and EHR integration. Not the mathematics
+
+------------------------------------------------------------------------
+
+# 🔑 Key terms
+
+| Term | One-line meaning |
+|---------------------|---------------------------------------------------|
+| PRS / PGS | Weighted sum of risk alleles across many variants |
+| Base GWAS | The published study supplying the effect sizes |
+| Target cohort | The individuals being scored |
+| C+T | Clumping and *p*-value thresholding |
+| LDpred2 | Bayesian method reweighting all variants using an LD reference |
+| PRS-CSx | Continuous-shrinkage method spanning multiple ancestries |
+| Incremental R² | Variance explained **beyond** a clinical model |
+| ΔAUC | Gain in discrimination from adding the PRS |
+| Calibration | Whether predicted probabilities match observed frequencies |
+| Recalibration | Adjusting the baseline risk for a new population |
+| Portability | How well a PRS transfers to another ancestry |
+| ACCE | Analytical validity, Clinical validity, Clinical utility, ELSI |
+| PGS Catalog | Public repository of published scores and their weights |
+| BOADICEA / CanRisk | Breast cancer equation combining PRS, family history, rare variants |
+
+------------------------------------------------------------------------
+
+# ➕ References
+
+### Clinical use and readiness
+
+Kullo IJ, et al. [*Polygenic scores in biomedical research.*](https://doi.org/10.1038/s41576-022-00470-z) Nat Rev Genet. 2022.\
+Khera AV, et al. [*Genome-wide polygenic scores for common diseases identify individuals with risk equivalent to monogenic mutations.*](https://doi.org/10.1038/s41588-018-0183-z) Nat Genet. 2018.\
+Wand H, et al. [*Improving reporting standards for polygenic scores in risk prediction studies.*](https://doi.org/10.1038/s41586-021-03243-6) Nature. 2021. **← the PRS-RS checklist; use it as a reviewing aid**
+
+### Methods, for recognition
+
+Choi SW, Mak TS, O'Reilly PF. [*Tutorial: a guide to performing polygenic risk score analyses.*](https://doi.org/10.1038/s41596-020-0353-1) Nat Protoc. 2020.\
+Privé F, Arbel J, Vilhjálmsson BJ. [*LDpred2: better, faster, stronger.*](https://doi.org/10.1093/bioinformatics/btaa1029) Bioinformatics. 2020.\
+Ruan Y, et al. [*Improving polygenic prediction in ancestrally diverse populations.*](https://doi.org/10.1038/s41588-022-01054-7) Nat Genet. 2022. (PRS-CSx)
+
+### Portability and diversity
+
+Martin AR, et al. [*Clinical use of current polygenic risk scores may exacerbate health disparities.*](https://doi.org/10.1038/s41588-019-0379-x) Nat Genet. 2019.\
+Wojcik GL, et al. [*Genetic analyses of diverse populations improves discovery for complex traits.*](https://doi.org/10.1038/s41586-019-1310-4) Nature. 2019.
+
+### Implementation and communication
+
+Lambert SA, et al. [*The Polygenic Score Catalog as an open database for reproducibility and systematic evaluation.*](https://doi.org/10.1038/s41588-021-00783-5) Nat Genet. 2021.\
+Li R, Chen Y, Ritchie MD, Moore JH. [*Electronic health records and polygenic risk scores for predicting disease risk.*](https://doi.org/10.1038/s41576-020-0224-1) Nat Rev Genet. 2020.\
+Lee A, et al. [*BOADICEA: a comprehensive breast cancer risk prediction model incorporating genetic and nongenetic risk factors.*](https://doi.org/10.1038/s41436-018-0406-9) Genet Med. 2019.
+
+### Resources
+
+[PGS Catalog](https://www.pgscatalog.org) · [CanRisk (BOADICEA)](https://www.canrisk.org) · [Korea Biobank](https://biobank.nih.go.kr) · [PRSice-2](https://www.prsice.info)

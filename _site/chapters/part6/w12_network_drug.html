@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eunji Ha">
+<meta name="dcterms.date" content="2026-08-18">
+
+<title>W12. Network Analysis &amp; Drug Targets</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/part7/w13_visualization.html" rel="next">
+<link href="../../chapters/part6/w11_multiomics.html" rel="prev">
+<link href="../../assets/img/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../../assets/html.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../assets/img/logo.jpg" alt="" class="navbar-logo light-content">
+    <img src="../../assets/img/logo.jpg" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weeks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weeks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">    
+        <li>
+    <a class="dropdown-item" href="../../chapters/part1/w1_intro.html">
+ <span class="dropdown-text">W1 · Introduction &amp; Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part1/w2_scripts_ai.html">
+ <span class="dropdown-text">W2 · Scripts, AI &amp; Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part2/w3_gwas.html">
+ <span class="dropdown-text">W3 · GWAS &amp; Post-GWAS</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part2/w4_prs.html">
+ <span class="dropdown-text">W4 · Polygenic Risk Scores</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part3/w5_scrna_qc.html">
+ <span class="dropdown-text">W5 · scRNA-seq: QC &amp; Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part3/w6_scrna_dynamics.html">
+ <span class="dropdown-text">W6 · Trajectory, CCC &amp; Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part4/w7_spatial_basics.html">
+ <span class="dropdown-text">W7 · Spatial Transcriptomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part4/w8_spatial_integration.html">
+ <span class="dropdown-text">W8 · Deconvolution &amp; Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part5/w9_proteomics_tech.html">
+ <span class="dropdown-text">W9 · Proteomics Technology</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part5/w10_clinical_proteomics.html">
+ <span class="dropdown-text">W10 · Clinical Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part6/w11_multiomics.html">
+ <span class="dropdown-text">W11 · Multi-omics Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part6/w12_network_drug.html">
+ <span class="dropdown-text">W12 · Network &amp; Drug Targets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part7/w13_visualization.html">
+ <span class="dropdown-text">W13 · Interpretation &amp; Visualisation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part7/w14_project_design.html">
+ <span class="dropdown-text">W14 · Project Design</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part6/w11_multiomics.html">6 · Integration</a></li><li class="breadcrumb-item"><a href="../../chapters/part6/w12_network_drug.html">W12. Network Analysis &amp; Drug Targets</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">1 · Intro</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part1/w1_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W1. Introduction &amp; Roadmap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part1/w2_scripts_ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W2. Scripts, AI &amp; Reproducibility</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">2 · Clinical Genomics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part2/w3_gwas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W3. GWAS &amp; Post-GWAS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part2/w4_prs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W4. Polygenic Risk Scores</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">3 · Single-cell</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part3/w5_scrna_qc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W5. Technology, QC, Clustering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part3/w6_scrna_dynamics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W6. Trajectory, Communication, Integration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">4 · Spatial</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part4/w7_spatial_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W7. Spatial Transcriptomics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part4/w8_spatial_integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W8. Deconvolution &amp; Integration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">5 · Proteomics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part5/w9_proteomics_tech.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W9. How Proteins Are Measured</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part5/w10_clinical_proteomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W10. Clinical Proteomics &amp; Biomarkers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">6 · Integration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part6/w11_multiomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W11. Multi-omics Integration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part6/w12_network_drug.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">W12. Network Analysis &amp; Drug Targets</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">7 · Capstone</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part7/w13_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W13. Interpretation &amp; Visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part7/w14_project_design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W14. Designing Your Own Project</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#w12-s1" id="toc-w12-s1" class="nav-link active" data-scroll-target="#w12-s1">1. ⚠️ What a Network Is Made Of 🕸️</a>
+  <ul>
+  <li><a href="#w12-s1-1" id="toc-w12-s1-1" class="nav-link" data-scroll-target="#w12-s1-1">1) The construction, and the bias it creates</a></li>
+  <li><a href="#w12-s1-2" id="toc-w12-s1-2" class="nav-link" data-scroll-target="#w12-s1-2">2) What networks are still good for</a></li>
+  </ul></li>
+  <li><a href="#w12-s2" id="toc-w12-s2" class="nav-link" data-scroll-target="#w12-s2">2. From Gene to Drug 💊</a>
+  <ul>
+  <li><a href="#w12-s2-1" id="toc-w12-s2-1" class="nav-link" data-scroll-target="#w12-s2-1">1) Genetic support is the strongest route</a></li>
+  <li><a href="#w12-s2-2" id="toc-w12-s2-2" class="nav-link" data-scroll-target="#w12-s2-2">2) ⚠️ Direction of effect</a></li>
+  <li><a href="#w12-s2-3" id="toc-w12-s2-3" class="nav-link" data-scroll-target="#w12-s2-3">3) Signature reversal and network proximity</a></li>
+  </ul></li>
+  <li><a href="#w12-s3" id="toc-w12-s3" class="nav-link" data-scroll-target="#w12-s3">3. Six Questions Before Calling It a Target ✅</a></li>
+  <li><a href="#w12-s4" id="toc-w12-s4" class="nav-link" data-scroll-target="#w12-s4">4. Hands-On 💻</a>
+  <ul>
+  <li><a href="#w12-s4-1" id="toc-w12-s4-1" class="nav-link" data-scroll-target="#w12-s4-1">1) No code: profile your surviving gene</a></li>
+  <li><a href="#w12-s4-2" id="toc-w12-s4-2" class="nav-link" data-scroll-target="#w12-s4-2">2) Build a small network, then check yourself</a></li>
+  <li><a href="#w12-s4-3" id="toc-w12-s4-3" class="nav-link" data-scroll-target="#w12-s4-3">3) A degree-matched null</a></li>
+  <li><a href="#w12-s4-4" id="toc-w12-s4-4" class="nav-link" data-scroll-target="#w12-s4-4">4) Before next week</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">📝 Summary</a></li>
+  <li><a href="#key-terms" id="toc-key-terms" class="nav-link" data-scroll-target="#key-terms">🔑 Key terms</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">➕ References</a>
+  <ul>
+  <li><a href="#networks-and-their-biases" id="toc-networks-and-their-biases" class="nav-link" data-scroll-target="#networks-and-their-biases">Networks and their biases</a></li>
+  <li><a href="#drug-targets-and-genetic-support" id="toc-drug-targets-and-genetic-support" class="nav-link" data-scroll-target="#drug-targets-and-genetic-support">Drug targets and genetic support</a></li>
+  <li><a href="#repurposing-methods" id="toc-repurposing-methods" class="nav-link" data-scroll-target="#repurposing-methods">Repurposing methods</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part6/w11_multiomics.html">6 · Integration</a></li><li class="breadcrumb-item"><a href="../../chapters/part6/w12_network_drug.html">W12. Network Analysis &amp; Drug Targets</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">W12. Network Analysis &amp; Drug Targets</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eunji Ha </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>🎯 Learning objectives
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>By the end of this chapter you should be able to:</p>
+<ul>
+<li>Say what a biological network is built from, and ⚠️ why that construction biases every result</li>
+<li>⚠️ Recognise the study-bias artifact behind most “hub gene” findings</li>
+<li>Compare the three routes to drug repurposing, and say what each is worth as evidence</li>
+<li>⚠️ Explain why direction of effect decides agonist versus antagonist</li>
+<li>Work through six questions that separate a top-ranked gene from an actual target</li>
+<li>Use PheWAS and loss-of-function carriers as a free safety readout</li>
+</ul>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>🤔 <strong>Motivating question</strong></p>
+<p>A network analysis of your disease reports TP53, EGFR and AKT1 as the key regulators. How surprised should you be?</p>
+</blockquote>
+<hr>
+<section id="w12-s1" class="level1">
+<h1>1. ⚠️ What a Network Is Made Of 🕸️</h1>
+<section id="w12-s1-1" class="level2">
+<h2 class="anchored" data-anchor-id="w12-s1-1">1) The construction, and the bias it creates</h2>
+<p>A protein–protein interaction network is an accumulation of <strong>published experiments</strong>. STRING, BioGRID and IntAct are curated literature, plus predictions trained on that literature.</p>
+<p>Experiments concentrate on genes people already study. So node degree tracks <strong>publication count</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w12/network_bias.svg" class="img-fluid figure-img"></p>
+<figcaption>The correlation is not subtle.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>The answer to the motivating question is: not at all surprised
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>TP53, EGFR and AKT1 come out as hubs for nearly every disease that has ever been networked. They have tens of thousands of papers each, so they have edges to everything.</p>
+<p>⚠️ Concretely, this means:</p>
+<ul>
+<li>“Hub” analyses rediscover the same genes regardless of your data</li>
+<li><strong>Network proximity</strong> scores favour well-studied drugs and well-studied targets</li>
+<li>Genes with no publications have <strong>degree ≈ 0</strong> and can never be prioritised, however important</li>
+</ul>
+<p>✅ What to do:</p>
+<ul>
+<li>Compare against a <strong>degree-matched null</strong> — permute while preserving each node’s degree, so “well-connected” stops being an automatic win</li>
+<li>Prefer networks built from a <strong>single systematic experiment</strong> (a proteomics interactome, a CRISPR screen) over literature aggregates, where you can</li>
+<li>✅ Report degree alongside any hub claim, and let the reader see it</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="w12-s1-2" class="level2">
+<h2 class="anchored" data-anchor-id="w12-s1-2">2) What networks are still good for</h2>
+<ul>
+<li>✅ <strong>Modules</strong> — a set of genes that interact more than expected, giving a process-level rather than gene-level result</li>
+<li>✅ <strong>Connecting your hits</strong> — do your 40 GWAS loci converge on a pathway?</li>
+<li>✅ <strong>Suggesting a mechanism</strong> for a gene of unknown function, from its neighbours</li>
+<li>⚠️ Always as a hypothesis. The edges are other people’s experiments, not yours</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="w12-s2" class="level1">
+<h1>2. From Gene to Drug 💊</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w12/repurposing_routes.svg" class="img-fluid figure-img"></p>
+<figcaption>Three routes, three very different evidence classes.</figcaption>
+</figure>
+</div>
+<section id="w12-s2-1" class="level2">
+<h2 class="anchored" data-anchor-id="w12-s2-1">1) Genetic support is the strongest route</h2>
+<p>Targets with human genetic support are roughly <strong>twice as likely</strong> to succeed through clinical development. The mechanism is simple: a variant that alters the target is a natural, lifelong, randomised experiment in humans — the argument from 🔗 <a href="../../chapters/part2/w3_gwas.html#w3-s3-2">W3 §3.2</a>.</p>
+<ul>
+<li><strong>PCSK9</strong> — loss-of-function carriers have low LDL and low cardiovascular risk → inhibitors work</li>
+<li><strong>IL6R</strong> — a variant mimicking IL-6 blockade associates with lower CHD risk → tocilizumab’s cardiovascular signal</li>
+</ul>
+</section>
+<section id="w12-s2-2" class="level2">
+<h2 class="anchored" data-anchor-id="w12-s2-2">2) ⚠️ Direction of effect</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>The mistake with the worst consequences in this course
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If the risk allele <strong>increases</strong> target activity, you want an inhibitor. If it <strong>decreases</strong> it, the target may be protective — and inhibiting it would make patients worse.</p>
+<p>Two complications:</p>
+<ul>
+<li>⚠️ <strong>Incoherence.</strong> A risk allele can down-regulate a gene that appears up-regulated in patients. Often that is an impaired protective response, and the therapeutic direction is the opposite of what the expression data suggests</li>
+<li>⚠️ <strong>Tissue-specificity.</strong> Direction can differ between tissues. The relevant tissue is the one where the disease process happens (🔗 <a href="../../chapters/part3/w5_scrna_qc.html">W5</a>, 🔗 <a href="../../chapters/part4/w7_spatial_basics.html">W7</a>)</li>
+</ul>
+<p>→ ✅ Establish direction from <strong>genetics plus MR</strong>, not from a fold change in patient tissue.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="w12-s2-3" class="level2">
+<h2 class="anchored" data-anchor-id="w12-s2-3">3) Signature reversal and network proximity</h2>
+<ul>
+<li><strong>Signature reversal</strong> (CMap, LINCS) — find a drug whose expression signature is anti-correlated with the disease signature. ⚠️ Reference profiles come from cell lines at high doses. Useful for generating candidates; not evidence</li>
+<li><strong>Network proximity</strong> — is a drug’s target close to the disease module? ⚠️ Inherits every bias in §1, so it needs a degree-matched null to mean anything</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="w12-s3" class="level1">
+<h1>3. Six Questions Before Calling It a Target ✅</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w12/target_checklist.svg" class="img-fluid figure-img"></p>
+<figcaption>Answering all six for one gene is a complete piece of work.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Question 5 in more detail: humans have already run your safety study
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>People carrying natural loss-of-function variants in your target are a preview of what inhibiting it does over a lifetime.</p>
+<ul>
+<li>✅ <strong>gnomAD</strong> — how many LoF carriers exist? Is the gene depleted of them (a <strong>LOEUF</strong> near 0 means intolerant, and probably a poor target)?</li>
+<li>✅ <strong>PheWAS</strong> on the variant — what else changes? Those are your predictable side effects</li>
+<li>✅ Homozygotes, where they exist, are the strongest signal available short of a trial</li>
+</ul>
+<p>⚠️ A gene that is highly intolerant to loss of function is telling you something. Inhibiting it is likely to have consequences beyond the disease.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="w12-s4" class="level1">
+<h1>4. Hands-On 💻</h1>
+<p>Bring the prioritisation table from 🔗 <a href="../../chapters/part6/w11_multiomics.html#w11-s5-1">W11 §5.1</a>.</p>
+<section id="w12-s4-1" class="level2">
+<h2 class="anchored" data-anchor-id="w12-s4-1">1) No code: profile your surviving gene</h2>
+<p><a href="https://platform.opentargets.org"><strong>Open Targets</strong></a> → your gene → its target profile.</p>
+<ul>
+<li>① <strong>Tractability</strong> — small molecule? antibody? Which clinical phase, for any indication?</li>
+<li>② <strong>Safety</strong> — any flagged organ toxicity?</li>
+<li>③ <strong>Known drugs</strong> — is something already approved against it, for anything?</li>
+<li>④ <a href="https://gnomad.broadinstitute.org"><strong>gnomAD</strong></a> → <strong>LOEUF</strong>. Is the gene tolerant of loss of function?</li>
+<li>⑤ <a href="https://genetics.opentargets.org"><strong>Open Targets Genetics</strong></a> → PheWAS for the lead variant. What else does it affect?</li>
+</ul>
+<p>✅ Write the answers as five sentences. That is §3’s checklist, done.</p>
+</section>
+<section id="w12-s4-2" class="level2">
+<h2 class="anchored" data-anchor-id="w12-s4-2">2) Build a small network, then check yourself</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(STRINGdb); <span class="fu">library</span>(igraph); <span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>sdb <span class="ot">&lt;-</span> STRINGdb<span class="sc">$</span><span class="fu">new</span>(<span class="at">version =</span> <span class="st">"12"</span>, <span class="at">species =</span> <span class="dv">9606</span>, <span class="at">score_threshold =</span> <span class="dv">700</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>mapped <span class="ot">&lt;-</span> sdb<span class="sc">$</span><span class="fu">map</span>(<span class="fu">data.frame</span>(<span class="at">gene =</span> my_genes), <span class="st">"gene"</span>, <span class="at">removeUnmappedRows =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> sdb<span class="sc">$</span><span class="fu">get_subnetwork</span>(mapped<span class="sc">$</span>STRING_id) <span class="sc">|&gt;</span> igraph<span class="sc">::</span><span class="fu">simplify</span>()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>deg <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">degree</span>(g), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(deg, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>⚠️ <strong>Now the step that is usually missing:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is your "hub" just a well-studied gene?</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch PubMed counts for the same genes and correlate with degree.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>pubs <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"rawdata"</span>, <span class="st">"pubmed_counts.rds"</span>))   <span class="co"># gene → n papers</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="fu">log10</span>(pubs[<span class="fu">names</span>(deg)] <span class="sc">+</span> <span class="dv">1</span>), deg, <span class="at">use =</span> <span class="st">"complete"</span>, <span class="at">method =</span> <span class="st">"spearman"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>💡 In most literature-derived networks this correlation is strong. Report it, and your hub claim becomes credible instead of automatic.</p>
+</section>
+<section id="w12-s4-3" class="level2">
+<h2 class="anchored" data-anchor-id="w12-s4-3">3) A degree-matched null</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>observed <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">distances</span>(g, <span class="at">v =</span> disease_genes, <span class="at">to =</span> drug_targets))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>null <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  rw <span class="ot">&lt;-</span> <span class="fu">sample_degseq</span>(<span class="fu">degree</span>(g), <span class="at">method =</span> <span class="st">"vl"</span>)   <span class="co"># same degrees, rewired edges</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">distances</span>(rw, <span class="at">v =</span> disease_genes, <span class="at">to =</span> drug_targets))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"observed:"</span>, <span class="fu">round</span>(observed, <span class="dv">2</span>), <span class="st">" null mean:"</span>, <span class="fu">round</span>(<span class="fu">mean</span>(null), <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>✅ If the observed proximity is not clearly better than the degree-matched null, you have measured popularity.</p>
+</section>
+<section id="w12-s4-4" class="level2">
+<h2 class="anchored" data-anchor-id="w12-s4-4">4) Before next week</h2>
+<p><strong>W13 — interpretation and visualisation.</strong> Bring <strong>one figure</strong> from your own work or from a paper you are reading. We will take it apart.</p>
+<hr>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>📝 Summary</h1>
+<ul>
+<li>Biological networks are aggregated published experiments, so ⚠️ <strong>node degree tracks publication count</strong></li>
+<li>⚠️ Hub analyses rediscover TP53, EGFR and AKT1 for almost every disease. ✅ Use a degree-matched null</li>
+<li>⚠️ Genes with no literature have degree ≈ 0 and can never be prioritised, however important</li>
+<li>✅ Networks are good for <strong>modules</strong>, for connecting scattered hits, and for suggesting mechanism — as hypotheses</li>
+<li>✅ <strong>Genetic support roughly doubles the chance a target reaches approval</strong> — the strongest evidence class available</li>
+<li>⚠️ <strong>Direction of effect decides agonist vs antagonist</strong>, and getting it backwards harms patients</li>
+<li>⚠️ Signature reversal uses cell lines at high doses. Candidates, not evidence</li>
+<li>✅ Six questions: genetics · direction · expression · tractability · safety · <strong>would it change management</strong></li>
+<li>✅ LoF carriers and PheWAS are a free, human, lifelong safety readout — use them before proposing a target</li>
+</ul>
+<hr>
+</section>
+<section id="key-terms" class="level1">
+<h1>🔑 Key terms</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>One-line meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PPI network</td>
+<td>Graph of protein–protein interactions, mostly from literature</td>
+</tr>
+<tr class="even">
+<td>Degree</td>
+<td>Number of edges at a node</td>
+</tr>
+<tr class="odd">
+<td>Hub</td>
+<td>High-degree node — often a well-studied gene</td>
+</tr>
+<tr class="even">
+<td>Study bias</td>
+<td>Degree reflecting research attention rather than biology</td>
+</tr>
+<tr class="odd">
+<td>Degree-matched null</td>
+<td>Rewiring that preserves degrees, to test a network claim</td>
+</tr>
+<tr class="even">
+<td>Module</td>
+<td>A densely interconnected set of genes</td>
+</tr>
+<tr class="odd">
+<td>Network proximity</td>
+<td>Graph distance between drug targets and disease genes</td>
+</tr>
+<tr class="even">
+<td>Signature reversal</td>
+<td>Finding a drug that anti-correlates with the disease signature</td>
+</tr>
+<tr class="odd">
+<td>CMap / LINCS</td>
+<td>Databases of drug-induced expression profiles</td>
+</tr>
+<tr class="even">
+<td>Tractability</td>
+<td>Whether a target can be drugged at all</td>
+</tr>
+<tr class="odd">
+<td>LOEUF</td>
+<td>gnomAD metric of intolerance to loss of function</td>
+</tr>
+<tr class="even">
+<td>Human knockout</td>
+<td>A natural homozygous LoF carrier — a lifetime safety preview</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="references" class="level1">
+<h1>➕ References</h1>
+<section id="networks-and-their-biases" class="level3">
+<h3 class="anchored" data-anchor-id="networks-and-their-biases">Networks and their biases</h3>
+<p>Schaefer MH, Serrano L, Andrade-Navarro MA. <a href="https://doi.org/10.3389/fgene.2015.00260"><em>Correcting for the study bias associated with protein–protein interaction measurements reveals differences between protein degree distributions from different cancer types.</em></a> Front Genet. 2015. <strong>← the study-bias problem, measured</strong><br>
+Gillis J, Ballouz S, Pavlidis P. <a href="https://doi.org/10.1016/j.jprot.2014.01.020"><em>Bias tradeoffs in the creation and analysis of protein–protein interaction networks.</em></a> J Proteomics. 2014.<br>
+Barabási AL, Gulbahce N, Loscalzo J. <a href="https://doi.org/10.1038/nrg2918"><em>Network medicine: a network-based approach to human disease.</em></a> Nat Rev Genet. 2011.</p>
+</section>
+<section id="drug-targets-and-genetic-support" class="level3">
+<h3 class="anchored" data-anchor-id="drug-targets-and-genetic-support">Drug targets and genetic support</h3>
+<p>Nelson MR, et al.&nbsp;<a href="https://doi.org/10.1038/ng.3314"><em>The support of human genetic evidence for approved drug indications.</em></a> Nat Genet. 2015. <strong>← the paper behind “roughly doubles”</strong><br>
+King EA, Davis JW, Degner JF. <a href="https://doi.org/10.1371/journal.pgen.1008489"><em>Are drug targets with genetic support twice as likely to be approved?</em></a> PLoS Genet. 2019.<br>
+Reay WR, Cairns MJ. <a href="https://doi.org/10.1038/s41576-020-00387-5"><em>Advancing the use of GWAS for drug repurposing.</em></a> Nat Rev Genet. 2021.<br>
+Minikel EV, et al.&nbsp;<a href="https://doi.org/10.1038/s41586-020-2267-z"><em>Evaluating drug targets through human loss-of-function genetic variation.</em></a> Nature. 2020. <strong>← human knockouts as a safety readout</strong></p>
+</section>
+<section id="repurposing-methods" class="level3">
+<h3 class="anchored" data-anchor-id="repurposing-methods">Repurposing methods</h3>
+<p>Subramanian A, et al.&nbsp;<a href="https://doi.org/10.1016/j.cell.2017.10.049"><em>A next generation connectivity map: L1000 platform and the first 1,000,000 profiles.</em></a> Cell. 2017.<br>
+Guney E, Menche J, Vidal M, Barabási AL. <a href="https://doi.org/10.1038/ncomms10331"><em>Network-based in silico drug efficacy screening.</em></a> Nat Commun. 2016.</p>
+</section>
+<section id="resources" class="level3">
+<h3 class="anchored" data-anchor-id="resources">Resources</h3>
+<p><a href="https://platform.opentargets.org">Open Targets</a> · <a href="https://string-db.org">STRING</a> · <a href="https://gnomad.broadinstitute.org">gnomAD</a> · <a href="https://clue.io">CLUE / LINCS</a> · <a href="https://dgidb.org">DGIdb</a></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- AI Chat Widget 초기화 -->
+<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
+<script>
+  // ★ Cloudflare Worker 배포 후 URL로 교체하세요
+  const WORKER_URL = "https://falling-wave-447f.eh0129s.workers.dev/";
+
+  // 각 .qmd 파일의 YAML에서 ai-context를 읽어옵니다
+  // (없으면 빈 문자열 → 기본 안내 메시지)
+  const metaContext = document.querySelector('meta[name="ai-context"]');
+  const metaTitle   = document.querySelector('meta[name="ai-title"]') || { content: document.title };
+
+  window.AI_CHAT_CONFIG = {
+    workerUrl:      WORKER_URL,
+    chapterContext: metaContext ? metaContext.content : "",
+    chapterTitle:   metaTitle  ? metaTitle.content   : document.title,
+  };
+</script>
+<script src="../_extensions/ai-chat/ai-chat.js" defer=""></script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/part6/w11_multiomics.html" class="pagination-link" aria-label="W11. Multi-omics Integration">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">W11. Multi-omics Integration</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/part7/w13_visualization.html" class="pagination-link" aria-label="W13. Interpretation &amp; Visualisation">
+        <span class="nav-page-text">W13. Interpretation &amp; Visualisation</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2026, Eunji</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

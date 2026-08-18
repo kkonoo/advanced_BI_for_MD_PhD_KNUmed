@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="400" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">RNA velocity — where the direction comes from, and why it is contested.</text>
+
+  <!-- the idea -->
+  <rect x="24" y="46" width="400" height="222" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="72" font-size="13" font-weight="700" fill="#4A3D6B">The idea, in one measurement</text>
+
+  <text x="48" y="102" font-size="12" fill="#8A7FA3">Every cell's reads split into two pools:</text>
+  <rect x="48" y="114" width="164" height="52" rx="7" fill="#eaf1f8"/>
+  <text x="130" y="136" font-size="12" font-weight="700" fill="#185FA5" text-anchor="middle">unspliced</text>
+  <text x="130" y="154" font-size="11" fill="#5d7fa0" text-anchor="middle">introns kept — new</text>
+  <rect x="236" y="114" width="164" height="52" rx="7" fill="#e8f5f0"/>
+  <text x="318" y="136" font-size="12" font-weight="700" fill="#0F6E56" text-anchor="middle">spliced</text>
+  <text x="318" y="154" font-size="11" fill="#4d8a78" text-anchor="middle">introns removed — mature</text>
+
+  <text x="48" y="192" font-size="12.5" fill="#666">More unspliced than steady state predicts</text>
+  <text x="48" y="212" font-size="12.5" font-weight="700" fill="#4A3D6B">→ the gene is being switched <tspan fill="#0F6E56">on</tspan></text>
+  <text x="48" y="234" font-size="12.5" fill="#666">Fewer than predicted</text>
+  <text x="48" y="254" font-size="12.5" font-weight="700" fill="#4A3D6B">→ being switched <tspan fill="#a8401d">off</tspan></text>
+
+  <!-- the output -->
+  <rect x="456" y="46" width="400" height="222" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="480" y="72" font-size="13" font-weight="700" fill="#4A3D6B">What you get: an arrow per cell</text>
+  <g stroke="#534AB7" stroke-width="1.8" fill="none">
+    <path d="M520 200 l22 -12"/><path d="M556 176 l22 -13"/><path d="M592 152 l22 -11"/>
+    <path d="M540 226 l22 -12"/><path d="M576 204 l22 -12"/><path d="M612 180 l22 -11"/>
+    <path d="M562 246 l22 -12"/><path d="M598 226 l22 -12"/><path d="M634 202 l22 -11"/>
+    <path d="M664 152 l22 -9"/><path d="M684 176 l22 -10"/><path d="M700 130 l22 -8"/>
+  </g>
+  <g fill="#534AB7">
+    <path d="M546 185 l-7 -1 l3 5 z"/><path d="M582 160 l-7 -1 l3 5 z"/><path d="M618 138 l-7 -1 l3 5 z"/>
+    <path d="M566 211 l-7 -1 l3 5 z"/><path d="M602 189 l-7 -1 l3 5 z"/><path d="M638 166 l-7 -1 l3 5 z"/>
+    <path d="M588 231 l-7 -1 l3 5 z"/><path d="M624 211 l-7 -1 l3 5 z"/><path d="M660 188 l-7 -1 l3 5 z"/>
+    <path d="M690 140 l-7 -1 l3 5 z"/><path d="M710 163 l-7 -1 l3 5 z"/><path d="M726 119 l-7 -1 l3 5 z"/>
+  </g>
+  <circle cx="520" cy="200" r="3" fill="#b9b0cc"/><circle cx="556" cy="176" r="3" fill="#b9b0cc"/>
+  <circle cx="592" cy="152" r="3" fill="#b9b0cc"/><circle cx="540" cy="226" r="3" fill="#b9b0cc"/>
+  <circle cx="576" cy="204" r="3" fill="#b9b0cc"/><circle cx="612" cy="180" r="3" fill="#b9b0cc"/>
+  <text x="480" y="252" font-size="12" fill="#8A7FA3">Superimposed on the UMAP — which is why it reads as motion.</text>
+
+  <!-- caveats -->
+  <rect x="24" y="286" width="832" height="98" rx="10" fill="#fbeee8" stroke="#D85A30" stroke-width="2"/>
+  <text x="48" y="312" font-size="13.5" font-weight="700" fill="#a8401d">⚠️ Three things to hold in mind before believing the arrows</text>
+  <text x="48" y="336" font-size="12.5" fill="#a05a3f">① The model assumes constant splicing and degradation rates per gene. <tspan font-weight="700" fill="#a8401d">Both assumptions are known to fail</tspan> for some genes and systems.</text>
+  <text x="48" y="356" font-size="12.5" fill="#a05a3f">② The arrows are drawn on a UMAP, so they inherit every distortion of the embedding (W5 §4.2). Direction in 2D is not direction in the data.</text>
+  <text x="48" y="376" font-size="12.5" fill="#a05a3f">③ snRNA-seq is intron-rich by construction — velocity on nuclei needs a different model, not the default one.</text>
+</svg>

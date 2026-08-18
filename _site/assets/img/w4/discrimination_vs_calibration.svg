@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<rect width="880" height="400" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Two different questions. A paper that answers only the first has not finished.</text>
+<rect x="24" y="46" width="400" height="330" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="48" y="74" font-size="13.5" font-weight="700" fill="#4A3D6B">Discrimination — does it rank people correctly?</text>
+<line x1="96" y1="320" x2="320" y2="320" stroke="#cfc9dd" stroke-width="1.2"/>
+<line x1="96" y1="96" x2="96" y2="320" stroke="#cfc9dd" stroke-width="1.2"/>
+<line x1="96" y1="320" x2="320" y2="96" stroke="#e6e1ee" stroke-width="1.5" stroke-dasharray="4 4"/>
+<path d="M96.0 320.0 L98.2 283.2 L100.5 271.7 L102.7 263.4 L105.0 256.6 L107.2 250.8 L109.4 245.7 L111.7 241.1 L113.9 236.8 L116.2 232.9 L118.4 229.2 L120.6 225.7 L122.9 222.5 L125.1 219.4 L127.4 216.4 L129.6 213.5 L131.8 210.8 L134.1 208.2 L136.3 205.7 L138.6 203.2 L140.8 200.8 L143.0 198.5 L145.3 196.3 L147.5 194.1 L149.8 192.0 L152.0 189.9 L154.2 187.9 L156.5 186.0 L158.7 184.0 L161.0 182.1 L163.2 180.3 L165.4 178.5 L167.7 176.7 L169.9 175.0 L172.2 173.3 L174.4 171.6 L176.6 169.9 L178.9 168.3 L181.1 166.7 L183.4 165.2 L185.6 163.6 L187.8 162.1 L190.1 160.6 L192.3 159.1 L194.6 157.7 L196.8 156.2 L199.0 154.8 L201.3 153.4 L203.5 152.0 L205.8 150.7 L208.0 149.3 L210.2 148.0 L212.5 146.7 L214.7 145.4 L217.0 144.1 L219.2 142.8 L221.4 141.6 L223.7 140.3 L225.9 139.1 L228.2 137.9 L230.4 136.7 L232.6 135.5 L234.9 134.3 L237.1 133.1 L239.4 132.0 L241.6 130.8 L243.8 129.7 L246.1 128.6 L248.3 127.4 L250.6 126.3 L252.8 125.2 L255.0 124.2 L257.3 123.1 L259.5 122.0 L261.8 120.9 L264.0 119.9 L266.2 118.9 L268.5 117.8 L270.7 116.8 L273.0 115.8 L275.2 114.8 L277.4 113.8 L279.7 112.8 L281.9 111.8 L284.2 110.8 L286.4 109.8 L288.6 108.9 L290.9 107.9 L293.1 107.0 L295.4 106.0 L297.6 105.1 L299.8 104.1 L302.1 103.2 L304.3 102.3 L306.6 101.4 L308.8 100.5 L311.0 99.6 L313.3 98.7 L315.5 97.8 L317.8 96.9 L320.0 96.0" fill="none" stroke="#185FA5" stroke-width="2.2"/>
+<path d="M96.0 320.0 L98.2 273.0 L100.5 260.5 L102.7 251.8 L105.0 244.8 L107.2 238.9 L109.4 233.7 L111.7 229.1 L113.9 224.8 L116.2 221.0 L118.4 217.4 L120.6 214.0 L122.9 210.8 L125.1 207.8 L127.4 205.0 L129.6 202.3 L131.8 199.6 L134.1 197.1 L136.3 194.7 L138.6 192.4 L140.8 190.2 L143.0 188.0 L145.3 185.9 L147.5 183.9 L149.8 181.9 L152.0 180.0 L154.2 178.1 L156.5 176.3 L158.7 174.5 L161.0 172.8 L163.2 171.1 L165.4 169.4 L167.7 167.8 L169.9 166.2 L172.2 164.6 L174.4 163.1 L176.6 161.6 L178.9 160.1 L181.1 158.6 L183.4 157.2 L185.6 155.8 L187.8 154.4 L190.1 153.1 L192.3 151.7 L194.6 150.4 L196.8 149.1 L199.0 147.8 L201.3 146.6 L203.5 145.3 L205.8 144.1 L208.0 142.9 L210.2 141.7 L212.5 140.5 L214.7 139.4 L217.0 138.2 L219.2 137.1 L221.4 136.0 L223.7 134.9 L225.9 133.8 L228.2 132.7 L230.4 131.6 L232.6 130.6 L234.9 129.5 L237.1 128.5 L239.4 127.4 L241.6 126.4 L243.8 125.4 L246.1 124.4 L248.3 123.5 L250.6 122.5 L252.8 121.5 L255.0 120.6 L257.3 119.6 L259.5 118.7 L261.8 117.7 L264.0 116.8 L266.2 115.9 L268.5 115.0 L270.7 114.1 L273.0 113.2 L275.2 112.3 L277.4 111.4 L279.7 110.6 L281.9 109.7 L284.2 108.9 L286.4 108.0 L288.6 107.2 L290.9 106.3 L293.1 105.5 L295.4 104.7 L297.6 103.9 L299.8 103.0 L302.1 102.2 L304.3 101.4 L306.6 100.6 L308.8 99.9 L311.0 99.1 L313.3 98.3 L315.5 97.5 L317.8 96.8 L320.0 96.0" fill="none" stroke="#D85A30" stroke-width="2.2"/>
+<rect x="144" y="256" width="176" height="58" rx="7" fill="#ffffff" fill-opacity="0.92"/>
+<line x1="158" y1="276" x2="180" y2="276" stroke="#D85A30" stroke-width="2.6"/>
+<text x="188" y="280" font-size="11.5" font-weight="700" fill="#4A3D6B">clinical + PRS &#183; 0.74</text>
+<line x1="158" y1="300" x2="180" y2="300" stroke="#185FA5" stroke-width="2.6"/>
+<text x="188" y="304" font-size="11.5" font-weight="700" fill="#4A3D6B">clinical alone &#183; 0.72</text>
+<text x="208" y="342" font-size="11" fill="#8A7FA3" text-anchor="middle">1 − specificity</text>
+<text x="38" y="208" font-size="11" fill="#8A7FA3" text-anchor="middle" transform="rotate(-90 38 208)">sensitivity</text>
+<rect x="48" y="342" width="352" height="0" fill="none"/>
+<text x="48" y="358" font-size="12.5" fill="#666">ΔAUC = <tspan font-weight="700" fill="#4A3D6B">0.02</tspan>. Significant at n = 400,000.</text>
+<rect x="456" y="46" width="400" height="330" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="480" y="74" font-size="13.5" font-weight="700" fill="#4A3D6B">Calibration — are the probabilities right?</text>
+<line x1="528" y1="320" x2="752" y2="320" stroke="#cfc9dd" stroke-width="1.2"/>
+<line x1="528" y1="96" x2="528" y2="320" stroke="#cfc9dd" stroke-width="1.2"/>
+<line x1="528" y1="320" x2="752" y2="96" stroke="#e6e1ee" stroke-width="1.5" stroke-dasharray="4 4"/>
+<path d="M528.0 320.0 L539.2 309.0 L550.4 297.9 L561.6 286.9 L572.8 275.9 L584.0 264.8 L595.2 253.8 L606.4 242.8 L617.6 231.7 L628.8 220.7 L640.0 209.7 L651.2 198.6 L662.4 187.6 L673.6 176.6 L684.8 165.6 L696.0 154.5 L707.2 143.5 L718.4 132.5 L729.6 121.4 L740.8 110.4 L752.0 99.4" fill="none" stroke="#1D9E75" stroke-width="2.2"/>
+<circle cx="528.0" cy="320.0" r="3.4" fill="#1D9E75" stroke="#fff" stroke-width="1.4"/>
+<circle cx="572.8" cy="275.9" r="3.4" fill="#1D9E75" stroke="#fff" stroke-width="1.4"/>
+<circle cx="617.6" cy="231.7" r="3.4" fill="#1D9E75" stroke="#fff" stroke-width="1.4"/>
+<circle cx="662.4" cy="187.6" r="3.4" fill="#1D9E75" stroke="#fff" stroke-width="1.4"/>
+<circle cx="707.2" cy="143.5" r="3.4" fill="#1D9E75" stroke="#fff" stroke-width="1.4"/>
+<circle cx="752.0" cy="99.4" r="3.4" fill="#1D9E75" stroke="#fff" stroke-width="1.4"/>
+<path d="M528.0 320.0 L539.2 314.2 L550.4 308.4 L561.6 302.5 L572.8 296.7 L584.0 290.9 L595.2 285.1 L606.4 279.2 L617.6 273.4 L628.8 267.6 L640.0 261.8 L651.2 255.9 L662.4 250.1 L673.6 244.3 L684.8 238.5 L696.0 232.6 L707.2 226.8 L718.4 221.0 L729.6 215.2 L740.8 209.3 L752.0 203.5" fill="none" stroke="#D85A30" stroke-width="2.2"/>
+<circle cx="528.0" cy="320.0" r="3.4" fill="#D85A30" stroke="#fff" stroke-width="1.4"/>
+<circle cx="572.8" cy="296.7" r="3.4" fill="#D85A30" stroke="#fff" stroke-width="1.4"/>
+<circle cx="617.6" cy="273.4" r="3.4" fill="#D85A30" stroke="#fff" stroke-width="1.4"/>
+<circle cx="662.4" cy="250.1" r="3.4" fill="#D85A30" stroke="#fff" stroke-width="1.4"/>
+<circle cx="707.2" cy="226.8" r="3.4" fill="#D85A30" stroke="#fff" stroke-width="1.4"/>
+<circle cx="752.0" cy="203.5" r="3.4" fill="#D85A30" stroke="#fff" stroke-width="1.4"/>
+<rect x="566" y="256" width="186" height="58" rx="7" fill="#ffffff" fill-opacity="0.92"/>
+<line x1="580" y1="276" x2="602" y2="276" stroke="#1D9E75" stroke-width="2.6"/>
+<text x="610" y="280" font-size="11.5" font-weight="700" fill="#4A3D6B">&#9989; UK Biobank</text>
+<line x1="580" y1="300" x2="602" y2="300" stroke="#D85A30" stroke-width="2.6"/>
+<text x="610" y="304" font-size="11.5" font-weight="700" fill="#4A3D6B">&#10060; Korean cohort</text>
+<text x="640" y="342" font-size="11" fill="#8A7FA3" text-anchor="middle">predicted risk (%)</text>
+<text x="470" y="208" font-size="11" fill="#8A7FA3" text-anchor="middle" transform="rotate(-90 470 208)">observed risk (%)</text>
+<text x="480" y="358" font-size="12.5" fill="#666">Same ranking. Told "10%", <tspan font-weight="700" fill="#4A3D6B">5%</tspan> get the disease.</text>
+</svg>

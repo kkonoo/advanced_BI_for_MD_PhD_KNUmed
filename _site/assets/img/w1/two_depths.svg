@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="420" fill="#fcfcfb"/>
+
+  <text x="24" y="30" font-size="15" font-weight="700" fill="#4A3D6B">Two ways to go deep. Only one of them is your job.</text>
+
+  <!-- ── LEFT: execution depth ─────────────────────────── -->
+  <rect x="24" y="50" width="400" height="286" rx="10" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+  <rect x="24" y="50" width="400" height="46" rx="10" fill="#efe9f4"/>
+  <rect x="24" y="86" width="400" height="10" fill="#efe9f4"/>
+  <text x="48" y="80" font-size="15" font-weight="700" fill="#5B4D80">EXECUTION depth</text>
+  <text x="404" y="80" font-size="12.5" fill="#8A7FA3" text-anchor="end">"I can run it"</text>
+
+  <g font-size="13" fill="#666">
+    <text x="48" y="128">Tuning <tspan font-family="'D2Coding', monospace" font-size="12.3" fill="#4A3D6B">DoubletFinder</tspan> pK by parameter sweep</text>
+    <text x="48" y="156">Choosing between LDpred2 and PRS-CSx</text>
+    <text x="48" y="184">Building an LD reference panel</text>
+    <text x="48" y="212">Implementing spot deconvolution</text>
+    <text x="48" y="240">Debugging a Nextflow pipeline on a cluster</text>
+  </g>
+
+  <line x1="48" y1="262" x2="400" y2="262" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="286" font-size="13" fill="#8A7FA3">Needs: weeks of uninterrupted time</text>
+  <text x="48" y="310" font-size="13.5" font-weight="700" fill="#5B4D80">Belongs to: your bioinformatician</text>
+
+  <!-- ── RIGHT: judgment depth ─────────────────────────── -->
+  <rect x="456" y="50" width="400" height="286" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="2"/>
+  <rect x="456" y="50" width="400" height="46" rx="10" fill="#e8f5f0"/>
+  <rect x="456" y="86" width="400" height="10" fill="#e8f5f0"/>
+  <text x="480" y="80" font-size="15" font-weight="700" fill="#0F6E56">JUDGMENT depth</text>
+  <text x="836" y="80" font-size="12.5" fill="#7fa89a" text-anchor="end">"I can tell when it's wrong"</text>
+
+  <g font-size="13" fill="#666">
+    <text x="480" y="128">Is <tspan font-weight="700" fill="#4A3D6B">n = 3 patients</tspan> or 30,000 cells the real n?</text>
+    <text x="480" y="156">Was this PRS built on people like my patients?</text>
+    <text x="480" y="184">Does this UMAP support the claim beside it?</text>
+    <text x="480" y="212">Is the depleted cell type just harder to dissociate?</text>
+    <text x="480" y="240">Would this change what I do on Monday?</text>
+  </g>
+
+  <line x1="480" y1="262" x2="832" y2="262" stroke="#cfe6dd" stroke-width="1.5"/>
+  <text x="480" y="286" font-size="13" fill="#7fa89a">Needs: the clinical context only you have</text>
+  <text x="480" y="310" font-size="13.5" font-weight="700" fill="#0F6E56">Belongs to: you</text>
+
+  <!-- ── bottom callout ────────────────────────────────── -->
+  <rect x="24" y="356" width="832" height="46" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
+  <text x="48" y="384" font-size="13.5" fill="#7a5f2a">This course lives on the right. Code appears so that you can read it and doubt it — not so that you maintain it.</text>
+</svg>

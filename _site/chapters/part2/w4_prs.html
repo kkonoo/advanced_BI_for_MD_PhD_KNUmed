@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eunji Ha">
+<meta name="dcterms.date" content="2026-08-17">
+
+<title>W4. Polygenic Risk Scores</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/part3/w5_scrna_qc.html" rel="next">
+<link href="../../chapters/part2/w3_gwas.html" rel="prev">
+<link href="../../assets/img/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../assets/html.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../assets/img/logo.jpg" alt="" class="navbar-logo light-content">
+    <img src="../../assets/img/logo.jpg" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weeks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weeks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">    
+        <li>
+    <a class="dropdown-item" href="../../chapters/part1/w1_intro.html">
+ <span class="dropdown-text">W1 · Introduction &amp; Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part1/w2_scripts_ai.html">
+ <span class="dropdown-text">W2 · Scripts, AI &amp; Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part2/w3_gwas.html">
+ <span class="dropdown-text">W3 · GWAS &amp; Post-GWAS</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part2/w4_prs.html">
+ <span class="dropdown-text">W4 · Polygenic Risk Scores</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part3/w5_scrna_qc.html">
+ <span class="dropdown-text">W5 · scRNA-seq: QC &amp; Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part3/w6_scrna_dynamics.html">
+ <span class="dropdown-text">W6 · Trajectory, CCC &amp; Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part4/w7_spatial_basics.html">
+ <span class="dropdown-text">W7 · Spatial Transcriptomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part4/w8_spatial_integration.html">
+ <span class="dropdown-text">W8 · Deconvolution &amp; Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part5/w9_proteomics_tech.html">
+ <span class="dropdown-text">W9 · Proteomics Technology</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part5/w10_clinical_proteomics.html">
+ <span class="dropdown-text">W10 · Clinical Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part6/w11_multiomics.html">
+ <span class="dropdown-text">W11 · Multi-omics Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part6/w12_network_drug.html">
+ <span class="dropdown-text">W12 · Network &amp; Drug Targets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part7/w13_visualization.html">
+ <span class="dropdown-text">W13 · Interpretation &amp; Visualisation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part7/w14_project_design.html">
+ <span class="dropdown-text">W14 · Project Design</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part2/w3_gwas.html">2 · Clinical Genomics</a></li><li class="breadcrumb-item"><a href="../../chapters/part2/w4_prs.html">W4. Polygenic Risk Scores</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">1 · Intro</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part1/w1_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W1. Introduction &amp; Roadmap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part1/w2_scripts_ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W2. Scripts, AI &amp; Reproducibility</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">2 · Clinical Genomics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part2/w3_gwas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W3. GWAS &amp; Post-GWAS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part2/w4_prs.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">W4. Polygenic Risk Scores</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">3 · Single-cell</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part3/w5_scrna_qc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W5. Technology, QC, Clustering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part3/w6_scrna_dynamics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W6. Trajectory, Communication, Integration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">4 · Spatial</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part4/w7_spatial_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W7. Spatial Transcriptomics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part4/w8_spatial_integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W8. Deconvolution &amp; Integration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">5 · Proteomics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part5/w9_proteomics_tech.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W9. How Proteins Are Measured</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part5/w10_clinical_proteomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W10. Clinical Proteomics &amp; Biomarkers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">6 · Integration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part6/w11_multiomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W11. Multi-omics Integration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part6/w12_network_drug.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W12. Network Analysis &amp; Drug Targets</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">7 · Capstone</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part7/w13_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W13. Interpretation &amp; Visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part7/w14_project_design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W14. Designing Your Own Project</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#w4-s1" id="toc-w4-s1" class="nav-link active" data-scroll-target="#w4-s1">1. What a PRS Is 🧬</a>
+  <ul>
+  <li><a href="#w4-s1-1" id="toc-w4-s1-1" class="nav-link" data-scroll-target="#w4-s1-1">1) One variant is useless. A million are not</a></li>
+  <li><a href="#w4-s1-2" id="toc-w4-s1-2" class="nav-link" data-scroll-target="#w4-s1-2">2) What it actually changes</a></li>
+  </ul></li>
+  <li><a href="#w4-s2" id="toc-w4-s2" class="nav-link" data-scroll-target="#w4-s2">2. How a PRS Gets Built 🏗️</a>
+  <ul>
+  <li><a href="#w4-s2-1" id="toc-w4-s2-1" class="nav-link" data-scroll-target="#w4-s2-1">1) ⚠️ Two datasets that must never have met</a></li>
+  <li><a href="#w4-s2-2" id="toc-w4-s2-2" class="nav-link" data-scroll-target="#w4-s2-2">2) The four names you will see</a></li>
+  </ul></li>
+  <li><a href="#w4-s3" id="toc-w4-s3" class="nav-link" data-scroll-target="#w4-s3">3. ⚠️ Reading a PRS Paper 🔍</a>
+  <ul>
+  <li><a href="#w4-s3-1" id="toc-w4-s3-1" class="nav-link" data-scroll-target="#w4-s3-1">1) Incremental value, not the PRS alone</a></li>
+  <li><a href="#w4-s3-2" id="toc-w4-s3-2" class="nav-link" data-scroll-target="#w4-s3-2">2) Calibration — the metric nobody shows</a></li>
+  <li><a href="#w4-s3-3" id="toc-w4-s3-3" class="nav-link" data-scroll-target="#w4-s3-3">3) The framing decides what the patient hears</a></li>
+  <li><a href="#w4-s3-4" id="toc-w4-s3-4" class="nav-link" data-scroll-target="#w4-s3-4">4) ⚠️ Which deciles are being compared?</a></li>
+  <li><a href="#w4-s3-5" id="toc-w4-s3-5" class="nav-link" data-scroll-target="#w4-s3-5">5) Whose genomes built it?</a></li>
+  </ul></li>
+  <li><a href="#w4-s4" id="toc-w4-s4" class="nav-link" data-scroll-target="#w4-s4">4. Is It Ready for the Clinic? 🏥</a>
+  <ul>
+  <li><a href="#w4-s4-1" id="toc-w4-s4-1" class="nav-link" data-scroll-target="#w4-s4-1">1) ACCE, not AUC</a></li>
+  <li><a href="#w4-s4-2" id="toc-w4-s4-2" class="nav-link" data-scroll-target="#w4-s4-2">2) What the trials actually show</a></li>
+  <li><a href="#w4-s4-3" id="toc-w4-s4-3" class="nav-link" data-scroll-target="#w4-s4-3">3) Where PRS is already inside a clinical equation</a></li>
+  <li><a href="#w4-s4-4" id="toc-w4-s4-4" class="nav-link" data-scroll-target="#w4-s4-4">4) The human barriers</a></li>
+  </ul></li>
+  <li><a href="#w4-s5" id="toc-w4-s5" class="nav-link" data-scroll-target="#w4-s5">5. ⚠️ Portability: The Korean Problem 🌏</a>
+  <ul>
+  <li><a href="#w4-s5-1" id="toc-w4-s5-1" class="nav-link" data-scroll-target="#w4-s5-1">1) PRS does not transfer across ancestries</a></li>
+  <li><a href="#w4-s5-2" id="toc-w4-s5-2" class="nav-link" data-scroll-target="#w4-s5-2">2) What to do instead</a></li>
+  </ul></li>
+  <li><a href="#w4-s6" id="toc-w4-s6" class="nav-link" data-scroll-target="#w4-s6">6. What a PRS Cannot Do 🚫</a></li>
+  <li><a href="#w4-s7" id="toc-w4-s7" class="nav-link" data-scroll-target="#w4-s7">7. Hands-On 💻</a>
+  <ul>
+  <li><a href="#w4-s7-1" id="toc-w4-s7-1" class="nav-link" data-scroll-target="#w4-s7-1">1) No code: read a real score in the PGS Catalog</a></li>
+  <li><a href="#w4-s7-2" id="toc-w4-s7-2" class="nav-link" data-scroll-target="#w4-s7-2">2) Minimal code: turn a score into a clinical figure</a></li>
+  <li><a href="#w4-s7-3" id="toc-w4-s7-3" class="nav-link" data-scroll-target="#w4-s7-3">3) Before next week</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">📝 Summary</a></li>
+  <li><a href="#key-terms" id="toc-key-terms" class="nav-link" data-scroll-target="#key-terms">🔑 Key terms</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">➕ References</a>
+  <ul>
+  <li><a href="#clinical-use-and-readiness" id="toc-clinical-use-and-readiness" class="nav-link" data-scroll-target="#clinical-use-and-readiness">Clinical use and readiness</a></li>
+  <li><a href="#methods-for-recognition" id="toc-methods-for-recognition" class="nav-link" data-scroll-target="#methods-for-recognition">Methods, for recognition</a></li>
+  <li><a href="#portability-and-diversity" id="toc-portability-and-diversity" class="nav-link" data-scroll-target="#portability-and-diversity">Portability and diversity</a></li>
+  <li><a href="#implementation-and-communication" id="toc-implementation-and-communication" class="nav-link" data-scroll-target="#implementation-and-communication">Implementation and communication</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part2/w3_gwas.html">2 · Clinical Genomics</a></li><li class="breadcrumb-item"><a href="../../chapters/part2/w4_prs.html">W4. Polygenic Risk Scores</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">W4. Polygenic Risk Scores</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eunji Ha </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 17, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>🎯 Learning objectives
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>By the end of this chapter you should be able to:</p>
+<ul>
+<li>Say what a PRS is, and what it changes for the patient in front of you</li>
+<li>Recognise the four method names in a methods section without needing to implement them</li>
+<li>⚠️ Separate the <strong>base</strong> GWAS from the <strong>target</strong> cohort — and say why that distinction decides everything</li>
+<li>Read a PRS performance claim: incremental R², ΔAUC, calibration, and the decile trick</li>
+<li>⚠️ Say why a European-derived PRS should not be applied to a Korean patient unchanged</li>
+<li>Judge clinical readiness with ACCE rather than with AUC</li>
+<li>Communicate a genetic risk result in a framing a patient can act on</li>
+</ul>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>🤔 <strong>Motivating question</strong></p>
+<p>A 42-year-old man with no family history brings a direct-to-consumer report: <em>“Coronary artery disease — 92nd percentile.”</em> His LDL is 130 mg/dL. Do you start a statin?</p>
+</blockquote>
+<hr>
+<section id="w4-s1" class="level1">
+<h1>1. What a PRS Is 🧬</h1>
+<section id="w4-s1-1" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s1-1">1) One variant is useless. A million are not</h2>
+<p>From 🔗 <a href="../../chapters/part2/w3_gwas.html">W3</a>: GWAS reports variants at <em>p</em> &lt; 5×10⁻⁸, each with an odds ratio of roughly <strong>1.02–1.15</strong>. No single one is worth acting on.</p>
+<p>A PRS sums them — each GWAS effect size <span class="math inline">\(\hat\beta_j\)</span> multiplied by that person’s allele dosage <span class="math inline">\(G_{ij}\)</span>:</p>
+<p><span class="math display">\[\text{PRS}_i = \sum_{j=1}^{M} \hat\beta_j \, G_{ij}\]</span></p>
+<p>💡 Crucially, a PRS deliberately includes variants <strong>below</strong> genome-wide significance. Individually they are noise; in aggregate they carry real signal. This is the clinical pay-off of the omnigenic model (🔗 <a href="../../chapters/part2/w3_gwas.html#w3-s1-3">W3 §1.3</a>).</p>
+</section>
+<section id="w4-s1-2" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s1-2">2) What it actually changes</h2>
+<p>A PRS does <strong>not</strong> tell you whether someone has a disease. It shifts a <strong>pre-test probability</strong> — the same thing a family history does, arrived at differently.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 63%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>It is</th>
+<th>It is not</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A risk <strong>indicator</strong>, like LDL or a Framingham score</td>
+<td>A <strong>diagnosis</strong></td>
+</tr>
+<tr class="even">
+<td>Fixed from birth, measured once</td>
+<td>A monitoring biomarker</td>
+</tr>
+<tr class="odd">
+<td><strong>Modifiable in consequence</strong> — statins work regardless of PRS</td>
+<td>Deterministic</td>
+</tr>
+<tr class="even">
+<td>One input alongside age, sex, BMI, family history, labs</td>
+<td>A replacement for any of them</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>The only question that matters at the bedside
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Does it <strong>change management</strong>?</p>
+<p>If a high PRS moves the patient across a guideline threshold you were going to act on anyway — earlier statin, earlier mammography, earlier colonoscopy — it is useful.</p>
+<p>If it does not cross a threshold, you have given the patient anxiety and yourself nothing.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="w4-s2" class="level1">
+<h1>2. How a PRS Gets Built 🏗️</h1>
+<p>You will almost certainly never build one. But you will read papers that did, and be asked whether one applies to your patients.</p>
+<section id="w4-s2-1" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s2-1">1) ⚠️ Two datasets that must never have met</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w4/prs_construction.svg" class="img-fluid figure-img"></p>
+<figcaption>Almost every inflated PRS result traces back to one of the two questions at the bottom.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>The single most common way a PRS paper is wrong
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If any of the <strong>target</strong> individuals also contributed to the <strong>base</strong> GWAS, the score has partly memorised their disease status. Performance is inflated, sometimes dramatically.</p>
+<ul>
+<li>⚠️ Sample overlap between base and target → <strong>overfitting</strong></li>
+<li>⚠️ Tuning the p-value threshold on the same set you report performance on → <strong>overfitting</strong></li>
+</ul>
+<p>✅ A trustworthy paper states base and target explicitly, confirms independence, and evaluates in a <strong>held-out</strong> cohort.</p>
+<p>💡 When you read “we optimised the threshold and achieved AUC 0.71”, check on <em>what data</em> that optimisation happened. It is often one sentence in the supplement.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="w4-s2-2" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s2-2">2) The four names you will see</h2>
+<p>You need to recognise these, not run them.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 37%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Idea in one line</th>
+<th>When you see it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>C+T</strong> (clumping + thresholding)</td>
+<td>Keep one variant per LD block, drop those above a <em>p</em> cutoff</td>
+<td>Older papers; still a sane baseline</td>
+</tr>
+<tr class="even">
+<td><strong>PRSice-2</strong></td>
+<td>C+T with the threshold auto-tuned, plus standard plots</td>
+<td>Very common in clinical papers</td>
+</tr>
+<tr class="odd">
+<td><strong>LDpred2</strong></td>
+<td>Bayesian — models LD and reweights <em>all</em> variants, no hard cutoff</td>
+<td>Current default for accuracy</td>
+</tr>
+<tr class="even">
+<td><strong>PRS-CSx</strong></td>
+<td>Continuous shrinkage across <strong>multiple ancestries</strong> at once</td>
+<td>The one that matters for non-European cohorts</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Does the method choice change your reading?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Mostly no. Differences between modern methods are modest compared with the differences that follow from ancestry and cohort.</p>
+<p>Two exceptions worth flagging:</p>
+<ul>
+<li>⚠️ A <strong>threshold-based</strong> method (C+T, PRSice-2) has a tunable knob. Ask where it was tuned</li>
+<li>✅ A <strong>multi-ancestry</strong> method is the honest choice when the target is not European — its absence in a Korean-cohort paper is a fair criticism</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="w4-s3" class="level1">
+<h1>3. ⚠️ Reading a PRS Paper 🔍</h1>
+<p>This is the section to keep. Five numbers, in the order you should look for them.</p>
+<section id="w4-s3-1" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s3-1">1) Incremental value, not the PRS alone</h2>
+<p>A PRS <strong>alone</strong> reaching AUC 0.64 sounds respectable. Age and sex alone reach about that for many diseases.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w4/discrimination_vs_calibration.svg" class="img-fluid figure-img"></p>
+<figcaption>Same model, two questions. Most papers answer only the left one.</figcaption>
+</figure>
+</div>
+<p>The only meaningful comparison:</p>
+<pre><code>Model A (clinical) : age + sex + BMI + family history + labs
+Model B (clinical + PRS)
+
+           ΔAUC  =  AUC(B) − AUC(A)
+  incremental R²  =  R²(B)  − R²(A)      (Nagelkerke, for binary outcomes)</code></pre>
+<ul>
+<li>❌ “PRS AUC = 0.64” — uninterpretable on its own</li>
+<li>✅ “Adding PRS raised AUC from 0.72 to 0.74 (<em>p</em> = 0.003)” — now you can judge it</li>
+</ul>
+<p>💡 ΔAUC of 0.01–0.03 is typical for a good PRS. In a biobank of 400,000 that is comfortably significant, and for one patient it is often negligible. Both statements are true at once.</p>
+</section>
+<section id="w4-s3-2" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s3-2">2) Calibration — the metric nobody shows</h2>
+<p><strong>Discrimination</strong> asks: does the model rank people correctly?<br>
+<strong>Calibration</strong> asks: are the predicted probabilities <em>right</em>?</p>
+<p>Of the people told “10% risk over 10 years”, do about 10% develop the disease?</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Good discrimination with terrible calibration is easy
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Look at the right-hand panel above. Both lines rank patients identically. One of them tells patients a number that is twice the truth.</p>
+<ul>
+<li>⚠️ A PRS calibrated in the UK Biobank is <strong>not</strong> calibrated in a Korean hospital population — different baseline incidence, age structure, and competing risks</li>
+<li>✅ Recalibration (updating the intercept or baseline hazard) is a routine fix — but it must be <em>done</em>, in a population-representative cohort</li>
+<li>⚠️ Biobank volunteers are healthier than the general population, so absolute risks derived from them run systematically low</li>
+</ul>
+<p>→ If a paper reports AUC and no calibration plot, the absolute risks it quotes are not trustworthy.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="w4-s3-3" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s3-3">3) The framing decides what the patient hears</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 27%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Framing</th>
+<th>Example</th>
+<th>⚠️ Caveat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Percentile</strong></td>
+<td>“top 5% of PRS”</td>
+<td>Says nothing about how much risk that is</td>
+</tr>
+<tr class="even">
+<td><strong>Relative risk / OR</strong></td>
+<td>“2.3× the population average”</td>
+<td>2.3 × a 0.4% baseline is still 0.9%</td>
+</tr>
+<tr class="odd">
+<td><strong>Absolute risk</strong></td>
+<td>“18% over 10 years”</td>
+<td>Needs incidence data for <em>your</em> population</td>
+</tr>
+</tbody>
+</table>
+<p>✅ <strong>Absolute risk tied to a guideline action</strong> is the only framing that is both honest and usable. Everything else needs translating before it reaches the patient.</p>
+</section>
+<section id="w4-s3-4" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s3-4">4) ⚠️ Which deciles are being compared?</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w4/decile_trick.svg" class="img-fluid figure-img"></p>
+<figcaption>Nothing here is fabricated. All three numbers describe the same ten bars.</figcaption>
+</figure>
+</div>
+<p>⚠️ A headline “<strong>5-fold increased risk</strong>” is almost always top-versus-bottom decile. Against the middle, the same score gives 2.8×. Against everyone else — which is how it would actually be used — 2.4×.</p>
+<p>💡 Also check whether risk rises <strong>smoothly</strong> across deciles or only in the extreme tail. A score that separates only the top 1% is a screening tool for very few people.</p>
+</section>
+<section id="w4-s3-5" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s3-5">5) Whose genomes built it?</h2>
+<p>Look for the ancestry of the <strong>base</strong> GWAS before anything else. §5 is entirely about why.</p>
+<hr>
+</section>
+</section>
+<section id="w4-s4" class="level1">
+<h1>4. Is It Ready for the Clinic? 🏥</h1>
+<section id="w4-s4-1" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s4-1">1) ACCE, not AUC</h2>
+<p>The standard framework for judging a genomic test:</p>
+<ul>
+<li><strong>A</strong>nalytical validity — does the pipeline compute the score accurately and reproducibly?</li>
+<li><strong>C</strong>linical validity — does the score associate with disease <strong>in the target population</strong>?</li>
+<li><strong>C</strong>linical utility — does <em>using</em> it improve outcomes?</li>
+<li><strong>E</strong>LSI — ethical, legal and social implications: equity, consent, insurance, communication</li>
+</ul>
+<p>💡 Most published PRSs clear the first two. The bottleneck is <strong>utility</strong> and <strong>ELSI</strong> — which is why PRS is not yet routine care despite twenty years of GWAS.</p>
+</section>
+<section id="w4-s4-2" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s4-2">2) What the trials actually show</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 26%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Trial</th>
+<th>Setting</th>
+<th>What it found / is testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>MI-GENES</strong></td>
+<td>CHD</td>
+<td>PRS-integrated risk disclosure → <strong>lower LDL at 6 months</strong>, via earlier and longer statin use</td>
+</tr>
+<tr class="even">
+<td><strong>GenoVA</strong></td>
+<td>6 diseases (CHD, T2D, AF, breast/colorectal/prostate cancer)</td>
+<td>Effect of PRS results on time to diagnosis</td>
+</tr>
+<tr class="odd">
+<td><strong>WISDOM / PERSPECTIVE</strong></td>
+<td>Breast cancer</td>
+<td>PRS-guided mammography intensity</td>
+</tr>
+<tr class="even">
+<td><strong>eMERGE</strong>, <strong>Our Future Health</strong></td>
+<td>10 conditions / 5 M participants</td>
+<td>Implementation at scale, not efficacy</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Read MI-GENES carefully
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The mechanism of benefit was <strong>behavioural</strong> — patients told they were high-risk took statins earlier and stayed on them.</p>
+<p>That is a real clinical effect. But note what it implies: much of the demonstrated value of PRS so far comes from <strong>motivating adherence to treatments we already had</strong>, not from identifying a biologically distinct group.</p>
+<p>→ Worth remembering when a paper claims PRS “reveals a new high-risk phenotype”.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="w4-s4-3" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s4-3">3) Where PRS is already inside a clinical equation</h2>
+<ul>
+<li>✅ <strong>Breast cancer — BOADICEA / CanRisk</strong>: the one widely used equation combining PRS <strong>with</strong> family history, rare variants (BRCA1/2), and clinical factors. Lifetime risk of ER-positive disease ranges roughly <strong>2% to 31%</strong> between bottom and top centile</li>
+<li>✅ <strong>CHD — Pooled Cohort Equations</strong>: PRS is close to orthogonal to the clinical factors, so it can be added log-additively</li>
+<li>⚠️ <strong>Everything else</strong>: no validated absolute-risk equation. Absolute risk has to be reconstructed from population incidence, which is exactly where calibration problems enter</li>
+</ul>
+</section>
+<section id="w4-s4-4" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s4-4">4) The human barriers</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Three failure modes that have nothing to do with the mathematics
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>⚠️ <strong>Patients hear genetics as destiny.</strong> Risk is probabilistic and modifiable — MI-GENES succeeded partly by framing it that way explicitly</li>
+<li>⚠️ <strong>Run twenty PRSs and almost everyone is top-decile for something.</strong> Alarm fatigue, and a strong argument against untargeted panels</li>
+<li>⚠️ <strong>Most physicians have no genomics training.</strong> Deployment needs decision support in the EHR and a trained champion in the department, not a PDF report</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="w4-s5" class="level1">
+<h1>5. ⚠️ Portability: The Korean Problem 🌏</h1>
+<section id="w4-s5-1" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s5-1">1) PRS does not transfer across ancestries</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w4/portability.svg" class="img-fluid figure-img"></p>
+<figcaption>Nothing about the score changed. Only the patients did.</figcaption>
+</figure>
+</div>
+<p>The reasons are structural, not fixable by collecting more of the same people:</p>
+<ul>
+<li><strong>Allele frequencies differ</strong> — a variant common in Europeans may be rare or absent</li>
+<li><strong>LD patterns differ</strong> — the tag SNP no longer tags the causal variant (🔗 <a href="../../chapters/part2/w3_gwas.html#w3-s3-1">W3 §3.1</a>)</li>
+<li><strong>Effect sizes differ</strong> — gene–environment and genetic-background interactions</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>This is a clinical safety issue, not only an equity issue
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Deploying a miscalibrated PRS does not fail neutrally. It systematically under-flags the population it was not trained on.</p>
+<p>→ Applying a European CAD PRS to Korean patients means the high-risk group you identify is enriched for people who resemble the training population — and the patients you miss are <strong>not a random sample</strong>.</p>
+<p>⚠️ Widening a disparity with a tool marketed as precision medicine is worse than not using the tool.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="w4-s5-2" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s5-2">2) What to do instead</h2>
+<ul>
+<li>✅ Prefer an <strong>ancestry-matched base GWAS</strong> — Korean or East Asian</li>
+<li>✅ Use <strong>PRS-CSx</strong> or multi-ancestry meta-analysis when a matched base is too small</li>
+<li>✅ <strong>Recalibrate</strong> in your own population and report ancestry-specific performance</li>
+<li>✅ Korean resources: <strong>KoGES</strong>, Korea Biobank Array (<strong>KCHIP</strong>), <strong>National Biobank of Korea</strong>; regionally <strong>Biobank Japan</strong>, <strong>China Kadoorie</strong></li>
+</ul>
+<p>💡 Diversity is not only fairness — different LD structures break haplotype blocks and produce <strong>smaller credible sets</strong> in fine-mapping (🔗 <a href="../../chapters/part2/w3_gwas.html#w3-s6">W3 §6</a>).</p>
+<hr>
+</section>
+</section>
+<section id="w4-s6" class="level1">
+<h1>6. What a PRS Cannot Do 🚫</h1>
+<ul>
+<li>❌ <strong>Not causal</strong> — a high PRS does not mean disease will occur</li>
+<li>❌ <strong>Misses rare high-penetrance variants</strong> — BRCA1/2, Lynch syndrome need dedicated testing. A reassuring PRS does not exclude them</li>
+<li>❌ <strong>Misses non-SNP variation</strong> — CNVs, structural variants, repeat expansions (🔗 <a href="../../chapters/part2/w3_gwas.html#w3-s4">W3 §4</a>)</li>
+<li>❌ <strong>Ignores gene × environment</strong> — the same score means different things in a smoker and a non-smoker</li>
+<li>❌ <strong>Not a diagnosis</strong> — one input, not a verdict</li>
+<li>⚠️ <strong>Not static in practice</strong> — methods improve and reference panels grow. Keep raw genotypes so the score can be recomputed</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Back to the motivating question
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A 42-year-old man, CAD PRS 92nd percentile, LDL 130, no family history.</p>
+<p>What you would want to know before answering:</p>
+<ul>
+<li>① <strong>Which base GWAS?</strong> If European and the patient is Korean → the percentile is not interpretable as stated</li>
+<li>② <strong>92nd percentile of what absolute risk?</strong> For a 42-year-old man, even 3× a low baseline may stay below the treatment threshold</li>
+<li>③ <strong>Does it cross a guideline line?</strong> 10-year risk moving from 4% to 7% is a real conversation. From 1.2% to 2.1% is not</li>
+<li>④ <strong>What would change?</strong> If the answer is “discuss statins and lifestyle” — that conversation was available without the test</li>
+</ul>
+<p>→ The PRS is not useless here. It is <strong>not sufficient on its own</strong>, and the percentile is the least informative part of the report.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="w4-s7" class="level1">
+<h1>7. Hands-On 💻</h1>
+<section id="w4-s7-1" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s7-1">1) No code: read a real score in the PGS Catalog</h2>
+<p>The <strong>PGS Catalog</strong> (<a href="https://www.pgscatalog.org">pgscatalog.org</a>) is the public registry of published scores — weights, metadata, and evaluated performance.</p>
+<p>Pick a disease relevant to your specialty, then answer:</p>
+<ul>
+<li>① How many variants does the score use? (Published scores range from 6 to over a million)</li>
+<li>② What was the <strong>ancestry</strong> of the development cohort?</li>
+<li>③ Has it been <strong>evaluated in an East Asian sample</strong>? What happened to the effect size?</li>
+<li>④ Is calibration reported anywhere, or only discrimination?</li>
+<li>⑤ Are there several scores for the same disease? Do they agree on which individuals are high-risk?</li>
+</ul>
+<p>💡 ⑤ is the underrated one. Two scores with near-identical population AUC routinely disagree about <strong>which specific person</strong> sits in the top decile. Some groups therefore require top-tier status across ≥2 scores before flagging anyone.</p>
+</section>
+<section id="w4-s7-2" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s7-2">2) Minimal code: turn a score into a clinical figure</h2>
+<p>We provide a pre-computed score table (<code>prs_scores.tsv</code>) so the session is about <strong>interpretation</strong>, not compute. One row per person: <code>IID</code>, <code>PRS</code>, <code>disease</code>, <code>age</code>, <code>sex</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>prs <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">here</span>(<span class="st">"rawdata"</span>, <span class="st">"prs_scores.tsv"</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardise so the score reads as SD units — always do this before reporting</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>prs <span class="ot">&lt;-</span> prs <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">PRS_z =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(PRS)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Incremental value over a clinical model:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>m_clin <span class="ot">&lt;-</span> <span class="fu">glm</span>(disease <span class="sc">~</span> age <span class="sc">+</span> sex,         <span class="at">data =</span> prs, <span class="at">family =</span> binomial)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>m_prs  <span class="ot">&lt;-</span> <span class="fu">glm</span>(disease <span class="sc">~</span> age <span class="sc">+</span> sex <span class="sc">+</span> PRS_z, <span class="at">data =</span> prs, <span class="at">family =</span> binomial)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>roc_clin <span class="ot">&lt;-</span> <span class="fu">roc</span>(prs<span class="sc">$</span>disease, <span class="fu">predict</span>(m_clin, <span class="at">type =</span> <span class="st">"response"</span>))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>roc_prs  <span class="ot">&lt;-</span> <span class="fu">roc</span>(prs<span class="sc">$</span>disease, <span class="fu">predict</span>(m_prs,  <span class="at">type =</span> <span class="st">"response"</span>))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">roc.test</span>(roc_clin, roc_prs)   <span class="co"># ← the number that belongs in the abstract</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Risk by decile — against an honest reference:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>by_decile <span class="ot">&lt;-</span> prs <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">decile =</span> <span class="fu">ntile</span>(PRS_z, <span class="dv">10</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(decile) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">cases =</span> <span class="fu">sum</span>(disease), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">risk =</span> cases <span class="sc">/</span> n,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">OR_vs_middle =</span> (risk <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> risk)) <span class="sc">/</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                        (risk[decile <span class="sc">==</span> <span class="dv">5</span>] <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> risk[decile <span class="sc">==</span> <span class="dv">5</span>])))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_decile, <span class="fu">aes</span>(decile, OR_vs_middle)) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#185FA5"</span>) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"PRS decile"</span>, <span class="at">y =</span> <span class="st">"OR vs middle decile"</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Risk by PRS decile — referenced to the middle, not the bottom"</span>) <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>✅ <strong>Now change one thing:</strong> re-run with <code>decile == 1</code> as the reference and compare the top bar. That difference is the one you will meet in abstracts.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>If you want to build one yourself
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Not required for this course, but the entry points are:</p>
+<ul>
+<li><code>bigsnpr</code> (R) — implements C+T and LDpred2; <a href="https://privefl.github.io/bigsnpr">privefl.github.io/bigsnpr</a></li>
+<li><code>PRSice-2</code> — command-line, auto-tunes the threshold; <a href="https://www.prsice.info">prsice.info</a></li>
+<li><code>PRS-CSx</code> — Python, multi-ancestry; <a href="https://github.com/getian107/PRScsx">github.com/getian107/PRScsx</a></li>
+</ul>
+<p>⚠️ Each needs an LD reference panel matched to your target ancestry. That requirement, not the modelling, is what usually stops a clinical project.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="w4-s7-3" class="level2">
+<h2 class="anchored" data-anchor-id="w4-s7-3">3) Before next week</h2>
+<p><strong>W5 — single-cell RNA-seq: technology, QC, clustering.</strong> Install in advance:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"Seurat"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">"SingleR"</span>, <span class="st">"celldex"</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>📝 Summary</h1>
+<ul>
+<li>A PRS aggregates thousands to millions of small effects into one number — a <strong>risk indicator</strong>, never a diagnosis</li>
+<li>⚠️ <strong>Base and target must be independent.</strong> Tuning and evaluating on the same data inflates every reported number</li>
+<li>Method names (C+T, PRSice-2, LDpred2, PRS-CSx) matter less than ancestry and cohort — recognise them, don’t implement them</li>
+<li>❌ PRS AUC alone is meaningless. ✅ <strong>ΔAUC and incremental R² over a clinical model</strong> are the claim</li>
+<li>⚠️ <strong>Calibration is usually missing</strong>, and it is what makes an absolute risk trustworthy</li>
+<li>⚠️ “5-fold risk” is almost always top-vs-bottom decile. Ask for the comparison against the middle, or against everyone else</li>
+<li>Percentile → relative risk → <strong>absolute risk tied to a guideline action</strong>: only the last is usable at the bedside</li>
+<li>Clinical readiness is <strong>ACCE</strong>, not AUC. Utility evidence is thin, and much of it works through adherence</li>
+<li>⚠️ <strong>A European-derived PRS is not valid for a Korean patient unchanged</strong> — use matched or multi-ancestry scores, and recalibrate</li>
+<li>The hard parts are portability, communication, and EHR integration. Not the mathematics</li>
+</ul>
+<hr>
+</section>
+<section id="key-terms" class="level1">
+<h1>🔑 Key terms</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 70%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>One-line meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PRS / PGS</td>
+<td>Weighted sum of risk alleles across many variants</td>
+</tr>
+<tr class="even">
+<td>Base GWAS</td>
+<td>The published study supplying the effect sizes</td>
+</tr>
+<tr class="odd">
+<td>Target cohort</td>
+<td>The individuals being scored</td>
+</tr>
+<tr class="even">
+<td>C+T</td>
+<td>Clumping and <em>p</em>-value thresholding</td>
+</tr>
+<tr class="odd">
+<td>LDpred2</td>
+<td>Bayesian method reweighting all variants using an LD reference</td>
+</tr>
+<tr class="even">
+<td>PRS-CSx</td>
+<td>Continuous-shrinkage method spanning multiple ancestries</td>
+</tr>
+<tr class="odd">
+<td>Incremental R²</td>
+<td>Variance explained <strong>beyond</strong> a clinical model</td>
+</tr>
+<tr class="even">
+<td>ΔAUC</td>
+<td>Gain in discrimination from adding the PRS</td>
+</tr>
+<tr class="odd">
+<td>Calibration</td>
+<td>Whether predicted probabilities match observed frequencies</td>
+</tr>
+<tr class="even">
+<td>Recalibration</td>
+<td>Adjusting the baseline risk for a new population</td>
+</tr>
+<tr class="odd">
+<td>Portability</td>
+<td>How well a PRS transfers to another ancestry</td>
+</tr>
+<tr class="even">
+<td>ACCE</td>
+<td>Analytical validity, Clinical validity, Clinical utility, ELSI</td>
+</tr>
+<tr class="odd">
+<td>PGS Catalog</td>
+<td>Public repository of published scores and their weights</td>
+</tr>
+<tr class="even">
+<td>BOADICEA / CanRisk</td>
+<td>Breast cancer equation combining PRS, family history, rare variants</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="references" class="level1">
+<h1>➕ References</h1>
+<section id="clinical-use-and-readiness" class="level3">
+<h3 class="anchored" data-anchor-id="clinical-use-and-readiness">Clinical use and readiness</h3>
+<p>Kullo IJ, et al.&nbsp;<a href="https://doi.org/10.1038/s41576-022-00470-z"><em>Polygenic scores in biomedical research.</em></a> Nat Rev Genet. 2022.<br>
+Khera AV, et al.&nbsp;<a href="https://doi.org/10.1038/s41588-018-0183-z"><em>Genome-wide polygenic scores for common diseases identify individuals with risk equivalent to monogenic mutations.</em></a> Nat Genet. 2018.<br>
+Wand H, et al.&nbsp;<a href="https://doi.org/10.1038/s41586-021-03243-6"><em>Improving reporting standards for polygenic scores in risk prediction studies.</em></a> Nature. 2021. <strong>← the PRS-RS checklist; use it as a reviewing aid</strong></p>
+</section>
+<section id="methods-for-recognition" class="level3">
+<h3 class="anchored" data-anchor-id="methods-for-recognition">Methods, for recognition</h3>
+<p>Choi SW, Mak TS, O’Reilly PF. <a href="https://doi.org/10.1038/s41596-020-0353-1"><em>Tutorial: a guide to performing polygenic risk score analyses.</em></a> Nat Protoc. 2020.<br>
+Privé F, Arbel J, Vilhjálmsson BJ. <a href="https://doi.org/10.1093/bioinformatics/btaa1029"><em>LDpred2: better, faster, stronger.</em></a> Bioinformatics. 2020.<br>
+Ruan Y, et al.&nbsp;<a href="https://doi.org/10.1038/s41588-022-01054-7"><em>Improving polygenic prediction in ancestrally diverse populations.</em></a> Nat Genet. 2022. (PRS-CSx)</p>
+</section>
+<section id="portability-and-diversity" class="level3">
+<h3 class="anchored" data-anchor-id="portability-and-diversity">Portability and diversity</h3>
+<p>Martin AR, et al.&nbsp;<a href="https://doi.org/10.1038/s41588-019-0379-x"><em>Clinical use of current polygenic risk scores may exacerbate health disparities.</em></a> Nat Genet. 2019.<br>
+Wojcik GL, et al.&nbsp;<a href="https://doi.org/10.1038/s41586-019-1310-4"><em>Genetic analyses of diverse populations improves discovery for complex traits.</em></a> Nature. 2019.</p>
+</section>
+<section id="implementation-and-communication" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-and-communication">Implementation and communication</h3>
+<p>Lambert SA, et al.&nbsp;<a href="https://doi.org/10.1038/s41588-021-00783-5"><em>The Polygenic Score Catalog as an open database for reproducibility and systematic evaluation.</em></a> Nat Genet. 2021.<br>
+Li R, Chen Y, Ritchie MD, Moore JH. <a href="https://doi.org/10.1038/s41576-020-0224-1"><em>Electronic health records and polygenic risk scores for predicting disease risk.</em></a> Nat Rev Genet. 2020.<br>
+Lee A, et al.&nbsp;<a href="https://doi.org/10.1038/s41436-018-0406-9"><em>BOADICEA: a comprehensive breast cancer risk prediction model incorporating genetic and nongenetic risk factors.</em></a> Genet Med. 2019.</p>
+</section>
+<section id="resources" class="level3">
+<h3 class="anchored" data-anchor-id="resources">Resources</h3>
+<p><a href="https://www.pgscatalog.org">PGS Catalog</a> · <a href="https://www.canrisk.org">CanRisk (BOADICEA)</a> · <a href="https://biobank.nih.go.kr">Korea Biobank</a> · <a href="https://www.prsice.info">PRSice-2</a></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- AI Chat Widget 초기화 -->
+<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
+<script>
+  // ★ Cloudflare Worker 배포 후 URL로 교체하세요
+  const WORKER_URL = "https://falling-wave-447f.eh0129s.workers.dev/";
+
+  // 각 .qmd 파일의 YAML에서 ai-context를 읽어옵니다
+  // (없으면 빈 문자열 → 기본 안내 메시지)
+  const metaContext = document.querySelector('meta[name="ai-context"]');
+  const metaTitle   = document.querySelector('meta[name="ai-title"]') || { content: document.title };
+
+  window.AI_CHAT_CONFIG = {
+    workerUrl:      WORKER_URL,
+    chapterContext: metaContext ? metaContext.content : "",
+    chapterTitle:   metaTitle  ? metaTitle.content   : document.title,
+  };
+</script>
+<script src="../_extensions/ai-chat/ai-chat.js" defer=""></script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/part2/w3_gwas.html" class="pagination-link" aria-label="W3. GWAS &amp; Post-GWAS">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">W3. GWAS &amp; Post-GWAS</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/part3/w5_scrna_qc.html" class="pagination-link" aria-label="W5. Technology, QC, Clustering">
+        <span class="nav-page-text">W5. Technology, QC, Clustering</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2026, Eunji</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

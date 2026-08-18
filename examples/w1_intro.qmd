@@ -1,0 +1,666 @@
+---
+title: "W1. Introduction to Bioinformatics"
+author: "Eunji Ha"
+date: last-modified
+format: html
+execute:
+  echo: true
+  eval: false
+---
+
+::: {.callout-note collapse="true"}
+## 🎯 Learning objectives
+
+By the end of this chapter you should be able to:
+
+-   Explain what a bioinformatician does, and what they need from you
+-   Describe the three main sequencing technologies and what each is good for
+-   Say what a FASTQ, BAM, VCF, and count matrix each contain — without opening one
+-   Explain why the choice of reference genome and annotation changes results
+-   Name the major public omics repositories and what lives in each
+-   Recognize the three statistical traps that ruin most omics analyses
+-   Have a productive design conversation *before* you send samples for sequencing
+:::
+
+> 🤔 **Motivating question**
+>
+> Your samples came back. There is a link to 200 GB of data on a server you have never logged into. What happens now?
+
+------------------------------------------------------------------------
+
+# 1. What Bioinformatics Is 👩‍💻 {#w1-s1}
+
+## 1) Bio + Information {#w1-s1-1}
+
+A compound word, and both halves matter.
+
+-   **Bio** ➡️ human samples, cells, tissues — with phenotypes attached
+-   **Information** ➡️ data, usually omics data, usually a very large table
+
+![Bioinformatics sits at the intersection of biology, computer science, and statistics — and spans the whole path from sample to interpretation.](/assets/img/w1/bioinformatics.png){fig-align="center"}
+
+**The job** — turn the second into a statement about the first.
+
+**The difficulty** — the translation is *lossy in both directions*:
+
+-   A tumour ➡️ a matrix of numbers
+-   A matrix of numbers ➡️ a claim about a tumour
+
+Most of this course is about where information leaks out at each step.
+
+------------------------------------------------------------------------
+
+## 2) Three neighbouring fields {#w1-s1-2}
+
+Often used interchangeably. Different jobs.
+
+| Field | Central question | Typical output |
+|--------------------|------------------------|----------------------------|
+| **Bioinformatics** | How do I get from raw data to an interpretable measurement? | Processed matrices, variant calls, annotated gene lists |
+| **Computational biology** | Can I build a model that explains or predicts biology? | Simulations, predictive models, mechanistic theory |
+| **Biostatistics** | Given this design, what can I legitimately conclude? | Estimates, confidence intervals, p-values, study designs |
+
+In practice one person does all three. The distinction matters when deciding **who to ask**:
+
+-   "My aligner is throwing away 40% of reads" → bioinformatics
+-   "Is n = 3 enough?" → biostatistics, and it should have been asked months earlier
+
+::: {.callout-tip collapse="true"}
+## The most useful thing you will learn this semester
+
+Not how to run anything.
+
+Recognizing **which of those three questions you are actually asking** — because asking the wrong specialist wastes months.
+:::
+
+------------------------------------------------------------------------
+
+## 3) Wet lab ➡️ dry lab {#w1-s1-3}
+
+You already have the right reflexes. A beautiful Western blot prompts: what was the loading control? how many biological replicates? was the exposure saturated?
+
+Same reflexes, different artifacts:
+
+| Wet lab habit | Dry lab equivalent |
+|-----------------------------|--------------------------------------------|
+| Loading control | Normalization (W4) |
+| Antibody validation | Reference database / annotation choice (W1, W6) |
+| Blinding and randomization | Batch design and randomized sample layout (W1) |
+| Technical vs. biological replicate | The same distinction, more consequential (W4) |
+| "It worked once" | A finding that does not replicate in a second cohort |
+
+**The failure mode unique to computation** — the analysis always produces an answer.
+
+-   Failed PCR → an empty gel. Obvious
+-   Failed RNA-seq analysis → a tidy table of 847 genes, sorted by p-value. **Nothing about its appearance tells you it is wrong**
+
+------------------------------------------------------------------------
+
+## 4) The generic omics workflow 🗺️ {#w1-s1-4}
+
+The omics layers of the next six weeks, organized by the central dogma — each with its own characteristic question.
+
+![W2 works on the genome, W3 on its regulatory state, W4–W5 on the transcriptome, W6 on the proteome. W7 asks the same questions of a second genome — the microbiome.](/assets/img/w1/central_dogma.png){fig-align="center"}
+
+Every analysis in this course — genomics, epigenomics, transcriptomics, proteomics, metagenomics — follows the same five stages.
+
+```         
+① Quality control     → is this data usable at all?
+② Alignment /          → where did each measurement come from,
+   quantification         and how much of it is there?
+③ Normalization       → make samples comparable to each other
+④ Statistical testing → which differences are larger than noise?
+⑤ Interpretation      → what does that mean biologically?
+```
+
+::: {.callout-important collapse="true"}
+## This is the map for the whole course
+
+Every week from W2 onward: ask where in these five stages you are. The technologies differ enormously; the stages barely change.
+
+The stages are also where the errors live — and they are **not equally dangerous**:
+
+-   Stage ① ② errors → **loud**. The pipeline crashes, or the numbers are absurd
+-   Stage ③ ④ errors → **quiet**. These are the ones that reach publication
+:::
+
+------------------------------------------------------------------------
+
+# 2. Sequencing and Data 🧪 {#w1-s2}
+
+## 1) Sequencing technologies in one hour {#w1-s2-1}
+
+Nearly all omics data here comes from **sequencing DNA** — even when the question is about RNA, chromatin, or protein binding. The trick that made omics possible: convert every molecular question into "count the DNA fragments."
+
+The other enabler was economics — cost per genome fell faster than Moore's law, from \~\$100 million in 2001 to a few hundred dollars today.
+
+![Cost per human genome. The discontinuity around 2007–2008 is the arrival of massively parallel short-read sequencing. Source: NHGRI.](/assets/img/w1/cost_per_genome.jpg){fig-align="center"}
+
+::: {.callout-note collapse="true"}
+## Why this graph matters for you
+
+-   **Then** — the bottleneck was *generating* data
+-   **Now** — the bottleneck is *interpreting* it, and increasingly, having a design worth interpreting
+
+That shift is the entire reason this course exists.
+:::
+
+### ① Sanger sequencing {#w1-s2-1-1}
+
+> chain termination with fluorescently labelled ddNTPs
+
+-   The original method; still the clinical gold standard for confirming a single variant
+-   One reaction = one template, up to \~800–1,000 bases
+-   Very high per-base accuracy
+
+![Sanger sequencing. A ddNTP lacks the 3′-OH needed for the next phosphodiester bond, so incorporation terminates the chain. A ladder of fragments of every length, each labelled by its terminal base, reads out the sequence.](/assets/img/w1/sanger_seq.png){fig-align="center"}
+
+⚠️ The limitation is **throughput, not quality**. One gene is trivial. One genome took thirteen years and \~\$3 billion.
+
+### ② Short-read sequencing (Illumina) {#w1-s2-1-2}
+
+> massively parallel sequencing by synthesis
+
+**The key idea — parallelism.** Not one molecule read well, but hundreds of millions read simultaneously, each moderately well.
+
+The workflow:
+
+-   **Library preparation** — fragment the DNA, ligate adapters to both ends
+-   **Cluster generation** — each fragment amplified in place on a flow cell
+-   **Sequencing by synthesis** — one fluorescent, reversibly terminated base per cycle: add, image, unblock; repeat 50–300×
+
+![Left: library preparation — fragmentation, adapter ligation, denaturation. Right: bridge amplification on the flow cell, which turns one molecule into a cluster bright enough to image.](/assets/img/w1/library_prep.png){fig-align="center"}
+
+##### The library molecule
+
+Everything entering the sequencer: **adapter + insert + adapter**. Each component has a job.
+
+![P5/P7 bind the flow cell. Rd1/Rd2 SP are the sequencing primer binding sites. Index1/Index2 identify the sample.](/assets/img/w1/ngs_adapter.png){fig-align="center" width="700"}
+
+Two features matter for interpretation:
+
+-   **Index (barcode)** — 6–12 nt, identifies the sample
+    -   Enables *multiplexing*: many samples in one lane, demultiplexed afterwards
+    -   ⚠️ Also where sample swaps and **index hopping** happen — reads assigned to the wrong sample. Dual indexing exists because single indexing was not reliable enough
+-   **Single-end vs. paired-end** — reading the fragment from one end or both
+
+![Single-end gives one read per fragment; paired-end gives two, with a known approximate distance between them. That distance is what lets an aligner place reads confidently in repetitive regions and detect splice junctions and rearrangements.](/assets/img/w1/paired_end.png){fig-align="center"}
+
+-   Paired-end costs more → better alignment in repeats, plus structural rearrangements and splice junctions (🔗 W4)
+-   Typical output today: 2 × 150 bp, per-base error \~0.1%
+-   ⚠️ **Read length is the fundamental limit** — 150 bases is shorter than most repeats, most structural variants, and most full-length transcripts
+
+### ③ Long-read sequencing (PacBio, Oxford Nanopore) {#w1-s2-1-3}
+
+> read the whole molecule, accept more errors per base
+
+-   **PacBio HiFi** — circular template read repeatedly, consensus taken. \~15–25 kb reads, accuracy comparable to short reads
+-   **Oxford Nanopore** — single strand threaded through a protein pore, ionic current decoded
+    -   Reads can exceed a megabase
+    -   Raw accuracy below Illumina, though modern chemistries have narrowed the gap considerably
+    -   Detects base modifications (e.g. DNA methylation) directly, without bisulfite conversion (🔗 W3)
+
+### ④ The trade-off triangle {#w1-s2-1-4}
+
+Read length, per-base accuracy, cost per base — you cannot maximize all three. Every platform picks a corner.
+
+|   | Read length | Accuracy | Cost / Gb | Best for |
+|-------------|-------------|-------------|-------------|---------------------|
+| **Sanger** | \~800 bp | Very high | Very high | Confirming a single variant |
+| **Illumina** | 50–300 bp | High | Low | Counting: RNA-seq, ChIP, WGS/WES at scale |
+| **PacBio HiFi** | 15–25 kb | High | Moderate | Assembly, structural variants, phasing |
+| **Nanopore** | up to Mb | Moderate | Moderate | Ultra-long spans, direct modification calling, portability |
+
+::: {.callout-tip collapse="true"}
+## The question to ask about any dataset
+
+Not "which platform?" but **"is the read long enough to answer my question?"**
+
+-   Variant in a segmental duplication? → 150 bp reads will not save you
+-   Transcript with ten isoforms differing at the 3′ end? → same
+
+No amount of depth fixes a read-length problem.
+:::
+
+------------------------------------------------------------------------
+
+## 2) The shape of biological data {#w1-s2-2}
+
+You will probably never open these files by hand — but you will read methods sections that mention them, and reviewers will ask.
+
+What matters: **what each format holds, and what it has already thrown away.**
+
+### ① FASTQ — the raw read {#w1-s2-2-1}
+
+Four lines per read, tens of millions of reads per sample.
+
+```         
+@SRR21484222.626.1 626 length=51           ← read ID
+GCCTTGGTGGTGAAATGGTAGACTGGAATTCTCGGGTGCC   ← sequence
++SRR21484222.626.1 626 length=51           ← description
+F:FFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFF   ← base quality (Phred)
+```
+
+-   **Knows** — the sequence, and the machine's confidence in each base
+-   **Does not know** — where in the genome the read came from. That information does not exist yet
+
+##### Phred quality score
+
+$$Q = -10 \log_{10} P$$
+
+where $P$ = probability that the base call is wrong.
+
+| Phred score | Error rate  | Base call accuracy |
+|-------------|-------------|--------------------|
+| 10          | 1 in 10     | 90%                |
+| 20          | 1 in 100    | 99%                |
+| 30          | 1 in 1,000  | 99.9%              |
+| 40          | 1 in 10,000 | 99.99%             |
+
+Q30 = the conventional benchmark. "\>80% of bases above Q30" is the sort of line you will see in a facility report.
+
+### ② BAM — reads placed on a genome {#w1-s2-2-2}
+
+Every read + the coordinate the aligner assigned + a **mapping quality** for that assignment.
+
+⚠️ **Alignment is inference, not observation.**
+
+-   A read from a repetitive region could plausibly come from several places
+-   The aligner picks one and lowers the mapping quality to say so
+-   Analyses that ignore mapping quality silently accept a lot of wrong placements
+
+BAM is where read-level information ends for most projects — large (tens of GB per WGS sample), and everything downstream is a summary of it.
+
+### ③ VCF — differences from a reference {#w1-s2-2-3}
+
+Positions where your sample differs from the reference, with genotype and quality. Everything shared with the reference is implicit and absent.
+
+⚠️ **A VCF is a diff, not a genome.**
+
+-   A region that could not be aligned produces no variants
+-   That looks identical to a region with no variants
+-   **Absence of a call ≠ a call of absence**
+
+### ④ Count matrix — where most analyses actually begin {#w1-s2-2-4}
+
+Features (genes, peaks, proteins, taxa) in rows × samples in columns, one number per cell.
+
+-   What public repositories distribute, and what statistical methods consume
+-   Also the point of **maximum information loss** — every read, alignment, and quality score compressed into one integer per gene per sample
+
+::: {.callout-warning collapse="true"}
+## What the count matrix has already decided for you
+
+By the time it reaches you, someone has already chosen:
+
+-   Reference genome build
+-   Annotation version
+-   Aligner
+-   Quantification method
+-   Rules for multi-mapping reads
+
+All invisible in the matrix. All capable of changing your results substantially.
+
+→ Download a matrix from GEO, and **the original paper's methods section is part of your methods section.**
+:::
+
+------------------------------------------------------------------------
+
+## 3) The reference genome {#w1-s2-3}
+
+### ① GRCh38 and T2T-CHM13 {#w1-s2-3-1}
+
+Not a person's genome — a mosaic from several donors, curated over two decades. An idealized coordinate system everyone agrees to use.
+
+-   **GRCh38** (2013) — the workhorse. Still the default for most clinical and population resources, largely because enormous datasets are already mapped to it
+-   **T2T-CHM13** (2022) — the first genuinely complete assembly: centromeres, acrocentric short arms, and other GRCh38 gaps. Adds \~200 Mb of previously unmapped sequence
+-   **Pangenome references** — a graph of many haplotypes rather than one linear sequence. Where the field is heading; not yet the default
+
+⚠️ **Coordinates are not interchangeable between builds.**
+
+-   A position in GRCh37 (hg19) is a different position in GRCh38
+-   "Liftover" is routine but lossy
+-   Mixing builds is one of the commonest sources of nonsense results in student projects
+
+### ② Annotation: where the genes are {#w1-s2-3-2}
+
+-   **Reference sequence** — what the bases are
+-   **Annotation** — which stretches are genes, exons, transcripts, regulatory elements
+
+Separate files, separately versioned, and they disagree with each other.
+
+-   **GENCODE** — comprehensive; used by ENCODE and GTEx. Includes many lncRNAs and predicted transcripts
+-   **RefSeq** — NCBI's conservative, manually curated set. Standard in clinical reporting
+
+\~20,000 protein-coding genes — a remarkably stable number. But *transcript* counts differ by tens of thousands between sources and versions.
+
+::: {.callout-warning collapse="true"}
+## Annotation version is a hidden variable
+
+Same FASTQ files + different GENCODE release →
+
+-   different gene counts
+-   different library totals
+-   → different normalization factors
+-   → different DE results
+
+Usually modest differences. Occasionally not.
+
+**Report the build *and* the annotation version. Every time.**
+:::
+
+### ③ Reference bias {#w1-s2-3-3}
+
+Everything is measured relative to one sequence → anything poorly represented in that sequence is systematically under-detected.
+
+-   **Divergent haplotypes** — reads from non-European-ancestry individuals map slightly worse to a reference built mostly from European donors → subtle allele-frequency and coverage biases (🔗 W2)
+-   **Highly polymorphic loci** — HLA is the classic case; standard alignment badly misrepresents it
+-   **Repetitive and duplicated regions** — reads map ambiguously or not at all
+-   **Sequence absent from the reference** — undetectable by definition
+
+🗺️ First appearance of a thread running through the whole course: **reference bias**.
+
+-   W3 → chromatin atlases
+-   W4 → annotation versions
+-   W6 → the protein search database
+-   W7 → the 16S taxonomy database
+
+Same problem, different name.
+
+------------------------------------------------------------------------
+
+# 3. Where the Data Lives 🗄️ {#w1-s3}
+
+More usable public omics data exists than any lab could generate. For many questions the fastest path to an answer is **reanalysis, not a new experiment**.
+
+## 1) Open repositories {#w1-s3-1}
+
+| Resource | Contents | Access |
+|----------------------|-----------------------------------|----------------|
+| **GEO** (NCBI) | Processed matrices + metadata, all assay types | Open |
+| **SRA** (NCBI) | Raw reads (FASTQ) | Open |
+| **ENA** (EMBL-EBI) | Raw reads, European mirror of SRA | Open |
+| **ArrayExpress / BioStudies** | Functional genomics experiments | Open |
+| **PRIDE** | Mass spectrometry proteomics (🔗 W6) | Open |
+| **MetaboLights** | Metabolomics | Open |
+
+## 2) Controlled access {#w1-s3-2}
+
+Individual-level human genotype data is identifying → cannot be posted openly. Access requires an application describing intended use.
+
+| Resource | Contents | Access |
+|----------------|---------------------------------------|----------------|
+| **dbGaP** | US individual-level genotype/phenotype | Application |
+| **EGA** | European equivalent | Application |
+| **UK Biobank** | \~500,000 participants: genotype, imaging, EHR linkage | Application + fee |
+| **All of Us** | US diversity-focused cohort | Application |
+
+💡 Applications take **weeks to months**. Start at the *proposal* stage, not when you are ready to analyze.
+
+## 3) Consortium atlases {#w1-s3-3}
+
+Reference resources rather than experiments — you look things up in them.
+
+| Resource | What it gives you | Appears in |
+|--------------------------|------------------------------|----------------|
+| **GTEx** | Normal-tissue expression across \~54 tissues; eQTLs | W2, W4 |
+| **ENCODE / Roadmap** | Regulatory element and chromatin maps across cell types | W3 |
+| **TCGA** | Multi-omics across 33 cancer types, with clinical follow-up | W2, W4 |
+| **Human Cell Atlas / Tabula Sapiens** | Single-cell reference atlases | W5 |
+| **1000 Genomes / gnomAD** | Population allele frequencies | W2 |
+| **Human Protein Atlas** | Protein expression and localization | W6 |
+
+## 4) 💡 What makes a public dataset worth reanalyzing {#w1-s3-4}
+
+Not all deposited data is usable. Check before committing a semester to a GEO accession:
+
+-   ✅ **Sample size** — n \> 30 per group for most bulk questions. Small studies are underpowered no matter how clean
+-   ✅ **Clear design** — unambiguous case vs. control, or a paired design (stronger: within-patient variation is controlled statistically)
+-   ✅ **Rich metadata** — age, sex, batch, tissue, treatment. A matrix without covariates cannot be corrected for confounding
+-   ✅ **Raw data available** — reprocessing with your own annotation needs the FASTQs, not just the matrix
+-   ⚠️ **Batch structure recoverable** — all cases in one batch and all controls in another → unsalvageable. This is common. Check first
+
+------------------------------------------------------------------------
+
+# 4. Statistics You Cannot Avoid 📊 {#w1-s4}
+
+Omics data is **high-dimensional**: large *p* (features), small *n* (samples). Twenty thousand genes, twelve patients. Every intuition built on the opposite ratio breaks here.
+
+## 1) What a p-value does and does not say {#w1-s4-1}
+
+**Is** — the probability of data at least this extreme *if the null hypothesis were true*. That is all.
+
+**Is not** —
+
+-   the probability that the null hypothesis is true
+-   the probability that your finding will replicate
+-   a measure of effect size
+-   any statement about biological importance
+
+Two illustrations:
+
+-   n = 200 per group → a 3% expression difference can reach p \< 0.001 and mean nothing
+-   n = 3 → a genuine two-fold change can fail to reach significance
+
+→ **Always read the effect size alongside the p-value.**
+
+## 2) Multiple testing {#w1-s4-2}
+
+-   One gene at α = 0.05 → 5% chance of a false positive
+-   20,000 genes, no real signal at all → **\~1,000 false positives expected**
+
+Two corrections dominate:
+
+| Method | Controls | Behaviour | Use when |
+|------------------|------------------|------------------|------------------|
+| **Bonferroni** | Family-wise error rate — P(≥1 false positive) | Very conservative | You need near-certainty about every hit (e.g. GWAS, 🔗 W2) |
+| **Benjamini–Hochberg (FDR)** | Expected *proportion* of false positives among hits | Much more permissive | Screening / discovery (e.g. RNA-seq, 🔗 W4) |
+
+FDR is the omics default — the goal is usually a *ranked candidate list* for follow-up, not individually certain claims.
+
+"FDR \< 0.05" = about 5% of the genes on this list are expected to be false.
+
+-   Acceptable bargain when the next step is **validation**
+-   Unacceptable when the next step is a **clinical decision**
+
+::: {.callout-warning collapse="true"}
+## The correction cannot be applied after the fact
+
+-   Tested 20,000 genes, found one interesting result, reported only that one with an uncorrected p-value? → you have not avoided the multiple testing problem, you have **hidden** it
+-   Tried six normalization methods and reported the one with the nicest volcano plot? → also multiple testing, and **no correction exists for it**
+:::
+
+## 3) Batch effects and confounding ⚠️ {#w1-s4-3}
+
+**Batch effect** — systematic technical variation between groups of samples processed together: different days, reagent lots, flow cells, technicians, extraction kits.
+
+In omics it is routinely **larger than the biological effect you are looking for**.
+
+Batch effects are annoying but survivable. **Confounding is fatal:**
+
+```         
+Recoverable:   Batch 1 = 5 cases + 5 controls
+               Batch 2 = 5 cases + 5 controls
+               → batch can be modelled and removed
+
+Unrecoverable: Batch 1 = 10 cases
+               Batch 2 = 10 controls
+               → batch and disease are the same variable
+                 no statistical method can separate them
+```
+
+In the second case:
+
+-   every method that removes the batch effect also removes your signal
+-   every method that preserves the signal preserves the artifact
+-   → the experiment cannot be rescued by analysis. It has to be redesigned
+
+::: {.callout-important collapse="true"}
+## Randomize your sample layout
+
+Costs nothing. Prevents the single most common unrecoverable error in omics studies.
+
+When laying samples on a plate or submitting for sequencing, **distribute conditions evenly across every technical grouping** — plate, row, run, day, operator.
+
+If you take one practical thing from this chapter, take this one.
+:::
+
+## 4) Power, effect size, and n {#w1-s4-4}
+
+**Statistical power** — the probability of detecting a real effect of a given size.
+
+Depends on: effect size · variability · n · and in omics, the multiple testing burden (the threshold is far stricter than 0.05).
+
+Rough orientation, not rules:
+
+-   **Bulk RNA-seq** — n = 3 detects only large, consistent changes. n = 6–10 is a working minimum for human tissue. n \> 20 for clinically heterogeneous phenotypes
+-   **GWAS** — thousands to hundreds of thousands; individual variant effects are tiny (🔗 W2)
+-   **Single-cell** — the relevant n is the number of *donors*, not cells. Three donors is three, whether you sequenced 300 cells or 300,000 (🔗 W5)
+
+::: {.callout-warning collapse="true"}
+## Underpowered studies are worse than no study
+
+They do not simply fail to find things. What they *do* find is:
+
+-   enriched for false positives
+-   systematically **inflated in effect size** — only the largest apparent effects survive the significance filter
+
+→ why small pilot studies so often fail to replicate at their reported effect size.
+:::
+
+------------------------------------------------------------------------
+
+# 5. Reproducibility and Study Design ♻️ {#w1-s5}
+
+## 1) Why the same data gives different answers {#w1-s5-1}
+
+Identical FASTQ files → two competent analysts → two different gene lists. Overlap is usually good, rarely complete.
+
+The divergence accumulates from individually reasonable choices:
+
+-   Reference build and annotation version
+-   Aligner and its parameters
+-   Handling of multi-mapping reads
+-   Filtering thresholds for low-expression features
+-   Normalization method
+-   The statistical model, and which covariates it includes
+-   Significance and effect-size thresholds
+
+None of these is *wrong*. But there are enough of them that a determined analyst can reach almost any conclusion — usually without realizing it, by stopping when the result looks biologically sensible.
+
+::: {.callout-tip collapse="true"}
+## The defense
+
+-   Decide the analysis plan **before** seeing the results
+-   Write it down
+-   Explore if you must — but label exploratory findings as exploratory
+
+Standard practice in clinical trials for exactly this reason. Omics is at least as vulnerable.
+:::
+
+## 2) What a good methods section contains {#w1-s5-2}
+
+You will write these, and you will review them.
+
+-   ✅ Reference build **and** annotation version, with release numbers
+-   ✅ Every tool with its version number
+-   ✅ Non-default parameters
+-   ✅ Filtering criteria — how many features and samples removed, and why
+-   ✅ The full statistical model, including covariates
+-   ✅ Multiple testing correction method and threshold
+-   ✅ Accession numbers for data, and a link to analysis code
+
+❌ "Data were analyzed using standard pipelines" is not a methods section. You will see it in print constantly.
+
+## 3) 🗣️ The conversation to have before you sequence {#w1-s5-3}
+
+The highest-value section of this chapter. **Most analysis problems are design problems that became visible too late.**
+
+Agree on these before samples leave your bench:
+
+| Question | Why it matters |
+|----------------------------|------------------------------------------|
+| **What is the comparison?** | Determines the whole design. "Let's see what's different" is not a comparison |
+| **How many biological replicates?** | The single biggest determinant of what you can detect |
+| **What is the unit of replication?** | Patients? Mice? Wells? Cells? This is where n is usually overstated |
+| **What covariates will we need?** | Age, sex, batch, RIN, cell composition. Collect them now; you cannot add them later |
+| **How will samples be laid out?** | Randomize across batches. Non-negotiable |
+| **What are the technical constraints?** | Read length, depth, single vs. paired-end — driven by the question, not the price list |
+| **Is there a validation plan?** | An orthogonal assay, or an independent cohort. Reviewers will ask |
+
+::: {.callout-important collapse="true"}
+## Ask your analyst one question
+
+**"Given this design, what would I be able to conclude if the experiment works perfectly?"**
+
+If the honest answer is "not much" — you have just saved yourself a year, before spending anything.
+:::
+
+------------------------------------------------------------------------
+
+# 📝 Summary
+
+-   Bioinformatics converts samples into data and back again; information is lost in both directions
+-   Nearly every omics assay reduces to **counting DNA fragments** — technologies differ mainly in read length, accuracy, and cost
+-   FASTQ ➡️ BAM ➡️ VCF / count matrix = increasing summarization. Each step discards information and embeds decisions
+-   All analyses follow five stages: **QC ➡️ quantification ➡️ normalization ➡️ testing ➡️ interpretation**. Stages ③ ④ hide the dangerous errors
+-   The reference genome and its annotation are choices, not facts — and they bias results systematically
+-   Public data is abundant; the limiting factor is metadata quality and batch structure, not volume
+-   Large *p*, small *n* → multiple testing is unavoidable. FDR for discovery, Bonferroni when certainty matters
+-   ⚠️ **Batch confounded with condition cannot be fixed by any analysis.** Randomize sample layout
+-   The most valuable thing a bioinformatician does happens **before** sequencing
+
+------------------------------------------------------------------------
+
+# 🔑 Key terms
+
+| Term | One-line meaning |
+|-------------------------|-----------------------------------------------|
+| Read | One sequenced fragment |
+| Phred score | Log-scaled probability that a base call is wrong |
+| Coverage / depth | Average number of reads over each position |
+| Alignment / mapping | Inferring where a read came from in the genome |
+| Mapping quality | Confidence in that inference |
+| Multiplexing | Pooling barcoded samples in one sequencing run |
+| Reference genome | Agreed coordinate system for the species |
+| Annotation | Where genes, exons, and elements sit on that system |
+| Reference bias | Systematic under-detection of anything unlike the reference |
+| Count matrix | Features × samples table of measurements |
+| Batch effect | Systematic technical variation between processing groups |
+| Confounding | Two variables varying together, statistically inseparable |
+| FDR | Expected proportion of false positives among significant results |
+| Statistical power | Probability of detecting a real effect of a given size |
+
+------------------------------------------------------------------------
+
+# ➕ References
+
+### Sequencing technology
+
+[NGS vs. Sanger sequencing (Illumina)](https://www.illumina.com/science/technology/next-generation-sequencing/beginners.html)\
+[Sequencing by synthesis (video)](https://www.youtube.com/watch?v=fCd6B5HRaZ8)\
+Goodwin S, McPherson JD, McCombie WR. [*Coming of age: ten years of next-generation sequencing technologies.*](https://pubmed.ncbi.nlm.nih.gov/?term=Coming+of+age%3A+ten+years+of+next-generation+sequencing+technologies) Nat Rev Genet. 2016.\
+Logsdon GA, Vollger MR, Eichler EE. [*Long-read human genome sequencing and its applications.*](https://pubmed.ncbi.nlm.nih.gov/?term=Long-read+human+genome+sequencing+and+its+applications) Nat Rev Genet. 2020.
+
+### Reference genome
+
+[NHGRI — DNA sequencing costs](https://www.genome.gov/about-genomics/fact-sheets/DNA-Sequencing-Costs-Data)\
+Nurk S, et al. [*The complete sequence of a human genome.*](https://doi.org/10.1126/science.abj6987) Science. 2022. (T2T-CHM13)\
+Liao WW, et al. [*A draft human pangenome reference.*](https://pubmed.ncbi.nlm.nih.gov/?term=A+draft+human+pangenome+reference) Nature. 2023.
+
+### Data formats
+
+[FASTQ format (Wikipedia)](https://en.wikipedia.org/wiki/FASTQ_format)\
+[Phred quality score (Wikipedia)](https://en.wikipedia.org/wiki/Phred_quality_score)\
+[SAM/BAM format specification](https://samtools.github.io/hts-specs/)
+
+### Statistics and study design
+
+Benjamini Y, Hochberg Y. [*Controlling the false discovery rate.*](https://pubmed.ncbi.nlm.nih.gov/?term=Controlling+the+false+discovery+rate) J R Stat Soc B. 1995.\
+Leek JT, et al. [*Tackling the widespread and critical impact of batch effects in high-throughput data.*](https://pubmed.ncbi.nlm.nih.gov/?term=Tackling+the+widespread+and+critical+impact+of+batch+effects+in+high-throughput+data) Nat Rev Genet. 2010.\
+Button KS, et al. [*Power failure: why small sample size undermines the reliability of neuroscience.*](https://pubmed.ncbi.nlm.nih.gov/?term=Power+failure%3A+why+small+sample+size+undermines+the+reliability+of+neuroscience) Nat Rev Neurosci. 2013.\
+Conesa A, et al. [*A survey of best practices for RNA-seq data analysis.*](https://doi.org/10.1186/s13059-016-0881-8) Genome Biol. 2016.
+
+### Public data
+
+[GEO](https://www.ncbi.nlm.nih.gov/geo/) · [SRA](https://www.ncbi.nlm.nih.gov/sra/) · [ENA](https://www.ebi.ac.uk/ena/) · [GTEx](https://gtexportal.org/) · [gnomAD](https://gnomad.broadinstitute.org/) · [ENCODE](https://www.encodeproject.org/) · [GDC (TCGA)](https://portal.gdc.cancer.gov/) · [Human Cell Atlas](https://www.humancellatlas.org/)

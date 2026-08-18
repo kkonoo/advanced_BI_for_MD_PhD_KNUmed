@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="400" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Spatial data fails in ways that are visible on the slide — and invisible in the count matrix.</text>
+
+  <!-- panel 1: fold -->
+  <rect x="24" y="46" width="200" height="216" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="1.8"/>
+  <text x="44" y="70" font-size="12.5" font-weight="700" fill="#a8401d">① Tissue fold</text>
+  <rect x="44" y="82" width="160" height="86" rx="5" fill="#f0e6f2"/>
+  <path d="M44 130 C 90 112, 120 148, 204 124 L204 168 L44 168 Z" fill="#c9a8d0" fill-opacity="0.75"/>
+  <text x="124" y="152" font-size="10.5" font-weight="700" fill="#6b3d78" text-anchor="middle">double thickness</text>
+  <text x="44" y="192" font-size="11.5" fill="#666">Twice the RNA per spot.</text>
+  <text x="44" y="210" font-size="11.5" font-weight="700" fill="#a8401d">Reads as a "high-activity</text>
+  <text x="44" y="226" font-size="11.5" font-weight="700" fill="#a8401d">region" in every plot.</text>
+  <text x="44" y="250" font-size="11" fill="#8A7FA3">✅ check total counts on the H&amp;E</text>
+
+  <!-- panel 2: edge -->
+  <rect x="236" y="46" width="200" height="216" rx="10" fill="#ffffff" stroke="#BA7517" stroke-width="1.8"/>
+  <text x="256" y="70" font-size="12.5" font-weight="700" fill="#8a6a1f">② Section edges</text>
+  <rect x="256" y="82" width="160" height="86" rx="5" fill="#f7f3ea"/>
+  <ellipse cx="336" cy="125" rx="62" ry="34" fill="#e6d0a8" fill-opacity="0.85"/>
+  <text x="336" y="129" font-size="10.5" font-weight="700" fill="#7a5f2a" text-anchor="middle">tissue</text>
+  <text x="278" y="98" font-size="9.5" fill="#a08850">partial spots</text>
+  <text x="256" y="192" font-size="11.5" fill="#666">Spots at the boundary hold</text>
+  <text x="256" y="210" font-size="11.5" fill="#666">less tissue, so fewer counts.</text>
+  <text x="256" y="228" font-size="11.5" font-weight="700" fill="#8a6a1f">The rim becomes a "domain".</text>
+  <text x="256" y="250" font-size="11" fill="#8A7FA3">✅ exclude or model boundary spots</text>
+
+  <!-- panel 3: necrosis -->
+  <rect x="448" y="46" width="200" height="216" rx="10" fill="#ffffff" stroke="#534AB7" stroke-width="1.8"/>
+  <text x="468" y="70" font-size="12.5" font-weight="700" fill="#4a4189">③ Necrosis &amp; degradation</text>
+  <rect x="468" y="82" width="160" height="86" rx="5" fill="#efedf8"/>
+  <circle cx="548" cy="125" r="30" fill="#b9b0cc"/>
+  <text x="548" y="129" font-size="10.5" font-weight="700" fill="#4a4189" text-anchor="middle">necrotic</text>
+  <text x="468" y="192" font-size="11.5" fill="#666">Degraded RNA gives low,</text>
+  <text x="468" y="210" font-size="11.5" fill="#666">noisy, biased profiles.</text>
+  <text x="468" y="228" font-size="11.5" font-weight="700" fill="#4a4189">Often clusters as a cell type.</text>
+  <text x="468" y="250" font-size="11" fill="#8A7FA3">✅ RIN / DV200 before you commit</text>
+
+  <!-- panel 4: one section -->
+  <rect x="660" y="46" width="196" height="216" rx="10" fill="#ffffff" stroke="#185FA5" stroke-width="1.8"/>
+  <text x="680" y="70" font-size="12.5" font-weight="700" fill="#2a5a86">④ One section ≠ the organ</text>
+  <rect x="680" y="82" width="156" height="86" rx="5" fill="#eaf1f8"/>
+  <rect x="694" y="92" width="128" height="66" rx="4" fill="#c9dcee"/>
+  <rect x="742" y="92" width="8" height="66" fill="#185FA5"/>
+  <text x="758" y="182" font-size="10" fill="#5d7fa0" text-anchor="middle">one 5 µm plane</text>
+  <text x="680" y="204" font-size="11.5" fill="#666">A 5 µm slice of a 3 cm</text>
+  <text x="680" y="222" font-size="11.5" fill="#666">tumour, chosen by hand.</text>
+  <text x="680" y="240" font-size="11.5" font-weight="700" fill="#2a5a86">Sampling, not survey.</text>
+
+  <!-- footer -->
+  <rect x="24" y="276" width="832" height="106" rx="10" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="300" font-size="13.5" font-weight="700" fill="#4A3D6B">The habit that separates a usable spatial experiment from an expensive one</text>
+  <text x="48" y="326" font-size="12.5" fill="#555">✅ Always look at the H&amp;E image beside the expression map. Every artifact above is obvious on the histology and invisible in the matrix.</text>
+  <text x="48" y="348" font-size="12.5" fill="#555">✅ Your pathologist can spot a fold, a tear, or a necrotic zone in seconds. That is a five-minute conversation worth thousands of dollars.</text>
+  <text x="48" y="370" font-size="12.5" font-weight="700" fill="#4A3D6B">⚠️ And n is still the patient. Three sections from one tumour is n = 1, exactly as in W1 and W5.</text>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="460" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Narrowing a question until it becomes answerable. This is the whole skill.</text>
+
+  <g>
+    <rect x="24" y="46" width="832" height="62" rx="9" fill="#fbeee8" stroke="#D85A30" stroke-width="1.8"/>
+    <text x="48" y="70" font-size="12" font-weight="700" fill="#a8401d">❌ WHERE EVERYONE STARTS</text>
+    <text x="48" y="94" font-size="14" fill="#a05a3f">"I want to study the tumour microenvironment in gastric cancer."</text>
+    <text x="832" y="94" font-size="11.5" fill="#b58272" text-anchor="end">not a question</text>
+
+    <line x1="440" y1="108" x2="440" y2="120" stroke="#c9c2d8" stroke-width="2"/>
+    <path d="M440 126 l-5 -8 h10 z" fill="#c9c2d8"/>
+
+    <rect x="24" y="130" width="832" height="62" rx="9" fill="#fbf7ee" stroke="#BA7517" stroke-width="1.8"/>
+    <text x="48" y="154" font-size="12" font-weight="700" fill="#8a6a1f">⚠️ ADD A COMPARISON</text>
+    <text x="48" y="178" font-size="14" fill="#7a5f2a">"Does the microenvironment differ between responders and non-responders?"</text>
+    <text x="832" y="178" font-size="11.5" fill="#a08850" text-anchor="end">still too broad</text>
+
+    <line x1="440" y1="192" x2="440" y2="204" stroke="#c9c2d8" stroke-width="2"/>
+    <path d="M440 210 l-5 -8 h10 z" fill="#c9c2d8"/>
+
+    <rect x="24" y="214" width="832" height="62" rx="9" fill="#f3f0f7" stroke="#5B4D80" stroke-width="1.8"/>
+    <text x="48" y="238" font-size="12" font-weight="700" fill="#5B4D80">⚠️ NAME THE MEASUREMENT</text>
+    <text x="48" y="262" font-size="14" fill="#5B4D80">"Is CD8 T-cell density at the invasive margin lower in non-responders?"</text>
+    <text x="832" y="262" font-size="11.5" fill="#8A7FA3" text-anchor="end">testable, not yet feasible</text>
+
+    <line x1="440" y1="276" x2="440" y2="288" stroke="#c9c2d8" stroke-width="2"/>
+    <path d="M440 294 l-5 -8 h10 z" fill="#c9c2d8"/>
+
+    <rect x="24" y="298" width="832" height="82" rx="9" fill="#e8f5f0" stroke="#1D9E75" stroke-width="2"/>
+    <text x="48" y="322" font-size="12" font-weight="700" fill="#0F6E56">✅ ADD THE DATA YOU CAN ACTUALLY GET</text>
+    <text x="48" y="346" font-size="14" fill="#0F6E56">"In 30 archived FFPE gastric cancer blocks with known response to pembrolizumab,</text>
+    <text x="48" y="366" font-size="14" fill="#0F6E56">is CD8 T-cell density at the invasive margin lower in non-responders?"</text>
+  </g>
+
+  <rect x="24" y="392" width="410" height="52" rx="9" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="414" font-size="12.5" font-weight="700" fill="#4A3D6B">Each arrow removed something</text>
+  <text x="48" y="434" font-size="12" fill="#666">a comparison, a measurement, a population, a source of samples</text>
+
+  <rect x="446" y="392" width="410" height="52" rx="9" fill="#ffffff" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="470" y="414" font-size="12.5" font-weight="700" fill="#0F6E56">💡 The last version fits in one breath</text>
+  <text x="470" y="434" font-size="12" fill="#3d7a68">and every word in it is a decision you can defend</text>
+</svg>

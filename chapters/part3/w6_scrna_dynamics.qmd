@@ -1,0 +1,276 @@
+---
+title: "W6. Trajectory, Communication & Integration"
+author: "Eunji Ha"
+date: last-modified
+format: html
+execute:
+  echo: true
+  eval: false
+---
+
+::: {.callout-note collapse="true"}
+## 🎯 Learning objectives
+
+By the end of this chapter you should be able to:
+
+-   Say what integration assumes, and ⚠️ recognise when it has erased the biology you were looking for
+-   ✅ Demand the two colourings that make over-correction visible
+-   Explain what pseudotime orders — and ⚠️ why it is not time
+-   ⚠️ Say why a trajectory algorithm always returns a trajectory
+-   Explain where RNA velocity's direction comes from, and which of its assumptions are contested
+-   ⚠️ Explain why ligand–receptor co-expression is not evidence of an interaction
+-   Decide which of these results belongs in a grant as a hypothesis, and which belongs in a paper as a finding
+:::
+
+> 🤔 **Motivating question**
+>
+> A paper shows a beautiful UMAP where patient and control cells overlap perfectly, then reports that a disease-specific fibroblast state exists. Are those two claims compatible?
+
+------------------------------------------------------------------------
+
+# 1. Integration and What It Costs 🔗 {#w6-s1}
+
+## 1) The problem integration solves {#w6-s1-1}
+
+In single-cell data the **donor** is usually the dominant source of variation. Cells cluster by patient before they cluster by cell type — which makes the data uninterpretable as biology.
+
+**Integration methods** (Harmony, scVI, Seurat RPCA, scANVI) find a shared representation in which cells of the same type from different donors sit together.
+
+## 2) ⚠️ Integration is an assumption in disguise {#w6-s1-2}
+
+![Both right-hand panels look perfectly mixed. Only one colouring reveals what happened.](/assets/img/w6/integration_overcorrection.svg){fig-align="center"}
+
+The assumption: **the same cell types exist in every batch, and any batch-associated variation is technical.**
+
+⚠️ That assumption fails exactly when your biology is interesting:
+
+-   a disease-specific cell state
+-   a population present only in one condition
+-   a treatment-induced program
+
+→ Aggressive integration merges it away, and the resulting UMAP looks beautifully mixed.
+
+::: {.callout-important collapse="true"}
+## The diagnostic, and why it is rarely shown
+
+-   ✅ Colour by batch **and** by cell type. Publish both
+-   ✅ Confirm that known cell-type markers still separate after integration
+-   ✅ Confirm that a population unique to one condition **survived**
+-   ✅ Benchmarks such as **scIB** score exactly this batch-removal / biology-preservation trade-off
+
+⚠️ Most papers show only the batch colouring — because that is the one that demonstrates the method worked. It is also the one that cannot reveal the failure.
+
+💡 Back to the motivating question: a perfectly mixed UMAP and a disease-specific state are **in tension**. Not impossible — but the paper owes you the second colouring.
+:::
+
+## 3) ⚠️ When integration cannot help at all {#w6-s1-3}
+
+If disease status is perfectly confounded with batch — all patients processed on one day, all controls on another — **no integration method can separate them.** Exactly the argument from 🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3), and just as unrecoverable here.
+
+------------------------------------------------------------------------
+
+# 2. Trajectory and Pseudotime 🧭 {#w6-s2}
+
+## 1) The idea {#w6-s2-1}
+
+Biology is dynamic; a single-cell experiment is a snapshot. If cells were caught mid-process, they can be **ordered** along an axis of transcriptional similarity — a **pseudotime**.
+
+-   Stem cell → progenitor → differentiated
+-   Naive T cell → activated → effector → exhausted
+-   Fibroblast → myofibroblast → senescent
+
+Tools: **Monocle3**, **Slingshot**, **PAGA**.
+
+## 2) ⚠️ The algorithm always succeeds {#w6-s2-2}
+
+![Same tool, same settings, same confident output.](/assets/img/w6/trajectory_caveats.svg){fig-align="center"}
+
+::: {.callout-warning collapse="true"}
+## Three caveats worth stating plainly
+
+-   ⚠️ **A trajectory algorithm returns a trajectory for any dataset**, including one with no underlying process. There is no "no trajectory found" output
+-   ⚠️ **Pseudotime is not time.** It measures neither rate nor duration. Two cells far apart in pseudotime may be minutes or months apart in reality — or the ordering may be reversed
+-   ⚠️ **The root has to be chosen by you.** Reverse the root and the biology reverses with it. That choice is prior knowledge entering as if it were a result
+
+→ ✅ Sanity check: shuffle your cell labels, or run the algorithm on a homogeneous population, and see what comes back. It is a sobering five minutes.
+:::
+
+## 3) RNA velocity {#w6-s2-3}
+
+![Where the arrows come from.](/assets/img/w6/rna_velocity.svg){fig-align="center"}
+
+RNA velocity adds **direction** by comparing unspliced (new) to spliced (mature) transcripts per gene. More unspliced than steady state predicts → the gene is turning on.
+
+⚠️ The assumptions about splicing and degradation kinetics are **contested**, and known to fail for some genes and systems. The arrows are also drawn on a UMAP, so they inherit every distortion from 🔗 [W5 §4.2](w5_scrna_qc.qmd#w5-s4-2).
+
+✅ What settles a trajectory claim: a **time course**, or **lineage tracing**. Not a better algorithm.
+
+------------------------------------------------------------------------
+
+# 3. ⚠️ Cell–Cell Communication 📡 {#w6-s3}
+
+## 1) What the tools actually compute {#w6-s3-1}
+
+CellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster pairs based on **co-expression** — the ligand's mRNA is high in cluster A, its receptor's mRNA is high in cluster B.
+
+![The arrow in the figure is doing far more work than the data supports.](/assets/img/w6/ccc_fallacy.svg){fig-align="center"}
+
+## 2) Using them honestly {#w6-s3-2}
+
+-   ✅ **As a hypothesis generator** — "which axes are worth testing?" is exactly what these tools are for
+-   ✅ **Validated spatially** — if the two cell types are physically adjacent (🔗 [W7](../part4/w7_spatial_basics.qmd)), the prediction becomes plausible
+-   ✅ **Validated functionally** — blocking antibody, receptor knockout, ligand stimulation
+-   ❌ **As a standalone result** — "macrophages signal to T cells via TNF" is not shown by co-expression
+
+💡 NicheNet is somewhat different in kind: it asks whether the *downstream target genes* of a ligand are induced in the receiver cell. That is still correlative, but it is a stronger correlation than co-expression alone.
+
+------------------------------------------------------------------------
+
+# 4. Putting the Week Together 🧩 {#w6-s4}
+
+Everything in this chapter produces a confident-looking output from data that cannot fully support it. That is not a reason to avoid these methods — it is a reason to be precise about what they are.
+
+| Result | Strength of evidence | Where it belongs |
+|-------------------|--------------------------|---------------------------|
+| Cluster + validated markers | ✅ Descriptive, solid | Results |
+| Pseudobulk DE across donors (W5) | ✅ Inferential, solid | Results |
+| Differential abundance with a compositional method | ⚠️ Solid if n is donors | Results, with caveats |
+| Pseudotime ordering | ⚠️ Hypothesis | Results, phrased as "consistent with" |
+| RNA velocity direction | ⚠️ Hypothesis, contested method | Supplementary, or a hypothesis |
+| Ligand–receptor prediction | ❌ Hypothesis only | Discussion, or a grant aim |
+
+::: {.callout-tip collapse="true"}
+## The sentence that gets a paper into trouble
+
+*"Trajectory analysis revealed that fibroblasts differentiate into myofibroblasts, and cell–cell communication analysis showed that macrophage-derived TGF-β drives this transition."*
+
+Nothing here was revealed or shown. Two algorithms produced two orderings from one snapshot of dissociated cells.
+
+✅ The honest version: *"Pseudotime ordering is consistent with a fibroblast-to-myofibroblast transition, and ligand–receptor analysis nominates macrophage TGF-β as a candidate driver. We are testing this by [spatial validation / receptor blockade]."*
+
+→ The second version is also the one that reads like a fundable next step.
+:::
+
+------------------------------------------------------------------------
+
+# 5. Hands-On 💻 {#w6-s5}
+
+## 1) Integration, with the honest diagnostic {#w6-s5-1}
+
+```{r}
+library(Seurat); library(harmony); library(patchwork)
+
+obj <- readRDS(here::here("analysis", "5_pbmc_annotated.rds"))
+
+obj <- obj |>
+  RunHarmony(group.by.vars = "donor") |>
+  FindNeighbors(reduction = "harmony", dims = 1:20) |>
+  FindClusters(resolution = 0.5) |>
+  RunUMAP(reduction = "harmony", dims = 1:20)
+
+# ✅ the two panels that must always appear together
+DimPlot(obj, group.by = "donor")     |
+DimPlot(obj, group.by = "cell_type", label = TRUE)
+```
+
+✅ **Change one thing:** raise Harmony's `theta` (more aggressive correction) and watch whether any small population disappears from the right-hand panel.
+
+## 2) A trajectory, and its sanity check {#w6-s5-2}
+
+```{r}
+library(monocle3)
+
+cds <- as.cell_data_set(obj)
+cds <- cluster_cells(cds) |> learn_graph()
+cds <- order_cells(cds)              # ⚠️ you choose the root — that is an assumption
+plot_cells(cds, color_cells_by = "pseudotime")
+```
+
+⚠️ **Then do this**, and look at the output honestly:
+
+```{r}
+# Run the same pipeline on one homogeneous cluster with no expected process
+mono <- subset(obj, cell_type == "CD14 Mono")
+cds_null <- as.cell_data_set(mono) |> cluster_cells() |> learn_graph()
+plot_cells(cds_null, color_cells_by = "pseudotime")
+```
+
+💡 You will get a trajectory. Discuss what that means for the previous figure.
+
+## 3) Cell–cell communication {#w6-s5-3}
+
+```{r}
+library(CellChat)
+
+cc <- createCellChat(obj, group.by = "cell_type") |>
+  subsetData() |> identifyOverExpressedGenes() |>
+  identifyOverExpressedInteractions() |> computeCommunProb() |>
+  filterCommunication(min.cells = 10) |> aggregateNet()
+
+netVisual_circle(cc@net$weight, weight.scale = TRUE)
+```
+
+✅ Pick the strongest predicted interaction and write **one sentence** describing the experiment that would test it. That sentence is the deliverable, not the plot.
+
+## 4) Before next week {#w6-s5-4}
+
+**W7 — spatial transcriptomics.** Come with an answer to one question about your own department:
+
+> *Do we have FFPE blocks with linked outcome data, and roughly how many?*
+
+Everything in W7–W8 depends on that answer.
+
+------------------------------------------------------------------------
+
+# 📝 Summary
+
+-   Integration assumes the same cell types exist in every batch and that batch variation is technical
+-   ⚠️ **Over-correction erases exactly the disease-specific population you were looking for** — and the resulting UMAP looks perfect
+-   ✅ Always colour by batch **and** cell type. Demand both panels when reviewing
+-   ⚠️ Confounded design (all cases one day, all controls another) cannot be rescued by any integration method
+-   ⚠️ **A trajectory algorithm returns a trajectory for random data.** There is no null output
+-   ⚠️ **Pseudotime is not time** — no rate, no duration — and the root is your assumption, not a result
+-   RNA velocity's kinetic assumptions are contested, and its arrows sit on a distorted 2D embedding
+-   ⚠️ **Ligand–receptor co-expression is not interaction**: cells may never be adjacent, the protein may never be made, and the database is biased toward what is already known
+-   ✅ These are hypothesis generators. Phrase them as "consistent with" and name the experiment that would test them
+
+------------------------------------------------------------------------
+
+# 🔑 Key terms
+
+| Term | One-line meaning |
+|-------------------------|-----------------------------------------|
+| Integration | Aligning datasets so shared cell types co-cluster |
+| Over-correction | Integration that removes real biological differences |
+| scIB | Benchmark scoring batch removal against biology preservation |
+| Pseudotime | Ordering of cells along an inferred process |
+| Root cell | The chosen starting point — reverses the whole ordering |
+| Trajectory inference | Fitting a path through cells in expression space |
+| RNA velocity | Direction inferred from unspliced vs spliced reads |
+| Spliced / unspliced | Mature mRNA vs intron-containing nascent transcript |
+| Ligand–receptor pair | A curated interaction used to score communication |
+| CellChat / CellPhoneDB / NicheNet | Communication inference tools, all correlative |
+| Hypothesis generator | A method whose output is a question, not an answer |
+
+------------------------------------------------------------------------
+
+# ➕ References
+
+### Integration
+
+Korsunsky I, et al. [*Fast, sensitive and accurate integration of single-cell data with Harmony.*](https://doi.org/10.1038/s41592-019-0619-0) Nat Methods. 2019.\
+Luecken MD, et al. [*Benchmarking atlas-level data integration in single-cell genomics.*](https://doi.org/10.1038/s41592-021-01336-8) Nat Methods. 2022. (scIB)\
+Lopez R, et al. [*Deep generative modeling for single-cell transcriptomics.*](https://doi.org/10.1038/s41592-018-0229-2) Nat Methods. 2018. (scVI)
+
+### Trajectory and velocity
+
+Saelens W, et al. [*A comparison of single-cell trajectory inference methods.*](https://doi.org/10.1038/s41587-019-0071-9) Nat Biotechnol. 2019. **← the benchmark that shows how much method choice matters**\
+Cao J, et al. [*The single-cell transcriptional landscape of mammalian organogenesis.*](https://doi.org/10.1038/s41586-019-0969-x) Nature. 2019. (Monocle3)\
+Bergen V, et al. [*Generalizing RNA velocity to transient cell states through dynamical modeling.*](https://doi.org/10.1038/s41587-020-0591-3) Nat Biotechnol. 2020. (scVelo)\
+Bergen V, Soldatov RA, Kharchenko PV, Theis FJ. [*RNA velocity — current challenges and future perspectives.*](https://doi.org/10.15252/msb.202110282) Mol Syst Biol. 2021. **← read this before using velocity in a figure**
+
+### Cell–cell communication
+
+Jin S, et al. [*Inference and analysis of cell-cell communication using CellChat.*](https://doi.org/10.1038/s41467-021-21246-w) Nat Commun. 2021.\
+Browaeys R, Saelens W, Saeys Y. [*NicheNet: modeling intercellular communication by linking ligands to target genes.*](https://doi.org/10.1038/s41592-019-0667-5) Nat Methods. 2020.\
+Dimitrov D, et al. [*Comparison of methods and resources for cell-cell communication inference from single-cell RNA-Seq data.*](https://doi.org/10.1038/s41467-022-30755-0) Nat Commun. 2022. **← how much the answer depends on which tool and database you picked**

@@ -1,0 +1,111 @@
+project:
+  type: website
+  execute-dir: project
+  output-dir: _site
+
+  # 렌더 대상을 명시 — 이 목록에 없는 .qmd 는 빌드하지 않음
+  # (chapters/example.qmd 는 스타일 참고용이라 제외)
+  render:
+    - index.qmd
+    - chapters/w1_intro.qmd
+    - chapters/w2_genomics.qmd
+    - chapters/w3_epigenomics.qmd
+    - chapters/w4_transcriptomics.qmd
+    - chapters/w5_singlecell.qmd
+    - chapters/w6_proteomics.qmd
+    - chapters/w7_metagenomics.qmd
+
+
+website:
+  favicon: assets/img/favicon.ico
+  page-navigation: true          # 챕터 하단에 이전/다음 주차 링크
+
+  navbar:
+    favicon: assets/img/favicon.ico
+    logo: assets/img/logo.jpg
+    left:
+      - href: index.qmd
+        text: Home
+      - text: "Weeks"            # ← 드롭다운. 상단은 깔끔하게, 접근은 어디서나
+        menu:
+          - href: chapters/w1_intro.qmd
+            text: "W1 · Introduction to Bioinformatics"
+          - href: chapters/w2_genomics.qmd
+            text: "W2 · Genomics"
+          - href: chapters/w3_epigenomics.qmd
+            text: "W3 · Epigenomics"
+          - href: chapters/w4_transcriptomics.qmd
+            text: "W4 · Transcriptomics"
+          - href: chapters/w5_singlecell.qmd
+            text: "W5 · Single-cell Transcriptomics"
+          - href: chapters/w6_proteomics.qmd
+            text: "W6 · Proteomics"
+          - href: chapters/w7_metagenomics.qmd
+            text: "W7 · Metagenomics"
+    # right:
+    #   - icon: github
+    #     href: https://github.com/kkonoo/BI_for_Biomed_KNUmed/
+
+  sidebar:
+    style: "floating"
+    search: true
+    contents:
+      - text: "Home"
+        href: index.qmd
+      - text: "W1. Introduction to Bioinformatics"
+        href: chapters/w1_intro.qmd
+      - text: "W2. Genomics"
+        href: chapters/w2_genomics.qmd
+      - text: "W3. Epigenomics"
+        href: chapters/w3_epigenomics.qmd
+      - text: "W4. Transcriptomics"
+        href: chapters/w4_transcriptomics.qmd
+      - text: "W5. Single-cell Transcriptomics"
+        href: chapters/w5_singlecell.qmd
+      - text: "W6. Proteomics"
+        href: chapters/w6_proteomics.qmd
+      - text: "W7. Metagenomics"
+        href: chapters/w7_metagenomics.qmd
+
+  page-footer:
+    left: "Copyright 2026, Eunji"
+
+
+format:
+  html:
+    theme:
+      light: cosmo
+    css: assets/html.css
+    toc: true
+    toc-depth: 4
+    toc-title: "Contents"
+    toc-float: true
+    page-layout: full
+
+    code-fold: false  
+    code-copy: true
+    highlight-style: github 
+
+    number-sections: false
+    smooth-scroll: true
+
+    grid:                       
+      sidebar-width: 300px
+      body-width: 1000px
+      margin-width: 280px # toc
+
+    # AI 채팅 위젯 전역 설정
+    include-after-body: assets/ai-chat-init.html
+
+  revealjs:
+    css: assets/revealjs.css    # 슬라이드용
+    scrollable: true
+
+
+execute:
+  freeze: auto          # 코드 실행 결과 캐시 (빠른 빌드)
+  echo: true
+  eval: false
+  warning: false
+  message: false
+

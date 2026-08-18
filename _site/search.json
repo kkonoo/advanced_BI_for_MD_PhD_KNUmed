@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "advanced bioinformatics (융합형 의사과학자 양성 사업)",
+    "title": "Advanced Bioinformatics (융합형 의사과학자 양성 사업)",
     "section": "",
-    "text": "Acquisition of Practical Bioinformatics Analysis Skills\n✅ What is RNA-seq data and how to analyze them\n✅ Understanding fundamental statistics\n✅ How to interpret and visualize the results\nEnhanced Data Convergence Capability for Translational Research\n✅ How to link omics data to clinical data\n✅ How to explore public data of interest\n✅ What would be promising targets",
+    "text": "Last semester you learned to take a tissue, get counts, and produce a ranked gene list. That is a real skill.\nThis course is about the layer above it: being able to tell when an omics result is wrong.\n\n\n\n\n\n\nNoteTwo kinds of depth, and which one this course teaches\n\n\n\n\n\nExecution depth — tuning a doublet detector, building an LD reference panel, implementing spot deconvolution. That is a full-time job, and it belongs to your bioinformatician.\nJudgment depth — is n = 3 patients or 30,000 cells the real n? Was this polygenic score built on people like my patients? Does this UMAP support the sentence next to it? Would this change what I do on Monday?\n→ This course lives on the second. Code appears so that you can read it and doubt it, not so that you maintain it.\n❌ It does not promise that you will run a spatial deconvolution pipeline unsupervised after fourteen sessions.\n✅ It does promise that you will never again be the person in the room who cannot evaluate the analysis their own name will appear on.",
     "crumbs": [
       "Home"
     ]
@@ -22,9 +22,9 @@
   {
     "objectID": "index.html#syllabus",
     "href": "index.html#syllabus",
-    "title": "advanced bioinformatics (융합형 의사과학자 양성 사업)",
+    "title": "Advanced Bioinformatics (융합형 의사과학자 양성 사업)",
     "section": "Syllabus",
-    "text": "Syllabus\n\n\n\n\n\n\n\n\n\nModule\nWeek\nContents\nKey tools\n\n\n\n\nIntro\nW1\nReview + Roadmap + R env\nR, Bioconductor\n\n\nClinical Genomics\nW2\nGWAS & Post-GWAS\nPLINK, LocusZoom\n\n\n\nW3\nPRS & Clinical application\nPGPRSice, LDPred2\n\n\nSingle-cell\nW4\nscRNA-seq tech, QC, Clustering\nSeurat, scanpy\n\n\n\nW5\nTrajectory & Cell-cell communication\nMonocle, CellChat\n\n\nSpatial\nW6\nSpatial Transcriptomics 기초\nSeurat, Squidpy\n\n\n\nW7\nSpatial + scRNA integration, Deconvolution\nCARD, SPOTlight\n\n\nProteomics\nW8\nMS/NGS-based Proteomics\ntheory\n\n\n\nW9\nClinical proteomics & Biomarker\nlimma, MSstats\n\n\nIntegration\nW10\nMulti-omics integration\nMOFA+, mixOmics\n\n\n\nW11\nNetwork & Drug target discovery\nSTRING, igraph\n\n\nCapstone\nW12\nResult intepretation & visualization\nggplot2, Rmarkdown\n\n\n\nW13\nRscript & vibe coding tips\n—\n\n\n\nW14\nIndividual project design\n—",
+    "text": "Syllabus\n\n\n\nModule\nWeek\nContents\nKey tools\n\n\n\n\nIntro\nW1\nReview, roadmap, study design before any data exists\nR, Bioconductor\n\n\n\nW2\nR scripts, AI-assisted coding, reproducibility\nQuarto, git\n\n\nClinical Genomics\nW3\nGWAS & post-GWAS\nGWAS Catalog, Open Targets\n\n\n\nW4\nPolygenic risk scores & clinical application\nPGS Catalog, PRSice-2\n\n\nSingle-cell\nW5\nscRNA-seq technology, QC, clustering\nSeurat, scanpy\n\n\n\nW6\nTrajectory, cell–cell communication, integration\nMonocle3, CellChat, Harmony\n\n\nSpatial\nW7\nSpatial transcriptomics — the basics\nSeurat, Squidpy\n\n\n\nW8\nDeconvolution & spatial integration\nRCTD, cell2location, CARD\n\n\nProteomics\nW9\nHow proteins are actually measured\nMS, Olink, SomaScan\n\n\n\nW10\nClinical proteomics & biomarkers\nlimma, MSstats\n\n\nIntegration\nW11\nMulti-omics integration\nMOFA+, mixOmics\n\n\n\nW12\nNetwork analysis & drug targets\nSTRING, igraph, Open Targets\n\n\nCapstone\nW13\nInterpretation & visualisation\nggplot2, clusterProfiler\n\n\n\nW14\nDesigning your own project\n—",
     "crumbs": [
       "Home"
     ]
@@ -1005,13 +1005,13 @@
   {
     "objectID": "chapters/part1/w1_intro.html",
     "href": "chapters/part1/w1_intro.html",
-    "title": "W1. Advanced BI",
+    "title": "W1. Introduction & Roadmap",
     "section": "",
-    "text": "What’s happening in research\n\nWhole genome sequencing at clinical scale\nSingle-cell atlases of every tissue\nMulti-omics datasets in public repositories\nAI/ML-driven drug discovery pipelines\n\n\nWhat most clinicians can do with it\n\nRead the abstract\nTrust the figures\nAsk a bioinformatician\n\n\n\n\n▶️ Clinician-scientists who can analyze their own data ask better questions\n\n\n\n\n\nFrom last course:\n\n✅ R basics — data wrangling, ggplot2, statistics\n✅ Bulk RNA-seq — QC, alignment, DESeq2, pathway analysis\n✅ Thinking computationally about biological questions\n\n\n▶️ This course: we go one (or several) levels deeper.\n\n\n\n\n\nFrom a GWAS hit to a drug target — this is what this course builds toward:\nGWAS / PRS                            → Which genetic variants increase disease risk?\n    🔽\nEpigenomics                           → Which regulatory elements are involved?\n    🔽\nMetagenomics                          → Does the microbiome play a role?\n    🔽\nTranscriptomics (bulk RNA-seq)        → Which genes are involved?\n    🔽\nTranscriptomics (scRNA-seq/Spatial)   → Which cell types? In which tissue context?\n    🔽\nProteomics                            → Which actual players are involved?\n    🔽\nMulti-omics                           → How do all these layers converge on a target?\n    🔽\nDisease prediction                    → Can we predict diseases?\nDrug Discovery                        → Can we reposition an existing drug?\n\n▶️ Every tool we learn is a piece of the same puzzle\n\n\n\n\n\nIn this course, we skip epigenomics and metagenomics, unfortunately🥲\n\n\n\n\n\n\n\n\n\nSection\nWeeks\nTopics\n\n\n\n\nIntroduction\nW1\nR environment setup\n\n\nClinical Genomics & Risk Prediction\nW2–W3\nGWAS, Post-GWAS, PRS\n\n\nHigh-Resolution Transcriptomics\nW4–W7\nscRNA-seq, Spatial\n\n\nProteomics\nW8–W9\nLC-MS, NGS-based, Biomarker\n\n\nIntegration\nW10-W11\nIntegration, Network, Drug repositioning\n\n\nCapstone\nW12–W14\nYour own data story\n\n\n\n\n\n\n\n\n\nRead a methods section and understand what was actually done\nDownload public omics datasets and run analyses yourself\nCombine multiple data types to generate a testable hypothesis\nPresent a data-driven research proposal at the final session\n\n\n\n\n\n\n\n\n\n\nTopic\nKey Packages\n\n\n\n\nGWAS / PRS\nbigsnpr, PRSice, LDlinkR\n\n\nscRNA-seq\nSeurat, SingleR, Monocle3\n\n\nSpatial\nSeurat, SpatialDE, NNSVG\n\n\nMulti-omics\nMOFA2, mixOmics\n\n\nDrug discovery\nigraph, drugTargetInteractions\n\n\n\n\n\nDon’t worry — we install these as we go",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nSay what last semester’s bulk RNA-seq answered, and what it structurally could not\n⚠️ Distinguish execution depth from judgment depth, and say which one this course is for\nTrace one clinical question through all eight omics layers of the semester\n⚠️ Name the point in a study after which design mistakes become unrecoverable\nRecognise batch–group confounding from a sample layout alone\nSay what a fresh, frozen, or FFPE specimen can and cannot become\nSet up an R project that still runs in three years",
     "crumbs": [
       "Home",
-      "1. Intro",
-      "W1. Advanced BI"
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
     ]
   },
   {
@@ -2723,5 +2723,2313 @@
     "title": "W3 — Polygenic Risk Scores (PRS)",
     "section": "References",
     "text": "References\n\nKullo IJ. Clinical use of polygenic risk scores: current status, barriers and future directions. Nat Rev Genet (2025).\nLi R, Chen Y, Ritchie MD, Moore JH. Electronic health records and polygenic risk scores for predicting disease risk. Nat Rev Genet (2020).\nvan Rheenen W, Peyrot WJ, Schork AJ, Lee SH, Wray NR. Genetic correlations of polygenic disease traits: from theory to practice. Nat Rev Genet (2019).\nReay WR, Cairns MJ. Advancing the use of GWAS for drug repurposing. Nat Rev Genet (2021).\nWojcik GL et al. Genetic analyses of diverse populations improves discovery for complex traits. Nature (2019).\nKhera AV et al. Genome-wide polygenic scores for common diseases identify individuals with risk equivalent to monogenic mutations. Nat Genet (2018)."
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s1-1",
+    "href": "chapters/part1/w1_intro.html#w1-s1-1",
+    "title": "W1. Introduction & Roadmap",
+    "section": "1) What last semester actually gave you",
+    "text": "1) What last semester actually gave you\nYou can take a tissue, get counts, and produce a ranked gene list. That is a real skill, and most clinicians do not have it.\nIt is also a single measurement of a mixture, and it answers exactly one question: which genes differ on average between these two groups of tissue?\n\n\n\nEvery remaining week of this course attacks that same gene list from a different side.\n\n\n💡 Notice that none of the six questions on the right is answered by better statistics on the left. They need different data.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s1-2",
+    "href": "chapters/part1/w1_intro.html#w1-s1-2",
+    "title": "W1. Introduction & Roadmap",
+    "section": "2) The five stages have not changed",
+    "text": "2) The five stages have not changed\nWhatever the technology — genotypes, chromatin, single cells, peptides — the pipeline shape is the same one you already know:\n① Quality control     → is this data usable at all?\n② Alignment /          → where did each measurement come from,\n   quantification         and how much of it is there?\n③ Normalization       → make samples comparable to each other\n④ Statistical testing → which differences exceed noise?\n⑤ Interpretation      → what does that mean biologically?\n\n\n\n\n\n\nImportantThe stages are not equally dangerous\n\n\n\n\n\n\nStages ① ② fail loudly — the pipeline crashes, or the numbers are absurd\nStages ③ ④ fail quietly — you get a tidy table of 847 genes, sorted by adjusted p, and nothing about its appearance tells you it is wrong\n\n⚠️ The failure mode unique to computation: the analysis always returns an answer. A failed PCR gives you an empty gel. A failed analysis gives you a figure.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s1-3",
+    "href": "chapters/part1/w1_intro.html#w1-s1-3",
+    "title": "W1. Introduction & Roadmap",
+    "section": "3) ⚠️ Two kinds of depth",
+    "text": "3) ⚠️ Two kinds of depth\n“Advanced bioinformatics” could mean two very different things. This course commits to one of them.\n\n\n\nThe left column is a full-time job. The right column is the one you are uniquely qualified for.\n\n\n\n\n\n\n\n\nTipWhy the right column is yours and not the analyst’s\n\n\n\n\n\nYour analyst can tell you the pseudobulk model converged. They cannot tell you that the “depleted” cell type is the one that never survives dissociation from inflamed tissue — because they have never held the tissue.\n\n✅ You know what the specimen went through, what the patients were on, and what the diagnosis actually means\n✅ You know whether a 2% absolute risk difference changes management\n❌ Nobody can supply that for you, and no method compensates for its absence\n\n→ The gap this course closes is not a coding gap. It is a vocabulary gap — enough to ask the right question and recognise a wrong answer.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s2-1",
+    "href": "chapters/part1/w1_intro.html#w1-s2-1",
+    "title": "W1. Introduction & Roadmap",
+    "section": "1) One clinical question, eight layers",
+    "text": "1) One clinical question, eight layers\nThe semester is not a tour of techniques. It is one question, pursued downward until it becomes something you could actually test.\n\n\n\nEach layer answers something the layer above it could not.\n\n\n💡 Read the right-hand column downward. Notice that the answer gets narrower and more actionable at every step — from 40 loci to one gene in one cell type at one tissue location with one candidate drug.\n⚠️ Notice also the W9–W10 row: protein up, mRNA flat. Layers disagree more often than papers admit, and disagreement is usually the informative part.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s2-2",
+    "href": "chapters/part1/w1_intro.html#w1-s2-2",
+    "title": "W1. Introduction & Roadmap",
+    "section": "2) The syllabus",
+    "text": "2) The syllabus\n\n\n\n\n\n\n\n\n\n\nModule\nWeek\nContents\nKey tools\n\n\n\n\nIntro\nW1\nReview, roadmap, R environment\nR, Bioconductor\n\n\n\nW2\nR scripts, AI-assisted coding, reproducibility\nQuarto, git\n\n\nClinical Genomics\nW3\nGWAS & post-GWAS\nGWAS Catalog, Open Targets\n\n\n\nW4\nPRS & clinical application\nPGS Catalog, PRSice-2\n\n\nSingle-cell\nW5\nscRNA-seq technology, QC, clustering\nSeurat, scanpy\n\n\n\nW6\nTrajectory & cell–cell communication\nMonocle3, CellChat\n\n\nSpatial\nW7\nSpatial transcriptomics — the basics\nSeurat, Squidpy\n\n\n\nW8\nSpatial + scRNA integration, deconvolution\nCARD, SPOTlight\n\n\nProteomics\nW9\nMS- and NGS-based proteomics\ntheory\n\n\n\nW10\nClinical proteomics & biomarkers\nlimma, MSstats\n\n\nIntegration\nW11\nMulti-omics integration\nMOFA+, mixOmics\n\n\n\nW12\nNetwork analysis & drug targets\nSTRING, igraph\n\n\nCapstone\nW13\nInterpretation & visualisation\nggplot2, Quarto\n\n\n\nW14\nIndividual project design\n—",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s2-3",
+    "href": "chapters/part1/w1_intro.html#w1-s2-3",
+    "title": "W1. Introduction & Roadmap",
+    "section": "3) What you should be able to do in December",
+    "text": "3) What you should be able to do in December\n\n✅ Read a methods section and say what was actually done, including what was quietly not done\n✅ Look up whether public data already answers your question, before writing a grant to generate it\n✅ Sit in a study-design meeting and stop an unrecoverable mistake\n✅ Say why a published finding might not hold in Korean patients\n✅ Present a data-supported research proposal at the final session\n\n\n\n\n\n\n\nNoteWhat this course deliberately does not promise\n\n\n\n\n\n❌ That you will be able to run a spatial deconvolution pipeline unsupervised.\nThat is a reasonable thing to want, and it is not achievable in fourteen 2-hour sessions alongside clinical duties. Anyone promising it is selling something.\n→ What is achievable: never again being the person in the room who cannot evaluate the analysis their own name will appear on.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s3-1",
+    "href": "chapters/part1/w1_intro.html#w1-s3-1",
+    "title": "W1. Introduction & Roadmap",
+    "section": "1) ⚠️ The timing problem",
+    "text": "1) ⚠️ The timing problem\n\n\n\nAlmost every irreversible decision happens before anyone opens R.\n\n\n\n\n\n\n\n\nWarningWhat “we’ll figure out the analysis later” actually costs\n\n\n\n\n\nThree real patterns:\n\n① “We have n = 3 per group, is that enough?” — asked after collection. For a well-powered bulk comparison in a homogeneous system, sometimes. For single-cell across conditions, ⚠️ your n is the number of donors, not cells (W5), so the answer is usually no\n② “The tissue was flash-frozen.” — then scRNA-seq is off the table and it is snRNA-seq or nothing (W5). Not a disaster, but it changes what you can claim\n③ “Cases were collected at hospital A, controls at hospital B.” — see §3.3. There is no fix\n\n→ Each of these takes 30 seconds to prevent and 18 months to regret.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s3-2",
+    "href": "chapters/part1/w1_intro.html#w1-s3-2",
+    "title": "W1. Introduction & Roadmap",
+    "section": "2) Three questions that decide everything",
+    "text": "2) Three questions that decide everything\nAsk these before a single specimen is collected.\n① What is my unit of replication?\nThe thing you can independently repeat. Usually the patient — not the cell, not the well, not the technical replicate.\n\n⚠️ 30,000 cells from 3 patients is n = 3\n⚠️ Two aliquots of the same tumour is n = 1\n\n② What is the comparison, exactly?\nWrite the sentence before collecting: “I will compare ___ to ___, and I expect ___ to differ in direction ___.”\n\n❌ “I want to profile my patients” — not a comparison\n✅ “I will compare treatment-resistant to treatment-naive, matched on age and stage” — now the design follows\n\n③ What else differs between my groups?\nEverything that tracks with your grouping is a rival explanation: collection site, storage duration, sequencing run, extraction day, operator, time of day, medication.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s3-3",
+    "href": "chapters/part1/w1_intro.html#w1-s3-3",
+    "title": "W1. Introduction & Roadmap",
+    "section": "3) ⚠️ Confounding by batch",
+    "text": "3) ⚠️ Confounding by batch\n\n\n\nBoth layouts cost the same. Only one of them can be analysed.\n\n\n\n\n\n\n\n\nImportantWhy “we’ll just correct for batch” does not save you\n\n\n\n\n\nBatch correction estimates the batch effect from samples that share a batch but differ in group. If no batch contains both groups, there is nothing to estimate from.\nThe mathematics is not being difficult — the information genuinely is not in the data. ComBat, limma::removeBatchEffect, Harmony and every successor have the same limitation.\n✅ The fix is free, and it is scheduling: make sure every run, every extraction day, and every site contains both groups.\n💡 If a collaborator sends you data where this was violated, saying so early is a kindness. Saying so after they have written the discussion section is not.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s3-4",
+    "href": "chapters/part1/w1_intro.html#w1-s3-4",
+    "title": "W1. Introduction & Roadmap",
+    "section": "4) What your specimen can become",
+    "text": "4) What your specimen can become\n\n\n\n\n\n\n\n\n\n\n\nSpecimen\nscRNA-seq\nsnRNA-seq\nBulk RNA\nSpatial\nDNA / genotyping\n\n\n\n\nFresh (&lt; a few hours)\n✅\n✅\n✅\n✅\n✅\n\n\nFlash-frozen (OCT)\n❌\n✅\n✅\n✅\n✅\n\n\nFFPE block\n❌\n⚠️ limited\n⚠️ degraded\n✅ probe-based\n⚠️ fragmented\n\n\nWhole blood / buffy coat\n✅ (PBMC)\n—\n✅\n—\n✅\n\n\n\n💡 The archive question worth asking your department: how many FFPE blocks with linked outcome data are sitting in pathology? Probe-based spatial and proteomics both work on FFPE (W7, W9) — a retrospective cohort you already own often beats a prospective one you have to fund.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s4-1",
+    "href": "chapters/part1/w1_intro.html#w1-s4-1",
+    "title": "W1. Introduction & Roadmap",
+    "section": "1) Reproducibility is a clinical problem",
+    "text": "1) Reproducibility is a clinical problem\nThe gap between analysis and publication is typically 1–3 years. Reviewers ask for a reanalysis. A package updated. Your laptop was replaced.\nThree habits cover almost all of it:\n\nProject-based working — never setwd() again\nA consistent directory structure — you know where everything lives, and so does a collaborator\nLocked package versions — the same code gives the same numbers later",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s4-2",
+    "href": "chapters/part1/w1_intro.html#w1-s4-2",
+    "title": "W1. Introduction & Roadmap",
+    "section": "2) R Project (.Rproj)",
+    "text": "2) R Project (.Rproj)\nAn .Rproj file fixes the working directory to wherever it sits. Paths built with here::here() then work on any machine.\nRStudio → File → New Project → New Directory (or Existing Directory)\nA structure that scales:\nmy_project/\n├── my_project.Rproj          ← working directory anchors here\n├── rawdata/                  ← never modified, never overwritten\n│   └── clinical_data.xlsx\n├── scripts/                  ← numbered, in run order\n│   ├── 1_clean.R\n│   ├── 2_analysis.R\n│   └── 3_figures.R\n├── analysis/                 ← intermediate .rds objects\n├── results/\n│   ├── figures/\n│   └── tables/\n└── logs/\n💡 The numbering is the point. 2_analysis.R cannot be run before 1_clean.R, and six months later that ordering is the only documentation you will trust.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s4-3",
+    "href": "chapters/part1/w1_intro.html#w1-s4-3",
+    "title": "W1. Introduction & Roadmap",
+    "section": "3) renv — version locking",
+    "text": "3) renv — version locking\n\n# Once, when starting a project\nrenv::init()\n\n# Install packages as usual\ninstall.packages(\"tidyverse\")\nBiocManager::install(\"DESeq2\")\n\n# Lock the current versions into renv.lock\nrenv::snapshot()\n\n# On a new machine, or for a collaborator\nrenv::restore()\n\n\n\n\n\n\n\nNoteWhy this matters more than it sounds\n\n\n\n\n\nA Seurat major-version update can silently change default clustering behaviour. Without a lock file, “I reran it and got different clusters” has no explanation and no fix.\n⚠️ renv::snapshot() is only useful if you actually run it. Make it the last line of every analysis session.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s5-1",
+    "href": "chapters/part1/w1_intro.html#w1-s5-1",
+    "title": "W1. Introduction & Roadmap",
+    "section": "1) No code: does your question already have an answer?",
+    "text": "1) No code: does your question already have an answer?\nBefore generating anything, spend twenty minutes in the browser. Pick a gene or disease from your own specialty and work through:\n\n\n\nResource\nAsk it\n\n\n\n\nGWAS Catalog\nHas anyone found variants for this disease? How many, and in whom?\n\n\nOpen Targets\nIs my gene already linked to this disease? Is there a drug?\n\n\nGTEx\nWhich tissues express my gene at all?\n\n\nCELLxGENE\nWhich cell types express it? (often answers the whole question)\n\n\nGEO\nHas someone already run this experiment and deposited it?\n\n\n\n✅ Write down, in one sentence each, what you found — and whether your planned experiment still adds something.\n💡 This is not a warm-up exercise. It is the single highest-yield hour in translational research, and almost nobody spends it.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s5-2",
+    "href": "chapters/part1/w1_intro.html#w1-s5-2",
+    "title": "W1. Introduction & Roadmap",
+    "section": "2) Set up your project",
+    "text": "2) Set up your project\nFile → New Project → New Directory → New Project\nName: advanced_BI\n\ndirs &lt;- c(\"rawdata\", \"analysis\",\n          \"results/figures\", \"results/tables\",\n          \"scripts\", \"logs\")\nsapply(dirs, dir.create, recursive = TRUE, showWarnings = FALSE)\n\ninstall.packages(\"renv\")\nrenv::init()",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s5-3",
+    "href": "chapters/part1/w1_intro.html#w1-s5-3",
+    "title": "W1. Introduction & Roadmap",
+    "section": "3) Install the core packages",
+    "text": "3) Install the core packages\n\ninstall.packages(c(\"tidyverse\", \"BiocManager\", \"here\",\n                   \"patchwork\", \"data.table\"))\n\nBiocManager::install(c(\"DESeq2\", \"SingleR\", \"celldex\"))\n\nrenv::snapshot()\n\n\n\n\n\n\n\nNoteIf installation fails\n\n\n\n\n\n\nBioconductor installs are slow — several minutes is normal, not an error\n⚠️ Version mismatch is the usual culprit. BiocManager::valid() tells you what is out of step\nHeavier packages (Seurat, ArchR) are installed in the week we need them, not now",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w1_intro.html#w1-s5-4",
+    "href": "chapters/part1/w1_intro.html#w1-s5-4",
+    "title": "W1. Introduction & Roadmap",
+    "section": "4) Before next week",
+    "text": "4) Before next week\nW2 — R scripts, AI-assisted coding, and work that survives review. Bring a script you have actually written, however messy. We will make it reproducible together.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W1. Introduction & Roadmap"
+    ]
+  },
+  {
+    "objectID": "index.html#what-this-course-is-for",
+    "href": "index.html#what-this-course-is-for",
+    "title": "Advanced Bioinformatics (융합형 의사과학자 양성 사업)",
+    "section": "",
+    "text": "Last semester you learned to take a tissue, get counts, and produce a ranked gene list. That is a real skill.\nThis course is about the layer above it: being able to tell when an omics result is wrong.\n\n\n\n\n\n\nNoteTwo kinds of depth, and which one this course teaches\n\n\n\n\n\nExecution depth — tuning a doublet detector, building an LD reference panel, implementing spot deconvolution. That is a full-time job, and it belongs to your bioinformatician.\nJudgment depth — is n = 3 patients or 30,000 cells the real n? Was this polygenic score built on people like my patients? Does this UMAP support the sentence next to it? Would this change what I do on Monday?\n→ This course lives on the second. Code appears so that you can read it and doubt it, not so that you maintain it.\n❌ It does not promise that you will run a spatial deconvolution pipeline unsupervised after fourteen sessions.\n✅ It does promise that you will never again be the person in the room who cannot evaluate the analysis their own name will appear on.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#what-you-should-be-able-to-do-in-december",
+    "href": "index.html#what-you-should-be-able-to-do-in-december",
+    "title": "Advanced Bioinformatics (융합형 의사과학자 양성 사업)",
+    "section": "What you should be able to do in December",
+    "text": "What you should be able to do in December\n\n✅ Read a methods section and say what was actually done, including what was quietly not done\n✅ Check whether public data already answers your question, before writing a grant to generate it\n✅ Sit in a study-design meeting and stop an unrecoverable mistake\n✅ Say why a published finding might not hold in Korean patients\n✅ Present a data-supported research proposal at the final session",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#how-each-chapter-is-built",
+    "href": "index.html#how-each-chapter-is-built",
+    "title": "Advanced Bioinformatics (융합형 의사과학자 양성 사업)",
+    "section": "How each chapter is built",
+    "text": "How each chapter is built\nEvery week follows the same shape, so you know where to look:\n\n🎯 Learning objectives — what you should be able to do afterwards\n🤔 Motivating question — a clinical situation, answered by the end of the chapter\n⚠️ Warnings — the specific ways this method misleads people, marked throughout\n💻 Hands-on — usually starting with a browser exercise that needs no code\n📝 Summary · 🔑 Key terms · ➕ References\n\n💡 Sections marked ⚠️ are the ones worth reading twice. They are where results go wrong quietly.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#before-the-first-session",
+    "href": "index.html#before-the-first-session",
+    "title": "Advanced Bioinformatics (융합형 의사과학자 양성 사업)",
+    "section": "Before the first session",
+    "text": "Before the first session\n\ninstall.packages(c(\"tidyverse\", \"BiocManager\", \"here\", \"renv\"))\nBiocManager::install(c(\"DESeq2\", \"SingleR\", \"celldex\"))\n\nBring one disease you actually treat. We use it throughout.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html",
+    "href": "chapters/part1/w2_scripts_ai.html",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nWrite an analysis script that you (or a reviewer) can rerun in three years\nSplit an analysis into numbered files with one job each\nWrite a prompt that produces useful code instead of plausible code\n⚠️ Apply a verification gate to code you did not write — and know why “it ran” proves nothing\n⚠️ Recognise the three ways generated code fails silently\nProduce a Quarto report where every number in the text is computed, not typed\nUse the five git commands that actually matter for a clinical project",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s1-1",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s1-1",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "1) The reviewer arrives 14 months later",
+    "text": "1) The reviewer arrives 14 months later\nAnalysis code written under deadline has a predictable shape, and a predictable fate.\n\n\n\nThe right-hand file costs about ten extra minutes to write.\n\n\n⚠️ Note which detail actually kills the left-hand script. Not the messy names — the undocumented exclusion. df_final[-c(3,17,22), ] is a scientific decision with no recorded reason, and it is the first thing a careful reviewer will ask about.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s1-2",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s1-2",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "2) One file, one job",
+    "text": "2) One file, one job\nscripts/\n├── 1_clean.R       rawdata/  →  analysis/1_clean.rds\n├── 2_deseq2.R      analysis/1_clean.rds  →  analysis/2_dds.rds\n├── 3_enrich.R      analysis/2_dds.rds    →  results/tables/\n└── 4_figures.R     analysis/*            →  results/figures/\nEvery script starts with a header stating what goes in and what comes out:\n\n# ============================================================\n# 2_deseq2.R — differential expression\n# Project : IBD biopsy cohort\n# In      : analysis/1_clean.rds\n# Out     : analysis/2_dds.rds, results/tables/de_results.tsv\n# ============================================================\n\n💡 The numbering is documentation. 3_enrich.R cannot run before 2_deseq2.R, and in eighteen months that ordering is the only description of the pipeline you will trust.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s1-3",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s1-3",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "3) Named sections",
+    "text": "3) Named sections\nFour trailing dashes turn a comment into a navigable section (⌘/Ctrl + Shift + R inserts one):\n\n# Libraries ----\nlibrary(DESeq2)\n\n# Load ----\ndds &lt;- readRDS(here(\"analysis\", \"1_clean.rds\"))\n\n# Filter — 3 samples excluded, RIN &lt; 6 ----\ndds &lt;- dds[, dds$RIN &gt;= 6]\n\n# Test ----\ndds &lt;- DESeq(dds)\n\n✅ Sections appear in RStudio’s outline pane. ✅ And note the third one: the reason lives in the section title, where it cannot be separated from the code.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s1-4",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s1-4",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "4) Functions — when to bother",
+    "text": "4) Functions — when to bother\nThe rule is not “always write functions.” It is: the third time you copy-paste, stop.\n\n# The pattern that goes wrong — copy-paste per cell type\ncd8 &lt;- FindMarkers(seurat, ident.1 = \"CD8 T\", min.pct = 0.25)\ncd4 &lt;- FindMarkers(seurat, ident.1 = \"CD4 T\", min.pct = 0.25)\nnk  &lt;- FindMarkers(seurat, ident.1 = \"NK\",    min.pct = 0.5)   # ⚠️ typo, or intentional?\n\n# Write it once\nget_markers &lt;- function(obj, cell_type, min_pct = 0.25) {\n  FindMarkers(obj, ident.1 = cell_type, min.pct = min_pct) |&gt;\n    as_tibble(rownames = \"gene\") |&gt;\n    mutate(cell_type = cell_type)\n}\n\nall_markers &lt;- map_dfr(c(\"CD8 T\", \"CD4 T\", \"NK\"), \\(x) get_markers(seurat, x))\n\n⚠️ The point is not elegance. In the copy-pasted version, min.pct = 0.5 on the third line is invisible — and it silently changes what “NK markers” means.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s2-1",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s2-1",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "1) What actually changed",
+    "text": "1) What actually changed\nVibe coding — describing what you want in natural language and iterating on what comes back — became a mainstream working style in 2025. For clinicians it removes a real barrier: syntax was never the interesting part of your question.\n\n\n\n\n\n\n\nIt genuinely removed\nIt did not remove\n\n\n\n\nRemembering dplyr syntax\nKnowing whether the analysis is appropriate\n\n\nBoilerplate plotting code\nKnowing what the numbers should look like\n\n\nReading error messages\n⚠️ Noticing when there is no error message\n\n\nTranslating between R and Python\nResponsibility for what you publish",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s2-2",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s2-2",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "2) A prompt that works",
+    "text": "2) A prompt that works\nThree components: context, task, constraints.\nContext: A Seurat object `seurat` with cell types in `cell_type`\n         and disease status in `condition` (levels: \"IBD\", \"control\").\n         Sample identity is in `sample_id`, 12 donors total.\n\nTask:    Write a pseudobulk differential expression function that\n         takes a cell type name, aggregates counts per donor,\n         and returns a DESeq2 results tibble with gene symbols.\n\nConstraints: dplyr + DESeq2 + here. Return a tibble sorted by padj.\n             Comment any step where a design choice is being made.\n❌ Compare: \"write code for my analysis\" — you will get code that runs and answers a different question.\n💡 That last constraint line is worth adding every time. Forcing the model to mark its own design choices makes them visible to you.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s2-3",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s2-3",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "3) ⚠️ The gate",
+    "text": "3) ⚠️ The gate\n\n\n\nEverything in this course depends on step ③ actually happening.\n\n\n\n\n\n\n\n\nImportantWhy “it ran” is worthless as evidence\n\n\n\n\n\nTraditional coding errors are loud — the script stops. That trained a whole generation to treat “no error” as “correct.”\nGenerated code inverts this. It is fluent, idiomatic, and usually syntactically perfect. When it is wrong, it is wrong semantically: it does a coherent thing that is not the thing you asked for.\n\n❌ A crash is a gift. It tells you exactly where to look\n⚠️ A plausible data frame of the right dimensions is the dangerous outcome\n\n→ Your verification cannot be “did it run.” It has to be “is the output the shape and magnitude I expected?” — which requires you to have formed an expectation first.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s2-4",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s2-4",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "4) ⚠️ Three silent failures",
+    "text": "4) ⚠️ Three silent failures\n\n\n\nAll three of these run cleanly, return the right class of object, and are wrong.\n\n\n\n\n\n\n\n\nTipThe habit that catches most of them\n\n\n\n\n\nAfter every join, filter, or relabel, print the shape:\n\nnrow(df)                    # did I lose rows?\nsum(is.na(df$key_column))   # did the join fail quietly?\ntable(df$group)             # are both groups still here?\n\nThree lines. They will catch more real errors in your career than any statistical method you learn this semester.\n💡 Ask the model to insert these itself: “after each join, add a line printing the row count and NA count.” It will comply, and now the check is in the script permanently.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s2-5",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s2-5",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "5) Where it is reliable, and where it is not",
+    "text": "5) Where it is reliable, and where it is not\n\n✅ Reliable — plotting code, data reshaping, explaining an error message, translating between languages, writing the boilerplate around a well-known package\n⚠️ Check carefully — anything involving a statistical choice, a multiple-testing correction, a join key, or a package that changed API recently\n❌ Do not delegate — deciding what the comparison is, deciding what n means, deciding whether the result is biologically plausible",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s3-1",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s3-1",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "1) The copy-paste problem",
+    "text": "1) The copy-paste problem\n\n\n\nOne filter line versus five manual edits and a wrong abstract.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s3-2",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s3-2",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "2) Quarto, minimally",
+    "text": "2) Quarto, minimally\nA .qmd file is prose with executable code blocks. Render it and you get HTML, PDF, or Word.\n---\ntitle: \"IBD biopsy cohort — DE analysis\"\nformat: html\n---\n\n## Results\n\n```{r}\n#| echo: false\nlibrary(tidyverse)\nres &lt;- readRDS(here::here(\"analysis\", \"2_dds.rds\"))\nsig &lt;- res |&gt; filter(padj &lt; 0.05)\n```\n\nWe identified `r nrow(sig)` differentially expressed\ngenes (FDR &lt; 0.05), of which `r sum(sig$log2FoldChange &gt; 0)` were upregulated.\nquarto render report.qmd --to html\nquarto render report.qmd --to docx     # for the co-author who wants Word\n✅ The inline r nrow(sig) is the whole idea: the number in the sentence is computed, not typed. Change the data, re-render, and the sentence is still true.\n\n\n\n\n\n\nNoteUseful chunk options\n\n\n\n\n\nWritten as a comment at the top of a chunk, prefixed with a hash and a pipe:\n\n\n\n\n\n\n\nOption\nEffect\n\n\n\n\necho: false\nrun the code, hide it — for a clinical audience\n\n\neval: false\nshow the code, don’t run it — for teaching\n\n\nwarning: false\nsuppress package chatter\n\n\nfig-cap: \"...\"\nattach a caption, so the figure travels with its meaning\n\n\ncache: true\ndon’t re-run a slow chunk every render\n\n\n\n💡 This course website is a Quarto project. Every page you are reading is a .qmd.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s4-1",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s4-1",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "1) Why a clinician should care",
+    "text": "1) Why a clinician should care\nNot because you are a software developer. Because:\n\n✅ “When did this number change, and why?” — answerable in seconds instead of never\n✅ analysis_final_v3_REAL.R stops existing — there is one file, with a history\n✅ A reviewer or collaborator can run your code without you emailing a zip file\n✅ GitHub Pages hosts your report at a URL you can put in a paper",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s4-2",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s4-2",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "2) The five commands",
+    "text": "2) The five commands\n\n# once per machine\ngit config --global user.name  \"Eunji Ha\"\ngit config --global user.email \"you@knu.ac.kr\"\n\n# once per project\ngit init\n\n# after each working session — these three, forever\ngit add .\ngit commit -m \"Add DESeq2 analysis; exclude 3 low-RIN samples\"\ngit push\n\n⚠️ Never commit patient data. Put rawdata/ in .gitignore before the first commit:\nrawdata/\n*.rds\n.Rhistory\n.Rproj.user/\nrenv/library/\n\n\n\n\n\n\nWarningOnce it is in the history, it is in the history\n\n\n\n\n\nDeleting a file in a later commit does not remove it from the repository — the earlier version is still recoverable, and on a public repo, still public.\n✅ Add .gitignore first, then git init, then commit. In that order.\n⚠️ If identifiable data has already been pushed to a public repository, treat it as a disclosure event and involve your IRB. Rewriting history is not sufficient.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s4-3",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s4-3",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "3) Publishing",
+    "text": "3) Publishing\n\nquarto publish gh-pages\n\nRenders your .qmd files, pushes the HTML, and serves it at https://&lt;username&gt;.github.io/&lt;repo&gt;/.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s5-1",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s5-1",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "1) Rescue a script of your own",
+    "text": "1) Rescue a script of your own\nBring a real script — the messier the better. In 20 minutes:\n\n① Add the header block: project, in, out\n② Insert # Section ---- markers and open the outline pane\n③ Find one unexplained filter or exclusion. Write its reason into the section title\n④ Replace every absolute path with here::here()\n⑤ renv::snapshot()",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s5-2",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s5-2",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "2) ⚠️ Verify code you did not write",
+    "text": "2) ⚠️ Verify code you did not write\nWe will give you a 30-line script that runs cleanly and contains one planted error of the type in §2.4. Your task is to find it without being told which line.\nThe only reliable route:\n\n# Insert shape checks between every step, then read the numbers\ncat(\"rows before join:\", nrow(clin), \"\\n\")\nmerged &lt;- left_join(clin, expr, by = \"sample_id\")\ncat(\"rows after join :\", nrow(merged), \"\\n\")\ncat(\"unmatched       :\", sum(is.na(merged$gene_1)), \"\\n\")\n\n💡 Time yourself. Most people find it in under five minutes with the checks, and not at all without them.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s5-3",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s5-3",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "3) One Quarto report",
+    "text": "3) One Quarto report\nTake any result you already have and write a one-page .qmd in which no number is typed by hand. Render to HTML and to Word.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part1/w2_scripts_ai.html#w2-s5-4",
+    "href": "chapters/part1/w2_scripts_ai.html#w2-s5-4",
+    "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
+    "section": "4) Before next week",
+    "text": "4) Before next week\nW3 — GWAS & post-GWAS. No installation needed; we start in the browser.\nCome with one disease you actually treat. We will look it up together in the GWAS Catalog and Open Targets.",
+    "crumbs": [
+      "Home",
+      "1 · Intro",
+      "W2. Scripts, AI & Reproducibility"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w3_gwas.html",
+    "href": "chapters/part2/w3_gwas.html",
+    "title": "W3. GWAS & Post-GWAS",
+    "section": "",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nSay what a GWAS asks, and what it structurally cannot answer\nRecognise a trait’s genetic architecture and why it decides the study design\n⚠️ Read a QQ plot before the Manhattan plot, and say what λ is telling you\nExplain why the threshold is 5×10⁻⁸ and what “suggestive” is worth\n⚠️ Explain why the reported lead SNP is usually not the causal one\nFollow a hit through the four post-GWAS steps to a mechanism claim\nSay why a European GWAS result may not hold in your Korean patients\nLook up any disease you treat in the GWAS Catalog and Open Targets in ten minutes",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W3. GWAS & Post-GWAS"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w3_gwas.html#w3-s1-1",
+    "href": "chapters/part2/w3_gwas.html#w3-s1-1",
+    "title": "W3. GWAS & Post-GWAS",
+    "section": "1) Five things it is already doing to your practice",
+    "text": "1) Five things it is already doing to your practice\n\nDrug target validation — targets with human genetic support are roughly twice as likely to survive to approval\nDisease subtyping — the same ICD code, different genetic architecture, different biology\nRisk stratification — polygenic scores in preventive medicine (🔗 W4)\nShared aetiology — genetic correlation quantifies why two of your diagnoses keep co-occurring\nCausal inference — Mendelian randomization tests causality without running an RCT\n\n💡 Open any recent Nature Medicine issue. There is a good chance GWAS data sits underneath the clinical claim, three citations down.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W3. GWAS & Post-GWAS"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w3_gwas.html#w3-s1-2",
+    "href": "chapters/part2/w3_gwas.html#w3-s1-2",
+    "title": "W3. GWAS & Post-GWAS",
+    "section": "2) What a GWAS actually asks",
+    "text": "2) What a GWAS actually asks\n\n“Which genetic variants are more common in people with disease X than in matched people without it?”\n\n\nCompares allele frequencies at millions of variants simultaneously\nHypothesis-free — it does not know or care which gene you think matters\nIts output is a list of associated loci. ⚠️ Not genes. Not mechanisms\n\n\nSNP (single-nucleotide polymorphism)\n\nA base-pair position where two or more alleles occur commonly (MAF ≥ 1%). Humans carry ~10 million common SNPs; arrays measure 0.5–5 M directly and impute the rest from a reference panel.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W3. GWAS & Post-GWAS"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w3_gwas.html#w3-s1-3",
+    "href": "chapters/part2/w3_gwas.html#w3-s1-3",
+    "title": "W3. GWAS & Post-GWAS",
+    "section": "3) Genetic architecture decides the design",
+    "text": "3) Genetic architecture decides the design\n\n\n\n\n\n\n\n\n\nArchitecture\nVariants involved\nExample\nWhat you need\n\n\n\n\nMonogenic\none\nphenylketonuria, CF (CFTR)\nfamily study, WES/WGS\n\n\nOligogenic\na few\nsome lipid traits\ntargeted sequencing\n\n\nPolygenic\nmany, each small\nheight, T2D\na large GWAS\n\n\nOmnigenic\nnearly all expressed genes\nmost complex traits\na huge GWAS + networks\n\n\n\n\n\n\n\n\n\nImportantSample size is destiny, and it is not a criticism\n\n\n\n\n\nSchizophrenia GWAS found essentially nothing at n in the hundreds, and 108 loci at n in the tens of thousands. The biology did not change.\n\n⚠️ Most “failed” early GWAS were not wrong. They were underpowered for a polygenic architecture\n💡 This is why a 200-patient single-centre GWAS is not a viable project, and why consortium membership is the actual currency in this field\n\n→ Effect size and druggability are also unrelated. The common HMGCR variant explains ~0.26% of LDL variance. Statins are among the most consequential drugs ever made.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W3. GWAS & Post-GWAS"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w3_gwas.html#w3-s2-1",
+    "href": "chapters/part2/w3_gwas.html#w3-s2-1",
+    "title": "W3. GWAS & Post-GWAS",
+    "section": "1) Look at the QQ plot first",
+    "text": "1) Look at the QQ plot first\nEvery GWAS paper shows a Manhattan plot. The QQ plot is where the honesty lives, and it is often in the supplement.\n\n\n\nRead left to right: is the whole distribution shifted, or only the tail?\n\n\nGenomic inflation factor λ compares the median observed test statistic to the median expected under the null.\n\n✅ λ ≈ 1.0 with a tail lift-off — well calibrated; the lift-off is real signal\n❌ λ &gt; 1.05 with the whole line raised — uncorrected population stratification or relatedness. The hits are suspect\n⚠️ λ &lt; 0.95 — over-conservative QC; you threw away power\n\n\n\n\n\n\n\nNoteThe exception worth knowing\n\n\n\n\n\nAt very large n, mild inflation can be genuine polygenicity — if thousands of variants truly have tiny effects, the null is not the right comparison.\n✅ LD-score regression separates the two by asking whether the inflation scales with LD score (polygenicity) or is uniform (confounding). A modern paper reports the LDSC intercept alongside λ. Its absence is a fair question at review.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W3. GWAS & Post-GWAS"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w3_gwas.html#w3-s2-2",
+    "href": "chapters/part2/w3_gwas.html#w3-s2-2",
+    "title": "W3. GWAS & Post-GWAS",
+    "section": "2) Then the Manhattan plot",
+    "text": "2) Then the Manhattan plot\n\n\n\nEach point is a variant; height is −log₁₀(p), not effect size.\n\n\nWhy 5×10⁻⁸: after LD pruning there are roughly one million independent common-variant tests. Bonferroni gives 0.05 / 10⁶ = 5×10⁻⁸.\n\n⚠️ That threshold is calibrated for common SNPs. Rare-variant and structural-variant tests need their own\n⚠️ “Suggestive” (p &lt; 1×10⁻⁵) is a convention, not a finding. Treat a suggestive-only result as a hypothesis\n\n\n\n\n\n\n\nWarningPopulation stratification — the confounder that produces beautiful false positives\n\n\n\n\n\nIf cases and controls differ systematically in ancestry, then any ancestry-associated variant looks like a disease hit. With a Korean case group and a mixed control group, you will find “hits” for chopstick use.\n✅ The fix: principal components on the genotypes, included as covariates.\n\nglm(disease ~ SNP +\n      PC1 + PC2 + PC3 + PC4 + PC5 +   # ancestry\n      age + sex + batch,              # nuisance\n    family = binomial)\n\n⚠️ And the trade-off nobody states: restricting to one ancestry gives cleaner statistics and worse generalisability (§7).",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W3. GWAS & Post-GWAS"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w3_gwas.html#w3-s2-3",
+    "href": "chapters/part2/w3_gwas.html#w3-s2-3",
+    "title": "W3. GWAS & Post-GWAS",
+    "section": "3) The QC that happened before the plot",
+    "text": "3) The QC that happened before the plot\n\n\n\n\n\n\n\n\nQC step\nTypical threshold\nWhat it removes\n\n\n\n\nSample call rate\n&gt; 95–98%\nfailed DNA / samples\n\n\nSNP call rate\n&gt; 99%\nunreliable genotyping\n\n\nHardy–Weinberg (controls)\np &gt; 1×10⁻⁶\ngenotyping error\n\n\nMinor allele frequency\n&gt; 1%\nvariants you are underpowered for\n\n\nHeterozygosity\n±3 SD\ncontamination, inbreeding\n\n\nRelatedness (kinship)\nπ̂ &lt; 0.125\ninflated statistics\n\n\nImputation INFO / R²\n&gt; 0.8\nunreliable imputed dosages\n\n\nStratification\nPCA\nthe biggest confounder\n\n\n\n💡 You will not run these. You should know they exist, so that “which QC thresholds were used?” is a question you can ask.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W3. GWAS & Post-GWAS"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w3_gwas.html#w3-s3-1",
+    "href": "chapters/part2/w3_gwas.html#w3-s3-1",
+    "title": "W3. GWAS & Post-GWAS",
+    "section": "1) What linkage disequilibrium does to you",
+    "text": "1) What linkage disequilibrium does to you\nLD both enables GWAS — one measured variant tags dozens of unmeasured ones — and ruins its interpretation, because the tag and the cause are statistically identical.\n\n\n\nSame locus, same biology, two populations.\n\n\n\n\n\n\n\n\nImportantWhat this means when you read a paper\n\n\n\n\n\n“We identified rs1234567 as associated with disease X” almost always means:\n→ “Somewhere in a haplotype block containing rs1234567 and ~40 other variants, something is doing something.”\n\n❌ The lead SNP is the one with the smallest p-value in this sample. Re-run in another cohort and a neighbour often wins\n⚠️ A paper that discusses the biology of the lead SNP specifically, without fine-mapping, is over-reading its own data\n✅ Correct phrasing is “the locus”, and modern papers use it",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W3. GWAS & Post-GWAS"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w3_gwas.html#w3-s3-2",
+    "href": "chapters/part2/w3_gwas.html#w3-s3-2",
+    "title": "W3. GWAS & Post-GWAS",
+    "section": "2) The four steps from postcode to mechanism",
+    "text": "2) The four steps from postcode to mechanism\n\n\n\nEach step narrows the claim. Skipping one leaves a gap that reviewers find.\n\n\n① Fine-mapping. Bayesian methods (SuSiE, FINEMAP) give each variant a posterior inclusion probability and return a credible set — the smallest set containing the causal variant with, say, 95% probability.\n\n💡 A credible set of 3 is a result. A credible set of 40 is an admission\n⚠️ Requires an ancestry-matched LD reference. A European panel applied to a Korean cohort corrupts the output silently\n⚠️ If PIPs are spread thinly across many variants, the honest conclusion is “this locus cannot be resolved in this sample”\n\n② Functional annotation. Where does the variant sit?\n\n\n\n\n\n\n\nLocation\nLikely mechanism\n\n\n\n\nCoding (missense, nonsense)\ndirect protein change\n\n\nSplice site\naltered mRNA or isoform\n\n\nPromoter / 5′UTR\ntranscription regulation\n\n\nEnhancer\nregulation of a possibly distant gene\n\n\nIntergenic / intronic\n⚠️ unknown — needs eQTL and chromatin data\n\n\n\n⚠️ About 90% of GWAS hits are non-coding. This single fact is why the rest of this course exists.\n③ Variant → gene. An eQTL is a variant that affects a gene’s expression. Colocalisation asks whether the GWAS and eQTL signals share the same causal variant.\n\nlibrary(coloc)\n\nres &lt;- coloc.abf(\n  dataset1 = list(pvalues = gwas_p, N = 150000, type = \"cc\", s = 0.3),\n  dataset2 = list(pvalues = eqtl_p, N = 500,    type = \"quant\")\n)\nres$summary[\"PP.H4.abf\"]   # &gt; 0.8 → they share a causal variant\n\n\n❌ The nearest gene is wrong roughly half the time. Enhancers routinely skip over their neighbours\n⚠️ Watch the direction: a risk allele can down-regulate a gene that appears up in patients. That incoherence often reflects an impaired protective response — and it decides agonist versus antagonist\n\n④ Gene → cell type. Colocalisation names a gene, not a place. Frameworks such as sc-linker combine single-cell data with GWAS through stratified LD-score regression and recover microglia in Alzheimer’s, T cells in eczema. We come back to this in 🔗 W5.\n⑤ Causality. Mendelian randomization uses variants as instruments: randomised at conception, so they mimic a lifelong RCT immune to lifestyle confounding.\nGenetic variants  →  LDL level  →  CAD\n   (instrument)      (exposure)   (outcome)\n⚠️ The three IV assumptions — relevance, no confounding of the instrument, and exclusion restriction — and the third is broken by pleiotropy. MR-Egger and weighted median exist to probe exactly that. A single-method MR result is incomplete.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W3. GWAS & Post-GWAS"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w3_gwas.html#w3-s7-1",
+    "href": "chapters/part2/w3_gwas.html#w3-s7-1",
+    "title": "W3. GWAS & Post-GWAS",
+    "section": "1) GWAS Catalog — what is known?",
+    "text": "1) GWAS Catalog — what is known?\nebi.ac.uk/gwas → search your disease.\n\n① How many associations are reported? How many studies?\n② Click the largest study. What was the sample size, and the ancestry?\n③ Look at the reported variants. How many are labelled with a gene, and how many are intergenic?\n④ ⚠️ Is there any East Asian study for your disease? What was its n compared with the European one?",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W3. GWAS & Post-GWAS"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w3_gwas.html#w3-s7-2",
+    "href": "chapters/part2/w3_gwas.html#w3-s7-2",
+    "title": "W3. GWAS & Post-GWAS",
+    "section": "2) Open Targets — is there a drug?",
+    "text": "2) Open Targets — is there a drug?\nplatform.opentargets.org → your disease → the target list.\n\n⑤ What is the top-scoring target, and which evidence types support it? (genetic, expression, literature, animal models)\n⑥ Is there an approved or trial drug against it? For which indication?\n⑦ 💡 Find a target with strong genetic evidence and no drug. That is a research question with a built-in justification paragraph.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W3. GWAS & Post-GWAS"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w3_gwas.html#w3-s7-3",
+    "href": "chapters/part2/w3_gwas.html#w3-s7-3",
+    "title": "W3. GWAS & Post-GWAS",
+    "section": "3) Interrogating any locus — the checklist",
+    "text": "3) Interrogating any locus — the checklist\nKeep this for journal club:\n\n① Replicated in an independent cohort?\n② How big is the credible set — or was fine-mapping skipped?\n③ Coding, regulatory, or unknown? Is there an eQTL?\n④ Which gene, and which cell type? Remember: nearest ≠ causal\n⑤ Effect size and direction — direction determines the drug strategy\n⑥ Which ancestry, and does it match the patients you would apply it to?",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W3. GWAS & Post-GWAS"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w3_gwas.html#w3-s7-4",
+    "href": "chapters/part2/w3_gwas.html#w3-s7-4",
+    "title": "W3. GWAS & Post-GWAS",
+    "section": "4) If you want to touch summary statistics",
+    "text": "4) If you want to touch summary statistics\nOptional. Public summary statistics have one row per variant and no individual genotypes, so they are freely shareable.\n\nlibrary(tidyverse); library(qqman); library(here)\n\ngwas &lt;- read_tsv(here(\"rawdata\", \"t2d_gwas_summary.tsv\"))\n\nclean &lt;- gwas |&gt;\n  filter(!is.na(P), P &gt; 0, P &lt;= 1, FREQ &gt; 0.01, FREQ &lt; 0.99, INFO &gt; 0.8)\n\n# λ first, always\nchisq  &lt;- qchisq(clean$P, df = 1, lower.tail = FALSE)\nlambda &lt;- median(chisq) / qchisq(0.5, df = 1)\ncat(\"lambda =\", round(lambda, 3), \"\\n\")\n\nqq(clean$P, main = paste0(\"QQ — T2D (λ = \", round(lambda, 3), \")\"), col = \"#185FA5\")\n\nmanhattan(clean, chr = \"CHR\", bp = \"BP\", p = \"P\", snp = \"SNP\",\n          col = c(\"#185FA5\", \"#9db8d1\"),\n          suggestiveline = -log10(1e-5), genomewideline = -log10(5e-8))\n\n✅ Change one thing: re-run after dropping the INFO &gt; 0.8 filter and watch λ move. That is imputation quality showing up as apparent signal.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W3. GWAS & Post-GWAS"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w3_gwas.html#w3-s7-5",
+    "href": "chapters/part2/w3_gwas.html#w3-s7-5",
+    "title": "W3. GWAS & Post-GWAS",
+    "section": "5) Before next week",
+    "text": "5) Before next week\nW4 — Polygenic Risk Scores. Browse pgscatalog.org for one disease and note the development-cohort ancestry. We start there.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W3. GWAS & Post-GWAS"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html",
+    "href": "chapters/part2/w4_prs.html",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nSay what a PRS is, and what it changes for the patient in front of you\nRecognise the four method names in a methods section without needing to implement them\n⚠️ Separate the base GWAS from the target cohort — and say why that distinction decides everything\nRead a PRS performance claim: incremental R², ΔAUC, calibration, and the decile trick\n⚠️ Say why a European-derived PRS should not be applied to a Korean patient unchanged\nJudge clinical readiness with ACCE rather than with AUC\nCommunicate a genetic risk result in a framing a patient can act on",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s1-1",
+    "href": "chapters/part2/w4_prs.html#w4-s1-1",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "1) One variant is useless. A million are not",
+    "text": "1) One variant is useless. A million are not\nFrom 🔗 W3: GWAS reports variants at p &lt; 5×10⁻⁸, each with an odds ratio of roughly 1.02–1.15. No single one is worth acting on.\nA PRS sums them — each GWAS effect size \\(\\hat\\beta_j\\) multiplied by that person’s allele dosage \\(G_{ij}\\):\n\\[\\text{PRS}_i = \\sum_{j=1}^{M} \\hat\\beta_j \\, G_{ij}\\]\n💡 Crucially, a PRS deliberately includes variants below genome-wide significance. Individually they are noise; in aggregate they carry real signal. This is the clinical pay-off of the omnigenic model (🔗 W3 §1.3).",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s1-2",
+    "href": "chapters/part2/w4_prs.html#w4-s1-2",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "2) What it actually changes",
+    "text": "2) What it actually changes\nA PRS does not tell you whether someone has a disease. It shifts a pre-test probability — the same thing a family history does, arrived at differently.\n\n\n\n\n\n\n\nIt is\nIt is not\n\n\n\n\nA risk indicator, like LDL or a Framingham score\nA diagnosis\n\n\nFixed from birth, measured once\nA monitoring biomarker\n\n\nModifiable in consequence — statins work regardless of PRS\nDeterministic\n\n\nOne input alongside age, sex, BMI, family history, labs\nA replacement for any of them\n\n\n\n\n\n\n\n\n\nTipThe only question that matters at the bedside\n\n\n\n\n\nDoes it change management?\nIf a high PRS moves the patient across a guideline threshold you were going to act on anyway — earlier statin, earlier mammography, earlier colonoscopy — it is useful.\nIf it does not cross a threshold, you have given the patient anxiety and yourself nothing.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s2-1",
+    "href": "chapters/part2/w4_prs.html#w4-s2-1",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "1) ⚠️ Two datasets that must never have met",
+    "text": "1) ⚠️ Two datasets that must never have met\n\n\n\nAlmost every inflated PRS result traces back to one of the two questions at the bottom.\n\n\n\n\n\n\n\n\nImportantThe single most common way a PRS paper is wrong\n\n\n\n\n\nIf any of the target individuals also contributed to the base GWAS, the score has partly memorised their disease status. Performance is inflated, sometimes dramatically.\n\n⚠️ Sample overlap between base and target → overfitting\n⚠️ Tuning the p-value threshold on the same set you report performance on → overfitting\n\n✅ A trustworthy paper states base and target explicitly, confirms independence, and evaluates in a held-out cohort.\n💡 When you read “we optimised the threshold and achieved AUC 0.71”, check on what data that optimisation happened. It is often one sentence in the supplement.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s2-2",
+    "href": "chapters/part2/w4_prs.html#w4-s2-2",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "2) The four names you will see",
+    "text": "2) The four names you will see\nYou need to recognise these, not run them.\n\n\n\n\n\n\n\n\nMethod\nIdea in one line\nWhen you see it\n\n\n\n\nC+T (clumping + thresholding)\nKeep one variant per LD block, drop those above a p cutoff\nOlder papers; still a sane baseline\n\n\nPRSice-2\nC+T with the threshold auto-tuned, plus standard plots\nVery common in clinical papers\n\n\nLDpred2\nBayesian — models LD and reweights all variants, no hard cutoff\nCurrent default for accuracy\n\n\nPRS-CSx\nContinuous shrinkage across multiple ancestries at once\nThe one that matters for non-European cohorts\n\n\n\n\n\n\n\n\n\nNoteDoes the method choice change your reading?\n\n\n\n\n\nMostly no. Differences between modern methods are modest compared with the differences that follow from ancestry and cohort.\nTwo exceptions worth flagging:\n\n⚠️ A threshold-based method (C+T, PRSice-2) has a tunable knob. Ask where it was tuned\n✅ A multi-ancestry method is the honest choice when the target is not European — its absence in a Korean-cohort paper is a fair criticism",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s3-1",
+    "href": "chapters/part2/w4_prs.html#w4-s3-1",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "1) Incremental value, not the PRS alone",
+    "text": "1) Incremental value, not the PRS alone\nA PRS alone reaching AUC 0.64 sounds respectable. Age and sex alone reach about that for many diseases.\n\n\n\nSame model, two questions. Most papers answer only the left one.\n\n\nThe only meaningful comparison:\nModel A (clinical) : age + sex + BMI + family history + labs\nModel B (clinical + PRS)\n\n           ΔAUC  =  AUC(B) − AUC(A)\n  incremental R²  =  R²(B)  − R²(A)      (Nagelkerke, for binary outcomes)\n\n❌ “PRS AUC = 0.64” — uninterpretable on its own\n✅ “Adding PRS raised AUC from 0.72 to 0.74 (p = 0.003)” — now you can judge it\n\n💡 ΔAUC of 0.01–0.03 is typical for a good PRS. In a biobank of 400,000 that is comfortably significant, and for one patient it is often negligible. Both statements are true at once.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s3-2",
+    "href": "chapters/part2/w4_prs.html#w4-s3-2",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "2) Calibration — the metric nobody shows",
+    "text": "2) Calibration — the metric nobody shows\nDiscrimination asks: does the model rank people correctly?\nCalibration asks: are the predicted probabilities right?\nOf the people told “10% risk over 10 years”, do about 10% develop the disease?\n\n\n\n\n\n\nWarningGood discrimination with terrible calibration is easy\n\n\n\n\n\nLook at the right-hand panel above. Both lines rank patients identically. One of them tells patients a number that is twice the truth.\n\n⚠️ A PRS calibrated in the UK Biobank is not calibrated in a Korean hospital population — different baseline incidence, age structure, and competing risks\n✅ Recalibration (updating the intercept or baseline hazard) is a routine fix — but it must be done, in a population-representative cohort\n⚠️ Biobank volunteers are healthier than the general population, so absolute risks derived from them run systematically low\n\n→ If a paper reports AUC and no calibration plot, the absolute risks it quotes are not trustworthy.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s3-3",
+    "href": "chapters/part2/w4_prs.html#w4-s3-3",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "3) The framing decides what the patient hears",
+    "text": "3) The framing decides what the patient hears\n\n\n\n\n\n\n\n\nFraming\nExample\n⚠️ Caveat\n\n\n\n\nPercentile\n“top 5% of PRS”\nSays nothing about how much risk that is\n\n\nRelative risk / OR\n“2.3× the population average”\n2.3 × a 0.4% baseline is still 0.9%\n\n\nAbsolute risk\n“18% over 10 years”\nNeeds incidence data for your population\n\n\n\n✅ Absolute risk tied to a guideline action is the only framing that is both honest and usable. Everything else needs translating before it reaches the patient.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s3-4",
+    "href": "chapters/part2/w4_prs.html#w4-s3-4",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "4) ⚠️ Which deciles are being compared?",
+    "text": "4) ⚠️ Which deciles are being compared?\n\n\n\nNothing here is fabricated. All three numbers describe the same ten bars.\n\n\n⚠️ A headline “5-fold increased risk” is almost always top-versus-bottom decile. Against the middle, the same score gives 2.8×. Against everyone else — which is how it would actually be used — 2.4×.\n💡 Also check whether risk rises smoothly across deciles or only in the extreme tail. A score that separates only the top 1% is a screening tool for very few people.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s3-5",
+    "href": "chapters/part2/w4_prs.html#w4-s3-5",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "5) Whose genomes built it?",
+    "text": "5) Whose genomes built it?\nLook for the ancestry of the base GWAS before anything else. §5 is entirely about why.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s4-1",
+    "href": "chapters/part2/w4_prs.html#w4-s4-1",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "1) ACCE, not AUC",
+    "text": "1) ACCE, not AUC\nThe standard framework for judging a genomic test:\n\nAnalytical validity — does the pipeline compute the score accurately and reproducibly?\nClinical validity — does the score associate with disease in the target population?\nClinical utility — does using it improve outcomes?\nELSI — ethical, legal and social implications: equity, consent, insurance, communication\n\n💡 Most published PRSs clear the first two. The bottleneck is utility and ELSI — which is why PRS is not yet routine care despite twenty years of GWAS.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s4-2",
+    "href": "chapters/part2/w4_prs.html#w4-s4-2",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "2) What the trials actually show",
+    "text": "2) What the trials actually show\n\n\n\n\n\n\n\n\nTrial\nSetting\nWhat it found / is testing\n\n\n\n\nMI-GENES\nCHD\nPRS-integrated risk disclosure → lower LDL at 6 months, via earlier and longer statin use\n\n\nGenoVA\n6 diseases (CHD, T2D, AF, breast/colorectal/prostate cancer)\nEffect of PRS results on time to diagnosis\n\n\nWISDOM / PERSPECTIVE\nBreast cancer\nPRS-guided mammography intensity\n\n\neMERGE, Our Future Health\n10 conditions / 5 M participants\nImplementation at scale, not efficacy\n\n\n\n\n\n\n\n\n\nNoteRead MI-GENES carefully\n\n\n\n\n\nThe mechanism of benefit was behavioural — patients told they were high-risk took statins earlier and stayed on them.\nThat is a real clinical effect. But note what it implies: much of the demonstrated value of PRS so far comes from motivating adherence to treatments we already had, not from identifying a biologically distinct group.\n→ Worth remembering when a paper claims PRS “reveals a new high-risk phenotype”.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s4-3",
+    "href": "chapters/part2/w4_prs.html#w4-s4-3",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "3) Where PRS is already inside a clinical equation",
+    "text": "3) Where PRS is already inside a clinical equation\n\n✅ Breast cancer — BOADICEA / CanRisk: the one widely used equation combining PRS with family history, rare variants (BRCA1/2), and clinical factors. Lifetime risk of ER-positive disease ranges roughly 2% to 31% between bottom and top centile\n✅ CHD — Pooled Cohort Equations: PRS is close to orthogonal to the clinical factors, so it can be added log-additively\n⚠️ Everything else: no validated absolute-risk equation. Absolute risk has to be reconstructed from population incidence, which is exactly where calibration problems enter",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s4-4",
+    "href": "chapters/part2/w4_prs.html#w4-s4-4",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "4) The human barriers",
+    "text": "4) The human barriers\n\n\n\n\n\n\nWarningThree failure modes that have nothing to do with the mathematics\n\n\n\n\n\n\n⚠️ Patients hear genetics as destiny. Risk is probabilistic and modifiable — MI-GENES succeeded partly by framing it that way explicitly\n⚠️ Run twenty PRSs and almost everyone is top-decile for something. Alarm fatigue, and a strong argument against untargeted panels\n⚠️ Most physicians have no genomics training. Deployment needs decision support in the EHR and a trained champion in the department, not a PDF report",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s5-1",
+    "href": "chapters/part2/w4_prs.html#w4-s5-1",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "1) PRS does not transfer across ancestries",
+    "text": "1) PRS does not transfer across ancestries\n\n\n\nNothing about the score changed. Only the patients did.\n\n\nThe reasons are structural, not fixable by collecting more of the same people:\n\nAllele frequencies differ — a variant common in Europeans may be rare or absent\nLD patterns differ — the tag SNP no longer tags the causal variant (🔗 W3 §3.1)\nEffect sizes differ — gene–environment and genetic-background interactions\n\n\n\n\n\n\n\nImportantThis is a clinical safety issue, not only an equity issue\n\n\n\n\n\nDeploying a miscalibrated PRS does not fail neutrally. It systematically under-flags the population it was not trained on.\n→ Applying a European CAD PRS to Korean patients means the high-risk group you identify is enriched for people who resemble the training population — and the patients you miss are not a random sample.\n⚠️ Widening a disparity with a tool marketed as precision medicine is worse than not using the tool.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s5-2",
+    "href": "chapters/part2/w4_prs.html#w4-s5-2",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "2) What to do instead",
+    "text": "2) What to do instead\n\n✅ Prefer an ancestry-matched base GWAS — Korean or East Asian\n✅ Use PRS-CSx or multi-ancestry meta-analysis when a matched base is too small\n✅ Recalibrate in your own population and report ancestry-specific performance\n✅ Korean resources: KoGES, Korea Biobank Array (KCHIP), National Biobank of Korea; regionally Biobank Japan, China Kadoorie\n\n💡 Diversity is not only fairness — different LD structures break haplotype blocks and produce smaller credible sets in fine-mapping (🔗 W3 §6).",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s7-1",
+    "href": "chapters/part2/w4_prs.html#w4-s7-1",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "1) No code: read a real score in the PGS Catalog",
+    "text": "1) No code: read a real score in the PGS Catalog\nThe PGS Catalog (pgscatalog.org) is the public registry of published scores — weights, metadata, and evaluated performance.\nPick a disease relevant to your specialty, then answer:\n\n① How many variants does the score use? (Published scores range from 6 to over a million)\n② What was the ancestry of the development cohort?\n③ Has it been evaluated in an East Asian sample? What happened to the effect size?\n④ Is calibration reported anywhere, or only discrimination?\n⑤ Are there several scores for the same disease? Do they agree on which individuals are high-risk?\n\n💡 ⑤ is the underrated one. Two scores with near-identical population AUC routinely disagree about which specific person sits in the top decile. Some groups therefore require top-tier status across ≥2 scores before flagging anyone.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s7-2",
+    "href": "chapters/part2/w4_prs.html#w4-s7-2",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "2) Minimal code: turn a score into a clinical figure",
+    "text": "2) Minimal code: turn a score into a clinical figure\nWe provide a pre-computed score table (prs_scores.tsv) so the session is about interpretation, not compute. One row per person: IID, PRS, disease, age, sex.\n\nlibrary(tidyverse)\nlibrary(here)\n\nprs &lt;- read_tsv(here(\"rawdata\", \"prs_scores.tsv\"))\n\n# Standardise so the score reads as SD units — always do this before reporting\nprs &lt;- prs |&gt; mutate(PRS_z = as.numeric(scale(PRS)))\n\nIncremental value over a clinical model:\n\nlibrary(pROC)\n\nm_clin &lt;- glm(disease ~ age + sex,         data = prs, family = binomial)\nm_prs  &lt;- glm(disease ~ age + sex + PRS_z, data = prs, family = binomial)\n\nroc_clin &lt;- roc(prs$disease, predict(m_clin, type = \"response\"))\nroc_prs  &lt;- roc(prs$disease, predict(m_prs,  type = \"response\"))\n\nroc.test(roc_clin, roc_prs)   # ← the number that belongs in the abstract\n\nRisk by decile — against an honest reference:\n\nby_decile &lt;- prs |&gt;\n  mutate(decile = ntile(PRS_z, 10)) |&gt;\n  group_by(decile) |&gt;\n  summarise(n = n(), cases = sum(disease), .groups = \"drop\") |&gt;\n  mutate(risk = cases / n,\n         OR_vs_middle = (risk / (1 - risk)) /\n                        (risk[decile == 5] / (1 - risk[decile == 5])))\n\nggplot(by_decile, aes(decile, OR_vs_middle)) +\n  geom_col(fill = \"#185FA5\") +\n  geom_hline(yintercept = 1, linetype = \"dashed\") +\n  scale_x_continuous(breaks = 1:10) +\n  labs(x = \"PRS decile\", y = \"OR vs middle decile\",\n       title = \"Risk by PRS decile — referenced to the middle, not the bottom\") +\n  theme_minimal()\n\n✅ Now change one thing: re-run with decile == 1 as the reference and compare the top bar. That difference is the one you will meet in abstracts.\n\n\n\n\n\n\nTipIf you want to build one yourself\n\n\n\n\n\nNot required for this course, but the entry points are:\n\nbigsnpr (R) — implements C+T and LDpred2; privefl.github.io/bigsnpr\nPRSice-2 — command-line, auto-tunes the threshold; prsice.info\nPRS-CSx — Python, multi-ancestry; github.com/getian107/PRScsx\n\n⚠️ Each needs an LD reference panel matched to your target ancestry. That requirement, not the modelling, is what usually stops a clinical project.",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part2/w4_prs.html#w4-s7-3",
+    "href": "chapters/part2/w4_prs.html#w4-s7-3",
+    "title": "W4. Polygenic Risk Scores",
+    "section": "3) Before next week",
+    "text": "3) Before next week\nW5 — single-cell RNA-seq: technology, QC, clustering. Install in advance:\n\ninstall.packages(\"Seurat\")\nBiocManager::install(c(\"SingleR\", \"celldex\"))\nrenv::snapshot()",
+    "crumbs": [
+      "Home",
+      "2 · Clinical Genomics",
+      "W4. Polygenic Risk Scores"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html",
+    "href": "chapters/part3/w5_scrna_qc.html",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nSay what single cell answers that bulk structurally cannot — and when bulk is still the better buy\nChoose between droplet and plate-based protocols, and ⚠️ between cells and nuclei\n⚠️ Explain why dissociation changes the composition you measure\nExplain what a UMI is, and why the count matrix is mostly zeros\n⚠️ Read a knee plot and a QC scatter, and name the population each threshold deletes\n⚠️ Read a UMAP responsibly — and say what its distances do and do not mean\n⚠️ Explain why per-cell differential expression across conditions is invalid, and what pseudobulk does instead",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s1-1",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s1-1",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "1) One number, three biologies",
+    "text": "1) One number, three biologies\n\n\n\nThe mean is compatible with all three. Only one of them is a regulatory story.\n\n\n\n① A general modest response — the case everyone implicitly assumes, and the least interesting\n② A rare responsive subpopulation — usually the interesting one. In bulk it is diluted by the cells doing nothing, and often falls below significance entirely\n③ A change in composition — no cell changed its transcriptome. There are simply more of one cell type\n\n⚠️ ③ deserves attention because it is common in inflamed, fibrotic or infiltrated tissue — exactly the tissue clinicians study — and it is routinely written up as if it were ①.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s1-2",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s1-2",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "2) When single cell is worth it",
+    "text": "2) When single cell is worth it\nBe specific. Single cell is expensive and frequently used where bulk would have answered better.\n✅ Single cell is right for:\n\nDiscovering or characterising populations, including rare ones\nComposition — which cell types shifted in disease\nCell-type-specific effects — a gene up in one cell type and down in another, invisible in bulk\nContinuous states — activation, exhaustion, differentiation, where discrete labels fail\n\n✅ Bulk is still right for:\n\nA well-defined comparison in a homogeneous system (cell line, sorted population)\nDeep transcript-level work — isoforms, splicing, low-expression genes\nLarge cohorts — n = 200 patients, where 200 single-cell runs is unaffordable\n\n\n\n\n\n\n\nTipSorting first is badly underrated\n\n\n\n\n\nAlready know which cell type you care about?\n→ FACS-sort it and run deep bulk RNA-seq. Often cheaper, deeper, and statistically cleaner than a whole-tissue single-cell experiment — and you can afford far more patients, which (§5) is where your power actually comes from.\n💡 “We did single cell” is not by itself a stronger design. Sometimes it is a more expensive way to be underpowered.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s2-1",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s2-1",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "1) The platform trade-off",
+    "text": "1) The platform trade-off\nEvery platform buys cells with depth, or depth with cells.\n\n\n\n\n\n\n\n\n\nPlatform\nCells\nDepth\nWhen\n\n\n\n\nDroplet (10x)\n10³–10⁵\na few thousand genes/cell, 3′ end only\nthe current default\n\n\nPlate (Smart-seq3)\n10²\nfull-length, deep\nisoforms, very sensitive detection\n\n\nCombinatorial (sci-, SPLiT-seq)\n10⁶\nvery shallow\nwhole-organism atlases",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s2-2",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s2-2",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "2) ⚠️ Cells or nuclei — and why it is decided at collection",
+    "text": "2) ⚠️ Cells or nuclei — and why it is decided at collection\n\n\n\nThe composition you measure is the composition that survived.\n\n\n\n\n\n\n\n\n\n\n\nscRNA-seq\nsnRNA-seq\n\n\n\n\nFrozen / archived tissue\n❌ needs fresh\n✅\n\n\nLarge or fragile cells (neurons, adipocytes, myofibres, cardiomyocytes)\n❌ lost in dissociation\n✅\n\n\nDissociation stress response\n⚠️ yes — FOS, JUN, heat-shock genes induced by the protocol\n✅ minimal\n\n\nCytoplasmic transcripts\n✅ captured\n❌ missed\n\n\nIntronic reads\nlow\nhigh — nuclei are rich in unspliced pre-mRNA\n\n\n\n\n\n\n\n\n\nWarningTwo consequences worth carrying into a design meeting\n\n\n\n\n\n\n⚠️ Immediate-early genes are the classic false positive. A cluster defined by FOS, JUN and EGR1 is very often a dissociation artifact, not an “activated” state. If one condition sat on the bench longer, it will look more activated\n⚠️ Depletion claims need scrutiny. “Cell type X is depleted in disease” and “cell type X is harder to release from diseased tissue” produce identical data\n\n→ ✅ Mitigations: dissociate at low temperature with cold-active protease, keep the protocol identical across conditions, and — best — use nuclei when the tissue allows it.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s2-3",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s2-3",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "3) The design consequence, stated early",
+    "text": "3) The design consequence, stated early\n⚠️ Your unit of replication is the donor. Everything in §5 follows from this, and it should shape the budget before it shapes the analysis.\n💡 Given a fixed budget: more donors, fewer cells each beats fewer donors, more cells each for almost any question that compares conditions.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s3-1",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s3-1",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "1) Barcodes and UMIs",
+    "text": "1) Barcodes and UMIs\nTwo tags are attached to every captured transcript:\n\nCell barcode — identifies the droplet, and therefore the cell\nUMI (unique molecular identifier) — a random sequence unique to each original mRNA molecule\n\nWhy the UMI matters: after PCR, one original molecule may be represented by hundreds of reads. Collapsing reads that share a UMI recovers the count of molecules rather than reads, removing amplification bias.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s3-2",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s3-2",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "2) Why the matrix is over 90% zeros",
+    "text": "2) Why the matrix is over 90% zeros\nA droplet experiment detects roughly 1,000–5,000 genes per cell, out of ~20,000. Zeros have two very different meanings:\n\nBiological zero — the gene really is not expressed in that cell\nTechnical zero (dropout) — the transcript was there and was not captured. Droplet capture efficiency is ~10–30%\n\n💡 The field has largely moved past calling this “zero inflation” — for UMI data the zeros are mostly what a simple sampling model predicts from low counts, not an extra process.\n⚠️ The practical consequence stands: you cannot conclude a gene is off in a cell from a single zero.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s3-3",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s3-3",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "3) ⚠️ QC is an analysis decision, not cleaning",
+    "text": "3) ⚠️ QC is an analysis decision, not cleaning\n\n\n\nLeft: separating cells from empty droplets. Right: the plot every paper should show.\n\n\n\n\n\n\n\n\n\n\nProblem\nWhat it looks like\nWhat to do\n\n\n\n\nEmpty droplets\nLow-UMI barcodes below the knee\nEmptyDrops, not a hard cutoff\n\n\nAmbient RNA\nMarkers of abundant cell types appearing everywhere\nSoupX, CellBender, DecontX\n\n\nDoublets\nHigh UMI and high gene count; two incompatible marker sets\nscDblFinder, DoubletFinder; ~1% per 1,000 cells loaded\n\n\nDying cells\nHigh mitochondrial fraction, low gene count\nThreshold on mito %, tissue-specifically\n\n\n\n\n\n\n\n\n\nImportantEvery threshold deletes a real population\n\n\n\n\n\n\nA mito cutoff of 5% is conventional — and wrong for cardiomyocytes, which are genuinely mitochondria-rich. Applied to heart tissue it removes the cell type you care about\nmin.features = 500 removes debris — and also platelets, some granulocytes, and any small low-RNA cell\nAn upper nFeature cutoff removes doublets — and also genuinely large, transcriptionally active cells\n\n→ ✅ Plot the distribution, look at what sits outside your proposed cut, then decide. And report the thresholds — they belong in the methods, not the analyst’s console history.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s4-1",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s4-1",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "1) The standard pipeline",
+    "text": "1) The standard pipeline\nnormalise → select highly variable genes → PCA\n          → build a k-nearest-neighbour graph\n          → cluster (Leiden)\n          → UMAP, for display only\n          → annotate\n⚠️ Note the order. UMAP is computed for display. Clustering happens on the PCA/graph, not on the two-dimensional picture.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s4-2",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s4-2",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "2) ⚠️ How to read a UMAP responsibly",
+    "text": "2) ⚠️ How to read a UMAP responsibly\nUMAP is a non-linear projection of tens of dimensions into two. It preserves local neighbourhoods reasonably and global structure badly.\n\n\n\n\n\n\nWarningWhat a UMAP does not tell you\n\n\n\n\n\n\n❌ Distances between clusters are not meaningful. Two clusters far apart are not necessarily more different than two that are close\n❌ Cluster areas are not meaningful. Size reflects the embedding, not cell number\n❌ Apparent bridges are not trajectories. A thin connection may be doublets, ambient RNA, or a parameter artifact\n⚠️ The layout changes with parameters and random seed. n_neighbors and min_dist visibly reshape it\n\n→ A UMAP is a picture of your data, not a measurement of it. Any claim that matters should be supported by a number computed in the high-dimensional space.\n💡 A useful journal-club question: “which sentence in this results section is supported only by the UMAP?”",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s4-3",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s4-3",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "3) Clustering resolution is arbitrary",
+    "text": "3) Clustering resolution is arbitrary\n\n\n\nSame cells, same algorithm, one parameter changed.\n\n\nLeiden clustering takes a resolution parameter. Raise it, get more clusters. Lower it, get fewer.\n⚠️ There is no correct value and no statistical criterion that settles it. The algorithm will split any cluster you ask it to.\n✅ What to do instead of agonising:\n\nCheck clusters against marker genes and known biology, not against a score\nCheck stability — does the cluster survive a different resolution, a different seed, a subsampled dataset?\nAsk whether a “new” cluster at higher resolution has genuinely distinct markers, or just gradations of the same ones\nReport the resolution you used\n\n\n\n\n\n\n\nWarningA cluster is not a cell type\n\n\n\n\n\nClusters can equally reflect:\n\ncell state (activated vs resting)\ncell-cycle phase\nstress response (§2.2)\nambient contamination\ndonor identity\n\n→ Naming a cluster after its top marker gene and treating it as a cell type is how the literature accumulates cell types that do not exist.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s4-4",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s4-4",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "4) Annotation",
+    "text": "4) Annotation\n\nMarker-based — check known markers per cluster. ✅ Transparent. ⚠️ Circular: you find the cell types you looked for\nReference-based — map onto an annotated atlas (Azimuth, SingleR, scANVI). ✅ Fast and consistent. ⚠️ Inherits the reference’s vocabulary and cannot name anything the reference lacks\n\n💡 Use both. Disagreements between them are the informative part — that is where a genuinely novel or genuinely artifactual population sits.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s5-1",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s5-1",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "1) Why per-cell tests are wrong",
+    "text": "1) Why per-cell tests are wrong\n\n\n\nBoth panels analyse identical data. Only one of them answers the question that was asked.\n\n\n\n\n\n\n\n\nImportantCells from one donor are not independent samples\n\n\n\n\n\nA Wilcoxon test across 5,400 cells from 6 donors treats those cells as 5,400 independent observations. They are not — cells from the same person share that person’s genetics, environment, medication, batch and processing.\nThe consequence:\n\np-values inflated by many orders of magnitude\nadd cells → the p-value shrinks indefinitely\n→ you are measuring how many cells you loaded, not how many people you studied\n\n⚠️ Seurat’s default FindMarkers behaves this way.\n\n✅ Appropriate for identifying cluster markers within one dataset — a descriptive task\n❌ Not appropriate for comparing conditions",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s5-2",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s5-2",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "2) Pseudobulk",
+    "text": "2) Pseudobulk\nThe fix: for each donor × cell type, sum the counts across cells. You now have a small matrix of pseudo-samples — analyse it with DESeq2 or edgeR exactly as in last semester’s bulk workflow.\n\nlibrary(Seurat); library(DESeq2); library(tidyverse)\n\npb &lt;- AggregateExpression(seurat,\n                          group.by = c(\"cell_type\", \"sample_id\"),\n                          assays   = \"RNA\")$RNA\n\n# then, per cell type, a completely ordinary DESeq2 run\n\n\nBenchmarks consistently find pseudobulk controls false positives far better than per-cell tests\nMixed models with a donor random effect are a reasonable alternative — more power retained, more computation",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s5-3",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s5-3",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "3) Differential abundance is compositional",
+    "text": "3) Differential abundance is compositional\nOften the interesting result is not that a cell type changed its expression, but that there is more or less of it.\n⚠️ Proportions are compositional — one cell type expands and every other proportion falls by arithmetic alone, with no biology behind it.\n\n✅ Methods that handle this: scCODA, miloR, propeller, Dirichlet-multinomial models\n❌ A χ² test on cell counts is not valid\n⚠️ And before believing any abundance result, return to §2.2: is this composition, or is this dissociation?",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s6-1",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s6-1",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "1) No code: does the atlas already answer it?",
+    "text": "1) No code: does the atlas already answer it?\nCELLxGENE → search a gene from your specialty.\n\n① Which cell types express it, in which tissues?\n② Is the expression broad, or confined to one population?\n③ Find a dataset in your disease area. How many donors does it have — not how many cells?\n④ 💡 If the atlas already answers “which cell type expresses my gene”, you have saved a grant",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s6-2",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s6-2",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "2) The pipeline, end to end",
+    "text": "2) The pipeline, end to end\n\nlibrary(Seurat); library(SeuratData); library(tidyverse)\n\nInstallData(\"pbmc3k\"); data(\"pbmc3k\")\npbmc &lt;- pbmc3k\n\npbmc[[\"percent.mt\"]] &lt;- PercentageFeatureSet(pbmc, pattern = \"^MT-\")\n\n# ⚠️ LOOK before you cut\nVlnPlot(pbmc, c(\"nFeature_RNA\", \"nCount_RNA\", \"percent.mt\"), ncol = 3, pt.size = 0)\n\npbmc &lt;- subset(pbmc, nFeature_RNA &gt; 200 & nFeature_RNA &lt; 2500 & percent.mt &lt; 5)\n\npbmc &lt;- NormalizeData(pbmc) |&gt;\n  FindVariableFeatures(nfeatures = 2000) |&gt;\n  ScaleData() |&gt;\n  RunPCA(verbose = FALSE)\n\nElbowPlot(pbmc, ndims = 30)\n\npbmc &lt;- FindNeighbors(pbmc, dims = 1:10) |&gt;\n  FindClusters(resolution = 0.5) |&gt;\n  RunUMAP(dims = 1:10)\n\nDimPlot(pbmc, label = TRUE)",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s6-3",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s6-3",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "3) ✅ Change one thing",
+    "text": "3) ✅ Change one thing\n\n# ① How many cells did each threshold remove, and which ones?\ntable(pbmc3k$seurat_annotations[pbmc3k$percent.mt &gt;= 5])   # who did the mito cut delete?\n\n# ② Re-cluster at three resolutions and count\nfor (r in c(0.2, 0.5, 1.2)) {\n  pbmc &lt;- FindClusters(pbmc, resolution = r, verbose = FALSE)\n  cat(\"resolution\", r, \"→\", nlevels(pbmc$seurat_clusters), \"clusters\\n\")\n}\n\n# ③ Re-run UMAP with a different seed and compare the picture\npbmc &lt;- RunUMAP(pbmc, dims = 1:10, seed.use = 99)\nDimPlot(pbmc, label = TRUE)\n\n💡 ③ is the exercise that changes how you read figures. Nothing about the biology moved.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s6-4",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s6-4",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "4) Save for next week",
+    "text": "4) Save for next week\n\nsaveRDS(pbmc, here::here(\"analysis\", \"5_pbmc_annotated.rds\"))\n\nW6 — trajectory, cell–cell communication, and multi-sample integration.\n\nBiocManager::install(\"monocle3\")\ninstall.packages(c(\"harmony\", \"CellChat\"))",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html",
+    "href": "chapters/part3/w6_scrna_dynamics.html",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nSay what integration assumes, and ⚠️ recognise when it has erased the biology you were looking for\n✅ Demand the two colourings that make over-correction visible\nExplain what pseudotime orders — and ⚠️ why it is not time\n⚠️ Say why a trajectory algorithm always returns a trajectory\nExplain where RNA velocity’s direction comes from, and which of its assumptions are contested\n⚠️ Explain why ligand–receptor co-expression is not evidence of an interaction\nDecide which of these results belongs in a grant as a hypothesis, and which belongs in a paper as a finding",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s1-1",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s1-1",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "1) The problem integration solves",
+    "text": "1) The problem integration solves\nIn single-cell data the donor is usually the dominant source of variation. Cells cluster by patient before they cluster by cell type — which makes the data uninterpretable as biology.\nIntegration methods (Harmony, scVI, Seurat RPCA, scANVI) find a shared representation in which cells of the same type from different donors sit together.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s1-2",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s1-2",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "2) ⚠️ Integration is an assumption in disguise",
+    "text": "2) ⚠️ Integration is an assumption in disguise\n\n\n\nBoth right-hand panels look perfectly mixed. Only one colouring reveals what happened.\n\n\nThe assumption: the same cell types exist in every batch, and any batch-associated variation is technical.\n⚠️ That assumption fails exactly when your biology is interesting:\n\na disease-specific cell state\na population present only in one condition\na treatment-induced program\n\n→ Aggressive integration merges it away, and the resulting UMAP looks beautifully mixed.\n\n\n\n\n\n\nImportantThe diagnostic, and why it is rarely shown\n\n\n\n\n\n\n✅ Colour by batch and by cell type. Publish both\n✅ Confirm that known cell-type markers still separate after integration\n✅ Confirm that a population unique to one condition survived\n✅ Benchmarks such as scIB score exactly this batch-removal / biology-preservation trade-off\n\n⚠️ Most papers show only the batch colouring — because that is the one that demonstrates the method worked. It is also the one that cannot reveal the failure.\n💡 Back to the motivating question: a perfectly mixed UMAP and a disease-specific state are in tension. Not impossible — but the paper owes you the second colouring.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s1-3",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s1-3",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "3) ⚠️ When integration cannot help at all",
+    "text": "3) ⚠️ When integration cannot help at all\nIf disease status is perfectly confounded with batch — all patients processed on one day, all controls on another — no integration method can separate them. Exactly the argument from 🔗 W1 §3.3, and just as unrecoverable here.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s2-1",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s2-1",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "1) The idea",
+    "text": "1) The idea\nBiology is dynamic; a single-cell experiment is a snapshot. If cells were caught mid-process, they can be ordered along an axis of transcriptional similarity — a pseudotime.\n\nStem cell → progenitor → differentiated\nNaive T cell → activated → effector → exhausted\nFibroblast → myofibroblast → senescent\n\nTools: Monocle3, Slingshot, PAGA.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s2-2",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s2-2",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "2) ⚠️ The algorithm always succeeds",
+    "text": "2) ⚠️ The algorithm always succeeds\n\n\n\nSame tool, same settings, same confident output.\n\n\n\n\n\n\n\n\nWarningThree caveats worth stating plainly\n\n\n\n\n\n\n⚠️ A trajectory algorithm returns a trajectory for any dataset, including one with no underlying process. There is no “no trajectory found” output\n⚠️ Pseudotime is not time. It measures neither rate nor duration. Two cells far apart in pseudotime may be minutes or months apart in reality — or the ordering may be reversed\n⚠️ The root has to be chosen by you. Reverse the root and the biology reverses with it. That choice is prior knowledge entering as if it were a result\n\n→ ✅ Sanity check: shuffle your cell labels, or run the algorithm on a homogeneous population, and see what comes back. It is a sobering five minutes.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s2-3",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s2-3",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "3) RNA velocity",
+    "text": "3) RNA velocity\n\n\n\nWhere the arrows come from.\n\n\nRNA velocity adds direction by comparing unspliced (new) to spliced (mature) transcripts per gene. More unspliced than steady state predicts → the gene is turning on.\n⚠️ The assumptions about splicing and degradation kinetics are contested, and known to fail for some genes and systems. The arrows are also drawn on a UMAP, so they inherit every distortion from 🔗 W5 §4.2.\n✅ What settles a trajectory claim: a time course, or lineage tracing. Not a better algorithm.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s3-1",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s3-1",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "1) What the tools actually compute",
+    "text": "1) What the tools actually compute\nCellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster pairs based on co-expression — the ligand’s mRNA is high in cluster A, its receptor’s mRNA is high in cluster B.\n\n\n\nThe arrow in the figure is doing far more work than the data supports.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s3-2",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s3-2",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "2) Using them honestly",
+    "text": "2) Using them honestly\n\n✅ As a hypothesis generator — “which axes are worth testing?” is exactly what these tools are for\n✅ Validated spatially — if the two cell types are physically adjacent (🔗 W7), the prediction becomes plausible\n✅ Validated functionally — blocking antibody, receptor knockout, ligand stimulation\n❌ As a standalone result — “macrophages signal to T cells via TNF” is not shown by co-expression\n\n💡 NicheNet is somewhat different in kind: it asks whether the downstream target genes of a ligand are induced in the receiver cell. That is still correlative, but it is a stronger correlation than co-expression alone.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s5-1",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s5-1",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "1) Integration, with the honest diagnostic",
+    "text": "1) Integration, with the honest diagnostic\n\nlibrary(Seurat); library(harmony); library(patchwork)\n\nobj &lt;- readRDS(here::here(\"analysis\", \"5_pbmc_annotated.rds\"))\n\nobj &lt;- obj |&gt;\n  RunHarmony(group.by.vars = \"donor\") |&gt;\n  FindNeighbors(reduction = \"harmony\", dims = 1:20) |&gt;\n  FindClusters(resolution = 0.5) |&gt;\n  RunUMAP(reduction = \"harmony\", dims = 1:20)\n\n# ✅ the two panels that must always appear together\nDimPlot(obj, group.by = \"donor\")     |\nDimPlot(obj, group.by = \"cell_type\", label = TRUE)\n\n✅ Change one thing: raise Harmony’s theta (more aggressive correction) and watch whether any small population disappears from the right-hand panel.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s5-2",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s5-2",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "2) A trajectory, and its sanity check",
+    "text": "2) A trajectory, and its sanity check\n\nlibrary(monocle3)\n\ncds &lt;- as.cell_data_set(obj)\ncds &lt;- cluster_cells(cds) |&gt; learn_graph()\ncds &lt;- order_cells(cds)              # ⚠️ you choose the root — that is an assumption\nplot_cells(cds, color_cells_by = \"pseudotime\")\n\n⚠️ Then do this, and look at the output honestly:\n\n# Run the same pipeline on one homogeneous cluster with no expected process\nmono &lt;- subset(obj, cell_type == \"CD14 Mono\")\ncds_null &lt;- as.cell_data_set(mono) |&gt; cluster_cells() |&gt; learn_graph()\nplot_cells(cds_null, color_cells_by = \"pseudotime\")\n\n💡 You will get a trajectory. Discuss what that means for the previous figure.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s5-3",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s5-3",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "3) Cell–cell communication",
+    "text": "3) Cell–cell communication\n\nlibrary(CellChat)\n\ncc &lt;- createCellChat(obj, group.by = \"cell_type\") |&gt;\n  subsetData() |&gt; identifyOverExpressedGenes() |&gt;\n  identifyOverExpressedInteractions() |&gt; computeCommunProb() |&gt;\n  filterCommunication(min.cells = 10) |&gt; aggregateNet()\n\nnetVisual_circle(cc@net$weight, weight.scale = TRUE)\n\n✅ Pick the strongest predicted interaction and write one sentence describing the experiment that would test it. That sentence is the deliverable, not the plot.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s5-4",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s5-4",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "4) Before next week",
+    "text": "4) Before next week\nW7 — spatial transcriptomics. Come with an answer to one question about your own department:\n\nDo we have FFPE blocks with linked outcome data, and roughly how many?\n\nEverything in W7–W8 depends on that answer.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html",
+    "href": "chapters/part4/w7_spatial_basics.html",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nSay what spatial data restores that dissociation destroyed\nPlace the major platforms on the resolution-versus-breadth trade-off, and pick one for a given question\n⚠️ Say why FFPE compatibility is the single most important practical fact in this chapter\n⚠️ Explain why a Visium spot is not a cell, and what follows from that\n⚠️ Recognise the physical artifacts — folds, edges, necrosis — that masquerade as biology\nSay why neighbouring spots are not independent observations\nState what your n is in a spatial experiment",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html#w7-s1-1",
+    "href": "chapters/part4/w7_spatial_basics.html#w7-s1-1",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "1) The same cell type, two different cells",
+    "text": "1) The same cell type, two different cells\n\n\n\nBoth are annotated identically in the single-cell object.\n\n\nEverything through W6 was done on cells in suspension. The protocol’s first step destroys the variable that most of your clinical intuition runs on: where the cell was.",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html#w7-s1-2",
+    "href": "chapters/part4/w7_spatial_basics.html#w7-s1-2",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "2) Questions only spatial can answer",
+    "text": "2) Questions only spatial can answer\n\nArchitecture — is the immune infiltrate inside the tumour, or stuck at the margin? (immune-excluded vs inflamed vs desert)\nNeighbourhoods — which cell types are actually adjacent, as opposed to merely co-present\nGradients — distance from a vessel, from the invasion front, from a germinal centre\nRegional heterogeneity — one part of the tumour resistant, another sensitive\nLinking back to histology — the images pathologists have been reading for 150 years\n\n💡 Notice how many of these are things a pathologist already assesses by eye. Spatial transcriptomics is, in large part, putting molecular numbers on judgements your department already makes — which is also why your pathologist is the most useful collaborator in this chapter.",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html#w7-s2-1",
+    "href": "chapters/part4/w7_spatial_basics.html#w7-s2-1",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "1) One trade-off, everything else is detail",
+    "text": "1) One trade-off, everything else is detail\n\n\n\nResolution and breadth are bought with the same budget.\n\n\n\nSequencing-based (Visium, Visium HD, GeoMx, Slide-seq) — capture transcripts on a grid or in chosen regions. ✅ Whole transcriptome. ⚠️ Each capture area may contain several cells\nImaging-based (Xenium, MERFISH, CosMx) — image individual molecules in place. ✅ Single-cell, sometimes subcellular. ⚠️ A targeted panel of a few hundred to a few thousand genes, chosen in advance",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html#w7-s2-2",
+    "href": "chapters/part4/w7_spatial_basics.html#w7-s2-2",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "2) ⚠️ FFPE is the fact that matters most to you",
+    "text": "2) ⚠️ FFPE is the fact that matters most to you\nAlmost every current platform works on formalin-fixed paraffin-embedded tissue.\n\n\n\n\n\n\nImportantWhy this changes what is possible in a hospital\n\n\n\n\n\nYour pathology department is storing blocks going back years or decades, and every one of them is attached to an outcome: who responded, who relapsed, who survived.\n\n✅ A retrospective spatial study with real outcomes is available to you now, without waiting five years to accrue a prospective cohort\n✅ You can select cases by outcome — responders vs non-responders — which is a far stronger design than profiling whoever consented\n⚠️ Old blocks vary in RNA quality. DV200 is the standard metric; ask for it before committing\n⚠️ Ethics and consent for archived tissue is its own process. Start it early — it is usually the long pole\n\n💡 This is the concrete answer to “what could I actually do with this?” for most residents in this course.",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html#w7-s2-3",
+    "href": "chapters/part4/w7_spatial_basics.html#w7-s2-3",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "3) Choosing",
+    "text": "3) Choosing\n\n\n\n\n\n\n\nYour question\nPlatform class\n\n\n\n\n“Which cell types sit where?” — markers known\n✅ Imaging panel (Xenium, CosMx)\n\n\n“What is transcriptionally different about this region?”\n✅ Whole-transcriptome (Visium, Visium HD)\n\n\n“Compare these two histologically defined regions”\n✅ GeoMx — you draw the regions\n\n\n“Are these two cell types touching?”\n✅ Imaging; ❌ standard Visium cannot resolve it\n\n\n“Screen 60 patient blocks cheaply”\n⚠️ Cost dominates — talk to the core before designing",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html#w7-s4-1",
+    "href": "chapters/part4/w7_spatial_basics.html#w7-s4-1",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "1) The pipeline",
+    "text": "1) The pipeline\nQC (per spot, and against the H&E)\n   → normalise\n   → cluster in expression space  →  \"spatial domains\"\n   → find spatially variable genes\n   → relate domains to histology\n   → [W8] deconvolve, then analyse neighbourhoods\n⚠️ Note that standard clustering ignores coordinates entirely — it clusters spots the way Seurat clusters cells. That domains come out spatially coherent anyway is a good sign; that they do not is informative.",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html#w7-s4-2",
+    "href": "chapters/part4/w7_spatial_basics.html#w7-s4-2",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "2) Spatially variable genes",
+    "text": "2) Spatially variable genes\nDifferent question from differential expression: not “does this gene differ between groups?” but “is this gene’s expression organised in space at all?”\n\nTools: SpatialDE, nnSVG, Moran’s I, SPARK\n✅ Useful for discovery when you do not yet know which regions matter",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html#w7-s4-3",
+    "href": "chapters/part4/w7_spatial_basics.html#w7-s4-3",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "3) ⚠️ Neighbouring spots are not independent",
+    "text": "3) ⚠️ Neighbouring spots are not independent\n\n\n\n\n\n\nImportantSpatial autocorrelation, and why it inflates everything\n\n\n\n\n\nAdjacent spots share diffused transcripts, share the same local tissue, and sometimes physically share cells. They are positively correlated by construction.\nAny test that treats 4,000 spots as 4,000 independent observations will produce p-values as inflated as the per-cell tests in 🔗 W5 §5.1 — and for the same reason.\n\n⚠️ “This domain has 3,412 differentially expressed genes, all p &lt; 10⁻¹⁵” is a symptom, not a result\n✅ Methods that account for spatial dependence exist (nnSVG, SPARK-X, mixed models with a spatial term)\n✅ And across patients, the fix is the same one as always: aggregate to the patient, then compare patients",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html#w7-s4-4",
+    "href": "chapters/part4/w7_spatial_basics.html#w7-s4-4",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "4) Domains and niches",
+    "text": "4) Domains and niches\nBeyond clustering spots by expression, you can cluster by what is around them — the composition of the local neighbourhood. That is where the genuinely spatial biology lives, and it needs deconvolution first. 🔗 W8.",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html#w7-s6-1",
+    "href": "chapters/part4/w7_spatial_basics.html#w7-s6-1",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "1) No code: look at a real section",
+    "text": "1) No code: look at a real section\n10x Genomics datasets → pick any Visium or Xenium dataset with an H&E image.\n\n① Find the H&E and the total-counts map. Do any high-count areas correspond to folds or thick regions?\n② Find the clustering figure. Does any cluster trace the edge of the section?\n③ How many patients contributed? How many sections each?\n④ 💡 Then look at the paper’s claims and ask which of them survive ①–③",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html#w7-s6-2",
+    "href": "chapters/part4/w7_spatial_basics.html#w7-s6-2",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "2) The pipeline",
+    "text": "2) The pipeline\n\nlibrary(Seurat); library(tidyverse); library(patchwork)\n\nbr &lt;- LoadData(\"stxBrain\", type = \"anterior1\")\n\n# ⚠️ QC against the image, not just the numbers\nSpatialFeaturePlot(br, features = \"nCount_Spatial\") +\n  ggtitle(\"Look for folds and edges before anything else\")\n\nbr &lt;- SCTransform(br, assay = \"Spatial\", verbose = FALSE) |&gt;\n  RunPCA() |&gt; FindNeighbors(dims = 1:30) |&gt;\n  FindClusters(resolution = 0.6) |&gt; RunUMAP(dims = 1:30)\n\n# the two views that must always appear together\nDimPlot(br, reduction = \"umap\", label = TRUE) |\n  SpatialDimPlot(br, label = TRUE, label.size = 3)",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html#w7-s6-3",
+    "href": "chapters/part4/w7_spatial_basics.html#w7-s6-3",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "3) Spatially variable genes",
+    "text": "3) Spatially variable genes\n\nsvg_genes &lt;- FindSpatiallyVariableFeatures(\n  br, assay = \"SCT\", features = VariableFeatures(br)[1:1000],\n  selection.method = \"moransi\")\n\ntop &lt;- SpatiallyVariableFeatures(br, selection.method = \"moransi\")[1:6]\nSpatialFeaturePlot(br, features = top, ncol = 3, alpha = c(0.1, 1))",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html#w7-s6-4",
+    "href": "chapters/part4/w7_spatial_basics.html#w7-s6-4",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "4) ✅ Change one thing",
+    "text": "4) ✅ Change one thing\n\n# Are the domains driven by biology, or by how much tissue was in each spot?\nbr$log_counts &lt;- log10(br$nCount_Spatial)\nVlnPlot(br, \"log_counts\", group.by = \"seurat_clusters\")\n\n💡 If one cluster has systematically higher total counts, ask whether it is a tissue region or a thickness region before naming it.",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w7_spatial_basics.html#w7-s6-5",
+    "href": "chapters/part4/w7_spatial_basics.html#w7-s6-5",
+    "title": "W7. Spatial Transcriptomics — The Basics",
+    "section": "5) Before next week",
+    "text": "5) Before next week\nW8 — deconvolution and integration. Bring the answer to the question from W6: how many FFPE blocks with linked outcomes does your department hold?",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W7. Spatial Transcriptomics"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html",
+    "href": "chapters/part4/w8_spatial_integration.html",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nExplain what deconvolution estimates, and what it cannot estimate\n⚠️ Say why the reference dataset determines the answer, and what to check before trusting one\nDistinguish a cell-type map from a niche map, and say why the second is where the biology usually is\n⚠️ Test co-localisation against a null that respects tissue structure\n⚠️ Say why neighbouring spots inflate significance, and what to do about it\nPlace any claim on the evidence ladder from description to demonstration\nDesign a spatial validation step for a hypothesis generated in W5–W6",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html#w8-s1-1",
+    "href": "chapters/part4/w8_spatial_integration.html#w8-s1-1",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "1) The problem, restated",
+    "text": "1) The problem, restated\nFrom 🔗 W7 §3: a Visium spot is a mixture. Deconvolution asks what mixture of cell types best explains the observed profile — using single-cell data as the dictionary of what each cell type looks like.\n\n\n\nThe reference is not a technical detail. It is the assumption the whole result rests on.\n\n\n\n\n\n\n\n\n\n\nMethod\nApproach\nNotes\n\n\n\n\nRCTD\nStatistical, models platform effects\nrobust, widely used\n\n\ncell2location\nBayesian, estimates absolute abundance\n✅ gives cell numbers, not only proportions\n\n\nCARD\nUses spatial correlation between spots\nborrows information from neighbours\n\n\nSPOTlight\nNMF-based\nfast\n\n\nTangram\nMaps single cells onto space\nuseful when you have matched data\n\n\n\n💡 Method choice matters less than reference choice. Benchmarks separate these methods by modest margins; a wrong reference changes the answer entirely.",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html#w8-s1-2",
+    "href": "chapters/part4/w8_spatial_integration.html#w8-s1-2",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "2) ⚠️ Reference bias",
+    "text": "2) ⚠️ Reference bias\n\n\n\n\n\n\nImportantThe failure mode with no error message\n\n\n\n\n\nDeconvolution returns proportions that sum to one over the cell types you supplied. It has no way to report “there is something here I have never seen”.\n\n⚠️ A cell type absent from the reference does not appear as missing. Its signal is redistributed onto whichever reference type is closest. This is the single-cell version of reference bias, one layer down\n⚠️ A reference from healthy tissue applied to tumour, or from PBMCs applied to tissue-resident cells, biases every proportion at once — not just the affected type\n⚠️ A reference from a different platform (Smart-seq vs 10x, cells vs nuclei) carries systematic differences into the estimates\n\n✅ What to actually check:\n\nSame tissue, same condition, ideally the same patients as the spatial sections\nVerify with a marker gene you did not deconvolve — plot raw CD3E and see whether it lands where the T-cell proportions did\nAsk whether a rare-but-important population is in the reference at all",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html#w8-s1-3",
+    "href": "chapters/part4/w8_spatial_integration.html#w8-s1-3",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "3) What proportions can and cannot tell you",
+    "text": "3) What proportions can and cannot tell you\n\n✅ “This region is enriched for macrophage signal relative to that region” — solid\n✅ “Macrophage proportion correlates with distance from the invasion front” — solid, and interesting\n⚠️ “This spot contains 2.3 macrophages” — only cell2location-style methods attempt absolute numbers, and with wide uncertainty\n❌ “These particular macrophages express gene X” — you cannot get cell-type-specific expression out of a mixture without much stronger assumptions",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html#w8-s2-1",
+    "href": "chapters/part4/w8_spatial_integration.html#w8-s2-1",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "1) The question that spatial data is actually for",
+    "text": "1) The question that spatial data is actually for\nA per-spot cell-type map is useful, and it is still one location at a time. The step that uses the geometry is asking what each location is surrounded by.\n\n\n\nThe interface exists only as a mixture. No single spot defines it.\n\n\nHow it works: for each spot, build a vector of the cell-type composition of its neighbours (within k spots or a fixed radius), then cluster those vectors. The clusters are niches — recurrent tissue microenvironments.\n💡 Notice what the left panel hides. T cells and macrophages are present almost everywhere and dominate almost nowhere, so a “dominant cell type” map erases them entirely. The immune biology is invisible until you look at composition rather than identity.",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html#w8-s2-2",
+    "href": "chapters/part4/w8_spatial_integration.html#w8-s2-2",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "2) ⚠️ Testing co-localisation honestly",
+    "text": "2) ⚠️ Testing co-localisation honestly\n\n\n\n\n\n\nWarningAgainst which null?\n\n\n\n\n\n“Cell type A and cell type B co-occur more than expected” requires a definition of expected.\n\n❌ Complete spatial randomness is the wrong null. Tissue is not random — it has layers, vessels, capsules, glands. Almost any two cell types will beat this null\n✅ Permute labels within the tissue, preserving the overall architecture and each cell type’s total abundance\n✅ Or compare against matched control tissue — the same anatomy, different disease state\n\n⚠️ And back to the motivating question: p &lt; 10⁻¹² across 4,000 spots is mostly telling you that you had 4,000 spots. Neighbouring spots are positively correlated by construction (🔗 W7 §4.3), so the effective sample size is far smaller than the nominal one.\n→ ✅ The number that matters is the effect size, replicated across patients.",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html#w8-s2-3",
+    "href": "chapters/part4/w8_spatial_integration.html#w8-s2-3",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "3) Mapping single cells into space",
+    "text": "3) Mapping single cells into space\nThe reverse direction: take a cluster you found in scRNA-seq and ask where it sits.\n\nTangram, Seurat anchor transfer — project single-cell labels onto spatial data\n✅ Genuinely useful for testing a specific hypothesis: “the exhausted CD8 state we found — is it inside the tumour or at the margin?”\n⚠️ Circularity risk: if the mapping uses the same genes that defined the cluster, finding the cluster is not independent evidence",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html#w8-s5-1",
+    "href": "chapters/part4/w8_spatial_integration.html#w8-s5-1",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "1) Deconvolve, then check the reference",
+    "text": "1) Deconvolve, then check the reference\n\nlibrary(Seurat); library(spacexr); library(tidyverse)   # spacexr = RCTD\n\nsp  &lt;- readRDS(here::here(\"analysis\", \"7_visium.rds\"))\nref &lt;- readRDS(here::here(\"analysis\", \"5_pbmc_annotated.rds\"))   # ⚠️ is this the right reference?\n\nreference &lt;- Reference(GetAssayData(ref, \"counts\"), factor(ref$cell_type))\npuck      &lt;- SpatialRNA(GetTissueCoordinates(sp), GetAssayData(sp, \"counts\"))\n\nrctd &lt;- create.RCTD(puck, reference, max_cores = 4) |&gt; run.RCTD(doublet_mode = \"full\")\nprops &lt;- normalize_weights(rctd@results$weights)\n\n⚠️ Before believing any of it, ask what a PBMC reference implies for a tissue section. Tissue-resident macrophages, fibroblasts and endothelium are not in it — where did their signal go?",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html#w8-s5-2",
+    "href": "chapters/part4/w8_spatial_integration.html#w8-s5-2",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "2) ✅ The verification that should be reflexive",
+    "text": "2) ✅ The verification that should be reflexive\n\n# Plot a raw marker gene next to the estimated proportion of its cell type\np1 &lt;- SpatialFeaturePlot(sp, features = \"CD3E\") + ggtitle(\"raw CD3E\")\nsp$Tcell_prop &lt;- props[, \"CD8 T\"]\np2 &lt;- SpatialFeaturePlot(sp, features = \"Tcell_prop\") + ggtitle(\"estimated CD8 T\")\np1 | p2\n\n💡 If these two maps disagree, the deconvolution is telling you about your reference, not about the tissue.",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html#w8-s5-3",
+    "href": "chapters/part4/w8_spatial_integration.html#w8-s5-3",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "3) Niches",
+    "text": "3) Niches\n\nlibrary(FNN)\n\ncoords &lt;- GetTissueCoordinates(sp)\nnn     &lt;- get.knn(as.matrix(coords), k = 6)$nn.index\n\n# neighbourhood composition per spot\nnbr_comp &lt;- t(apply(nn, 1, \\(idx) colMeans(props[idx, , drop = FALSE])))\n\nset.seed(1)\nsp$niche &lt;- factor(kmeans(nbr_comp, centers = 5)$cluster)\nSpatialDimPlot(sp, group.by = \"niche\")",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html#w8-s5-4",
+    "href": "chapters/part4/w8_spatial_integration.html#w8-s5-4",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "4) ✅ Change one thing",
+    "text": "4) ✅ Change one thing\n\n# Does your co-localisation survive a structure-preserving null?\nobserved &lt;- cor(props[, \"CD8 T\"], props[, \"Macrophage\"])\n\nnull &lt;- replicate(1000, {\n  perm &lt;- sample(nrow(props))          # ⚠️ a naive permutation — discuss why this is still too easy\n  cor(props[perm, \"CD8 T\"], props[, \"Macrophage\"])\n})\n\ncat(\"observed:\", round(observed, 3),\n    \" null 95%:\", round(quantile(null, c(.025, .975)), 3), \"\\n\")\n\n⚠️ Then discuss: this permutation destroys all tissue structure, so it is the too-easy null from §2.2. What would a better one look like? (Hint: permute within anatomical region, or shift the whole label map rigidly.)",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html#w8-s5-5",
+    "href": "chapters/part4/w8_spatial_integration.html#w8-s5-5",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "5) Before next week",
+    "text": "5) Before next week\nW9 — proteomics. Everything so far measured RNA. Next we ask whether the protein was ever made — and find out how often the answer is no.\nNothing to install; W9 is conceptual.",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w9_proteomics_tech.html",
+    "href": "chapters/part5/w9_proteomics_tech.html",
+    "title": "W9. Proteomics — How Proteins Are Actually Measured",
+    "section": "",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\n⚠️ Say why mRNA is a limited proxy for protein, and quantify how limited\nDescribe what a mass spectrometer measures, in one paragraph, without hand-waving\n⚠️ Explain why DDA produces missing values that look like biology\nSay why plasma is the hardest and most clinically useful sample in proteomics\nChoose between mass spectrometry and an affinity panel for a given question\n⚠️ Recognise the epitope artifact that produces false pQTLs\nAsk a proteomics core the three questions that determine whether your study will work",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W9. How Proteins Are Measured"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w9_proteomics_tech.html#w9-s1-1",
+    "href": "chapters/part5/w9_proteomics_tech.html#w9-s1-1",
+    "title": "W9. Proteomics — How Proteins Are Actually Measured",
+    "section": "1) How well does mRNA predict protein?",
+    "text": "1) How well does mRNA predict protein?\n\n\n\nEight weeks of transcriptomics, and this is the strength of the link to the molecules that do the work.\n\n\nAcross genes within a sample, mRNA and protein abundance typically correlate at roughly r = 0.4–0.6. Correlation across samples for a single gene varies enormously — strong for some genes, effectively zero for others.\n\n\n\n\n\n\nImportantNeither result in the motivating question is wrong\n\n\n\n\n\nThey are measurements of different things.\n\nRNA-seq measured transcription plus transcript stability\nThe protein assay measured the balance of translation, folding, secretion and degradation\n\nA 3-fold mRNA increase with no protein change is a real, interpretable finding: something downstream is buffering it. That is often more interesting than agreement would have been.\n⚠️ The mistake is not the discrepancy. The mistake is having written the RNA-seq result as if it were a statement about protein.",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W9. How Proteins Are Measured"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w9_proteomics_tech.html#w9-s1-2",
+    "href": "chapters/part5/w9_proteomics_tech.html#w9-s1-2",
+    "title": "W9. Proteomics — How Proteins Are Actually Measured",
+    "section": "2) Why this matters clinically, not just technically",
+    "text": "2) Why this matters clinically, not just technically\n\nDrugs act on proteins. A target nominated purely from transcript data has skipped a step\nEvery biomarker you order — troponin, PSA, CRP, HbA1c — is a protein or a protein modification\nPost-translational modification is invisible to RNA-seq. Phosphorylation, cleavage and glycosylation change what a protein does without changing how much of it there is\nSecretion is invisible too. A cell can transcribe a cytokine and never release it (🔗 W6 §3)",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W9. How Proteins Are Measured"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w9_proteomics_tech.html#w9-s2-1",
+    "href": "chapters/part5/w9_proteomics_tech.html#w9-s2-1",
+    "title": "W9. Proteomics — How Proteins Are Actually Measured",
+    "section": "1) The measurement, honestly",
+    "text": "1) The measurement, honestly\nA mass spectrometer does not read protein sequences. It weighs charged fragments extremely precisely, and software infers sequences from the weights.\nprotein mixture\n   → digest with trypsin        (proteins are too big; peptides are not)\n   → liquid chromatography      (separate peptides in time)\n   → MS1: weigh the peptides    (a survey of what is eluting now)\n   → MS2: fragment and weigh    (the fragment pattern identifies the sequence)\n   → match against a database   → protein identities and amounts\n⚠️ Three consequences of this design that matter downstream:\n\nYou measure peptides and infer proteins. Peptides shared between family members create ambiguity\nIdentification depends on a database. A protein form not in the database is not found\nQuantification is relative unless you spike in labelled standards",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W9. How Proteins Are Measured"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w9_proteomics_tech.html#w9-s2-2",
+    "href": "chapters/part5/w9_proteomics_tech.html#w9-s2-2",
+    "title": "W9. Proteomics — How Proteins Are Actually Measured",
+    "section": "2) ⚠️ DDA and DIA — the distinction that decides your statistics",
+    "text": "2) ⚠️ DDA and DIA — the distinction that decides your statistics\n\n\n\nThe same instrument, two acquisition strategies, very different data.\n\n\n\n\n\n\n\n\nWarningWhy DDA missingness is dangerous\n\n\n\n\n\nIn DDA the instrument selects the most intense precursors in each cycle. What is “most intense” depends on everything else co-eluting at that instant.\n\n⚠️ The same sample run twice yields partly different protein lists\n⚠️ Across a cohort, whether a protein was sampled correlates with total protein load, chromatography drift, and run order\n⚠️ If cases and controls were run in different batches (🔗 W1 §3.3), missingness itself becomes a group difference\n\n→ ✅ DIA fragments everything in fixed windows, so the same proteins are quantified in every run. For any clinical cohort, this is the right default — and it is the first thing to ask about someone else’s dataset.",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W9. How Proteins Are Measured"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w9_proteomics_tech.html#w9-s4-1",
+    "href": "chapters/part5/w9_proteomics_tech.html#w9-s4-1",
+    "title": "W9. Proteomics — How Proteins Are Actually Measured",
+    "section": "1) ⚠️ Affinity assays measure binding",
+    "text": "1) ⚠️ Affinity assays measure binding\n\n\n\n\n\n\nImportantThe epitope artifact, and why it matters in W11\n\n\n\n\n\nAn antibody or aptamer reports how much reagent bound. Usually that tracks protein abundance. Sometimes it does not.\nA coding variant that alters the binding epitope reduces the signal without changing the amount of protein present. In a genetic analysis this appears as a variant that “lowers protein levels” — a false pQTL, and one that is strongly enriched for cis variants because those are the ones inside the gene.\n✅ The check: for any cis-pQTL, ask whether the lead variant is a protein-altering variant in that same gene. If it is, the finding needs orthogonal confirmation — ideally by MS, which measures peptides directly.\n⚠️ This matters because pQTLs are increasingly used for drug-target Mendelian randomization (🔗 W3 §3.2). An artifact here propagates into a target nomination.",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W9. How Proteins Are Measured"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w9_proteomics_tech.html#w9-s4-2",
+    "href": "chapters/part5/w9_proteomics_tech.html#w9-s4-2",
+    "title": "W9. Proteomics — How Proteins Are Actually Measured",
+    "section": "2) Cross-platform disagreement is normal",
+    "text": "2) Cross-platform disagreement is normal\nStudies comparing affinity platforms with each other, and with MS, routinely find that a substantial fraction of targets correlate poorly.\n\n⚠️ Two papers reporting different results for the same protein may both be right about what they measured\n✅ When it matters, confirm on a second platform. That is a reviewer-proof sentence in a methods section",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W9. How Proteins Are Measured"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w9_proteomics_tech.html#w9-s6-1",
+    "href": "chapters/part5/w9_proteomics_tech.html#w9-s6-1",
+    "title": "W9. Proteomics — How Proteins Are Actually Measured",
+    "section": "1) Look up a protein you order",
+    "text": "1) Look up a protein you order\nHuman Protein Atlas → search a biomarker you use clinically (troponin I, PSA, CA-125, NT-proBNP…).\n\n① Which tissues and cell types express it? Is it as specific as the clinical framing implies?\n② Compare the RNA and protein tissue profiles on the same page. Where do they disagree?\n③ Look at the pathology section — is expression associated with survival in any cancer?",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W9. How Proteins Are Measured"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w9_proteomics_tech.html#w9-s6-2",
+    "href": "chapters/part5/w9_proteomics_tech.html#w9-s6-2",
+    "title": "W9. Proteomics — How Proteins Are Actually Measured",
+    "section": "2) Check a proteomics dataset before trusting it",
+    "text": "2) Check a proteomics dataset before trusting it\nPick any plasma proteomics paper in your field and answer:\n\n④ Platform? MS or affinity — and if MS, DDA or DIA?\n⑤ Depletion? How many proteins were quantified, and does that number make sense for the sample type?\n⑥ Missing values — how many, and how were they handled? (This is W10 §1)\n⑦ Pre-analytical — were cases and controls collected the same way, in the same place?\n⑧ Batches — were groups randomised across them, or stated at all?\n\n💡 ⑦ and ⑧ are usually either in the supplement or absent. Absence is itself an answer.",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W9. How Proteins Are Measured"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w9_proteomics_tech.html#w9-s6-3",
+    "href": "chapters/part5/w9_proteomics_tech.html#w9-s6-3",
+    "title": "W9. Proteomics — How Proteins Are Actually Measured",
+    "section": "3) Design task",
+    "text": "3) Design task\nWrite five sentences specifying a proteomics study you could realistically run in your department: sample type, platform, n, comparison, and the one pre-analytical variable you are most worried about.\nWe will use these in W10.",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W9. How Proteins Are Measured"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w10_clinical_proteomics.html",
+    "href": "chapters/part5/w10_clinical_proteomics.html",
+    "title": "W10. Clinical Proteomics & Biomarkers",
+    "section": "",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\n⚠️ Explain why missing values in proteomics are not missing at random, and how the choice of imputation changes conclusions\nRun a differential abundance analysis with limma and say why it is not just a t-test\n⚠️ Place a biomarker claim on the discovery → verification → validation → clinical ladder\n⚠️ Recognise the wrong-control-group error, and design around it\nSay what an AUC of 0.94 in a discovery study is worth\nDistinguish diagnostic, prognostic and predictive biomarkers — and say which one a study actually tested\nWrite the design for a biomarker study you could run in your own department",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W10. Clinical Proteomics & Biomarkers"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w10_clinical_proteomics.html#w10-s1-1",
+    "href": "chapters/part5/w10_clinical_proteomics.html#w10-s1-1",
+    "title": "W10. Clinical Proteomics & Biomarkers",
+    "section": "1) Why they are not random",
+    "text": "1) Why they are not random\nA protein is missing from a run mostly because it was below the limit of detection — that is, because it was low. Statisticians call this MNAR (missing not at random), and it is the opposite of the assumption most default methods make.\n\n⚠️ DDA adds a second, technical layer of missingness on top (🔗 W9 §2.2) — a protein can be absent because it was not selected, not because it was low\n✅ DIA data is much cleaner in this respect, which is most of why it is now the default",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W10. Clinical Proteomics & Biomarkers"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w10_clinical_proteomics.html#w10-s1-2",
+    "href": "chapters/part5/w10_clinical_proteomics.html#w10-s1-2",
+    "title": "W10. Clinical Proteomics & Biomarkers",
+    "section": "2) The four choices, and what each does to your result",
+    "text": "2) The four choices, and what each does to your result\n\n\n\n\n\n\nImportantEach one is an assumption, not a cleaning step\n\n\n\n\n\n\n❌ Drop any protein with a missing value. You keep only the abundant, ubiquitously detected proteins — which is exactly the opposite of the set a novel biomarker would come from\n❌ Impute with the row mean. Low values get pulled up toward the middle, shrinking precisely the difference you are testing\n⚠️ Impute from a low distribution (e.g. a shifted, narrowed normal, as in Perseus). Usually a reasonable match to the MNAR mechanism — and still an assumption that belongs in the methods section\n✅ Model missingness explicitly — MSstats, or report a presence/absence test alongside the intensity test. Most defensible, because it stops pretending the NAs are not data\n\n💡 The reflexive check: rerun with a different imputation and see whether your hit survives. If it does not, you have learned something important before a reviewer does.",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W10. Clinical Proteomics & Biomarkers"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w10_clinical_proteomics.html#w10-s2-1",
+    "href": "chapters/part5/w10_clinical_proteomics.html#w10-s2-1",
+    "title": "W10. Clinical Proteomics & Biomarkers",
+    "section": "1) Why limma and not a t-test",
+    "text": "1) Why limma and not a t-test\nProteomics datasets are wide and short — thousands of proteins, tens of samples. A per-protein t-test is unstable because each variance estimate rests on very few observations.\nlimma uses empirical Bayes to shrink each protein’s variance toward the overall trend. In practice this means a protein that happens to look very consistent by chance is not automatically declared significant.\n\nlibrary(limma); library(tidyverse)\n\n# mat: log2 intensities, proteins × samples. meta: one row per sample.\ndesign &lt;- model.matrix(~ condition + sex + age + batch, data = meta)   # ⚠️ batch belongs here\n\nfit &lt;- lmFit(mat, design) |&gt; eBayes(trend = TRUE, robust = TRUE)\nres &lt;- topTable(fit, coef = \"conditionCase\", number = Inf) |&gt;\n  as_tibble(rownames = \"protein\")\n\n\n✅ trend = TRUE accounts for the intensity–variance relationship typical of MS data\n⚠️ Include batch, sex and age in the design. Leaving them out does not make them go away\n✅ For MS designs with technical replicates or fractionation, MSstats models the hierarchy properly",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W10. Clinical Proteomics & Biomarkers"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w10_clinical_proteomics.html#w10-s2-2",
+    "href": "chapters/part5/w10_clinical_proteomics.html#w10-s2-2",
+    "title": "W10. Clinical Proteomics & Biomarkers",
+    "section": "2) What to report",
+    "text": "2) What to report\n\nEffect size (log2 fold change) and adjusted p-value — the same discipline as DESeq2 last semester\nHow many proteins were tested, and how many were dropped for missingness. ⚠️ Multiple testing is over the proteins you tested, not the ones that survived (🔗 W2 §2.4)\nWhether the result survives a different imputation",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W10. Clinical Proteomics & Biomarkers"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w10_clinical_proteomics.html#w10-s3-1",
+    "href": "chapters/part5/w10_clinical_proteomics.html#w10-s3-1",
+    "title": "W10. Clinical Proteomics & Biomarkers",
+    "section": "1) Three kinds of biomarker, often confused",
+    "text": "1) Three kinds of biomarker, often confused\n\n\n\n\n\n\n\n\nType\nAsks\nRequires\n\n\n\n\nDiagnostic\nDoes this patient have the disease now?\nCases and the right differential diagnosis, at presentation\n\n\nPrognostic\nWhat will happen to this patient?\nFollow-up, outcomes, and a survival model\n\n\nPredictive\nWill this patient respond to this drug?\n⚠️ A treated and an untreated arm — otherwise you cannot separate prediction from prognosis\n\n\n\n⚠️ Predictive is the hardest and the most often claimed. “Responders had higher levels than non-responders” is compatible with the marker simply indicating better-prognosis disease, regardless of treatment.",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W10. Clinical Proteomics & Biomarkers"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w10_clinical_proteomics.html#w10-s3-2",
+    "href": "chapters/part5/w10_clinical_proteomics.html#w10-s3-2",
+    "title": "W10. Clinical Proteomics & Biomarkers",
+    "section": "2) ⚠️ Why an AUC of 0.94 can be worthless",
+    "text": "2) ⚠️ Why an AUC of 0.94 can be worthless\n\n\n\nThe number is real. The study answered a question nobody asks.\n\n\n\n\n\n\n\n\nWarningBack to the motivating question\n\n\n\n\n\nNo — not from that study.\nThe paper compared advanced cancer with healthy volunteers. Your patient is neither. To be useful in your clinic, the marker must separate early cancer from the conditions that mimic it, sampled at presentation.\nAnd there is a second problem hiding underneath. If cases were bled in an oncology ward and controls at a screening centre, then collection tube, time to processing and fasting state all differ systematically between groups (🔗 W9 §5). Some of that AUC is measuring where the blood was drawn.\n→ ✅ Ask: were cases and controls sampled at the same point in the care pathway, in the same place, into the same tubes?",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W10. Clinical Proteomics & Biomarkers"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w10_clinical_proteomics.html#w10-s3-3",
+    "href": "chapters/part5/w10_clinical_proteomics.html#w10-s3-3",
+    "title": "W10. Clinical Proteomics & Biomarkers",
+    "section": "3) Prevalence changes everything at the bedside",
+    "text": "3) Prevalence changes everything at the bedside\nAUC is prevalence-independent; positive predictive value is not.\nSensitivity 90%, specificity 90%:\n\n  prevalence 50% (a trial cohort)   →  PPV ≈ 90%\n  prevalence  1% (a screening clinic) →  PPV ≈  8%\n⚠️ The same test. Ninety-two false positives per hundred positive results, and every one of them gets a CT scan.\n💡 This is the calculation you can do and the bioinformatician cannot — because it needs the prevalence in your clinic.",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W10. Clinical Proteomics & Biomarkers"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w10_clinical_proteomics.html#w10-s5-1",
+    "href": "chapters/part5/w10_clinical_proteomics.html#w10-s5-1",
+    "title": "W10. Clinical Proteomics & Biomarkers",
+    "section": "1) Handle the missingness deliberately",
+    "text": "1) Handle the missingness deliberately\n\nlibrary(tidyverse); library(limma)\n\nprot &lt;- readRDS(here::here(\"rawdata\", \"plasma_proteomics.rds\"))  # proteins × samples, log2\nmeta &lt;- readRDS(here::here(\"rawdata\", \"plasma_meta.rds\"))\n\n# ⚠️ Look before deciding\nmiss &lt;- rowMeans(is.na(prot))\nhist(miss, breaks = 40, main = \"Fraction missing per protein\")\n\n# Is missingness related to abundance? (if yes → MNAR)\nplot(rowMeans(prot, na.rm = TRUE), miss,\n     xlab = \"mean intensity\", ylab = \"fraction missing\", pch = 16, col = \"#185FA5\")\n\n💡 A clear negative trend in that second plot is the MNAR evidence. Show it in your supplement.",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W10. Clinical Proteomics & Biomarkers"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w10_clinical_proteomics.html#w10-s5-2",
+    "href": "chapters/part5/w10_clinical_proteomics.html#w10-s5-2",
+    "title": "W10. Clinical Proteomics & Biomarkers",
+    "section": "2) Test, with the covariates that matter",
+    "text": "2) Test, with the covariates that matter\n\nkeep &lt;- miss &lt; 0.30                       # state this threshold in the methods\nmat  &lt;- prot[keep, ]\n\ndesign &lt;- model.matrix(~ condition + age + sex + batch, data = meta)\nfit    &lt;- lmFit(mat, design) |&gt; eBayes(trend = TRUE, robust = TRUE)\nres    &lt;- topTable(fit, coef = \"conditionCase\", number = Inf) |&gt;\n  as_tibble(rownames = \"protein\")\n\nsum(res$adj.P.Val &lt; 0.05)",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W10. Clinical Proteomics & Biomarkers"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w10_clinical_proteomics.html#w10-s5-3",
+    "href": "chapters/part5/w10_clinical_proteomics.html#w10-s5-3",
+    "title": "W10. Clinical Proteomics & Biomarkers",
+    "section": "3) ✅ Change one thing — three times",
+    "text": "3) ✅ Change one thing — three times\n\n# ① Drop batch from the design. How many hits change?\n# ② Impute from a low distribution instead of filtering. Do the top 10 survive?\n# ③ Split by patient into train/test, fit on train, evaluate AUC on test.\n#    Compare that AUC with the one from the full dataset.\n\n⚠️ ③ is the important one. The gap between the in-sample AUC and the held-out AUC is the size of your overfitting, and it is usually larger than people expect.",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W10. Clinical Proteomics & Biomarkers"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w10_clinical_proteomics.html#w10-s5-4",
+    "href": "chapters/part5/w10_clinical_proteomics.html#w10-s5-4",
+    "title": "W10. Clinical Proteomics & Biomarkers",
+    "section": "4) Design task, continued",
+    "text": "4) Design task, continued\nTake the five sentences you wrote in 🔗 W9 §6.3 and add:\n\nthe comparator group you would actually need\nthe decision the result would change\nthe prevalence of the condition in the clinic where it would be used\n\nBring it to W14 — this is a legitimate capstone project.",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W10. Clinical Proteomics & Biomarkers"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w11_multiomics.html",
+    "href": "chapters/part6/w11_multiomics.html",
+    "title": "W11. Multi-omics Integration",
+    "section": "",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nDistinguish sequential from joint integration, and say which your question needs\nUse convergent evidence across layers to narrow a locus to a single candidate gene\n⚠️ Say why an absent signal in one layer is not a negative result\nRead a MOFA variance-explained plot, and ⚠️ recognise a technical factor\n⚠️ Anticipate the three failures that happen before any model is fitted: n collapse, scale imbalance, uninterpretable factors\nSay what integration genuinely buys, and what it cannot manufacture",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W11. Multi-omics Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w11_multiomics.html#w11-s1-1",
+    "href": "chapters/part6/w11_multiomics.html#w11-s1-1",
+    "title": "W11. Multi-omics Integration",
+    "section": "1) Sequential — each layer filters the last",
+    "text": "1) Sequential — each layer filters the last\nYou already did this without calling it integration. W3 narrowed a locus; W5 named a cell type; W9 asked whether the protein exists. Each layer removes candidates.\n\n✅ Keeps your full n at every step, because each analysis uses only the samples that have that layer\n✅ Every step is interpretable on its own and defensible in a methods section\n✅ Layers can come from different cohorts — public eQTL data, a published atlas, your own samples\n⚠️ Cannot discover a pattern that only exists across layers",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W11. Multi-omics Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w11_multiomics.html#w11-s1-2",
+    "href": "chapters/part6/w11_multiomics.html#w11-s1-2",
+    "title": "W11. Multi-omics Integration",
+    "section": "2) Joint — model the layers together",
+    "text": "2) Joint — model the layers together\nMOFA+, mixOmics/DIABLO, iCluster and similar methods find latent factors that explain variance across several layers at once.\n\n✅ Can reveal coordinated programmes no single layer shows\n✅ Unsupervised — can find structure you did not ask about (patient subtypes)\n⚠️ Needs the same samples measured on every layer\n⚠️ Output is a factor, not a mechanism\n\n💡 Answer to the motivating question: usually no, not first. Sequential prioritisation answers most clinical questions, keeps your n, and produces a figure a reviewer can follow. Reach for joint modelling when you specifically suspect a cross-layer programme, or when you want unsupervised patient subtypes.",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W11. Multi-omics Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w11_multiomics.html#w11-s2-1",
+    "href": "chapters/part6/w11_multiomics.html#w11-s2-1",
+    "title": "W11. Multi-omics Integration",
+    "section": "1) Why convergence is strong evidence",
+    "text": "1) Why convergence is strong evidence\nEach layer has its own false positives, and they are largely independent: an eQTL colocalisation artifact has nothing to do with a proteomics artifact. A gene surviving five independent filters is unlikely to be five separate coincidences.",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W11. Multi-omics Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w11_multiomics.html#w11-s2-2",
+    "href": "chapters/part6/w11_multiomics.html#w11-s2-2",
+    "title": "W11. Multi-omics Integration",
+    "section": "2) ⚠️ Why an absence is not evidence",
+    "text": "2) ⚠️ Why an absence is not evidence\n\n\n\n\n\n\nImportantThe asymmetry that gets misread constantly\n\n\n\n\n\nA ✕ in one column almost always means “not measured in the right context”, not “measured and absent”.\n\n⚠️ eQTL panels come from bulk tissue — effects confined to a rare cell type are invisible\n⚠️ Plasma proteomics misses low-abundance proteins entirely (🔗 W9 §3)\n⚠️ Some genes have no protein product to measure\n⚠️ MR needs a strong instrument; a gene without one cannot be tested, which is not the same as being tested and failing\n\n→ ✅ Report convergence as positive evidence. Report gaps as coverage limitations, in a sentence, in the results.\n⚠️ And the failure mode this creates: prioritisation pipelines systematically favour well-measured, well-studied genes. The same bias returns in W12 as network hubs.",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W11. Multi-omics Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w11_multiomics.html#w11-s3-1",
+    "href": "chapters/part6/w11_multiomics.html#w11-s3-1",
+    "title": "W11. Multi-omics Integration",
+    "section": "1) What a factor is",
+    "text": "1) What a factor is\nA latent axis along which samples vary, together with loadings saying which features in which layers drive it. The variance-explained plot says how much of each layer each factor accounts for.",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W11. Multi-omics Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w11_multiomics.html#w11-s3-2",
+    "href": "chapters/part6/w11_multiomics.html#w11-s3-2",
+    "title": "W11. Multi-omics Integration",
+    "section": "2) ⚠️ Annotate factors before interpreting them",
+    "text": "2) ⚠️ Annotate factors before interpreting them\n\n\n\n\n\n\nWarningFactor 1 is almost always technical\n\n\n\n\n\nThe strongest shared source of variation in a real cohort is rarely disease. It is batch, RNA integrity, sex, or age.\n✅ The annotation routine, in order:\n\nTechnical — batch, run date, RIN/DV200, operator, storage time\nDemographic — age, sex, BMI, ancestry\nClinical confounders — medication, comorbidity, disease duration\nOnly then — disease status or outcome\n\n⚠️ If a factor correlates with batch at r = 0.8 and with disease at r = 0.3, it is a batch factor that happens to be slightly confounded with disease. Reporting it as a “disease signature” is a real and common error.\n💡 A factor that loads across several layers is more likely to be biological than one confined to a single layer — but only after steps 1–3 come back empty.",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W11. Multi-omics Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w11_multiomics.html#w11-s5-1",
+    "href": "chapters/part6/w11_multiomics.html#w11-s5-1",
+    "title": "W11. Multi-omics Integration",
+    "section": "1) Build a prioritisation table",
+    "text": "1) Build a prioritisation table\nTake one locus for a disease you treat, and fill in the table from §2 by hand, in the browser:\n\neQTL — Open Targets Genetics or GTEx\nCell type — CELLxGENE\nProtein — Human Protein Atlas\nDirection — IEU OpenGWAS for MR results\nTractability — Open Targets target profile\n\n✅ One row per candidate gene, one column per layer. This is an afternoon, and it is a real figure.",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W11. Multi-omics Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w11_multiomics.html#w11-s5-2",
+    "href": "chapters/part6/w11_multiomics.html#w11-s5-2",
+    "title": "W11. Multi-omics Integration",
+    "section": "2) Check the intersection first",
+    "text": "2) Check the intersection first\n\nlibrary(tidyverse); library(UpSetR)\n\nhave &lt;- meta |&gt; transmute(\n  clinical   = 1L,\n  genotype   = as.integer(!is.na(geno_id)),\n  rna        = as.integer(!is.na(rna_id)),\n  proteomics = as.integer(!is.na(prot_id)))\n\nupset(as.data.frame(have), order.by = \"freq\")\ncat(\"complete cases:\", sum(rowSums(have) == ncol(have)), \"\\n\")   # ⚠️ this is your n",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W11. Multi-omics Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w11_multiomics.html#w11-s5-3",
+    "href": "chapters/part6/w11_multiomics.html#w11-s5-3",
+    "title": "W11. Multi-omics Integration",
+    "section": "3) MOFA, and annotating its factors",
+    "text": "3) MOFA, and annotating its factors\n\nlibrary(MOFA2)\n\nmofa &lt;- create_mofa(list(RNA = rna_mat, Protein = prot_mat, Methyl = meth_mat)) |&gt;\n  prepare_mofa() |&gt; run_mofa()\n\nplot_variance_explained(mofa)          # the figure above\n\n# ⚠️ the step that must come next\nZ &lt;- get_factors(mofa)[[1]]\ncovars &lt;- meta |&gt; select(batch, RIN, age, sex, bmi, condition)\n\ncors &lt;- sapply(covars, \\(v) apply(Z, 2, \\(f) {\n  if (is.numeric(v)) abs(cor(f, v, use = \"pairwise\")) else summary(aov(f ~ factor(v)))[[1]][1, \"F value\"]\n}))\nround(cors, 2)     # look here before you look at biology",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W11. Multi-omics Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w11_multiomics.html#w11-s5-4",
+    "href": "chapters/part6/w11_multiomics.html#w11-s5-4",
+    "title": "W11. Multi-omics Integration",
+    "section": "4) ✅ Change one thing",
+    "text": "4) ✅ Change one thing\n\n# Re-run MOFA with the batch effect removed from each layer first.\n# Does Factor 1 disappear? Does anything else change rank?\n\n💡 If removing batch reshuffles your factors, that tells you how much of the original result was batch — a number worth knowing before it appears in review.",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W11. Multi-omics Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w11_multiomics.html#w11-s5-5",
+    "href": "chapters/part6/w11_multiomics.html#w11-s5-5",
+    "title": "W11. Multi-omics Integration",
+    "section": "5) Before next week",
+    "text": "5) Before next week\nW12 — networks and drug targets. Bring the prioritisation table from §5.1. We will ask whether the surviving gene is druggable.",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W11. Multi-omics Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w12_network_drug.html",
+    "href": "chapters/part6/w12_network_drug.html",
+    "title": "W12. Network Analysis & Drug Targets",
+    "section": "",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nSay what a biological network is built from, and ⚠️ why that construction biases every result\n⚠️ Recognise the study-bias artifact behind most “hub gene” findings\nCompare the three routes to drug repurposing, and say what each is worth as evidence\n⚠️ Explain why direction of effect decides agonist versus antagonist\nWork through six questions that separate a top-ranked gene from an actual target\nUse PheWAS and loss-of-function carriers as a free safety readout",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W12. Network Analysis & Drug Targets"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w12_network_drug.html#w12-s1-1",
+    "href": "chapters/part6/w12_network_drug.html#w12-s1-1",
+    "title": "W12. Network Analysis & Drug Targets",
+    "section": "1) The construction, and the bias it creates",
+    "text": "1) The construction, and the bias it creates\nA protein–protein interaction network is an accumulation of published experiments. STRING, BioGRID and IntAct are curated literature, plus predictions trained on that literature.\nExperiments concentrate on genes people already study. So node degree tracks publication count.\n\n\n\nThe correlation is not subtle.\n\n\n\n\n\n\n\n\nImportantThe answer to the motivating question is: not at all surprised\n\n\n\n\n\nTP53, EGFR and AKT1 come out as hubs for nearly every disease that has ever been networked. They have tens of thousands of papers each, so they have edges to everything.\n⚠️ Concretely, this means:\n\n“Hub” analyses rediscover the same genes regardless of your data\nNetwork proximity scores favour well-studied drugs and well-studied targets\nGenes with no publications have degree ≈ 0 and can never be prioritised, however important\n\n✅ What to do:\n\nCompare against a degree-matched null — permute while preserving each node’s degree, so “well-connected” stops being an automatic win\nPrefer networks built from a single systematic experiment (a proteomics interactome, a CRISPR screen) over literature aggregates, where you can\n✅ Report degree alongside any hub claim, and let the reader see it",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W12. Network Analysis & Drug Targets"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w12_network_drug.html#w12-s1-2",
+    "href": "chapters/part6/w12_network_drug.html#w12-s1-2",
+    "title": "W12. Network Analysis & Drug Targets",
+    "section": "2) What networks are still good for",
+    "text": "2) What networks are still good for\n\n✅ Modules — a set of genes that interact more than expected, giving a process-level rather than gene-level result\n✅ Connecting your hits — do your 40 GWAS loci converge on a pathway?\n✅ Suggesting a mechanism for a gene of unknown function, from its neighbours\n⚠️ Always as a hypothesis. The edges are other people’s experiments, not yours",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W12. Network Analysis & Drug Targets"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w12_network_drug.html#w12-s2-1",
+    "href": "chapters/part6/w12_network_drug.html#w12-s2-1",
+    "title": "W12. Network Analysis & Drug Targets",
+    "section": "1) Genetic support is the strongest route",
+    "text": "1) Genetic support is the strongest route\nTargets with human genetic support are roughly twice as likely to succeed through clinical development. The mechanism is simple: a variant that alters the target is a natural, lifelong, randomised experiment in humans — the argument from 🔗 W3 §3.2.\n\nPCSK9 — loss-of-function carriers have low LDL and low cardiovascular risk → inhibitors work\nIL6R — a variant mimicking IL-6 blockade associates with lower CHD risk → tocilizumab’s cardiovascular signal",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W12. Network Analysis & Drug Targets"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w12_network_drug.html#w12-s2-2",
+    "href": "chapters/part6/w12_network_drug.html#w12-s2-2",
+    "title": "W12. Network Analysis & Drug Targets",
+    "section": "2) ⚠️ Direction of effect",
+    "text": "2) ⚠️ Direction of effect\n\n\n\n\n\n\nWarningThe mistake with the worst consequences in this course\n\n\n\n\n\nIf the risk allele increases target activity, you want an inhibitor. If it decreases it, the target may be protective — and inhibiting it would make patients worse.\nTwo complications:\n\n⚠️ Incoherence. A risk allele can down-regulate a gene that appears up-regulated in patients. Often that is an impaired protective response, and the therapeutic direction is the opposite of what the expression data suggests\n⚠️ Tissue-specificity. Direction can differ between tissues. The relevant tissue is the one where the disease process happens (🔗 W5, 🔗 W7)\n\n→ ✅ Establish direction from genetics plus MR, not from a fold change in patient tissue.",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W12. Network Analysis & Drug Targets"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w12_network_drug.html#w12-s2-3",
+    "href": "chapters/part6/w12_network_drug.html#w12-s2-3",
+    "title": "W12. Network Analysis & Drug Targets",
+    "section": "3) Signature reversal and network proximity",
+    "text": "3) Signature reversal and network proximity\n\nSignature reversal (CMap, LINCS) — find a drug whose expression signature is anti-correlated with the disease signature. ⚠️ Reference profiles come from cell lines at high doses. Useful for generating candidates; not evidence\nNetwork proximity — is a drug’s target close to the disease module? ⚠️ Inherits every bias in §1, so it needs a degree-matched null to mean anything",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W12. Network Analysis & Drug Targets"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w12_network_drug.html#w12-s4-1",
+    "href": "chapters/part6/w12_network_drug.html#w12-s4-1",
+    "title": "W12. Network Analysis & Drug Targets",
+    "section": "1) No code: profile your surviving gene",
+    "text": "1) No code: profile your surviving gene\nOpen Targets → your gene → its target profile.\n\n① Tractability — small molecule? antibody? Which clinical phase, for any indication?\n② Safety — any flagged organ toxicity?\n③ Known drugs — is something already approved against it, for anything?\n④ gnomAD → LOEUF. Is the gene tolerant of loss of function?\n⑤ Open Targets Genetics → PheWAS for the lead variant. What else does it affect?\n\n✅ Write the answers as five sentences. That is §3’s checklist, done.",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W12. Network Analysis & Drug Targets"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w12_network_drug.html#w12-s4-2",
+    "href": "chapters/part6/w12_network_drug.html#w12-s4-2",
+    "title": "W12. Network Analysis & Drug Targets",
+    "section": "2) Build a small network, then check yourself",
+    "text": "2) Build a small network, then check yourself\n\nlibrary(STRINGdb); library(igraph); library(tidyverse)\n\nsdb &lt;- STRINGdb$new(version = \"12\", species = 9606, score_threshold = 700)\nmapped &lt;- sdb$map(data.frame(gene = my_genes), \"gene\", removeUnmappedRows = TRUE)\ng &lt;- sdb$get_subnetwork(mapped$STRING_id) |&gt; igraph::simplify()\n\ndeg &lt;- sort(degree(g), decreasing = TRUE)\nhead(deg, 10)\n\n⚠️ Now the step that is usually missing:\n\n# Is your \"hub\" just a well-studied gene?\n# Fetch PubMed counts for the same genes and correlate with degree.\npubs &lt;- readRDS(here::here(\"rawdata\", \"pubmed_counts.rds\"))   # gene → n papers\ncor(log10(pubs[names(deg)] + 1), deg, use = \"complete\", method = \"spearman\")\n\n💡 In most literature-derived networks this correlation is strong. Report it, and your hub claim becomes credible instead of automatic.",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W12. Network Analysis & Drug Targets"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w12_network_drug.html#w12-s4-3",
+    "href": "chapters/part6/w12_network_drug.html#w12-s4-3",
+    "title": "W12. Network Analysis & Drug Targets",
+    "section": "3) A degree-matched null",
+    "text": "3) A degree-matched null\n\nobserved &lt;- mean(distances(g, v = disease_genes, to = drug_targets))\n\nnull &lt;- replicate(1000, {\n  rw &lt;- sample_degseq(degree(g), method = \"vl\")   # same degrees, rewired edges\n  mean(distances(rw, v = disease_genes, to = drug_targets))\n})\n\ncat(\"observed:\", round(observed, 2), \" null mean:\", round(mean(null), 2), \"\\n\")\n\n✅ If the observed proximity is not clearly better than the degree-matched null, you have measured popularity.",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W12. Network Analysis & Drug Targets"
+    ]
+  },
+  {
+    "objectID": "chapters/part6/w12_network_drug.html#w12-s4-4",
+    "href": "chapters/part6/w12_network_drug.html#w12-s4-4",
+    "title": "W12. Network Analysis & Drug Targets",
+    "section": "4) Before next week",
+    "text": "4) Before next week\nW13 — interpretation and visualisation. Bring one figure from your own work or from a paper you are reading. We will take it apart.",
+    "crumbs": [
+      "Home",
+      "6 · Integration",
+      "W12. Network Analysis & Drug Targets"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w13_visualization.html",
+    "href": "chapters/part7/w13_visualization.html",
+    "title": "W13. Interpretation & Visualisation",
+    "section": "",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\n⚠️ Spot the four ways a figure routinely overstates its data\nChoose a chart form from the job the data has to do\n⚠️ Say why “enriched for immune response” is almost never a result\nSet the right background for an enrichment test, and say why it changes the answer\nWrite a figure caption as one sentence — before drawing the figure\nDecide what belongs in a main figure and what belongs in the supplement",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W13. Interpretation & Visualisation"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w13_visualization.html#w13-s1-1",
+    "href": "chapters/part7/w13_visualization.html#w13-s1-1",
+    "title": "W13. Interpretation & Visualisation",
+    "section": "1) The others, briefly",
+    "text": "1) The others, briefly\n\n⚠️ Truncated axes. For bars, always start at zero — a bar’s length is the value. If zero is uninformative, use points or a dot plot instead\n⚠️ Rainbow colour maps. Not perceptually ordered, invent boundaries where data is smooth, and fail in greyscale and for colour-vision deficiency. ✅ Use a single-hue sequential ramp for magnitude, and a two-hue diverging ramp with a neutral midpoint for signed values\n⚠️ Bars that hide n. With n ≤ 10, ✅ plot the individual points. A bar plus SEM at n = 3 implies a precision you do not have",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W13. Interpretation & Visualisation"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w13_visualization.html#w13-s3-1",
+    "href": "chapters/part7/w13_visualization.html#w13-s3-1",
+    "title": "W13. Interpretation & Visualisation",
+    "section": "1) The background is the whole test",
+    "text": "1) The background is the whole test\nEnrichment asks whether your gene list contains more of a category than expected by chance from some universe. Change the universe, change the answer.\n\n❌ Default “all human genes” — but genes not expressed in your tissue could never have been in your list\n✅ The universe is the genes you actually tested: expressed above threshold, passing filters\n⚠️ In tissue-specific data this typically halves the universe, and it can remove an entire “significant” category\n\n\nlibrary(clusterProfiler); library(org.Hs.eg.db)\n\nuniverse &lt;- rownames(dds)[rowSums(counts(dds)) &gt; 10]   # ✅ what was testable\n\nego &lt;- enrichGO(gene = sig_genes, universe = universe,     # ⚠️ not the default\n                OrgDb = org.Hs.eg.db, keyType = \"SYMBOL\",\n                ont = \"BP\", pAdjustMethod = \"BH\")\n\nego &lt;- simplify(ego, cutoff = 0.7)     # collapse redundant nested terms",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W13. Interpretation & Visualisation"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w13_visualization.html#w13-s3-2",
+    "href": "chapters/part7/w13_visualization.html#w13-s3-2",
+    "title": "W13. Interpretation & Visualisation",
+    "section": "2) GSEA on the ranked list",
+    "text": "2) GSEA on the ranked list\n✅ Often better than an over-representation test: it uses the whole ranking rather than a thresholded list, so there is no arbitrary cut-off, and modest coordinated shifts are detectable.\n\nranks &lt;- res |&gt; filter(!is.na(stat)) |&gt; arrange(desc(stat)) |&gt;\n  select(gene, stat) |&gt; deframe()\n\ngseaGO &lt;- gseGO(ranks, OrgDb = org.Hs.eg.db, keyType = \"SYMBOL\", ont = \"BP\")",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W13. Interpretation & Visualisation"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w13_visualization.html#w13-s3-3",
+    "href": "chapters/part7/w13_visualization.html#w13-s3-3",
+    "title": "W13. Interpretation & Visualisation",
+    "section": "3) ⚠️ Then name genes",
+    "text": "3) ⚠️ Then name genes\n“Enriched for immune response” is compatible with almost any inflammatory tissue. “Interferon signalling, driven by IFI44L, ISG15 and MX1” is a sentence a reader can act on — and check.",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W13. Interpretation & Visualisation"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w13_visualization.html#w13-s5-1",
+    "href": "chapters/part7/w13_visualization.html#w13-s5-1",
+    "title": "W13. Interpretation & Visualisation",
+    "section": "1) Take apart the figure you brought",
+    "text": "1) Take apart the figure you brought\nWork in pairs. For your neighbour’s figure:\n\n① Write the caption as one sentence. Can you?\n② Does the axis start at zero, and should it?\n③ Can you see the n? Can you see individual patients?\n④ If there is a heatmap: how were the genes chosen, and was it row-scaled?\n⑤ If there is a colour scale: sequential, diverging, or rainbow — and does it match the job?\n⑥ Which panel could move to the supplement without weakening the point?",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W13. Interpretation & Visualisation"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w13_visualization.html#w13-s5-2",
+    "href": "chapters/part7/w13_visualization.html#w13-s5-2",
+    "title": "W13. Interpretation & Visualisation",
+    "section": "2) Rebuild one plot",
+    "text": "2) Rebuild one plot\n\nlibrary(tidyverse)\n\n# ❌ before\nggplot(d, aes(group, value, fill = group)) +\n  stat_summary(fun = mean, geom = \"col\") +\n  stat_summary(fun.data = mean_se, geom = \"errorbar\", width = .2)\n\n# ✅ after — the patients are visible, and n is on the axis\nd |&gt;\n  mutate(group = fct_relevel(group, \"control\")) |&gt;\n  ggplot(aes(group, value)) +\n  geom_boxplot(width = .45, outlier.shape = NA, colour = \"#8A7FA3\") +\n  geom_jitter(width = .12, size = 2.6, alpha = .85, colour = \"#185FA5\") +\n  scale_x_discrete(labels = \\(x) paste0(x, \"\\n(n = \", table(d$group)[x], \")\")) +\n  labs(y = \"CD8 T-cell fraction\", x = NULL,\n       title = \"Responders have a higher CD8 T-cell fraction\") +\n  theme_minimal(base_size = 13) +\n  theme(panel.grid.major.x = element_blank())",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W13. Interpretation & Visualisation"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w13_visualization.html#w13-s5-3",
+    "href": "chapters/part7/w13_visualization.html#w13-s5-3",
+    "title": "W13. Interpretation & Visualisation",
+    "section": "3) Redo an enrichment with the right universe",
+    "text": "3) Redo an enrichment with the right universe\n\n# Run enrichGO twice: default universe, then the expressed-gene universe.\n# How many terms survive? Does the top term change?\n\n💡 This takes two minutes and changes results often enough to be worth doing every time.",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W13. Interpretation & Visualisation"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w13_visualization.html#w13-s5-4",
+    "href": "chapters/part7/w13_visualization.html#w13-s5-4",
+    "title": "W13. Interpretation & Visualisation",
+    "section": "4) Before next week",
+    "text": "4) Before next week\nW14 — your own project. Bring a one-sentence research question and a note of what data you could realistically get hold of.",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W13. Interpretation & Visualisation"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w14_project_design.html",
+    "href": "chapters/part7/w14_project_design.html",
+    "title": "W14. Designing Your Own Project",
+    "section": "",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nNarrow a broad interest into a question with a comparison, a measurement and a data source\n⚠️ Judge feasibility honestly, and recognise the quadrant where most first projects die\nPlan four figures before running any analysis\nState which rung of the evidence ladder your project can reach, and name the next one\n⚠️ Say why a negative result is a complete project\nLeave with a written one-page protocol",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W14. Designing Your Own Project"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w14_project_design.html#w14-s2-1",
+    "href": "chapters/part7/w14_project_design.html#w14-s2-1",
+    "title": "W14. Designing Your Own Project",
+    "section": "1) What “data you already have” actually includes",
+    "text": "1) What “data you already have” actually includes\nResidents consistently underestimate this list:\n\n✅ The pathology archive — FFPE blocks with linked outcomes. Spatial and proteomics both work on FFPE (🔗 W7 §2.2)\n✅ Residual clinical samples — banked serum or plasma, under existing consent in some institutions\n✅ The EHR — labs, imaging reports, medications, outcomes, already digital\n✅ Public data collected for another purpose — GEO, CELLxGENE, TCGA, the UK Biobank return files. A dataset generated to answer question A very often contains the answer to your question B\n✅ Your department’s own past studies — data that was analysed once, for one aim\n\n💡 The best resident projects usually combine one existing dataset with one clinical question nobody in the original study cared about.",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W14. Designing Your Own Project"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w14_project_design.html#w14-s2-2",
+    "href": "chapters/part7/w14_project_design.html#w14-s2-2",
+    "title": "W14. Designing Your Own Project",
+    "section": "2) The honest costs",
+    "text": "2) The honest costs\n\n\n\n\n\n\n\nStep\nRealistic time\n\n\n\n\nIRB / ethics for archived samples\n⚠️ 1–4 months, and it starts the clock\n\n\nLocating and pulling blocks\n2–6 weeks, and someone must do it\n\n\nSectioning, QC (DV200)\n2–4 weeks\n\n\nAssay turnaround at a core\n4–12 weeks\n\n\nAnalysis\n⚠️ Always longer than planned\n\n\nWriting\nLonger still\n\n\n\n⚠️ Start the ethics application in week one. It is the only step that cannot be compressed by working harder.",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W14. Designing Your Own Project"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w14_project_design.html#w14-s3-1",
+    "href": "chapters/part7/w14_project_design.html#w14-s3-1",
+    "title": "W14. Designing Your Own Project",
+    "section": "1) Name your rung",
+    "text": "1) Name your rung\nFrom 🔗 W8 §3: description → hypothesis → consistent with → supported → demonstrated.\nA resident project realistically reaches ③ consistent with. That is publishable, fundable, and honest — provided you say so and name the experiment that would take it to ④ or ⑤.\n⚠️ What sinks projects at review is not stopping at ③. It is writing ⑤’s verb over ③’s evidence.",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W14. Designing Your Own Project"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w14_project_design.html#w14-s3-2",
+    "href": "chapters/part7/w14_project_design.html#w14-s3-2",
+    "title": "W14. Designing Your Own Project",
+    "section": "2) ✅ A negative result is a complete project",
+    "text": "2) ✅ A negative result is a complete project\n\n\n\n\n\n\nTipWhat makes a negative result complete\n\n\n\n\n\nNot “we found nothing”. Rather:\n\n✅ The hypothesis was specific enough to be wrong\n✅ The design could have detected the effect — say how large an effect you had power for\n✅ The measurement worked — positive controls behaved as expected\n✅ You can say what you would do differently\n\n→ That is a better contribution than a fishing expedition that found a p-value. And in a fourteen-week course, it is a much more achievable target.",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W14. Designing Your Own Project"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w14_project_design.html#w14-s5-1",
+    "href": "chapters/part7/w14_project_design.html#w14-s5-1",
+    "title": "W14. Designing Your Own Project",
+    "section": "1) Ten minutes each, in pairs",
+    "text": "1) Ten minutes each, in pairs\n\n① State your question in one sentence. Your partner repeats it back. Did they get it right?\n② Which quadrant is it in (§2)? Be honest\n③ Sketch Figure 2 — the answer figure — on paper. What are the axes?\n④ What is your n, and what is the unit of replication?\n⑤ Name one confounder that could produce your expected result on its own\n⑥ Heading 10 — what would make you stop?\n\n\n\n\n\n\n\nWarningThe three failure modes you will hear most often today\n\n\n\n\n\n\n❌ Too broad. “I want to look at the immune microenvironment.” → apply §1 until a comparison appears\n❌ n is wrong. “I have 40,000 cells.” → from how many patients? (🔗 W5 §5)\n❌ Data does not exist yet. “I’ll collect fresh samples.” → how many will you have in six months? Usually the honest number is under ten",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W14. Designing Your Own Project"
+    ]
+  },
+  {
+    "objectID": "chapters/part7/w14_project_design.html#w14-s5-2",
+    "href": "chapters/part7/w14_project_design.html#w14-s5-2",
+    "title": "W14. Designing Your Own Project",
+    "section": "2) Before the final session",
+    "text": "2) Before the final session\nDeliverables:\n\n✅ One-page protocol, all ten headings\n✅ Figure 1 (cohort) drafted, even roughly\n✅ Figure 2 (the answer) drafted — or the caption with the number still blank\n✅ A Quarto document that renders, with no hand-typed numbers (🔗 W2 §3)\n✅ Code in a git repository (🔗 W2 §4) — ⚠️ with rawdata/ in .gitignore\n\nPresentation: 15 minutes + 5 minutes questions.\nBackground            2 min   the clinical problem\nQuestion              1 min   one sentence, and why it is answerable\nData & methods        3 min   what you had, what you did, what you excluded\nResults             5–7 min   your four figures, one message each\nInterpretation        2 min   which rung, and what would move it up\nClinical implication  1 min   what changes if this is true",
+    "crumbs": [
+      "Home",
+      "7 · Capstone",
+      "W14. Designing Your Own Project"
+    ]
   }
 ]

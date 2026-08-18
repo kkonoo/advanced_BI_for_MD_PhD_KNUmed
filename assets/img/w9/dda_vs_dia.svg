@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="440" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Why the same protein is missing in some samples and not others — and it is not biology.</text>
+
+  <!-- DDA -->
+  <rect x="24" y="46" width="400" height="290" rx="10" fill="#ffffff" stroke="#BA7517" stroke-width="2"/>
+  <rect x="24" y="46" width="400" height="40" rx="10" fill="#f8f1e6"/>
+  <rect x="24" y="76" width="400" height="10" fill="#f8f1e6"/>
+  <text x="48" y="72" font-size="14" font-weight="700" fill="#8a6a1f">DDA — data-dependent acquisition</text>
+  <text x="400" y="72" font-size="12" fill="#a08850" text-anchor="end">the classic method</text>
+
+  <text x="48" y="108" font-size="12" fill="#8A7FA3">MS1 survey scan — peptides eluting right now</text>
+  <g>
+    <rect x="52"  y="120" width="10" height="44" fill="#c9c2d8"/>
+    <rect x="76"  y="130" width="10" height="34" fill="#c9c2d8"/>
+    <rect x="100" y="116" width="10" height="48" fill="#BA7517"/>
+    <rect x="124" y="146" width="10" height="18" fill="#c9c2d8"/>
+    <rect x="148" y="122" width="10" height="42" fill="#BA7517"/>
+    <rect x="172" y="150" width="10" height="14" fill="#c9c2d8"/>
+    <rect x="196" y="134" width="10" height="30" fill="#BA7517"/>
+    <rect x="220" y="152" width="10" height="12" fill="#c9c2d8"/>
+    <rect x="244" y="144" width="10" height="20" fill="#c9c2d8"/>
+    <rect x="268" y="156" width="10" height="8"  fill="#c9c2d8"/>
+    <rect x="292" y="140" width="10" height="24" fill="#c9c2d8"/>
+    <rect x="316" y="158" width="10" height="6"  fill="#c9c2d8"/>
+  </g>
+  <line x1="48" y1="164" x2="400" y2="164" stroke="#cfc9dd" stroke-width="1.2"/>
+  <text x="48" y="188" font-size="12" font-weight="700" fill="#8a6a1f">The instrument picks the top N most intense</text>
+  <text x="48" y="206" font-size="12" fill="#666">and fragments only those. The rest are never identified.</text>
+
+  <rect x="48" y="220" width="352" height="100" rx="7" fill="#fbeee8"/>
+  <text x="68" y="244" font-size="12.5" font-weight="700" fill="#a8401d">⚠️ "Top N" depends on what else co-elutes</text>
+  <text x="68" y="266" font-size="12" fill="#a05a3f">Run the same sample twice and you get partly different</text>
+  <text x="68" y="284" font-size="12" fill="#a05a3f">proteins. Across 40 patient samples this produces a</text>
+  <text x="68" y="302" font-size="12" font-weight="700" fill="#a8401d">missingness pattern that looks like a group difference.</text>
+
+  <!-- DIA -->
+  <rect x="456" y="46" width="400" height="290" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="2"/>
+  <rect x="456" y="46" width="400" height="40" rx="10" fill="#e8f5f0"/>
+  <rect x="456" y="76" width="400" height="10" fill="#e8f5f0"/>
+  <text x="480" y="72" font-size="14" font-weight="700" fill="#0F6E56">DIA — data-independent acquisition</text>
+  <text x="832" y="72" font-size="12" fill="#7fa89a" text-anchor="end">the cohort default</text>
+
+  <text x="480" y="108" font-size="12" fill="#8A7FA3">Fixed m/z windows — everything in each window is fragmented</text>
+  <g>
+    <rect x="484" y="116" width="82" height="48" fill="#e0efe9" stroke="#1D9E75" stroke-width="1.2"/>
+    <rect x="570" y="116" width="82" height="48" fill="#e0efe9" stroke="#1D9E75" stroke-width="1.2"/>
+    <rect x="656" y="116" width="82" height="48" fill="#e0efe9" stroke="#1D9E75" stroke-width="1.2"/>
+    <rect x="742" y="116" width="82" height="48" fill="#e0efe9" stroke="#1D9E75" stroke-width="1.2"/>
+    <rect x="490"  y="122" width="8" height="42" fill="#1D9E75"/>
+    <rect x="512" y="132" width="8" height="32" fill="#1D9E75"/>
+    <rect x="536" y="126" width="8" height="38" fill="#1D9E75"/>
+    <rect x="582" y="140" width="8" height="24" fill="#1D9E75"/>
+    <rect x="606" y="124" width="8" height="40" fill="#1D9E75"/>
+    <rect x="630" y="148" width="8" height="16" fill="#1D9E75"/>
+    <rect x="668" y="134" width="8" height="30" fill="#1D9E75"/>
+    <rect x="692" y="152" width="8" height="12" fill="#1D9E75"/>
+    <rect x="716" y="144" width="8" height="20" fill="#1D9E75"/>
+    <rect x="754" y="150" width="8" height="14" fill="#1D9E75"/>
+    <rect x="778" y="140" width="8" height="24" fill="#1D9E75"/>
+    <rect x="802" y="156" width="8" height="8"  fill="#1D9E75"/>
+  </g>
+  <line x1="480" y1="164" x2="832" y2="164" stroke="#cfc9dd" stroke-width="1.2"/>
+  <text x="480" y="188" font-size="12" font-weight="700" fill="#0F6E56">Nothing is selected, so nothing is skipped</text>
+  <text x="480" y="206" font-size="12" fill="#666">The mixed spectra are untangled afterwards, against a library.</text>
+
+  <rect x="480" y="220" width="352" height="100" rx="7" fill="#e8f5f0"/>
+  <text x="500" y="244" font-size="12.5" font-weight="700" fill="#0F6E56">✅ The same proteins are quantified in every run</text>
+  <text x="500" y="266" font-size="12" fill="#3d7a68">Far fewer missing values, and the ones that remain are</text>
+  <text x="500" y="284" font-size="12" fill="#3d7a68">much more likely to mean "genuinely low".</text>
+  <text x="500" y="302" font-size="12" fill="#7fa89a">⚠️ Cost: heavier computation, and library choice matters.</text>
+
+  <!-- footer -->
+  <rect x="24" y="350" width="832" height="72" rx="9" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="374" font-size="13" font-weight="700" fill="#4A3D6B">The one question to ask about any proteomics dataset before you analyse it</text>
+  <text x="48" y="396" font-size="12.5" fill="#555">"Was this DDA or DIA?" — because it decides whether your missing values are a measurement artifact or a biological signal (W10 §1).</text>
+  <text x="48" y="414" font-size="12.5" fill="#555">💡 For a clinical cohort of more than a handful of samples, DIA is almost always the right answer.</text>
+</svg>

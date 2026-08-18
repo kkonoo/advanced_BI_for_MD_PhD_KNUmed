@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eunji Ha">
+<meta name="dcterms.date" content="2026-08-18">
+
+<title>W11. Multi-omics Integration</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/part6/w12_network_drug.html" rel="next">
+<link href="../../chapters/part5/w10_clinical_proteomics.html" rel="prev">
+<link href="../../assets/img/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../../assets/html.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../assets/img/logo.jpg" alt="" class="navbar-logo light-content">
+    <img src="../../assets/img/logo.jpg" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weeks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weeks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">    
+        <li>
+    <a class="dropdown-item" href="../../chapters/part1/w1_intro.html">
+ <span class="dropdown-text">W1 · Introduction &amp; Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part1/w2_scripts_ai.html">
+ <span class="dropdown-text">W2 · Scripts, AI &amp; Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part2/w3_gwas.html">
+ <span class="dropdown-text">W3 · GWAS &amp; Post-GWAS</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part2/w4_prs.html">
+ <span class="dropdown-text">W4 · Polygenic Risk Scores</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part3/w5_scrna_qc.html">
+ <span class="dropdown-text">W5 · scRNA-seq: QC &amp; Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part3/w6_scrna_dynamics.html">
+ <span class="dropdown-text">W6 · Trajectory, CCC &amp; Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part4/w7_spatial_basics.html">
+ <span class="dropdown-text">W7 · Spatial Transcriptomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part4/w8_spatial_integration.html">
+ <span class="dropdown-text">W8 · Deconvolution &amp; Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part5/w9_proteomics_tech.html">
+ <span class="dropdown-text">W9 · Proteomics Technology</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part5/w10_clinical_proteomics.html">
+ <span class="dropdown-text">W10 · Clinical Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part6/w11_multiomics.html">
+ <span class="dropdown-text">W11 · Multi-omics Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part6/w12_network_drug.html">
+ <span class="dropdown-text">W12 · Network &amp; Drug Targets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part7/w13_visualization.html">
+ <span class="dropdown-text">W13 · Interpretation &amp; Visualisation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part7/w14_project_design.html">
+ <span class="dropdown-text">W14 · Project Design</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part6/w11_multiomics.html">6 · Integration</a></li><li class="breadcrumb-item"><a href="../../chapters/part6/w11_multiomics.html">W11. Multi-omics Integration</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">1 · Intro</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part1/w1_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W1. Introduction &amp; Roadmap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part1/w2_scripts_ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W2. Scripts, AI &amp; Reproducibility</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">2 · Clinical Genomics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part2/w3_gwas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W3. GWAS &amp; Post-GWAS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part2/w4_prs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W4. Polygenic Risk Scores</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">3 · Single-cell</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part3/w5_scrna_qc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W5. Technology, QC, Clustering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part3/w6_scrna_dynamics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W6. Trajectory, Communication, Integration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">4 · Spatial</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part4/w7_spatial_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W7. Spatial Transcriptomics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part4/w8_spatial_integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W8. Deconvolution &amp; Integration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">5 · Proteomics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part5/w9_proteomics_tech.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W9. How Proteins Are Measured</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part5/w10_clinical_proteomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W10. Clinical Proteomics &amp; Biomarkers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">6 · Integration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part6/w11_multiomics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">W11. Multi-omics Integration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part6/w12_network_drug.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W12. Network Analysis &amp; Drug Targets</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">7 · Capstone</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part7/w13_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W13. Interpretation &amp; Visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part7/w14_project_design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W14. Designing Your Own Project</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#w11-s1" id="toc-w11-s1" class="nav-link active" data-scroll-target="#w11-s1">1. Two Ways to Integrate 🧭</a>
+  <ul>
+  <li><a href="#w11-s1-1" id="toc-w11-s1-1" class="nav-link" data-scroll-target="#w11-s1-1">1) Sequential — each layer filters the last</a></li>
+  <li><a href="#w11-s1-2" id="toc-w11-s1-2" class="nav-link" data-scroll-target="#w11-s1-2">2) Joint — model the layers together</a></li>
+  </ul></li>
+  <li><a href="#w11-s2" id="toc-w11-s2" class="nav-link" data-scroll-target="#w11-s2">2. Sequential Integration in Practice 🎯</a>
+  <ul>
+  <li><a href="#w11-s2-1" id="toc-w11-s2-1" class="nav-link" data-scroll-target="#w11-s2-1">1) Why convergence is strong evidence</a></li>
+  <li><a href="#w11-s2-2" id="toc-w11-s2-2" class="nav-link" data-scroll-target="#w11-s2-2">2) ⚠️ Why an absence is not evidence</a></li>
+  </ul></li>
+  <li><a href="#w11-s3" id="toc-w11-s3" class="nav-link" data-scroll-target="#w11-s3">3. Joint Models — Reading the Output 📐</a>
+  <ul>
+  <li><a href="#w11-s3-1" id="toc-w11-s3-1" class="nav-link" data-scroll-target="#w11-s3-1">1) What a factor is</a></li>
+  <li><a href="#w11-s3-2" id="toc-w11-s3-2" class="nav-link" data-scroll-target="#w11-s3-2">2) ⚠️ Annotate factors before interpreting them</a></li>
+  </ul></li>
+  <li><a href="#w11-s4" id="toc-w11-s4" class="nav-link" data-scroll-target="#w11-s4">4. ⚠️ Three Failures Before the Model 🕳️</a></li>
+  <li><a href="#w11-s5" id="toc-w11-s5" class="nav-link" data-scroll-target="#w11-s5">5. Hands-On 💻</a>
+  <ul>
+  <li><a href="#w11-s5-1" id="toc-w11-s5-1" class="nav-link" data-scroll-target="#w11-s5-1">1) Build a prioritisation table</a></li>
+  <li><a href="#w11-s5-2" id="toc-w11-s5-2" class="nav-link" data-scroll-target="#w11-s5-2">2) Check the intersection first</a></li>
+  <li><a href="#w11-s5-3" id="toc-w11-s5-3" class="nav-link" data-scroll-target="#w11-s5-3">3) MOFA, and annotating its factors</a></li>
+  <li><a href="#w11-s5-4" id="toc-w11-s5-4" class="nav-link" data-scroll-target="#w11-s5-4">4) ✅ Change one thing</a></li>
+  <li><a href="#w11-s5-5" id="toc-w11-s5-5" class="nav-link" data-scroll-target="#w11-s5-5">5) Before next week</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">📝 Summary</a></li>
+  <li><a href="#key-terms" id="toc-key-terms" class="nav-link" data-scroll-target="#key-terms">🔑 Key terms</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">➕ References</a>
+  <ul>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
+  <li><a href="#perspective-and-pitfalls" id="toc-perspective-and-pitfalls" class="nav-link" data-scroll-target="#perspective-and-pitfalls">Perspective and pitfalls</a></li>
+  <li><a href="#gene-prioritisation" id="toc-gene-prioritisation" class="nav-link" data-scroll-target="#gene-prioritisation">Gene prioritisation</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part6/w11_multiomics.html">6 · Integration</a></li><li class="breadcrumb-item"><a href="../../chapters/part6/w11_multiomics.html">W11. Multi-omics Integration</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">W11. Multi-omics Integration</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eunji Ha </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>🎯 Learning objectives
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>By the end of this chapter you should be able to:</p>
+<ul>
+<li>Distinguish <strong>sequential</strong> from <strong>joint</strong> integration, and say which your question needs</li>
+<li>Use convergent evidence across layers to narrow a locus to a single candidate gene</li>
+<li>⚠️ Say why an absent signal in one layer is not a negative result</li>
+<li>Read a MOFA variance-explained plot, and ⚠️ recognise a technical factor</li>
+<li>⚠️ Anticipate the three failures that happen before any model is fitted: n collapse, scale imbalance, uninterpretable factors</li>
+<li>Say what integration genuinely buys, and what it cannot manufacture</li>
+</ul>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>🤔 <strong>Motivating question</strong></p>
+<p>You have genotypes, RNA-seq, proteomics and clinical data on the same cohort. Should you put them all into one model?</p>
+</blockquote>
+<hr>
+<section id="w11-s1" class="level1">
+<h1>1. Two Ways to Integrate 🧭</h1>
+<section id="w11-s1-1" class="level2">
+<h2 class="anchored" data-anchor-id="w11-s1-1">1) Sequential — each layer filters the last</h2>
+<p>You already did this without calling it integration. W3 narrowed a locus; W5 named a cell type; W9 asked whether the protein exists. Each layer removes candidates.</p>
+<ul>
+<li>✅ Keeps your <strong>full n</strong> at every step, because each analysis uses only the samples that have that layer</li>
+<li>✅ Every step is interpretable on its own and defensible in a methods section</li>
+<li>✅ Layers can come from <strong>different cohorts</strong> — public eQTL data, a published atlas, your own samples</li>
+<li>⚠️ Cannot discover a pattern that only exists <em>across</em> layers</li>
+</ul>
+</section>
+<section id="w11-s1-2" class="level2">
+<h2 class="anchored" data-anchor-id="w11-s1-2">2) Joint — model the layers together</h2>
+<p><strong>MOFA+</strong>, <strong>mixOmics/DIABLO</strong>, <strong>iCluster</strong> and similar methods find latent factors that explain variance across several layers at once.</p>
+<ul>
+<li>✅ Can reveal coordinated programmes no single layer shows</li>
+<li>✅ Unsupervised — can find structure you did not ask about (patient subtypes)</li>
+<li>⚠️ Needs the <strong>same samples</strong> measured on every layer</li>
+<li>⚠️ Output is a factor, not a mechanism</li>
+</ul>
+<p>💡 <strong>Answer to the motivating question:</strong> usually <strong>no, not first</strong>. Sequential prioritisation answers most clinical questions, keeps your n, and produces a figure a reviewer can follow. Reach for joint modelling when you specifically suspect a cross-layer programme, or when you want unsupervised patient subtypes.</p>
+<hr>
+</section>
+</section>
+<section id="w11-s2" class="level1">
+<h1>2. Sequential Integration in Practice 🎯</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w11/prioritization.svg" class="img-fluid figure-img"></p>
+<figcaption>The most useful form of integration for a clinician, and the least glamorous.</figcaption>
+</figure>
+</div>
+<section id="w11-s2-1" class="level2">
+<h2 class="anchored" data-anchor-id="w11-s2-1">1) Why convergence is strong evidence</h2>
+<p>Each layer has its own false positives, and they are largely <strong>independent</strong>: an eQTL colocalisation artifact has nothing to do with a proteomics artifact. A gene surviving five independent filters is unlikely to be five separate coincidences.</p>
+</section>
+<section id="w11-s2-2" class="level2">
+<h2 class="anchored" data-anchor-id="w11-s2-2">2) ⚠️ Why an absence is not evidence</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>The asymmetry that gets misread constantly
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A ✕ in one column almost always means <strong>“not measured in the right context”</strong>, not “measured and absent”.</p>
+<ul>
+<li>⚠️ eQTL panels come from bulk tissue — effects confined to a rare cell type are invisible</li>
+<li>⚠️ Plasma proteomics misses low-abundance proteins entirely (🔗 <a href="../../chapters/part5/w9_proteomics_tech.html#w9-s3">W9 §3</a>)</li>
+<li>⚠️ Some genes have no protein product to measure</li>
+<li>⚠️ MR needs a strong instrument; a gene without one cannot be tested, which is not the same as being tested and failing</li>
+</ul>
+<p>→ ✅ Report convergence as positive evidence. Report gaps as <strong>coverage limitations</strong>, in a sentence, in the results.</p>
+<p>⚠️ And the failure mode this creates: prioritisation pipelines systematically favour <strong>well-measured, well-studied genes</strong>. The same bias returns in W12 as network hubs.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="w11-s3" class="level1">
+<h1>3. Joint Models — Reading the Output 📐</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w11/mofa_factors.svg" class="img-fluid figure-img"></p>
+<figcaption>Read the columns to find the technical factors, then the rows to find the biology.</figcaption>
+</figure>
+</div>
+<section id="w11-s3-1" class="level2">
+<h2 class="anchored" data-anchor-id="w11-s3-1">1) What a factor is</h2>
+<p>A latent axis along which samples vary, together with <strong>loadings</strong> saying which features in which layers drive it. The variance-explained plot says how much of each layer each factor accounts for.</p>
+</section>
+<section id="w11-s3-2" class="level2">
+<h2 class="anchored" data-anchor-id="w11-s3-2">2) ⚠️ Annotate factors before interpreting them</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Factor 1 is almost always technical
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The strongest shared source of variation in a real cohort is rarely disease. It is batch, RNA integrity, sex, or age.</p>
+<p>✅ The annotation routine, in order:</p>
+<ol type="1">
+<li><strong>Technical</strong> — batch, run date, RIN/DV200, operator, storage time</li>
+<li><strong>Demographic</strong> — age, sex, BMI, ancestry</li>
+<li><strong>Clinical confounders</strong> — medication, comorbidity, disease duration</li>
+<li><strong>Only then</strong> — disease status or outcome</li>
+</ol>
+<p>⚠️ If a factor correlates with batch at r = 0.8 and with disease at r = 0.3, it is a batch factor that happens to be slightly confounded with disease. Reporting it as a “disease signature” is a real and common error.</p>
+<p>💡 A factor that loads across <strong>several</strong> layers is more likely to be biological than one confined to a single layer — but only after steps 1–3 come back empty.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="w11-s4" class="level1">
+<h1>4. ⚠️ Three Failures Before the Model 🕳️</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w11/integration_traps.svg" class="img-fluid figure-img"></p>
+<figcaption>None of these is a modelling problem, and all of them are decided at design time.</figcaption>
+</figure>
+</div>
+<p><strong>① Your n collapses.</strong> Joint models use complete cases. A cohort of 300 with four layers may have 41 patients measured on all four — and that is your real sample size.</p>
+<ul>
+<li>✅ Check the intersection <strong>before</strong> planning the analysis</li>
+<li>✅ Some methods handle missing views; using one is a decision to state, not a default</li>
+</ul>
+<p><strong>② Scale imbalance.</strong> Methylation contributes 450,000 features and your clinical variables contribute 12. Without per-layer scaling, the factors describe methylation.</p>
+<p><strong>③ The factor is not a mechanism.</strong> See §3.2.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>What integration cannot do
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>❌ It cannot create power. Four noisy layers on 41 patients is not stronger than one good layer on 300</li>
+<li>❌ It cannot fix confounding. If batch tracks disease, every layer inherits it and the joint model concentrates it into a factor</li>
+<li>❌ It cannot make an underpowered study publishable. Reviewers have become good at spotting integration used as a substitute for n</li>
+</ul>
+<p>→ ✅ What it genuinely buys: <strong>cross-layer coordination you could not otherwise see</strong>, and <strong>unsupervised subtypes</strong> you did not know to look for.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="w11-s5" class="level1">
+<h1>5. Hands-On 💻</h1>
+<section id="w11-s5-1" class="level2">
+<h2 class="anchored" data-anchor-id="w11-s5-1">1) Build a prioritisation table</h2>
+<p>Take one locus for a disease you treat, and fill in the table from §2 by hand, in the browser:</p>
+<ul>
+<li><strong>eQTL</strong> — <a href="https://genetics.opentargets.org">Open Targets Genetics</a> or <a href="https://gtexportal.org">GTEx</a></li>
+<li><strong>Cell type</strong> — <a href="https://cellxgene.cziscience.com">CELLxGENE</a></li>
+<li><strong>Protein</strong> — <a href="https://www.proteinatlas.org">Human Protein Atlas</a></li>
+<li><strong>Direction</strong> — <a href="https://gwas.mrcieu.ac.uk">IEU OpenGWAS</a> for MR results</li>
+<li><strong>Tractability</strong> — <a href="https://platform.opentargets.org">Open Targets</a> target profile</li>
+</ul>
+<p>✅ One row per candidate gene, one column per layer. This is an afternoon, and it is a real figure.</p>
+</section>
+<section id="w11-s5-2" class="level2">
+<h2 class="anchored" data-anchor-id="w11-s5-2">2) Check the intersection first</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse); <span class="fu">library</span>(UpSetR)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>have <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> <span class="fu">transmute</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">clinical   =</span> <span class="dv">1</span>L,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">genotype   =</span> <span class="fu">as.integer</span>(<span class="sc">!</span><span class="fu">is.na</span>(geno_id)),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">rna        =</span> <span class="fu">as.integer</span>(<span class="sc">!</span><span class="fu">is.na</span>(rna_id)),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">proteomics =</span> <span class="fu">as.integer</span>(<span class="sc">!</span><span class="fu">is.na</span>(prot_id)))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">upset</span>(<span class="fu">as.data.frame</span>(have), <span class="at">order.by =</span> <span class="st">"freq"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"complete cases:"</span>, <span class="fu">sum</span>(<span class="fu">rowSums</span>(have) <span class="sc">==</span> <span class="fu">ncol</span>(have)), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)   <span class="co"># ⚠️ this is your n</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="w11-s5-3" class="level2">
+<h2 class="anchored" data-anchor-id="w11-s5-3">3) MOFA, and annotating its factors</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MOFA2)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mofa <span class="ot">&lt;-</span> <span class="fu">create_mofa</span>(<span class="fu">list</span>(<span class="at">RNA =</span> rna_mat, <span class="at">Protein =</span> prot_mat, <span class="at">Methyl =</span> meth_mat)) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prepare_mofa</span>() <span class="sc">|&gt;</span> <span class="fu">run_mofa</span>()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_variance_explained</span>(mofa)          <span class="co"># the figure above</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚠️ the step that must come next</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">get_factors</span>(mofa)[[<span class="dv">1</span>]]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>covars <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> <span class="fu">select</span>(batch, RIN, age, sex, bmi, condition)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>cors <span class="ot">&lt;-</span> <span class="fu">sapply</span>(covars, \(v) <span class="fu">apply</span>(Z, <span class="dv">2</span>, \(f) {</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.numeric</span>(v)) <span class="fu">abs</span>(<span class="fu">cor</span>(f, v, <span class="at">use =</span> <span class="st">"pairwise"</span>)) <span class="cf">else</span> <span class="fu">summary</span>(<span class="fu">aov</span>(f <span class="sc">~</span> <span class="fu">factor</span>(v)))[[<span class="dv">1</span>]][<span class="dv">1</span>, <span class="st">"F value"</span>]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(cors, <span class="dv">2</span>)     <span class="co"># look here before you look at biology</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="w11-s5-4" class="level2">
+<h2 class="anchored" data-anchor-id="w11-s5-4">4) ✅ Change one thing</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-run MOFA with the batch effect removed from each layer first.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Does Factor 1 disappear? Does anything else change rank?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>💡 If removing batch reshuffles your factors, that tells you how much of the original result was batch — a number worth knowing before it appears in review.</p>
+</section>
+<section id="w11-s5-5" class="level2">
+<h2 class="anchored" data-anchor-id="w11-s5-5">5) Before next week</h2>
+<p><strong>W12 — networks and drug targets.</strong> Bring the prioritisation table from §5.1. We will ask whether the surviving gene is druggable.</p>
+<hr>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>📝 Summary</h1>
+<ul>
+<li><strong>Sequential</strong> integration filters candidates layer by layer; <strong>joint</strong> integration models layers together</li>
+<li>✅ Sequential keeps your full n, works across cohorts, and answers most clinical questions</li>
+<li>✅ Convergence across layers is strong because each layer’s false positives are <strong>independent</strong></li>
+<li>⚠️ <strong>An absent signal is a coverage gap, not a negative result</strong> — and it biases prioritisation toward well-studied genes</li>
+<li>⚠️ <strong>Factor 1 is almost always technical.</strong> Annotate against batch, RIN, age and sex <em>before</em> disease</li>
+<li>⚠️ Joint models use complete cases — <strong>your n is the intersection</strong>, not the cohort</li>
+<li>⚠️ Without per-layer scaling, the layer with most features dominates every factor</li>
+<li>❌ Integration cannot create power, fix confounding, or rescue an underpowered study</li>
+</ul>
+<hr>
+</section>
+<section id="key-terms" class="level1">
+<h1>🔑 Key terms</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>One-line meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sequential integration</td>
+<td>Each layer filters candidates from the previous one</td>
+</tr>
+<tr class="even">
+<td>Joint integration</td>
+<td>Modelling several layers simultaneously</td>
+</tr>
+<tr class="odd">
+<td>Latent factor</td>
+<td>An axis of variation shared across layers</td>
+</tr>
+<tr class="even">
+<td>Loadings</td>
+<td>Which features drive a factor, per layer</td>
+</tr>
+<tr class="odd">
+<td>Variance explained</td>
+<td>How much of each layer a factor accounts for</td>
+</tr>
+<tr class="even">
+<td>MOFA+</td>
+<td>Unsupervised multi-omics factor analysis</td>
+</tr>
+<tr class="odd">
+<td>DIABLO / mixOmics</td>
+<td>Supervised multi-omics discriminant analysis</td>
+</tr>
+<tr class="even">
+<td>Complete case</td>
+<td>A sample measured on every layer</td>
+</tr>
+<tr class="odd">
+<td>Per-layer scaling</td>
+<td>Preventing the largest layer from dominating</td>
+</tr>
+<tr class="even">
+<td>Convergent evidence</td>
+<td>Independent layers pointing at the same gene</td>
+</tr>
+<tr class="odd">
+<td>Coverage gap</td>
+<td>A layer that could not have detected the signal</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="references" class="level1">
+<h1>➕ References</h1>
+<section id="methods" class="level3">
+<h3 class="anchored" data-anchor-id="methods">Methods</h3>
+<p>Argelaguet R, et al.&nbsp;<a href="https://doi.org/10.1186/s13059-020-02015-1"><em>MOFA+: a statistical framework for comprehensive integration of multi-modal single-cell data.</em></a> Genome Biol. 2020.<br>
+Argelaguet R, et al.&nbsp;<a href="https://doi.org/10.15252/msb.20178124"><em>Multi-Omics Factor Analysis — a framework for unsupervised integration of multi-omics data sets.</em></a> Mol Syst Biol. 2018.<br>
+Singh A, et al.&nbsp;<a href="https://doi.org/10.1093/bioinformatics/bty1054"><em>DIABLO: an integrative approach for identifying key molecular drivers from multi-omics assays.</em></a> Bioinformatics. 2019.</p>
+</section>
+<section id="perspective-and-pitfalls" class="level3">
+<h3 class="anchored" data-anchor-id="perspective-and-pitfalls">Perspective and pitfalls</h3>
+<p>Argelaguet R, Cuomo ASE, Stegle O, Marioni JC. <a href="https://doi.org/10.1038/s41587-021-00895-7"><em>Computational principles and challenges in single-cell data integration.</em></a> Nat Biotechnol. 2021.<br>
+Vasaikar SV, et al.&nbsp;<a href="https://doi.org/10.1093/nar/gkx1090"><em>LinkedOmics: analyzing multi-omics data within and across 32 cancer types.</em></a> Nucleic Acids Res. 2018.<br>
+Subramanian I, et al.&nbsp;<a href="https://doi.org/10.1177/1177932219899051"><em>Multi-omics data integration, interpretation, and its application.</em></a> Bioinform Biol Insights. 2020.</p>
+</section>
+<section id="gene-prioritisation" class="level3">
+<h3 class="anchored" data-anchor-id="gene-prioritisation">Gene prioritisation</h3>
+<p>Mountjoy E, et al.&nbsp;<a href="https://doi.org/10.1038/s41588-021-00945-5"><em>An open approach to systematically prioritize causal variants and genes at all published human GWAS trait-associated loci.</em></a> Nat Genet. 2021. (Open Targets Genetics locus-to-gene)<br>
+Ochoa D, et al.&nbsp;<a href="https://doi.org/10.1093/nar/gkac1046"><em>The next-generation Open Targets Platform.</em></a> Nucleic Acids Res. 2023.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- AI Chat Widget 초기화 -->
+<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
+<script>
+  // ★ Cloudflare Worker 배포 후 URL로 교체하세요
+  const WORKER_URL = "https://falling-wave-447f.eh0129s.workers.dev/";
+
+  // 각 .qmd 파일의 YAML에서 ai-context를 읽어옵니다
+  // (없으면 빈 문자열 → 기본 안내 메시지)
+  const metaContext = document.querySelector('meta[name="ai-context"]');
+  const metaTitle   = document.querySelector('meta[name="ai-title"]') || { content: document.title };
+
+  window.AI_CHAT_CONFIG = {
+    workerUrl:      WORKER_URL,
+    chapterContext: metaContext ? metaContext.content : "",
+    chapterTitle:   metaTitle  ? metaTitle.content   : document.title,
+  };
+</script>
+<script src="../_extensions/ai-chat/ai-chat.js" defer=""></script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/part5/w10_clinical_proteomics.html" class="pagination-link" aria-label="W10. Clinical Proteomics &amp; Biomarkers">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">W10. Clinical Proteomics &amp; Biomarkers</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/part6/w12_network_drug.html" class="pagination-link" aria-label="W12. Network Analysis &amp; Drug Targets">
+        <span class="nav-page-text">W12. Network Analysis &amp; Drug Targets</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2026, Eunji</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

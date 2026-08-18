@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<rect width="880" height="450" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">A MOFA factor is a pattern shared across layers. Your first job is to find out what it is a pattern of.</text>
+<text x="196" y="119" font-size="12.5" font-weight="700" fill="#4A3D6B" text-anchor="end">Genotype (PRS)</text>
+<text x="196" y="163" font-size="12.5" font-weight="700" fill="#4A3D6B" text-anchor="end">Methylation</text>
+<text x="196" y="207" font-size="12.5" font-weight="700" fill="#4A3D6B" text-anchor="end">RNA-seq</text>
+<text x="196" y="251" font-size="12.5" font-weight="700" fill="#4A3D6B" text-anchor="end">Proteomics</text>
+<text x="196" y="295" font-size="12.5" font-weight="700" fill="#4A3D6B" text-anchor="end">Clinical</text>
+<text x="258" y="78" font-size="12.5" font-weight="700" fill="#8A7FA3" text-anchor="middle">Factor 1</text>
+<text x="354" y="78" font-size="12.5" font-weight="700" fill="#8A7FA3" text-anchor="middle">Factor 2</text>
+<text x="450" y="78" font-size="12.5" font-weight="700" fill="#8A7FA3" text-anchor="middle">Factor 3</text>
+<text x="546" y="78" font-size="12.5" font-weight="700" fill="#8A7FA3" text-anchor="middle">Factor 4</text>
+<text x="642" y="78" font-size="12.5" font-weight="700" fill="#8A7FA3" text-anchor="middle">Factor 5</text>
+<rect x="212" y="94" width="92" height="40" rx="4" fill="#bcd4ea"/>
+<text x="258" y="118" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">12%</text>
+<rect x="308" y="94" width="92" height="40" rx="4" fill="#dce8f4"/>
+<text x="354" y="118" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">3%</text>
+<rect x="404" y="94" width="92" height="40" rx="4" fill="#f4f7fb"/>
+<text x="450" y="118" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">0%</text>
+<rect x="500" y="94" width="92" height="40" rx="4" fill="#bcd4ea"/>
+<text x="546" y="118" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">9%</text>
+<rect x="596" y="94" width="92" height="40" rx="4" fill="#f4f7fb"/>
+<text x="642" y="118" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">0%</text>
+<rect x="212" y="138" width="92" height="40" rx="4" fill="#3d78b2"/>
+<text x="258" y="162" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="middle">26%</text>
+<rect x="308" y="138" width="92" height="40" rx="4" fill="#93b8db"/>
+<text x="354" y="162" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">18%</text>
+<rect x="404" y="138" width="92" height="40" rx="4" fill="#dce8f4"/>
+<text x="450" y="162" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">5%</text>
+<rect x="500" y="138" width="92" height="40" rx="4" fill="#bcd4ea"/>
+<text x="546" y="162" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">11%</text>
+<rect x="596" y="138" width="92" height="40" rx="4" fill="#f4f7fb"/>
+<text x="642" y="162" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">2%</text>
+<rect x="212" y="182" width="92" height="40" rx="4" fill="#1a5896"/>
+<text x="258" y="206" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="middle">33%</text>
+<rect x="308" y="182" width="92" height="40" rx="4" fill="#6699c9"/>
+<text x="354" y="206" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="middle">21%</text>
+<rect x="404" y="182" width="92" height="40" rx="4" fill="#3d78b2"/>
+<text x="450" y="206" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="middle">28%</text>
+<rect x="500" y="182" width="92" height="40" rx="4" fill="#dce8f4"/>
+<text x="546" y="206" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">4%</text>
+<rect x="596" y="182" width="92" height="40" rx="4" fill="#dce8f4"/>
+<text x="642" y="206" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">6%</text>
+<rect x="212" y="226" width="92" height="40" rx="4" fill="#6699c9"/>
+<text x="258" y="250" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="middle">24%</text>
+<rect x="308" y="226" width="92" height="40" rx="4" fill="#93b8db"/>
+<text x="354" y="250" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">19%</text>
+<rect x="404" y="226" width="92" height="40" rx="4" fill="#dce8f4"/>
+<text x="450" y="250" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">8%</text>
+<rect x="500" y="226" width="92" height="40" rx="4" fill="#dce8f4"/>
+<text x="546" y="250" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">6%</text>
+<rect x="596" y="226" width="92" height="40" rx="4" fill="#dce8f4"/>
+<text x="642" y="250" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">3%</text>
+<rect x="212" y="270" width="92" height="40" rx="4" fill="#f4f7fb"/>
+<text x="258" y="294" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">2%</text>
+<rect x="308" y="270" width="92" height="40" rx="4" fill="#bcd4ea"/>
+<text x="354" y="294" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">14%</text>
+<rect x="404" y="270" width="92" height="40" rx="4" fill="#dce8f4"/>
+<text x="450" y="294" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">3%</text>
+<rect x="500" y="270" width="92" height="40" rx="4" fill="#f4f7fb"/>
+<text x="546" y="294" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">2%</text>
+<rect x="596" y="270" width="92" height="40" rx="4" fill="#93b8db"/>
+<text x="642" y="294" font-size="11.5" font-weight="700" fill="#5B4D80" text-anchor="middle">19%</text>
+<text x="258" y="334" font-size="11" font-weight="700" fill="#D85A30" text-anchor="middle">⚠️ batch / RIN</text>
+<text x="354" y="334" font-size="11" font-weight="700" fill="#8A7FA3" text-anchor="middle">disease activity</text>
+<text x="450" y="334" font-size="11" font-weight="700" fill="#8A7FA3" text-anchor="middle">immune infiltration</text>
+<text x="546" y="334" font-size="11" font-weight="700" fill="#8A7FA3" text-anchor="middle">sex</text>
+<text x="642" y="334" font-size="11" font-weight="700" fill="#8A7FA3" text-anchor="middle">age & BMI</text>
+<text x="196" y="334" font-size="11" fill="#8A7FA3" text-anchor="end">turned out to be:</text>
+<rect x="24" y="360" width="410" height="76" rx="9" fill="#fbeee8" stroke="#D85A30" stroke-width="1.8"/>
+<text x="48" y="384" font-size="12.5" font-weight="700" fill="#a8401d">⚠️ Factor 1 is almost always technical</text>
+<text x="48" y="406" font-size="12" fill="#a05a3f">The strongest shared pattern is usually batch, RNA quality</text>
+<text x="48" y="424" font-size="12" fill="#a05a3f">or sex — not disease. Always annotate factors first.</text>
+<rect x="446" y="360" width="410" height="76" rx="9" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.8"/>
+<text x="470" y="384" font-size="12.5" font-weight="700" fill="#0F6E56">✅ The useful reading is the row pattern</text>
+<text x="470" y="406" font-size="12" fill="#3d7a68">Factor 2 is shared across three omics layers — that is a</text>
+<text x="470" y="424" font-size="12" fill="#3d7a68">coordinated programme. Factor 3 is RNA-only: suspect first.</text>
+</svg>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="430" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">What a cell–cell communication plot actually measured.</text>
+
+  <!-- what the tool sees -->
+  <rect x="24" y="46" width="400" height="150" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="72" font-size="13" font-weight="700" fill="#4A3D6B">What the algorithm has</text>
+  <circle cx="110" cy="126" r="30" fill="#185FA5"/>
+  <text x="110" y="123" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">macrophage</text>
+  <text x="110" y="138" font-size="10" fill="#bcd5ec" text-anchor="middle">TNF ↑</text>
+  <circle cx="330" cy="126" r="30" fill="#1D9E75"/>
+  <text x="330" y="123" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">T cell</text>
+  <text x="330" y="138" font-size="10" fill="#c3e5da" text-anchor="middle">TNFRSF1A ↑</text>
+  <path d="M146 126 L286 126" stroke="#8A7FA3" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="216" y="116" font-size="11.5" font-weight="700" fill="#8A7FA3" text-anchor="middle">both mRNAs are high</text>
+  <text x="216" y="164" font-size="11" fill="#8A7FA3" text-anchor="middle">in the same dissociated sample</text>
+
+  <!-- what it reports -->
+  <rect x="456" y="46" width="400" height="150" rx="10" fill="#f3f0f7" stroke="#5B4D80" stroke-width="1.5"/>
+  <text x="480" y="72" font-size="13" font-weight="700" fill="#4A3D6B">What the figure says</text>
+  <rect x="480" y="88" width="352" height="34" rx="6" fill="#ffffff"/>
+  <text x="492" y="110" font-family="monospace" font-size="12" fill="#666">CellChat: macrophage → T cell, TNF, p &lt; 0.001</text>
+  <text x="480" y="146" font-size="12.5" fill="#5B4D80">A directed arrow, a p-value, and a confident caption</text>
+  <text x="480" y="166" font-size="12.5" font-weight="700" fill="#4A3D6B">about a signalling axis in the tumour microenvironment.</text>
+  <text x="480" y="186" font-size="11.5" fill="#8A7FA3">Nothing in the data is about signalling.</text>
+
+  <!-- three reasons -->
+  <text x="24" y="228" font-size="13.5" font-weight="700" fill="#a8401d">⚠️ Three ways co-expression is not interaction</text>
+
+  <rect x="24" y="240" width="268" height="130" rx="9" fill="#ffffff" stroke="#D85A30" stroke-width="1.8"/>
+  <text x="46" y="266" font-size="12.5" font-weight="700" fill="#4A3D6B">① They were never adjacent</text>
+  <text x="46" y="290" font-size="12" fill="#666">Dissociation discarded all spatial</text>
+  <text x="46" y="308" font-size="12" fill="#666">information. The two cells may sit</text>
+  <text x="46" y="326" font-size="12" fill="#666">millimetres apart, in different</text>
+  <text x="46" y="344" font-size="12" fill="#666">compartments entirely.</text>
+  <text x="46" y="362" font-size="11.5" font-weight="700" fill="#0F6E56">→ spatial data settles it (W7)</text>
+
+  <rect x="306" y="240" width="268" height="130" rx="9" fill="#ffffff" stroke="#D85A30" stroke-width="1.8"/>
+  <text x="328" y="266" font-size="12.5" font-weight="700" fill="#4A3D6B">② The protein was never made</text>
+  <text x="328" y="290" font-size="12" fill="#666">mRNA is not protein. Secretion,</text>
+  <text x="328" y="308" font-size="12" fill="#666">cleavage and receptor trafficking</text>
+  <text x="328" y="326" font-size="12" fill="#666">are all invisible to RNA-seq.</text>
+  <text x="328" y="362" font-size="11.5" font-weight="700" fill="#0F6E56">→ proteomics settles it (W9–W10)</text>
+
+  <rect x="588" y="240" width="268" height="130" rx="9" fill="#ffffff" stroke="#D85A30" stroke-width="1.8"/>
+  <text x="610" y="266" font-size="12.5" font-weight="700" fill="#4A3D6B">③ The database is not neutral</text>
+  <text x="610" y="290" font-size="12" fill="#666">Ligand–receptor pairs come from</text>
+  <text x="610" y="308" font-size="12" fill="#666">curated lists. Well-studied pairs</text>
+  <text x="610" y="326" font-size="12" fill="#666">are over-represented, so results</text>
+  <text x="610" y="344" font-size="12" fill="#666">recover the literature you had.</text>
+  <text x="610" y="362" font-size="11.5" font-weight="700" fill="#8a6a1f">→ a discovery bias, not a bug</text>
+
+  <!-- footer -->
+  <rect x="24" y="382" width="832" height="34" rx="8" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="48" y="404" font-size="12.5" fill="#0F6E56">✅ These tools are excellent <tspan font-weight="700">hypothesis generators</tspan>. Write them into a grant as "we will test whether…", never into a results section as "we showed that…".</text>
+</svg>

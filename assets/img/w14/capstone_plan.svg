@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="480" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Plan the four figures first. The analysis is whatever produces them.</text>
+
+  <g>
+    <rect x="24" y="46" width="832" height="76" rx="9" fill="#ffffff" stroke="#185FA5" stroke-width="1.8"/>
+    <rect x="24" y="46" width="6" height="76" rx="3" fill="#185FA5"/>
+    <circle cx="66" cy="84" r="15" fill="#185FA5"/><text x="66" y="89" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+    <text x="96" y="76" font-size="13.5" font-weight="700" fill="#4A3D6B">What data, and who is in it</text>
+    <text x="96" y="98" font-size="12" fill="#666">Cohort table, inclusion, exclusions with reasons, QC summary. n at every step.</text>
+    <text x="832" y="98" font-size="11.5" fill="#8A7FA3" text-anchor="end">"We analysed X samples; after QC, Y remained."</text>
+
+    <rect x="24" y="132" width="832" height="76" rx="9" fill="#ffffff" stroke="#D85A30" stroke-width="2"/>
+    <rect x="24" y="132" width="6" height="76" rx="3" fill="#D85A30"/>
+    <circle cx="66" cy="170" r="15" fill="#D85A30"/><text x="66" y="175" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+    <text x="96" y="162" font-size="13.5" font-weight="700" fill="#4A3D6B">The answer to your question ⭐</text>
+    <text x="96" y="184" font-size="12" fill="#666">One panel. The comparison you specified, with points per patient and the n visible.</text>
+    <text x="832" y="184" font-size="11.5" font-weight="700" fill="#a8401d" text-anchor="end">if you only have this one, you still have a talk</text>
+
+    <rect x="24" y="218" width="832" height="76" rx="9" fill="#ffffff" stroke="#1D9E75" stroke-width="1.8"/>
+    <rect x="24" y="218" width="6" height="76" rx="3" fill="#1D9E75"/>
+    <circle cx="66" cy="256" r="15" fill="#1D9E75"/><text x="66" y="261" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+    <text x="96" y="248" font-size="13.5" font-weight="700" fill="#4A3D6B">Why — the supporting mechanism</text>
+    <text x="96" y="270" font-size="12" fill="#666">Which cell type, which pathway, which direction. The layer that explains Figure 2.</text>
+    <text x="832" y="270" font-size="11.5" fill="#8A7FA3" text-anchor="end">this is where W5–W12 earn their place</text>
+
+    <rect x="24" y="304" width="832" height="76" rx="9" fill="#ffffff" stroke="#5B4D80" stroke-width="1.8"/>
+    <rect x="24" y="304" width="6" height="76" rx="3" fill="#5B4D80"/>
+    <circle cx="66" cy="342" r="15" fill="#5B4D80"/><text x="66" y="347" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+    <text x="96" y="334" font-size="13.5" font-weight="700" fill="#4A3D6B">So what — the clinical implication</text>
+    <text x="96" y="356" font-size="12" fill="#666">If this is true, what changes? Which patients, which decision, what would test it next.</text>
+    <text x="832" y="356" font-size="11.5" fill="#8A7FA3" text-anchor="end">and which rung of the evidence ladder (W8)</text>
+  </g>
+
+  <rect x="24" y="392" width="410" height="62" rx="9" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="48" y="416" font-size="12.5" font-weight="700" fill="#0F6E56">✅ A negative result is a complete project</text>
+  <text x="48" y="438" font-size="12" fill="#3d7a68">"The hypothesis was not supported, and here is why the</text>
+  <text x="48" y="454" font-size="12" fill="#3d7a68">design could detect it" is better science than p-hacking.</text>
+
+  <rect x="446" y="392" width="410" height="62" rx="9" fill="#fbf7ee" stroke="#BA7517" stroke-width="1.5"/>
+  <text x="470" y="416" font-size="12.5" font-weight="700" fill="#8a6a1f">⚠️ Write the four captions before you analyse</text>
+  <text x="470" y="438" font-size="12" fill="#7a5f2a">If you cannot write Figure 2's caption as a sentence with a</text>
+  <text x="470" y="454" font-size="12" fill="#7a5f2a">blank for the number, your question is not specific enough.</text>
+</svg>

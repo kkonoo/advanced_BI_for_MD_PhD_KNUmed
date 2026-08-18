@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eunji Ha">
+<meta name="dcterms.date" content="2026-08-17">
+
+<title>W5. Single-cell RNA-seq — Technology, QC, Clustering</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/part3/w6_scrna_dynamics.html" rel="next">
+<link href="../../chapters/part2/w4_prs.html" rel="prev">
+<link href="../../assets/img/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../../assets/html.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../assets/img/logo.jpg" alt="" class="navbar-logo light-content">
+    <img src="../../assets/img/logo.jpg" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weeks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weeks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">    
+        <li>
+    <a class="dropdown-item" href="../../chapters/part1/w1_intro.html">
+ <span class="dropdown-text">W1 · Introduction &amp; Roadmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part1/w2_scripts_ai.html">
+ <span class="dropdown-text">W2 · Scripts, AI &amp; Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part2/w3_gwas.html">
+ <span class="dropdown-text">W3 · GWAS &amp; Post-GWAS</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part2/w4_prs.html">
+ <span class="dropdown-text">W4 · Polygenic Risk Scores</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part3/w5_scrna_qc.html">
+ <span class="dropdown-text">W5 · scRNA-seq: QC &amp; Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part3/w6_scrna_dynamics.html">
+ <span class="dropdown-text">W6 · Trajectory, CCC &amp; Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part4/w7_spatial_basics.html">
+ <span class="dropdown-text">W7 · Spatial Transcriptomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part4/w8_spatial_integration.html">
+ <span class="dropdown-text">W8 · Deconvolution &amp; Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part5/w9_proteomics_tech.html">
+ <span class="dropdown-text">W9 · Proteomics Technology</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part5/w10_clinical_proteomics.html">
+ <span class="dropdown-text">W10 · Clinical Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part6/w11_multiomics.html">
+ <span class="dropdown-text">W11 · Multi-omics Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part6/w12_network_drug.html">
+ <span class="dropdown-text">W12 · Network &amp; Drug Targets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part7/w13_visualization.html">
+ <span class="dropdown-text">W13 · Interpretation &amp; Visualisation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part7/w14_project_design.html">
+ <span class="dropdown-text">W14 · Project Design</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part3/w5_scrna_qc.html">3 · Single-cell</a></li><li class="breadcrumb-item"><a href="../../chapters/part3/w5_scrna_qc.html">W5. Technology, QC, Clustering</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">1 · Intro</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part1/w1_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W1. Introduction &amp; Roadmap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part1/w2_scripts_ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W2. Scripts, AI &amp; Reproducibility</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">2 · Clinical Genomics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part2/w3_gwas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W3. GWAS &amp; Post-GWAS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part2/w4_prs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W4. Polygenic Risk Scores</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">3 · Single-cell</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part3/w5_scrna_qc.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">W5. Technology, QC, Clustering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part3/w6_scrna_dynamics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W6. Trajectory, Communication, Integration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">4 · Spatial</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part4/w7_spatial_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W7. Spatial Transcriptomics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part4/w8_spatial_integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W8. Deconvolution &amp; Integration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">5 · Proteomics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part5/w9_proteomics_tech.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W9. How Proteins Are Measured</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part5/w10_clinical_proteomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W10. Clinical Proteomics &amp; Biomarkers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">6 · Integration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part6/w11_multiomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W11. Multi-omics Integration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part6/w12_network_drug.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W12. Network Analysis &amp; Drug Targets</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">7 · Capstone</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part7/w13_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W13. Interpretation &amp; Visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part7/w14_project_design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W14. Designing Your Own Project</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#w5-s1" id="toc-w5-s1" class="nav-link active" data-scroll-target="#w5-s1">1. What Bulk Cannot See 🔬</a>
+  <ul>
+  <li><a href="#w5-s1-1" id="toc-w5-s1-1" class="nav-link" data-scroll-target="#w5-s1-1">1) One number, three biologies</a></li>
+  <li><a href="#w5-s1-2" id="toc-w5-s1-2" class="nav-link" data-scroll-target="#w5-s1-2">2) When single cell is worth it</a></li>
+  </ul></li>
+  <li><a href="#w5-s2" id="toc-w5-s2" class="nav-link" data-scroll-target="#w5-s2">2. ⚠️ Decisions Made Before the Machine 🧫</a>
+  <ul>
+  <li><a href="#w5-s2-1" id="toc-w5-s2-1" class="nav-link" data-scroll-target="#w5-s2-1">1) The platform trade-off</a></li>
+  <li><a href="#w5-s2-2" id="toc-w5-s2-2" class="nav-link" data-scroll-target="#w5-s2-2">2) ⚠️ Cells or nuclei — and why it is decided at collection</a></li>
+  <li><a href="#w5-s2-3" id="toc-w5-s2-3" class="nav-link" data-scroll-target="#w5-s2-3">3) The design consequence, stated early</a></li>
+  </ul></li>
+  <li><a href="#w5-s3" id="toc-w5-s3" class="nav-link" data-scroll-target="#w5-s3">3. From Droplets to a Matrix 🧮</a>
+  <ul>
+  <li><a href="#w5-s3-1" id="toc-w5-s3-1" class="nav-link" data-scroll-target="#w5-s3-1">1) Barcodes and UMIs</a></li>
+  <li><a href="#w5-s3-2" id="toc-w5-s3-2" class="nav-link" data-scroll-target="#w5-s3-2">2) Why the matrix is over 90% zeros</a></li>
+  <li><a href="#w5-s3-3" id="toc-w5-s3-3" class="nav-link" data-scroll-target="#w5-s3-3">3) ⚠️ QC is an analysis decision, not cleaning</a></li>
+  </ul></li>
+  <li><a href="#w5-s4" id="toc-w5-s4" class="nav-link" data-scroll-target="#w5-s4">4. Finding Cell Types 🗺️</a>
+  <ul>
+  <li><a href="#w5-s4-1" id="toc-w5-s4-1" class="nav-link" data-scroll-target="#w5-s4-1">1) The standard pipeline</a></li>
+  <li><a href="#w5-s4-2" id="toc-w5-s4-2" class="nav-link" data-scroll-target="#w5-s4-2">2) ⚠️ How to read a UMAP responsibly</a></li>
+  <li><a href="#w5-s4-3" id="toc-w5-s4-3" class="nav-link" data-scroll-target="#w5-s4-3">3) Clustering resolution is arbitrary</a></li>
+  <li><a href="#w5-s4-4" id="toc-w5-s4-4" class="nav-link" data-scroll-target="#w5-s4-4">4) Annotation</a></li>
+  </ul></li>
+  <li><a href="#w5-s5" id="toc-w5-s5" class="nav-link" data-scroll-target="#w5-s5">5. ⚠️ Statistics 📊</a>
+  <ul>
+  <li><a href="#w5-s5-1" id="toc-w5-s5-1" class="nav-link" data-scroll-target="#w5-s5-1">1) Why per-cell tests are wrong</a></li>
+  <li><a href="#w5-s5-2" id="toc-w5-s5-2" class="nav-link" data-scroll-target="#w5-s5-2">2) Pseudobulk</a></li>
+  <li><a href="#w5-s5-3" id="toc-w5-s5-3" class="nav-link" data-scroll-target="#w5-s5-3">3) Differential abundance is compositional</a></li>
+  </ul></li>
+  <li><a href="#w5-s6" id="toc-w5-s6" class="nav-link" data-scroll-target="#w5-s6">6. Hands-On 💻</a>
+  <ul>
+  <li><a href="#w5-s6-1" id="toc-w5-s6-1" class="nav-link" data-scroll-target="#w5-s6-1">1) No code: does the atlas already answer it?</a></li>
+  <li><a href="#w5-s6-2" id="toc-w5-s6-2" class="nav-link" data-scroll-target="#w5-s6-2">2) The pipeline, end to end</a></li>
+  <li><a href="#w5-s6-3" id="toc-w5-s6-3" class="nav-link" data-scroll-target="#w5-s6-3">3) ✅ Change one thing</a></li>
+  <li><a href="#w5-s6-4" id="toc-w5-s6-4" class="nav-link" data-scroll-target="#w5-s6-4">4) Save for next week</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">📝 Summary</a></li>
+  <li><a href="#key-terms" id="toc-key-terms" class="nav-link" data-scroll-target="#key-terms">🔑 Key terms</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">➕ References</a>
+  <ul>
+  <li><a href="#overviews-and-best-practice" id="toc-overviews-and-best-practice" class="nav-link" data-scroll-target="#overviews-and-best-practice">Overviews and best practice</a></li>
+  <li><a href="#technology-qc-and-artifacts" id="toc-technology-qc-and-artifacts" class="nav-link" data-scroll-target="#technology-qc-and-artifacts">Technology, QC, and artifacts</a></li>
+  <li><a href="#embeddings-and-clustering" id="toc-embeddings-and-clustering" class="nav-link" data-scroll-target="#embeddings-and-clustering">Embeddings and clustering</a></li>
+  <li><a href="#statistics" id="toc-statistics" class="nav-link" data-scroll-target="#statistics">Statistics</a></li>
+  <li><a href="#atlases" id="toc-atlases" class="nav-link" data-scroll-target="#atlases">Atlases</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part3/w5_scrna_qc.html">3 · Single-cell</a></li><li class="breadcrumb-item"><a href="../../chapters/part3/w5_scrna_qc.html">W5. Technology, QC, Clustering</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">W5. Single-cell RNA-seq — Technology, QC, Clustering</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eunji Ha </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 17, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>🎯 Learning objectives
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>By the end of this chapter you should be able to:</p>
+<ul>
+<li>Say what single cell answers that bulk structurally cannot — and when bulk is still the better buy</li>
+<li>Choose between droplet and plate-based protocols, and ⚠️ between cells and nuclei</li>
+<li>⚠️ Explain why dissociation changes the composition you measure</li>
+<li>Explain what a UMI is, and why the count matrix is mostly zeros</li>
+<li>⚠️ Read a knee plot and a QC scatter, and name the population each threshold deletes</li>
+<li>⚠️ Read a UMAP responsibly — and say what its distances do and do not mean</li>
+<li>⚠️ Explain why per-cell differential expression across conditions is invalid, and what pseudobulk does instead</li>
+</ul>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>🤔 <strong>Motivating question</strong></p>
+<p>Your bulk RNA-seq shows a clean two-fold increase, <em>p</em> = 0.001. Is that every cell changing a little, 5% of cells changing enormously, or no cell changing at all?</p>
+</blockquote>
+<hr>
+<section id="w5-s1" class="level1">
+<h1>1. What Bulk Cannot See 🔬</h1>
+<section id="w5-s1-1" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s1-1">1) One number, three biologies</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w5/bulk_vs_singlecell.svg" class="img-fluid figure-img"></p>
+<figcaption>The mean is compatible with all three. Only one of them is a regulatory story.</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>① A general modest response</strong> — the case everyone implicitly assumes, and the least interesting</li>
+<li><strong>② A rare responsive subpopulation</strong> — usually the interesting one. In bulk it is diluted by the cells doing nothing, and often falls below significance entirely</li>
+<li><strong>③ A change in composition</strong> — no cell changed its transcriptome. There are simply more of one cell type</li>
+</ul>
+<p>⚠️ ③ deserves attention because it is common in inflamed, fibrotic or infiltrated tissue — exactly the tissue clinicians study — and it is routinely written up as if it were ①.</p>
+</section>
+<section id="w5-s1-2" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s1-2">2) When single cell is worth it</h2>
+<p>Be specific. Single cell is expensive and frequently used where bulk would have answered better.</p>
+<p><strong>✅ Single cell is right for:</strong></p>
+<ul>
+<li><strong>Discovering or characterising populations</strong>, including rare ones</li>
+<li><strong>Composition</strong> — which cell types shifted in disease</li>
+<li><strong>Cell-type-specific effects</strong> — a gene up in one cell type and down in another, invisible in bulk</li>
+<li><strong>Continuous states</strong> — activation, exhaustion, differentiation, where discrete labels fail</li>
+</ul>
+<p><strong>✅ Bulk is still right for:</strong></p>
+<ul>
+<li>A well-defined comparison in a homogeneous system (cell line, sorted population)</li>
+<li>Deep transcript-level work — isoforms, splicing, low-expression genes</li>
+<li><strong>Large cohorts</strong> — n = 200 patients, where 200 single-cell runs is unaffordable</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Sorting first is badly underrated
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Already know which cell type you care about?</p>
+<p>→ FACS-sort it and run deep bulk RNA-seq. Often <strong>cheaper, deeper, and statistically cleaner</strong> than a whole-tissue single-cell experiment — and you can afford far more patients, which (§5) is where your power actually comes from.</p>
+<p>💡 “We did single cell” is not by itself a stronger design. Sometimes it is a more expensive way to be underpowered.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="w5-s2" class="level1">
+<h1>2. ⚠️ Decisions Made Before the Machine 🧫</h1>
+<section id="w5-s2-1" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s2-1">1) The platform trade-off</h2>
+<p>Every platform buys cells with depth, or depth with cells.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Platform</th>
+<th>Cells</th>
+<th>Depth</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Droplet (10x)</strong></td>
+<td>10³–10⁵</td>
+<td>a few thousand genes/cell, 3′ end only</td>
+<td>the current default</td>
+</tr>
+<tr class="even">
+<td><strong>Plate (Smart-seq3)</strong></td>
+<td>10²</td>
+<td>full-length, deep</td>
+<td>isoforms, very sensitive detection</td>
+</tr>
+<tr class="odd">
+<td><strong>Combinatorial (sci-, SPLiT-seq)</strong></td>
+<td>10⁶</td>
+<td>very shallow</td>
+<td>whole-organism atlases</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="w5-s2-2" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s2-2">2) ⚠️ Cells or nuclei — and why it is decided at collection</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w5/dissociation_bias.svg" class="img-fluid figure-img"></p>
+<figcaption>The composition you measure is the composition that survived.</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 31%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">scRNA-seq</th>
+<th style="text-align: center;">snRNA-seq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Frozen / archived tissue</td>
+<td style="text-align: center;">❌ needs fresh</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr class="even">
+<td>Large or fragile cells (neurons, adipocytes, myofibres, cardiomyocytes)</td>
+<td style="text-align: center;">❌ lost in dissociation</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr class="odd">
+<td>Dissociation stress response</td>
+<td style="text-align: center;">⚠️ yes — <em>FOS</em>, <em>JUN</em>, heat-shock genes induced by the protocol</td>
+<td style="text-align: center;">✅ minimal</td>
+</tr>
+<tr class="even">
+<td>Cytoplasmic transcripts</td>
+<td style="text-align: center;">✅ captured</td>
+<td style="text-align: center;">❌ missed</td>
+</tr>
+<tr class="odd">
+<td>Intronic reads</td>
+<td style="text-align: center;">low</td>
+<td style="text-align: center;">high — nuclei are rich in unspliced pre-mRNA</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Two consequences worth carrying into a design meeting
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>⚠️ <strong>Immediate-early genes are the classic false positive.</strong> A cluster defined by <em>FOS</em>, <em>JUN</em> and <em>EGR1</em> is very often a dissociation artifact, not an “activated” state. If one condition sat on the bench longer, it will look more activated</li>
+<li>⚠️ <strong>Depletion claims need scrutiny.</strong> “Cell type X is depleted in disease” and “cell type X is harder to release from diseased tissue” produce identical data</li>
+</ul>
+<p>→ ✅ Mitigations: dissociate at low temperature with cold-active protease, keep the protocol identical across conditions, and — best — use nuclei when the tissue allows it.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="w5-s2-3" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s2-3">3) The design consequence, stated early</h2>
+<p>⚠️ <strong>Your unit of replication is the donor.</strong> Everything in §5 follows from this, and it should shape the budget before it shapes the analysis.</p>
+<p>💡 Given a fixed budget: <strong>more donors, fewer cells each</strong> beats <strong>fewer donors, more cells each</strong> for almost any question that compares conditions.</p>
+<hr>
+</section>
+</section>
+<section id="w5-s3" class="level1">
+<h1>3. From Droplets to a Matrix 🧮</h1>
+<section id="w5-s3-1" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s3-1">1) Barcodes and UMIs</h2>
+<p>Two tags are attached to every captured transcript:</p>
+<ul>
+<li><strong>Cell barcode</strong> — identifies the droplet, and therefore the cell</li>
+<li><strong>UMI</strong> (unique molecular identifier) — a random sequence unique to each original mRNA molecule</li>
+</ul>
+<p><strong>Why the UMI matters:</strong> after PCR, one original molecule may be represented by hundreds of reads. Collapsing reads that share a UMI recovers the count of <strong>molecules</strong> rather than reads, removing amplification bias.</p>
+</section>
+<section id="w5-s3-2" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s3-2">2) Why the matrix is over 90% zeros</h2>
+<p>A droplet experiment detects roughly 1,000–5,000 genes per cell, out of ~20,000. Zeros have two very different meanings:</p>
+<ul>
+<li><strong>Biological zero</strong> — the gene really is not expressed in that cell</li>
+<li><strong>Technical zero (dropout)</strong> — the transcript was there and was not captured. Droplet capture efficiency is ~10–30%</li>
+</ul>
+<p>💡 The field has largely moved past calling this “zero inflation” — for UMI data the zeros are mostly what a simple sampling model predicts from low counts, not an extra process.</p>
+<p>⚠️ The practical consequence stands: <strong>you cannot conclude a gene is off in a cell from a single zero.</strong></p>
+</section>
+<section id="w5-s3-3" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s3-3">3) ⚠️ QC is an analysis decision, not cleaning</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w5/qc_thresholds.svg" class="img-fluid figure-img"></p>
+<figcaption>Left: separating cells from empty droplets. Right: the plot every paper should show.</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 36%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Problem</th>
+<th>What it looks like</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Empty droplets</strong></td>
+<td>Low-UMI barcodes below the knee</td>
+<td><code>EmptyDrops</code>, not a hard cutoff</td>
+</tr>
+<tr class="even">
+<td><strong>Ambient RNA</strong></td>
+<td>Markers of abundant cell types appearing everywhere</td>
+<td><code>SoupX</code>, <code>CellBender</code>, <code>DecontX</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Doublets</strong></td>
+<td>High UMI <strong>and</strong> high gene count; two incompatible marker sets</td>
+<td><code>scDblFinder</code>, <code>DoubletFinder</code>; ~1% per 1,000 cells loaded</td>
+</tr>
+<tr class="even">
+<td><strong>Dying cells</strong></td>
+<td>High mitochondrial fraction, low gene count</td>
+<td>Threshold on mito %, tissue-specifically</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Every threshold deletes a real population
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>A mito cutoff of 5% is conventional — and <strong>wrong for cardiomyocytes</strong>, which are genuinely mitochondria-rich. Applied to heart tissue it removes the cell type you care about</li>
+<li><code>min.features = 500</code> removes debris — <strong>and also</strong> platelets, some granulocytes, and any small low-RNA cell</li>
+<li>An upper <code>nFeature</code> cutoff removes doublets — <strong>and also</strong> genuinely large, transcriptionally active cells</li>
+</ul>
+<p>→ ✅ Plot the distribution, look at what sits outside your proposed cut, <strong>then</strong> decide. And report the thresholds — they belong in the methods, not the analyst’s console history.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="w5-s4" class="level1">
+<h1>4. Finding Cell Types 🗺️</h1>
+<section id="w5-s4-1" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s4-1">1) The standard pipeline</h2>
+<pre><code>normalise → select highly variable genes → PCA
+          → build a k-nearest-neighbour graph
+          → cluster (Leiden)
+          → UMAP, for display only
+          → annotate</code></pre>
+<p>⚠️ Note the order. <strong>UMAP is computed for display.</strong> Clustering happens on the PCA/graph, not on the two-dimensional picture.</p>
+</section>
+<section id="w5-s4-2" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s4-2">2) ⚠️ How to read a UMAP responsibly</h2>
+<p>UMAP is a non-linear projection of tens of dimensions into two. It preserves local neighbourhoods reasonably and global structure badly.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>What a UMAP does <em>not</em> tell you
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>❌ <strong>Distances between clusters are not meaningful.</strong> Two clusters far apart are not necessarily more different than two that are close</li>
+<li>❌ <strong>Cluster areas are not meaningful.</strong> Size reflects the embedding, not cell number</li>
+<li>❌ <strong>Apparent bridges are not trajectories.</strong> A thin connection may be doublets, ambient RNA, or a parameter artifact</li>
+<li>⚠️ <strong>The layout changes with parameters and random seed.</strong> <code>n_neighbors</code> and <code>min_dist</code> visibly reshape it</li>
+</ul>
+<p>→ A UMAP is a <strong>picture</strong> of your data, not a <strong>measurement</strong> of it. Any claim that matters should be supported by a number computed in the high-dimensional space.</p>
+<p>💡 A useful journal-club question: <em>“which sentence in this results section is supported only by the UMAP?”</em></p>
+</div>
+</div>
+</div>
+</section>
+<section id="w5-s4-3" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s4-3">3) Clustering resolution is arbitrary</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w5/umap_resolution.svg" class="img-fluid figure-img"></p>
+<figcaption>Same cells, same algorithm, one parameter changed.</figcaption>
+</figure>
+</div>
+<p>Leiden clustering takes a <strong>resolution</strong> parameter. Raise it, get more clusters. Lower it, get fewer.</p>
+<p>⚠️ There is <strong>no correct value and no statistical criterion that settles it.</strong> The algorithm will split any cluster you ask it to.</p>
+<p>✅ What to do instead of agonising:</p>
+<ul>
+<li>Check clusters against <strong>marker genes</strong> and known biology, not against a score</li>
+<li>Check <strong>stability</strong> — does the cluster survive a different resolution, a different seed, a subsampled dataset?</li>
+<li>Ask whether a “new” cluster at higher resolution has genuinely distinct markers, or just gradations of the same ones</li>
+<li><strong>Report the resolution you used</strong></li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>A cluster is not a cell type
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Clusters can equally reflect:</p>
+<ul>
+<li>cell <strong>state</strong> (activated vs resting)</li>
+<li>cell-cycle phase</li>
+<li>stress response (§2.2)</li>
+<li>ambient contamination</li>
+<li><strong>donor identity</strong></li>
+</ul>
+<p>→ Naming a cluster after its top marker gene and treating it as a cell type is how the literature accumulates cell types that do not exist.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="w5-s4-4" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s4-4">4) Annotation</h2>
+<ul>
+<li><strong>Marker-based</strong> — check known markers per cluster. ✅ Transparent. ⚠️ Circular: you find the cell types you looked for</li>
+<li><strong>Reference-based</strong> — map onto an annotated atlas (Azimuth, SingleR, scANVI). ✅ Fast and consistent. ⚠️ Inherits the reference’s vocabulary and cannot name anything the reference lacks</li>
+</ul>
+<p>💡 Use both. <strong>Disagreements between them are the informative part</strong> — that is where a genuinely novel or genuinely artifactual population sits.</p>
+<hr>
+</section>
+</section>
+<section id="w5-s5" class="level1">
+<h1>5. ⚠️ Statistics 📊</h1>
+<section id="w5-s5-1" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s5-1">1) Why per-cell tests are wrong</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w5/pseudobulk.svg" class="img-fluid figure-img"></p>
+<figcaption>Both panels analyse identical data. Only one of them answers the question that was asked.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Cells from one donor are not independent samples
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A Wilcoxon test across 5,400 cells from 6 donors treats those cells as 5,400 independent observations. They are not — cells from the same person share that person’s genetics, environment, medication, batch and processing.</p>
+<p>The consequence:</p>
+<ul>
+<li>p-values inflated by many orders of magnitude</li>
+<li>add cells → the p-value shrinks indefinitely</li>
+<li>→ you are measuring <strong>how many cells you loaded</strong>, not how many people you studied</li>
+</ul>
+<p>⚠️ Seurat’s default <code>FindMarkers</code> behaves this way.</p>
+<ul>
+<li>✅ Appropriate for <em>identifying cluster markers within one dataset</em> — a descriptive task</li>
+<li>❌ Not appropriate for <strong>comparing conditions</strong></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="w5-s5-2" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s5-2">2) Pseudobulk</h2>
+<p><strong>The fix:</strong> for each <strong>donor × cell type</strong>, sum the counts across cells. You now have a small matrix of pseudo-samples — analyse it with DESeq2 or edgeR exactly as in last semester’s bulk workflow.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat); <span class="fu">library</span>(DESeq2); <span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>pb <span class="ot">&lt;-</span> <span class="fu">AggregateExpression</span>(seurat,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">group.by =</span> <span class="fu">c</span>(<span class="st">"cell_type"</span>, <span class="st">"sample_id"</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">assays   =</span> <span class="st">"RNA"</span>)<span class="sc">$</span>RNA</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># then, per cell type, a completely ordinary DESeq2 run</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Benchmarks consistently find pseudobulk controls false positives far better than per-cell tests</li>
+<li><strong>Mixed models</strong> with a donor random effect are a reasonable alternative — more power retained, more computation</li>
+</ul>
+</section>
+<section id="w5-s5-3" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s5-3">3) Differential abundance is compositional</h2>
+<p>Often the interesting result is not that a cell type changed its expression, but that <strong>there is more or less of it</strong>.</p>
+<p>⚠️ Proportions are <strong>compositional</strong> — one cell type expands and every other proportion falls by arithmetic alone, with no biology behind it.</p>
+<ul>
+<li>✅ Methods that handle this: <code>scCODA</code>, <code>miloR</code>, <code>propeller</code>, Dirichlet-multinomial models</li>
+<li>❌ A χ² test on cell counts is <strong>not valid</strong></li>
+<li>⚠️ And before believing any abundance result, return to §2.2: is this composition, or is this dissociation?</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="w5-s6" class="level1">
+<h1>6. Hands-On 💻</h1>
+<section id="w5-s6-1" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s6-1">1) No code: does the atlas already answer it?</h2>
+<p><a href="https://cellxgene.cziscience.com"><strong>CELLxGENE</strong></a> → search a gene from your specialty.</p>
+<ul>
+<li>① Which cell types express it, in which tissues?</li>
+<li>② Is the expression broad, or confined to one population?</li>
+<li>③ Find a dataset in your disease area. <strong>How many donors</strong> does it have — not how many cells?</li>
+<li>④ 💡 If the atlas already answers “which cell type expresses my gene”, you have saved a grant</li>
+</ul>
+</section>
+<section id="w5-s6-2" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s6-2">2) The pipeline, end to end</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat); <span class="fu">library</span>(SeuratData); <span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">InstallData</span>(<span class="st">"pbmc3k"</span>); <span class="fu">data</span>(<span class="st">"pbmc3k"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> pbmc3k</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>pbmc[[<span class="st">"percent.mt"</span>]] <span class="ot">&lt;-</span> <span class="fu">PercentageFeatureSet</span>(pbmc, <span class="at">pattern =</span> <span class="st">"^MT-"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚠️ LOOK before you cut</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(pbmc, <span class="fu">c</span>(<span class="st">"nFeature_RNA"</span>, <span class="st">"nCount_RNA"</span>, <span class="st">"percent.mt"</span>), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">pt.size =</span> <span class="dv">0</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">subset</span>(pbmc, nFeature_RNA <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">&amp;</span> nFeature_RNA <span class="sc">&lt;</span> <span class="dv">2500</span> <span class="sc">&amp;</span> percent.mt <span class="sc">&lt;</span> <span class="dv">5</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">NormalizeData</span>(pbmc) <span class="sc">|&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindVariableFeatures</span>(<span class="at">nfeatures =</span> <span class="dv">2000</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ScaleData</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunPCA</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ElbowPlot</span>(pbmc, <span class="at">ndims =</span> <span class="dv">30</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">FindNeighbors</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunUMAP</span>(<span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(pbmc, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="w5-s6-3" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s6-3">3) ✅ Change one thing</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① How many cells did each threshold remove, and which ones?</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pbmc3k<span class="sc">$</span>seurat_annotations[pbmc3k<span class="sc">$</span>percent.mt <span class="sc">&gt;=</span> <span class="dv">5</span>])   <span class="co"># who did the mito cut delete?</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ② Re-cluster at three resolutions and count</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (r <span class="cf">in</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">1.2</span>)) {</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  pbmc <span class="ot">&lt;-</span> <span class="fu">FindClusters</span>(pbmc, <span class="at">resolution =</span> r, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"resolution"</span>, r, <span class="st">"→"</span>, <span class="fu">nlevels</span>(pbmc<span class="sc">$</span>seurat_clusters), <span class="st">"clusters</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ③ Re-run UMAP with a different seed and compare the picture</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">RunUMAP</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">seed.use =</span> <span class="dv">99</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(pbmc, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>💡 ③ is the exercise that changes how you read figures. Nothing about the biology moved.</p>
+</section>
+<section id="w5-s6-4" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s6-4">4) Save for next week</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(pbmc, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"analysis"</span>, <span class="st">"5_pbmc_annotated.rds"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>W6 — trajectory, cell–cell communication, and multi-sample integration.</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"monocle3"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"harmony"</span>, <span class="st">"CellChat"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>📝 Summary</h1>
+<ul>
+<li>One bulk fold change is compatible with a uniform shift, a rare responsive subpopulation, or a <strong>pure composition change</strong></li>
+<li>✅ Sorting plus deep bulk on many patients often beats whole-tissue single cell on few</li>
+<li>⚠️ <strong>Fresh or frozen is decided at collection</strong> and fixes scRNA-seq vs snRNA-seq permanently</li>
+<li>⚠️ <strong>Dissociation induces stress genes and destroys cells selectively.</strong> <em>FOS</em>/<em>JUN</em> clusters are usually artifacts; depletion claims need scrutiny</li>
+<li>UMIs count molecules, not reads. The matrix is &gt;90% zeros and a single zero means little</li>
+<li>⚠️ <strong>Every QC threshold deletes a real population</strong> — mito 5% removes cardiomyocytes, min.features 500 removes platelets</li>
+<li>❌ UMAP distances, cluster areas and bridges are <strong>not interpretable</strong></li>
+<li>⚠️ Clustering resolution is arbitrary. Check markers and stability, and <strong>report the value you used</strong></li>
+<li>⚠️ <strong>Per-cell differential expression across conditions is invalid.</strong> Use pseudobulk. Your n is the number of <strong>donors</strong></li>
+<li>⚠️ Cell-type proportions are compositional — χ² on cell counts is not valid</li>
+</ul>
+<hr>
+</section>
+<section id="key-terms" class="level1">
+<h1>🔑 Key terms</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>One-line meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cell barcode</td>
+<td>Sequence identifying which droplet a read came from</td>
+</tr>
+<tr class="even">
+<td>UMI</td>
+<td>Tag marking one original mRNA molecule</td>
+</tr>
+<tr class="odd">
+<td>Dropout</td>
+<td>An expressed transcript that was not captured — a technical zero</td>
+</tr>
+<tr class="even">
+<td>Knee plot</td>
+<td>Ranked UMI counts, used to separate cells from empty droplets</td>
+</tr>
+<tr class="odd">
+<td>Ambient RNA</td>
+<td>Free-floating RNA contaminating every droplet</td>
+</tr>
+<tr class="even">
+<td>Doublet</td>
+<td>Two cells captured in one droplet</td>
+</tr>
+<tr class="odd">
+<td>snRNA-seq</td>
+<td>Profiling nuclei rather than whole cells</td>
+</tr>
+<tr class="even">
+<td>Dissociation artifact</td>
+<td>Gene expression induced by the protocol, not the biology</td>
+</tr>
+<tr class="odd">
+<td>HVG</td>
+<td>Highly variable genes selected before PCA</td>
+</tr>
+<tr class="even">
+<td>UMAP / t-SNE</td>
+<td>Non-linear 2D embeddings — for visualisation only</td>
+</tr>
+<tr class="odd">
+<td>Leiden clustering</td>
+<td>Graph-based community detection on the kNN graph</td>
+</tr>
+<tr class="even">
+<td>Resolution</td>
+<td>Parameter controlling how many clusters you get</td>
+</tr>
+<tr class="odd">
+<td>Pseudobulk</td>
+<td>Summing counts per donor × cell type before testing</td>
+</tr>
+<tr class="even">
+<td>Differential abundance</td>
+<td>Testing whether cell-type proportions changed</td>
+</tr>
+<tr class="odd">
+<td>Compositional data</td>
+<td>Proportions that must sum to 1, so they cannot move independently</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="references" class="level1">
+<h1>➕ References</h1>
+<section id="overviews-and-best-practice" class="level3">
+<h3 class="anchored" data-anchor-id="overviews-and-best-practice">Overviews and best practice</h3>
+<p>Heumos L, et al.&nbsp;<a href="https://doi.org/10.1038/s41576-023-00586-w"><em>Best practices for single-cell analysis across modalities.</em></a> Nat Rev Genet. 2023.<br>
+<a href="https://www.sc-best-practices.org/">Single-cell best practices (online book)</a> — free, current, and the one to keep open<br>
+Luecken MD, Theis FJ. <a href="https://doi.org/10.15252/msb.20188746"><em>Current best practices in single-cell RNA-seq analysis: a tutorial.</em></a> Mol Syst Biol. 2019.</p>
+</section>
+<section id="technology-qc-and-artifacts" class="level3">
+<h3 class="anchored" data-anchor-id="technology-qc-and-artifacts">Technology, QC, and artifacts</h3>
+<p>Lun ATL, et al.&nbsp;<a href="https://doi.org/10.1186/s13059-019-1662-y"><em>EmptyDrops: distinguishing cells from empty droplets in droplet-based single-cell RNA sequencing data.</em></a> Genome Biol. 2019.<br>
+Young MD, Behjati S. <a href="https://doi.org/10.1093/gigascience/giaa151"><em>SoupX removes ambient RNA contamination.</em></a> GigaScience. 2020.<br>
+van den Brink SC, et al.&nbsp;<a href="https://doi.org/10.1038/nmeth.4437"><em>Single-cell sequencing reveals dissociation-induced gene expression in tissue subpopulations.</em></a> Nat Methods. 2017. <strong>← read this before designing a dissociation protocol</strong><br>
+Denisenko E, et al.&nbsp;<a href="https://doi.org/10.1186/s13059-020-02048-6"><em>Systematic assessment of tissue dissociation and storage biases in single-cell and single-nucleus RNA-seq workflows.</em></a> Genome Biol. 2020.</p>
+</section>
+<section id="embeddings-and-clustering" class="level3">
+<h3 class="anchored" data-anchor-id="embeddings-and-clustering">Embeddings and clustering</h3>
+<p>Chari T, Pachter L. <a href="https://doi.org/10.1371/journal.pcbi.1011288"><em>The specious art of single-cell genomics.</em></a> PLoS Comput Biol. 2023. <strong>← a sharp, useful critique of 2D embeddings</strong><br>
+Becht E, et al.&nbsp;<a href="https://doi.org/10.1038/nbt.4314"><em>Dimensionality reduction for visualizing single-cell data using UMAP.</em></a> Nat Biotechnol. 2019.</p>
+</section>
+<section id="statistics" class="level3">
+<h3 class="anchored" data-anchor-id="statistics">Statistics</h3>
+<p>Squair JW, et al.&nbsp;<a href="https://doi.org/10.1038/s41467-021-25960-2"><em>Confronting false discoveries in single-cell differential expression.</em></a> Nat Commun. 2021.<br>
+Zimmerman KD, Espeland MA, Langefeld CD. <a href="https://doi.org/10.1038/s41467-021-21038-1"><em>A practical solution to pseudoreplication bias in single-cell studies.</em></a> Nat Commun. 2021.<br>
+Murphy AE, Skene NG. <a href="https://doi.org/10.1038/s41467-022-35519-4"><em>A balanced measure shows superior performance of pseudobulk methods.</em></a> Nat Commun. 2022.<br>
+Büttner M, et al.&nbsp;<a href="https://doi.org/10.1038/s41467-021-27150-6"><em>scCODA is a Bayesian model for compositional single-cell data analysis.</em></a> Nat Commun. 2021.</p>
+</section>
+<section id="atlases" class="level3">
+<h3 class="anchored" data-anchor-id="atlases">Atlases</h3>
+<p><a href="https://www.humancellatlas.org/">Human Cell Atlas</a> · <a href="https://cellxgene.cziscience.com/">CELLxGENE</a> · <a href="https://azimuth.hubmapconsortium.org/">Azimuth</a> · <a href="https://tabula-sapiens.sf.czbiohub.org/">Tabula Sapiens</a></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- AI Chat Widget 초기화 -->
+<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
+<script>
+  // ★ Cloudflare Worker 배포 후 URL로 교체하세요
+  const WORKER_URL = "https://falling-wave-447f.eh0129s.workers.dev/";
+
+  // 각 .qmd 파일의 YAML에서 ai-context를 읽어옵니다
+  // (없으면 빈 문자열 → 기본 안내 메시지)
+  const metaContext = document.querySelector('meta[name="ai-context"]');
+  const metaTitle   = document.querySelector('meta[name="ai-title"]') || { content: document.title };
+
+  window.AI_CHAT_CONFIG = {
+    workerUrl:      WORKER_URL,
+    chapterContext: metaContext ? metaContext.content : "",
+    chapterTitle:   metaTitle  ? metaTitle.content   : document.title,
+  };
+</script>
+<script src="../_extensions/ai-chat/ai-chat.js" defer=""></script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/part2/w4_prs.html" class="pagination-link" aria-label="W4. Polygenic Risk Scores">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">W4. Polygenic Risk Scores</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/part3/w6_scrna_dynamics.html" class="pagination-link" aria-label="W6. Trajectory, Communication, Integration">
+        <span class="nav-page-text">W6. Trajectory, Communication, Integration</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2026, Eunji</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

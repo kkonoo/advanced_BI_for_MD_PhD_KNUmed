@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eunji Ha">
-<meta name="dcterms.date" content="2026-06-02">
+<meta name="dcterms.date" content="2026-08-18">
 
-<title>W1. Advanced BI – advanced BI</title>
+<title>W1. Introduction &amp; Roadmap</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -70,6 +70,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../chapters/part1/w2_scripts_ai.html" rel="next">
+<link href="../../index.html" rel="prev">
+<link href="../../assets/img/favicon.ico" rel="icon">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -121,11 +124,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/logo.jpg" alt="" class="navbar-logo light-content">
-    <img src="../../images/logo.jpg" alt="" class="navbar-logo dark-content">
-    </a>
-    <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">advanced BI</span>
+    <img src="../../assets/img/logo.jpg" alt="" class="navbar-logo light-content">
+    <img src="../../assets/img/logo.jpg" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -138,13 +138,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link active" href="../../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/kkonoo/advanced_BI_for_MD_PhD_KNUmed/"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weeks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weeks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">    
+        <li>
+    <a class="dropdown-item" href="../../chapters/part1/w1_intro.html">
+ <span class="dropdown-text">W1 · Introduction &amp; Roadmap</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part1/w2_scripts_ai.html">
+ <span class="dropdown-text">W2 · Scripts, AI &amp; Reproducibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part2/w3_gwas.html">
+ <span class="dropdown-text">W3 · GWAS &amp; Post-GWAS</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part2/w4_prs.html">
+ <span class="dropdown-text">W4 · Polygenic Risk Scores</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part3/w5_scrna_qc.html">
+ <span class="dropdown-text">W5 · scRNA-seq: QC &amp; Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part3/w6_scrna_dynamics.html">
+ <span class="dropdown-text">W6 · Trajectory, CCC &amp; Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part4/w7_spatial_basics.html">
+ <span class="dropdown-text">W7 · Spatial Transcriptomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part4/w8_spatial_integration.html">
+ <span class="dropdown-text">W8 · Deconvolution &amp; Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part5/w9_proteomics_tech.html">
+ <span class="dropdown-text">W9 · Proteomics Technology</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part5/w10_clinical_proteomics.html">
+ <span class="dropdown-text">W10 · Clinical Proteomics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part6/w11_multiomics.html">
+ <span class="dropdown-text">W11 · Multi-omics Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part6/w12_network_drug.html">
+ <span class="dropdown-text">W12 · Network &amp; Drug Targets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part7/w13_visualization.html">
+ <span class="dropdown-text">W13 · Interpretation &amp; Visualisation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../chapters/part7/w14_project_design.html">
+ <span class="dropdown-text">W14 · Project Design</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -156,7 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part1/w1_intro.html">1. Intro</a></li><li class="breadcrumb-item"><a href="../../chapters/part1/w1_intro.html">W1. Advanced BI</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part1/w1_intro.html">1 · Intro</a></li><li class="breadcrumb-item"><a href="../../chapters/part1/w1_intro.html">W1. Introduction &amp; Roadmap</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -185,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">1. Intro</span></a>
+ <span class="menu-text">1 · Intro</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -194,7 +250,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../chapters/part1/w1_intro.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">W1. Advanced BI</span></a>
+ <span class="menu-text">W1. Introduction &amp; Roadmap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part1/w2_scripts_ai.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W2. Scripts, AI &amp; Reproducibility</span></a>
   </div>
 </li>
       </ul>
@@ -202,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">2. Genomics</span></a>
+ <span class="menu-text">2 · Clinical Genomics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -210,8 +272,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/part2/w2_gwas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">W2. GWAS &amp; Post-GWAS</span></a>
+  <a href="../../chapters/part2/w3_gwas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W3. GWAS &amp; Post-GWAS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part2/w4_prs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W4. Polygenic Risk Scores</span></a>
   </div>
 </li>
       </ul>
@@ -219,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">3. Omics</span></a>
+ <span class="menu-text">3 · Single-cell</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -227,8 +295,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/part3/w4_epigenomics_methylation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Epigenomics I: DNA Methylation</span></a>
+  <a href="../../chapters/part3/w5_scrna_qc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W5. Technology, QC, Clustering</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part3/w6_scrna_dynamics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W6. Trajectory, Communication, Integration</span></a>
   </div>
 </li>
       </ul>
@@ -236,7 +310,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">4. Multi-Omics</span></a>
+ <span class="menu-text">4 · Spatial</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -244,8 +318,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/part4/w11_multiomics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Multi-omics Integration &amp; GWAS Gene Prioritization</span></a>
+  <a href="../../chapters/part4/w7_spatial_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W7. Spatial Transcriptomics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part4/w8_spatial_integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W8. Deconvolution &amp; Integration</span></a>
   </div>
 </li>
       </ul>
@@ -253,7 +333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">5. Capstone</span></a>
+ <span class="menu-text">5 · Proteomics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -261,8 +341,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/part5/w13_visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data Interpretation &amp; Visualization</span></a>
+  <a href="../../chapters/part5/w9_proteomics_tech.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W9. How Proteins Are Measured</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part5/w10_clinical_proteomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W10. Clinical Proteomics &amp; Biomarkers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">6 · Integration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part6/w11_multiomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W11. Multi-omics Integration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part6/w12_network_drug.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W12. Network Analysis &amp; Drug Targets</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">7 · Capstone</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part7/w13_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W13. Interpretation &amp; Visualisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/part7/w14_project_design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">W14. Designing Your Own Project</span></a>
   </div>
 </li>
       </ul>
@@ -277,37 +409,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">1. Introduction</a>
+  <li><a href="#w1-s1" id="toc-w1-s1" class="nav-link active" data-scroll-target="#w1-s1">1. Where You Are Now 📍</a>
   <ul>
-  <li><a href="#the-gap-no-one-talks-about" id="toc-the-gap-no-one-talks-about" class="nav-link" data-scroll-target="#the-gap-no-one-talks-about">The Gap no one talks about</a></li>
-  <li><a href="#what-you-already-know" id="toc-what-you-already-know" class="nav-link" data-scroll-target="#what-you-already-know">What you already know</a></li>
-  <li><a href="#multi-omics-to-understand-diseases" id="toc-multi-omics-to-understand-diseases" class="nav-link" data-scroll-target="#multi-omics-to-understand-diseases">Multi-Omics to understand diseases</a></li>
-  <li><a href="#course-roadmap" id="toc-course-roadmap" class="nav-link" data-scroll-target="#course-roadmap">Course Roadmap</a></li>
-  <li><a href="#what-youll-be-able-to-do-after-this-course-hopefully" id="toc-what-youll-be-able-to-do-after-this-course-hopefully" class="nav-link" data-scroll-target="#what-youll-be-able-to-do-after-this-course-hopefully">What you’ll be able to do after this course (hopefully…)</a></li>
-  <li><a href="#the-r-ecosystem-this-semester-or-python" id="toc-the-r-ecosystem-this-semester-or-python" class="nav-link" data-scroll-target="#the-r-ecosystem-this-semester-or-python">The R Ecosystem this semester … or python (?)</a></li>
+  <li><a href="#w1-s1-1" id="toc-w1-s1-1" class="nav-link" data-scroll-target="#w1-s1-1">1) What last semester actually gave you</a></li>
+  <li><a href="#w1-s1-2" id="toc-w1-s1-2" class="nav-link" data-scroll-target="#w1-s1-2">2) The five stages have not changed</a></li>
+  <li><a href="#w1-s1-3" id="toc-w1-s1-3" class="nav-link" data-scroll-target="#w1-s1-3">3) ⚠️ Two kinds of depth</a></li>
   </ul></li>
-  <li><a href="#r-environment-setup" id="toc-r-environment-setup" class="nav-link" data-scroll-target="#r-environment-setup">2. R Environment Setup</a>
+  <li><a href="#w1-s2" id="toc-w1-s2" class="nav-link" data-scroll-target="#w1-s2">2. The Course as One Question 🧭</a>
   <ul>
-  <li><a href="#principles-of-a-reproducible-workflow" id="toc-principles-of-a-reproducible-workflow" class="nav-link" data-scroll-target="#principles-of-a-reproducible-workflow">Principles of a Reproducible Workflow</a></li>
-  <li><a href="#r-project-.rproj" id="toc-r-project-.rproj" class="nav-link" data-scroll-target="#r-project-.rproj">1) R Project (.Rproj)</a>
-  <ul class="collapse">
-  <li><a href="#how-to-create-r-project" id="toc-how-to-create-r-project" class="nav-link" data-scroll-target="#how-to-create-r-project">how to create R project</a></li>
-  <li><a href="#recommended-structure-of-folders" id="toc-recommended-structure-of-folders" class="nav-link" data-scroll-target="#recommended-structure-of-folders">recommended structure of folders</a></li>
+  <li><a href="#w1-s2-1" id="toc-w1-s2-1" class="nav-link" data-scroll-target="#w1-s2-1">1) One clinical question, eight layers</a></li>
+  <li><a href="#w1-s2-2" id="toc-w1-s2-2" class="nav-link" data-scroll-target="#w1-s2-2">2) The syllabus</a></li>
+  <li><a href="#w1-s2-3" id="toc-w1-s2-3" class="nav-link" data-scroll-target="#w1-s2-3">3) What you should be able to do in December</a></li>
   </ul></li>
-  <li><a href="#renv-for-reproducible-environments" id="toc-renv-for-reproducible-environments" class="nav-link" data-scroll-target="#renv-for-reproducible-environments">2) renv: for reproducible environments</a></li>
-  <li><a href="#hands-on-lets-set-up-together" id="toc-hands-on-lets-set-up-together" class="nav-link" data-scroll-target="#hands-on-lets-set-up-together">3) Hands-On: Let’s Set Up Together</a></li>
+  <li><a href="#w1-s3" id="toc-w1-s3" class="nav-link" data-scroll-target="#w1-s3">3. Before Any Data Exists ⏱️</a>
+  <ul>
+  <li><a href="#w1-s3-1" id="toc-w1-s3-1" class="nav-link" data-scroll-target="#w1-s3-1">1) ⚠️ The timing problem</a></li>
+  <li><a href="#w1-s3-2" id="toc-w1-s3-2" class="nav-link" data-scroll-target="#w1-s3-2">2) Three questions that decide everything</a></li>
+  <li><a href="#w1-s3-3" id="toc-w1-s3-3" class="nav-link" data-scroll-target="#w1-s3-3">3) ⚠️ Confounding by batch</a></li>
+  <li><a href="#w1-s3-4" id="toc-w1-s3-4" class="nav-link" data-scroll-target="#w1-s3-4">4) What your specimen can become</a></li>
   </ul></li>
-  <li><a href="#w2-preview-gwas-post-gwas" id="toc-w2-preview-gwas-post-gwas" class="nav-link" data-scroll-target="#w2-preview-gwas-post-gwas">W2 Preview — GWAS &amp; Post-GWAS</a></li>
-  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions"><span style="color:#ffffff">Questions?</span></a></li>
+  <li><a href="#w1-s4" id="toc-w1-s4" class="nav-link" data-scroll-target="#w1-s4">4. A Setup That Survives Three Years 🛠️</a>
+  <ul>
+  <li><a href="#w1-s4-1" id="toc-w1-s4-1" class="nav-link" data-scroll-target="#w1-s4-1">1) Reproducibility is a clinical problem</a></li>
+  <li><a href="#w1-s4-2" id="toc-w1-s4-2" class="nav-link" data-scroll-target="#w1-s4-2">2) R Project (.Rproj)</a></li>
+  <li><a href="#w1-s4-3" id="toc-w1-s4-3" class="nav-link" data-scroll-target="#w1-s4-3">3) renv — version locking</a></li>
+  </ul></li>
+  <li><a href="#w1-s5" id="toc-w1-s5" class="nav-link" data-scroll-target="#w1-s5">5. Hands-On 💻</a>
+  <ul>
+  <li><a href="#w1-s5-1" id="toc-w1-s5-1" class="nav-link" data-scroll-target="#w1-s5-1">1) No code: does your question already have an answer?</a></li>
+  <li><a href="#w1-s5-2" id="toc-w1-s5-2" class="nav-link" data-scroll-target="#w1-s5-2">2) Set up your project</a></li>
+  <li><a href="#w1-s5-3" id="toc-w1-s5-3" class="nav-link" data-scroll-target="#w1-s5-3">3) Install the core packages</a></li>
+  <li><a href="#w1-s5-4" id="toc-w1-s5-4" class="nav-link" data-scroll-target="#w1-s5-4">4) Before next week</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">📝 Summary</a></li>
+  <li><a href="#key-terms" id="toc-key-terms" class="nav-link" data-scroll-target="#key-terms">🔑 Key terms</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">➕ References</a>
+  <ul>
+  <li><a href="#study-design-and-its-failures" id="toc-study-design-and-its-failures" class="nav-link" data-scroll-target="#study-design-and-its-failures">Study design and its failures</a></li>
+  <li><a href="#reproducible-practice" id="toc-reproducible-practice" class="nav-link" data-scroll-target="#reproducible-practice">Reproducible practice</a></li>
+  <li><a href="#public-data-first" id="toc-public-data-first" class="nav-link" data-scroll-target="#public-data-first">Public data first</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part1/w1_intro.html">1. Intro</a></li><li class="breadcrumb-item"><a href="../../chapters/part1/w1_intro.html">W1. Advanced BI</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/part1/w1_intro.html">1 · Intro</a></li><li class="breadcrumb-item"><a href="../../chapters/part1/w1_intro.html">W1. Introduction &amp; Roadmap</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">W1. Advanced BI</h1>
+<h1 class="title">W1. Introduction &amp; Roadmap</h1>
 </div>
 
 
@@ -324,7 +474,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 2, 2026</p>
+      <p class="date">August 18, 2026</p>
     </div>
   </div>
   
@@ -336,350 +486,666 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
-<section id="the-gap-no-one-talks-about" class="level3">
-<h3 class="anchored" data-anchor-id="the-gap-no-one-talks-about">The Gap no one talks about</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>What’s happening in research</strong></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>🎯 Learning objectives
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>By the end of this chapter you should be able to:</p>
 <ul>
-<li>Whole genome sequencing at clinical scale</li>
-<li>Single-cell atlases of every tissue</li>
-<li>Multi-omics datasets in public repositories</li>
-<li>AI/ML-driven drug discovery pipelines</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<p><strong>What most clinicians can do with it</strong></p>
-<ul>
-<li>Read the abstract</li>
-<li>Trust the figures</li>
-<li>Ask a bioinformatician</li>
+<li>Say what last semester’s bulk RNA-seq answered, and what it structurally could not</li>
+<li>⚠️ Distinguish <strong>execution depth</strong> from <strong>judgment depth</strong>, and say which one this course is for</li>
+<li>Trace one clinical question through all eight omics layers of the semester</li>
+<li>⚠️ Name the point in a study after which design mistakes become unrecoverable</li>
+<li>Recognise batch–group confounding from a sample layout alone</li>
+<li>Say what a fresh, frozen, or FFPE specimen can and cannot become</li>
+<li>Set up an R project that still runs in three years</li>
 </ul>
 </div>
 </div>
-<div class="fragment">
-<p>▶️ Clinician-scientists who <u>can analyze their own data</u> ask <strong>better questions</strong></p>
+</div>
+<blockquote class="blockquote">
+<p>🤔 <strong>Motivating question</strong></p>
+<p>A colleague asks you to co-author. They have RNA-seq on 6 patients and 6 controls, and a list of 847 differentially expressed genes. What is the first question you ask — about the genes, or about something else?</p>
+</blockquote>
+<hr>
+<section id="w1-s1" class="level1">
+<h1>1. Where You Are Now 📍</h1>
+<section id="w1-s1-1" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s1-1">1) What last semester actually gave you</h2>
+<p>You can take a tissue, get counts, and produce a ranked gene list. That is a real skill, and most clinicians do not have it.</p>
+<p>It is also a <strong>single measurement of a mixture</strong>, and it answers exactly one question: <em>which genes differ on average between these two groups of tissue?</em></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w1/where_you_are.svg" class="img-fluid figure-img"></p>
+<figcaption>Every remaining week of this course attacks that same gene list from a different side.</figcaption>
+</figure>
+</div>
+<p>💡 Notice that none of the six questions on the right is answered by better statistics on the left. They need <strong>different data</strong>.</p>
+</section>
+<section id="w1-s1-2" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s1-2">2) The five stages have not changed</h2>
+<p>Whatever the technology — genotypes, chromatin, single cells, peptides — the pipeline shape is the same one you already know:</p>
+<pre><code>① Quality control     → is this data usable at all?
+② Alignment /          → where did each measurement come from,
+   quantification         and how much of it is there?
+③ Normalization       → make samples comparable to each other
+④ Statistical testing → which differences exceed noise?
+⑤ Interpretation      → what does that mean biologically?</code></pre>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>The stages are not equally dangerous
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Stages ① ② fail <strong>loudly</strong> — the pipeline crashes, or the numbers are absurd</li>
+<li>Stages ③ ④ fail <strong>quietly</strong> — you get a tidy table of 847 genes, sorted by adjusted p, and nothing about its appearance tells you it is wrong</li>
+</ul>
+<p>⚠️ The failure mode unique to computation: <strong>the analysis always returns an answer.</strong> A failed PCR gives you an empty gel. A failed analysis gives you a figure.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="w1-s1-3" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s1-3">3) ⚠️ Two kinds of depth</h2>
+<p>“Advanced bioinformatics” could mean two very different things. This course commits to one of them.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w1/two_depths.svg" class="img-fluid figure-img"></p>
+<figcaption>The left column is a full-time job. The right column is the one you are uniquely qualified for.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Why the right column is yours and not the analyst’s
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Your analyst can tell you the pseudobulk model converged. They cannot tell you that the “depleted” cell type is the one that never survives dissociation from inflamed tissue — because they have never held the tissue.</p>
+<ul>
+<li>✅ <strong>You</strong> know what the specimen went through, what the patients were on, and what the diagnosis actually means</li>
+<li>✅ <strong>You</strong> know whether a 2% absolute risk difference changes management</li>
+<li>❌ Nobody can supply that for you, and no method compensates for its absence</li>
+</ul>
+<p>→ The gap this course closes is not a coding gap. It is a <strong>vocabulary gap</strong> — enough to ask the right question and recognise a wrong answer.</p>
+</div>
+</div>
 </div>
 <hr>
 </section>
-<section id="what-you-already-know" class="level3">
-<h3 class="anchored" data-anchor-id="what-you-already-know">What you already know</h3>
-<p>From last course:</p>
-<ul>
-<li>✅ R basics — data wrangling, ggplot2, statistics</li>
-<li>✅ Bulk RNA-seq — QC, alignment, DESeq2, pathway analysis</li>
-<li>✅ Thinking computationally about biological questions</li>
-</ul>
-<div class="fragment">
-<p>▶️ This course: we go <strong>one (or several) levels deeper.</strong></p>
-</div>
-<hr>
 </section>
-<section id="multi-omics-to-understand-diseases" class="level3" data-background-color="#534AB7">
-<h3 data-background-color="#534AB7" class="anchored" data-anchor-id="multi-omics-to-understand-diseases">Multi-Omics to understand diseases</h3>
-<p>From a GWAS hit to a drug target — this is what this course builds toward:</p>
-<pre><code>GWAS / PRS                            → Which genetic variants increase disease risk?
-    🔽
-Epigenomics                           → Which regulatory elements are involved?
-    🔽
-Metagenomics                          → Does the microbiome play a role?
-    🔽
-Transcriptomics (bulk RNA-seq)        → Which genes are involved?
-    🔽
-Transcriptomics (scRNA-seq/Spatial)   → Which cell types? In which tissue context?
-    🔽
-Proteomics                            → Which actual players are involved?
-    🔽
-Multi-omics                           → How do all these layers converge on a target?
-    🔽
-Disease prediction                    → Can we predict diseases?
-Drug Discovery                        → Can we reposition an existing drug?</code></pre>
-<div class="fragment">
-<p>▶️ Every tool we learn is a <strong>piece of the same puzzle</strong></p>
+<section id="w1-s2" class="level1">
+<h1>2. The Course as One Question 🧭</h1>
+<section id="w1-s2-1" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s2-1">1) One clinical question, eight layers</h2>
+<p>The semester is not a tour of techniques. It is one question, pursued downward until it becomes something you could actually test.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w1/roadmap.svg" class="img-fluid figure-img"></p>
+<figcaption>Each layer answers something the layer above it could not.</figcaption>
+</figure>
 </div>
-<hr>
+<p>💡 Read the right-hand column downward. Notice that <strong>the answer gets narrower and more actionable</strong> at every step — from 40 loci to one gene in one cell type at one tissue location with one candidate drug.</p>
+<p>⚠️ Notice also the W9–W10 row: <em>protein up, mRNA flat</em>. Layers disagree more often than papers admit, and disagreement is usually the informative part.</p>
 </section>
-<section id="course-roadmap" class="level3">
-<h3 class="anchored" data-anchor-id="course-roadmap">Course Roadmap</h3>
-<p>In this course, we skip epigenomics and metagenomics, unfortunately🥲</p>
-<div style="font-size: 0.9em">
+<section id="w1-s2-2" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s2-2">2) The syllabus</h2>
+<div style="font-size: 0.92em">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 38%">
-<col style="width: 22%">
-<col style="width: 38%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 34%">
+<col style="width: 23%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Section</th>
-<th>Weeks</th>
-<th>Topics</th>
+<th>Module</th>
+<th>Week</th>
+<th>Contents</th>
+<th>Key tools</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Introduction</strong></td>
+<td><strong>Intro</strong></td>
 <td>W1</td>
-<td>R environment setup</td>
+<td>Review, roadmap, R environment</td>
+<td>R, Bioconductor</td>
 </tr>
 <tr class="even">
-<td><strong>Clinical Genomics &amp; Risk Prediction</strong></td>
-<td>W2–W3</td>
-<td>GWAS, Post-GWAS, PRS</td>
+<td></td>
+<td>W2</td>
+<td>R scripts, AI-assisted coding, reproducibility</td>
+<td>Quarto, git</td>
 </tr>
 <tr class="odd">
-<td><strong>High-Resolution Transcriptomics</strong></td>
-<td>W4–W7</td>
-<td>scRNA-seq, Spatial</td>
+<td><strong>Clinical Genomics</strong></td>
+<td>W3</td>
+<td>GWAS &amp; post-GWAS</td>
+<td>GWAS Catalog, Open Targets</td>
 </tr>
 <tr class="even">
+<td></td>
+<td>W4</td>
+<td>PRS &amp; clinical application</td>
+<td>PGS Catalog, PRSice-2</td>
+</tr>
+<tr class="odd">
+<td><strong>Single-cell</strong></td>
+<td>W5</td>
+<td>scRNA-seq technology, QC, clustering</td>
+<td>Seurat, scanpy</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>W6</td>
+<td>Trajectory &amp; cell–cell communication</td>
+<td>Monocle3, CellChat</td>
+</tr>
+<tr class="odd">
+<td><strong>Spatial</strong></td>
+<td>W7</td>
+<td>Spatial transcriptomics — the basics</td>
+<td>Seurat, Squidpy</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>W8</td>
+<td>Spatial + scRNA integration, deconvolution</td>
+<td>CARD, SPOTlight</td>
+</tr>
+<tr class="odd">
 <td><strong>Proteomics</strong></td>
-<td>W8–W9</td>
-<td>LC-MS, NGS-based, Biomarker</td>
+<td>W9</td>
+<td>MS- and NGS-based proteomics</td>
+<td>theory</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>W10</td>
+<td>Clinical proteomics &amp; biomarkers</td>
+<td>limma, MSstats</td>
 </tr>
 <tr class="odd">
 <td><strong>Integration</strong></td>
-<td>W10-W11</td>
-<td>Integration, Network, Drug repositioning</td>
+<td>W11</td>
+<td>Multi-omics integration</td>
+<td>MOFA+, mixOmics</td>
 </tr>
 <tr class="even">
+<td></td>
+<td>W12</td>
+<td>Network analysis &amp; drug targets</td>
+<td>STRING, igraph</td>
+</tr>
+<tr class="odd">
 <td><strong>Capstone</strong></td>
-<td>W12–W14</td>
-<td>Your own data story</td>
+<td>W13</td>
+<td>Interpretation &amp; visualisation</td>
+<td>ggplot2, Quarto</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>W14</td>
+<td>Individual project design</td>
+<td>—</td>
 </tr>
 </tbody>
 </table>
 </div>
 </section>
-<section id="what-youll-be-able-to-do-after-this-course-hopefully" class="level3" style="font-size: 0.8em">
-<h3 class="anchored" data-anchor-id="what-youll-be-able-to-do-after-this-course-hopefully">What you’ll be able to do after this course (hopefully…)</h3>
-<div class="incremental">
-<ul class="incremental">
-<li>Read a methods section and understand <strong>what was actually done</strong></li>
-<li>Download public omics datasets and <strong>run analyses yourself</strong></li>
-<li>Combine multiple data types to <strong>generate a testable hypothesis</strong></li>
-<li><strong>Present a data-driven research proposal</strong> at the final session</li>
+<section id="w1-s2-3" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s2-3">3) What you should be able to do in December</h2>
+<ul>
+<li>✅ Read a methods section and say <strong>what was actually done</strong>, including what was quietly not done</li>
+<li>✅ Look up whether public data already answers your question, before writing a grant to generate it</li>
+<li>✅ Sit in a study-design meeting and stop an unrecoverable mistake</li>
+<li>✅ Say why a published finding might not hold in Korean patients</li>
+<li>✅ Present a data-supported research proposal at the final session</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>What this course deliberately does not promise
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>❌ That you will be able to run a spatial deconvolution pipeline unsupervised.</p>
+<p>That is a reasonable thing to want, and it is not achievable in fourteen 2-hour sessions alongside clinical duties. Anyone promising it is selling something.</p>
+<p>→ What is achievable: never again being the person in the room who cannot evaluate the analysis their own name will appear on.</p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="w1-s3" class="level1">
+<h1>3. Before Any Data Exists ⏱️</h1>
+<p>This section is the most immediately useful thing in the semester, and it involves no software.</p>
+<section id="w1-s3-1" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s3-1">1) ⚠️ The timing problem</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w1/when_to_call.svg" class="img-fluid figure-img"></p>
+<figcaption>Almost every irreversible decision happens before anyone opens R.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>What “we’ll figure out the analysis later” actually costs
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Three real patterns:</p>
+<ul>
+<li>① <strong>“We have n = 3 per group, is that enough?”</strong> — asked after collection. For a well-powered bulk comparison in a homogeneous system, sometimes. For single-cell across conditions, ⚠️ your n is the number of <strong>donors</strong>, not cells (W5), so the answer is usually no</li>
+<li>② <strong>“The tissue was flash-frozen.”</strong> — then scRNA-seq is off the table and it is snRNA-seq or nothing (W5). Not a disaster, but it changes what you can claim</li>
+<li>③ <strong>“Cases were collected at hospital A, controls at hospital B.”</strong> — see §3.3. There is no fix</li>
+</ul>
+<p>→ Each of these takes 30 seconds to prevent and 18 months to regret.</p>
+</div>
+</div>
 </div>
 </section>
-<hr>
-<section id="the-r-ecosystem-this-semester-or-python" class="level3">
-<h3 class="anchored" data-anchor-id="the-r-ecosystem-this-semester-or-python">The R Ecosystem this semester … or python (?)</h3>
-<div style="font-size: 0.9em">
+<section id="w1-s3-2" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s3-2">2) Three questions that decide everything</h2>
+<p>Ask these before a single specimen is collected.</p>
+<p><strong>① What is my unit of replication?</strong></p>
+<p>The thing you can independently repeat. Usually <strong>the patient</strong> — not the cell, not the well, not the technical replicate.</p>
+<ul>
+<li>⚠️ 30,000 cells from 3 patients is <strong>n = 3</strong></li>
+<li>⚠️ Two aliquots of the same tumour is <strong>n = 1</strong></li>
+</ul>
+<p><strong>② What is the comparison, exactly?</strong></p>
+<p>Write the sentence before collecting: <em>“I will compare ___ to ___, and I expect ___ to differ in direction ___.”</em></p>
+<ul>
+<li>❌ “I want to profile my patients” — not a comparison</li>
+<li>✅ “I will compare treatment-resistant to treatment-naive, matched on age and stage” — now the design follows</li>
+</ul>
+<p><strong>③ What else differs between my groups?</strong></p>
+<p>Everything that tracks with your grouping is a rival explanation: collection site, storage duration, sequencing run, extraction day, operator, time of day, medication.</p>
+</section>
+<section id="w1-s3-3" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s3-3">3) ⚠️ Confounding by batch</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w1/batch_design.svg" class="img-fluid figure-img"></p>
+<figcaption>Both layouts cost the same. Only one of them can be analysed.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Why “we’ll just correct for batch” does not save you
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Batch correction estimates the batch effect from samples that share a batch but differ in group. If <strong>no batch contains both groups</strong>, there is nothing to estimate from.</p>
+<p>The mathematics is not being difficult — the information genuinely is not in the data. <code>ComBat</code>, <code>limma::removeBatchEffect</code>, Harmony and every successor have the same limitation.</p>
+<p>✅ The fix is free, and it is scheduling: <strong>make sure every run, every extraction day, and every site contains both groups.</strong></p>
+<p>💡 If a collaborator sends you data where this was violated, saying so early is a kindness. Saying so after they have written the discussion section is not.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="w1-s3-4" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s3-4">4) What your specimen can become</h2>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 19%">
+</colgroup>
 <thead>
 <tr class="header">
-<th>Topic</th>
-<th>Key Packages</th>
+<th>Specimen</th>
+<th style="text-align: center;">scRNA-seq</th>
+<th style="text-align: center;">snRNA-seq</th>
+<th style="text-align: center;">Bulk RNA</th>
+<th style="text-align: center;">Spatial</th>
+<th style="text-align: center;">DNA / genotyping</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>GWAS / PRS</td>
-<td><code>bigsnpr</code>, <code>PRSice</code>, <code>LDlinkR</code></td>
+<td><strong>Fresh</strong> (&lt; a few hours)</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
 </tr>
 <tr class="even">
-<td>scRNA-seq</td>
-<td><code>Seurat</code>, <code>SingleR</code>, <code>Monocle3</code></td>
+<td><strong>Flash-frozen (OCT)</strong></td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
 </tr>
 <tr class="odd">
-<td>Spatial</td>
-<td><code>Seurat</code>, <code>SpatialDE</code>, <code>NNSVG</code></td>
+<td><strong>FFPE block</strong></td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">⚠️ limited</td>
+<td style="text-align: center;">⚠️ degraded</td>
+<td style="text-align: center;">✅ probe-based</td>
+<td style="text-align: center;">⚠️ fragmented</td>
 </tr>
 <tr class="even">
-<td>Multi-omics</td>
-<td><code>MOFA2</code>, <code>mixOmics</code></td>
-</tr>
-<tr class="odd">
-<td>Drug discovery</td>
-<td><code>igraph</code>, <code>drugTargetInteractions</code></td>
+<td><strong>Whole blood / buffy coat</strong></td>
+<td style="text-align: center;">✅ (PBMC)</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="fragment">
-<p>Don’t worry — we install these as we go</p>
-</div>
+<p>💡 <strong>The archive question worth asking your department:</strong> how many FFPE blocks with linked outcome data are sitting in pathology? Probe-based spatial and proteomics both work on FFPE (W7, W9) — a retrospective cohort you already own often beats a prospective one you have to fund.</p>
 <hr>
 </section>
 </section>
-<section id="r-environment-setup" class="level2">
-<h2 class="anchored" data-anchor-id="r-environment-setup">2. R Environment Setup</h2>
-<section id="principles-of-a-reproducible-workflow" class="level3">
-<h3 class="anchored" data-anchor-id="principles-of-a-reproducible-workflow">Principles of a Reproducible Workflow</h3>
-<p>Three things that will save you later:</p>
+<section id="w1-s4" class="level1">
+<h1>4. A Setup That Survives Three Years 🛠️</h1>
+<section id="w1-s4-1" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s4-1">1) Reproducibility is a clinical problem</h2>
+<p>The gap between analysis and publication is typically 1–3 years. Reviewers ask for a reanalysis. A package updated. Your laptop was replaced.</p>
+<p>Three habits cover almost all of it:</p>
 <ol type="1">
-<li><strong>Project-based</strong> working — never <code>setwd()</code> again</li>
-<li><strong>Consistent directory structure</strong> — know where everything lives</li>
-<li><strong>Locked package versions</strong> — your code runs the same in 2 years</li>
+<li><strong>Project-based working</strong> — never <code>setwd()</code> again</li>
+<li><strong>A consistent directory structure</strong> — you know where everything lives, and so does a collaborator</li>
+<li><strong>Locked package versions</strong> — the same code gives the same numbers later</li>
 </ol>
-<hr>
 </section>
-<section id="r-project-.rproj" class="level3">
-<h3 class="anchored" data-anchor-id="r-project-.rproj">1) R Project (.Rproj)</h3>
-<div class="fragment">
-<p>R env file to fix your working directory</p>
-</div>
-<div class="fragment">
-<section id="how-to-create-r-project" class="level4">
-<h4 class="anchored" data-anchor-id="how-to-create-r-project">how to create R project</h4>
+<section id="w1-s4-2" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s4-2">2) R Project (.Rproj)</h2>
+<p>An <code>.Rproj</code> file fixes the working directory to wherever it sits. Paths built with <code>here::here()</code> then work on any machine.</p>
 <pre><code>RStudio → File → New Project → New Directory (or Existing Directory)</code></pre>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../..\assets/img/w1/R project.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-</section>
-</div>
-<hr>
-<section id="recommended-structure-of-folders" class="level4">
-<h4 class="anchored" data-anchor-id="recommended-structure-of-folders">recommended structure of folders</h4>
+<p><strong>A structure that scales:</strong></p>
 <pre><code>my_project/
-├── my_project.Rproj                 ← setting working directory where this file exists
-├── scripts/                         ← R scripts (.R)
-│   ├── 1_table1.R
-│   ├── 2_preprocessing.R
-│   └── 3_figure.R
-├── rawdata/                         ← raw data (never change)
+├── my_project.Rproj          ← working directory anchors here
+├── rawdata/                  ← never modified, never overwritten
 │   └── clinical_data.xlsx
-├── analysis/                        ← preprocessed data
-│   ├── 1_cleaned_data.rds
-│   ├── 1_df_pt.rds
-│   ├── 1_table1.rds
-│   ├── 2_df_pt_processed.rds
-│   ├── 3_cox_model.rds
-│   ├── 3_cox_tidy.rds
-└── results/                         ← final results
-│   ├── Table1.docx
-│   ├── KM_OS.tiff
-│   └── forest_OS.tiff
-└── logs/ or docs/                   ← whatever</code></pre>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../..\assets/img/w1/project_folders.png" class="img-fluid figure-img"></p>
-<figcaption>project folders</figcaption>
-</figure>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../..\assets/img/w1/folder_structure.png" class="img-fluid figure-img"></p>
-<figcaption>directory structure</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<hr>
+├── scripts/                  ← numbered, in run order
+│   ├── 1_clean.R
+│   ├── 2_analysis.R
+│   └── 3_figures.R
+├── analysis/                 ← intermediate .rds objects
+├── results/
+│   ├── figures/
+│   └── tables/
+└── logs/</code></pre>
+<p>💡 The numbering is the point. <code>2_analysis.R</code> cannot be run before <code>1_clean.R</code>, and six months later that ordering is the only documentation you will trust.</p>
 </section>
-</section>
-<section id="renv-for-reproducible-environments" class="level3">
-<h3 class="anchored" data-anchor-id="renv-for-reproducible-environments">2) renv: for reproducible environments</h3>
+<section id="w1-s4-3" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s4-3">3) renv — version locking</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Initialize — run once when starting a project</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Once, when starting a project</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">init</span>()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Install packages as usual</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"Seurat"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Install packages as usual</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"DESeq2"</span>)</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Snapshot — lock your current package versions</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Lock the current versions into renv.lock</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Restore — on a new machine or for a collaborator</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># On a new machine, or for a collaborator</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">restore</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Why this helps
+<span class="screen-reader-only">Note</span>Why this matters more than it sounds
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Without <code>renv</code>, a Seurat update 6 months from now may silently break your code.</p>
+<p>A Seurat major-version update can silently change default clustering behaviour. Without a lock file, “I reran it and got different clusters” has no explanation and no fix.</p>
+<p>⚠️ <code>renv::snapshot()</code> is only useful if you actually run it. Make it the last line of every analysis session.</p>
+</div>
 </div>
 </div>
 <hr>
 </section>
-<section id="hands-on-lets-set-up-together" class="level3">
-<h3 class="anchored" data-anchor-id="hands-on-lets-set-up-together">3) Hands-On: Let’s Set Up Together</h3>
-<p>① Create a new R Project</p>
+</section>
+<section id="w1-s5" class="level1">
+<h1>5. Hands-On 💻</h1>
+<section id="w1-s5-1" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s5-1">1) No code: does your question already have an answer?</h2>
+<p>Before generating anything, spend twenty minutes in the browser. Pick a gene or disease from your own specialty and work through:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Resource</th>
+<th>Ask it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.ebi.ac.uk/gwas"><strong>GWAS Catalog</strong></a></td>
+<td>Has anyone found variants for this disease? How many, and in whom?</td>
+</tr>
+<tr class="even">
+<td><a href="https://platform.opentargets.org"><strong>Open Targets</strong></a></td>
+<td>Is my gene already linked to this disease? Is there a drug?</td>
+</tr>
+<tr class="odd">
+<td><a href="https://gtexportal.org"><strong>GTEx</strong></a></td>
+<td>Which tissues express my gene at all?</td>
+</tr>
+<tr class="even">
+<td><a href="https://cellxgene.cziscience.com"><strong>CELLxGENE</strong></a></td>
+<td>Which cell types express it? <em>(often answers the whole question)</em></td>
+</tr>
+<tr class="odd">
+<td><a href="https://www.ncbi.nlm.nih.gov/geo/"><strong>GEO</strong></a></td>
+<td>Has someone already run this experiment and deposited it?</td>
+</tr>
+</tbody>
+</table>
+<p>✅ Write down, in one sentence each, what you found — and whether your planned experiment still adds something.</p>
+<p>💡 This is not a warm-up exercise. It is the single highest-yield hour in translational research, and almost nobody spends it.</p>
+</section>
+<section id="w1-s5-2" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s5-2">2) Set up your project</h2>
 <pre><code>File → New Project → New Directory → New Project
-Name: "advanced_BI"</code></pre>
-<p>② Create directory structure</p>
+Name: advanced_BI</code></pre>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dirs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"rawdata"</span>, <span class="st">"analysis"</span>, </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">"results/figures"</span>, <span class="st">"results/tables"</span>, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dirs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"rawdata"</span>, <span class="st">"analysis"</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">"results/figures"</span>, <span class="st">"results/tables"</span>,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>          <span class="st">"scripts"</span>, <span class="st">"logs"</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(dirs, dir.create, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(dirs, dir.create, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"renv"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">init</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>③ Initialize renv</p>
+</section>
+<section id="w1-s5-3" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s5-3">3) Install the core packages</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"renv"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">init</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<hr>
-<p>④ Install core packages for this semester</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CRAN packages</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"BiocManager"</span>, </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"ggplot2"</span>, <span class="st">"patchwork"</span>, <span class="st">"data.table"</span>))</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Bioconductor</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">"DESeq2"</span>, </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"SingleR"</span>, <span class="st">"celldex"</span>))</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Snapshot your environment</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"BiocManager"</span>, <span class="st">"here"</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"patchwork"</span>, <span class="st">"data.table"</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">"DESeq2"</span>, <span class="st">"SingleR"</span>, <span class="st">"celldex"</span>))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+<span class="screen-reader-only">Note</span>If installation fails
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Some packages (Seurat, ArchR) we’ll install in the relevant week.<br>
-Bioconductor installs can take a few minutes — this is normal.</p>
-</div>
-</div>
-<hr>
-</section>
-</section>
-<section id="w2-preview-gwas-post-gwas" class="level2">
-<h2 class="anchored" data-anchor-id="w2-preview-gwas-post-gwas">W2 Preview — GWAS &amp; Post-GWAS</h2>
-<p><strong>What we’ll cover:</strong></p>
 <ul>
-<li>How GWAS works (and what it doesn’t tell you)</li>
-<li>Reading a Manhattan plot like a reviewer</li>
-<li>LD, fine-mapping, functional annotation</li>
-<li>Hands-on: analyzing a public GWAS summary stat dataset</li>
+<li>Bioconductor installs are slow — several minutes is normal, not an error</li>
+<li>⚠️ Version mismatch is the usual culprit. <code>BiocManager::valid()</code> tells you what is out of step</li>
+<li>Heavier packages (Seurat, ArchR) are installed in the week we need them, not now</li>
 </ul>
-<p><strong>Before next class:</strong></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install in advance</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"bigsnpr"</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"bigreadr"</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"LDlinkR"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Download data → link will be shared on the course page.</p>
+</div>
+</div>
+</section>
+<section id="w1-s5-4" class="level2">
+<h2 class="anchored" data-anchor-id="w1-s5-4">4) Before next week</h2>
+<p><strong>W2 — R scripts, AI-assisted coding, and work that survives review.</strong> Bring a script you have actually written, however messy. We will make it reproducible together.</p>
 <hr>
 </section>
-<section id="questions" class="level2" data-background-color="#5B4D80">
-<h2 data-background-color="#5B4D80" class="anchored" data-anchor-id="questions"><span style="color:#ffffff">Questions?</span></h2>
-<div class="center" style="color:#ffffff">
-<p>Next week: <strong>Genome-wide Association Studies (GWAS) &amp; Post-GWAS</strong></p>
-</div>
+</section>
+<section id="summary" class="level1">
+<h1>📝 Summary</h1>
+<ul>
+<li>Bulk RNA-seq answers one question about a <strong>mixture</strong>. Six questions it cannot answer define the rest of the semester</li>
+<li>The five pipeline stages do not change across technologies — ⚠️ and stages ③ ④ fail <strong>silently</strong></li>
+<li>⚠️ <strong>Execution depth</strong> belongs to your analyst. <strong>Judgment depth</strong> belongs to you, and cannot be delegated</li>
+<li>The semester is one clinical question pursued through eight layers until it becomes testable</li>
+<li>⚠️ Almost every irreversible decision — n, sample type, batching — happens <strong>before anyone opens R</strong></li>
+<li>Your unit of replication is usually the <strong>patient</strong>. 30,000 cells from 3 people is n = 3</li>
+<li>⚠️ <strong>Group perfectly confounded with batch cannot be corrected.</strong> Not by ComBat, not by Harmony, not by anything</li>
+<li>Fresh vs frozen vs FFPE decides which assays remain possible, permanently</li>
+<li>💡 The FFPE archive your department already owns may beat the cohort you were going to fund</li>
+<li><code>.Rproj</code> + a fixed folder structure + <code>renv::snapshot()</code> is the whole reproducibility story</li>
+</ul>
+<hr>
+</section>
+<section id="key-terms" class="level1">
+<h1>🔑 Key terms</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 61%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>One-line meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Unit of replication</td>
+<td>The thing you can independently repeat — usually the patient</td>
+</tr>
+<tr class="even">
+<td>Technical replicate</td>
+<td>Same sample measured twice; does not increase n</td>
+</tr>
+<tr class="odd">
+<td>Biological replicate</td>
+<td>A different individual; this is your n</td>
+</tr>
+<tr class="even">
+<td>Batch effect</td>
+<td>Systematic difference caused by processing, not biology</td>
+</tr>
+<tr class="odd">
+<td>Confounding</td>
+<td>Two explanations that the data cannot separate</td>
+</tr>
+<tr class="even">
+<td>Judgment depth</td>
+<td>Being able to tell when an analysis is wrong</td>
+</tr>
+<tr class="odd">
+<td>snRNA-seq</td>
+<td>Profiling nuclei — the option for frozen tissue (W5)</td>
+</tr>
+<tr class="even">
+<td>FFPE</td>
+<td>Formalin-fixed paraffin-embedded — the pathology archive format</td>
+</tr>
+<tr class="odd">
+<td><code>.Rproj</code></td>
+<td>RStudio project file; anchors the working directory</td>
+</tr>
+<tr class="even">
+<td><code>here::here()</code></td>
+<td>Builds paths from the project root, portable across machines</td>
+</tr>
+<tr class="odd">
+<td><code>renv</code></td>
+<td>Records and restores exact package versions</td>
+</tr>
+<tr class="even">
+<td>Quarto</td>
+<td>Literate document format; code and prose in one file (W2)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="references" class="level1">
+<h1>➕ References</h1>
+<section id="study-design-and-its-failures" class="level3">
+<h3 class="anchored" data-anchor-id="study-design-and-its-failures">Study design and its failures</h3>
+<p>Lazic SE. <a href="https://doi.org/10.1017/9781139696647"><em>Experimental Design for Laboratory Biologists.</em></a> Cambridge University Press. 2016. (the clearest treatment of replication units)<br>
+Leek JT, et al.&nbsp;<a href="https://doi.org/10.1038/nrg2825"><em>Tackling the widespread and critical impact of batch effects in high-throughput data.</em></a> Nat Rev Genet. 2010.<br>
+Blainey P, Krzywinski M, Altman N. <a href="https://doi.org/10.1038/nmeth.2921"><em>Points of significance: replication.</em></a> Nat Methods. 2014.</p>
+</section>
+<section id="reproducible-practice" class="level3">
+<h3 class="anchored" data-anchor-id="reproducible-practice">Reproducible practice</h3>
+<p>Sandve GK, Nekrutenko A, Taylor J, Hovig E. <a href="https://doi.org/10.1371/journal.pcbi.1003285"><em>Ten simple rules for reproducible computational research.</em></a> PLoS Comput Biol. 2013.<br>
+Wilson G, et al.&nbsp;<a href="https://doi.org/10.1371/journal.pcbi.1005510"><em>Good enough practices in scientific computing.</em></a> PLoS Comput Biol. 2017.<br>
+<a href="https://r4ds.hadley.nz">R for Data Science (2nd ed.)</a> · <a href="https://rstudio.github.io/renv/">renv documentation</a></p>
+</section>
+<section id="public-data-first" class="level3">
+<h3 class="anchored" data-anchor-id="public-data-first">Public data first</h3>
+<p>Barrett T, et al.&nbsp;<a href="https://doi.org/10.1093/nar/gks1193"><em>NCBI GEO: archive for functional genomics data sets.</em></a> Nucleic Acids Res. 2013.<br>
+Ochoa D, et al.&nbsp;<a href="https://doi.org/10.1093/nar/gkac1046"><em>The next-generation Open Targets Platform.</em></a> Nucleic Acids Res. 2023.<br>
+<a href="https://www.ebi.ac.uk/gwas">GWAS Catalog</a> · <a href="https://gtexportal.org">GTEx Portal</a> · <a href="https://cellxgene.cziscience.com">CELLxGENE</a></p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1101,6 +1567,18 @@ Bioconductor installs can take a few minutes — this is normal.</p>
     }
   });
   </script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../index.html" class="pagination-link" aria-label="Home">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Home</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/part1/w2_scripts_ai.html" class="pagination-link" aria-label="W2. Scripts, AI &amp; Reproducibility">
+        <span class="nav-page-text">W2. Scripts, AI &amp; Reproducibility</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

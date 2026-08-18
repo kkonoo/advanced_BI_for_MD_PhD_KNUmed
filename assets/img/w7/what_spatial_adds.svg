@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="420" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">The same cell type. Two locations. Two completely different clinical stories.</text>
+
+  <!-- tissue schematic -->
+  <rect x="24" y="46" width="440" height="300" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="72" font-size="13" font-weight="700" fill="#4A3D6B">One tumour section</text>
+
+  <!-- tumour mass -->
+  <path d="M60 110 C 140 88, 240 96, 268 150 C 292 200, 250 268, 168 288 C 96 304, 52 250, 56 190 Z" fill="#dbe6f2" stroke="#9db8d1" stroke-width="1.5"/>
+  <text x="150" y="180" font-size="12.5" font-weight="700" fill="#2a5a86" text-anchor="middle">tumour nest</text>
+  <text x="150" y="198" font-size="11" fill="#5d7fa0" text-anchor="middle">hypoxic core</text>
+
+  <!-- stroma -->
+  <text x="380" y="120" font-size="12.5" font-weight="700" fill="#8a6a1f" text-anchor="middle">stroma</text>
+  <path d="M300 100 L444 100" stroke="#e5d3b3" stroke-width="3"/>
+  <path d="M300 120 L444 120" stroke="#e5d3b3" stroke-width="3"/>
+  <path d="M300 140 L444 140" stroke="#e5d3b3" stroke-width="3"/>
+
+  <!-- vessel -->
+  <path d="M310 300 C 350 250, 400 250, 440 210" stroke="#D85A30" stroke-width="7" fill="none" stroke-opacity="0.55"/>
+  <text x="392" y="288" font-size="11.5" font-weight="700" fill="#a8401d">vessel</text>
+
+  <!-- macrophage A: invasion front -->
+  <circle cx="272" cy="176" r="9" fill="#534AB7"/>
+  <circle cx="272" cy="176" r="16" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-dasharray="3 3"/>
+  <text x="272" y="150" font-size="11.5" font-weight="700" fill="#534AB7" text-anchor="middle">Ⓐ</text>
+
+  <!-- macrophage B: perivascular -->
+  <circle cx="408" cy="238" r="9" fill="#534AB7"/>
+  <circle cx="408" cy="238" r="16" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-dasharray="3 3"/>
+  <text x="408" y="212" font-size="11.5" font-weight="700" fill="#534AB7" text-anchor="middle">Ⓑ</text>
+
+  <text x="48" y="326" font-size="12" fill="#8A7FA3">Both cells are annotated <tspan font-weight="700" fill="#4A3D6B">"macrophage, TAM-like"</tspan> in the scRNA-seq object.</text>
+
+  <!-- right: two readings -->
+  <rect x="496" y="46" width="360" height="140" rx="10" fill="#ffffff" stroke="#534AB7" stroke-width="1.8"/>
+  <text x="520" y="72" font-size="13" font-weight="700" fill="#534AB7">Ⓐ at the invasion front</text>
+  <text x="520" y="98" font-size="12" fill="#666">Touching tumour cells, in the hypoxic margin.</text>
+  <text x="520" y="120" font-size="12" fill="#666">Its neighbours are proliferating and CD8 T cells</text>
+  <text x="520" y="138" font-size="12" fill="#666">are excluded from this zone.</text>
+  <text x="520" y="166" font-size="12.5" font-weight="700" fill="#4A3D6B">→ candidate mediator of immune exclusion</text>
+
+  <rect x="496" y="200" width="360" height="146" rx="10" fill="#ffffff" stroke="#534AB7" stroke-width="1.8"/>
+  <text x="520" y="226" font-size="13" font-weight="700" fill="#534AB7">Ⓑ beside a vessel, 400 µm away</text>
+  <text x="520" y="252" font-size="12" fill="#666">Perivascular, well oxygenated, next to stroma.</text>
+  <text x="520" y="274" font-size="12" fill="#666">Plausibly just arrived, plausibly on its way out.</text>
+  <text x="520" y="296" font-size="12" fill="#666">Neighbours are fibroblasts and endothelium.</text>
+  <text x="520" y="324" font-size="12.5" font-weight="700" fill="#4A3D6B">→ a different cell, biologically</text>
+
+  <!-- footer -->
+  <rect x="24" y="358" width="832" height="48" rx="8" fill="#f3f0f7" stroke="#5B4D80" stroke-width="1.5"/>
+  <text x="48" y="380" font-size="13" fill="#555">Dissociation deletes the distinction. In the scRNA-seq object Ⓐ and Ⓑ sit in the same cluster and average together.</text>
+  <text x="48" y="400" font-size="13" font-weight="700" fill="#4A3D6B">💡 Spatial data is not a prettier UMAP. It restores the variable — <tspan fill="#534AB7">position</tspan> — that the protocol threw away.</text>
+</svg>

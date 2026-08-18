@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="430" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Three things that go wrong before the model is even fitted.</text>
+
+  <!-- ① sample collapse -->
+  <rect x="24" y="46" width="272" height="300" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="1.8"/>
+  <text x="46" y="72" font-size="13" font-weight="700" fill="#a8401d">① Your n collapses</text>
+  <g>
+    <text x="46" y="102" font-size="11.5" fill="#8A7FA3">patients with each layer</text>
+    <rect x="46" y="112" width="228" height="20" rx="3" fill="#f1eef7"/><rect x="46" y="112" width="228" height="20" rx="3" fill="#185FA5"/>
+    <text x="282" y="127" font-size="11" fill="#555" text-anchor="end" opacity="0"> </text>
+    <text x="52" y="127" font-size="11" font-weight="700" fill="#fff">clinical  300</text>
+    <rect x="46" y="138" width="228" height="20" rx="3" fill="#f1eef7"/><rect x="46" y="138" width="197" height="20" rx="3" fill="#3d78b2"/>
+    <text x="52" y="153" font-size="11" font-weight="700" fill="#fff">genotype  260</text>
+    <rect x="46" y="164" width="228" height="20" rx="3" fill="#f1eef7"/><rect x="46" y="164" width="139" height="20" rx="3" fill="#6699c9"/>
+    <text x="52" y="179" font-size="11" font-weight="700" fill="#fff">RNA-seq  183</text>
+    <rect x="46" y="190" width="228" height="20" rx="3" fill="#f1eef7"/><rect x="46" y="190" width="79" height="20" rx="3" fill="#93b8db"/>
+    <text x="52" y="205" font-size="11" font-weight="700" fill="#2a5a86">proteomics  104</text>
+  </g>
+  <line x1="46" y1="224" x2="274" y2="224" stroke="#f0ded6" stroke-width="1.5"/>
+  <rect x="46" y="234" width="228" height="26" rx="4" fill="#f1eef7"/>
+  <rect x="46" y="234" width="31" height="26" rx="4" fill="#D85A30"/>
+  <text x="86" y="252" font-size="12" font-weight="700" fill="#a8401d">all four: 41</text>
+  <text x="46" y="286" font-size="12" fill="#666">Joint models use complete cases.</text>
+  <text x="46" y="304" font-size="12" fill="#666">You designed for 300 and will</text>
+  <text x="46" y="322" font-size="12" font-weight="700" fill="#a8401d">analyse 41.</text>
+
+  <!-- ② scale imbalance -->
+  <rect x="308" y="46" width="272" height="300" rx="10" fill="#ffffff" stroke="#BA7517" stroke-width="1.8"/>
+  <text x="330" y="72" font-size="13" font-weight="700" fill="#8a6a1f">② One layer drowns the rest</text>
+  <text x="330" y="102" font-size="11.5" fill="#8A7FA3">features per layer (bar &#8733; &#8730;features)</text>
+  <g font-size="11.5">
+    <text x="330" y="128" fill="#555">RNA-seq</text><text x="558" y="128" text-anchor="end" font-weight="700" fill="#4A3D6B">20,000</text>
+    <rect x="330" y="134" width="48" height="8" rx="4" fill="#BA7517"/>
+    <text x="330" y="164" fill="#555">Methylation</text><text x="558" y="164" text-anchor="end" font-weight="700" fill="#4A3D6B">450,000</text>
+    <rect x="330" y="170" width="228" height="8" rx="4" fill="#BA7517"/>
+    <text x="330" y="200" fill="#555">Proteomics</text><text x="558" y="200" text-anchor="end" font-weight="700" fill="#4A3D6B">1,500</text>
+    <rect x="330" y="206" width="13" height="8" rx="4" fill="#BA7517"/>
+    <text x="330" y="236" fill="#555">Clinical</text><text x="558" y="236" text-anchor="end" font-weight="700" fill="#4A3D6B">12</text>
+    <rect x="330" y="242" width="3" height="8" rx="2" fill="#BA7517"/>
+  </g>
+  <text x="330" y="278" font-size="12" fill="#666">Without per-layer scaling, the</text>
+  <text x="330" y="296" font-size="12" fill="#666">factors describe methylation and</text>
+  <text x="330" y="314" font-size="12" font-weight="700" fill="#8a6a1f">ignore the 12 variables a</text>
+  <text x="330" y="332" font-size="12" font-weight="700" fill="#8a6a1f">clinician would care about.</text>
+
+  <!-- ③ what does it mean -->
+  <rect x="592" y="46" width="264" height="300" rx="10" fill="#ffffff" stroke="#534AB7" stroke-width="1.8"/>
+  <text x="614" y="72" font-size="13" font-weight="700" fill="#4a4189">③ A factor is not a mechanism</text>
+  <text x="614" y="102" font-size="12" fill="#666">MOFA hands you an axis. It does</text>
+  <text x="614" y="120" font-size="12" fill="#666">not tell you what it is.</text>
+  <rect x="614" y="136" width="220" height="86" rx="7" fill="#f3f0f7"/>
+  <text x="632" y="158" font-size="11.5" font-weight="700" fill="#4A3D6B">Annotate every factor against:</text>
+  <text x="632" y="178" font-size="11.5" fill="#666">batch, run date, RIN, DV200</text>
+  <text x="632" y="196" font-size="11.5" fill="#666">age, sex, BMI, medication</text>
+  <text x="632" y="214" font-size="11.5" fill="#666">then, last, disease status</text>
+  <text x="614" y="252" font-size="12" fill="#666">Only after the first two lines</text>
+  <text x="614" y="270" font-size="12" fill="#666">come back empty is a factor</text>
+  <text x="614" y="288" font-size="12" font-weight="700" fill="#4a4189">a candidate for biology.</text>
+  <text x="614" y="320" font-size="11.5" fill="#8A7FA3">💡 This is one plot per covariate</text>
+  <text x="614" y="336" font-size="11.5" fill="#8A7FA3">and an afternoon of work.</text>
+
+  <!-- footer -->
+  <rect x="24" y="362" width="832" height="52" rx="9" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="384" font-size="12.5" fill="#555">✅ Often the better move is <tspan font-weight="700" fill="#4A3D6B">sequential</tspan> rather than joint integration: use each layer to filter candidates from the previous one</text>
+  <text x="48" y="404" font-size="12.5" fill="#555">(as in the prioritisation table above). It keeps your full n at every step, and every step stays interpretable.</text>
+</svg>

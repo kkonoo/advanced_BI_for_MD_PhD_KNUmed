@@ -1,0 +1,438 @@
+---
+title: "W5. Single-cell Transcriptomics"
+author: "Eunji Ha"
+date: last-modified
+format: html
+execute:
+  echo: true
+  eval: false
+---
+
+::: {.callout-note collapse="true"}
+## 🎯 Learning objectives
+
+By the end of this chapter you should be able to:
+
+-   Say what single-cell RNA-seq answers that bulk cannot
+-   Choose between droplet and plate-based protocols, and between cells and nuclei
+-   Explain what a UMI is and why the count matrix is mostly zeros
+-   Interpret a knee plot and the standard QC scatter, and name what each artifact looks like
+-   ⚠️ Read a UMAP responsibly — and say what its distances do and do not mean
+-   Explain why clustering resolution is arbitrary and what to check it against
+-   ⚠️ Explain why per-cell differential expression tests are invalid, and what pseudobulk does instead
+:::
+
+> 🤔 **Motivating question**
+>
+> Your bulk RNA-seq shows a clean two-fold increase. Is that every cell changing a little, 5% of cells changing a lot, or no cell changing at all?
+
+![](images/clipboard-2113067316.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
+# 1. Why Single Cell 🔬 {#w5-s1}
+
+## 1) What averaging destroys {#w5-s1-1}
+
+![One bulk measurement is compatible with all three of these. Bulk cannot tell them apart; single-cell can.](/assets/img/w5/bulk_vs_singlecell.png){fig-align="center"}
+
+**The entire argument for the technology.** A bulk experiment reports the mean — and the mean is compatible with radically different biology:
+
+-   **① A general modest response** — the least interesting case, and the one people implicitly assume
+-   **② A rare responsive subpopulation** — usually the interesting case. In bulk it is diluted by the 85% of cells doing nothing, and often falls below significance entirely
+-   **③ A change in composition** — no cell changed its transcriptome at all (🔗 [W4 §7.2](w4_transcriptomics.qmd#w4-s7-2); 🔗 [W3 §5.3②](w3_epigenomics.qmd#w3-s5-3-2) for the epigenomic version)
+
+## 2) What single cell is actually good at {#w5-s1-2}
+
+Be specific — single-cell is expensive and frequently used where bulk would answer better.
+
+**Single-cell is right for:**
+
+-   **Discovering or characterising cell populations**, including rare ones
+-   **Composition** — which cell types shifted in disease
+-   **Cell-type-specific effects** — a gene up in one cell type and down in another, invisible in bulk
+-   **Continuous states** — differentiation, activation, exhaustion, where discrete categories fail
+
+**Bulk is still right for:**
+
+-   A well-defined comparison in a homogeneous system (cell line, sorted population)
+-   Deep transcript-level work — isoforms, low-expression genes, splicing
+-   Large cohorts — n = 200 patients, where n = 200 single-cell runs is unaffordable
+
+::: {.callout-tip collapse="true"}
+## Sorting first is underrated
+
+Already know which cell type you care about?
+
+→ FACS-sort it and run deep bulk RNA-seq. Often **cheaper, deeper, and statistically cleaner** than a whole-tissue single-cell experiment.
+:::
+
+------------------------------------------------------------------------
+
+# 2. Platforms and Sample Choices 🧫 {#w5-s2}
+
+## 1) The fundamental trade-off {#w5-s2-1}
+
+![Every platform buys cells with depth, or depth with cells.](/assets/img/w5/platform_tradeoff.png){fig-align="center"}
+
+-   **Droplet-based (10x Genomics)** — cells captured in oil droplets with barcoded beads. Tens of thousands of cells, a few thousand genes per cell, 3′ (or 5′) end only. **The current default**
+-   **Plate-based (Smart-seq2/3)** — one cell per well, full-length, deep. Hundreds of cells. Still the choice for isoforms or very sensitive detection
+-   **Combinatorial indexing (sci-, SPLiT-seq)** — no physical isolation; barcoding through rounds of split-pool. Millions of cells, very shallow. What makes whole-organism atlases possible
+
+## 2) ⚠️ Cells vs. nuclei {#w5-s2-2}
+
+**snRNA-seq** profiles nuclei instead of whole cells. Not a lesser version of scRNA-seq — for many tissues it is **the only option**.
+
+|   | scRNA-seq | snRNA-seq |
+|------------------------|------------------------|------------------------|
+| Frozen / archived tissue | ❌ needs fresh | ✅ |
+| Large or fragile cells (neurons, adipocytes, myofibres, cardiomyocytes) | ❌ lost during dissociation | ✅ |
+| Dissociation stress response | ⚠️ Yes — immediate early genes (*FOS*, *JUN*, heat shock) induced by the protocol itself | ✅ Minimal |
+| Cytoplasmic transcripts | ✅ Captured | ❌ Missed |
+| Fraction of intronic reads | Low | High — nuclei are enriched for unspliced pre-mRNA |
+
+::: {.callout-warning collapse="true"}
+## Dissociation is an experiment you did not intend to run
+
+**What happens:**
+
+-   Enzymatic dissociation at 37 °C for 30–60 minutes
+-   Cells are alive and responding the whole time → stress-response genes induced
+-   ⚠️ Worse — **dissociation is not uniform**. Neurons, adipocytes, and large or fragile cells are destroyed preferentially
+
+→ The composition you measure is **the composition that survived**, not the composition of the tissue.
+
+💡 Finding "cell type X is depleted in disease"? Ask whether cell type X is simply harder to dissociate from diseased tissue.
+:::
+
+------------------------------------------------------------------------
+
+# 3. From Droplets to a Count Matrix 🧮 {#w5-s3}
+
+## 1) Barcodes and UMIs {#w5-s3-1}
+
+Two barcodes attached to every captured transcript:
+
+-   **Cell barcode** — identifies the droplet, and therefore the cell
+-   **UMI** (unique molecular identifier) — a random sequence unique to each original mRNA molecule
+
+**Why the UMI matters** — after PCR, one original molecule may be represented by hundreds of reads. Collapsing reads that share a UMI recovers the count of **molecules** rather than reads → removes amplification bias.
+
+## 2) Why the matrix is \>90% zeros {#w5-s3-2}
+
+A typical droplet experiment detects 1,000–5,000 genes per cell, out of \~20,000.
+
+Zeros have two very different meanings:
+
+-   **Biological zero** — the gene really is not expressed in that cell
+-   **Technical zero (dropout)** — the transcript was there but was not captured. Droplet capture efficiency is \~10–30%
+
+💡 The field has largely moved on from calling this "zero inflation" — for UMI data the zeros are mostly what a simple sampling model predicts from low counts, not an extra process.
+
+⚠️ The practical consequence stands: **you cannot conclude a gene is off in a cell from a single zero.**
+
+## 3) Quality control {#w5-s3-3}
+
+![Left: separating cells from empty droplets. Right: the plot every single-cell paper shows, or should.](/assets/img/w5/knee_qc.png){fig-align="center"}
+
+| Problem | What it looks like | What to do |
+|------------------------|------------------------|------------------------|
+| **Empty droplets** | Low UMI barcodes below the knee | `EmptyDrops` rather than a hard cutoff |
+| **Ambient RNA** | Marker genes of abundant cell types appearing everywhere | `SoupX`, `CellBender`, or `DecontX` |
+| **Doublets** | High UMI **and** high gene count; two incompatible marker sets | `Scrublet`, `DoubletFinder`; \~1% per 1,000 cells loaded in droplet systems |
+| **Dying cells** | High mitochondrial fraction, low gene count | Threshold on mito % — but tissue-specifically |
+
+::: {.callout-warning collapse="true"}
+## QC thresholds are analysis decisions, not cleaning
+
+-   A mito cutoff of 5% is common — and **wrong for cardiomyocytes**, which are genuinely mitochondria-rich
+-   A minimum-gene threshold of 500 removes debris — **and also** small, low-RNA cells such as platelets and some granulocytes
+
+→ **Every QC threshold removes a cell population.** Look at what you are excluding before you exclude it, and report the thresholds.
+:::
+
+------------------------------------------------------------------------
+
+# 4. Finding Cell Types 🗺️ {#w5-s4}
+
+## 1) The standard pipeline {#w5-s4-1}
+
+```         
+normalise  →  select highly variable genes  →  PCA
+           →  build a k-nearest-neighbour graph
+           →  cluster (Leiden)  →  UMAP for visualisation
+           →  annotate clusters
+```
+
+⚠️ Note the order — **UMAP is computed for display only.** Clustering happens on the PCA/graph, not on the two-dimensional embedding.
+
+## 2) ⚠️ How to read a UMAP responsibly {#w5-s4-2}
+
+UMAP = a non-linear projection of tens of dimensions into two. Preserves local neighbourhoods reasonably; global structure badly.
+
+::: {.callout-warning collapse="true"}
+## What a UMAP does *not* tell you
+
+-   **Distances between clusters are not meaningful** — two clusters far apart are not necessarily more different than two that are close
+-   **Cluster sizes are not meaningful** — area reflects the embedding, not cell number
+-   **Apparent connections are not trajectories** — a thin bridge may be doublets, ambient RNA, or a parameter artifact
+-   **The layout changes with parameters and random seed** — `n_neighbors` and `min_dist` visibly reshape it
+
+→ A UMAP is a **picture** of your data, not a **measurement** of it. Any claim that matters should be supported by a number computed in the high-dimensional space.
+:::
+
+## 3) Clustering resolution is arbitrary {#w5-s4-3}
+
+![Same cells, same algorithm, one parameter changed.](/assets/img/w5/umap_resolution.png){fig-align="center"}
+
+Leiden clustering takes a **resolution** parameter.
+
+-   Raise it → more clusters. Lower it → fewer
+-   ⚠️ **No correct value, and no statistical criterion that settles it.** The algorithm will happily split any cluster you ask it to
+
+💡 What to do instead of agonising:
+
+-   Check clusters against **marker genes** and known biology, not against a score
+-   Check **stability** — does the cluster survive a different resolution, a different seed, a subsampled dataset?
+-   Ask whether a "new" cluster at higher resolution has genuinely distinct markers, or just gradations of the same ones
+-   ✅ **Report the resolution you used**
+
+::: {.callout-warning collapse="true"}
+## A cluster is not a cell type
+
+Clusters can equally reflect:
+
+-   cell **state** (activated vs. resting)
+-   cell cycle phase
+-   stress response
+-   ambient contamination
+-   donor identity
+
+→ Naming a cluster after its top marker gene and treating it as a cell type is how the literature accumulates **cell types that do not exist**.
+:::
+
+## 4) Annotation {#w5-s4-4}
+
+-   **Marker-based** — check known markers per cluster. ✅ Transparent. ⚠️ Circular: you find the cell types you looked for
+-   **Reference-based** — map onto an annotated atlas (Azimuth, SingleR, scANVI). ✅ Fast and consistent. ⚠️ Inherits the reference's vocabulary; cannot name anything the reference lacks
+
+💡 Use both. Disagreements between them are informative.
+
+🗺️ Reference-based annotation is the single-cell form of **reference bias** (🔗 [W1 §2.3③](w1_intro.qmd#w1-s2-3-3)) — a cell type absent from the atlas becomes invisible, or is mislabelled as its nearest neighbour.
+
+------------------------------------------------------------------------
+
+# 5. Batch Effects and Integration 🔗 {#w5-s5}
+
+![Always look at both colourings. The middle column is the goal; the right column is the failure mode nobody shows.](/assets/img/w5/batch_integration.png){fig-align="center"}
+
+In single-cell data the **donor** is usually the dominant source of variation — cells cluster by patient before they cluster by cell type.
+
+**Integration methods** (Harmony, scVI, Seurat CCA/RPCA, scANVI) find a shared representation where cells of the same type from different donors sit together.
+
+::: {.callout-warning collapse="true"}
+## Over-correction
+
+Integration is **an assumption in disguise** — that the same cell types exist in every batch, and any batch-associated variation is technical.
+
+That assumption fails exactly when your biology is interesting:
+
+-   a disease-specific cell state
+-   a population present only in one condition
+
+→ Aggressive integration merges it away, and the resulting UMAP looks **beautifully mixed**.
+
+**Diagnostics:**
+
+-   ✅ Colour by batch **and** by cell type
+-   ✅ Check that known cell-type markers still separate after integration
+-   ✅ Check whether a population unique to one condition survived
+-   ✅ Benchmarks such as **scIB** score exactly this batch-removal / biology-preservation trade-off
+:::
+
+⚠️ If disease status is perfectly confounded with batch — all patients on one day, all controls on another — **no integration method can help.** 🔗 [W1 §4.3](w1_intro.qmd#w1-s4-3) again, and unrecoverable.
+
+------------------------------------------------------------------------
+
+# 6. Statistical Testing 📊 {#w5-s6}
+
+## 1) ⚠️ Why per-cell tests are wrong {#w5-s6-1}
+
+![The most consequential statistical error in the single-cell literature.](/assets/img/w5/pseudobulk.png){fig-align="center"}
+
+::: {.callout-important collapse="true"}
+## Cells from one donor are not independent samples
+
+A Wilcoxon or t-test across 5,400 cells from 6 donors treats those cells as 5,400 independent observations.
+
+**They are not.** Cells from the same person share that person's genetics, environment, medication, batch, and processing.
+
+**The consequence:**
+
+-   p-values inflated by many orders of magnitude
+-   add cells → the p-value shrinks indefinitely
+-   → you are measuring **how many cells you loaded**, not how many people you studied
+
+⚠️ Seurat's default `FindMarkers` behaves this way.
+
+-   ✅ Appropriate for *identifying cluster markers within one dataset* — a descriptive task
+-   ❌ Not appropriate for **comparing conditions**
+:::
+
+## 2) Pseudobulk {#w5-s6-2}
+
+**The fix** — for each **donor × cell type**, sum the counts across cells.
+
+→ a small matrix of pseudo-samples → analyse with DESeq2 or edgeR exactly as in 🔗 [W4 §5](w4_transcriptomics.qmd#w4-s5).
+
+-   Benchmarks consistently find pseudobulk controls false positives far better than per-cell tests
+-   **Mixed models** with a donor random effect are a reasonable alternative — more power retained, more computation
+
+::: {.callout-tip collapse="true"}
+## The design consequence
+
+If the unit of replication is the donor → **the number of donors is your n.**
+
+Three patients vs. three controls = **n = 3**, whether you sequenced 3,000 cells or 300,000.
+
+→ This changes what a single-cell experiment should cost. Many published studies profile enormous numbers of cells from two or three individuals:
+
+-   ✅ excellent for describing what cell types exist
+-   ❌ uninformative for claiming a difference between conditions
+:::
+
+## 3) Differential abundance {#w5-s6-3}
+
+Often the interesting result is not that a cell type changed its expression, but that **there is more or less of it**.
+
+⚠️ Proportions are **compositional** — one cell type expands → all others' proportions fall by arithmetic. (The same problem as 🔗 [W4 §4.2](w4_transcriptomics.qmd#w4-s4-2), and in a different guise 🔗 [W7 §6](w7_metagenomics.qmd#w7-s6).)
+
+-   ✅ Methods that handle it: `scCODA`, `miloR`, `propeller`, Dirichlet-multinomial models
+-   ❌ A χ² test on cell counts is **not valid**
+
+------------------------------------------------------------------------
+
+# 7. Dynamics, Space, and Atlases 🌈 {#w5-s7}
+
+## 1) Trajectory inference {#w5-s7-1}
+
+Cells caught mid-differentiation can be ordered along a **pseudotime** axis by transcriptional similarity.
+
+-   Tools: Monocle3, Slingshot, PAGA
+-   **RNA velocity** (scVelo) adds direction by comparing unspliced to spliced reads
+
+⚠️ Three caveats worth stating plainly:
+
+-   A trajectory algorithm returns a trajectory for **any** dataset, including one with no underlying process
+-   **Pseudotime is not time** — it measures neither rate nor duration
+-   RNA velocity's assumptions about splicing kinetics are **contested**, and known to fail for some genes and systems
+
+→ Treat these as hypothesis generators. Lineage tracing or time-course sampling is what tests them.
+
+## 2) Cell–cell communication {#w5-s7-2}
+
+CellPhoneDB, CellChat, NicheNet score ligand–receptor pairs between cluster pairs based on co-expression.
+
+⚠️ Co-expression of a ligand and a receptor in two cell types is **not evidence that they interact**:
+
+-   the cells may never be adjacent
+-   the ligand may not be secreted
+-   the protein may not be made at all (🔗 W6)
+
+→ These predictions need spatial or functional validation.
+
+## 3) Spatial transcriptomics — the next step {#w5-s7-3}
+
+Dissociation discards everything about *where* a cell was. Spatial methods keep it.
+
+-   **Spot-based** (Visium) — captures transcripts on a grid. ✅ Whole transcriptome. ⚠️ Each spot may contain several cells
+-   **Imaging-based** (MERFISH, Xenium, CosMx) — single-molecule imaging at subcellular resolution. ⚠️ A targeted gene panel, not the whole transcriptome
+
+→ The same trade-off shape as everything else in this chapter: **resolution vs. breadth.**
+
+## 4) Reference atlases {#w5-s7-4}
+
+![Chen et al., Nature Medicine, 2024](images/clipboard-1059951960.png){fig-align="center"}
+
+| Resource | What it gives you |
+|------------------------------------|------------------------------------|
+| [**Human Cell Atlas**](https://www.humancellatlas.org/) | Coordinated single-cell reference across human tissues |
+| [**CELLxGENE**](https://cellxgene.cziscience.com/) | Browse, subset, and download hundreds of published datasets interactively |
+| [**Tabula Sapiens**](https://tabula-sapiens.sf.czbiohub.org/) | Multi-organ atlas from the same donors |
+| [**Azimuth**](https://azimuth.hubmapconsortium.org/) | Reference-based annotation, in the browser |
+
+💡 **Before generating single-cell data, check whether the atlas already answers your question.** For "which cell types express my gene", it usually does.
+
+------------------------------------------------------------------------
+
+# 📝 Summary
+
+-   One bulk fold change is compatible with a uniform shift, a rare responsive subpopulation, or a pure composition change. Single-cell distinguishes them
+-   Droplet, plate-based, and combinatorial methods trade cell number against depth along one budget line
+-   ⚠️ Nuclei are required for frozen tissue and fragile cell types. **Dissociation itself induces stress genes and selectively destroys cells**
+-   UMIs count molecules, not reads. The matrix is \>90% zeros, and a single zero means little
+-   QC removes empty droplets, ambient RNA, doublets, dying cells — ⚠️ and every threshold also removes a real population
+-   ⚠️ UMAP distances, cluster areas, and inter-cluster bridges are **not interpretable**. Clustering resolution is arbitrary → check markers and stability
+-   ⚠️ Integration can erase the biology it was meant to reveal. Always colour by batch **and** cell type
+-   ⚠️ **Per-cell differential expression tests are invalid across conditions.** Use pseudobulk. Your n is the number of **donors**
+-   Trajectories and cell–cell communication predictions are hypotheses, not results
+-   Check the atlases before generating data
+
+------------------------------------------------------------------------
+
+# 🔑 Key terms
+
+| Term | One-line meaning |
+|-------------------------|------------------------------------------------|
+| Cell barcode | Sequence identifying which droplet a read came from |
+| UMI | Tag marking one original mRNA molecule |
+| Dropout | Expressed transcript not captured — a technical zero |
+| Knee plot | Ranked UMI counts, used to separate cells from empty droplets |
+| Ambient RNA | Free-floating RNA contaminating every droplet |
+| Doublet | Two cells captured in one droplet |
+| snRNA-seq | Profiling nuclei rather than whole cells |
+| HVG | Highly variable genes selected before PCA |
+| UMAP / t-SNE | Non-linear 2D embeddings, for visualisation only |
+| Leiden clustering | Graph-based community detection on the kNN graph |
+| Resolution | Parameter controlling how many clusters you get |
+| Integration | Aligning datasets so shared cell types co-cluster |
+| Over-correction | Integration that removes real biological differences |
+| Pseudobulk | Summing counts per donor × cell type before testing |
+| Differential abundance | Testing whether cell type proportions changed |
+| Pseudotime | Ordering of cells along an inferred process |
+| RNA velocity | Direction inferred from unspliced vs. spliced reads |
+
+------------------------------------------------------------------------
+
+# ➕ References
+
+### Overviews and best practice
+
+Luecken MD, Theis FJ. [*Current best practices in single-cell RNA-seq analysis: a tutorial.*](https://pubmed.ncbi.nlm.nih.gov/?term=Current+best+practices+in+single-cell+RNA-seq+analysis%3A+a+tutorial) Mol Syst Biol. 2019.\
+Heumos L, et al. [*Best practices for single-cell analysis across modalities.*](https://doi.org/10.1038/s41576-023-00586-w) Nat Rev Genet. 2023.\
+[Single-cell best practices (online book)](https://www.sc-best-practices.org/)
+
+### Technology and QC
+
+Svensson V, Vento-Tormo R, Teichmann SA. [*Exponential scaling of single-cell RNA-seq in the past decade.*](https://pubmed.ncbi.nlm.nih.gov/?term=Exponential+scaling+of+single-cell+RNA-seq+in+the+past+decade) Nat Protoc. 2018.\
+Lun ATL, et al. [*EmptyDrops: distinguishing cells from empty droplets in droplet-based single-cell RNA sequencing data.*](https://pubmed.ncbi.nlm.nih.gov/?term=EmptyDrops%3A+distinguishing+cells+from+empty+droplets+in+droplet-based+single-cell+RNA+sequencing+data) Genome Biol. 2019.\
+Young MD, Behjati S. [*SoupX removes ambient RNA contamination.*](https://doi.org/10.1093/gigascience/giaa151) GigaScience. 2020.\
+van den Brink SC, et al. [*Single-cell sequencing reveals dissociation-induced gene expression in tissue subpopulations.*](https://pubmed.ncbi.nlm.nih.gov/?term=Single-cell+sequencing+reveals+dissociation-induced+gene+expression+in+tissue+subpopulations) Nat Methods. 2017.
+
+### Clustering, embedding, integration
+
+Becht E, et al. [*Dimensionality reduction for visualizing single-cell data using UMAP.*](https://pubmed.ncbi.nlm.nih.gov/?term=Dimensionality+reduction+for+visualizing+single-cell+data+using+UMAP) Nat Biotechnol. 2019.\
+Chari T, Pachter L. [*The specious art of single-cell genomics.*](https://pubmed.ncbi.nlm.nih.gov/?term=The+specious+art+of+single-cell+genomics) PLoS Comput Biol. 2023. (a sharp critique of 2D embeddings)\
+Luecken MD, et al. [*Benchmarking atlas-level data integration in single-cell genomics.*](https://doi.org/10.1038/s41592-021-01336-8) Nat Methods. 2022. (scIB)
+
+### Statistics
+
+Squair JW, et al. [*Confronting false discoveries in single-cell differential expression.*](https://doi.org/10.1038/s41467-021-25960-2) Nat Commun. 2021.\
+Zimmerman KD, Espeland MA, Langefeld CD. [*A practical solution to pseudoreplication bias in single-cell studies.*](https://pubmed.ncbi.nlm.nih.gov/?term=A+practical+solution+to+pseudoreplication+bias+in+single-cell+studies) Nat Commun. 2021.\
+Murphy AE, Skene NG. [*A balanced measure shows superior performance of pseudobulk methods.*](https://pubmed.ncbi.nlm.nih.gov/?term=A+balanced+measure+shows+superior+performance+of+pseudobulk+methods) Nat Commun. 2022.\
+Büttner M, et al. [*scCODA is a Bayesian model for compositional single-cell data analysis.*](https://doi.org/10.1038/s41467-021-27150-6) Nat Commun. 2021.
+
+### Atlases and spatial
+
+[Human Cell Atlas](https://www.humancellatlas.org/) · [CELLxGENE](https://cellxgene.cziscience.com/) · [Azimuth](https://azimuth.hubmapconsortium.org/)\
+Moses L, Pachter L. [*Museum of spatial transcriptomics.*](https://pubmed.ncbi.nlm.nih.gov/?term=Museum+of+spatial+transcriptomics) Nat Methods. 2022.

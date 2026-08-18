@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 446" width="880" height="446" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="446" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">The most consequential statistical error in the single-cell literature.</text>
+
+  <!-- shared input -->
+  <rect x="24" y="46" width="832" height="42" rx="8" fill="#f3f0f7" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="72" font-size="13.5" fill="#555">Your data: <tspan font-weight="700" fill="#4A3D6B">5,400 CD8 T cells</tspan> from <tspan font-weight="700" fill="#4A3D6B">3 patients and 3 controls</tspan>. Question: is gene X differentially expressed?</text>
+
+  <!-- LEFT: wrong -->
+  <rect x="24" y="104" width="400" height="252" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="2"/>
+  <rect x="24" y="104" width="400" height="40" rx="10" fill="#fbeee8"/>
+  <rect x="24" y="134" width="400" height="10" fill="#fbeee8"/>
+  <text x="48" y="130" font-size="14" font-weight="700" fill="#a8401d">❌ Per-cell test (Seurat default)</text>
+
+  <rect x="48" y="158" width="352" height="30" rx="5" fill="#f5f5f5"/>
+  <text x="60" y="178" font-family="monospace" font-size="11.5" fill="#666">FindMarkers(obj, ident.1 = "IBD")   # wilcox</text>
+
+  <text x="48" y="212" font-size="12.5" fill="#666">Treats 5,400 cells as 5,400 independent observations.</text>
+  <text x="48" y="234" font-size="12.5" font-weight="700" fill="#a8401d">They are not. Cells from one person share that</text>
+  <text x="48" y="252" font-size="12.5" font-weight="700" fill="#a8401d">person's genetics, drugs, batch and processing.</text>
+
+  <rect x="48" y="268" width="352" height="72" rx="7" fill="#fbeee8"/>
+  <text x="68" y="292" font-size="12.5" fill="#a05a3f">p = 3×10⁻⁴⁰</text>
+  <text x="68" y="312" font-size="12.5" fill="#a05a3f">Load twice as many cells → p shrinks further.</text>
+  <text x="68" y="330" font-size="12.5" font-weight="700" fill="#a8401d">You are measuring your loading volume.</text>
+
+  <!-- RIGHT: right -->
+  <rect x="456" y="104" width="400" height="252" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="2"/>
+  <rect x="456" y="104" width="400" height="40" rx="10" fill="#e8f5f0"/>
+  <rect x="456" y="134" width="400" height="10" fill="#e8f5f0"/>
+  <text x="480" y="130" font-size="14" font-weight="700" fill="#0F6E56">✅ Pseudobulk</text>
+
+  <rect x="480" y="158" width="352" height="30" rx="5" fill="#f5f5f5"/>
+  <text x="492" y="178" font-family="monospace" font-size="11.5" fill="#666">sum counts per donor × cell type → DESeq2</text>
+
+  <!-- 6 pseudo-samples -->
+  <g>
+    <rect x="480" y="204" width="46" height="26" rx="4" fill="#D85A30"/><text x="503" y="222" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">P1</text>
+    <rect x="532" y="204" width="46" height="26" rx="4" fill="#D85A30"/><text x="555" y="222" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">P2</text>
+    <rect x="584" y="204" width="46" height="26" rx="4" fill="#D85A30"/><text x="607" y="222" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">P3</text>
+    <rect x="654" y="204" width="46" height="26" rx="4" fill="#185FA5"/><text x="677" y="222" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">C1</text>
+    <rect x="706" y="204" width="46" height="26" rx="4" fill="#185FA5"/><text x="729" y="222" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">C2</text>
+    <rect x="758" y="204" width="46" height="26" rx="4" fill="#185FA5"/><text x="781" y="222" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">C3</text>
+  </g>
+  <text x="480" y="252" font-size="12.5" fill="#666">Six pseudo-samples. Exactly the bulk RNA-seq you</text>
+  <text x="480" y="270" font-size="12.5" fill="#666">already know how to analyse.</text>
+
+  <rect x="480" y="284" width="352" height="56" rx="7" fill="#e8f5f0"/>
+  <text x="500" y="308" font-size="12.5" fill="#3d7a68">p = 0.03</text>
+  <text x="500" y="328" font-size="12.5" font-weight="700" fill="#0F6E56">Honest, and it will not move if you load more cells.</text>
+
+  <!-- footer -->
+  <rect x="24" y="370" width="832" height="62" rx="8" fill="#f3f0f7" stroke="#5B4D80" stroke-width="1.5"/>
+  <text x="48" y="394" font-size="13.5" font-weight="700" fill="#4A3D6B">⚠️ Three patients vs three controls is n = 3 — whether you sequenced 3,000 cells or 300,000.</text>
+  <text x="48" y="416" font-size="13" fill="#5B4D80">Cell number buys <tspan font-weight="700">resolution</tspan>. It never buys <tspan font-weight="700">power</tspan>. That distinction decides what a single-cell study should cost.</text>
+</svg>

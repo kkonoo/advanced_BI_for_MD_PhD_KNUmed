@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="450" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">You cannot have the whole transcriptome and single-cell resolution. Choose which one your question needs.</text>
+
+  <!-- axes -->
+  <line x1="150" y1="316" x2="700" y2="316" stroke="#cfc9dd" stroke-width="1.4"/>
+  <line x1="150" y1="58" x2="150" y2="316" stroke="#cfc9dd" stroke-width="1.4"/>
+  <text x="425" y="360" font-size="12" fill="#8A7FA3" text-anchor="middle">genes measured  ➝</text>
+  <text x="44" y="187" font-size="12" fill="#8A7FA3" text-anchor="middle" transform="rotate(-90 44 187)">spatial resolution  ➝</text>
+
+  <!-- gridlines -->
+  <line x1="150" y1="144" x2="700" y2="144" stroke="#eeeaf4" stroke-width="1"/>
+  <line x1="150" y1="230" x2="700" y2="230" stroke="#eeeaf4" stroke-width="1"/>
+  <line x1="334" y1="58" x2="334" y2="316" stroke="#eeeaf4" stroke-width="1"/>
+  <line x1="518" y1="58" x2="518" y2="316" stroke="#eeeaf4" stroke-width="1"/>
+  <text x="142" y="100" font-size="11" fill="#b3aac4" text-anchor="end">subcellular</text>
+  <text x="142" y="187" font-size="11" fill="#b3aac4" text-anchor="end">single cell</text>
+  <text x="142" y="273" font-size="11" fill="#b3aac4" text-anchor="end">multi-cell spot</text>
+  <text x="242" y="336" font-size="11" fill="#b3aac4" text-anchor="middle">~300–500</text>
+  <text x="426" y="336" font-size="11" fill="#b3aac4" text-anchor="middle">~5,000</text>
+  <text x="610" y="336" font-size="11" fill="#b3aac4" text-anchor="middle">whole transcriptome</text>
+
+  <!-- the budget line -->
+  <path d="M212 92 C 340 130, 470 210, 664 288" stroke="#d8d2e4" stroke-width="2" stroke-dasharray="6 5" fill="none"/>
+  <text x="392" y="168" font-size="12" font-weight="700" fill="#c9c2d8" transform="rotate(24 392 168)">the budget line</text>
+
+  <!-- Xenium / MERFISH / CosMx -->
+  <circle cx="230" cy="104" r="15" fill="#534AB7"/>
+  <text x="254" y="100" font-size="13" font-weight="700" fill="#4A3D6B">Xenium · MERFISH · CosMx</text>
+  <text x="254" y="118" font-size="11.5" fill="#8A7FA3">imaging, targeted panel · ✅ FFPE</text>
+
+  <!-- Visium HD -->
+  <circle cx="620" cy="204" r="15" fill="#1D9E75"/>
+  <text x="598" y="200" font-size="13" font-weight="700" fill="#4A3D6B" text-anchor="end">Visium HD</text>
+  <text x="598" y="218" font-size="11.5" fill="#8A7FA3" text-anchor="end">2 µm bins · ✅ FFPE</text>
+
+  <!-- GeoMx -->
+  <circle cx="556" cy="252" r="15" fill="#BA7517"/>
+  <text x="534" y="248" font-size="13" font-weight="700" fill="#4A3D6B" text-anchor="end">GeoMx</text>
+  <text x="534" y="266" font-size="11.5" fill="#8A7FA3" text-anchor="end">you pick the regions · ✅ FFPE</text>
+
+  <!-- Visium -->
+  <circle cx="638" cy="288" r="15" fill="#185FA5"/>
+  <text x="662" y="284" font-size="13" font-weight="700" fill="#4A3D6B">Visium</text>
+  <text x="662" y="302" font-size="11.5" fill="#8A7FA3">55 µm spots · ✅ FFPE</text>
+
+  <!-- footer -->
+  <rect x="24" y="374" width="832" height="62" rx="9" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="396" font-size="12.5" fill="#555"><tspan font-weight="700" fill="#4A3D6B">"Which cell types are where?"</tspan> → an imaging panel already contains your markers.</text>
+  <text x="48" y="414" font-size="12.5" fill="#555"><tspan font-weight="700" fill="#4A3D6B">"What is different about this region?"</tspan> → you need the whole transcriptome, and therefore deconvolution (W8).</text>
+  <text x="48" y="430" font-size="12" fill="#8A7FA3">💡 Ask the panel question first. If a 300-gene panel answers it, you have saved money and skipped the deconvolution problem entirely.</text>
+</svg>

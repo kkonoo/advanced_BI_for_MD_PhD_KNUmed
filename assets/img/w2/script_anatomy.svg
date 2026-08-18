@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="420" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">The reviewer's question arrives 14 months later. Which script do you want to open?</text>
+
+  <!-- LEFT -->
+  <rect x="24" y="46" width="400" height="300" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="2"/>
+  <rect x="24" y="46" width="400" height="40" rx="10" fill="#fbeee8"/>
+  <rect x="24" y="76" width="400" height="10" fill="#fbeee8"/>
+  <text x="48" y="72" font-size="14" font-weight="700" fill="#a8401d">❌ analysis.R</text>
+  <text x="400" y="72" font-size="12" fill="#b58272" text-anchor="end">512 lines, no sections</text>
+
+  <g font-family="monospace" font-size="11.5" fill="#777" xml:space="preserve">
+    <text x="48" y="106">setwd("C:/Users/USER/Desktop/새 폴더/분석")</text>
+    <text x="48" y="126">df &lt;- read.csv("data.csv")</text>
+    <text x="48" y="146">df2 &lt;- df[df$age &gt; 50, ]</text>
+    <text x="48" y="166">df_final &lt;- merge(df2, tmp3)</text>
+    <text x="48" y="186">#df_final &lt;- merge(df2, tmp3, all.x=T)</text>
+    <text x="48" y="206">df_final2 &lt;- df_final[-c(3,17,22), ]</text>
+    <text x="48" y="226">res &lt;- DESeq(dds)</text>
+    <text x="48" y="246">#write.csv(res, "res_v3_final_USE.csv")</text>
+    <text x="48" y="266">plot(x, y)   # 이거 왜 이렇게 했더라</text>
+  </g>
+
+  <line x1="48" y1="286" x2="400" y2="286" stroke="#f0ded6" stroke-width="1.5"/>
+  <text x="48" y="308" font-size="12.5" fill="#a05a3f">Why were rows 3, 17, 22 removed? Nobody knows.</text>
+  <text x="48" y="328" font-size="12.5" font-weight="700" fill="#a8401d">The result cannot be reproduced, including by you.</text>
+
+  <!-- RIGHT -->
+  <rect x="456" y="46" width="400" height="300" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="2"/>
+  <rect x="456" y="46" width="400" height="40" rx="10" fill="#e8f5f0"/>
+  <rect x="456" y="76" width="400" height="10" fill="#e8f5f0"/>
+  <text x="480" y="72" font-size="14" font-weight="700" fill="#0F6E56">✅ 2_deseq2.R</text>
+  <text x="832" y="72" font-size="12" fill="#7fa89a" text-anchor="end">one job, named sections</text>
+
+  <g font-family="monospace" font-size="11.5" fill="#777" xml:space="preserve">
+    <text x="480" y="106" fill="#8A7FA3"># In:  rawdata/counts.tsv, rawdata/meta.tsv</text>
+    <text x="480" y="124" fill="#8A7FA3"># Out: analysis/2_dds.rds</text>
+    <text x="480" y="150" fill="#0F6E56"># Libraries ----</text>
+    <text x="480" y="168">library(DESeq2); library(here)</text>
+    <text x="480" y="194" fill="#0F6E56"># Load ----</text>
+    <text x="480" y="212">cts &lt;- read_tsv(here("rawdata","counts.tsv"))</text>
+    <text x="480" y="238" fill="#0F6E56"># Filter — 3 samples failed RIN &lt; 6 ----</text>
+    <text x="480" y="256">cts &lt;- cts |&gt; select(-all_of(low_rin))</text>
+    <text x="480" y="274" fill="#0F6E56"># Save ----</text>
+  </g>
+
+  <line x1="480" y1="286" x2="832" y2="286" stroke="#cfe6dd" stroke-width="1.5"/>
+  <text x="480" y="308" font-size="12.5" fill="#3d7a68">The exclusion carries its reason next to it.</text>
+  <text x="480" y="328" font-size="12.5" font-weight="700" fill="#0F6E56">Anyone can rerun it. So can you, in 2028.</text>
+
+  <!-- footer -->
+  <rect x="24" y="362" width="832" height="42" rx="8" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="388" font-size="13" fill="#555">Numbered files run in order. Named sections (<tspan font-family="monospace" fill="#4A3D6B"># Load ----</tspan>) appear in RStudio's outline pane — navigation without scrolling.</text>
+</svg>

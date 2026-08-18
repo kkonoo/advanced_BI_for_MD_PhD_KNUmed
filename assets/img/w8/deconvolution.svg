@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="460" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Deconvolution turns a spot's sum back into its parts — using a reference you chose.</text>
+
+  <!-- REFERENCE -->
+  <rect x="24" y="46" width="252" height="212" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="1.8"/>
+  <rect x="24" y="46" width="252" height="36" rx="10" fill="#e8f5f0"/>
+  <rect x="24" y="72" width="252" height="10" fill="#e8f5f0"/>
+  <text x="44" y="70" font-size="12.5" font-weight="700" fill="#0F6E56">REFERENCE · scRNA-seq</text>
+  <text x="44" y="102" font-size="11.5" fill="#8A7FA3">average profile per cell type</text>
+  <g font-family="monospace" font-size="11">
+    <text x="44"  y="126" fill="#8A7FA3">type</text>
+    <text x="150" y="126" fill="#8A7FA3" text-anchor="middle">EPCAM</text>
+    <text x="240" y="126" fill="#8A7FA3" text-anchor="end">CD3E</text>
+    <text x="44"  y="150" fill="#185FA5">tumour</text><text x="150" y="150" fill="#666" text-anchor="middle">high</text><text x="240" y="150" fill="#666" text-anchor="end">0</text>
+    <text x="44"  y="172" fill="#1D9E75">T cell</text><text x="150" y="172" fill="#666" text-anchor="middle">0</text><text x="240" y="172" fill="#666" text-anchor="end">high</text>
+    <text x="44"  y="194" fill="#BA7517">fibro</text><text x="150" y="194" fill="#666" text-anchor="middle">0</text><text x="240" y="194" fill="#666" text-anchor="end">0</text>
+    <text x="44"  y="216" fill="#D85A30">macro</text><text x="150" y="216" fill="#666" text-anchor="middle">0</text><text x="240" y="216" fill="#666" text-anchor="end">0</text>
+  </g>
+  <text x="44" y="244" font-size="11.5" font-weight="700" fill="#0F6E56">what each cell type looks like</text>
+
+  <!-- SPOT -->
+  <path d="M286 150 L312 150" stroke="#b9b0cc" stroke-width="2"/>
+  <path d="M320 150 l-9 -5 v10 z" fill="#b9b0cc"/>
+  <rect x="326" y="46" width="228" height="212" rx="10" fill="#ffffff" stroke="#5B4D80" stroke-width="1.8"/>
+  <rect x="326" y="46" width="228" height="36" rx="10" fill="#f3f0f7"/>
+  <rect x="326" y="72" width="228" height="10" fill="#f3f0f7"/>
+  <text x="346" y="70" font-size="12.5" font-weight="700" fill="#5B4D80">OBSERVED · one spot</text>
+  <circle cx="440" cy="140" r="44" fill="#f7f5fa" stroke="#4A3D6B" stroke-width="2"/>
+  <circle cx="424" cy="122" r="5" fill="#185FA5"/><circle cx="452" cy="118" r="5" fill="#185FA5"/>
+  <circle cx="412" cy="146" r="5" fill="#185FA5"/><circle cx="462" cy="142" r="5" fill="#1D9E75"/>
+  <circle cx="436" cy="160" r="5" fill="#1D9E75"/><circle cx="414" cy="168" r="5" fill="#BA7517"/>
+  <circle cx="458" cy="166" r="5" fill="#BA7517"/><circle cx="440" cy="132" r="5" fill="#D85A30"/>
+  <text x="440" y="206" font-size="12" fill="#666" text-anchor="middle">one profile: the sum</text>
+  <text x="440" y="228" font-size="12" font-weight="700" fill="#4A3D6B" text-anchor="middle">EPCAM 412 · CD3E 88 · …</text>
+
+  <!-- SOLVE -->
+  <path d="M564 150 L590 150" stroke="#b9b0cc" stroke-width="2"/>
+  <path d="M598 150 l-9 -5 v10 z" fill="#b9b0cc"/>
+
+  <!-- OUTPUT -->
+  <rect x="604" y="46" width="252" height="212" rx="10" fill="#ffffff" stroke="#185FA5" stroke-width="1.8"/>
+  <rect x="604" y="46" width="252" height="36" rx="10" fill="#eaf1f8"/>
+  <rect x="604" y="72" width="252" height="10" fill="#eaf1f8"/>
+  <text x="624" y="70" font-size="12.5" font-weight="700" fill="#185FA5">ESTIMATED · proportions</text>
+  <text x="624" y="102" font-size="11.5" fill="#8A7FA3">the mixture that best explains the sum</text>
+  <g>
+    <rect x="624" y="118" width="90" height="22" rx="4" fill="#185FA5"/><text x="722" y="134" font-size="11.5" fill="#555">tumour 0.38</text>
+    <rect x="624" y="148" width="52" height="22" rx="4" fill="#1D9E75"/><text x="722" y="164" font-size="11.5" fill="#555">T cell 0.22</text>
+    <rect x="624" y="178" width="62" height="22" rx="4" fill="#BA7517"/><text x="722" y="194" font-size="11.5" fill="#555">fibro 0.26</text>
+    <rect x="624" y="208" width="32" height="22" rx="4" fill="#D85A30"/><text x="722" y="224" font-size="11.5" fill="#555">macro 0.14</text>
+  </g>
+  <text x="624" y="248" font-size="11.5" font-weight="700" fill="#185FA5">CARD · SPOTlight · RCTD · cell2location</text>
+
+  <!-- WARNING -->
+  <rect x="24" y="278" width="832" height="168" rx="10" fill="#fbeee8" stroke="#D85A30" stroke-width="2"/>
+  <text x="48" y="304" font-size="14" font-weight="700" fill="#a8401d">⚠️ The output can only contain what the reference contained</text>
+
+  <rect x="48" y="316" width="256" height="114" rx="8" fill="#ffffff"/>
+  <text x="66" y="340" font-size="12.5" font-weight="700" fill="#4A3D6B">① A missing cell type</text>
+  <text x="66" y="362" font-size="11.5" fill="#666">is not reported as missing.</text>
+  <text x="66" y="382" font-size="11.5" fill="#666">Its signal is redistributed onto</text>
+  <text x="66" y="400" font-size="11.5" fill="#666">whichever reference type is</text>
+  <text x="66" y="418" font-size="11.5" font-weight="700" fill="#a8401d">closest — silently.</text>
+
+  <rect x="312" y="316" width="256" height="114" rx="8" fill="#ffffff"/>
+  <text x="330" y="340" font-size="12.5" font-weight="700" fill="#4A3D6B">② The wrong tissue or state</text>
+  <text x="330" y="362" font-size="11.5" fill="#666">A healthy-tissue reference applied</text>
+  <text x="330" y="382" font-size="11.5" fill="#666">to tumour, or PBMC applied to</text>
+  <text x="330" y="400" font-size="11.5" fill="#666">tissue-resident cells, biases</text>
+  <text x="330" y="418" font-size="11.5" font-weight="700" fill="#a8401d">every proportion at once.</text>
+
+  <rect x="576" y="316" width="256" height="114" rx="8" fill="#ffffff"/>
+  <text x="594" y="340" font-size="12.5" font-weight="700" fill="#0F6E56">✅ What to check</text>
+  <text x="594" y="362" font-size="11.5" fill="#666">Same tissue, same condition,</text>
+  <text x="594" y="382" font-size="11.5" fill="#666">ideally the same patients.</text>
+  <text x="594" y="400" font-size="11.5" fill="#666">Then verify with a marker gene</text>
+  <text x="594" y="418" font-size="11.5" font-weight="700" fill="#0F6E56">map you did not deconvolve.</text>
+</svg>

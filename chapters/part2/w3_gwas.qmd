@@ -1,0 +1,421 @@
+---
+title: "W3. GWAS & Post-GWAS"
+author: "Eunji Ha"
+date: last-modified
+format: html
+execute:
+  echo: true
+  eval: false
+---
+
+::: {.callout-note collapse="true"}
+## 🎯 Learning objectives
+
+By the end of this chapter you should be able to:
+
+-   Say what a GWAS asks, and what it structurally cannot answer
+-   Recognise a trait's genetic architecture and why it decides the study design
+-   ⚠️ Read a QQ plot before the Manhattan plot, and say what λ is telling you
+-   Explain why the threshold is 5×10⁻⁸ and what "suggestive" is worth
+-   ⚠️ Explain why the reported lead SNP is usually not the causal one
+-   Follow a hit through the four post-GWAS steps to a mechanism claim
+-   Say why a European GWAS result may not hold in your Korean patients
+-   Look up any disease you treat in the GWAS Catalog and Open Targets in ten minutes
+:::
+
+> 🤔 **Motivating question**
+>
+> A paper reports that *rs7903146* near **TCF7L2** is the strongest type 2 diabetes signal ever found. Its odds ratio is 1.4, and it explains under 1% of the variance. Is that a small finding or a large one?
+
+------------------------------------------------------------------------
+
+# 1. Why GWAS Belongs in a Clinical Course 🩺 {#w3-s1}
+
+## 1) Five things it is already doing to your practice {#w3-s1-1}
+
+-   **Drug target validation** — targets with human genetic support are roughly **twice** as likely to survive to approval
+-   **Disease subtyping** — the same ICD code, different genetic architecture, different biology
+-   **Risk stratification** — polygenic scores in preventive medicine (🔗 [W4](w4_prs.qmd))
+-   **Shared aetiology** — genetic correlation quantifies why two of your diagnoses keep co-occurring
+-   **Causal inference** — Mendelian randomization tests causality without running an RCT
+
+💡 Open any recent *Nature Medicine* issue. There is a good chance GWAS data sits underneath the clinical claim, three citations down.
+
+## 2) What a GWAS actually asks {#w3-s1-2}
+
+> **"Which genetic variants are more common in people with disease X than in matched people without it?"**
+
+-   Compares allele frequencies at **millions of variants** simultaneously
+-   **Hypothesis-free** — it does not know or care which gene you think matters
+-   Its output is a list of associated **loci**. ⚠️ Not genes. Not mechanisms
+
+SNP (single-nucleotide polymorphism)
+
+:   A base-pair position where two or more alleles occur commonly (MAF ≥ 1%). Humans carry \~10 million common SNPs; arrays measure 0.5–5 M directly and **impute** the rest from a reference panel.
+
+## 3) Genetic architecture decides the design {#w3-s1-3}
+
+| Architecture | Variants involved | Example | What you need |
+|--------------------|--------------------|--------------------|--------------------|
+| **Monogenic** | one | phenylketonuria, CF (*CFTR*) | family study, WES/WGS |
+| **Oligogenic** | a few | some lipid traits | targeted sequencing |
+| **Polygenic** | many, each small | height, T2D | a large GWAS |
+| **Omnigenic** | nearly all expressed genes | most complex traits | a huge GWAS + networks |
+
+::: {.callout-important collapse="true"}
+## Sample size is destiny, and it is not a criticism
+
+Schizophrenia GWAS found essentially **nothing** at n in the hundreds, and **108 loci** at n in the tens of thousands. The biology did not change.
+
+-   ⚠️ Most "failed" early GWAS were not wrong. They were **underpowered for a polygenic architecture**
+-   💡 This is why a 200-patient single-centre GWAS is not a viable project, and why consortium membership is the actual currency in this field
+
+→ Effect size and druggability are also unrelated. The common *HMGCR* variant explains \~0.26% of LDL variance. Statins are among the most consequential drugs ever made.
+:::
+
+------------------------------------------------------------------------
+
+# 2. ⚠️ Reading the Two Plots 📊 {#w3-s2}
+
+## 1) Look at the QQ plot first {#w3-s2-1}
+
+Every GWAS paper shows a Manhattan plot. The QQ plot is where the honesty lives, and it is often in the supplement.
+
+![Read left to right: is the whole distribution shifted, or only the tail?](/assets/img/w3/qq_lambda.svg){fig-align="center"}
+
+**Genomic inflation factor λ** compares the median observed test statistic to the median expected under the null.
+
+-   ✅ **λ ≈ 1.0** with a tail lift-off — well calibrated; the lift-off is real signal
+-   ❌ **λ \> 1.05 with the whole line raised** — uncorrected population stratification or relatedness. The hits are suspect
+-   ⚠️ **λ \< 0.95** — over-conservative QC; you threw away power
+
+::: {.callout-note collapse="true"}
+## The exception worth knowing
+
+At very large n, mild inflation can be **genuine polygenicity** — if thousands of variants truly have tiny effects, the null is not the right comparison.
+
+✅ **LD-score regression** separates the two by asking whether the inflation scales with LD score (polygenicity) or is uniform (confounding). A modern paper reports the LDSC intercept alongside λ. Its absence is a fair question at review.
+:::
+
+## 2) Then the Manhattan plot {#w3-s2-2}
+
+![Each point is a variant; height is −log₁₀(p), not effect size.](/assets/img/w3/manhattan_anatomy.svg){fig-align="center"}
+
+**Why 5×10⁻⁸:** after LD pruning there are roughly one million *independent* common-variant tests. Bonferroni gives 0.05 / 10⁶ = **5×10⁻⁸**.
+
+-   ⚠️ That threshold is calibrated for **common SNPs**. Rare-variant and structural-variant tests need their own
+-   ⚠️ "Suggestive" (*p* \< 1×10⁻⁵) is a convention, not a finding. Treat a suggestive-only result as a hypothesis
+
+::: {.callout-warning collapse="true"}
+## Population stratification — the confounder that produces beautiful false positives
+
+If cases and controls differ systematically in ancestry, then *any* ancestry-associated variant looks like a disease hit. With a Korean case group and a mixed control group, you will find "hits" for chopstick use.
+
+✅ **The fix:** principal components on the genotypes, included as covariates.
+
+```{r}
+glm(disease ~ SNP +
+      PC1 + PC2 + PC3 + PC4 + PC5 +   # ancestry
+      age + sex + batch,              # nuisance
+    family = binomial)
+```
+
+⚠️ And the trade-off nobody states: restricting to one ancestry gives cleaner statistics and **worse generalisability** (§7).
+:::
+
+## 3) The QC that happened before the plot {#w3-s2-3}
+
+| QC step | Typical threshold | What it removes |
+|------------------------|------------------------|------------------------|
+| Sample call rate | \> 95–98% | failed DNA / samples |
+| SNP call rate | \> 99% | unreliable genotyping |
+| Hardy–Weinberg (controls) | *p* \> 1×10⁻⁶ | genotyping error |
+| Minor allele frequency | \> 1% | variants you are underpowered for |
+| Heterozygosity | ±3 SD | contamination, inbreeding |
+| Relatedness (kinship) | π̂ \< 0.125 | inflated statistics |
+| Imputation INFO / R² | \> 0.8 | unreliable imputed dosages |
+| **Stratification** | PCA | **the biggest confounder** |
+
+💡 You will not run these. You should know they exist, so that "which QC thresholds were used?" is a question you can ask.
+
+------------------------------------------------------------------------
+
+# 3. ⚠️ The Hit Is Not the Cause 🎯 {#w3-s3}
+
+## 1) What linkage disequilibrium does to you {#w3-s3-1}
+
+LD both **enables** GWAS — one measured variant tags dozens of unmeasured ones — and **ruins** its interpretation, because the tag and the cause are statistically identical.
+
+![Same locus, same biology, two populations.](/assets/img/w3/tag_vs_causal.svg){fig-align="center"}
+
+::: {.callout-important collapse="true"}
+## What this means when you read a paper
+
+"We identified rs1234567 as associated with disease X" almost always means:
+
+→ *"Somewhere in a haplotype block containing rs1234567 and \~40 other variants, something is doing something."*
+
+-   ❌ The lead SNP is the one with the smallest p-value in **this sample**. Re-run in another cohort and a neighbour often wins
+-   ⚠️ A paper that discusses the biology of the lead SNP specifically, without fine-mapping, is over-reading its own data
+-   ✅ Correct phrasing is "the locus", and modern papers use it
+:::
+
+## 2) The four steps from postcode to mechanism {#w3-s3-2}
+
+![Each step narrows the claim. Skipping one leaves a gap that reviewers find.](/assets/img/w3/postgwas_pipeline.svg){fig-align="center"}
+
+**① Fine-mapping.** Bayesian methods (SuSiE, FINEMAP) give each variant a **posterior inclusion probability** and return a **credible set** — the smallest set containing the causal variant with, say, 95% probability.
+
+-   💡 A credible set of 3 is a result. A credible set of 40 is an admission
+-   ⚠️ Requires an **ancestry-matched LD reference**. A European panel applied to a Korean cohort corrupts the output silently
+-   ⚠️ If PIPs are spread thinly across many variants, the honest conclusion is *"this locus cannot be resolved in this sample"*
+
+**② Functional annotation.** Where does the variant sit?
+
+| Location | Likely mechanism |
+|----------------------------|--------------------------------------------|
+| Coding (missense, nonsense) | direct protein change |
+| Splice site | altered mRNA or isoform |
+| Promoter / 5′UTR | transcription regulation |
+| Enhancer | regulation of a possibly distant gene |
+| **Intergenic / intronic** | ⚠️ **unknown — needs eQTL and chromatin data** |
+
+⚠️ **About 90% of GWAS hits are non-coding.** This single fact is why the rest of this course exists.
+
+**③ Variant → gene.** An **eQTL** is a variant that affects a gene's expression. **Colocalisation** asks whether the GWAS and eQTL signals share the *same* causal variant.
+
+```{r}
+library(coloc)
+
+res <- coloc.abf(
+  dataset1 = list(pvalues = gwas_p, N = 150000, type = "cc", s = 0.3),
+  dataset2 = list(pvalues = eqtl_p, N = 500,    type = "quant")
+)
+res$summary["PP.H4.abf"]   # > 0.8 → they share a causal variant
+```
+
+-   ❌ **The nearest gene is wrong roughly half the time.** Enhancers routinely skip over their neighbours
+-   ⚠️ Watch the **direction**: a risk allele can *down*-regulate a gene that appears *up* in patients. That incoherence often reflects an impaired protective response — and it decides agonist versus antagonist
+
+**④ Gene → cell type.** Colocalisation names a gene, not a place. Frameworks such as **sc-linker** combine single-cell data with GWAS through stratified LD-score regression and recover microglia in Alzheimer's, T cells in eczema. We come back to this in 🔗 [W5](../part3/w5_scrna_qc.qmd).
+
+**⑤ Causality.** Mendelian randomization uses variants as **instruments**: randomised at conception, so they mimic a lifelong RCT immune to lifestyle confounding.
+
+```
+Genetic variants  →  LDL level  →  CAD
+   (instrument)      (exposure)   (outcome)
+```
+
+⚠️ The three IV assumptions — relevance, no confounding of the instrument, and **exclusion restriction** — and the third is broken by pleiotropy. MR-Egger and weighted median exist to probe exactly that. A single-method MR result is incomplete.
+
+------------------------------------------------------------------------
+
+# 4. Beyond SNPs 🧬 {#w3-s4}
+
+For some traits common-SNP GWAS is nearing saturation. What arrays capture poorly is the next frontier — and much of it is more clinically actionable.
+
+| Variant class | What it is | Why you should care |
+|------------------------|------------------------|------------------------|
+| **CNV** | deletions / duplications, kb–Mb | gene dosage; badly under-tested |
+| **Structural** | inversions, translocations | disrupt genes or distal regulation |
+| **Tandem repeats** | variable repeat counts | expansions cause neurological disease |
+| **HLA / MHC** | hyper-polymorphic region | dominates every autoimmune signal |
+
+::: {.callout-tip collapse="true"}
+## Two examples worth remembering at the bedside
+
+-   **UGT2B17 deletion → prostate cancer.** Alters testosterone metabolism. Deletion frequency varies enormously by population — ⚠️ so this is **population-specific risk that is invisible to SNP-only analysis**
+-   **CYP2D6 copy number → drug dosing.** Deletions and duplications shift codeine → morphine conversion between poor and ultra-rapid metabolizers. 💡 This is pharmacogenetics in its purest form: the variant does not change *whether* you treat, it changes the **dose**
+
+→ Aggregating loss-of-function variants across biobanks (gnomAD **LOEUF**) produces dosage-sensitivity maps, which are directly useful when you have a variant of uncertain significance in front of you.
+:::
+
+------------------------------------------------------------------------
+
+# 5. From Locus to Drug 💊 {#w3-s5}
+
+Human genetic evidence roughly doubles clinical success rates, so loci get mined systematically.
+
+| Trait | Gene | Drug / class |
+|----------------------|-------------|--------------------------|
+| Schizophrenia | *DRD2* | antipsychotics |
+| Type 2 diabetes | *PPARG* | thiazolidinediones |
+| Breast cancer | *ESR1* | tamoxifen |
+| Bone mineral density | *RANKL* | denosumab |
+| Rheumatoid arthritis | *IL6R* | tocilizumab |
+| Psoriasis | *IL23R* | ustekinumab |
+| LDL cholesterol | *HMGCR* | statins |
+| LDL cholesterol | *PCSK9* | evolocumab, alirocumab |
+
+💡 Read that table in the other direction. Several of these drugs existed **before** the genetics — the GWAS confirmed a target we had stumbled onto. The interesting cases are the ones where genetics came first, which is what W12 is about.
+
+::: {.callout-note collapse="true"}
+## PheWAS — the same data, the question reversed
+
+```
+GWAS   : one disease → scan all variants   → "which variants?"
+PheWAS : one variant → scan all phenotypes → "what else does it do?"
+```
+
+Run across electronic health records, with ICD codes as phenotypes.
+
+-   ✅ **Pleiotropy mapping** — gives you both repurposing leads *and* predictable side effects, from the same scan
+-   ✅ **Pharmacogenomic PheWAS** — variant → drug response or adverse event
+-   ⚠️ Phenotypes are ICD codes, so they inherit every coding habit of the health system that produced them
+:::
+
+------------------------------------------------------------------------
+
+# 6. ⚠️ One Ancestry Is Not Enough 🌏 {#w3-s6}
+
+Most GWAS — and therefore most fine-mapping and most polygenic scores — are European-ancestry. This is a scientific problem before it is an equity problem.
+
+-   ⚠️ **Missed discovery** — variants rare or absent in Europeans are simply invisible. Multi-ethnic cohorts keep finding associations that large European studies missed
+-   ✅ **Better resolution** — different LD patterns break haplotype blocks, producing **smaller credible sets** (§3.1)
+-   ❌ **Poor portability** — effect sizes and risk scores do not transfer, and deploying them anyway widens disparities (🔗 [W4 §5](w4_prs.qmd#w4-s5))
+
+::: {.callout-important collapse="true"}
+## For Korean cohorts, concretely
+
+-   Use Korean and East Asian resources: **KoGES**, the Korea Biobank Array (**KCHIP**), the **National Biobank of Korea**; regionally Biobank Japan and China Kadoorie
+-   ✅ Before trusting an association, a credible set, or a PRS: **check that the base GWAS ancestry matches your patients**
+-   💡 If your study is East Asian and finds something European studies did not, that is not a red flag. It may be the point
+:::
+
+------------------------------------------------------------------------
+
+# 7. Hands-On 💻 {#w3-s7}
+
+No installation. Bring one disease you actually treat.
+
+## 1) GWAS Catalog — what is known? {#w3-s7-1}
+
+[**ebi.ac.uk/gwas**](https://www.ebi.ac.uk/gwas) → search your disease.
+
+-   ① How many associations are reported? How many studies?
+-   ② Click the largest study. What was the **sample size**, and the **ancestry**?
+-   ③ Look at the reported variants. How many are labelled with a gene, and how many are intergenic?
+-   ④ ⚠️ Is there **any** East Asian study for your disease? What was its n compared with the European one?
+
+## 2) Open Targets — is there a drug? {#w3-s7-2}
+
+[**platform.opentargets.org**](https://platform.opentargets.org) → your disease → the target list.
+
+-   ⑤ What is the top-scoring target, and **which evidence types** support it? (genetic, expression, literature, animal models)
+-   ⑥ Is there an approved or trial drug against it? For which indication?
+-   ⑦ 💡 Find a target with strong genetic evidence and **no** drug. That is a research question with a built-in justification paragraph.
+
+## 3) Interrogating any locus — the checklist {#w3-s7-3}
+
+Keep this for journal club:
+
+-   ① **Replicated** in an independent cohort?
+-   ② **How big is the credible set** — or was fine-mapping skipped?
+-   ③ **Coding, regulatory, or unknown?** Is there an eQTL?
+-   ④ **Which gene, and which cell type?** Remember: nearest ≠ causal
+-   ⑤ **Effect size and direction** — direction determines the drug strategy
+-   ⑥ **Which ancestry**, and does it match the patients you would apply it to?
+
+## 4) If you want to touch summary statistics {#w3-s7-4}
+
+Optional. Public summary statistics have one row per variant and no individual genotypes, so they are freely shareable.
+
+```{r}
+library(tidyverse); library(qqman); library(here)
+
+gwas <- read_tsv(here("rawdata", "t2d_gwas_summary.tsv"))
+
+clean <- gwas |>
+  filter(!is.na(P), P > 0, P <= 1, FREQ > 0.01, FREQ < 0.99, INFO > 0.8)
+
+# λ first, always
+chisq  <- qchisq(clean$P, df = 1, lower.tail = FALSE)
+lambda <- median(chisq) / qchisq(0.5, df = 1)
+cat("lambda =", round(lambda, 3), "\n")
+
+qq(clean$P, main = paste0("QQ — T2D (λ = ", round(lambda, 3), ")"), col = "#185FA5")
+
+manhattan(clean, chr = "CHR", bp = "BP", p = "P", snp = "SNP",
+          col = c("#185FA5", "#9db8d1"),
+          suggestiveline = -log10(1e-5), genomewideline = -log10(5e-8))
+```
+
+✅ **Change one thing:** re-run after dropping the `INFO > 0.8` filter and watch λ move. That is imputation quality showing up as apparent signal.
+
+## 5) Before next week {#w3-s7-5}
+
+**W4 — Polygenic Risk Scores.** Browse [**pgscatalog.org**](https://www.pgscatalog.org) for one disease and note the development-cohort ancestry. We start there.
+
+------------------------------------------------------------------------
+
+# 📝 Summary
+
+-   GWAS asks one question — which variants differ — and returns **loci**, not genes or mechanisms
+-   Architecture decides design; ⚠️ underpowered is the usual explanation for a null GWAS, not absent biology
+-   ⚠️ **Read the QQ plot before the Manhattan.** λ \> 1.05 across the whole line means the hits are suspect
+-   5×10⁻⁸ comes from \~1 million independent tests. "Suggestive" is a convention, not a finding
+-   ⚠️ **The lead SNP is a tag.** Statistics alone cannot separate it from the causal variant within a haplotype block
+-   💡 Different ancestries break blocks differently — diversity buys **resolution**, not only fairness
+-   Post-GWAS is four steps: fine-map → annotate → variant-to-gene → cell type, then causality by MR
+-   ❌ The nearest gene is wrong about half the time. ⚠️ Direction of effect decides agonist vs antagonist
+-   \~90% of hits are non-coding — which is the entire justification for the rest of this course
+-   CNVs and repeats are under-tested and often more actionable (CYP2D6 changes the **dose**)
+-   ⚠️ Check that the base GWAS ancestry matches your patients before believing anything downstream
+
+------------------------------------------------------------------------
+
+# 🔑 Key terms
+
+| Term | One-line meaning |
+|-------------------------|-----------------------------------------|
+| SNP | Common single-base variant (MAF ≥ 1%) |
+| Imputation | Inferring ungenotyped variants from a reference panel |
+| MAF | Minor allele frequency |
+| Linkage disequilibrium (LD) | Correlation between nearby variants inherited together |
+| Lead SNP | The variant with the smallest p-value at a locus — usually a tag |
+| Locus | The region of association; the honest unit of a GWAS result |
+| λ (genomic inflation) | Median observed / expected test statistic |
+| LD-score regression | Separates polygenicity from confounding in inflated statistics |
+| Population stratification | Ancestry differences between cases and controls |
+| Fine-mapping | Narrowing a locus to the variants that could be causal |
+| PIP / credible set | Per-variant posterior probability / smallest 95% set |
+| eQTL | Variant affecting a gene's expression level |
+| Colocalisation | Test that two signals share one causal variant (PP.H4) |
+| Mendelian randomization | Using variants as instruments to test causality |
+| Pleiotropy | One variant affecting multiple traits — breaks MR assumption 3 |
+| PheWAS | One variant scanned against all phenotypes |
+| Portability | Whether a result transfers to another ancestry |
+| LOEUF | gnomAD metric of intolerance to loss of function |
+
+------------------------------------------------------------------------
+
+# ➕ References
+
+### Architecture and interpretation
+
+Timpson NJ, et al. [*Genetic architecture: the shape of the genetic contribution to human traits and disease.*](https://doi.org/10.1038/nrg.2017.101) Nat Rev Genet. 2018.\
+Boyle EA, Li YI, Pritchard JK. [*An expanded view of complex traits: from polygenic to omnigenic.*](https://doi.org/10.1016/j.cell.2017.05.038) Cell. 2017.\
+Visscher PM, et al. [*10 years of GWAS discovery: biology, function, and translation.*](https://doi.org/10.1016/j.ajhg.2017.06.005) Am J Hum Genet. 2017.
+
+### Fine-mapping and variant-to-gene
+
+Schaid DJ, Chen W, Larson NB. [*From genome-wide associations to candidate causal variants by statistical fine-mapping.*](https://doi.org/10.1038/s41576-018-0016-z) Nat Rev Genet. 2018.\
+Wang G, Sarkar A, Carbonetto P, Stephens M. [*A simple new approach to variable selection in regression, with application to genetic fine mapping.*](https://doi.org/10.1111/rssb.12388) J R Stat Soc B. 2020. (SuSiE)\
+Giambartolomei C, et al. [*Bayesian test for colocalisation between pairs of genetic association studies.*](https://doi.org/10.1371/journal.pgen.1004383) PLoS Genet. 2014.\
+Jagadeesh KA, et al. [*Identifying disease-critical cell types and cellular processes by integrating single-cell RNA-sequencing and human genetics.*](https://doi.org/10.1038/s41588-022-01187-9) Nat Genet. 2022. (sc-linker)
+
+### Causality and translation
+
+Davies NM, Holmes MV, Davey Smith G. [*Reading Mendelian randomisation studies: a guide, glossary, and checklist for clinicians.*](https://doi.org/10.1136/bmj.k601) BMJ. 2018. **← the single best entry point for a clinician**\
+Reay WR, Cairns MJ. [*Advancing the use of GWAS for drug repurposing.*](https://doi.org/10.1038/s41576-020-00387-5) Nat Rev Genet. 2021.\
+Denny JC, Bastarache L, Roden DM. [*Phenome-wide association studies as a tool to advance precision medicine.*](https://doi.org/10.1146/annurev-genom-090314-024956) Annu Rev Genomics Hum Genet. 2016.
+
+### Beyond SNPs, and diversity
+
+Collins RL, et al. [*A structural variation reference for medical and population genetics.*](https://doi.org/10.1038/s41586-020-2287-8) Nature. 2020.\
+Wojcik GL, et al. [*Genetic analyses of diverse populations improves discovery for complex traits.*](https://doi.org/10.1038/s41586-019-1310-4) Nature. 2019.\
+Martin AR, et al. [*Clinical use of current polygenic risk scores may exacerbate health disparities.*](https://doi.org/10.1038/s41588-019-0379-x) Nat Genet. 2019.
+
+### Resources
+
+[GWAS Catalog](https://www.ebi.ac.uk/gwas) · [Open Targets](https://platform.opentargets.org) · [IEU OpenGWAS](https://gwas.mrcieu.ac.uk) · [GTEx](https://gtexportal.org) · [gnomAD](https://gnomad.broadinstitute.org) · [LDlink](https://ldlink.nci.nih.gov)

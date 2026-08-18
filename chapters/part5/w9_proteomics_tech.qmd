@@ -1,0 +1,267 @@
+---
+title: "W9. Proteomics — How Proteins Are Actually Measured"
+author: "Eunji Ha"
+date: last-modified
+format: html
+execute:
+  echo: true
+  eval: false
+---
+
+::: {.callout-note collapse="true"}
+## 🎯 Learning objectives
+
+By the end of this chapter you should be able to:
+
+-   ⚠️ Say why mRNA is a limited proxy for protein, and quantify how limited
+-   Describe what a mass spectrometer measures, in one paragraph, without hand-waving
+-   ⚠️ Explain why DDA produces missing values that look like biology
+-   Say why plasma is the hardest and most clinically useful sample in proteomics
+-   Choose between mass spectrometry and an affinity panel for a given question
+-   ⚠️ Recognise the epitope artifact that produces false pQTLs
+-   Ask a proteomics core the three questions that determine whether your study will work
+:::
+
+> 🤔 **Motivating question**
+>
+> Your RNA-seq says the gene is up 3-fold in responders. Your collaborator measures the protein and finds no difference. Which result is wrong?
+
+------------------------------------------------------------------------
+
+# 1. ⚠️ The Assumption Everything So Far Rested On 🧬 {#w9-s1}
+
+## 1) How well does mRNA predict protein? {#w9-s1-1}
+
+![Eight weeks of transcriptomics, and this is the strength of the link to the molecules that do the work.](/assets/img/w9/mrna_vs_protein.svg){fig-align="center"}
+
+Across genes within a sample, mRNA and protein abundance typically correlate at roughly **r = 0.4–0.6**. Correlation across samples for a single gene varies enormously — strong for some genes, effectively zero for others.
+
+::: {.callout-important collapse="true"}
+## Neither result in the motivating question is wrong
+
+They are measurements of different things.
+
+-   RNA-seq measured **transcription plus transcript stability**
+-   The protein assay measured **the balance of translation, folding, secretion and degradation**
+
+A 3-fold mRNA increase with no protein change is a real, interpretable finding: something downstream is buffering it. That is often more interesting than agreement would have been.
+
+⚠️ The mistake is not the discrepancy. The mistake is having written the RNA-seq result as if it were a statement about protein.
+:::
+
+## 2) Why this matters clinically, not just technically {#w9-s1-2}
+
+-   **Drugs act on proteins.** A target nominated purely from transcript data has skipped a step
+-   **Every biomarker you order** — troponin, PSA, CRP, HbA1c — is a protein or a protein modification
+-   **Post-translational modification is invisible to RNA-seq.** Phosphorylation, cleavage and glycosylation change what a protein *does* without changing how much of it there is
+-   **Secretion is invisible too.** A cell can transcribe a cytokine and never release it (🔗 [W6 §3](../part3/w6_scrna_dynamics.qmd#w6-s3))
+
+------------------------------------------------------------------------
+
+# 2. What a Mass Spectrometer Does 🔬 {#w9-s2}
+
+## 1) The measurement, honestly {#w9-s2-1}
+
+A mass spectrometer does not read protein sequences. It weighs charged fragments extremely precisely, and software infers sequences from the weights.
+
+```
+protein mixture
+   → digest with trypsin        (proteins are too big; peptides are not)
+   → liquid chromatography      (separate peptides in time)
+   → MS1: weigh the peptides    (a survey of what is eluting now)
+   → MS2: fragment and weigh    (the fragment pattern identifies the sequence)
+   → match against a database   → protein identities and amounts
+```
+
+⚠️ Three consequences of this design that matter downstream:
+
+-   **You measure peptides and infer proteins.** Peptides shared between family members create ambiguity
+-   **Identification depends on a database.** A protein form not in the database is not found
+-   **Quantification is relative** unless you spike in labelled standards
+
+## 2) ⚠️ DDA and DIA — the distinction that decides your statistics {#w9-s2-2}
+
+![The same instrument, two acquisition strategies, very different data.](/assets/img/w9/dda_vs_dia.svg){fig-align="center"}
+
+::: {.callout-warning collapse="true"}
+## Why DDA missingness is dangerous
+
+In DDA the instrument selects the most intense precursors in each cycle. What is "most intense" depends on everything else co-eluting at that instant.
+
+-   ⚠️ The same sample run twice yields **partly different protein lists**
+-   ⚠️ Across a cohort, whether a protein was sampled correlates with total protein load, chromatography drift, and run order
+-   ⚠️ If cases and controls were run in different batches (🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3)), missingness itself becomes a group difference
+
+→ ✅ **DIA fragments everything in fixed windows**, so the same proteins are quantified in every run. For any clinical cohort, this is the right default — and it is the first thing to ask about someone else's dataset.
+:::
+
+------------------------------------------------------------------------
+
+# 3. ⚠️ Plasma: The Hardest Sample You Will Most Want to Use 🩸 {#w9-s3}
+
+![The clinical sample everyone wants is the one the technology handles worst.](/assets/img/w9/dynamic_range.svg){fig-align="center"}
+
+Plasma spans **more than ten orders of magnitude** in protein concentration. Albumin alone is roughly half the total protein mass; the top ~22 proteins are about 99% of it. The molecules you care about — cytokines, tumour-derived proteins — sit at the far end.
+
+::: {.callout-tip collapse="true"}
+## What this means for a study you might actually run
+
+-   ⚠️ **Undepleted plasma by MS** mostly re-measures albumin. You will get a few hundred proteins, and they will be the ones already in the routine chemistry panel
+-   ⚠️ **Depletion columns** remove the abundant proteins — and the low-abundance proteins bound to them ("the albuminome"). This is a known, unavoidable loss
+-   ✅ **Affinity panels sidestep the problem entirely** by targeting chosen proteins, so what else is in the tube is irrelevant. This is why most large plasma biomarker studies now use them
+-   ✅ **Tissue is much easier than plasma.** If your question can be asked of a biopsy, MS gives you thousands of proteins without any of this
+
+💡 If someone proposes "plasma proteomics" without saying which platform, that is the question to ask first.
+:::
+
+------------------------------------------------------------------------
+
+# 4. Two Technologies, Two Different Measurements ⚖️ {#w9-s4}
+
+![They are not two brands of the same assay.](/assets/img/w9/ms_vs_affinity.svg){fig-align="center"}
+
+## 1) ⚠️ Affinity assays measure binding {#w9-s4-1}
+
+::: {.callout-important collapse="true"}
+## The epitope artifact, and why it matters in W11
+
+An antibody or aptamer reports **how much reagent bound**. Usually that tracks protein abundance. Sometimes it does not.
+
+A coding variant that alters the binding epitope reduces the signal without changing the amount of protein present. In a genetic analysis this appears as a variant that "lowers protein levels" — a **false pQTL**, and one that is strongly enriched for *cis* variants because those are the ones inside the gene.
+
+✅ The check: for any *cis*-pQTL, ask whether the lead variant is a protein-altering variant in that same gene. If it is, the finding needs orthogonal confirmation — ideally by MS, which measures peptides directly.
+
+⚠️ This matters because pQTLs are increasingly used for drug-target Mendelian randomization (🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). An artifact here propagates into a target nomination.
+:::
+
+## 2) Cross-platform disagreement is normal {#w9-s4-2}
+
+Studies comparing affinity platforms with each other, and with MS, routinely find that a substantial fraction of targets correlate poorly.
+
+-   ⚠️ Two papers reporting different results for the same protein may both be right about what they measured
+-   ✅ When it matters, confirm on a second platform. That is a reviewer-proof sentence in a methods section
+
+------------------------------------------------------------------------
+
+# 5. Talking to a Proteomics Core 💬 {#w9-s5}
+
+You will not run any of this yourself. Three questions determine whether your study works.
+
+**① "For my question, would you recommend MS or an affinity panel — and why?"**
+
+A good core will answer with your sample type and cohort size, not with what they own.
+
+**② "How many samples can be run in one batch, and how will you randomise mine?"**
+
+⚠️ The answer to the second half tells you whether they have thought about confounding. If cases and controls will be split across batches by convenience, fix it now (🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3)).
+
+**③ "What sample volume, and what pre-analytical conditions?"**
+
+::: {.callout-warning collapse="true"}
+## Pre-analytical variation dominates more biomarker studies than any analysis choice
+
+-   **Serum or plasma?** Serum has been through clotting — platelets release their contents into it
+-   **Which anticoagulant?** EDTA, citrate and heparin give different results, and heparin interferes with some assays
+-   **Time to processing.** Minutes at room temperature matter for labile proteins
+-   **Freeze–thaw cycles.** Count them. Record them
+-   **Haemolysis.** A pink sample has red-cell contents in it, at concentrations that swamp everything else
+
+⚠️ If cases were collected in clinic and controls at a health screening centre, every one of these differs systematically. **That is a batch effect wearing a lab coat**, and it is the most common reason a biomarker fails to replicate.
+:::
+
+------------------------------------------------------------------------
+
+# 6. Hands-On 💻 {#w9-s6}
+
+No installation this week. Two browser exercises and one design task.
+
+## 1) Look up a protein you order {#w9-s6-1}
+
+[**Human Protein Atlas**](https://www.proteinatlas.org) → search a biomarker you use clinically (troponin I, PSA, CA-125, NT-proBNP…).
+
+-   ① Which tissues and cell types express it? Is it as specific as the clinical framing implies?
+-   ② Compare the **RNA** and **protein** tissue profiles on the same page. Where do they disagree?
+-   ③ Look at the pathology section — is expression associated with survival in any cancer?
+
+## 2) Check a proteomics dataset before trusting it {#w9-s6-2}
+
+Pick any plasma proteomics paper in your field and answer:
+
+-   ④ **Platform?** MS or affinity — and if MS, **DDA or DIA**?
+-   ⑤ **Depletion?** How many proteins were quantified, and does that number make sense for the sample type?
+-   ⑥ **Missing values** — how many, and how were they handled? (This is W10 §1)
+-   ⑦ **Pre-analytical** — were cases and controls collected the same way, in the same place?
+-   ⑧ **Batches** — were groups randomised across them, or stated at all?
+
+💡 ⑦ and ⑧ are usually either in the supplement or absent. Absence is itself an answer.
+
+## 3) Design task {#w9-s6-3}
+
+Write five sentences specifying a proteomics study you could realistically run in your department: sample type, platform, n, comparison, and the one pre-analytical variable you are most worried about.
+
+We will use these in W10.
+
+------------------------------------------------------------------------
+
+# 📝 Summary
+
+-   ⚠️ mRNA and protein correlate at roughly **r = 0.4–0.6** — the gap is regulation RNA-seq cannot see
+-   A discrepancy between transcript and protein is a **finding**, not an error
+-   MS weighs peptides and infers proteins; identification depends on a database, quantification is usually relative
+-   ⚠️ **DDA selects the most intense precursors**, so missingness varies run to run and can mimic a group difference
+-   ✅ **DIA is the default for clinical cohorts** — the same proteins are quantified every time
+-   ⚠️ Plasma spans \>10 orders of magnitude; albumin is half the mass, and depletion removes bound proteins too
+-   ✅ Affinity panels (Olink, SomaScan) reach pg/mL without depletion — at the cost of a fixed panel
+-   ⚠️ **Affinity assays measure binding.** An epitope-altering variant produces a false *cis*-pQTL
+-   ⚠️ **Pre-analytical variation** — serum vs plasma, tube type, time to spin, freeze–thaw, haemolysis — sinks more biomarker studies than any statistical choice
+
+------------------------------------------------------------------------
+
+# 🔑 Key terms
+
+| Term | One-line meaning |
+|-------------------------|-----------------------------------------|
+| Tryptic digest | Cutting proteins into peptides so they can be measured |
+| MS1 / MS2 | Survey scan of intact peptides / fragmentation spectrum |
+| DDA | Data-dependent acquisition — instrument picks the top N precursors |
+| DIA | Data-independent acquisition — everything in fixed windows |
+| Spectral library | Reference used to interpret DIA spectra |
+| Protein inference | Assigning shared peptides to proteins |
+| Dynamic range | Span between the most and least abundant protein in a sample |
+| Depletion | Removing abundant plasma proteins before analysis |
+| PEA (Olink) | Proximity extension assay — antibody pairs with NGS readout |
+| Aptamer (SomaScan) | Nucleic-acid binder used in place of an antibody |
+| pQTL | Genetic variant associated with a protein level |
+| Epitope artifact | Variant altering reagent binding, mimicking a change in abundance |
+| Pre-analytical variation | Everything between the patient and the freezer |
+| PTM | Post-translational modification — invisible to RNA-seq |
+
+------------------------------------------------------------------------
+
+# ➕ References
+
+### mRNA and protein
+
+Liu Y, Beyer A, Aebersold R. [*On the dependency of cellular protein levels on mRNA abundance.*](https://doi.org/10.1016/j.cell.2016.03.014) Cell. 2016. **← the clearest treatment of why the correlation is what it is**\
+Buccitelli C, Selbach M. [*mRNAs, proteins and the emerging principles of gene expression control.*](https://doi.org/10.1038/s41576-020-0258-4) Nat Rev Genet. 2020.
+
+### Mass spectrometry
+
+Aebersold R, Mann M. [*Mass-spectrometric exploration of proteome structure and function.*](https://doi.org/10.1038/nature19949) Nature. 2016.\
+Ludwig C, et al. [*Data-independent acquisition-based SWATH-MS for quantitative proteomics: a tutorial.*](https://doi.org/10.15252/msb.20178126) Mol Syst Biol. 2018.\
+Sinitcyn P, Rudolph JD, Cox J. [*Computational methods for understanding mass spectrometry-based shotgun proteomics data.*](https://doi.org/10.1146/annurev-biodatasci-080917-013516) Annu Rev Biomed Data Sci. 2018.
+
+### Plasma and clinical proteomics
+
+Geyer PE, et al. [*Revisiting biomarker discovery by plasma proteomics.*](https://doi.org/10.15252/msb.20156297) Mol Syst Biol. 2017. **← read before designing any plasma study**\
+Anderson NL, Anderson NG. [*The human plasma proteome: history, character, and diagnostic prospects.*](https://doi.org/10.1074/mcp.r200007-mcp200) Mol Cell Proteomics. 2002. (the original dynamic-range argument)
+
+### Affinity platforms and pQTLs
+
+Sun BB, et al. [*Genomic atlas of the human plasma proteome.*](https://doi.org/10.1038/s41586-018-0175-2) Nature. 2018.\
+Ferkingstad E, et al. [*Large-scale integration of the plasma proteome with genetics and disease.*](https://doi.org/10.1038/s41588-021-00978-w) Nat Genet. 2021.\
+Pietzner M, et al. [*Synergistic insights into human health from aptamer- and antibody-based proteomic profiling.*](https://doi.org/10.1038/s41467-021-27164-0) Nat Commun. 2021. **← how much two platforms disagree, measured**
+
+### Resources
+
+[Human Protein Atlas](https://www.proteinatlas.org) · [PRIDE repository](https://www.ebi.ac.uk/pride/) · [PeptideAtlas](https://peptideatlas.org)

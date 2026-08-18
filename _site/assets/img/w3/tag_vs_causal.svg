@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="400" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">The variant named in the abstract is almost never the variant that does anything.</text>
+
+  <!-- ═══ PANEL A ═══ -->
+  <rect x="24" y="46" width="400" height="256" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="74" font-size="13.5" font-weight="700" fill="#185FA5">European cohort · one long LD block</text>
+
+  <!-- haplotype bar -->
+  <rect x="48" y="92" width="352" height="26" rx="5" fill="#e3ecf5"/>
+  <text x="224" y="110" font-size="11" fill="#5d7fa0" text-anchor="middle">inherited together — one haplotype</text>
+
+  <!-- SNPs -->
+  <g>
+    <circle cx="84" cy="150" r="9" fill="#9db8d1"/>
+    <circle cx="146" cy="150" r="11" fill="#D85A30"/>
+    <circle cx="208" cy="150" r="9" fill="#9db8d1"/>
+    <circle cx="270" cy="150" r="9" fill="#1D9E75"/>
+    <circle cx="332" cy="150" r="9" fill="#9db8d1"/>
+  </g>
+  <line x1="60" y1="150" x2="388" y2="150" stroke="#d8d2e4" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <text x="146" y="134" font-size="11" font-weight="700" fill="#a8401d" text-anchor="middle">lead SNP</text>
+  <text x="146" y="176" font-size="10.5" fill="#a05a3f" text-anchor="middle">p = 3×10⁻²⁴</text>
+  <text x="146" y="190" font-size="10.5" fill="#a05a3f" text-anchor="middle">reported</text>
+
+  <text x="270" y="134" font-size="11" font-weight="700" fill="#0F6E56" text-anchor="middle">causal</text>
+  <text x="270" y="176" font-size="10.5" fill="#3d7a68" text-anchor="middle">p = 8×10⁻²³</text>
+  <text x="270" y="190" font-size="10.5" fill="#3d7a68" text-anchor="middle">not mentioned</text>
+
+  <text x="84"  y="176" font-size="10" fill="#8A7FA3" text-anchor="middle">r²=.91</text>
+  <text x="208" y="176" font-size="10" fill="#8A7FA3" text-anchor="middle">r²=.98</text>
+  <text x="332" y="176" font-size="10" fill="#8A7FA3" text-anchor="middle">r²=.93</text>
+
+  <rect x="48" y="212" width="352" height="72" rx="7" fill="#fbeee8"/>
+  <text x="68" y="234" font-size="12.5" font-weight="700" fill="#a8401d">95% credible set: ~40 variants</text>
+  <text x="68" y="254" font-size="12" fill="#a05a3f">The p-values differ by rounding. Statistics alone</text>
+  <text x="68" y="272" font-size="12" fill="#a05a3f">cannot separate the tag from the cause.</text>
+
+  <!-- ═══ PANEL B ═══ -->
+  <rect x="456" y="46" width="400" height="256" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="2"/>
+  <text x="480" y="74" font-size="13.5" font-weight="700" fill="#0F6E56">East Asian cohort · the block is shorter</text>
+
+  <rect x="480" y="92" width="120" height="26" rx="5" fill="#e0efe9"/>
+  <rect x="608" y="92" width="72" height="26" rx="5" fill="#e0efe9"/>
+  <rect x="688" y="92" width="144" height="26" rx="5" fill="#e0efe9"/>
+  <text x="656" y="86" font-size="11" fill="#4d8a78" text-anchor="middle">three shorter blocks</text>
+
+  <g>
+    <circle cx="516" cy="150" r="9" fill="#9db8d1"/>
+    <circle cx="578" cy="150" r="11" fill="#D85A30"/>
+    <circle cx="640" cy="150" r="9" fill="#9db8d1"/>
+    <circle cx="702" cy="150" r="9" fill="#1D9E75"/>
+    <circle cx="764" cy="150" r="9" fill="#9db8d1"/>
+  </g>
+  <line x1="492" y1="150" x2="820" y2="150" stroke="#d8d2e4" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <text x="578" y="134" font-size="11" font-weight="700" fill="#a8401d" text-anchor="middle">lead SNP</text>
+  <text x="578" y="176" font-size="10.5" fill="#a05a3f" text-anchor="middle">p = 4×10⁻⁷</text>
+  <text x="578" y="190" font-size="10.5" fill="#a05a3f" text-anchor="middle">now below threshold</text>
+
+  <text x="702" y="134" font-size="11" font-weight="700" fill="#0F6E56" text-anchor="middle">causal</text>
+  <text x="702" y="176" font-size="10.5" fill="#3d7a68" text-anchor="middle">p = 6×10⁻²¹</text>
+  <text x="702" y="190" font-size="10.5" font-weight="700" fill="#0F6E56" text-anchor="middle">stands alone</text>
+
+  <rect x="480" y="212" width="352" height="72" rx="7" fill="#e8f5f0"/>
+  <text x="500" y="234" font-size="12.5" font-weight="700" fill="#0F6E56">95% credible set: 3 variants</text>
+  <text x="500" y="254" font-size="12" fill="#3d7a68">Different population history broke the haplotype,</text>
+  <text x="500" y="272" font-size="12" fill="#3d7a68">so the correlation that hid the causal variant is gone.</text>
+
+  <!-- footer -->
+  <rect x="24" y="318" width="832" height="60" rx="8" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="342" font-size="13" fill="#555">💡 Diverse cohorts are not only an equity argument. Different LD structures <tspan font-weight="700" fill="#4A3D6B">break haplotype blocks apart</tspan>, and a</text>
+  <text x="48" y="364" font-size="13" fill="#555">variant that is statistically indistinguishable in one population can be isolated in another. Korean cohorts add resolution.</text>
+</svg>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="460" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Two ways to measure a protein — and they can disagree about the same sample.</text>
+
+  <!-- MS -->
+  <rect x="24" y="46" width="272" height="288" rx="10" fill="#ffffff" stroke="#185FA5" stroke-width="2"/>
+  <rect x="24" y="46" width="272" height="40" rx="10" fill="#eaf1f8"/>
+  <rect x="24" y="76" width="272" height="10" fill="#eaf1f8"/>
+  <text x="46" y="72" font-size="13.5" font-weight="700" fill="#185FA5">Mass spectrometry</text>
+  <text x="46" y="106" font-size="11.5" fill="#8A7FA3">measures: peptide mass</text>
+  <text x="46" y="132" font-size="12" fill="#666">Digest → separate → weigh the</text>
+  <text x="46" y="150" font-size="12" fill="#666">fragments → match to sequence.</text>
+  <text x="46" y="180" font-size="12" font-weight="700" fill="#0F6E56">✅ Untargeted — finds what you</text>
+  <text x="46" y="198" font-size="12" font-weight="700" fill="#0F6E56">did not think to look for</text>
+  <text x="46" y="220" font-size="12" fill="#666">✅ Sees modifications directly</text>
+  <text x="46" y="238" font-size="12" fill="#666">✅ No reagent to validate</text>
+  <text x="46" y="266" font-size="12" font-weight="700" fill="#a8401d">⚠️ Limited dynamic range</text>
+  <text x="46" y="284" font-size="12" fill="#a05a3f">⚠️ Missing values (DDA)</text>
+  <text x="46" y="302" font-size="12" fill="#a05a3f">⚠️ Plasma needs depletion</text>
+  <text x="46" y="322" font-size="11.5" fill="#8A7FA3">thousands of proteins in tissue</text>
+
+  <!-- Affinity -->
+  <rect x="308" y="46" width="272" height="288" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="2"/>
+  <rect x="308" y="46" width="272" height="40" rx="10" fill="#e8f5f0"/>
+  <rect x="308" y="76" width="272" height="10" fill="#e8f5f0"/>
+  <text x="330" y="72" font-size="13.5" font-weight="700" fill="#0F6E56">Affinity + NGS readout</text>
+  <text x="330" y="106" font-size="11.5" fill="#8A7FA3">measures: binding to a reagent</text>
+  <text x="330" y="132" font-size="12" fill="#666">Olink (antibody pairs, PEA) or</text>
+  <text x="330" y="150" font-size="12" fill="#666">SomaScan (aptamers) → sequenced.</text>
+  <text x="330" y="180" font-size="12" font-weight="700" fill="#0F6E56">✅ Very high sensitivity — reaches</text>
+  <text x="330" y="198" font-size="12" font-weight="700" fill="#0F6E56">pg/mL without depletion</text>
+  <text x="330" y="220" font-size="12" fill="#666">✅ Tiny sample volume</text>
+  <text x="330" y="238" font-size="12" fill="#666">✅ Consistent across a big cohort</text>
+  <text x="330" y="266" font-size="12" font-weight="700" fill="#a8401d">⚠️ Fixed panel — no discovery</text>
+  <text x="330" y="284" font-size="12" fill="#a05a3f">⚠️ Relative units, not concentration</text>
+  <text x="330" y="302" font-size="12" fill="#a05a3f">⚠️ Reagent specificity is an assumption</text>
+  <text x="330" y="322" font-size="11.5" fill="#8A7FA3">thousands of targets, chosen in advance</text>
+
+  <!-- decision -->
+  <rect x="592" y="46" width="264" height="288" rx="10" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="614" y="72" font-size="13.5" font-weight="700" fill="#4A3D6B">Which one, for what</text>
+  <text x="614" y="104" font-size="12" font-weight="700" fill="#185FA5">"What is different in this tissue?"</text>
+  <text x="614" y="122" font-size="12" fill="#666">→ MS. You need discovery.</text>
+  <text x="614" y="154" font-size="12" font-weight="700" fill="#1D9E75">"Is this marker up in 800 patients?"</text>
+  <text x="614" y="172" font-size="12" fill="#666">→ affinity panel. Cheaper, consistent,</text>
+  <text x="614" y="190" font-size="12" fill="#666">and sensitive enough for plasma.</text>
+  <text x="614" y="222" font-size="12" font-weight="700" fill="#534AB7">"Is this protein phosphorylated?"</text>
+  <text x="614" y="240" font-size="12" fill="#666">→ MS. Panels measure abundance,</text>
+  <text x="614" y="258" font-size="12" fill="#666">not modification state.</text>
+  <text x="614" y="290" font-size="12" font-weight="700" fill="#a8401d">"Two papers disagree."</text>
+  <text x="614" y="308" font-size="12" fill="#a05a3f">→ check whether they used the</text>
+  <text x="614" y="322" font-size="12" fill="#a05a3f">same platform. Often they did not.</text>
+
+  <!-- the trap -->
+  <rect x="24" y="348" width="832" height="94" rx="10" fill="#fbeee8" stroke="#D85A30" stroke-width="2"/>
+  <text x="48" y="374" font-size="13.5" font-weight="700" fill="#a8401d">⚠️ The trap that matters if you ever combine proteomics with genetics (W11)</text>
+  <text x="48" y="398" font-size="12.5" fill="#a05a3f">An affinity assay reports <tspan font-weight="700" fill="#a8401d">how much reagent bound</tspan>, which is not quite the same as how much protein was there.</text>
+  <text x="48" y="418" font-size="12.5" fill="#a05a3f">A coding variant that changes the epitope reduces binding — and shows up as a variant that "lowers protein levels".</text>
+  <text x="48" y="436" font-size="12.5" font-weight="700" fill="#a8401d">✅ Before believing a pQTL, check whether the lead variant sits inside the gene encoding the measured protein.</text>
+</svg>

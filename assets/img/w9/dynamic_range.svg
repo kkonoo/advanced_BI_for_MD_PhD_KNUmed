@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 432" width="880" height="432" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<rect width="880" height="432" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Why plasma proteomics is hard: the thing you want is 10 billion times rarer than the thing you don't.</text>
+<text x="178" y="104" font-size="12.5" font-weight="700" fill="#4A3D6B" text-anchor="end">Albumin</text>
+<rect x="190" y="84" width="400" height="28" rx="4" fill="#f1eef7"/>
+<rect x="190" y="84" width="385" height="28" rx="4" fill="#1a4f80"/>
+<text x="622" y="103" font-size="11.5" fill="#666">~50% of all plasma protein</text>
+<text x="178" y="144" font-size="12.5" font-weight="700" fill="#4A3D6B" text-anchor="end">Immunoglobulins</text>
+<rect x="190" y="124" width="400" height="28" rx="4" fill="#f1eef7"/>
+<rect x="190" y="124" width="364" height="28" rx="4" fill="#2b6fa8"/>
+<text x="622" y="143" font-size="11.5" fill="#666">next ~25%</text>
+<text x="178" y="184" font-size="12.5" font-weight="700" fill="#4A3D6B" text-anchor="end">Transferrin, haptoglobin…</text>
+<rect x="190" y="164" width="400" height="28" rx="4" fill="#f1eef7"/>
+<rect x="190" y="164" width="335" height="28" rx="4" fill="#5f97c4"/>
+<text x="622" y="183" font-size="11.5" fill="#666">the top 22 ≈ 99% of the mass</text>
+<text x="178" y="224" font-size="12.5" font-weight="700" fill="#4A3D6B" text-anchor="end">C-reactive protein</text>
+<rect x="190" y="204" width="400" height="28" rx="4" fill="#f1eef7"/>
+<rect x="190" y="204" width="240" height="28" rx="4" fill="#BA7517"/>
+<text x="622" y="223" font-size="11.5" fill="#666">acute phase, mg/L</text>
+<text x="178" y="264" font-size="12.5" font-weight="700" fill="#4A3D6B" text-anchor="end">Troponin I, PSA</text>
+<rect x="190" y="244" width="400" height="28" rx="4" fill="#f1eef7"/>
+<rect x="190" y="244" width="120" height="28" rx="4" fill="#D85A30"/>
+<text x="622" y="263" font-size="11.5" fill="#666">the clinical assays you order</text>
+<text x="178" y="304" font-size="12.5" font-weight="700" fill="#4A3D6B" text-anchor="end">Cytokines, tumour-derived</text>
+<rect x="190" y="284" width="400" height="28" rx="4" fill="#f1eef7"/>
+<rect x="190" y="284" width="22" height="28" rx="4" fill="#534AB7"/>
+<text x="622" y="303" font-size="11.5" fill="#666">pg/mL — where the new biology is</text>
+<text x="440" y="340" font-size="11.5" fill="#8A7FA3" text-anchor="middle">relative abundance, log scale — the full range spans more than 10 orders of magnitude</text>
+<rect x="24" y="348" width="410" height="72" rx="8" fill="#fbeee8" stroke="#D85A30" stroke-width="1.5"/>
+<text x="48" y="372" font-size="12.5" font-weight="700" fill="#a8401d">⚠️ Undepleted plasma by MS</text>
+<text x="48" y="394" font-size="12" fill="#a05a3f">You mostly re-measure albumin. Depletion helps — and removes</text>
+<text x="48" y="412" font-size="12" fill="#a05a3f">bound low-abundance proteins along with it.</text>
+<rect x="446" y="348" width="410" height="72" rx="8" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.5"/>
+<text x="470" y="372" font-size="12.5" font-weight="700" fill="#0F6E56">✅ Affinity platforms sidestep the problem</text>
+<text x="470" y="394" font-size="12" fill="#3d7a68">Olink and SomaScan target chosen proteins directly, so abundance</text>
+<text x="470" y="412" font-size="12" fill="#3d7a68">of everything else is irrelevant — at the cost of a fixed panel.</text>
+</svg>

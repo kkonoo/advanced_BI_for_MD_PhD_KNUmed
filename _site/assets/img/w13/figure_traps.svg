@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<rect width="880" height="540" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Four ways a figure overstates its data. All four are common; none is fraud.</text>
+<rect x="24" y="46" width="410" height="226" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="1.8"/>
+<text x="46" y="72" font-size="13" font-weight="700" fill="#4A3D6B">① The truncated axis</text>
+<rect x="60" y="139" width="22" height="67" rx="3" fill="#185FA5"/>
+<rect x="90" y="136" width="22" height="70" rx="3" fill="#185FA5"/>
+<rect x="120" y="131" width="22" height="75" rx="3" fill="#185FA5"/>
+<rect x="150" y="127" width="22" height="79" rx="3" fill="#185FA5"/>
+<line x1="52" y1="206" x2="184" y2="206" stroke="#cfc9dd" stroke-width="1.2"/>
+<text x="46" y="126" font-size="10" fill="#8A7FA3" text-anchor="end">65</text>
+<text x="46" y="210" font-size="10" fill="#8A7FA3" text-anchor="end">0</text>
+<text x="118" y="226" font-size="11.5" font-weight="700" fill="#4A3D6B" text-anchor="middle">y from 0</text>
+<text x="118" y="242" font-size="11" fill="#8A7FA3" text-anchor="middle">a 17% difference</text>
+<rect x="250" y="186" width="22" height="20" rx="3" fill="#D85A30"/>
+<rect x="280" y="176" width="22" height="30" rx="3" fill="#D85A30"/>
+<rect x="310" y="157" width="22" height="49" rx="3" fill="#D85A30"/>
+<rect x="340" y="142" width="22" height="64" rx="3" fill="#D85A30"/>
+<line x1="242" y1="206" x2="374" y2="206" stroke="#cfc9dd" stroke-width="1.2"/>
+<text x="236" y="126" font-size="10" fill="#8A7FA3" text-anchor="end">65</text>
+<text x="236" y="210" font-size="10" fill="#8A7FA3" text-anchor="end">48</text>
+<text x="308" y="226" font-size="11.5" font-weight="700" fill="#4A3D6B" text-anchor="middle">y from 48</text>
+<text x="308" y="242" font-size="11" fill="#D85A30" text-anchor="middle">looks like 3×</text>
+<text x="46" y="264" font-size="11.5" fill="#666">Same numbers. ✅ Bar charts start at zero, or use points instead.</text>
+<rect x="446" y="46" width="410" height="226" rx="10" fill="#ffffff" stroke="#BA7517" stroke-width="1.8"/>
+<text x="468" y="72" font-size="13" font-weight="700" fill="#4A3D6B">② The rainbow colour map</text>
+<rect x="478" y="96" width="14" height="34" fill="#3b2fb0"/>
+<rect x="492" y="96" width="14" height="34" fill="#3b2fb0"/>
+<rect x="506" y="96" width="14" height="34" fill="#2a7fd4"/>
+<rect x="520" y="96" width="14" height="34" fill="#2a7fd4"/>
+<rect x="534" y="96" width="14" height="34" fill="#2a7fd4"/>
+<rect x="548" y="96" width="14" height="34" fill="#20b5b5"/>
+<rect x="562" y="96" width="14" height="34" fill="#20b5b5"/>
+<rect x="576" y="96" width="14" height="34" fill="#20b5b5"/>
+<rect x="590" y="96" width="14" height="34" fill="#20b5b5"/>
+<rect x="604" y="96" width="14" height="34" fill="#4fc44f"/>
+<rect x="618" y="96" width="14" height="34" fill="#4fc44f"/>
+<rect x="632" y="96" width="14" height="34" fill="#4fc44f"/>
+<rect x="646" y="96" width="14" height="34" fill="#e8dc2a"/>
+<rect x="660" y="96" width="14" height="34" fill="#e8dc2a"/>
+<rect x="674" y="96" width="14" height="34" fill="#e8dc2a"/>
+<rect x="688" y="96" width="14" height="34" fill="#f08a1e"/>
+<rect x="702" y="96" width="14" height="34" fill="#f08a1e"/>
+<rect x="716" y="96" width="14" height="34" fill="#f08a1e"/>
+<rect x="730" y="96" width="14" height="34" fill="#f08a1e"/>
+<rect x="744" y="96" width="14" height="34" fill="#e0342a"/>
+<rect x="758" y="96" width="14" height="34" fill="#e0342a"/>
+<rect x="772" y="96" width="14" height="34" fill="#e0342a"/>
+<rect x="786" y="96" width="14" height="34" fill="#8f1010"/>
+<rect x="800" y="96" width="14" height="34" fill="#8f1010"/>
+<text x="478" y="88" font-size="11.5" font-weight="700" fill="#D85A30">❌ rainbow</text>
+<rect x="478" y="176" width="14" height="34" fill="#f4f7fb"/>
+<rect x="492" y="176" width="14" height="34" fill="#f4f7fb"/>
+<rect x="506" y="176" width="14" height="34" fill="#dce8f4"/>
+<rect x="520" y="176" width="14" height="34" fill="#dce8f4"/>
+<rect x="534" y="176" width="14" height="34" fill="#dce8f4"/>
+<rect x="548" y="176" width="14" height="34" fill="#bcd4ea"/>
+<rect x="562" y="176" width="14" height="34" fill="#bcd4ea"/>
+<rect x="576" y="176" width="14" height="34" fill="#bcd4ea"/>
+<rect x="590" y="176" width="14" height="34" fill="#bcd4ea"/>
+<rect x="604" y="176" width="14" height="34" fill="#93b8db"/>
+<rect x="618" y="176" width="14" height="34" fill="#93b8db"/>
+<rect x="632" y="176" width="14" height="34" fill="#93b8db"/>
+<rect x="646" y="176" width="14" height="34" fill="#6699c9"/>
+<rect x="660" y="176" width="14" height="34" fill="#6699c9"/>
+<rect x="674" y="176" width="14" height="34" fill="#6699c9"/>
+<rect x="688" y="176" width="14" height="34" fill="#3d78b2"/>
+<rect x="702" y="176" width="14" height="34" fill="#3d78b2"/>
+<rect x="716" y="176" width="14" height="34" fill="#3d78b2"/>
+<rect x="730" y="176" width="14" height="34" fill="#3d78b2"/>
+<rect x="744" y="176" width="14" height="34" fill="#1a5896"/>
+<rect x="758" y="176" width="14" height="34" fill="#1a5896"/>
+<rect x="772" y="176" width="14" height="34" fill="#1a5896"/>
+<rect x="786" y="176" width="14" height="34" fill="#0d3f6e"/>
+<rect x="800" y="176" width="14" height="34" fill="#0d3f6e"/>
+<text x="478" y="168" font-size="11.5" font-weight="700" fill="#1D9E75">✅ sequential, one hue</text>
+<text x="478" y="238" font-size="11.5" fill="#666">Rainbow invents boundaries where the data is smooth,</text>
+<text x="478" y="254" font-size="11.5" fill="#666">is not perceptually ordered, and fails in greyscale and CVD.</text>
+<rect x="24" y="288" width="410" height="226" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="1.8"/>
+<text x="46" y="314" font-size="13" font-weight="700" fill="#4A3D6B">③ The bar that hides n = 3</text>
+<rect x="80" y="408" width="34" height="40" rx="3" fill="#185FA5" fill-opacity="0.9"/>
+<line x1="97" y1="398" x2="97" y2="418" stroke="#555" stroke-width="1.4"/>
+<rect x="132" y="379" width="34" height="69" rx="3" fill="#D85A30" fill-opacity="0.9"/>
+<line x1="149" y1="369" x2="149" y2="389" stroke="#555" stroke-width="1.4"/>
+<line x1="70" y1="448" x2="176" y2="448" stroke="#cfc9dd" stroke-width="1.2"/>
+<text x="123" y="468" font-size="11.5" font-weight="700" fill="#4A3D6B" text-anchor="middle">bar + SEM</text>
+<rect x="270" y="408" width="34" height="40" rx="3" fill="#185FA5" fill-opacity="0.25"/>
+<line x1="287" y1="398" x2="287" y2="418" stroke="#555" stroke-width="1.4"/>
+<circle cx="293" cy="424" r="4" fill="#185FA5" stroke="#fff" stroke-width="1.3"/>
+<circle cx="293" cy="407" r="4" fill="#185FA5" stroke="#fff" stroke-width="1.3"/>
+<circle cx="281" cy="390" r="4" fill="#185FA5" stroke="#fff" stroke-width="1.3"/>
+<rect x="322" y="379" width="34" height="69" rx="3" fill="#D85A30" fill-opacity="0.25"/>
+<line x1="339" y1="369" x2="339" y2="389" stroke="#555" stroke-width="1.4"/>
+<circle cx="333" cy="401" r="4" fill="#D85A30" stroke="#fff" stroke-width="1.3"/>
+<circle cx="344" cy="382" r="4" fill="#D85A30" stroke="#fff" stroke-width="1.3"/>
+<circle cx="342" cy="354" r="4" fill="#D85A30" stroke="#fff" stroke-width="1.3"/>
+<line x1="260" y1="448" x2="366" y2="448" stroke="#cfc9dd" stroke-width="1.2"/>
+<text x="313" y="468" font-size="11.5" font-weight="700" fill="#4A3D6B" text-anchor="middle">the actual points</text>
+<text x="46" y="490" font-size="11.5" fill="#666">The left panel implies a clean separation. ✅ With n &#8804; 10, always</text>
+<text x="46" y="506" font-size="11.5" fill="#666">plot the points — the reader can then judge for themselves.</text>
+<rect x="446" y="288" width="410" height="226" rx="10" fill="#ffffff" stroke="#534AB7" stroke-width="1.8"/>
+<text x="468" y="314" font-size="13" font-weight="700" fill="#4A3D6B">④ The row-scaled heatmap</text>
+<rect x="478" y="326" width="22" height="15" fill="#dce8f4"/>
+<rect x="500" y="326" width="22" height="15" fill="#f4f7fb"/>
+<rect x="522" y="326" width="22" height="15" fill="#93b8db"/>
+<rect x="544" y="326" width="22" height="15" fill="#dce8f4"/>
+<rect x="566" y="326" width="22" height="15" fill="#f4f7fb"/>
+<rect x="588" y="326" width="22" height="15" fill="#93b8db"/>
+<rect x="610" y="326" width="22" height="15" fill="#0d3f6e"/>
+<rect x="632" y="326" width="22" height="15" fill="#1a5896"/>
+<rect x="654" y="326" width="22" height="15" fill="#1a5896"/>
+<rect x="676" y="326" width="22" height="15" fill="#dce8f4"/>
+<rect x="698" y="326" width="22" height="15" fill="#6699c9"/>
+<rect x="720" y="326" width="22" height="15" fill="#bcd4ea"/>
+<rect x="742" y="326" width="22" height="15" fill="#dce8f4"/>
+<rect x="764" y="326" width="22" height="15" fill="#f4f7fb"/>
+<rect x="786" y="326" width="22" height="15" fill="#dce8f4"/>
+<rect x="808" y="326" width="22" height="15" fill="#0d3f6e"/>
+<rect x="478" y="341" width="22" height="15" fill="#1a5896"/>
+<rect x="500" y="341" width="22" height="15" fill="#1a5896"/>
+<rect x="522" y="341" width="22" height="15" fill="#1a5896"/>
+<rect x="544" y="341" width="22" height="15" fill="#dce8f4"/>
+<rect x="566" y="341" width="22" height="15" fill="#bcd4ea"/>
+<rect x="588" y="341" width="22" height="15" fill="#3d78b2"/>
+<rect x="610" y="341" width="22" height="15" fill="#3d78b2"/>
+<rect x="632" y="341" width="22" height="15" fill="#1a5896"/>
+<rect x="654" y="341" width="22" height="15" fill="#0d3f6e"/>
+<rect x="676" y="341" width="22" height="15" fill="#f4f7fb"/>
+<rect x="698" y="341" width="22" height="15" fill="#6699c9"/>
+<rect x="720" y="341" width="22" height="15" fill="#3d78b2"/>
+<rect x="742" y="341" width="22" height="15" fill="#6699c9"/>
+<rect x="764" y="341" width="22" height="15" fill="#dce8f4"/>
+<rect x="786" y="341" width="22" height="15" fill="#93b8db"/>
+<rect x="808" y="341" width="22" height="15" fill="#f4f7fb"/>
+<rect x="478" y="356" width="22" height="15" fill="#0d3f6e"/>
+<rect x="500" y="356" width="22" height="15" fill="#1a5896"/>
+<rect x="522" y="356" width="22" height="15" fill="#6699c9"/>
+<rect x="544" y="356" width="22" height="15" fill="#bcd4ea"/>
+<rect x="566" y="356" width="22" height="15" fill="#0d3f6e"/>
+<rect x="588" y="356" width="22" height="15" fill="#6699c9"/>
+<rect x="610" y="356" width="22" height="15" fill="#0d3f6e"/>
+<rect x="632" y="356" width="22" height="15" fill="#1a5896"/>
+<rect x="654" y="356" width="22" height="15" fill="#6699c9"/>
+<rect x="676" y="356" width="22" height="15" fill="#93b8db"/>
+<rect x="698" y="356" width="22" height="15" fill="#6699c9"/>
+<rect x="720" y="356" width="22" height="15" fill="#93b8db"/>
+<rect x="742" y="356" width="22" height="15" fill="#dce8f4"/>
+<rect x="764" y="356" width="22" height="15" fill="#bcd4ea"/>
+<rect x="786" y="356" width="22" height="15" fill="#1a5896"/>
+<rect x="808" y="356" width="22" height="15" fill="#f4f7fb"/>
+<rect x="478" y="371" width="22" height="15" fill="#f4f7fb"/>
+<rect x="500" y="371" width="22" height="15" fill="#3d78b2"/>
+<rect x="522" y="371" width="22" height="15" fill="#bcd4ea"/>
+<rect x="544" y="371" width="22" height="15" fill="#6699c9"/>
+<rect x="566" y="371" width="22" height="15" fill="#93b8db"/>
+<rect x="588" y="371" width="22" height="15" fill="#bcd4ea"/>
+<rect x="610" y="371" width="22" height="15" fill="#0d3f6e"/>
+<rect x="632" y="371" width="22" height="15" fill="#dce8f4"/>
+<rect x="654" y="371" width="22" height="15" fill="#93b8db"/>
+<rect x="676" y="371" width="22" height="15" fill="#dce8f4"/>
+<rect x="698" y="371" width="22" height="15" fill="#3d78b2"/>
+<rect x="720" y="371" width="22" height="15" fill="#bcd4ea"/>
+<rect x="742" y="371" width="22" height="15" fill="#bcd4ea"/>
+<rect x="764" y="371" width="22" height="15" fill="#3d78b2"/>
+<rect x="786" y="371" width="22" height="15" fill="#bcd4ea"/>
+<rect x="808" y="371" width="22" height="15" fill="#6699c9"/>
+<rect x="478" y="386" width="22" height="15" fill="#0d3f6e"/>
+<rect x="500" y="386" width="22" height="15" fill="#f4f7fb"/>
+<rect x="522" y="386" width="22" height="15" fill="#f4f7fb"/>
+<rect x="544" y="386" width="22" height="15" fill="#dce8f4"/>
+<rect x="566" y="386" width="22" height="15" fill="#1a5896"/>
+<rect x="588" y="386" width="22" height="15" fill="#6699c9"/>
+<rect x="610" y="386" width="22" height="15" fill="#dce8f4"/>
+<rect x="632" y="386" width="22" height="15" fill="#bcd4ea"/>
+<rect x="654" y="386" width="22" height="15" fill="#dce8f4"/>
+<rect x="676" y="386" width="22" height="15" fill="#93b8db"/>
+<rect x="698" y="386" width="22" height="15" fill="#f4f7fb"/>
+<rect x="720" y="386" width="22" height="15" fill="#3d78b2"/>
+<rect x="742" y="386" width="22" height="15" fill="#0d3f6e"/>
+<rect x="764" y="386" width="22" height="15" fill="#0d3f6e"/>
+<rect x="786" y="386" width="22" height="15" fill="#3d78b2"/>
+<rect x="808" y="386" width="22" height="15" fill="#0d3f6e"/>
+<rect x="478" y="401" width="22" height="15" fill="#f4f7fb"/>
+<rect x="500" y="401" width="22" height="15" fill="#bcd4ea"/>
+<rect x="522" y="401" width="22" height="15" fill="#0d3f6e"/>
+<rect x="544" y="401" width="22" height="15" fill="#1a5896"/>
+<rect x="566" y="401" width="22" height="15" fill="#93b8db"/>
+<rect x="588" y="401" width="22" height="15" fill="#0d3f6e"/>
+<rect x="610" y="401" width="22" height="15" fill="#6699c9"/>
+<rect x="632" y="401" width="22" height="15" fill="#1a5896"/>
+<rect x="654" y="401" width="22" height="15" fill="#bcd4ea"/>
+<rect x="676" y="401" width="22" height="15" fill="#dce8f4"/>
+<rect x="698" y="401" width="22" height="15" fill="#93b8db"/>
+<rect x="720" y="401" width="22" height="15" fill="#dce8f4"/>
+<rect x="742" y="401" width="22" height="15" fill="#93b8db"/>
+<rect x="764" y="401" width="22" height="15" fill="#0d3f6e"/>
+<rect x="786" y="401" width="22" height="15" fill="#bcd4ea"/>
+<rect x="808" y="401" width="22" height="15" fill="#f4f7fb"/>
+<rect x="478" y="416" width="22" height="15" fill="#f4f7fb"/>
+<rect x="500" y="416" width="22" height="15" fill="#dce8f4"/>
+<rect x="522" y="416" width="22" height="15" fill="#1a5896"/>
+<rect x="544" y="416" width="22" height="15" fill="#bcd4ea"/>
+<rect x="566" y="416" width="22" height="15" fill="#bcd4ea"/>
+<rect x="588" y="416" width="22" height="15" fill="#f4f7fb"/>
+<rect x="610" y="416" width="22" height="15" fill="#0d3f6e"/>
+<rect x="632" y="416" width="22" height="15" fill="#93b8db"/>
+<rect x="654" y="416" width="22" height="15" fill="#dce8f4"/>
+<rect x="676" y="416" width="22" height="15" fill="#f4f7fb"/>
+<rect x="698" y="416" width="22" height="15" fill="#f4f7fb"/>
+<rect x="720" y="416" width="22" height="15" fill="#dce8f4"/>
+<rect x="742" y="416" width="22" height="15" fill="#3d78b2"/>
+<rect x="764" y="416" width="22" height="15" fill="#dce8f4"/>
+<rect x="786" y="416" width="22" height="15" fill="#f4f7fb"/>
+<rect x="808" y="416" width="22" height="15" fill="#93b8db"/>
+<text x="478" y="446" font-size="11.5" font-weight="700" fill="#4a4189">This is pure noise, z-scored by row.</text>
+<text x="478" y="466" font-size="11.5" fill="#666">Row scaling forces every gene to span the full colour range,</text>
+<text x="478" y="482" font-size="11.5" fill="#666">so a heatmap of random numbers looks structured.</text>
+<text x="478" y="502" font-size="11.5" font-weight="700" fill="#a8401d">⚠️ Ask: how were these genes selected, and scaled how?</text>
+</svg>

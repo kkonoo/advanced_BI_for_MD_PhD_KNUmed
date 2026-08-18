@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="460" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Six questions between "my gene came out on top" and "this is a target".</text>
+
+  <g>
+    <rect x="24" y="46" width="410" height="88" rx="9" fill="#ffffff" stroke="#1D9E75" stroke-width="1.8"/>
+    <circle cx="52" cy="74" r="12" fill="#1D9E75"/><text x="52" y="79" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+    <text x="74" y="79" font-size="13" font-weight="700" fill="#4A3D6B">Does human genetics support it?</text>
+    <text x="74" y="102" font-size="12" fill="#666">MR or a coding variant with the expected direction.</text>
+    <text x="74" y="122" font-size="12" font-weight="700" fill="#0F6E56">✅ The single strongest predictor of eventual approval.</text>
+
+    <rect x="446" y="46" width="410" height="88" rx="9" fill="#ffffff" stroke="#534AB7" stroke-width="1.8"/>
+    <circle cx="474" cy="74" r="12" fill="#534AB7"/><text x="474" y="79" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+    <text x="496" y="79" font-size="13" font-weight="700" fill="#4A3D6B">Which direction, and in which cell?</text>
+    <text x="496" y="102" font-size="12" fill="#666">Up in disease → inhibit. Down → the target may be protective.</text>
+    <text x="496" y="122" font-size="12" font-weight="700" fill="#a8401d">⚠️ Backwards here means a drug that worsens the disease.</text>
+
+    <rect x="24" y="146" width="410" height="88" rx="9" fill="#ffffff" stroke="#185FA5" stroke-width="1.8"/>
+    <circle cx="52" cy="174" r="12" fill="#185FA5"/><text x="52" y="179" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+    <text x="74" y="179" font-size="13" font-weight="700" fill="#4A3D6B">Is it expressed where you need it?</text>
+    <text x="74" y="202" font-size="12" fill="#666">Right tissue, right cell type, and reachable by a drug.</text>
+    <text x="74" y="222" font-size="12" font-weight="700" fill="#a8401d">⚠️ Behind the blood–brain barrier is a different project.</text>
+
+    <rect x="446" y="146" width="410" height="88" rx="9" fill="#ffffff" stroke="#BA7517" stroke-width="1.8"/>
+    <circle cx="474" cy="174" r="12" fill="#BA7517"/><text x="474" y="179" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+    <text x="496" y="179" font-size="13" font-weight="700" fill="#4A3D6B">Is it tractable at all?</text>
+    <text x="496" y="202" font-size="12" fill="#666">Small molecule, antibody, or neither. Open Targets scores this.</text>
+    <text x="496" y="222" font-size="12" font-weight="700" fill="#8a6a1f">⚠️ Most transcription factors are still "neither".</text>
+
+    <rect x="24" y="246" width="410" height="88" rx="9" fill="#ffffff" stroke="#D85A30" stroke-width="1.8"/>
+    <circle cx="52" cy="274" r="12" fill="#D85A30"/><text x="52" y="279" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">5</text>
+    <text x="74" y="279" font-size="13" font-weight="700" fill="#4A3D6B">What else does it do?</text>
+    <text x="74" y="302" font-size="12" fill="#666">PheWAS on the variant; phenotypes of natural LoF carriers.</text>
+    <text x="74" y="322" font-size="12" font-weight="700" fill="#0F6E56">✅ Human knockouts are a free safety readout. Use them.</text>
+
+    <rect x="446" y="246" width="410" height="88" rx="9" fill="#ffffff" stroke="#5B4D80" stroke-width="1.8"/>
+    <circle cx="474" cy="274" r="12" fill="#5B4D80"/><text x="474" y="279" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">6</text>
+    <text x="496" y="279" font-size="13" font-weight="700" fill="#4A3D6B">Would it change management?</text>
+    <text x="496" y="302" font-size="12" fill="#666">Against current standard of care, in the patients you actually see.</text>
+    <text x="496" y="322" font-size="12" font-weight="700" fill="#4A3D6B">💡 Only you can answer this one.</text>
+  </g>
+
+  <rect x="24" y="350" width="832" height="88" rx="9" fill="#f3f0f7" stroke="#5B4D80" stroke-width="1.5"/>
+  <text x="48" y="374" font-size="13" font-weight="700" fill="#4A3D6B">Where the six questions come from</text>
+  <text x="48" y="398" font-size="12.5" fill="#555">1–2 → W3 (MR, direction of effect) · 3 → W5 &amp; W7 (cell type, tissue location) · 4–5 → Open Targets, gnomAD, PheWAS · 6 → your clinic.</text>
+  <text x="48" y="420" font-size="12.5" fill="#555">✅ A capstone that answers all six for one gene is a complete piece of work, even if the answer to question 6 turns out to be "no".</text>
+</svg>

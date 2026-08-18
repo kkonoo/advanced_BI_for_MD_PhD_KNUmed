@@ -1,21 +1,70 @@
 project:
   type: website
   execute-dir: project
-  # output-dir: _site
+  output-dir: _site
+  resources:
+    - _extensions/ai-chat/ai-chat.js
+    - assets/img/**
+
+  # 렌더 대상을 명시 — 이 목록에 없는 .qmd 는 빌드하지 않음
+  # (examples/ 는 이전 학기 자료라 제외)
+  render:
+    - index.qmd
+    - chapters/part1/w1_intro.qmd
+    - chapters/part1/w2_scripts_ai.qmd
+    - chapters/part2/w3_gwas.qmd
+    - chapters/part2/w4_prs.qmd
+    - chapters/part3/w5_scrna_qc.qmd
+    - chapters/part3/w6_scrna_dynamics.qmd
+    - chapters/part4/w7_spatial_basics.qmd
+    - chapters/part4/w8_spatial_integration.qmd
+    - chapters/part5/w9_proteomics_tech.qmd
+    - chapters/part5/w10_clinical_proteomics.qmd
+    - chapters/part6/w11_multiomics.qmd
+    - chapters/part6/w12_network_drug.qmd
+    - chapters/part7/w13_visualization.qmd
+    - chapters/part7/w14_project_design.qmd
 
 
 website:
-  title: "advanced BI"          # ← 변경
-  description: "융합형 의사과학자 양성 사업"           # ← 변경
+  favicon: assets/img/favicon.ico
+  page-navigation: true          # 챕터 하단에 이전/다음 주차 링크
+
   navbar:
-    logo: images/logo.jpg
-    favicon: assets/img/logo.ico
+    logo: assets/img/logo.jpg
     left:
       - href: index.qmd
         text: Home
-    right:
-      - icon: github
-        href: https://github.com/kkonoo/advanced_BI_for_MD_PhD_KNUmed/
+      - text: "Weeks"
+        menu:
+          - href: chapters/part1/w1_intro.qmd
+            text: "W1 · Introduction & Roadmap"
+          - href: chapters/part1/w2_scripts_ai.qmd
+            text: "W2 · Scripts, AI & Reproducibility"
+          - href: chapters/part2/w3_gwas.qmd
+            text: "W3 · GWAS & Post-GWAS"
+          - href: chapters/part2/w4_prs.qmd
+            text: "W4 · Polygenic Risk Scores"
+          - href: chapters/part3/w5_scrna_qc.qmd
+            text: "W5 · scRNA-seq: QC & Clustering"
+          - href: chapters/part3/w6_scrna_dynamics.qmd
+            text: "W6 · Trajectory, CCC & Integration"
+          - href: chapters/part4/w7_spatial_basics.qmd
+            text: "W7 · Spatial Transcriptomics"
+          - href: chapters/part4/w8_spatial_integration.qmd
+            text: "W8 · Deconvolution & Integration"
+          - href: chapters/part5/w9_proteomics_tech.qmd
+            text: "W9 · Proteomics Technology"
+          - href: chapters/part5/w10_clinical_proteomics.qmd
+            text: "W10 · Clinical Proteomics"
+          - href: chapters/part6/w11_multiomics.qmd
+            text: "W11 · Multi-omics Integration"
+          - href: chapters/part6/w12_network_drug.qmd
+            text: "W12 · Network & Drug Targets"
+          - href: chapters/part7/w13_visualization.qmd
+            text: "W13 · Interpretation & Visualisation"
+          - href: chapters/part7/w14_project_design.qmd
+            text: "W14 · Project Design"
 
   sidebar:
     style: "floating"
@@ -23,21 +72,48 @@ website:
     contents:
       - text: "Home"
         href: index.qmd
-      - section: "1. Intro"
+      - section: "1 · Intro"
         contents:
-          - chapters/part1/w1_intro.qmd
-      - section: "2. Genomics"
+          - href: chapters/part1/w1_intro.qmd
+            text: "W1. Introduction & Roadmap"
+          - href: chapters/part1/w2_scripts_ai.qmd
+            text: "W2. Scripts, AI & Reproducibility"
+      - section: "2 · Clinical Genomics"
         contents:
-          - chapters/part2/w2_gwas.qmd
-      - section: "3. Omics"
+          - href: chapters/part2/w3_gwas.qmd
+            text: "W3. GWAS & Post-GWAS"
+          - href: chapters/part2/w4_prs.qmd
+            text: "W4. Polygenic Risk Scores"
+      - section: "3 · Single-cell"
         contents:
-          - chapters/part3/w4_epigenomics_methylation.qmd
-      - section: "4. Multi-Omics"
+          - href: chapters/part3/w5_scrna_qc.qmd
+            text: "W5. Technology, QC, Clustering"
+          - href: chapters/part3/w6_scrna_dynamics.qmd
+            text: "W6. Trajectory, Communication, Integration"
+      - section: "4 · Spatial"
         contents:
-          - chapters/part4/w11_multiomics.qmd
-      - section: "5. Capstone"
+          - href: chapters/part4/w7_spatial_basics.qmd
+            text: "W7. Spatial Transcriptomics"
+          - href: chapters/part4/w8_spatial_integration.qmd
+            text: "W8. Deconvolution & Integration"
+      - section: "5 · Proteomics"
         contents:
-          - chapters/part5/w13_visualization.qmd
+          - href: chapters/part5/w9_proteomics_tech.qmd
+            text: "W9. How Proteins Are Measured"
+          - href: chapters/part5/w10_clinical_proteomics.qmd
+            text: "W10. Clinical Proteomics & Biomarkers"
+      - section: "6 · Integration"
+        contents:
+          - href: chapters/part6/w11_multiomics.qmd
+            text: "W11. Multi-omics Integration"
+          - href: chapters/part6/w12_network_drug.qmd
+            text: "W12. Network Analysis & Drug Targets"
+      - section: "7 · Capstone"
+        contents:
+          - href: chapters/part7/w13_visualization.qmd
+            text: "W13. Interpretation & Visualisation"
+          - href: chapters/part7/w14_project_design.qmd
+            text: "W14. Designing Your Own Project"
 
   page-footer:
     left: "Copyright 2026, Eunji"
@@ -54,24 +130,20 @@ format:
     toc-float: true
     page-layout: full
 
-    code-fold: false  
+    code-fold: false
     code-copy: true
-    highlight-style: github 
+    highlight-style: github
 
     number-sections: false
     smooth-scroll: true
 
-    grid:                       
+    grid:
       sidebar-width: 300px
       body-width: 1000px
       margin-width: 280px # toc
 
     # AI 채팅 위젯 전역 설정
     include-after-body: assets/ai-chat-init.html
-
-  revealjs:
-    css: assets/revealjs.css    # 슬라이드용
-    scrollable: true
 
 
 execute:
@@ -80,4 +152,3 @@ execute:
   eval: false
   warning: false
   message: false
-

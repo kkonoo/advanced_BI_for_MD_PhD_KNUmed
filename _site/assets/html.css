@@ -9,25 +9,60 @@ body {
   font-weight: 500;  /* Medium */
 }
 
-/* 소제목 색상 */
-h2 {
-  color: #5B4D80; font-size: 1.4em;
+/* ── 제목 ──────────────────────────────────────
+   h1(대제목)에만 배경. h2 이하는 배경 없음.
+   :not(.title) 로 문서 제목 블록은 제외.        */
+
+h1:not(.title) {
+  color: #4A3D6B;
+  font-size: 1.6em;
+  font-weight: 700;
   background-color: #f3f0f7;
-  padding: 0.3em;
+  padding: 0.4em 0.6em;
   border-radius: 8px;
-  margin: 0.3em 0; /* 상하만 margin, 좌우는 0 */
+  margin: 1.6em 0 0.7em;
 }
+
+h2 {
+  color: #5B4D80;
+  font-size: 1.35em;
+  font-weight: 600;
+  background: none;          /* 배경 제거 */
+  border-left: 4px solid #cfc4e2;
+  padding: 0 0 0 0.55em;
+  border-radius: 0;
+  margin: 1.3em 0 0.45em;
+}
+
 h3 {
-  color: #7A6A99; font-size: 1.25em;
-  /* background-color: #fbfaff; /* h2보다 훨씬 연하게 */ /*
-  padding: 0.3em;
-  border-radius: 6px;
-  margin: 0.2em 0;
+  color: #7A6A99;
+  font-size: 1.2em;
+  font-weight: 600;
+  background: none;
+  padding: 0;
+  margin: 1.0em 0 0.35em;
 }
-h4 { 
-  color: #5B4D80; font-size: 1.2em;  /* #9A8DB5 */
-  border-radius: 4px; font-weight: 600;  /* SemiBold */
-  margin: 0.2em 0;
+
+h4, h5 {
+  color: #5B4D80;
+  font-size: 1.1em;
+  font-weight: 600;
+  background: none;
+  padding: 0;
+  margin: 0.8em 0 0.3em;
+}
+
+/* callout 제목은 h2/h3 로 쓰지만 헤딩 스타일을 상속하지 않게 */
+.callout h2,
+.callout h3,
+.callout-title-container h2,
+.callout-title-container h3 {
+  background: none;
+  border-left: none;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  color: inherit;
 }
 
 

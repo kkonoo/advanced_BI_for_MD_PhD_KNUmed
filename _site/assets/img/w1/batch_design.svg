@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="400" fill="#fcfcfb"/>
+
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">The one design mistake that cannot be fixed afterwards.</text>
+
+  <!-- legend -->
+  <rect x="620" y="14" width="16" height="16" rx="3" fill="#D85A30"/>
+  <text x="642" y="27" font-size="12.5" fill="#555">P  patient</text>
+  <rect x="722" y="14" width="16" height="16" rx="3" fill="#185FA5"/>
+  <text x="744" y="27" font-size="12.5" fill="#555">C  control</text>
+
+  <!-- ══ PANEL A: confounded ══ -->
+  <rect x="24" y="48" width="400" height="242" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="2"/>
+  <rect x="24" y="48" width="400" height="42" rx="10" fill="#fbeee8"/>
+  <rect x="24" y="80" width="400" height="10" fill="#fbeee8"/>
+  <text x="48" y="76" font-size="14.5" font-weight="700" fill="#a8401d">❌ Confounded</text>
+  <text x="400" y="76" font-size="12.5" fill="#b58272" text-anchor="end">"we ran the patients first"</text>
+
+  <!-- batch 1 -->
+  <text x="48" y="116" font-size="12.5" font-weight="700" fill="#5B4D80">Run 1 · March</text>
+  <g>
+    <rect x="48" y="126" width="26" height="26" rx="4" fill="#D85A30"/><text x="61" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+    <rect x="82" y="126" width="26" height="26" rx="4" fill="#D85A30"/><text x="95" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+    <rect x="116" y="126" width="26" height="26" rx="4" fill="#D85A30"/><text x="129" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+    <rect x="150" y="126" width="26" height="26" rx="4" fill="#D85A30"/><text x="163" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+    <rect x="184" y="126" width="26" height="26" rx="4" fill="#D85A30"/><text x="197" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+    <rect x="218" y="126" width="26" height="26" rx="4" fill="#D85A30"/><text x="231" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+    <rect x="252" y="126" width="26" height="26" rx="4" fill="#D85A30"/><text x="265" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+    <rect x="286" y="126" width="26" height="26" rx="4" fill="#D85A30"/><text x="299" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+  </g>
+
+  <!-- batch 2 -->
+  <text x="48" y="182" font-size="12.5" font-weight="700" fill="#5B4D80">Run 2 · September</text>
+  <g>
+    <rect x="48" y="192" width="26" height="26" rx="4" fill="#185FA5"/><text x="61" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    <rect x="82" y="192" width="26" height="26" rx="4" fill="#185FA5"/><text x="95" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    <rect x="116" y="192" width="26" height="26" rx="4" fill="#185FA5"/><text x="129" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    <rect x="150" y="192" width="26" height="26" rx="4" fill="#185FA5"/><text x="163" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    <rect x="184" y="192" width="26" height="26" rx="4" fill="#185FA5"/><text x="197" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    <rect x="218" y="192" width="26" height="26" rx="4" fill="#185FA5"/><text x="231" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    <rect x="252" y="192" width="26" height="26" rx="4" fill="#185FA5"/><text x="265" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    <rect x="286" y="192" width="26" height="26" rx="4" fill="#185FA5"/><text x="299" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+  </g>
+
+  <line x1="48" y1="238" x2="400" y2="238" stroke="#f0ded6" stroke-width="1.5"/>
+  <text x="48" y="260" font-size="12.5" fill="#a05a3f">Disease effect and run effect are the <tspan font-weight="700">same number</tspan>.</text>
+  <text x="48" y="278" font-size="12.5" font-weight="700" fill="#a8401d">No statistical method can separate them. Ever.</text>
+
+  <!-- ══ PANEL B: randomized ══ -->
+  <rect x="456" y="48" width="400" height="242" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="2"/>
+  <rect x="456" y="48" width="400" height="42" rx="10" fill="#e8f5f0"/>
+  <rect x="456" y="80" width="400" height="10" fill="#e8f5f0"/>
+  <text x="480" y="76" font-size="14.5" font-weight="700" fill="#0F6E56">✅ Balanced</text>
+  <text x="832" y="76" font-size="12.5" fill="#7fa89a" text-anchor="end">"every run has both"</text>
+
+  <text x="480" y="116" font-size="12.5" font-weight="700" fill="#5B4D80">Run 1 · March</text>
+  <g>
+    <rect x="480" y="126" width="26" height="26" rx="4" fill="#D85A30"/><text x="493" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+    <rect x="514" y="126" width="26" height="26" rx="4" fill="#185FA5"/><text x="527" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    <rect x="548" y="126" width="26" height="26" rx="4" fill="#185FA5"/><text x="561" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    <rect x="582" y="126" width="26" height="26" rx="4" fill="#D85A30"/><text x="595" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+    <rect x="616" y="126" width="26" height="26" rx="4" fill="#D85A30"/><text x="629" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+    <rect x="650" y="126" width="26" height="26" rx="4" fill="#185FA5"/><text x="663" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    <rect x="684" y="126" width="26" height="26" rx="4" fill="#185FA5"/><text x="697" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    <rect x="718" y="126" width="26" height="26" rx="4" fill="#D85A30"/><text x="731" y="144" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+  </g>
+
+  <text x="480" y="182" font-size="12.5" font-weight="700" fill="#5B4D80">Run 2 · September</text>
+  <g>
+    <rect x="480" y="192" width="26" height="26" rx="4" fill="#185FA5"/><text x="493" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    <rect x="514" y="192" width="26" height="26" rx="4" fill="#D85A30"/><text x="527" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+    <rect x="548" y="192" width="26" height="26" rx="4" fill="#D85A30"/><text x="561" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+    <rect x="582" y="192" width="26" height="26" rx="4" fill="#185FA5"/><text x="595" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    <rect x="616" y="192" width="26" height="26" rx="4" fill="#185FA5"/><text x="629" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    <rect x="650" y="192" width="26" height="26" rx="4" fill="#D85A30"/><text x="663" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+    <rect x="684" y="192" width="26" height="26" rx="4" fill="#D85A30"/><text x="697" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">P</text>
+    <rect x="718" y="192" width="26" height="26" rx="4" fill="#185FA5"/><text x="731" y="210" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+  </g>
+
+  <line x1="480" y1="238" x2="832" y2="238" stroke="#cfe6dd" stroke-width="1.5"/>
+  <text x="480" y="260" font-size="12.5" fill="#3d7a68">The run effect is still there — but now it is <tspan font-weight="700">estimable</tspan>.</text>
+  <text x="480" y="278" font-size="12.5" font-weight="700" fill="#0F6E56">Add run as a covariate and move on.</text>
+
+  <!-- footer -->
+  <rect x="24" y="316" width="832" height="62" rx="8" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="48" y="340" font-size="13" fill="#555">This costs nothing at the design stage and is unrecoverable afterwards. The same logic applies to</text>
+  <text x="48" y="362" font-size="13" fill="#555">extraction day, kit lot, operator, storage time, and which hospital the sample came from.</text>
+</svg>

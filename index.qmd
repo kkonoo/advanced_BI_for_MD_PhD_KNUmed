@@ -1,5 +1,5 @@
 ---
-title: "advanced bioinformatics (융합형 의사과학자 양성 사업)"
+title: "Advanced Bioinformatics (융합형 의사과학자 양성 사업)"
 sidebar: false
 author: "Eunji Ha"
 affiliation: 'School of Medicine, Kyungpook National Univ.'
@@ -9,39 +9,69 @@ editor: visual
 categories: [의학연구, bioinformatics, R, Omics]
 ---
 
-## Course overview
+## What this course is for
 
--   **Acquisition of Practical Bioinformatics Analysis Skills**
+Last semester you learned to take a tissue, get counts, and produce a ranked gene list. That is a real skill.
 
-    ✅ What is RNA-seq data and how to analyze them
+This course is about the layer above it: **being able to tell when an omics result is wrong.**
 
-    ✅ Understanding fundamental statistics
+::: {.callout-note collapse="true"}
+## Two kinds of depth, and which one this course teaches
 
-    ✅ How to interpret and visualize the results
+**Execution depth** — tuning a doublet detector, building an LD reference panel, implementing spot deconvolution. That is a full-time job, and it belongs to your bioinformatician.
 
--   **Enhanced Data Convergence Capability for Translational Research**
+**Judgment depth** — is n = 3 patients or 30,000 cells the real n? Was this polygenic score built on people like my patients? Does this UMAP support the sentence next to it? Would this change what I do on Monday?
 
-    ✅ How to link omics data to clinical data
+→ This course lives on the second. Code appears so that you can **read it and doubt it**, not so that you maintain it.
 
-    ✅ How to explore public data of interest
+❌ It does not promise that you will run a spatial deconvolution pipeline unsupervised after fourteen sessions.\
+✅ It does promise that you will never again be the person in the room who cannot evaluate the analysis their own name will appear on.
+:::
 
-    ✅ What would be promising targets
+## What you should be able to do in December
+
+-   ✅ Read a methods section and say **what was actually done**, including what was quietly not done
+-   ✅ Check whether public data already answers your question, before writing a grant to generate it
+-   ✅ Sit in a study-design meeting and stop an unrecoverable mistake
+-   ✅ Say why a published finding might not hold in Korean patients
+-   ✅ Present a data-supported research proposal at the final session
 
 ## Syllabus
 
 | Module | Week | Contents | Key tools |
-|----|----|----|----|
-| **Intro** | W1 | Review + Roadmap + R env | R, Bioconductor |
-| **Clinical Genomics** | W2 | GWAS & Post-GWAS | PLINK, LocusZoom |
-|  | W3 | PRS & Clinical application | PGPRSice, LDPred2 |
-| **Single-cell** | W4 | scRNA-seq tech, QC, Clustering | Seurat, scanpy |
-|  | W5 | Trajectory & Cell-cell communication | Monocle, CellChat |
-| **Spatial** | W6 | Spatial Transcriptomics 기초 | Seurat, Squidpy |
-|  | W7 | Spatial + scRNA integration, Deconvolution | CARD, SPOTlight |
-| **Proteomics** | W8 | MS/NGS-based Proteomics | theory |
-|  | W9 | Clinical proteomics & Biomarker | limma, MSstats |
-| **Integration** | W10 | Multi-omics integration | MOFA+, mixOmics |
-|  | W11 | Network & Drug target discovery | STRING, igraph |
-| **Capstone** | W12 | Result intepretation & visualization | ggplot2, Rmarkdown |
-|  | W13 | Rscript & vibe coding tips | — |
-|  | W14 | Individual project design | — |
+|-----------------|--------|--------------------------|------------------|
+| **Intro** | [W1](chapters/part1/w1_intro.qmd) | Review, roadmap, study design before any data exists | R, Bioconductor |
+|  | [W2](chapters/part1/w2_scripts_ai.qmd) | R scripts, AI-assisted coding, reproducibility | Quarto, git |
+| **Clinical Genomics** | [W3](chapters/part2/w3_gwas.qmd) | GWAS & post-GWAS | GWAS Catalog, Open Targets |
+|  | [W4](chapters/part2/w4_prs.qmd) | Polygenic risk scores & clinical application | PGS Catalog, PRSice-2 |
+| **Single-cell** | [W5](chapters/part3/w5_scrna_qc.qmd) | scRNA-seq technology, QC, clustering | Seurat, scanpy |
+|  | [W6](chapters/part3/w6_scrna_dynamics.qmd) | Trajectory, cell–cell communication, integration | Monocle3, CellChat, Harmony |
+| **Spatial** | [W7](chapters/part4/w7_spatial_basics.qmd) | Spatial transcriptomics — the basics | Seurat, Squidpy |
+|  | [W8](chapters/part4/w8_spatial_integration.qmd) | Deconvolution & spatial integration | RCTD, cell2location, CARD |
+| **Proteomics** | [W9](chapters/part5/w9_proteomics_tech.qmd) | How proteins are actually measured | MS, Olink, SomaScan |
+|  | [W10](chapters/part5/w10_clinical_proteomics.qmd) | Clinical proteomics & biomarkers | limma, MSstats |
+| **Integration** | [W11](chapters/part6/w11_multiomics.qmd) | Multi-omics integration | MOFA+, mixOmics |
+|  | [W12](chapters/part6/w12_network_drug.qmd) | Network analysis & drug targets | STRING, igraph, Open Targets |
+| **Capstone** | [W13](chapters/part7/w13_visualization.qmd) | Interpretation & visualisation | ggplot2, clusterProfiler |
+|  | [W14](chapters/part7/w14_project_design.qmd) | Designing your own project | — |
+
+## How each chapter is built
+
+Every week follows the same shape, so you know where to look:
+
+-   🎯 **Learning objectives** — what you should be able to do afterwards
+-   🤔 **Motivating question** — a clinical situation, answered by the end of the chapter
+-   ⚠️ **Warnings** — the specific ways this method misleads people, marked throughout
+-   💻 **Hands-on** — usually starting with a browser exercise that needs no code
+-   📝 **Summary** · 🔑 **Key terms** · ➕ **References**
+
+💡 Sections marked ⚠️ are the ones worth reading twice. They are where results go wrong quietly.
+
+## Before the first session
+
+```{r}
+install.packages(c("tidyverse", "BiocManager", "here", "renv"))
+BiocManager::install(c("DESeq2", "SingleR", "celldex"))
+```
+
+Bring one disease you actually treat. We use it throughout.

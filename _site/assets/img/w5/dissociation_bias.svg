@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="440" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Dissociation is an experiment you did not intend to run.</text>
+
+  <!-- BEFORE -->
+  <rect x="24" y="46" width="252" height="222" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="46" y="72" font-size="13" font-weight="700" fill="#4A3D6B">In the tissue</text>
+  <circle cx="80"  cy="112" r="20" fill="#534AB7"/><text x="80" y="117" font-size="10" fill="#fff" text-anchor="middle">neuron</text>
+  <circle cx="150" cy="112" r="22" fill="#BA7517"/><text x="150" y="117" font-size="10" fill="#fff" text-anchor="middle">adipo</text>
+  <circle cx="216" cy="110" r="18" fill="#D85A30"/><text x="216" y="114" font-size="9.5" fill="#fff" text-anchor="middle">cardio</text>
+  <circle cx="76"  cy="168" r="9" fill="#185FA5"/>
+  <circle cx="102" cy="172" r="9" fill="#185FA5"/>
+  <circle cx="128" cy="166" r="9" fill="#185FA5"/>
+  <circle cx="154" cy="174" r="9" fill="#185FA5"/>
+  <circle cx="180" cy="166" r="9" fill="#185FA5"/>
+  <circle cx="206" cy="172" r="9" fill="#185FA5"/>
+  <text x="46" y="206" font-size="11.5" fill="#8A7FA3">large / fragile: 3 &#183; small / robust: 6</text>
+  <text x="46" y="230" font-size="11.5" font-weight="700" fill="#0F6E56">this is the real composition</text>
+  <text x="46" y="252" font-size="11.5" fill="#8A7FA3">and the one you want to report</text>
+
+  <!-- PROCESS -->
+  <path d="M284 152 L316 152" stroke="#b9b0cc" stroke-width="2"/>
+  <path d="M324 152 l-9 -5 v10 z" fill="#b9b0cc"/>
+  <rect x="292" y="86" width="112" height="132" rx="9" fill="#fbf7ee" stroke="#BA7517" stroke-width="1.8"/>
+  <text x="348" y="110" font-size="12" font-weight="700" fill="#8a6a1f" text-anchor="middle">enzymatic</text>
+  <text x="348" y="128" font-size="12" font-weight="700" fill="#8a6a1f" text-anchor="middle">dissociation</text>
+  <text x="348" y="154" font-size="12" fill="#7a5f2a" text-anchor="middle">37 °C</text>
+  <text x="348" y="172" font-size="12" fill="#7a5f2a" text-anchor="middle">30–60 min</text>
+  <text x="348" y="198" font-size="11" fill="#a08850" text-anchor="middle">cells are alive</text>
+  <path d="M412 152 L444 152" stroke="#b9b0cc" stroke-width="2"/>
+  <path d="M452 152 l-9 -5 v10 z" fill="#b9b0cc"/>
+
+  <!-- AFTER -->
+  <rect x="460" y="46" width="396" height="222" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="2"/>
+  <text x="482" y="72" font-size="13" font-weight="700" fill="#a8401d">What reaches the sequencer</text>
+  <circle cx="516" cy="112" r="20" fill="#efeaf5" stroke="#c9c2d8" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <circle cx="586" cy="112" r="22" fill="#efeaf5" stroke="#c9c2d8" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <circle cx="652" cy="110" r="18" fill="#efeaf5" stroke="#c9c2d8" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="584" y="145" font-size="11.5" font-weight="700" fill="#a8401d" text-anchor="middle">destroyed during dissociation</text>
+  <circle cx="512" cy="182" r="9" fill="#185FA5"/>
+  <circle cx="538" cy="186" r="9" fill="#185FA5"/>
+  <circle cx="564" cy="180" r="9" fill="#185FA5"/>
+  <circle cx="590" cy="188" r="9" fill="#185FA5"/>
+  <circle cx="616" cy="180" r="9" fill="#185FA5"/>
+  <circle cx="642" cy="186" r="9" fill="#185FA5"/>
+  <rect x="686" y="96" width="150" height="104" rx="7" fill="#fbeee8"/>
+  <text x="702" y="118" font-size="11.5" font-weight="700" fill="#a8401d">⚠️ and the survivors</text>
+  <text x="702" y="136" font-size="11.5" font-weight="700" fill="#a8401d">are not unchanged</text>
+  <text x="702" y="160" font-size="11.5" fill="#a05a3f">stress genes induced:</text>
+  <text x="702" y="180" font-family="monospace" font-size="11.5" font-weight="700" fill="#a8401d">FOS JUN HSPA1A</text>
+  <text x="482" y="230" font-size="12" fill="#666">Composition now reads: large 0 · small 6.</text>
+  <text x="482" y="252" font-size="12" font-weight="700" fill="#a8401d">You are measuring what survived, not what was there.</text>
+
+  <!-- decision row -->
+  <rect x="24" y="284" width="832" height="78" rx="9" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="48" y="308" font-size="13" font-weight="700" fill="#0F6E56">✅ snRNA-seq avoids all of this — nuclei do not respond, and they survive freezing</text>
+  <text x="48" y="330" font-size="12.5" fill="#3d7a68">Frozen tissue · neurons, adipocytes, cardiomyocytes, myofibres → snRNA-seq is not a compromise, it is the correct choice.</text>
+  <text x="48" y="352" font-size="12.5" fill="#7fa89a">⚠️ The cost you accept in return: cytoplasmic transcripts are missed, and intronic reads dominate.</text>
+
+  <!-- footer -->
+  <rect x="24" y="374" width="832" height="56" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
+  <text x="48" y="396" font-size="13" font-weight="700" fill="#7a5f2a">💡 The question to ask any paper reporting a depleted cell type in disease:</text>
+  <text x="48" y="418" font-size="13" fill="#7a5f2a">is that cell type simply harder to dissociate from diseased, fibrotic tissue than from healthy tissue?</text>
+</svg>

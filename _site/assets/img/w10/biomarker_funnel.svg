@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 548" width="880" height="548" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<rect width="880" height="548" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Why almost nothing survives from discovery to the clinic.</text>
+<rect x="24" y="78" width="832" height="72" rx="8" fill="#ffffff" stroke="#185FA5" stroke-width="1.8"/>
+<rect x="24" y="78" width="6" height="72" rx="3" fill="#185FA5"/>
+<text x="48" y="106" font-size="13.5" font-weight="700" fill="#4A3D6B">Discovery</text>
+<text x="48" y="128" font-size="11.5" fill="#8A7FA3">MS, untargeted &#183; n = 20&#8211;40</text>
+<text x="48" y="144" font-size="11.5" fill="#888">hundreds look significant</text>
+<rect x="420" y="100" width="300" height="26" rx="4" fill="#f1eef7"/>
+<rect x="420" y="100" width="300" height="26" rx="4" fill="#185FA5"/>
+<text x="736" y="119" font-size="12.5" font-weight="700" fill="#185FA5">~5,000 proteins</text>
+<path d="M440 150 L440 160" stroke="#c9c2d8" stroke-width="2"/>
+<path d="M440 166 l-5 -8 h10 z" fill="#c9c2d8"/>
+<rect x="24" y="172" width="832" height="72" rx="8" fill="#ffffff" stroke="#BA7517" stroke-width="1.8"/>
+<rect x="24" y="172" width="6" height="72" rx="3" fill="#BA7517"/>
+<text x="48" y="200" font-size="13.5" font-weight="700" fill="#4A3D6B">Verification</text>
+<text x="48" y="222" font-size="11.5" fill="#8A7FA3">targeted panel &#183; n = 100&#8211;200</text>
+<text x="48" y="238" font-size="11.5" fill="#888">most fail right here</text>
+<rect x="420" y="194" width="300" height="26" rx="4" fill="#f1eef7"/>
+<rect x="420" y="194" width="126" height="26" rx="4" fill="#BA7517"/>
+<text x="736" y="213" font-size="12.5" font-weight="700" fill="#BA7517">~50 candidates</text>
+<path d="M440 244 L440 254" stroke="#c9c2d8" stroke-width="2"/>
+<path d="M440 260 l-5 -8 h10 z" fill="#c9c2d8"/>
+<rect x="24" y="266" width="832" height="72" rx="8" fill="#ffffff" stroke="#1D9E75" stroke-width="1.8"/>
+<rect x="24" y="266" width="6" height="72" rx="3" fill="#1D9E75"/>
+<text x="48" y="294" font-size="13.5" font-weight="700" fill="#4A3D6B">Validation</text>
+<text x="48" y="316" font-size="11.5" fill="#8A7FA3">independent cohort &#183; n = 500+</text>
+<text x="48" y="332" font-size="11.5" fill="#888">different hospital, different collection</text>
+<rect x="420" y="288" width="300" height="26" rx="4" fill="#f1eef7"/>
+<rect x="420" y="288" width="48" height="26" rx="4" fill="#1D9E75"/>
+<text x="736" y="307" font-size="12.5" font-weight="700" fill="#1D9E75">~5 candidates</text>
+<path d="M440 338 L440 348" stroke="#c9c2d8" stroke-width="2"/>
+<path d="M440 354 l-5 -8 h10 z" fill="#c9c2d8"/>
+<rect x="24" y="360" width="832" height="72" rx="8" fill="#ffffff" stroke="#534AB7" stroke-width="1.8"/>
+<rect x="24" y="360" width="6" height="72" rx="3" fill="#534AB7"/>
+<text x="48" y="388" font-size="13.5" font-weight="700" fill="#4A3D6B">Clinical use</text>
+<text x="48" y="410" font-size="11.5" fill="#8A7FA3">regulated assay, trial &#183; n = 1,000s</text>
+<text x="48" y="426" font-size="11.5" fill="#888">does it change management?</text>
+<rect x="420" y="382" width="300" height="26" rx="4" fill="#f1eef7"/>
+<rect x="420" y="382" width="12" height="26" rx="4" fill="#534AB7"/>
+<text x="736" y="401" font-size="12.5" font-weight="700" fill="#534AB7">1, or none</text>
+<rect x="24" y="456" width="832" height="76" rx="9" fill="#fbeee8" stroke="#D85A30" stroke-width="1.8"/>
+<text x="48" y="482" font-size="13" font-weight="700" fill="#a8401d">&#9888;&#65039; The step almost everyone skips is the second one</text>
+<text x="48" y="504" font-size="12.5" fill="#a05a3f">A discovery study with n = 30 and 5,000 proteins will produce a beautiful ROC curve. It is a description of those 30 people.</text>
+<text x="48" y="524" font-size="12.5" font-weight="700" fill="#a8401d">&#9989; Publishing at the discovery stage is fine. Calling the result a biomarker is not.</text>
+</svg>
