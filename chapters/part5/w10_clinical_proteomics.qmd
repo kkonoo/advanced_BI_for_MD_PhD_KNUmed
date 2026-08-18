@@ -167,11 +167,15 @@ You do not need a new prospective cohort to start.
 
 ## 1) Handle the missingness deliberately {#w10-s5-1}
 
+⚠️ The dataset is simulated (patient specimens cannot be shared), and **batch is partly confounded with condition** — B1 holds 28 controls and 12 cases, B2 the reverse. That is deliberate: it is what a real banked cohort looks like, because cases and controls were collected at different times.
+
 ```{r}
 library(tidyverse); library(limma)
 
 prot <- readRDS(here::here("rawdata", "plasma_proteomics.rds"))  # proteins × samples, log2
 meta <- readRDS(here::here("rawdata", "plasma_meta.rds"))
+
+table(meta$batch, meta$condition)    # ⚠️ look at this before anything else
 
 # ⚠️ Look before deciding
 miss <- rowMeans(is.na(prot))
@@ -202,6 +206,7 @@ sum(res$adj.P.Val < 0.05)
 
 ```{r}
 # ① Drop batch from the design. How many hits change?
+#    (you should go from ~40 proteins to ~209 — that gap is 169 false positives)
 # ② Impute from a low distribution instead of filtering. Do the top 10 survive?
 # ③ Split by patient into train/test, fit on train, evaluate AUC on test.
 #    Compare that AUC with the one from the full dataset.

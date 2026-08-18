@@ -193,6 +193,9 @@ br <- SCTransform(br, assay = "Spatial", verbose = FALSE) |>
 # the two views that must always appear together
 DimPlot(br, reduction = "umap", label = TRUE) |
   SpatialDimPlot(br, label = TRUE, label.size = 3)
+
+# ✅ save it — W8 picks this object up
+saveRDS(br, here::here("analysis", "7_visium.rds"))
 ```
 
 ## 3) Spatially variable genes {#w7-s6-3}

@@ -67,6 +67,27 @@ Every week follows the same shape, so you know where to look:
 
 💡 Sections marked ⚠️ are the ones worth reading twice. They are where results go wrong quietly.
 
+## Practice data
+
+The hands-on code loads a handful of datasets. They are **not in this repository** —
+download `rawdata.zip` from the course link and unzip it at the top level of your
+project, next to your `.Rproj` file.
+
+| Source | Files | Weeks |
+|--------------------|-----------------------------|--------------|
+| Simulated | `prs_scores.tsv`, `plasma_proteomics.rds`, `plasma_meta.rds` | W4, W10 |
+| Real, public | `t2d_gwas_summary.tsv`, `pubmed_counts.rds` | W3, W12 |
+| Package data | `pbmc3k`, `stxBrain` — `SeuratData` fetches these for you | W5, W7 |
+| You make it | `analysis/5_pbmc_annotated.rds`, `analysis/7_visium.rds` | W5 → W6, W8 |
+
+⚠️ The simulated files are simulated because individual genotypes and patient
+specimens cannot be shared. They are **not random noise** — each one has the
+phenomenon that week teaches deliberately built into it, and the figures in the
+chapters were drawn from these exact files. See `DATA.md` for what is in each.
+
+💡 Both generator scripts are in `scripts/` and run on base R with no dependencies,
+so you can regenerate or modify everything yourself.
+
 ## Before the first session
 
 ```{r}

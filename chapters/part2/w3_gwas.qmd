@@ -318,29 +318,47 @@ Keep this for journal club:
 
 ## 4) If you want to touch summary statistics {#w3-s7-4}
 
-Optional. Public summary statistics have one row per variant and no individual genotypes, so they are freely shareable.
+Public summary statistics have one row per variant and no individual genotypes, so they are freely shareable. Download the study you chose in §7.1 — `scripts/download_public_data.R` handles the column-name mess for you.
 
 ```{r}
 library(tidyverse); library(qqman); library(here)
 
 gwas <- read_tsv(here("rawdata", "t2d_gwas_summary.tsv"))
 
-clean <- gwas |>
-  filter(!is.na(P), P > 0, P <= 1, FREQ > 0.01, FREQ < 0.99, INFO > 0.8)
+clean <- gwas |> filter(!is.na(P), P > 0, P <= 1, FREQ > 0.01, FREQ < 0.99)
 
 # λ first, always
-chisq  <- qchisq(clean$P, df = 1, lower.tail = FALSE)
-lambda <- median(chisq) / qchisq(0.5, df = 1)
-cat("lambda =", round(lambda, 3), "\n")
+lambda <- function(p) {
+  chisq <- qchisq(p, df = 1, lower.tail = FALSE)
+  median(chisq) / qchisq(0.5, df = 1)
+}
+cat("lambda =", round(lambda(clean$P), 3), "\n")
 
-qq(clean$P, main = paste0("QQ — T2D (λ = ", round(lambda, 3), ")"), col = "#185FA5")
+qq(clean$P, main = paste0("QQ — λ = ", round(lambda(clean$P), 3)), col = "#185FA5")
 
 manhattan(clean, chr = "CHR", bp = "BP", p = "P", snp = "SNP",
           col = c("#185FA5", "#9db8d1"),
           suggestiveline = -log10(1e-5), genomewideline = -log10(5e-8))
 ```
 
-✅ **Change one thing:** re-run after dropping the `INFO > 0.8` filter and watch λ move. That is imputation quality showing up as apparent signal.
+✅ **Change three things, and watch λ move each time:**
+
+```{r}
+# ① Drop the MHC — one enormous, hyper-polymorphic locus on chr6
+no_mhc <- clean |> filter(!(CHR == 6 & BP > 25e6 & BP < 34e6))
+cat("without MHC :", round(lambda(no_mhc$P), 3), "\n")
+
+# ② Common variants only — rarer variants are noisier and less well imputed
+common <- clean |> filter(FREQ > 0.05, FREQ < 0.95)
+cat("MAF > 5%    :", round(lambda(common$P), 3), "\n")
+
+# ③ ⚠️ λ scales with sample size. Rescale to a notional n = 1000 per group
+#    so it can be compared across studies at all
+n_eff  <- median(clean$N, na.rm = TRUE)
+cat("lambda_1000 :", round(1 + (lambda(clean$P) - 1) * 1000 / n_eff, 4), "\n")
+```
+
+💡 ③ is the one worth remembering. A large biobank GWAS can show λ = 1.15 and be perfectly well calibrated, because λ grows with n under genuine polygenicity. **λ₁₀₀₀ is what makes two studies comparable** — and its absence from a paper is a fair question.
 
 ## 5) Before next week {#w3-s7-5}
 

@@ -45,7 +45,7 @@ $$\text{PRS}_i = \sum_{j=1}^{M} \hat\beta_j \, G_{ij}$$
 A PRS does **not** tell you whether someone has a disease. It shifts a **pre-test probability** — the same thing a family history does, arrived at differently.
 
 | It is | It is not |
-|---------------------------------------------|--------------------------|
+|------------------------------------|------------------------------------|
 | A risk **indicator**, like LDL or a Framingham score | A **diagnosis** |
 | Fixed from birth, measured once | A monitoring biomarker |
 | **Modifiable in consequence** — statins work regardless of PRS | Deterministic |
@@ -120,7 +120,7 @@ A PRS **alone** reaching AUC 0.64 sounds respectable. Age and sex alone reach ab
 
 The only meaningful comparison:
 
-```         
+```
 Model A (clinical) : age + sex + BMI + family history + labs
 Model B (clinical + PRS)
 
@@ -135,8 +135,7 @@ Model B (clinical + PRS)
 
 ## 2) Calibration — the metric nobody shows {#w4-s3-2}
 
-**Discrimination** asks: does the model rank people correctly? \
-**Calibration** asks: are the predicted probabilities *right*?
+**Discrimination** asks: does the model rank people correctly? **Calibration** asks: are the predicted probabilities *right*?
 
 Of the people told "10% risk over 10 years", do about 10% develop the disease?
 
@@ -192,7 +191,7 @@ The standard framework for judging a genomic test:
 ## 2) What the trials actually show {#w4-s4-2}
 
 | Trial | Setting | What it found / is testing |
-|-----------------|-------------------|------------------------------------|
+|--------------|-------------------|-----------------------------------|
 | **MI-GENES** | CHD | PRS-integrated risk disclosure → **lower LDL at 6 months**, via earlier and longer statin use |
 | **GenoVA** | 6 diseases (CHD, T2D, AF, breast/colorectal/prostate cancer) | Effect of PRS results on time to diagnosis |
 | **WISDOM / PERSPECTIVE** | Breast cancer | PRS-guided mammography intensity |
@@ -303,7 +302,9 @@ Pick a disease relevant to your specialty, then answer:
 
 ## 2) Minimal code: turn a score into a clinical figure {#w4-s7-2}
 
-We provide a pre-computed score table (`prs_scores.tsv`) so the session is about **interpretation**, not compute. One row per person: `IID`, `PRS`, `disease`, `age`, `sex`.
+We provide a pre-computed score table (`rawdata/prs_scores.tsv`, n = 40,000) so the session is about **interpretation**, not compute. One row per person: `IID`, `PRS`, `disease`, `age`, `sex`.
+
+⚠️ It is simulated — individual genotypes cannot be shared. The effect size (OR = 1.74 per SD) and the decile pattern are realistic, and §3.4's figure was drawn from this exact file.
 
 ```{r}
 library(tidyverse)
@@ -393,7 +394,7 @@ renv::snapshot()
 # 🔑 Key terms
 
 | Term | One-line meaning |
-|---------------------|---------------------------------------------------|
+|-------------------------|-----------------------------------------|
 | PRS / PGS | Weighted sum of risk alleles across many variants |
 | Base GWAS | The published study supplying the effect sizes |
 | Target cohort | The individuals being scored |

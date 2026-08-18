@@ -1,3 +1,19 @@
+# Quarto
 /.quarto/
+/_site/
+/_freeze/
 **/*.quarto_ipynb
+
+# RStudio
 .Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# 실습 데이터 — 별도 배포 (DATA.md 참고)
+/rawdata/
+/analysis/
+
+# renv
+renv/library/
+renv/staging/

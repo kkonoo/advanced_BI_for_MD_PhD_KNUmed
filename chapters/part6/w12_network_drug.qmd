@@ -149,6 +149,7 @@ head(deg, 10)
 ```{r}
 # Is your "hub" just a well-studied gene?
 # Fetch PubMed counts for the same genes and correlate with degree.
+# real PubMed counts — scripts/download_public_data.R fetches these
 pubs <- readRDS(here::here("rawdata", "pubmed_counts.rds"))   # gene → n papers
 cor(log10(pubs[names(deg)] + 1), deg, use = "complete", method = "spearman")
 ```
