@@ -33,6 +33,12 @@ jobs:
         #     tidyverse
         #     BiocManager
 
+
+      - name: Install Quarto R renderer
+        shell: Rscript {0}
+        run: |
+          install.packages(c("knitr", "rmarkdown"))
+
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
