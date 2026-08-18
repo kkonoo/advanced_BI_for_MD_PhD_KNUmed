@@ -26,8 +26,8 @@ jobs:
           r-version: "4.3"
           use-public-rspm: true
 
-      - name: Install R packages
-        uses: r-lib/actions/setup-r-dependencies@v2
+      # - name: Install R packages
+      #   uses: r-lib/actions/setup-r-dependencies@v2
         # with:
         #   packages: |
         #     tidyverse
