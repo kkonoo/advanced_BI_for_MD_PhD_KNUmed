@@ -3,7 +3,6 @@ project:
   execute-dir: project
   output-dir: _site
   resources:
-    - _extensions/ai-chat/ai-chat.js
     - assets/img/**
 
   # 렌더 대상을 명시 — 이 목록에 없는 .qmd 는 빌드하지 않음
