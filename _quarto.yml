@@ -9,21 +9,37 @@ project:
   # (examples/ 는 이전 학기 자료라 제외)
   render:
     - index.qmd
+    - ko/index.qmd
     - chapters/part1/w1_intro.qmd
+    - ko/chapters/part1/w1_intro.qmd
     - chapters/part1/w2_scripts_ai.qmd
+    - ko/chapters/part1/w2_scripts_ai.qmd
     - chapters/part2/w3_gwas.qmd
+    - ko/chapters/part2/w3_gwas.qmd
     - chapters/part2/w4_prs.qmd
+    - ko/chapters/part2/w4_prs.qmd
     - chapters/part3/w5_scrna_qc.qmd
+    - ko/chapters/part3/w5_scrna_qc.qmd
     - chapters/part3/w6_scrna_dynamics.qmd
+    - ko/chapters/part3/w6_scrna_dynamics.qmd
     - chapters/part4/w7_spatial_basics.qmd
+    - ko/chapters/part4/w7_spatial_basics.qmd
     - chapters/part4/w8_spatial_integration.qmd
+    - ko/chapters/part4/w8_spatial_integration.qmd
     - chapters/part5/w9_proteomics_tech.qmd
+    - ko/chapters/part5/w9_proteomics_tech.qmd
     - chapters/part5/w10_clinical_proteomics.qmd
+    - ko/chapters/part5/w10_clinical_proteomics.qmd
     - chapters/part6/w11_multiomics.qmd
+    - ko/chapters/part6/w11_multiomics.qmd
     - chapters/part6/w12_network_drug.qmd
+    - ko/chapters/part6/w12_network_drug.qmd
     - chapters/part7/w13_visualization.qmd
+    - ko/chapters/part7/w13_visualization.qmd
     - chapters/part7/w14_project_design.qmd
+    - ko/chapters/part7/w14_project_design.qmd
 
+lang: en
 
 website:
   favicon: assets/img/favicon.ico
@@ -66,53 +82,102 @@ website:
             text: "W14 · Project Design"
 
   sidebar:
-    style: "floating"
-    search: true
-    contents:
-      - text: "Home"
-        href: index.qmd
-      - section: "1 · Intro"
-        contents:
-          - href: chapters/part1/w1_intro.qmd
-            text: "W1. Introduction & Roadmap"
-          - href: chapters/part1/w2_scripts_ai.qmd
-            text: "W2. Scripts, AI & Reproducibility"
-      - section: "2 · Clinical Genomics"
-        contents:
-          - href: chapters/part2/w3_gwas.qmd
-            text: "W3. GWAS & Post-GWAS"
-          - href: chapters/part2/w4_prs.qmd
-            text: "W4. Polygenic Risk Scores"
-      - section: "3 · Single-cell"
-        contents:
-          - href: chapters/part3/w5_scrna_qc.qmd
-            text: "W5. Technology, QC, Clustering"
-          - href: chapters/part3/w6_scrna_dynamics.qmd
-            text: "W6. Trajectory, Communication, Integration"
-      - section: "4 · Spatial"
-        contents:
-          - href: chapters/part4/w7_spatial_basics.qmd
-            text: "W7. Spatial Transcriptomics"
-          - href: chapters/part4/w8_spatial_integration.qmd
-            text: "W8. Deconvolution & Integration"
-      - section: "5 · Proteomics"
-        contents:
-          - href: chapters/part5/w9_proteomics_tech.qmd
-            text: "W9. How Proteins Are Measured"
-          - href: chapters/part5/w10_clinical_proteomics.qmd
-            text: "W10. Clinical Proteomics & Biomarkers"
-      - section: "6 · Integration"
-        contents:
-          - href: chapters/part6/w11_multiomics.qmd
-            text: "W11. Multi-omics Integration"
-          - href: chapters/part6/w12_network_drug.qmd
-            text: "W12. Network Analysis & Drug Targets"
-      - section: "7 · Capstone"
-        contents:
-          - href: chapters/part7/w13_visualization.qmd
-            text: "W13. Interpretation & Visualisation"
-          - href: chapters/part7/w14_project_design.qmd
-            text: "W14. Designing Your Own Project"
+    - id: english
+      style: "floating"
+      search: true
+      contents:
+        - text: "Home"
+          href: index.qmd
+        - section: "1 · Intro"
+          contents:
+            - href: chapters/part1/w1_intro.qmd
+              text: "W1. Introduction & Roadmap"
+            - href: chapters/part1/w2_scripts_ai.qmd
+              text: "W2. Scripts, AI & Reproducibility"
+        - section: "2 · Clinical Genomics"
+          contents:
+            - href: chapters/part2/w3_gwas.qmd
+              text: "W3. GWAS & Post-GWAS"
+            - href: chapters/part2/w4_prs.qmd
+              text: "W4. Polygenic Risk Scores"
+        - section: "3 · Single-cell"
+          contents:
+            - href: chapters/part3/w5_scrna_qc.qmd
+              text: "W5. Technology, QC, Clustering"
+            - href: chapters/part3/w6_scrna_dynamics.qmd
+              text: "W6. Trajectory, Communication, Integration"
+        - section: "4 · Spatial"
+          contents:
+            - href: chapters/part4/w7_spatial_basics.qmd
+              text: "W7. Spatial Transcriptomics"
+            - href: chapters/part4/w8_spatial_integration.qmd
+              text: "W8. Deconvolution & Integration"
+        - section: "5 · Proteomics"
+          contents:
+            - href: chapters/part5/w9_proteomics_tech.qmd
+              text: "W9. How Proteins Are Measured"
+            - href: chapters/part5/w10_clinical_proteomics.qmd
+              text: "W10. Clinical Proteomics & Biomarkers"
+        - section: "6 · Integration"
+          contents:
+            - href: chapters/part6/w11_multiomics.qmd
+              text: "W11. Multi-omics Integration"
+            - href: chapters/part6/w12_network_drug.qmd
+              text: "W12. Network Analysis & Drug Targets"
+        - section: "7 · Capstone"
+          contents:
+            - href: chapters/part7/w13_visualization.qmd
+              text: "W13. Interpretation & Visualisation"
+            - href: chapters/part7/w14_project_design.qmd
+              text: "W14. Designing Your Own Project"
+    - id: korean
+      style: "floating"
+      search: true
+      contents:
+        - text: "홈"
+          href: ko/index.qmd
+        - section: "1 · 시작"
+          contents:
+            - href: ko/chapters/part1/w1_intro.qmd
+              text: "W1. 소개와 로드맵"
+            - href: ko/chapters/part1/w2_scripts_ai.qmd
+              text: "W2. R 스크립트, AI 보조 코딩과 재현성"
+        - section: "2 · 임상유전체학"
+          contents:
+            - href: ko/chapters/part2/w3_gwas.qmd
+              text: "W3. GWAS와 Post-GWAS"
+            - href: ko/chapters/part2/w4_prs.qmd
+              text: "W4. 다유전자 위험 점수(PRS)"
+        - section: "3 · 단일세포"
+          contents:
+            - href: ko/chapters/part3/w5_scrna_qc.qmd
+              text: "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
+            - href: ko/chapters/part3/w6_scrna_dynamics.qmd
+              text: "W6. 궤적, 세포 간 소통과 통합"
+        - section: "4 · 공간오믹스"
+          contents:
+            - href: ko/chapters/part4/w7_spatial_basics.qmd
+              text: "W7. 공간전사체학의 기초"
+            - href: ko/chapters/part4/w8_spatial_integration.qmd
+              text: "W8. 디콘볼루션과 공간 통합"
+        - section: "5 · 단백체학"
+          contents:
+            - href: ko/chapters/part5/w9_proteomics_tech.qmd
+              text: "W9. 단백질을 실제로 측정하는 방법"
+            - href: ko/chapters/part5/w10_clinical_proteomics.qmd
+              text: "W10. 임상 단백체학과 바이오마커"
+        - section: "6 · 통합 분석"
+          contents:
+            - href: ko/chapters/part6/w11_multiomics.qmd
+              text: "W11. 다중오믹스 통합"
+            - href: ko/chapters/part6/w12_network_drug.qmd
+              text: "W12. 네트워크 분석과 약물 표적"
+        - section: "7 · 종합 프로젝트"
+          contents:
+            - href: ko/chapters/part7/w13_visualization.qmd
+              text: "W13. 해석과 시각화"
+            - href: ko/chapters/part7/w14_project_design.qmd
+              text: "W14. 나만의 프로젝트 설계"
 
   page-footer:
     left: "Copyright 2026, Eunji"
@@ -122,6 +187,8 @@ format:
   html:
     theme:
       light: cosmo
+      dark: darkly
+    respect-user-color-scheme: true
     css: assets/html.css
     toc: true
     toc-depth: 4
@@ -142,7 +209,9 @@ format:
       margin-width: 280px # toc
 
     # AI 채팅 위젯 전역 설정
-    include-after-body: assets/ai-chat-init.html
+    include-after-body:
+      - assets/site-ui.html
+      - assets/ai-chat-init.html
 
 
 execute:

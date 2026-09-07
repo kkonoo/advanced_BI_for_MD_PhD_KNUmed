@@ -11,39 +11,39 @@
 <text x="54" y="152.5" font-size="10.5" fill="#8A7FA3" text-anchor="end">6%</text>
 <line x1="62" y1="96.0" x2="482" y2="96.0" stroke="#e6e1ee" stroke-width="1"/>
 <text x="54" y="100.0" font-size="10.5" fill="#8A7FA3" text-anchor="end">8%</text>
-<rect x="65.0" y="269.2" width="36.0" height="36.8" rx="4" fill="#D85A30"/>
+<rect x="65.0" y="277.1" width="36.0" height="28.9" rx="4" fill="#D85A30"/>
 <text x="83.0" y="322" font-size="10" fill="#8A7FA3" text-anchor="middle">1</text>
-<rect x="107.0" y="258.8" width="36.0" height="47.2" rx="4" fill="#c9c2d8"/>
+<rect x="107.0" y="260.1" width="36.0" height="45.9" rx="4" fill="#c9c2d8"/>
 <text x="125.0" y="322" font-size="10" fill="#8A7FA3" text-anchor="middle">2</text>
-<rect x="149.0" y="250.9" width="36.0" height="55.1" rx="4" fill="#c9c2d8"/>
+<rect x="149.0" y="255.3" width="36.0" height="50.7" rx="4" fill="#c9c2d8"/>
 <text x="167.0" y="322" font-size="10" fill="#8A7FA3" text-anchor="middle">3</text>
-<rect x="191.0" y="243.0" width="36.0" height="63.0" rx="4" fill="#c9c2d8"/>
+<rect x="191.0" y="244.3" width="36.0" height="61.7" rx="4" fill="#c9c2d8"/>
 <text x="209.0" y="322" font-size="10" fill="#8A7FA3" text-anchor="middle">4</text>
-<rect x="233.0" y="235.1" width="36.0" height="70.9" rx="4" fill="#534AB7"/>
+<rect x="233.0" y="231.7" width="36.0" height="74.3" rx="4" fill="#534AB7"/>
 <text x="251.0" y="322" font-size="10" fill="#8A7FA3" text-anchor="middle">5</text>
-<rect x="275.0" y="224.6" width="36.0" height="81.4" rx="4" fill="#c9c2d8"/>
+<rect x="275.0" y="231.7" width="36.0" height="74.3" rx="4" fill="#c9c2d8"/>
 <text x="293.0" y="322" font-size="10" fill="#8A7FA3" text-anchor="middle">6</text>
-<rect x="317.0" y="211.5" width="36.0" height="94.5" rx="4" fill="#c9c2d8"/>
+<rect x="317.0" y="197.1" width="36.0" height="108.9" rx="4" fill="#c9c2d8"/>
 <text x="335.0" y="322" font-size="10" fill="#8A7FA3" text-anchor="middle">7</text>
-<rect x="359.0" y="193.1" width="36.0" height="112.9" rx="4" fill="#c9c2d8"/>
+<rect x="359.0" y="193.6" width="36.0" height="112.4" rx="4" fill="#c9c2d8"/>
 <text x="377.0" y="322" font-size="10" fill="#8A7FA3" text-anchor="middle">8</text>
-<rect x="401.0" y="164.2" width="36.0" height="141.8" rx="4" fill="#c9c2d8"/>
+<rect x="401.0" y="170.3" width="36.0" height="135.7" rx="4" fill="#c9c2d8"/>
 <text x="419.0" y="322" font-size="10" fill="#8A7FA3" text-anchor="middle">9</text>
-<rect x="443.0" y="106.5" width="36.0" height="199.5" rx="4" fill="#185FA5"/>
+<rect x="443.0" y="126.2" width="36.0" height="179.8" rx="4" fill="#185FA5"/>
 <text x="461.0" y="322" font-size="10" fill="#8A7FA3" text-anchor="middle">10</text>
 <line x1="62" y1="306" x2="482" y2="306" stroke="#cfc9dd" stroke-width="1.2"/>
 <text x="272" y="342" font-size="11" fill="#8A7FA3" text-anchor="middle">PRS decile (1 = lowest)</text>
-<text x="48" y="356" font-size="11.5" fill="#8A7FA3">Risk rises smoothly — no threshold, no natural cut-point.</text>
+<text x="48" y="356" font-size="11.5" fill="#8A7FA3">From rawdata/prs_scores.tsv &#183; risk rises smoothly, with no natural cut-point.</text>
 <rect x="540" y="56" width="316" height="94" rx="9" fill="#ffffff" stroke="#D85A30" stroke-width="1.8"/>
 <text x="562" y="82" font-size="12" font-weight="700" fill="#8A7FA3">top vs bottom decile</text>
-<text x="562" y="118" font-size="27" font-weight="700" fill="#D85A30">5.4×</text>
-<text x="562" y="138" font-size="11" fill="#777">7.6% vs 1.4% — both tails, the number papers quote</text>
+<text x="562" y="118" font-size="27" font-weight="700" fill="#D85A30">6.2×</text>
+<text x="562" y="138" font-size="11" fill="#777">6.9% vs 1.1% — both tails, the number papers quote</text>
 <rect x="540" y="162" width="316" height="94" rx="9" fill="#ffffff" stroke="#534AB7" stroke-width="1.8"/>
 <text x="562" y="188" font-size="12" font-weight="700" fill="#8A7FA3">top vs middle decile</text>
-<text x="562" y="224" font-size="27" font-weight="700" fill="#534AB7">2.8×</text>
-<text x="562" y="244" font-size="11" fill="#777">7.6% vs 2.7% — the statistically honest one</text>
+<text x="562" y="224" font-size="27" font-weight="700" fill="#534AB7">2.4×</text>
+<text x="562" y="244" font-size="11" fill="#777">6.9% vs 2.8% — the statistically honest one</text>
 <rect x="540" y="268" width="316" height="94" rx="9" fill="#ffffff" stroke="#185FA5" stroke-width="1.8"/>
 <text x="562" y="294" font-size="12" font-weight="700" fill="#8A7FA3">top decile vs everyone else</text>
-<text x="562" y="330" font-size="27" font-weight="700" fill="#185FA5">2.4×</text>
-<text x="562" y="350" font-size="11" fill="#777">7.6% vs 3.1% — the one that matches clinical use</text>
+<text x="562" y="330" font-size="27" font-weight="700" fill="#185FA5">2.3×</text>
+<text x="562" y="350" font-size="11" fill="#777">6.9% vs 2.9% — the one that matches clinical use</text>
 </svg>

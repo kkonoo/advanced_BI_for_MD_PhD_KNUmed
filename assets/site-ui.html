@@ -1,0 +1,253 @@
+<!-- Shared bilingual navigation and accessible theme-control labels. -->
+<script>
+(function () {
+  "use strict";
+
+  const pages = {
+    home: {
+      en: "index.html",
+      ko: "ko/index.html"
+    },
+    w1: {
+      en: "chapters/part1/w1_intro.html",
+      ko: "ko/chapters/part1/w1_intro.html"
+    },
+    w2: {
+      en: "chapters/part1/w2_scripts_ai.html",
+      ko: "ko/chapters/part1/w2_scripts_ai.html"
+    },
+    w3: {
+      en: "chapters/part2/w3_gwas.html",
+      ko: "ko/chapters/part2/w3_gwas.html"
+    },
+    w4: {
+      en: "chapters/part2/w4_prs.html",
+      ko: "ko/chapters/part2/w4_prs.html"
+    },
+    w5: {
+      en: "chapters/part3/w5_scrna_qc.html",
+      ko: "ko/chapters/part3/w5_scrna_qc.html"
+    },
+    w6: {
+      en: "chapters/part3/w6_scrna_dynamics.html",
+      ko: "ko/chapters/part3/w6_scrna_dynamics.html"
+    },
+    w7: {
+      en: "chapters/part4/w7_spatial_basics.html",
+      ko: "ko/chapters/part4/w7_spatial_basics.html"
+    },
+    w8: {
+      en: "chapters/part4/w8_spatial_integration.html",
+      ko: "ko/chapters/part4/w8_spatial_integration.html"
+    },
+    w9: {
+      en: "chapters/part5/w9_proteomics_tech.html",
+      ko: "ko/chapters/part5/w9_proteomics_tech.html"
+    },
+    w10: {
+      en: "chapters/part5/w10_clinical_proteomics.html",
+      ko: "ko/chapters/part5/w10_clinical_proteomics.html"
+    },
+    w11: {
+      en: "chapters/part6/w11_multiomics.html",
+      ko: "ko/chapters/part6/w11_multiomics.html"
+    },
+    w12: {
+      en: "chapters/part6/w12_network_drug.html",
+      ko: "ko/chapters/part6/w12_network_drug.html"
+    },
+    w13: {
+      en: "chapters/part7/w13_visualization.html",
+      ko: "ko/chapters/part7/w13_visualization.html"
+    },
+    w14: {
+      en: "chapters/part7/w14_project_design.html",
+      ko: "ko/chapters/part7/w14_project_design.html"
+    }
+  };
+
+  function detectPage() {
+    const path = window.location.pathname;
+
+    for (const [key, routes] of Object.entries(pages)) {
+      // Check the longer Korean route first because its suffix also contains
+      // the corresponding English route (for example, ko/.../w1_intro.html).
+      for (const language of ["ko", "en"]) {
+        const route = routes[language];
+        if (path === "/" + route || path.endsWith("/" + route)) {
+          return {
+            key,
+            language,
+            basePath: path.slice(0, -route.length)
+          };
+        }
+      }
+    }
+
+    if (path.endsWith("/ko/")) {
+      return {
+        key: "home",
+        language: "ko",
+        basePath: path.slice(0, -3)
+      };
+    }
+
+    if (path.endsWith("/")) {
+      return {
+        key: "home",
+        language: "en",
+        basePath: path
+      };
+    }
+
+    return {
+      key: null,
+      language: document.documentElement.lang.toLowerCase().startsWith("ko") ? "ko" : "en",
+      basePath: null
+    };
+  }
+
+  function routeUrl(state, language, key) {
+    const route = pages[key] && pages[key][language];
+    if (!route || !state.basePath) return null;
+    return new URL(state.basePath + route, window.location.href).href;
+  }
+
+  function makeLanguageOption(label, language, state) {
+    const isActive = state.language === language;
+    const href = state.key ? routeUrl(state, language, state.key) : null;
+    const option = document.createElement(isActive || !href ? "span" : "a");
+
+    option.textContent = label;
+    option.lang = language;
+
+    if (isActive) {
+      option.className = "is-active";
+      option.setAttribute("aria-current", "page");
+    } else if (href) {
+      option.href = href;
+      option.hreflang = language;
+      option.setAttribute(
+        "aria-label",
+        language === "ko" ? "이 페이지를 한국어로 보기" : "View this page in English"
+      );
+    } else {
+      option.className = "is-unavailable";
+      option.setAttribute("aria-disabled", "true");
+      option.title = language === "ko" ? "한국어 번역 준비 중" : "English page unavailable";
+    }
+
+    return option;
+  }
+
+  function addLanguageSwitch(state) {
+    let tools = document.querySelector(".quarto-navbar-tools");
+
+    if (!tools) {
+      const navbar = document.querySelector("#quarto-header .navbar");
+      if (!navbar) return;
+      tools = document.createElement("div");
+      tools.className = "quarto-navbar-tools";
+      navbar.appendChild(tools);
+    }
+
+    const control = document.createElement("nav");
+    control.className = "course-language-switch";
+    control.setAttribute(
+      "aria-label",
+      state.language === "ko" ? "언어 선택" : "Language selector"
+    );
+    control.append(
+      makeLanguageOption("EN", "en", state),
+      makeLanguageOption("KO", "ko", state)
+    );
+
+    const themeToggle = tools.querySelector(".quarto-color-scheme-toggle");
+    tools.insertBefore(control, themeToggle || tools.firstChild);
+  }
+
+  function localizeKoreanNavbar(state) {
+    if (state.language !== "ko" || !state.basePath) return;
+
+    const links = Array.from(document.querySelectorAll("#quarto-header .navbar-nav .nav-link"));
+    const homeLink = links.find((link) => link.textContent.trim() === "Home");
+    const weeksLink = links.find((link) => link.textContent.trim() === "Weeks");
+
+    if (homeLink) {
+      homeLink.textContent = "홈";
+      homeLink.href = routeUrl(state, "ko", "home");
+    }
+
+    if (!weeksLink) return;
+    weeksLink.textContent = "주차별 강의";
+
+    const dropdown = weeksLink.closest(".dropdown");
+    const menu = dropdown && dropdown.querySelector(".dropdown-menu");
+    if (!menu) return;
+
+    const translatedWeeks = [
+      ["w1", "W1 · 소개와 로드맵"],
+      ["w2", "W2 · R 스크립트, AI 보조 코딩과 재현성"],
+      ["w3", "W3 · GWAS와 Post-GWAS"],
+      ["w4", "W4 · 다유전자 위험 점수(PRS)"],
+      ["w5", "W5 · 단일세포 RNA-seq: 기술, QC, 클러스터링"],
+      ["w6", "W6 · 궤적, 세포 간 소통과 통합"],
+      ["w7", "W7 · 공간전사체학의 기초"],
+      ["w8", "W8 · 디콘볼루션과 공간 통합"],
+      ["w9", "W9 · 단백질을 실제로 측정하는 방법"],
+      ["w10", "W10 · 임상 단백체학과 바이오마커"],
+      ["w11", "W11 · 다중오믹스 통합"],
+      ["w12", "W12 · 네트워크 분석과 약물 표적"],
+      ["w13", "W13 · 해석과 시각화"],
+      ["w14", "W14 · 나만의 프로젝트 설계"]
+    ];
+    const items = translatedWeeks.map(([key, label]) => {
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      const text = document.createElement("span");
+      link.className = "dropdown-item";
+      link.href = routeUrl(state, "ko", key);
+      text.className = "dropdown-text";
+      text.textContent = label;
+      link.appendChild(text);
+      item.appendChild(link);
+      return item;
+    });
+    menu.replaceChildren(...items);
+  }
+
+  function updateThemeLabel(state) {
+    const toggle = document.querySelector(".quarto-color-scheme-toggle");
+    if (!toggle) return;
+
+    const isDark = document.body.classList.contains("quarto-dark") ||
+      document.documentElement.getAttribute("data-bs-theme") === "dark";
+    const label = state.language === "ko"
+      ? (isDark ? "라이트 모드로 전환" : "다크 모드로 전환")
+      : (isDark ? "Switch to light mode" : "Switch to dark mode");
+
+    toggle.setAttribute("aria-label", label);
+    toggle.title = label;
+  }
+
+  function init() {
+    const state = detectPage();
+    addLanguageSwitch(state);
+    localizeKoreanNavbar(state);
+    updateThemeLabel(state);
+
+    const observer = new MutationObserver(() => updateThemeLabel(state));
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-bs-theme"]
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
+  }
+})();
+</script>

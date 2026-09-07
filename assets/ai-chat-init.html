@@ -4,23 +4,50 @@
   // ★ Cloudflare Worker 배포 후 URL로 교체하세요
   const WORKER_URL = "https://falling-wave-447f.eh0129s.workers.dev/";
 
-  // 각 .qmd 파일의 YAML에서 ai-context를 읽어옵니다
-  // (없으면 빈 문자열 → 기본 안내 메시지)
+  // Quarto가 렌더링한 현재 페이지의 본문을 AI 문맥으로 사용합니다.
+  // 너무 긴 페이지가 요청 크기를 과도하게 키우지 않도록 문자 수를 제한합니다.
+  const AI_CONTEXT_MAX_CHARS = 18000;
   const metaContext = document.querySelector('meta[name="ai-context"]');
-  const metaTitle   = document.querySelector('meta[name="ai-title"]') || { content: document.title };
+  const metaTitle = document.querySelector('meta[name="ai-title"]');
+
+  function extractPageContext() {
+    const source = document.querySelector("#quarto-document-content, main.content, main");
+    if (!source) return "";
+
+    const clone = source.cloneNode(true);
+    clone.querySelectorAll([
+      "script", "style", "noscript", "template",
+      "nav", ".quarto-title-meta", ".code-tools",
+      ".anchorjs-link", ".header-section-number",
+      "[aria-hidden='true']"
+    ].join(",")).forEach((element) => element.remove());
+
+    const text = (clone.textContent || "")
+      .replace(/\r/g, "")
+      .replace(/[\t\f\v ]+/g, " ")
+      .replace(/ *\n */g, "\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+
+    if (text.length <= AI_CONTEXT_MAX_CHARS) return text;
+    return `${text.slice(0, AI_CONTEXT_MAX_CHARS)}\n\n[본문이 길어 이후 내용은 생략됨]`;
+  }
+
+  const pageContext = extractPageContext();
+  const supplementalContext = metaContext ? metaContext.content.trim() : "";
+  const combinedContext = [supplementalContext, pageContext].filter(Boolean).join("\n\n");
 
   window.AI_CHAT_CONFIG = {
     workerUrl:      WORKER_URL,
-    chapterContext: metaContext ? metaContext.content : "",
-    chapterTitle:   metaTitle  ? metaTitle.content   : document.title,
+    chapterContext: combinedContext,
+    chapterTitle: metaTitle ? metaTitle.content : document.title,
   };
 </script>
 <!-- 위젯 코드를 인라인으로 삽입 (외부 src 제거 → 페이지 깊이에 따른 경로 404 방지) -->
 <script>
 /**
  * AI Chat Widget for Quarto
- * 각 페이지의 YAML front matter에서 시스템 프롬프트를 읽어옵니다.
- * window.AI_CHAT_CONFIG 에서 설정을 가져옵니다.
+ * 현재 Quarto 본문에서 만든 window.AI_CHAT_CONFIG를 사용합니다.
  */
 
 (function () {
@@ -89,6 +116,7 @@ ${CHAPTER_CONTEXT}
       flex-shrink: 0;
     }
     #ai-chat-header span { flex: 1; }
+    #ai-chat-header > div { flex: 1; min-width: 0; }
     #ai-chat-close {
       background: none; border: none; color: #fff;
       font-size: 18px; cursor: pointer; padding: 0 2px; line-height: 1;
@@ -178,25 +206,54 @@ ${CHAPTER_CONTEXT}
   `;
   document.head.appendChild(style);
 
-  document.body.insertAdjacentHTML("beforeend", `
-    <button id="ai-chat-fab" title="AI 학습 도우미">💬</button>
-    <div id="ai-chat-panel">
-      <div id="ai-chat-header">
-        <div>
-          <span>AI 학습 도우미</span>
-          <small id="ai-chat-subtitle">${CHAPTER_TITLE}</small>
-        </div>
-        <button id="ai-chat-close">✕</button>
-      </div>
-      <div id="ai-chat-messages">
-        <div class="ai-msg assistant">안녕하세요! 이 챕터에 대해 궁금한 점을 물어보세요 😊</div>
-      </div>
-      <div id="ai-chat-input-row">
-        <textarea id="ai-chat-input" placeholder="질문을 입력하세요… (Shift+Enter: 줄바꿈)" rows="1"></textarea>
-        <button id="ai-chat-send">➤</button>
-      </div>
-    </div>
-  `);
+  const fabElement = document.createElement("button");
+  fabElement.id = "ai-chat-fab";
+  fabElement.type = "button";
+  fabElement.title = "AI 학습 도우미";
+  fabElement.setAttribute("aria-label", "AI 학습 도우미 열기");
+  fabElement.textContent = "💬";
+
+  const panelElement = document.createElement("div");
+  panelElement.id = "ai-chat-panel";
+  panelElement.setAttribute("role", "dialog");
+  panelElement.setAttribute("aria-label", "AI 학습 도우미");
+  panelElement.dataset.contextChars = String(CHAPTER_CONTEXT.length);
+
+  const headerElement = document.createElement("div");
+  headerElement.id = "ai-chat-header";
+  const headerText = document.createElement("div");
+  const headerTitle = document.createElement("span");
+  headerTitle.textContent = "AI 학습 도우미";
+  const headerSubtitle = document.createElement("small");
+  headerSubtitle.id = "ai-chat-subtitle";
+  headerSubtitle.textContent = CHAPTER_TITLE;
+  headerText.append(headerTitle, headerSubtitle);
+
+  const closeElement = document.createElement("button");
+  closeElement.id = "ai-chat-close";
+  closeElement.type = "button";
+  closeElement.setAttribute("aria-label", "AI 학습 도우미 닫기");
+  closeElement.textContent = "✕";
+  headerElement.append(headerText, closeElement);
+
+  const messagesElement = document.createElement("div");
+  messagesElement.id = "ai-chat-messages";
+
+  const inputRow = document.createElement("div");
+  inputRow.id = "ai-chat-input-row";
+  const inputElement = document.createElement("textarea");
+  inputElement.id = "ai-chat-input";
+  inputElement.placeholder = "질문을 입력하세요… (Shift+Enter: 줄바꿈)";
+  inputElement.rows = 1;
+  const sendElement = document.createElement("button");
+  sendElement.id = "ai-chat-send";
+  sendElement.type = "button";
+  sendElement.setAttribute("aria-label", "질문 보내기");
+  sendElement.textContent = "➤";
+  inputRow.append(inputElement, sendElement);
+
+  panelElement.append(headerElement, messagesElement, inputRow);
+  document.body.append(fabElement, panelElement);
 
   /* ── 상태 ─────────────────────────────────── */
   const panel = document.getElementById("ai-chat-panel");
@@ -206,6 +263,8 @@ ${CHAPTER_CONTEXT}
   const sendBtn = document.getElementById("ai-chat-send");
   const messages = document.getElementById("ai-chat-messages");
   const history = []; // {role, content}[]
+
+  appendMsg("assistant", "안녕하세요! 이 챕터에 대해 궁금한 점을 물어보세요 😊");
 
   /* ── 토글 ─────────────────────────────────── */
   fab.addEventListener("click", () => {
@@ -231,27 +290,60 @@ ${CHAPTER_CONTEXT}
 
   function appendMsg(role, text) {
     const div = document.createElement("div");
-    div.className = `ai-msg ${role}`;
-    // 간단한 코드블록 렌더링
-    div.innerHTML = text
-      .replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) =>
-        `<pre><code>${escHtml(code.trim())}</code></pre>`
-      )
-      .replace(/`([^`]+)`/g, (_, c) => `<code>${escHtml(c)}</code>`)
-      .replace(/\n/g, "<br>");
+    const safeRole = role === "user" ? "user" : "assistant";
+    div.className = `ai-msg ${safeRole}`;
+    renderMessageContent(div, String(text ?? ""));
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
     return div;
   }
 
-  function escHtml(s) {
-    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  function appendTextWithLineBreaks(parent, text) {
+    const lines = text.split("\n");
+    lines.forEach((line, index) => {
+      if (index > 0) parent.appendChild(document.createElement("br"));
+      if (line) parent.appendChild(document.createTextNode(line));
+    });
+  }
+
+  function appendInlineCode(parent, text) {
+    const inlineCode = /`([^`\n]+)`/g;
+    let cursor = 0;
+    let match;
+    while ((match = inlineCode.exec(text)) !== null) {
+      appendTextWithLineBreaks(parent, text.slice(cursor, match.index));
+      const code = document.createElement("code");
+      code.textContent = match[1];
+      parent.appendChild(code);
+      cursor = inlineCode.lastIndex;
+    }
+    appendTextWithLineBreaks(parent, text.slice(cursor));
+  }
+
+  function renderMessageContent(parent, text) {
+    const fencedCode = /```[^\n]*\n?([\s\S]*?)```/g;
+    let cursor = 0;
+    let match;
+    while ((match = fencedCode.exec(text)) !== null) {
+      appendInlineCode(parent, text.slice(cursor, match.index));
+      const pre = document.createElement("pre");
+      const code = document.createElement("code");
+      code.textContent = match[1].trim();
+      pre.appendChild(code);
+      parent.appendChild(pre);
+      cursor = fencedCode.lastIndex;
+    }
+    appendInlineCode(parent, text.slice(cursor));
   }
 
   function showTyping() {
     const el = document.createElement("div");
     el.className = "ai-typing";
-    el.innerHTML = "<span></span><span></span><span></span>";
+    el.append(
+      document.createElement("span"),
+      document.createElement("span"),
+      document.createElement("span")
+    );
     messages.appendChild(el);
     messages.scrollTop = messages.scrollHeight;
     return el;

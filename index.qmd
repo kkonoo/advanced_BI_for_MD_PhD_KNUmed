@@ -83,7 +83,9 @@ project, next to your `.Rproj` file.
 ⚠️ The simulated files are simulated because individual genotypes and patient
 specimens cannot be shared. They are **not random noise** — each one has the
 phenomenon that week teaches deliberately built into it, and the figures in the
-chapters were drawn from these exact files. See `DATA.md` for what is in each.
+chapters were drawn from these exact files. The headers of
+`scripts/make_simulated_data.R` and `scripts/download_public_data.R` document
+what each file contains and how it was produced.
 
 💡 Both generator scripts are in `scripts/` and run on base R with no dependencies,
 so you can regenerate or modify everything yourself.

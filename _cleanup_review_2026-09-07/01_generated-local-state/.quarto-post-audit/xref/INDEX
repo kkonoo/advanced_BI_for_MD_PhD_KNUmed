@@ -1,0 +1,92 @@
+{
+  "index.qmd": {
+    "index.html": "0ae709bf"
+  },
+  "ko/index.qmd": {
+    "index.html": "0f4c706c"
+  },
+  "chapters/part1/w1_intro.qmd": {
+    "w1_intro.html": "1fdaf655"
+  },
+  "ko/chapters/part1/w1_intro.qmd": {
+    "w1_intro.html": "d7d79b11"
+  },
+  "chapters/part1/w2_scripts_ai.qmd": {
+    "w2_scripts_ai.html": "9ed212d2"
+  },
+  "ko/chapters/part1/w2_scripts_ai.qmd": {
+    "w2_scripts_ai.html": "fdba92de"
+  },
+  "chapters/part2/w3_gwas.qmd": {
+    "w3_gwas.html": "769c955a"
+  },
+  "ko/chapters/part2/w3_gwas.qmd": {
+    "w3_gwas.html": "aff6d435"
+  },
+  "chapters/part2/w4_prs.qmd": {
+    "w4_prs.html": "c59b7f6c"
+  },
+  "ko/chapters/part2/w4_prs.qmd": {
+    "w4_prs.html": "463d8d8b"
+  },
+  "chapters/part3/w5_scrna_qc.qmd": {
+    "w5_scrna_qc.html": "e1f9e596"
+  },
+  "ko/chapters/part3/w5_scrna_qc.qmd": {
+    "w5_scrna_qc.html": "cf20d560"
+  },
+  "chapters/part3/w6_scrna_dynamics.qmd": {
+    "w6_scrna_dynamics.html": "5804031f"
+  },
+  "ko/chapters/part3/w6_scrna_dynamics.qmd": {
+    "w6_scrna_dynamics.html": "2a7139f9"
+  },
+  "chapters/part4/w7_spatial_basics.qmd": {
+    "w7_spatial_basics.html": "8d4bdb53"
+  },
+  "ko/chapters/part4/w7_spatial_basics.qmd": {
+    "w7_spatial_basics.html": "52067ce6"
+  },
+  "chapters/part4/w8_spatial_integration.qmd": {
+    "w8_spatial_integration.html": "7b91f5df"
+  },
+  "ko/chapters/part4/w8_spatial_integration.qmd": {
+    "w8_spatial_integration.html": "4309546f"
+  },
+  "chapters/part5/w9_proteomics_tech.qmd": {
+    "w9_proteomics_tech.html": "0007c7c6"
+  },
+  "ko/chapters/part5/w9_proteomics_tech.qmd": {
+    "w9_proteomics_tech.html": "29c7a6a1"
+  },
+  "chapters/part5/w10_clinical_proteomics.qmd": {
+    "w10_clinical_proteomics.html": "26168279"
+  },
+  "ko/chapters/part5/w10_clinical_proteomics.qmd": {
+    "w10_clinical_proteomics.html": "f658c894"
+  },
+  "chapters/part6/w11_multiomics.qmd": {
+    "w11_multiomics.html": "1584a312"
+  },
+  "ko/chapters/part6/w11_multiomics.qmd": {
+    "w11_multiomics.html": "abae1ce5"
+  },
+  "chapters/part6/w12_network_drug.qmd": {
+    "w12_network_drug.html": "1d02ebc1"
+  },
+  "ko/chapters/part6/w12_network_drug.qmd": {
+    "w12_network_drug.html": "dbedb9ed"
+  },
+  "chapters/part7/w13_visualization.qmd": {
+    "w13_visualization.html": "5e4136b9"
+  },
+  "ko/chapters/part7/w13_visualization.qmd": {
+    "w13_visualization.html": "68553ee9"
+  },
+  "chapters/part7/w14_project_design.qmd": {
+    "w14_project_design.html": "575cc22e"
+  },
+  "ko/chapters/part7/w14_project_design.qmd": {
+    "w14_project_design.html": "73f9f884"
+  }
+}

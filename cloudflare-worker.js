@@ -20,38 +20,40 @@ const ALLOWED_ORIGINS = [
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
+    const isAllowedOrigin = ALLOWED_ORIGINS.includes(origin);
+
+    // 브라우저 요청은 정확히 등록된 Origin만 허용합니다.
+    // startsWith 비교와 빈 Origin 허용은 우회 가능성이 있어 사용하지 않습니다.
+    if (!isAllowedOrigin) {
+      return jsonResponse({ error: "Origin not allowed" }, 403);
+    }
 
     // CORS preflight
     if (request.method === "OPTIONS") {
+      const requestedMethod = request.headers.get("Access-Control-Request-Method");
+      if (requestedMethod && requestedMethod !== "POST") {
+        return corsResponse(
+          { error: "CORS method not allowed" },
+          origin,
+          405
+        );
+      }
       return corsResponse(null, origin, 204);
     }
 
     // POST만 허용
     if (request.method !== "POST") {
       return corsResponse(
-        JSON.stringify({ error: "Method not allowed" }),
+        { error: "Method not allowed" },
         origin,
         405
-      );
-    }
-
-    // Origin 검사 (등록된 도메인만 허용)
-    const isAllowed =
-      ALLOWED_ORIGINS.some((o) => origin.startsWith(o)) ||
-      origin === ""; // Worker 직접 테스트 허용
-
-    if (!isAllowed) {
-      return corsResponse(
-        JSON.stringify({ error: "Origin not allowed" }),
-        origin,
-        403
       );
     }
 
     // API 키 확인
     if (!env.ANTHROPIC_API_KEY) {
       return corsResponse(
-        JSON.stringify({ error: "API key not configured" }),
+        { error: "API key not configured" },
         origin,
         500
       );
@@ -62,7 +64,7 @@ export default {
       body = await request.json();
     } catch {
       return corsResponse(
-        JSON.stringify({ error: "Invalid JSON" }),
+        { error: "Invalid JSON" },
         origin,
         400
       );
@@ -91,20 +93,27 @@ export default {
     });
 
     const data = await anthropicRes.json();
-    return corsResponse(JSON.stringify(data), origin, anthropicRes.status);
+    return corsResponse(data, origin, anthropicRes.status);
   },
 };
 
 function corsResponse(body, origin, status) {
   const headers = {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": ALLOWED_ORIGINS.some((o) =>
-      origin.startsWith(o)
-    )
-      ? origin
-      : ALLOWED_ORIGINS[0],
+    "Access-Control-Allow-Origin": origin,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
+    "Vary": "Origin",
   };
-  return new Response(body, { status, headers });
+  return new Response(body === null ? null : JSON.stringify(body), { status, headers });
+}
+
+function jsonResponse(body, status) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      "Content-Type": "application/json",
+      "Vary": "Origin",
+    },
+  });
 }
