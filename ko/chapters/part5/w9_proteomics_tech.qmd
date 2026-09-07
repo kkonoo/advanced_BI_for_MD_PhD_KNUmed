@@ -221,20 +221,20 @@ Affinity 플랫폼끼리 또는 affinity 플랫폼과 MS를 비교한 연구에�
 
 | 용어 | 한 줄 정의 |
 |-------------------------|-----------------------------------------|
-| Tryptic digest | 측정할 수 있도록 단백질을 peptide로 절단하는 과정 |
-| MS1 / MS2 | 온전한 peptide의 조사 scan / 조각화 spectrum |
-| DDA | Data-dependent acquisition. 장비가 상위 N개 precursor를 선택 |
-| DIA | Data-independent acquisition. 고정된 window 안의 모든 물질을 측정 |
-| Spectral library | DIA spectrum을 해석하는 데 사용하는 참조 |
-| Protein inference | 공유 peptide를 단백질에 배정하는 과정 |
+| Tryptic digest | 측정할 수 있도록 단백질을 펩타이드로 절단하는 과정 |
+| MS1 / MS2 | 온전한 펩타이드의 탐색 스캔 / 펩타이드 조각의 질량 스펙트럼 |
+| DDA | 장비가 신호가 강한 상위 N개 전구체를 선택해 측정하는 방식 |
+| DIA | 고정된 질량 범위 안의 모든 물질을 빠짐없이 측정하는 방식 |
+| Spectral library | DIA 스펙트럼을 해석하는 데 사용하는 참조 자료 |
+| Protein inference | 여러 단백질에 공통된 펩타이드를 원래 단백질에 배정하는 과정 |
 | Dynamic range | 검체에서 가장 많은 단백질과 가장 적은 단백질 사이의 범위 |
-| Depletion | 분석 전에 abundance가 높은 혈장 단백질을 제거하는 과정 |
-| PEA(Olink) | Proximity extension assay. 항체 쌍과 NGS readout을 이용 |
-| Aptamer(SomaScan) | 항체 대신 사용하는 핵산 결합체 |
+| Depletion | 분석 전에 양이 많은 혈장 단백질을 제거하는 과정 |
+| PEA (Olink) | 항체 쌍과 NGS 판독을 이용하는 근접 연장 분석법 |
+| Aptamer (SomaScan) | 항체 대신 표적 단백질에 결합하도록 만든 핵산 분자 |
 | pQTL | 단백질 수치와 연관된 유전 변이 |
-| Epitope artifact | 변이가 시약 결합을 바꾸어 abundance 변화처럼 보이는 현상 |
-| 분석 전 변이 | 환자에서 검체가 냉동고에 들어갈 때까지 생기는 모든 변이 |
-| PTM | 번역후 변형. RNA-seq으로는 보이지 않음 |
+| Epitope artifact | 변이가 시약 결합을 바꾸어 단백질 양이 변한 것처럼 보이는 현상 |
+| Pre-analytical variation | 환자에게서 검체를 채취한 뒤 냉동고에 보관할 때까지 생기는 모든 변이 |
+| PTM | 단백질 번역 후 일어나는 변형으로 RNA-seq에서는 관측되지 않음 |
 
 ------------------------------------------------------------------------
 

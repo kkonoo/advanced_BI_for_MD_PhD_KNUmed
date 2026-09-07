@@ -395,20 +395,20 @@ renv::snapshot()
 
 | 용어 | 한 줄 뜻 |
 |-------------------------|-----------------------------------------|
-| PRS / PGS | 많은 variant의 risk allele을 가중 합산한 값 |
-| Base GWAS | Effect size를 제공하는 출판된 연구 |
-| Target cohort | Score를 계산할 개인의 집단 |
-| C+T | Clumping과 *p*-value thresholding |
-| LDpred2 | LD reference를 이용해 모든 variant의 weight를 다시 계산하는 Bayesian method |
-| PRS-CSx | 여러 ancestry에 걸쳐 적용하는 continuous-shrinkage method |
-| Incremental R² | Clinical model을 **넘어** 추가로 설명하는 variance |
-| ΔAUC | PRS를 추가해 증가한 discrimination |
-| Calibration | 예측 probability와 관측 frequency의 일치 정도 |
-| Recalibration | 새로운 population에 맞춰 baseline risk를 조정하는 것 |
-| Portability | PRS가 다른 ancestry에서도 작동하는 정도 |
-| ACCE | Analytical validity, Clinical validity, Clinical utility, ELSI |
-| PGS Catalog | 출판된 score와 weight를 모은 공개 repository |
-| BOADICEA / CanRisk | PRS, 가족력, rare variant를 결합한 유방암 equation |
+| PRS / PGS | 많은 변이의 위험 대립유전자를 가중 합산한 값 |
+| Base GWAS | 효과크기를 제공하는 출판된 연구 |
+| Target cohort | 점수를 계산할 대상자 집단 |
+| C+T | 연관 변이를 서로 독립적인 신호로 추리고 *p*-value 기준을 적용하는 방법 |
+| LDpred2 | LD 참조 자료를 이용해 모든 변이의 가중치를 다시 계산하는 베이지안 방법 |
+| PRS-CSx | 여러 조상 집단에 적용하는 연속 수축 방법 |
+| Incremental R² | 임상 모형을 **넘어** 추가로 설명하는 분산의 비율 |
+| ΔAUC | PRS를 추가했을 때 증가한 판별 성능 |
+| Calibration | 예측 확률과 실제 관측 빈도의 일치 정도 |
+| Recalibration | 새로운 집단에 맞춰 기저 위험도를 조정하는 것 |
+| Portability | PRS가 다른 조상 집단에서도 작동하는 정도 |
+| ACCE | 분석적 타당성, 임상적 타당성, 임상적 유용성, 윤리·법·사회적 쟁점 |
+| PGS Catalog | 출판된 점수와 가중치를 모은 공개 저장소 |
+| BOADICEA / CanRisk | PRS, 가족력, 희귀 변이를 결합한 유방암 위험 예측 모형 |
 
 ------------------------------------------------------------------------
 

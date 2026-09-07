@@ -369,21 +369,21 @@ install.packages(c("harmony", "CellChat"))
 
 | 용어 | 한 줄 뜻 |
 |-------------------------|-----------------------------------------|
-| Cell barcode | Read가 어느 droplet에서 왔는지 식별하는 sequence |
-| UMI | Original mRNA molecule 하나를 표시하는 tag |
-| Dropout | 발현되었지만 포착되지 않은 transcript — technical zero |
-| Knee plot | UMI count의 순위를 그려 cell과 empty droplet을 구분하는 plot |
-| Ambient RNA | 모든 droplet을 오염시키는 free-floating RNA |
-| Doublet | 하나의 droplet에 포착된 두 cell |
-| snRNA-seq | Whole cell 대신 nucleus를 profiling하는 방법 |
-| Dissociation artifact | Biology가 아니라 protocol이 유도한 gene expression |
-| HVG | PCA 전에 선택하는 highly variable gene |
-| UMAP / t-SNE | 시각화만을 위한 non-linear 2D embedding |
-| Leiden clustering | kNN graph에서 수행하는 graph-based community detection |
-| Resolution | 얻는 cluster 수를 조절하는 parameter |
-| Pseudobulk | Test 전에 donor × cell type별로 count를 합하는 방법 |
-| Differential abundance | Cell-type proportion이 달라졌는지 검정하는 것 |
-| Compositional data | 합이 1이어서 독립적으로 움직일 수 없는 proportion |
+| Cell barcode | 각 읽기값이 어느 액적에서 왔는지 식별하는 염기서열 |
+| UMI | 원래의 mRNA 분자 하나를 표시하는 고유 표지 |
+| Dropout | 발현되었지만 포착되지 않은 전사체 때문에 생긴 기술적 0 |
+| Knee plot | UMI 수를 순위대로 그려 세포와 빈 액적을 구분하는 그림 |
+| Ambient RNA | 모든 액적을 오염시키는 주변의 유리 RNA |
+| Doublet | 하나의 액적에 두 세포가 함께 포착된 상태 |
+| snRNA-seq | 세포 전체가 아니라 핵의 전사체를 분석하는 방법 |
+| Dissociation artifact | 생물학적 현상이 아니라 조직 해리 과정이 유도한 유전자 발현 |
+| HVG | PCA 전에 선택하는 고변이 유전자 |
+| UMAP / t-SNE | 시각화만을 위한 비선형 2차원 임베딩 |
+| Leiden clustering | kNN 그래프에서 수행하는 그래프 기반 군집 탐지 방법 |
+| Resolution | 생성되는 군집 수를 조절하는 매개변수 |
+| Pseudobulk | 검정 전에 기증자 × 세포 유형별로 계수값을 합하는 방법 |
+| Differential abundance | 세포 유형의 구성 비율이 달라졌는지 검정하는 것 |
+| Compositional data | 전체 합이 1이므로 각 비율이 독립적으로 변할 수 없는 자료 |
 
 ------------------------------------------------------------------------
 

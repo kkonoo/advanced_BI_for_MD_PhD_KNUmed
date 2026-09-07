@@ -195,18 +195,18 @@ cat("observed:", round(observed, 2), " null mean:", round(mean(null), 2), "\n")
 
 | 용어 | 한 줄 정의 |
 |-------------------------|-----------------------------------------|
-| PPI network | 대부분 문헌에서 얻은 단백질–단백질 상호작용 graph |
-| Degree | 한 node에 연결된 edge 수 |
-| Hub | Degree가 높은 node. 흔히 많이 연구된 유전자 |
-| 연구 편향 | 생물학보다 연구의 관심을 반영하는 degree |
-| Degree-matched null | Network 주장을 검정하기 위해 degree를 보존하며 edge를 다시 연결한 귀무모형 |
+| PPI network | 주로 문헌에서 수집한 단백질–단백질 상호작용 그래프 |
+| Degree | 하나의 노드에 연결된 간선의 수 |
+| Hub | 연결된 간선이 많은 노드로, 흔히 많이 연구된 유전자 |
+| Study bias | 연결 정도가 생물학보다 연구자의 관심을 반영하는 편향 |
+| Degree-matched null | 네트워크 주장을 검정하기 위해 각 노드의 연결 수를 보존하며 간선을 다시 연결한 귀무모형 |
 | Module | 서로 조밀하게 연결된 유전자 집합 |
-| Network proximity | 약물 표적과 질병 유전자 사이의 graph 거리 |
-| Signature reversal | 질병 signature와 반대로 작용하는 약물을 찾는 방법 |
-| CMap / LINCS | 약물 유도 발현 profile 데이터베이스 |
-| 약물 표적 가능성 | 표적을 실제로 약물로 조절할 수 있는가 |
-| LOEUF | Loss of function 불내성을 나타내는 gnomAD 지표 |
-| 사람 knockout | 자연적 동형접합 LoF 보인자. 평생의 안전성을 미리 보여 주는 사례 |
+| Network proximity | 약물 표적과 질병 유전자 사이의 그래프 거리 |
+| Signature reversal | 질병 발현 신호와 반대 방향으로 작용하는 약물을 찾는 방법 |
+| CMap / LINCS | 약물 처리로 유도된 유전자 발현 양상을 모은 데이터베이스 |
+| Tractability | 특정 표적을 실제 약물로 조절할 수 있는 정도 |
+| LOEUF | 기능상실 변이에 대한 불내성을 나타내는 gnomAD 지표 |
+| Human knockout | 자연적으로 기능상실 변이를 동형접합으로 가진 사람으로, 평생의 안전성을 미리 보여 주는 사례 |
 
 ------------------------------------------------------------------------
 

@@ -240,17 +240,17 @@ W7–W8의 모든 내용이 그 답에 달려 있습니다.
 
 | 용어 | 한 줄 뜻 |
 |-------------------------|-----------------------------------------|
-| Integration | Shared cell type이 함께 clustering되도록 dataset을 정렬하는 것 |
-| Over-correction | 실제 biological difference를 제거하는 integration |
-| scIB | Batch removal과 biology preservation을 함께 평가하는 benchmark |
-| Pseudotime | 추정된 process를 따라 cell의 순서를 정한 값 |
-| Root cell | 선택한 시작점 — 전체 ordering을 뒤집을 수 있음 |
-| Trajectory inference | Expression space의 cell을 통과하는 path를 fitting하는 것 |
-| RNA velocity | Unspliced read와 spliced read로 추정한 방향 |
-| Spliced / unspliced | Mature mRNA / intron을 포함한 nascent transcript |
-| Ligand–receptor pair | Communication scoring에 사용하는 curated interaction |
-| CellChat / CellPhoneDB / NicheNet | 모두 correlative한 communication inference tool |
-| Hypothesis generator | 출력이 답이 아니라 질문인 방법 |
+| Integration | 공통 세포 유형이 함께 군집화되도록 여러 데이터셋을 정렬하는 것 |
+| Over-correction | 실제 생물학적 차이까지 제거해 버린 통합 |
+| scIB | 배치 제거와 생물학적 신호 보존을 함께 평가하는 비교 체계 |
+| Pseudotime | 추정된 생물학적 과정을 따라 세포의 순서를 정한 값 |
+| Root cell | 사용자가 선택한 시작 세포 — 전체 순서를 반대로 만들 수 있음 |
+| Trajectory inference | 발현 공간에 놓인 세포들을 통과하는 경로를 추정하는 것 |
+| RNA velocity | 미접합 읽기값과 접합 읽기값의 차이로 추정한 변화 방향 |
+| Spliced / unspliced | 성숙한 mRNA / 인트론을 포함한 초기 전사체 |
+| Ligand–receptor pair | 세포 간 소통 점수 계산에 사용하는 선별된 상호작용 쌍 |
+| CellChat / CellPhoneDB / NicheNet | 상관관계에 기반해 세포 간 소통을 추정하는 도구 |
+| Hypothesis generator | 출력이 답이 아니라 후속 검증이 필요한 질문인 방법 |
 
 ------------------------------------------------------------------------
 
