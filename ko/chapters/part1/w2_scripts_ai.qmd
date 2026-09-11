@@ -161,22 +161,6 @@ Constraints: dplyr + DESeq2 + here를 사용하라. padj 순으로 정렬한
 
 ![세 경우 모두 오류 없이 실행되고 올바른 class의 object를 반환하지만, 결과는 틀렸습니다.](../../../assets/img/w2/silent_failures.svg){fig-align="center"}
 
-::: {.callout-tip collapse="true"}
-## 대부분의 실패를 잡아내는 습관
-
-Join, filter, relabel 뒤에는 매번 데이터의 형태를 출력하세요.
-
-```{r}
-nrow(df)                    # did I lose rows?
-sum(is.na(df$key_column))   # did the join fail quietly?
-table(df$group)             # are both groups still here?
-```
-
-세 줄이면 됩니다. 이 방법은 이번 학기에 배우는 어떤 통계 방법보다 실제 연구의 오류를 더 많이 찾아낼 것입니다.
-
-💡 Model이 직접 이 검사를 넣게 하세요. *“각 join 뒤에 row count와 NA count를 출력하는 줄을 추가하라.”*라고 요청하면 그대로 작성하며, 검사가 스크립트에 영구적으로 남습니다.
-:::
-
 ## 5) 신뢰할 수 있는 영역과 그렇지 않은 영역 {#w2-s2-5}
 
 -   ✅ **신뢰할 만함** — plotting code, data reshaping, error message 설명, 언어 간 번역, 잘 알려진 package 주변의 boilerplate 작성

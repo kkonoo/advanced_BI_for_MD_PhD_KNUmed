@@ -160,22 +160,6 @@ Generated code inverts this. It is fluent, idiomatic, and usually syntactically 
 
 ![All three of these run cleanly, return the right class of object, and are wrong.](/assets/img/w2/silent_failures.svg){fig-align="center"}
 
-::: {.callout-tip collapse="true"}
-## The habit that catches most of them
-
-After every join, filter, or relabel, print the shape:
-
-```{r}
-nrow(df)                    # did I lose rows?
-sum(is.na(df$key_column))   # did the join fail quietly?
-table(df$group)             # are both groups still here?
-```
-
-Three lines. They will catch more real errors in your career than any statistical method you learn this semester.
-
-💡 Ask the model to insert these itself: *"after each join, add a line printing the row count and NA count."* It will comply, and now the check is in the script permanently.
-:::
-
 ## 5) Where it is reliable, and where it is not {#w2-s2-5}
 
 -   ✅ **Reliable** — plotting code, data reshaping, explaining an error message, translating between languages, writing the boilerplate around a well-known package
