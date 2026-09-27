@@ -1335,7 +1335,7 @@
     "href": "ko/chapters/part2/w4_prs.html#w4-s1-1",
     "title": "W4. 다유전자 위험 점수(PRS)",
     "section": "1) Variant 하나는 쓸모없지만, 백만 개는 그렇지 않다",
-    "text": "1) Variant 하나는 쓸모없지만, 백만 개는 그렇지 않다\n🔗 W3에서 보았듯 GWAS는 p &lt; 5×10⁻⁸인 variant를 보고하며 각각의 odds ratio는 대략 1.02–1.15입니다. 하나만으로 임상적 행동을 결정할 가치는 없습니다.\nPRS는 이를 모두 더합니다. 각 GWAS effect size \\(\\hat\\beta_j\\)에 개인의 allele dosage \\(G_{ij}\\)를 곱합니다.\n\\[\\text{PRS}_i = \\sum_{j=1}^{M} \\hat\\beta_j \\, G_{ij}\\]\n💡 중요한 점은 PRS가 genome-wide significance 아래의 variant를 의도적으로 포함한다는 것입니다. 각각은 noise이지만 모두 합치면 실제 signal을 가집니다. 이것이 omnigenic model의 임상적 결실입니다(🔗 W3 §1.3).",
+    "text": "1) Variant 하나는 쓸모없지만, 백만 개는 그렇지 않다\n🔗 W3에서 보았듯 GWAS는 p &lt; 5×10⁻⁸인 variant를 보고하며 각각의 odds ratio는 대략 1.02–1.15입니다. 하나만으로 임상적 행동을 결정할 가치는 없습니다.\nPRS는 이를 모두 더합니다. 각 GWAS effect size \\(\\hat\\beta_j\\)에 개인의 allele dosage \\(G_{ij}\\)를 곱합니다.\n\\[\\text{PRS}_i = \\sum_{j=1}^{M} \\hat\\beta_j \\, G_{ij}\\]\n💡 각각은 noise이지만 모두 합치면 실제 signal을 가집니다. … omnigenic model (🔗 W3 §1.3).",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1345,8 +1345,8 @@
     "objectID": "ko/chapters/part2/w4_prs.html#w4-s1-2",
     "href": "ko/chapters/part2/w4_prs.html#w4-s1-2",
     "title": "W4. 다유전자 위험 점수(PRS)",
-    "section": "2) 실제로 무엇을 바꾸는가",
-    "text": "2) 실제로 무엇을 바꾸는가\nPRS는 질환이 있는지를 알려주지 않습니다. Family history와 마찬가지로 pre-test probability를 이동시키며, 단지 그 값에 도달한 경로가 다릅니다.\n\n\n\n\n\n\n\nPRS가 의미하는 것\n의미하지 않는 것\n\n\n\n\nLDL이나 Framingham score 같은 위험 지표\n진단\n\n\n출생 때부터 고정되어 한 번만 측정\nMonitoring biomarker\n\n\n결과는 수정 가능 — PRS와 관계없이 statin은 작용함\n결정론적 결과\n\n\n나이, 성별, BMI, 가족력, 검사 결과와 함께 쓰는 하나의 입력\n다른 요소를 대체하는 값\n\n\n\n\n\n\n\n\n\n힌트진료 현장에서 중요한 유일한 질문\n\n\n\n\n\n진료 방침을 바꾸는가?\n높은 PRS 때문에 환자가 어차피 행동을 취할 guideline threshold를 넘는다면, 즉 더 이른 statin·mammography·colonoscopy로 이어진다면 유용합니다.\nThreshold를 넘지 못한다면 환자에게는 불안을, 의사에게는 아무것도 주지 않은 셈입니다.",
+    "section": "2) PRS의 의미",
+    "text": "2) PRS의 의미\nPRS는 질환이 있는지를 알려주지 않습니다. Family history와 마찬가지로 pre-test probability(확률!)일 뿐\n\n\n\n\n\n\n\nPRS의 의미\nPRS로 할 수 없는 것\n\n\n\n\nLDL이나 Framingham score 같은 위험 지표\n진단\n\n\n태어날 때부터 가진 genetic variants.. 한 번만 측정\nMonitoring biomarker\n\n\n\n\n\n\n\n\n\n힌트임상에서 PRS의 유용성\n\n\n\n\n\nHigh CAD PRS → ↑ CAD risk → ↑ absolute benefit from statin → ↓ Number needed to treat\nMega et al., Lancet 2015; Natarajan et al.,",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1356,8 +1356,8 @@
     "objectID": "ko/chapters/part2/w4_prs.html#w4-s2-1",
     "href": "ko/chapters/part2/w4_prs.html#w4-s2-1",
     "title": "W4. 다유전자 위험 점수(PRS)",
-    "section": "1) ⚠️ 절대로 만난 적이 없어야 하는 두 데이터셋",
-    "text": "1) ⚠️ 절대로 만난 적이 없어야 하는 두 데이터셋\n\n\n\n과장된 PRS 결과는 거의 모두 아래의 두 질문 중 하나로 거슬러 올라갑니다.\n\n\n\n\n\n\n\n\n중요PRS 논문이 틀리는 가장 흔한 한 가지 방식\n\n\n\n\n\nTarget 개인 중 누구라도 base GWAS에 참여했다면 score는 그들의 질환 상태를 일부 암기한 것입니다. 성능이 때로는 극적으로 부풀려집니다.\n\n⚠️ Base와 target 사이의 sample overlap → overfitting\n⚠️ 성능을 보고할 같은 집합에서 p-value threshold를 tuning → overfitting\n\n✅ 신뢰할 수 있는 논문은 base와 target을 명시하고, 둘의 독립성을 확인하며, held-out cohort에서 평가합니다.\n💡 “Threshold를 최적화하여 AUC 0.71을 달성했다”는 문장을 읽으면 그 최적화가 어떤 데이터에서 이루어졌는지 확인하세요. 흔히 supplement의 문장 하나에 숨어 있습니다.",
+    "section": "1) ⚠️ GWAS 데이터와 PRS를 계산할 데이터는 달라야 함",
+    "text": "1) ⚠️ GWAS 데이터와 PRS를 계산할 데이터는 달라야 함\n\n\n\n\n\n\n\n\n\n\n\n중요⚠️Overfitting\n\n\n\n\n\nGWAS에 사용된 sample의 PRS를 계산하는 건 아무 의미가 없음..\n✅ 신뢰할 수 있는 논문은 base와 target을 명시하고, 둘의 독립성을 확인하며, held-out cohort에서 평가함",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1367,8 +1367,8 @@
     "objectID": "ko/chapters/part2/w4_prs.html#w4-s2-2",
     "href": "ko/chapters/part2/w4_prs.html#w4-s2-2",
     "title": "W4. 다유전자 위험 점수(PRS)",
-    "section": "2) 논문에서 보게 될 네 가지 이름",
-    "text": "2) 논문에서 보게 될 네 가지 이름\n직접 실행할 필요는 없고 알아보면 됩니다.\n\n\n\n\n\n\n\n\n방법\n한 줄 아이디어\n주로 보이는 곳\n\n\n\n\nC+T (clumping + thresholding)\nLD block마다 variant 하나를 남기고 p cutoff보다 큰 것을 제거\n오래된 논문; 여전히 합리적인 baseline\n\n\nPRSice-2\nThreshold를 자동 tuning하는 C+T와 표준 plot\n임상 논문에서 매우 흔함\n\n\nLDpred2\nBayesian 방식으로 LD를 model하고 hard cutoff 없이 모든 variant의 weight를 다시 계산\n정확도를 위한 현재의 기본 방법\n\n\nPRS-CSx\n여러 ancestry에 동시에 continuous shrinkage 적용\n비유럽 cohort에서 중요한 방법\n\n\n\n\n\n\n\n\n\n노트방법 선택이 논문 읽기에 영향을 주는가?\n\n\n\n\n\n대체로 그렇지 않습니다. 현대적인 방법 사이의 차이는 ancestry와 cohort에서 생기는 차이보다 작습니다.\n예외로 지적할 만한 것은 두 가지입니다.\n\n⚠️ Threshold 기반 방법(C+T, PRSice-2)에는 조절 가능한 parameter가 있습니다. 어디에서 tuning했는지 물으세요\n✅ Target이 유럽인이 아니라면 multi-ancestry 방법이 정직한 선택입니다. 한국인 cohort 논문에 이것이 없다면 타당한 비판입니다",
+    "section": "2) 많이 쓰는 PRS 계산 방식",
+    "text": "2) 많이 쓰는 PRS 계산 방식\n\n\n\n\n\n\n\n\n방법\n한 줄 아이디어\n주로 보이는 곳\n\n\n\n\nC+T (clumping + thresholding)\nLD block마다 variant 하나를 남기고 p cutoff보다 큰 것을 제거\n오래된 논문; 여전히 합리적인 baseline\n\n\nPRSice-2\nThreshold를 자동 tuning하는 C+T와 표준 plot\n임상 논문에서 매우 흔함\n\n\nLDpred2\nBayesian 방식으로 LD를 model하고 hard cutoff 없이 모든 variant의 weight를 다시 계산\n정확도를 위한 현재의 기본 방법\n\n\nPRS-CSx\n여러 ancestry에 동시에 continuous shrinkage 적용\n비유럽 cohort에서 중요한 방법\n\n\n\n\n\n\n\n\n\n노트방법 선택이 논문 읽기에 영향을 주는가?\n\n\n\n\n\n대체로 x. 방법 간 차이 &lt;&lt; ancestry와 cohort 때문에 생기는 차이\n\n⚠️ Threshold 기반 방법(C+T, PRSice-2): check the parameters for tuning\n✅ multi-ancestry 방법: for non European samples (including Koreans)",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1379,7 +1379,7 @@
     "href": "ko/chapters/part2/w4_prs.html#w4-s3-1",
     "title": "W4. 다유전자 위험 점수(PRS)",
     "section": "1) PRS 단독이 아니라 추가 가치",
-    "text": "1) PRS 단독이 아니라 추가 가치\nPRS 단독으로 AUC 0.64에 도달했다면 그럴듯하게 들립니다. 많은 질환에서 나이와 성별만으로도 그 정도에 도달합니다.\n\n\n\n같은 model에 던지는 두 질문입니다. 대부분의 논문은 왼쪽 질문에만 답합니다.\n\n\n의미 있는 비교는 하나뿐입니다.\nModel A (clinical) : age + sex + BMI + family history + labs\nModel B (clinical + PRS)\n\n           ΔAUC  =  AUC(B) − AUC(A)\n  incremental R²  =  R²(B)  − R²(A)      (Nagelkerke, for binary outcomes)\n\n❌ “PRS AUC = 0.64” — 이것만으로는 해석할 수 없습니다\n✅ “PRS를 추가하자 AUC가 0.72에서 0.74로 증가했다(p = 0.003)” — 이제 판단할 수 있습니다\n\n💡 좋은 PRS에서 일반적인 ΔAUC는 0.01–0.03입니다. 40만 명의 biobank에서는 충분히 유의하지만 환자 한 명에게는 흔히 무시할 정도입니다. 두 문장은 동시에 참입니다.",
+    "text": "1) PRS 단독이 아니라 추가 가치\nPRS 단독으로 AUC 0.64 –&gt; good? … 사실 많은 질환에서 나이와 성별만으로 그 정도는 가능\nModel A (clinical) : age + sex + BMI + family history + labs\nModel B (clinical + PRS)\n\n           ΔAUC  =  AUC(B) − AUC(A)\n  incremental R²  =  R²(B)  − R²(A)      (Nagelkerke, for binary outcomes)\n\n❌ “PRS AUC = 0.64” — 이것만으로는 해석 불가\n✅ “PRS를 추가하자 AUC가 0.72에서 0.74로 증가했다(p = 0.003)” — 이제 판단 가능\n\n💡 좋은 PRS에서 일반적인 ΔAUC는 0.01–0.03 정도. 40만 명의 biobank에서는 충분히 유의하지만 환자 한 명에게는 흔히 무시할 정도..",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1390,7 +1390,7 @@
     "href": "ko/chapters/part2/w4_prs.html#w4-s3-2",
     "title": "W4. 다유전자 위험 점수(PRS)",
     "section": "2) Calibration — 아무도 보여주지 않는 metric",
-    "text": "2) Calibration — 아무도 보여주지 않는 metric\nDiscrimination은 model이 사람들의 순서를 올바르게 매기는지 묻습니다. Calibration은 예측한 probability가 맞는지 묻습니다.\n“10년 동안 위험 10%”라고 들은 사람 중 실제로 약 10%가 질환에 걸립니까?\n\n\n\n\n\n\n경고Discrimination은 좋지만 calibration은 형편없는 결과를 만들기 쉽다\n\n\n\n\n\n위 그림의 오른쪽 panel을 보세요. 두 선 모두 환자의 순위를 똑같이 매깁니다. 그중 하나는 환자에게 실제의 두 배인 숫자를 말합니다.\n\n⚠️ UK Biobank에서 calibration한 PRS는 한국 병원 population에서 calibration되어 있지 않습니다. Baseline incidence, age structure, competing risk가 다릅니다\n✅ Recalibration(intercept 또는 baseline hazard 업데이트)은 일상적인 해결책입니다. 다만 population을 대표하는 cohort에서 실제로 수행해야 합니다\n⚠️ Biobank volunteer는 일반 population보다 건강하므로 여기에서 계산한 absolute risk는 체계적으로 낮습니다\n\n→ 논문이 AUC만 보고하고 calibration plot을 보여주지 않는다면 제시된 absolute risk를 신뢰할 수 없습니다.",
+    "text": "2) Calibration — 아무도 보여주지 않는 metric\nDiscrimination은 model이 사람들의 순서를 올바르게 매기는가?\nCalibration은 예측한 probability가 맞는가? (prob = PRS + clinical data…)\n“10년 동안 위험 10%”라고 들은 사람 중 실제로 약 10%가 질환에 걸립니까?\n\n\n\n\n\n\n경고Discrimination은 좋지만 calibration은 형편없는 결과를 만들기 쉽다\n\n\n\n\n\n위 그림의 오른쪽 panel을 보세요. 두 선 모두 환자의 순위를 똑같이 매깁니다. 그중 하나는 환자에게 실제의 두 배인 숫자를 말합니다.\n\n⚠️ UK Biobank에서 calibration한 PRS는 한국 병원 population에서 calibration (x) … Baseline incidence, age structure, competing risk가 다름\n✅ Recalibration(intercept 또는 baseline hazard 업데이트)로 해결. 다만 population을 대표하는 cohort에서 실제로 수행…\n⚠️ Biobank volunteer는 일반 population보다 건강하므로 여기에서 계산한 absolute risk는 그냥 낮음\n\n→ 논문이 AUC만 보고하고 calibration plot을 보여주지 않는다면 제시된 absolute risk를 신뢰할 수 없음!",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1400,8 +1400,8 @@
     "objectID": "ko/chapters/part2/w4_prs.html#w4-s3-3",
     "href": "ko/chapters/part2/w4_prs.html#w4-s3-3",
     "title": "W4. 다유전자 위험 점수(PRS)",
-    "section": "3) Framing이 환자가 듣는 내용을 결정한다",
-    "text": "3) Framing이 환자가 듣는 내용을 결정한다\n\n\n\n\n\n\n\n\nFraming\n예\n⚠️ 주의점\n\n\n\n\nPercentile\n“PRS 상위 5%”\n위험이 얼마나 큰지는 말하지 않음\n\n\nRelative risk / OR\n“Population 평균의 2.3배”\nBaseline이 0.4%이면 2.3배도 0.9%에 불과함\n\n\nAbsolute risk\n“10년 동안 18%”\n환자가 속한 population의 incidence data가 필요함\n\n\n\n✅ Guideline action과 연결한 absolute risk만이 정직하면서 사용할 수 있는 framing입니다. 나머지는 환자에게 전달하기 전에 번역이 필요합니다.",
+    "section": "3) PRS 표현은 조심스럽게",
+    "text": "3) PRS 표현은 조심스럽게\n\n\n\n\n\n\n\n\nFraming\n예\n⚠️ 주의점\n\n\n\n\nPercentile\n“PRS 상위 5%”\n위험이 얼마나 큰지는 말하지 않음\n\n\nRelative risk / OR\n“Population 평균의 2.3배”\nBaseline이 0.4%이면 2.3배도 0.9%에 불과함\n\n\nAbsolute risk ✅\n“10년 동안 18%”\n환자가 속한 population의 incidence data가 필요함",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1412,7 +1412,7 @@
     "href": "ko/chapters/part2/w4_prs.html#w4-s3-4",
     "title": "W4. 다유전자 위험 점수(PRS)",
     "section": "4) ⚠️ 어느 decile을 비교했는가?",
-    "text": "4) ⚠️ 어느 decile을 비교했는가?\n\n\n\n어떤 숫자도 조작되지 않았습니다. 세 숫자 모두 같은 열 개의 막대를 설명합니다.\n\n\n⚠️ “위험 5배 증가”라는 headline은 거의 언제나 top decile과 bottom decile의 비교입니다. Middle과 비교하면 같은 score가 2.8배, 실제 사용 방식인 나머지 전체와 비교하면 2.4배입니다.\n💡 위험이 decile에 따라 매끄럽게 증가하는지, extreme tail에서만 증가하는지도 확인하세요. 상위 1%만 구분하는 score는 극소수만을 위한 screening tool입니다.",
+    "text": "4) ⚠️ 어느 decile을 비교했는가?\n\n\n\n\n\n⚠️ “위험 5배 증가”라는 headline은 거의 언제나 top decile과 bottom decile의 비교. Middle과 비교하면 같은 score가 2.8배, 실제 사용 방식인 나머지 전체와 비교하면 2.4배\n💡 위험이 decile에 따라 매끄럽게 증가하는지, extreme tail에서만 증가하는지도 확인해야함. 상위 1%만 구분하는 score는 극소수만을 위한 screening tool (효용성 x)",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1423,7 +1423,7 @@
     "href": "ko/chapters/part2/w4_prs.html#w4-s3-5",
     "title": "W4. 다유전자 위험 점수(PRS)",
     "section": "5) 누구의 genome으로 만들었는가?",
-    "text": "5) 누구의 genome으로 만들었는가?\n다른 무엇보다 먼저 base GWAS의 ancestry를 찾으세요. §5 전체가 그 이유를 설명합니다.",
+    "text": "5) 누구의 genome으로 만들었는가?\n다른 무엇보다 먼저 base GWAS의 ancestry 확인!! §5 전체가 그 이유를 설명합니다.",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1434,7 +1434,7 @@
     "href": "ko/chapters/part2/w4_prs.html#w4-s4-1",
     "title": "W4. 다유전자 위험 점수(PRS)",
     "section": "1) AUC가 아니라 ACCE",
-    "text": "1) AUC가 아니라 ACCE\nGenomic test를 판단하는 표준 framework입니다.\n\nAnalytical validity — pipeline이 score를 정확하고 재현 가능하게 계산하는가?\nClinical validity — score가 target population의 질환과 연관되는가?\nClinical utility — 이를 사용하는 것이 outcome을 개선하는가?\nELSI — 형평성, consent, insurance, communication 같은 ethical, legal and social implication\n\n💡 출판된 PRS 대부분은 앞의 두 기준을 통과합니다. 병목은 utility와 ELSI입니다. 20년의 GWAS 역사에도 PRS가 아직 routine care가 아닌 이유입니다.",
+    "text": "1) AUC가 아니라 ACCE\nGenomic test를 판단하는 표준 framework\n\nAnalytical validity — pipeline이 score를 정확하고 재현 가능하게 계산하는가?\nClinical validity — score가 target population의 질환과 연관되는가?\nClinical utility — 이를 사용하는 것이 outcome을 개선하는가?\nELSI — 형평성, consent, insurance, communication 같은 ethical, legal and social implication\n\n💡 PRS 논문 대부분은 앞의 두 기준은 통과함. utility와 ELSI가 문제임. GWAS가 20년이 됐지만 PRS가 아직 routine care가 아닌 이유..",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1444,8 +1444,8 @@
     "objectID": "ko/chapters/part2/w4_prs.html#w4-s4-2",
     "href": "ko/chapters/part2/w4_prs.html#w4-s4-2",
     "title": "W4. 다유전자 위험 점수(PRS)",
-    "section": "2) 임상시험이 실제로 보여주는 것",
-    "text": "2) 임상시험이 실제로 보여주는 것\n\n\n\n\n\n\n\n\nTrial\nSetting\n발견 또는 검정 중인 내용\n\n\n\n\nMI-GENES\nCHD\nPRS를 통합한 risk disclosure → 더 이르고 오래 지속된 statin 사용을 통해 6개월 뒤 LDL 감소\n\n\nGenoVA\n6개 질환(CHD, T2D, AF, 유방암/대장암/전립선암)\nPRS 결과가 진단까지 걸리는 시간에 미치는 영향\n\n\nWISDOM / PERSPECTIVE\n유방암\nPRS에 따라 mammography 강도를 정하는 전략\n\n\neMERGE, Our Future Health\n10개 질환 / 참여자 500만 명\nEfficacy가 아니라 대규모 implementation\n\n\n\n\n\n\n\n\n\n노트MI-GENES를 주의 깊게 읽기\n\n\n\n\n\n효과의 mechanism은 행동 변화였습니다. 고위험이라는 결과를 들은 환자가 statin을 더 일찍 시작하고 계속 복용했습니다.\n이것은 실제 임상 효과입니다. 그러나 지금까지 입증된 PRS 가치의 상당 부분이 생물학적으로 다른 집단을 찾아내는 것이 아니라 이미 있던 치료의 adherence를 높이는 것에서 나온다는 뜻입니다.\n→ 논문이 PRS가 “새로운 고위험 phenotype을 밝힌다”고 주장할 때 기억할 가치가 있습니다.",
+    "section": "2) 임상시험에서 효용성을 보인 경우?",
+    "text": "2) 임상시험에서 효용성을 보인 경우?\n\n\n\n\n\n\n\n\nTrial\nSetting\n발견 또는 검정 중인 내용\n\n\n\n\nMI-GENES\nCHD\nPRS를 통합한 risk disclosure → 더 이르고 오래 지속된 statin 사용을 통해 6개월 뒤 LDL 감소\n\n\nGenoVA\n6개 질환(CHD, T2D, AF, 유방암/대장암/전립선암)\nPRS 결과가 진단까지 걸리는 시간에 미치는 영향\n\n\nWISDOM / PERSPECTIVE\n유방암\nPRS에 따라 mammography 강도를 정하는 전략\n\n\neMERGE, Our Future Health\n10개 질환 / 참여자 500만 명\nEfficacy가 아니라 대규모 implementation\n\n\n\n\n\n\n\n\n\n노트MI-GENES를 주의 깊게 읽기\n\n\n\n\n\n효과의 mechanism은 행동 변화. 고위험이라는 결과를 들은 환자가 statin을 더 일찍 시작하고 계속 복용.\n실제 임상 효과가 있었음. 그러나 지금까지 입증된 PRS의 효용성은 상당 부분이 생물학적으로 다른 집단을 찾아내는 것이 아니라 이미 있던 치료의 adherence를 높이는 것!",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1456,7 +1456,7 @@
     "href": "ko/chapters/part2/w4_prs.html#w4-s4-3",
     "title": "W4. 다유전자 위험 점수(PRS)",
     "section": "3) PRS가 이미 임상 equation에 포함된 영역",
-    "text": "3) PRS가 이미 임상 equation에 포함된 영역\n\n✅ 유방암 — BOADICEA / CanRisk: PRS를 가족력, rare variant(BRCA1/2), clinical factor와 함께 사용하는 널리 쓰이는 유일한 equation입니다. ER-positive disease의 lifetime risk는 bottom centile과 top centile 사이에서 대략 2%에서 31%까지 차이 납니다\n✅ CHD — Pooled Cohort Equations: PRS는 clinical factor와 거의 orthogonal하므로 log-additive하게 추가할 수 있습니다\n⚠️ 그 밖의 모든 영역: 검증된 absolute-risk equation이 없습니다. Population incidence로 absolute risk를 재구성해야 하며 바로 여기에서 calibration 문제가 생깁니다",
+    "text": "3) PRS가 이미 임상 equation에 포함된 영역\n\n✅ 유방암 — BOADICEA / CanRisk: PRS를 가족력, rare variant(BRCA1/2), clinical factor와 함께 사용하는 널리 쓰이는 유일한 케이스. ER-positive disease의 lifetime risk는 bottom centile과 top centile 사이에서 대략 2%에서 31%까지 차이 남\n✅ CHD — Pooled Cohort Equations: PRS는 clinical factor와 거의 orthogonal하므로 log-additive하게 추가 가능\n⚠️ 그 밖의 모든 영역: 검증된 absolute-risk equation (x). Population incidence로 absolute risk를 재구성해야 하며 바로 여기에서 calibration 문제 발생",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1466,8 +1466,8 @@
     "objectID": "ko/chapters/part2/w4_prs.html#w4-s4-4",
     "href": "ko/chapters/part2/w4_prs.html#w4-s4-4",
     "title": "W4. 다유전자 위험 점수(PRS)",
-    "section": "4) 사람에 관한 장벽",
-    "text": "4) 사람에 관한 장벽\n\n\n\n\n\n\n경고수학과 관계없는 세 가지 실패 방식\n\n\n\n\n\n\n⚠️ 환자는 유전 정보를 운명으로 받아들입니다. 위험은 probabilistic하고 수정 가능합니다. MI-GENES가 성공한 이유 중 하나는 이를 명확히 framing했기 때문입니다\n⚠️ PRS를 20개 실행하면 거의 모두가 무언가의 top decile에 속합니다. Alarm fatigue가 생기며, 목적 없는 panel 검사를 피해야 할 강력한 이유입니다\n⚠️ 대부분의 의사는 genomics training을 받지 않았습니다. 도입에는 PDF report가 아니라 EHR의 decision support와 진료과 안의 숙련된 champion이 필요합니다",
+    "section": "4) The human barriers",
+    "text": "4) The human barriers\n\n\n\n\n\n\n경고\n\n\n\n\n\n\n⚠️ 환자는 유전 정보를 운명으로 받아들입니다. 위험은 probabilistic하고 수정 가능함. MI-GENES가 성공한 이유 중 하나는 이를 명확히 framing했음\n⚠️ PRS를 20개 실행하면 거의 모두가 무언가의 top decile에 속합니다. Alarm fatigue가 생기며, 목적 없는 panel 검사를 피해야 함!\n⚠️ 대부분의 의사는 genomics training을 받지 않았습니다. 적용하려면 PDF report가 아니라 EHR의 decision support와 진료과 안의 숙련된 의사가 필요함",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1477,8 +1477,8 @@
     "objectID": "ko/chapters/part2/w4_prs.html#w4-s5-1",
     "href": "ko/chapters/part2/w4_prs.html#w4-s5-1",
     "title": "W4. 다유전자 위험 점수(PRS)",
-    "section": "1) PRS는 ancestry를 넘어 그대로 이전되지 않는다",
-    "text": "1) PRS는 ancestry를 넘어 그대로 이전되지 않는다\n\n\n\nScore는 전혀 바뀌지 않았습니다. 환자만 바뀌었습니다.\n\n\n이유는 구조적이며 같은 population의 사람을 더 모으는 것으로 해결할 수 없습니다.\n\nAllele frequency가 다름 — 유럽인에서 흔한 variant가 드물거나 없을 수 있습니다\nLD pattern이 다름 — tag SNP가 더는 causal variant를 tag하지 않습니다(🔗 W3 §3.1)\nEffect size가 다름 — gene–environment 및 genetic-background interaction\n\n\n\n\n\n\n\n중요형평성 문제일 뿐 아니라 임상 안전 문제다\n\n\n\n\n\nCalibration이 맞지 않는 PRS는 중립적으로 실패하지 않습니다. 학습되지 않은 population을 체계적으로 낮은 위험으로 표시합니다.\n→ 유럽인 CAD PRS를 한국 환자에게 적용하면 찾아낸 고위험군은 training population과 닮은 사람으로 치우치고, 놓친 환자는 무작위 표본이 아닙니다.\n⚠️ Precision medicine이라는 이름의 도구로 격차를 확대하는 것은 도구를 사용하지 않는 것보다 나쁩니다.",
+    "section": "1) PRS는 ancestry가 다르면 그대로 적용할 수 없음",
+    "text": "1) PRS는 ancestry가 다르면 그대로 적용할 수 없음\n\n\n\n\n\n이유는 다양하고 서로 연결되어 있어서 같은 population의 사람을 더 모으는 것으로 해결 불가\n\nAllele frequency가 다름 — 유럽인에서 흔한 variant가 드물거나 없을 수 있음\nLD pattern이 다름 — tag SNP가 더는 causal variant를 tag하지 않음(🔗 W3 §3.1)\nEffect size가 다름 — gene–environment 및 genetic-background interaction",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1489,7 +1489,7 @@
     "href": "ko/chapters/part2/w4_prs.html#w4-s5-2",
     "title": "W4. 다유전자 위험 점수(PRS)",
     "section": "2) 대신 무엇을 해야 하는가",
-    "text": "2) 대신 무엇을 해야 하는가\n\n✅ 한국인 또는 동아시아인의 ancestry-matched base GWAS를 우선합니다\n✅ Matching된 base가 너무 작다면 PRS-CSx 또는 multi-ancestry meta-analysis를 사용합니다\n✅ 자체 population에서 recalibration하고 ancestry별 성능을 보고합니다\n✅ 한국 resource로 KoGES, Korea Biobank Array(KCHIP), National Biobank of Korea, 지역 resource로 Biobank Japan, China Kadoorie가 있습니다\n\n💡 Diversity는 형평성만의 문제가 아닙니다. 서로 다른 LD structure는 haplotype block을 깨뜨리고 fine-mapping에서 더 작은 credible set을 만듭니다(🔗 W3 §6).",
+    "text": "2) 대신 무엇을 해야 하는가\n\n✅ 한국인 또는 동아시아인의 ancestry-matched base GWAS를 우선적으로 사용\n✅ Matching된 base가 너무 작다면 PRS-CSx 또는 multi-ancestry meta-analysis를 사용\n✅ 자체 population에서 recalibration하고 ancestry별 성능을 보고\n✅ Korean resource: KoGES, Korea Biobank Array(KCHIP), National Biobank of Korea\nEAS resource로 Biobank Japan, China Kadoorie 등",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1500,7 +1500,7 @@
     "href": "ko/chapters/part2/w4_prs.html#w4-s7-1",
     "title": "W4. 다유전자 위험 점수(PRS)",
     "section": "1) 코딩 없이 PGS Catalog의 실제 score 읽기",
-    "text": "1) 코딩 없이 PGS Catalog의 실제 score 읽기\nPGS Catalog(pgscatalog.org)는 출판된 score의 weight, metadata, 평가 성능을 모은 공개 registry입니다.\n전문 분야와 관련된 질환 하나를 고른 뒤 다음에 답하세요.\n\n① Score는 몇 개 variant를 사용합니까? 출판된 score는 6개부터 100만 개 이상까지 다양합니다\n② Development cohort의 ancestry는 무엇입니까?\n③ 동아시아 sample에서 평가되었습니까? Effect size가 어떻게 변했습니까?\n④ Calibration이 보고되어 있습니까, 아니면 discrimination만 있습니까?\n⑤ 같은 질환에 여러 score가 있습니까? 어떤 개인이 고위험인지 서로 일치합니까?\n\n💡 ⑤는 과소평가된 질문입니다. Population AUC가 거의 같은 두 score도 어떤 특정 개인이 top decile인지에는 흔히 동의하지 않습니다. 그래서 일부 group은 누군가를 고위험으로 표시하기 전에 두 개 이상의 score에서 top tier일 것을 요구합니다.",
+    "text": "1) 코딩 없이 PGS Catalog의 실제 score 읽기\nPGS Catalog(pgscatalog.org)는 출판된 score의 weight, metadata, 평가 성능을 모은 공개 DB\n전문 분야와 관련된 질환 하나를 고른 뒤 다음에 답하세요.\n\n① Score는 몇 개 variant를 사용합니까? 출판된 score는 6개부터 100만 개 이상까지 다양합니다\n② Development cohort의 ancestry는 무엇입니까?\n③ 동아시아 sample에서 평가되었습니까? Effect size가 어떻게 변했습니까?\n④ Calibration이 보고되어 있습니까, 아니면 discrimination만 있습니까?\n⑤ 같은 질환에 여러 score가 있습니까? 어떤 개인이 고위험인지 서로 일치합니까?",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1511,7 +1511,7 @@
     "href": "ko/chapters/part2/w4_prs.html#w4-s7-2",
     "title": "W4. 다유전자 위험 점수(PRS)",
     "section": "2) 최소한의 코드: score를 임상 그림으로 바꾸기",
-    "text": "2) 최소한의 코드: score를 임상 그림으로 바꾸기\n수업의 목적이 계산이 아니라 해석이므로 미리 계산한 score table(rawdata/prs_scores.tsv, n = 40,000)을 제공합니다. IID, PRS, disease, age, sex를 개인별 한 행에 담았습니다.\n⚠️ 개인 genotype은 공유할 수 없으므로 simulated data입니다. Effect size(OR = 1.74 per SD)와 decile pattern은 현실적이며 §3.4의 그림도 바로 이 파일로 만들었습니다.\n\nlibrary(tidyverse)\nlibrary(here)\n\nprs &lt;- read_tsv(here(\"rawdata\", \"prs_scores.tsv\"))\n\n# Standardise so the score reads as SD units — always do this before reporting\nprs &lt;- prs |&gt; mutate(PRS_z = as.numeric(scale(PRS)))\n\nClinical model을 넘어서는 incremental value:\n\nlibrary(pROC)\n\nm_clin &lt;- glm(disease ~ age + sex,         data = prs, family = binomial)\nm_prs  &lt;- glm(disease ~ age + sex + PRS_z, data = prs, family = binomial)\n\nroc_clin &lt;- roc(prs$disease, predict(m_clin, type = \"response\"))\nroc_prs  &lt;- roc(prs$disease, predict(m_prs,  type = \"response\"))\n\nroc.test(roc_clin, roc_prs)   # ← the number that belongs in the abstract\n\n정직한 reference와 비교한 decile별 risk:\n\nby_decile &lt;- prs |&gt;\n  mutate(decile = ntile(PRS_z, 10)) |&gt;\n  group_by(decile) |&gt;\n  summarise(n = n(), cases = sum(disease), .groups = \"drop\") |&gt;\n  mutate(risk = cases / n,\n         OR_vs_middle = (risk / (1 - risk)) /\n                        (risk[decile == 5] / (1 - risk[decile == 5])))\n\nggplot(by_decile, aes(decile, OR_vs_middle)) +\n  geom_col(fill = \"#185FA5\") +\n  geom_hline(yintercept = 1, linetype = \"dashed\") +\n  scale_x_continuous(breaks = 1:10) +\n  labs(x = \"PRS decile\", y = \"OR vs middle decile\",\n       title = \"Risk by PRS decile — referenced to the middle, not the bottom\") +\n  theme_minimal()\n\n✅ 이제 한 가지만 바꾸세요. Reference를 decile == 1로 바꾸어 다시 실행하고 top bar를 비교합니다. 그 차이가 초록에서 만나게 될 숫자입니다.\n\n\n\n\n\n\n힌트직접 만들어보고 싶다면\n\n\n\n\n\n이 수업의 필수 내용은 아니지만 시작점은 다음과 같습니다.\n\nbigsnpr(R) — C+T와 LDpred2 구현; privefl.github.io/bigsnpr\nPRSice-2 — command-line에서 threshold 자동 tuning; prsice.info\nPRS-CSx — Python 기반 multi-ancestry 방법; github.com/getian107/PRScsx\n\n⚠️ 각 방법에는 target ancestry와 일치하는 LD reference panel이 필요합니다. 임상 project를 막는 것은 대개 modelling이 아니라 이 요구사항입니다.",
+    "text": "2) 최소한의 코드: score를 임상 그림으로 바꾸기\nprs_scores.tsv : 미리 계산한 4만명 PRS + 임상정보 IID, PRS, disease, age, sex⚠️ 개인 genotype은 공유할 수 없으므로 시뮬레이션 데이터임!\n\nlibrary(tidyverse)\nlibrary(here)\n\nprs &lt;- read_tsv(here(\"rawdata\", \"prs_scores.tsv\"))\n\n# Standardise so the score reads as SD units — always do this before reporting\nprs &lt;- prs |&gt; mutate(PRS_z = as.numeric(scale(PRS)))\n\nClinical model을 넘어서는 incremental value:\n\nlibrary(pROC)\n\nm_clin &lt;- glm(disease ~ age + sex,         data = prs, family = binomial)\nm_prs  &lt;- glm(disease ~ age + sex + PRS_z, data = prs, family = binomial)\n\nroc_clin &lt;- roc(prs$disease, predict(m_clin, type = \"response\"))\nroc_prs  &lt;- roc(prs$disease, predict(m_prs,  type = \"response\"))\n\nroc.test(roc_clin, roc_prs)   # ← the number that belongs in the abstract\n\n정직한 reference와 비교한 decile별 risk:\n\nby_decile &lt;- prs |&gt;\n  mutate(decile = ntile(PRS_z, 10)) |&gt;\n  group_by(decile) |&gt;\n  summarise(n = n(), cases = sum(disease), .groups = \"drop\") |&gt;\n  mutate(risk = cases / n,\n         OR_vs_middle = (risk / (1 - risk)) /\n                        (risk[decile == 5] / (1 - risk[decile == 5])))\n\nggplot(by_decile, aes(decile, OR_vs_middle)) +\n  geom_col(fill = \"#185FA5\") +\n  geom_hline(yintercept = 1, linetype = \"dashed\") +\n  scale_x_continuous(breaks = 1:10) +\n  labs(x = \"PRS decile\", y = \"OR vs middle decile\",\n       title = \"Risk by PRS decile — referenced to the middle, not the bottom\") +\n  theme_minimal()\n\n✅ 이제 한 가지만 바꿔보기. Reference를 decile == 1로 바꾸어 다시 실행하고 top bar를 비교\n\n\n\n\n\n\n힌트직접 만들어보고 싶다면\n\n\n\n\n\n이 수업의 필수 내용은 아니지만 참고.\n\nbigsnpr(R) — C+T와 LDpred2 구현; privefl.github.io/bigsnpr\nPRSice-2 — command-line에서 threshold 자동 tuning; prsice.info\nPRS-CSx — Python 기반 multi-ancestry 방법; github.com/getian107/PRScsx\n\n⚠️ 각 방법에는 target ancestry와 일치하는 LD reference panel이 필요함. 임상 project가 어려운 이유…",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1522,7 +1522,7 @@
     "href": "ko/chapters/part2/w4_prs.html#w4-s7-3",
     "title": "W4. 다유전자 위험 점수(PRS)",
     "section": "3) 다음 주 전까지",
-    "text": "3) 다음 주 전까지\nW5 — single-cell RNA-seq: technology, QC, clustering. 미리 설치하세요.\n\ninstall.packages(\"Seurat\")\nBiocManager::install(c(\"SingleR\", \"celldex\"))\nrenv::snapshot()",
+    "text": "3) 다음 주 전까지\nW5 — single-cell RNA-seq: technology, QC, clustering. 미리 설치하기!\n\ninstall.packages(\"Seurat\")\nBiocManager::install(c(\"SingleR\", \"celldex\"))\nrenv::snapshot()",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -2858,7 +2858,7 @@
     "href": "chapters/part2/w4_prs.html#w4-s1-1",
     "title": "W4. Polygenic Risk Scores",
     "section": "1) One variant is useless. A million are not",
-    "text": "1) One variant is useless. A million are not\nFrom 🔗 W3: GWAS reports variants at p &lt; 5×10⁻⁸, each with an odds ratio of roughly 1.02–1.15. No single one is worth acting on.\nA PRS sums them — each GWAS effect size \\(\\hat\\beta_j\\) multiplied by that person’s allele dosage \\(G_{ij}\\):\n\\[\\text{PRS}_i = \\sum_{j=1}^{M} \\hat\\beta_j \\, G_{ij}\\]\n💡 Crucially, a PRS deliberately includes variants below genome-wide significance. Individually they are noise; in aggregate they carry real signal. This is the clinical pay-off of the omnigenic model (🔗 W3 §1.3).",
+    "text": "1) One variant is useless. A million are not\nFrom 🔗 W3: GWAS reports variants at p &lt; 5×10⁻⁸, each with an odds ratio of roughly 1.02–1.15. No single one is worth acting on.\nA PRS sums them — each GWAS effect size \\(\\hat\\beta_j\\) multiplied by that person’s allele dosage \\(G_{ij}\\):\n\\[\\text{PRS}_i = \\sum_{j=1}^{M} \\hat\\beta_j \\, G_{ij}\\]\n💡 Individually they are noise; in aggregate they carry real signal. .. the omnigenic model (🔗 W3 §1.3).",
     "crumbs": [
       "Home",
       "2 · Clinical Genomics",
@@ -2870,7 +2870,7 @@
     "href": "chapters/part2/w4_prs.html#w4-s1-2",
     "title": "W4. Polygenic Risk Scores",
     "section": "2) What it actually changes",
-    "text": "2) What it actually changes\nA PRS does not tell you whether someone has a disease. It shifts a pre-test probability — the same thing a family history does, arrived at differently.\n\n\n\n\n\n\n\nIt is\nIt is not\n\n\n\n\nA risk indicator, like LDL or a Framingham score\nA diagnosis\n\n\nFixed from birth, measured once\nA monitoring biomarker\n\n\nModifiable in consequence — statins work regardless of PRS\nDeterministic\n\n\nOne input alongside age, sex, BMI, family history, labs\nA replacement for any of them\n\n\n\n\n\n\n\n\n\nTipThe only question that matters at the bedside\n\n\n\n\n\nDoes it change management?\nIf a high PRS moves the patient across a guideline threshold you were going to act on anyway — earlier statin, earlier mammography, earlier colonoscopy — it is useful.\nIf it does not cross a threshold, you have given the patient anxiety and yourself nothing.",
+    "text": "2) What it actually changes\nA PRS does not tell you whether someone has a disease. It shifts a pre-test probability — the same thing a family history does, arrived at differently.\n\n\n\n\n\n\n\nIt is\nIt is not\n\n\n\n\nA risk indicator, like LDL or a Framingham score\nA diagnosis\n\n\nFixed from birth, measured once\nA monitoring biomarker\n\n\n\n\n\n\n\n\n\nTipCan PRS Guide Clinical Decisions?\n\n\n\n\n\nHigh CAD PRS → ↑ CAD risk → ↑ absolute benefit from statin → ↓ Number Needed to Treat\nMega et al., Lancet 2015; Natarajan et al., Circulation 2017",
     "crumbs": [
       "Home",
       "2 · Clinical Genomics",
@@ -2881,8 +2881,8 @@
     "objectID": "chapters/part2/w4_prs.html#w4-s2-1",
     "href": "chapters/part2/w4_prs.html#w4-s2-1",
     "title": "W4. Polygenic Risk Scores",
-    "section": "1) ⚠️ Two datasets that must never have met",
-    "text": "1) ⚠️ Two datasets that must never have met\n\n\n\nAlmost every inflated PRS result traces back to one of the two questions at the bottom.\n\n\n\n\n\n\n\n\nImportantThe single most common way a PRS paper is wrong\n\n\n\n\n\nIf any of the target individuals also contributed to the base GWAS, the score has partly memorised their disease status. Performance is inflated, sometimes dramatically.\n\n⚠️ Sample overlap between base and target → overfitting\n⚠️ Tuning the p-value threshold on the same set you report performance on → overfitting\n\n✅ A trustworthy paper states base and target explicitly, confirms independence, and evaluates in a held-out cohort.\n💡 When you read “we optimised the threshold and achieved AUC 0.71”, check on what data that optimisation happened. It is often one sentence in the supplement.",
+    "section": "1) ⚠️ Two datasets (GWAS & target samples) must be independent",
+    "text": "1) ⚠️ Two datasets (GWAS & target samples) must be independent\n\n\n\n\n\n\n\n\n\n\n\nImportant⚠️Overfitting\n\n\n\n\n\nIf any of the target individuals also contributed to the base GWAS, the score has partly memorised their disease status. Performance is inflated, sometimes dramatically.\n✅ A trustworthy paper states base and target explicitly, confirms independence, and evaluates in a held-out cohort.",
     "crumbs": [
       "Home",
       "2 · Clinical Genomics",
@@ -2893,8 +2893,8 @@
     "objectID": "chapters/part2/w4_prs.html#w4-s2-2",
     "href": "chapters/part2/w4_prs.html#w4-s2-2",
     "title": "W4. Polygenic Risk Scores",
-    "section": "2) The four names you will see",
-    "text": "2) The four names you will see\nYou need to recognise these, not run them.\n\n\n\n\n\n\n\n\nMethod\nIdea in one line\nWhen you see it\n\n\n\n\nC+T (clumping + thresholding)\nKeep one variant per LD block, drop those above a p cutoff\nOlder papers; still a sane baseline\n\n\nPRSice-2\nC+T with the threshold auto-tuned, plus standard plots\nVery common in clinical papers\n\n\nLDpred2\nBayesian — models LD and reweights all variants, no hard cutoff\nCurrent default for accuracy\n\n\nPRS-CSx\nContinuous shrinkage across multiple ancestries at once\nThe one that matters for non-European cohorts\n\n\n\n\n\n\n\n\n\nNoteDoes the method choice change your reading?\n\n\n\n\n\nMostly no. Differences between modern methods are modest compared with the differences that follow from ancestry and cohort.\nTwo exceptions worth flagging:\n\n⚠️ A threshold-based method (C+T, PRSice-2) has a tunable knob. Ask where it was tuned\n✅ A multi-ancestry method is the honest choice when the target is not European — its absence in a Korean-cohort paper is a fair criticism",
+    "section": "2) common ways to estimate PRS",
+    "text": "2) common ways to estimate PRS\n\n\n\n\n\n\n\n\nMethod\nIdea in one line\nWhen you see it\n\n\n\n\nC+T (clumping + thresholding)\nKeep one variant per LD block, drop those above a p cutoff\nOlder papers; still a sane baseline\n\n\nPRSice-2\nC+T with the threshold auto-tuned, plus standard plots\nVery common in clinical papers\n\n\nLDpred2\nBayesian — models LD and reweights all variants, no hard cutoff\nCurrent default for accuracy\n\n\nPRS-CSx\nContinuous shrinkage across multiple ancestries at once\nThe one that matters for non-European cohorts\n\n\n\n\n\n\n\n\n\nNoteDoes the method choice change your reading?\n\n\n\n\n\nMostly no. Differences between modern methods &lt;&lt; the differences that follow from ancestry and cohort\nTwo exceptions worth flagging:\n\n⚠️ A threshold-based method (C+T, PRSice-2): check the parameters for tuning\n✅ A multi-ancestry method: the honest choice when the target is not European",
     "crumbs": [
       "Home",
       "2 · Clinical Genomics",
@@ -2906,7 +2906,7 @@
     "href": "chapters/part2/w4_prs.html#w4-s3-1",
     "title": "W4. Polygenic Risk Scores",
     "section": "1) Incremental value, not the PRS alone",
-    "text": "1) Incremental value, not the PRS alone\nA PRS alone reaching AUC 0.64 sounds respectable. Age and sex alone reach about that for many diseases.\n\n\n\nSame model, two questions. Most papers answer only the left one.\n\n\nThe only meaningful comparison:\nModel A (clinical) : age + sex + BMI + family history + labs\nModel B (clinical + PRS)\n\n           ΔAUC  =  AUC(B) − AUC(A)\n  incremental R²  =  R²(B)  − R²(A)      (Nagelkerke, for binary outcomes)\n\n❌ “PRS AUC = 0.64” — uninterpretable on its own\n✅ “Adding PRS raised AUC from 0.72 to 0.74 (p = 0.003)” — now you can judge it\n\n💡 ΔAUC of 0.01–0.03 is typical for a good PRS. In a biobank of 400,000 that is comfortably significant, and for one patient it is often negligible. Both statements are true at once.",
+    "text": "1) Incremental value, not the PRS alone\nA PRS alone reaching AUC 0.64 sounds respectable. Age and sex alone reach about that for many diseases.\nThe only meaningful comparison:\nModel A (clinical) : age + sex + BMI + family history + labs\nModel B (clinical + PRS)\n\n           ΔAUC  =  AUC(B) − AUC(A)\n  incremental R²  =  R²(B)  − R²(A)      (Nagelkerke, for binary outcomes)\n\n❌ “PRS AUC = 0.64” — uninterpretable on its own\n✅ “Adding PRS raised AUC from 0.72 to 0.74 (p = 0.003)” — now you can judge it\n\n💡 ΔAUC of 0.01–0.03 is typical for a good PRS. In a biobank of 400,000 that is comfortably significant, and for one patient it is often negligible.",
     "crumbs": [
       "Home",
       "2 · Clinical Genomics",
@@ -2918,7 +2918,7 @@
     "href": "chapters/part2/w4_prs.html#w4-s3-2",
     "title": "W4. Polygenic Risk Scores",
     "section": "2) Calibration — the metric nobody shows",
-    "text": "2) Calibration — the metric nobody shows\nDiscrimination asks: does the model rank people correctly? Calibration asks: are the predicted probabilities right?\nOf the people told “10% risk over 10 years”, do about 10% develop the disease?\n\n\n\n\n\n\nWarningGood discrimination with terrible calibration is easy\n\n\n\n\n\nLook at the right-hand panel above. Both lines rank patients identically. One of them tells patients a number that is twice the truth.\n\n⚠️ A PRS calibrated in the UK Biobank is not calibrated in a Korean hospital population — different baseline incidence, age structure, and competing risks\n✅ Recalibration (updating the intercept or baseline hazard) is a routine fix — but it must be done, in a population-representative cohort\n⚠️ Biobank volunteers are healthier than the general population, so absolute risks derived from them run systematically low\n\n→ If a paper reports AUC and no calibration plot, the absolute risks it quotes are not trustworthy.",
+    "text": "2) Calibration — the metric nobody shows\nDiscrimination asks: does the model rank people correctly?\nCalibration asks: are the predicted probabilities right? (prob = PRS + clinical data…)\nOf the people told “10% risk over 10 years”, do about 10% develop the disease?\n\n\n\n\n\n\nWarningGood discrimination with terrible calibration is easy\n\n\n\n\n\nLook at the right-hand panel above. Both lines rank patients identically. One of them tells patients a number that is twice the truth.\n\n⚠️ A PRS calibrated in the UK Biobank is not calibrated in a Korean hospital population — different baseline incidence, age structure, and competing risks\n✅ Recalibration (updating the intercept or baseline hazard) is a routine fix — but it must be done, in a population-representative cohort\n⚠️ Biobank volunteers are healthier than the general population, so absolute risks derived from them run systematically low\n\n→ If a paper reports AUC and no calibration plot, the absolute risks it quotes are not trustworthy.",
     "crumbs": [
       "Home",
       "2 · Clinical Genomics",
@@ -2930,7 +2930,7 @@
     "href": "chapters/part2/w4_prs.html#w4-s3-3",
     "title": "W4. Polygenic Risk Scores",
     "section": "3) The framing decides what the patient hears",
-    "text": "3) The framing decides what the patient hears\n\n\n\n\n\n\n\n\nFraming\nExample\n⚠️ Caveat\n\n\n\n\nPercentile\n“top 5% of PRS”\nSays nothing about how much risk that is\n\n\nRelative risk / OR\n“2.3× the population average”\n2.3 × a 0.4% baseline is still 0.9%\n\n\nAbsolute risk\n“18% over 10 years”\nNeeds incidence data for your population\n\n\n\n✅ Absolute risk tied to a guideline action is the only framing that is both honest and usable. Everything else needs translating before it reaches the patient.",
+    "text": "3) The framing decides what the patient hears\n\n\n\n\n\n\n\n\nFraming\nExample\n⚠️ Caveat\n\n\n\n\nPercentile\n“top 5% of PRS”\nSays nothing about how much risk that is\n\n\nRelative risk / OR\n“2.3× the population average”\n2.3 × a 0.4% baseline is still 0.9%\n\n\nAbsolute risk ✅\n“18% over 10 years”\nNeeds incidence data for your population",
     "crumbs": [
       "Home",
       "2 · Clinical Genomics",
@@ -3002,7 +3002,7 @@
     "href": "chapters/part2/w4_prs.html#w4-s4-4",
     "title": "W4. Polygenic Risk Scores",
     "section": "4) The human barriers",
-    "text": "4) The human barriers\n\n\n\n\n\n\nWarningThree failure modes that have nothing to do with the mathematics\n\n\n\n\n\n\n⚠️ Patients hear genetics as destiny. Risk is probabilistic and modifiable — MI-GENES succeeded partly by framing it that way explicitly\n⚠️ Run twenty PRSs and almost everyone is top-decile for something. Alarm fatigue, and a strong argument against untargeted panels\n⚠️ Most physicians have no genomics training. Deployment needs decision support in the EHR and a trained champion in the department, not a PDF report",
+    "text": "4) The human barriers\n\n\n\n\n\n\nWarning\n\n\n\n\n\n\n⚠️ Patients hear genetics as destiny. Risk is probabilistic and modifiable — MI-GENES succeeded partly by framing it that way explicitly\n⚠️ Run twenty PRSs and almost everyone is top-decile for something. Alarm fatigue, and a strong argument against untargeted panels\n⚠️ Most physicians have no genomics training. Deployment needs decision support in the EHR and a trained champion in the department, not a PDF report",
     "crumbs": [
       "Home",
       "2 · Clinical Genomics",
@@ -3014,7 +3014,7 @@
     "href": "chapters/part2/w4_prs.html#w4-s5-1",
     "title": "W4. Polygenic Risk Scores",
     "section": "1) PRS does not transfer across ancestries",
-    "text": "1) PRS does not transfer across ancestries\n\n\n\nNothing about the score changed. Only the patients did.\n\n\nThe reasons are structural, not fixable by collecting more of the same people:\n\nAllele frequencies differ — a variant common in Europeans may be rare or absent\nLD patterns differ — the tag SNP no longer tags the causal variant (🔗 W3 §3.1)\nEffect sizes differ — gene–environment and genetic-background interactions\n\n\n\n\n\n\n\nImportantThis is a clinical safety issue, not only an equity issue\n\n\n\n\n\nDeploying a miscalibrated PRS does not fail neutrally. It systematically under-flags the population it was not trained on.\n→ Applying a European CAD PRS to Korean patients means the high-risk group you identify is enriched for people who resemble the training population — and the patients you miss are not a random sample.\n⚠️ Widening a disparity with a tool marketed as precision medicine is worse than not using the tool.",
+    "text": "1) PRS does not transfer across ancestries\n\n\n\nNothing about the score changed. Only the patients did.\n\n\nThe reasons are structural, not fixable by collecting more of the same people:\n\nAllele frequencies differ — a variant common in Europeans may be rare or absent\nLD patterns differ — the tag SNP no longer tags the causal variant (🔗 W3 §3.1)\nEffect sizes differ — gene–environment and genetic-background interactions",
     "crumbs": [
       "Home",
       "2 · Clinical Genomics",
@@ -3026,7 +3026,7 @@
     "href": "chapters/part2/w4_prs.html#w4-s5-2",
     "title": "W4. Polygenic Risk Scores",
     "section": "2) What to do instead",
-    "text": "2) What to do instead\n\n✅ Prefer an ancestry-matched base GWAS — Korean or East Asian\n✅ Use PRS-CSx or multi-ancestry meta-analysis when a matched base is too small\n✅ Recalibrate in your own population and report ancestry-specific performance\n✅ Korean resources: KoGES, Korea Biobank Array (KCHIP), National Biobank of Korea; regionally Biobank Japan, China Kadoorie\n\n💡 Diversity is not only fairness — different LD structures break haplotype blocks and produce smaller credible sets in fine-mapping (🔗 W3 §6).",
+    "text": "2) What to do instead\n\n✅ Prefer an ancestry-matched base GWAS — Korean or East Asian\n✅ Use PRS-CSx or multi-ancestry meta-analysis when a matched base is too small\n✅ Recalibrate in your own population and report ancestry-specific performance\n✅ Korean resources: KoGES, Korea Biobank Array (KCHIP), National Biobank of Korea; EAS: Biobank Japan, China Kadoorie",
     "crumbs": [
       "Home",
       "2 · Clinical Genomics",
@@ -3038,7 +3038,7 @@
     "href": "chapters/part2/w4_prs.html#w4-s7-1",
     "title": "W4. Polygenic Risk Scores",
     "section": "1) No code: read a real score in the PGS Catalog",
-    "text": "1) No code: read a real score in the PGS Catalog\nThe PGS Catalog (pgscatalog.org) is the public registry of published scores — weights, metadata, and evaluated performance.\nPick a disease relevant to your specialty, then answer:\n\n① How many variants does the score use? (Published scores range from 6 to over a million)\n② What was the ancestry of the development cohort?\n③ Has it been evaluated in an East Asian sample? What happened to the effect size?\n④ Is calibration reported anywhere, or only discrimination?\n⑤ Are there several scores for the same disease? Do they agree on which individuals are high-risk?\n\n💡 ⑤ is the underrated one. Two scores with near-identical population AUC routinely disagree about which specific person sits in the top decile. Some groups therefore require top-tier status across ≥2 scores before flagging anyone.",
+    "text": "1) No code: read a real score in the PGS Catalog\nThe PGS Catalog (pgscatalog.org) is the public registry of published scores — weights, metadata, and evaluated performance.\nPick a disease relevant to your specialty, then answer:\n\n① How many variants does the score use? (Published scores range from 6 to over a million)\n② What was the ancestry of the development cohort?\n③ Has it been evaluated in an East Asian sample? What happened to the effect size?\n④ Is calibration reported anywhere, or only discrimination?\n⑤ Are there several scores for the same disease? Do they agree on which individuals are high-risk?",
     "crumbs": [
       "Home",
       "2 · Clinical Genomics",
@@ -3050,7 +3050,7 @@
     "href": "chapters/part2/w4_prs.html#w4-s7-2",
     "title": "W4. Polygenic Risk Scores",
     "section": "2) Minimal code: turn a score into a clinical figure",
-    "text": "2) Minimal code: turn a score into a clinical figure\nWe provide a pre-computed score table (rawdata/prs_scores.tsv, n = 40,000) so the session is about interpretation, not compute. One row per person: IID, PRS, disease, age, sex.\n⚠️ It is simulated — individual genotypes cannot be shared. The effect size (OR = 1.74 per SD) and the decile pattern are realistic, and §3.4’s figure was drawn from this exact file.\n\nlibrary(tidyverse)\nlibrary(here)\n\nprs &lt;- read_tsv(here(\"rawdata\", \"prs_scores.tsv\"))\n\n# Standardise so the score reads as SD units — always do this before reporting\nprs &lt;- prs |&gt; mutate(PRS_z = as.numeric(scale(PRS)))\n\nIncremental value over a clinical model:\n\nlibrary(pROC)\n\nm_clin &lt;- glm(disease ~ age + sex,         data = prs, family = binomial)\nm_prs  &lt;- glm(disease ~ age + sex + PRS_z, data = prs, family = binomial)\n\nroc_clin &lt;- roc(prs$disease, predict(m_clin, type = \"response\"))\nroc_prs  &lt;- roc(prs$disease, predict(m_prs,  type = \"response\"))\n\nroc.test(roc_clin, roc_prs)   # ← the number that belongs in the abstract\n\nRisk by decile — against an honest reference:\n\nby_decile &lt;- prs |&gt;\n  mutate(decile = ntile(PRS_z, 10)) |&gt;\n  group_by(decile) |&gt;\n  summarise(n = n(), cases = sum(disease), .groups = \"drop\") |&gt;\n  mutate(risk = cases / n,\n         OR_vs_middle = (risk / (1 - risk)) /\n                        (risk[decile == 5] / (1 - risk[decile == 5])))\n\nggplot(by_decile, aes(decile, OR_vs_middle)) +\n  geom_col(fill = \"#185FA5\") +\n  geom_hline(yintercept = 1, linetype = \"dashed\") +\n  scale_x_continuous(breaks = 1:10) +\n  labs(x = \"PRS decile\", y = \"OR vs middle decile\",\n       title = \"Risk by PRS decile — referenced to the middle, not the bottom\") +\n  theme_minimal()\n\n✅ Now change one thing: re-run with decile == 1 as the reference and compare the top bar. That difference is the one you will meet in abstracts.\n\n\n\n\n\n\nTipIf you want to build one yourself\n\n\n\n\n\nNot required for this course, but the entry points are:\n\nbigsnpr (R) — implements C+T and LDpred2; privefl.github.io/bigsnpr\nPRSice-2 — command-line, auto-tunes the threshold; prsice.info\nPRS-CSx — Python, multi-ancestry; github.com/getian107/PRScsx\n\n⚠️ Each needs an LD reference panel matched to your target ancestry. That requirement, not the modelling, is what usually stops a clinical project.",
+    "text": "2) Minimal code: turn a score into a clinical figure\nprs_scores.tsv : pre-computed score table (n=40k) + clinical info IID, PRS, disease, age, sex⚠️ It is simulated — individual genotypes cannot be shared\n\nlibrary(tidyverse)\nlibrary(here)\n\nprs &lt;- read_tsv(here(\"rawdata\", \"prs_scores.tsv\"))\n\n# Standardise so the score reads as SD units — always do this before reporting\nprs &lt;- prs |&gt; mutate(PRS_z = as.numeric(scale(PRS)))\n\nIncremental value over a clinical model:\n\nlibrary(pROC)\n\nm_clin &lt;- glm(disease ~ age + sex,         data = prs, family = binomial)\nm_prs  &lt;- glm(disease ~ age + sex + PRS_z, data = prs, family = binomial)\n\nroc_clin &lt;- roc(prs$disease, predict(m_clin, type = \"response\"))\nroc_prs  &lt;- roc(prs$disease, predict(m_prs,  type = \"response\"))\n\nroc.test(roc_clin, roc_prs)   # ← the number that belongs in the abstract\n\nRisk by decile — against an honest reference:\n\nby_decile &lt;- prs |&gt;\n  mutate(decile = ntile(PRS_z, 10)) |&gt;\n  group_by(decile) |&gt;\n  summarise(n = n(), cases = sum(disease), .groups = \"drop\") |&gt;\n  mutate(risk = cases / n,\n         OR_vs_middle = (risk / (1 - risk)) /\n                        (risk[decile == 5] / (1 - risk[decile == 5])))\n\nggplot(by_decile, aes(decile, OR_vs_middle)) +\n  geom_col(fill = \"#185FA5\") +\n  geom_hline(yintercept = 1, linetype = \"dashed\") +\n  scale_x_continuous(breaks = 1:10) +\n  labs(x = \"PRS decile\", y = \"OR vs middle decile\",\n       title = \"Risk by PRS decile — referenced to the middle, not the bottom\") +\n  theme_minimal()\n\n✅ Now change one thing: re-run with decile == 1 as the reference and compare the top bar. That difference is the one you will meet in abstracts.\n\n\n\n\n\n\nTipIf you want to build one yourself\n\n\n\n\n\nNot required for this course, but the entry points are:\n\nbigsnpr (R) — implements C+T and LDpred2; privefl.github.io/bigsnpr\nPRSice-2 — command-line, auto-tunes the threshold; prsice.info\nPRS-CSx — Python, multi-ancestry; github.com/getian107/PRScsx\n\n⚠️ Each needs an LD reference panel matched to your target ancestry. That requirement, not the modelling, is what usually stops a clinical project.",
     "crumbs": [
       "Home",
       "2 · Clinical Genomics",

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eunji Ha">
-<meta name="dcterms.date" content="2026-08-18">
+<meta name="dcterms.date" content="2026-09-27">
 
 <title>W4. Polygenic Risk Scores</title>
 <style>
@@ -621,8 +621,8 @@ window.Quarto = {
   </ul></li>
   <li><a href="#w4-s2" id="toc-w4-s2" class="nav-link" data-scroll-target="#w4-s2">2. How a PRS Gets Built 🏗️</a>
   <ul>
-  <li><a href="#w4-s2-1" id="toc-w4-s2-1" class="nav-link" data-scroll-target="#w4-s2-1">1) ⚠️ Two datasets that must never have met</a></li>
-  <li><a href="#w4-s2-2" id="toc-w4-s2-2" class="nav-link" data-scroll-target="#w4-s2-2">2) The four names you will see</a></li>
+  <li><a href="#w4-s2-1" id="toc-w4-s2-1" class="nav-link" data-scroll-target="#w4-s2-1">1) ⚠️ Two datasets (GWAS &amp; target samples) must be independent</a></li>
+  <li><a href="#w4-s2-2" id="toc-w4-s2-2" class="nav-link" data-scroll-target="#w4-s2-2">2) common ways to estimate PRS</a></li>
   </ul></li>
   <li><a href="#w4-s3" id="toc-w4-s3" class="nav-link" data-scroll-target="#w4-s3">3. ⚠️ Reading a PRS Paper 🔍</a>
   <ul>
@@ -644,7 +644,7 @@ window.Quarto = {
   <li><a href="#w4-s5-1" id="toc-w4-s5-1" class="nav-link" data-scroll-target="#w4-s5-1">1) PRS does not transfer across ancestries</a></li>
   <li><a href="#w4-s5-2" id="toc-w4-s5-2" class="nav-link" data-scroll-target="#w4-s5-2">2) What to do instead</a></li>
   </ul></li>
-  <li><a href="#w4-s6" id="toc-w4-s6" class="nav-link" data-scroll-target="#w4-s6">6. What a PRS Cannot Do 🚫</a></li>
+  <li><a href="#w4-s6" id="toc-w4-s6" class="nav-link" data-scroll-target="#w4-s6">6. limitations of PRS 🚫</a></li>
   <li><a href="#w4-s7" id="toc-w4-s7" class="nav-link" data-scroll-target="#w4-s7">7. Hands-On 💻</a>
   <ul>
   <li><a href="#w4-s7-1" id="toc-w4-s7-1" class="nav-link" data-scroll-target="#w4-s7-1">1) No code: read a real score in the PGS Catalog</a></li>
@@ -687,7 +687,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 18, 2026</p>
+      <p class="date">September 27, 2026</p>
     </div>
   </div>
   
@@ -736,15 +736,15 @@ window.Quarto = {
 <p>From 🔗 <a href="../../chapters/part2/w3_gwas.html">W3</a>: GWAS reports variants at <em>p</em> &lt; 5×10⁻⁸, each with an odds ratio of roughly <strong>1.02–1.15</strong>. No single one is worth acting on.</p>
 <p>A PRS sums them — each GWAS effect size <span class="math inline">\(\hat\beta_j\)</span> multiplied by that person’s allele dosage <span class="math inline">\(G_{ij}\)</span>:</p>
 <p><span class="math display">\[\text{PRS}_i = \sum_{j=1}^{M} \hat\beta_j \, G_{ij}\]</span></p>
-<p>💡 Crucially, a PRS deliberately includes variants <strong>below</strong> genome-wide significance. Individually they are noise; in aggregate they carry real signal. This is the clinical pay-off of the omnigenic model (🔗 <a href="../../chapters/part2/w3_gwas.html#w3-s1-3">W3 §1.3</a>).</p>
+<p>💡 Individually they are noise; in aggregate they carry real signal. .. the omnigenic model (🔗 <a href="../../chapters/part2/w3_gwas.html#w3-s1-3">W3 §1.3</a>).</p>
 </section>
 <section id="w4-s1-2" class="level2">
 <h2 class="anchored" data-anchor-id="w4-s1-2">2) What it actually changes</h2>
 <p>A PRS does <strong>not</strong> tell you whether someone has a disease. It shifts a <strong>pre-test probability</strong> — the same thing a family history does, arrived at differently.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 64%">
+<col style="width: 35%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -758,16 +758,8 @@ window.Quarto = {
 <td>A <strong>diagnosis</strong></td>
 </tr>
 <tr class="even">
-<td>Fixed from birth, measured once</td>
+<td><strong>Fixed</strong> from birth, measured once</td>
 <td>A monitoring biomarker</td>
-</tr>
-<tr class="odd">
-<td><strong>Modifiable in consequence</strong> — statins work regardless of PRS</td>
-<td>Deterministic</td>
-</tr>
-<tr class="even">
-<td>One input alongside age, sex, BMI, family history, labs</td>
-<td>A replacement for any of them</td>
 </tr>
 </tbody>
 </table>
@@ -777,15 +769,14 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>The only question that matters at the bedside
+<span class="screen-reader-only">Tip</span>Can PRS Guide Clinical Decisions?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Does it <strong>change management</strong>?</p>
-<p>If a high PRS moves the patient across a guideline threshold you were going to act on anyway — earlier statin, earlier mammography, earlier colonoscopy — it is useful.</p>
-<p>If it does not cross a threshold, you have given the patient anxiety and yourself nothing.</p>
+<p><strong>High CAD PRS → ↑ CAD risk → ↑ absolute benefit from statin → ↓ Number Needed to Treat</strong><br>
+<em>Mega et al., Lancet 2015; Natarajan et al., Circulation 2017</em></p>
 </div>
 </div>
 </div>
@@ -794,13 +785,12 @@ window.Quarto = {
 </section>
 <section id="w4-s2" class="level1">
 <h1>2. How a PRS Gets Built 🏗️</h1>
-<p>You will almost certainly never build one. But you will read papers that did, and be asked whether one applies to your patients.</p>
+<p>make sure these when you read PRS papers…</p>
 <section id="w4-s2-1" class="level2">
-<h2 class="anchored" data-anchor-id="w4-s2-1">1) ⚠️ Two datasets that must never have met</h2>
+<h2 class="anchored" data-anchor-id="w4-s2-1">1) ⚠️ Two datasets (GWAS &amp; target samples) must be independent</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w4/prs_construction.svg" class="img-fluid figure-img"></p>
-<figcaption>Almost every inflated PRS result traces back to one of the two questions at the bottom.</figcaption>
+<p><img src="../..\assets/img/w4/prs_construction.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -809,26 +799,20 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>The single most common way a PRS paper is wrong
+<span class="screen-reader-only">Important</span>⚠️Overfitting
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>If any of the <strong>target</strong> individuals also contributed to the <strong>base</strong> GWAS, the score has partly memorised their disease status. Performance is inflated, sometimes dramatically.</p>
-<ul>
-<li>⚠️ Sample overlap between base and target → <strong>overfitting</strong></li>
-<li>⚠️ Tuning the p-value threshold on the same set you report performance on → <strong>overfitting</strong></li>
-</ul>
-<p>✅ A trustworthy paper states base and target explicitly, confirms independence, and evaluates in a <strong>held-out</strong> cohort.</p>
-<p>💡 When you read “we optimised the threshold and achieved AUC 0.71”, check on <em>what data</em> that optimisation happened. It is often one sentence in the supplement.</p>
+<p>✅ A trustworthy paper states base and target explicitly, <u>confirms independence</u>, and evaluates in a <strong>held-out</strong> cohort.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="w4-s2-2" class="level2">
-<h2 class="anchored" data-anchor-id="w4-s2-2">2) The four names you will see</h2>
-<p>You need to recognise these, not run them.</p>
+<h2 class="anchored" data-anchor-id="w4-s2-2">2) common ways to estimate PRS</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 26%">
@@ -877,11 +861,11 @@ window.Quarto = {
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Mostly no. Differences between modern methods are modest compared with the differences that follow from ancestry and cohort.</p>
+<p>Mostly no. Differences between modern methods &lt;&lt; the differences that follow from ancestry and cohort</p>
 <p>Two exceptions worth flagging:</p>
 <ul>
-<li>⚠️ A <strong>threshold-based</strong> method (C+T, PRSice-2) has a tunable knob. Ask where it was tuned</li>
-<li>✅ A <strong>multi-ancestry</strong> method is the honest choice when the target is not European — its absence in a Korean-cohort paper is a fair criticism</li>
+<li>⚠️ A <strong>threshold-based</strong> method (C+T, PRSice-2): check the parameters for tuning</li>
+<li>✅ A <strong>multi-ancestry</strong> method: the honest choice when the target is not European</li>
 </ul>
 </div>
 </div>
@@ -891,16 +875,14 @@ window.Quarto = {
 </section>
 <section id="w4-s3" class="level1">
 <h1>3. ⚠️ Reading a PRS Paper 🔍</h1>
-<p>This is the section to keep. Five numbers, in the order you should look for them.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w4/discrimination_vs_calibration.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 <section id="w4-s3-1" class="level2">
 <h2 class="anchored" data-anchor-id="w4-s3-1">1) Incremental value, not the PRS alone</h2>
 <p>A PRS <strong>alone</strong> reaching AUC 0.64 sounds respectable. Age and sex alone reach about that for many diseases.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../..\assets/img/w4/discrimination_vs_calibration.svg" class="img-fluid figure-img"></p>
-<figcaption>Same model, two questions. Most papers answer only the left one.</figcaption>
-</figure>
-</div>
 <p>The only meaningful comparison:</p>
 <pre><code>Model A (clinical) : age + sex + BMI + family history + labs
 Model B (clinical + PRS)
@@ -911,11 +893,12 @@ Model B (clinical + PRS)
 <li>❌ “PRS AUC = 0.64” — uninterpretable on its own</li>
 <li>✅ “Adding PRS raised AUC from 0.72 to 0.74 (<em>p</em> = 0.003)” — now you can judge it</li>
 </ul>
-<p>💡 ΔAUC of 0.01–0.03 is typical for a good PRS. In a biobank of 400,000 that is comfortably significant, and for one patient it is often negligible. Both statements are true at once.</p>
+<p>💡 ΔAUC of 0.01–0.03 is typical for a good PRS. In a biobank of 400,000 that is comfortably significant, and for one patient it is often negligible.</p>
 </section>
 <section id="w4-s3-2" class="level2">
 <h2 class="anchored" data-anchor-id="w4-s3-2">2) Calibration — the metric nobody shows</h2>
-<p><strong>Discrimination</strong> asks: does the model rank people correctly? <strong>Calibration</strong> asks: are the predicted probabilities <em>right</em>?</p>
+<p><strong>Discrimination</strong> asks: does the model rank people correctly?<br>
+<strong>Calibration</strong> asks: are the predicted probabilities <em>right</em>? (prob = PRS + clinical data…)</p>
 <p>Of the people told “10% risk over 10 years”, do about 10% develop the disease?</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
@@ -967,13 +950,12 @@ Model B (clinical + PRS)
 <td>2.3 × a 0.4% baseline is still 0.9%</td>
 </tr>
 <tr class="odd">
-<td><strong>Absolute risk</strong></td>
+<td><strong>Absolute risk</strong> ✅</td>
 <td>“18% over 10 years”</td>
 <td>Needs incidence data for <em>your</em> population</td>
 </tr>
 </tbody>
 </table>
-<p>✅ <strong>Absolute risk tied to a guideline action</strong> is the only framing that is both honest and usable. Everything else needs translating before it reaches the patient.</p>
 </section>
 <section id="w4-s3-4" class="level2">
 <h2 class="anchored" data-anchor-id="w4-s3-4">4) ⚠️ Which deciles are being compared?</h2>
@@ -988,7 +970,7 @@ Model B (clinical + PRS)
 </section>
 <section id="w4-s3-5" class="level2">
 <h2 class="anchored" data-anchor-id="w4-s3-5">5) Whose genomes built it?</h2>
-<p>Look for the ancestry of the <strong>base</strong> GWAS before anything else. §5 is entirely about why.</p>
+<p>Look for the <strong>ancestry</strong> of the <strong>base</strong> GWAS before anything else. §5 is entirely about why.</p>
 <hr>
 </section>
 </section>
@@ -1009,9 +991,9 @@ Model B (clinical + PRS)
 <h2 class="anchored" data-anchor-id="w4-s4-2">2) What the trials actually show</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 20%">
-<col style="width: 27%">
-<col style="width: 51%">
+<col style="width: 23%">
+<col style="width: 26%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1078,7 +1060,7 @@ Model B (clinical + PRS)
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Three failure modes that have nothing to do with the mathematics
+Warning
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1111,24 +1093,6 @@ Model B (clinical + PRS)
 <li><strong>LD patterns differ</strong> — the tag SNP no longer tags the causal variant (🔗 <a href="../../chapters/part2/w3_gwas.html#w3-s3-1">W3 §3.1</a>)</li>
 <li><strong>Effect sizes differ</strong> — gene–environment and genetic-background interactions</li>
 </ul>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>This is a clinical safety issue, not only an equity issue
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Deploying a miscalibrated PRS does not fail neutrally. It systematically under-flags the population it was not trained on.</p>
-<p>→ Applying a European CAD PRS to Korean patients means the high-risk group you identify is enriched for people who resemble the training population — and the patients you miss are <strong>not a random sample</strong>.</p>
-<p>⚠️ Widening a disparity with a tool marketed as precision medicine is worse than not using the tool.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="w4-s5-2" class="level2">
 <h2 class="anchored" data-anchor-id="w4-s5-2">2) What to do instead</h2>
@@ -1136,24 +1100,22 @@ Model B (clinical + PRS)
 <li>✅ Prefer an <strong>ancestry-matched base GWAS</strong> — Korean or East Asian</li>
 <li>✅ Use <strong>PRS-CSx</strong> or multi-ancestry meta-analysis when a matched base is too small</li>
 <li>✅ <strong>Recalibrate</strong> in your own population and report ancestry-specific performance</li>
-<li>✅ Korean resources: <strong>KoGES</strong>, Korea Biobank Array (<strong>KCHIP</strong>), <strong>National Biobank of Korea</strong>; regionally <strong>Biobank Japan</strong>, <strong>China Kadoorie</strong></li>
+<li>✅ Korean resources: <strong>KoGES</strong>, Korea Biobank Array (<strong>KCHIP</strong>), <strong>National Biobank of Korea</strong>; EAS: <strong>Biobank Japan</strong>, <strong>China Kadoorie</strong></li>
 </ul>
-<p>💡 Diversity is not only fairness — different LD structures break haplotype blocks and produce <strong>smaller credible sets</strong> in fine-mapping (🔗 <a href="../../chapters/part2/w3_gwas.html#w3-s6">W3 §6</a>).</p>
 <hr>
 </section>
 </section>
 <section id="w4-s6" class="level1">
-<h1>6. What a PRS Cannot Do 🚫</h1>
+<h1>6. limitations of PRS 🚫</h1>
 <ul>
-<li>❌ <strong>Not causal</strong> — a high PRS does not mean disease will occur</li>
-<li>❌ <strong>Misses rare high-penetrance variants</strong> — BRCA1/2, Lynch syndrome need dedicated testing. A reassuring PRS does not exclude them</li>
+<li>❌ <strong>Not a diagnosis</strong> — a high PRS != disease</li>
+<li>❌ <strong>Misses rare high-penetrance variants</strong> — BRCA1/2, Lynch syndrome need dedicated testing</li>
 <li>❌ <strong>Misses non-SNP variation</strong> — CNVs, structural variants, repeat expansions (🔗 <a href="../../chapters/part2/w3_gwas.html#w3-s4">W3 §4</a>)</li>
 <li>❌ <strong>Ignores gene × environment</strong> — the same score means different things in a smoker and a non-smoker</li>
-<li>❌ <strong>Not a diagnosis</strong> — one input, not a verdict</li>
-<li>⚠️ <strong>Not static in practice</strong> — methods improve and reference panels grow. Keep raw genotypes so the score can be recomputed</li>
+<li>⚠️ <strong>Not static in practice</strong> — Keep raw genotypes so the score can be recomputed</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1162,7 +1124,7 @@ Model B (clinical + PRS)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>A 42-year-old man, CAD PRS 92nd percentile, LDL 130, no family history.</p>
 <p>What you would want to know before answering:</p>
@@ -1191,12 +1153,10 @@ Model B (clinical + PRS)
 <li>④ Is calibration reported anywhere, or only discrimination?</li>
 <li>⑤ Are there several scores for the same disease? Do they agree on which individuals are high-risk?</li>
 </ul>
-<p>💡 ⑤ is the underrated one. Two scores with near-identical population AUC routinely disagree about <strong>which specific person</strong> sits in the top decile. Some groups therefore require top-tier status across ≥2 scores before flagging anyone.</p>
 </section>
 <section id="w4-s7-2" class="level2">
 <h2 class="anchored" data-anchor-id="w4-s7-2">2) Minimal code: turn a score into a clinical figure</h2>
-<p>We provide a pre-computed score table (<code>rawdata/prs_scores.tsv</code>, n = 40,000) so the session is about <strong>interpretation</strong>, not compute. One row per person: <code>IID</code>, <code>PRS</code>, <code>disease</code>, <code>age</code>, <code>sex</code>.</p>
-<p>⚠️ It is simulated — individual genotypes cannot be shared. The effect size (OR = 1.74 per SD) and the decile pattern are realistic, and §3.4’s figure was drawn from this exact file.</p>
+<p><code>prs_scores.tsv</code> : pre-computed score table (n=40k) + clinical info <code>IID</code>, <code>PRS</code>, <code>disease</code>, <code>age</code>, <code>sex</code>⚠️ It is simulated — individual genotypes cannot be shared</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
@@ -1238,7 +1198,7 @@ Model B (clinical + PRS)
 </div>
 <p>✅ <strong>Now change one thing:</strong> re-run with <code>decile == 1</code> as the reference and compare the top bar. That difference is the one you will meet in abstracts.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1247,7 +1207,7 @@ Model B (clinical + PRS)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Not required for this course, but the entry points are:</p>
 <ul>
@@ -1291,8 +1251,8 @@ Model B (clinical + PRS)
 <h1>🔑 Key terms</h1>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 37%">
-<col style="width: 62%">
+<col style="width: 38%">
+<col style="width: 61%">
 </colgroup>
 <thead>
 <tr class="header">
