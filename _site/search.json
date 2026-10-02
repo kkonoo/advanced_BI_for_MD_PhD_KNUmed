@@ -1114,8 +1114,8 @@
     "objectID": "ko/chapters/part3/w5_scrna_qc.html#w5-s1-1",
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s1-1",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
-    "section": "1) 하나의 숫자, 세 가지 생물학",
-    "text": "1) 하나의 숫자, 세 가지 생물학\n\n\n\n세 경우 모두 같은 평균과 양립합니다. 그중 하나만 regulatory story입니다.\n\n\n\n① 전반적으로 완만한 반응 — 모두가 암묵적으로 가정하는 경우이며 가장 흥미롭지 않습니다\n② 반응하는 드문 subpopulation — 대개 가장 흥미로운 경우입니다. Bulk에서는 변화하지 않는 세포 때문에 희석되어 유의성 자체가 사라지기도 합니다\n③ 조성의 변화 — 어떤 세포도 transcriptome을 바꾸지 않았습니다. 특정 cell type이 더 많아졌을 뿐입니다\n\n⚠️ ③은 염증·섬유화·침윤 조직처럼 임상의가 연구하는 바로 그 조직에서 흔하고, 일상적으로 ①인 것처럼 논문에 기술되므로 주의해야 합니다.",
+    "section": "1) 숫자(gene count)는 하나인데 세 가지 시나리오가 가능..",
+    "text": "1) 숫자(gene count)는 하나인데 세 가지 시나리오가 가능..\n\n\n\n\n\n① 전반적으로 완만한 반응: bulk의 기본 가정, but not interesting…\n② 반응하는 rare subpopulation: interesting.. Bulk에서 유의하지 않을 수도\n③ 조성의 변화: celltype 구성은 같음. 특정 cell type이 많아지거나 적어지거나\n⚠️ ③은 염증·섬유화·침윤 조직처럼 임상의가 연구하는 바로 그 조직에서 흔하고, 일상적으로 ①인 것처럼 논문에 기술되므로 주의",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1126,7 +1126,7 @@
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s1-2",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
     "section": "2) Single cell이 가치 있는 경우",
-    "text": "2) Single cell이 가치 있는 경우\n구체적으로 판단해야 합니다. Single cell은 비싸며 bulk가 더 잘 답할 질문에 사용되는 경우가 많습니다.\n✅ Single cell이 적합한 질문:\n\n드문 population을 포함한 population 발견 또는 특성화\n조성 — 질환에서 어떤 cell type이 달라졌는가\nCell-type-specific effect — 한 cell type에서는 증가하고 다른 cell type에서는 감소해 bulk에서 보이지 않는 gene\n연속적인 state — activation, exhaustion, differentiation처럼 discrete label이 실패하는 경우\n\n✅ Bulk가 여전히 적합한 질문:\n\n균질한 system(cell line, sorted population)의 명확한 비교\nIsoform, splicing, low-expression gene 같은 깊은 transcript-level 분석\n대규모 cohort — 환자 n = 200이며 200회의 single-cell run을 감당할 수 없는 경우\n\n\n\n\n\n\n\n힌트먼저 sorting하는 전략은 지나치게 과소평가되어 있다\n\n\n\n\n\n관심 있는 cell type을 이미 알고 있습니까?\n→ FACS로 sorting한 뒤 deep bulk RNA-seq을 수행하세요. 전체 조직 single-cell experiment보다 흔히 더 저렴하고, 더 깊으며, 통계적으로 더 깨끗합니다. 더 많은 환자를 포함할 수 있고, 실제 power는 바로 그 지점(§5)에서 나옵니다.\n💡 “Single cell을 했다”는 사실 자체가 더 강한 설계를 뜻하지 않습니다. 때로는 검정력이 부족한 연구를 더 비싸게 수행한 것뿐입니다.",
+    "text": "2) Single cell이 가치 있는 경우\nSingle cell은 비싸기 때문에 bulk로 충분한 경우는 굳이x\n✅ Single cell이 적합한 질문:\n\n드문 population을 포함한 population 발견 또는 특성화\n조성 — 질환에서 어떤 cell type이 달라졌는가\nCell-type-specific effect — 한 cell type에서는 증가하고 다른 cell type에서는 감소해 bulk에서 보이지 않는 gene\n연속적인 state — activation, exhaustion, differentiation처럼 discrete label이 실패하는 경우\n\n✅ Bulk가 여전히 적합한 질문:\n\n균질한 system(cell line, sorted population)의 명확한 비교\nIsoform, splicing, low-expression gene 같은 깊은 transcript-level 분석\n대규모 cohort — 환자 n = 200이며 200회의 single-cell run을 감당할 수 없는 경우\n\n\n\n\n\n\n\n힌트먼저 sorting하는 전략은 지나치게 과소평가되어 있다\n\n\n\n\n\n관심 있는 cell type을 이미 알고 있습니까?\n→ FACS로 sorting한 뒤 deep bulk RNA-seq을 수행하세요. 전체 조직 single-cell experiment보다 흔히 더 저렴하고, 더 깊으며, 통계적으로 더 깨끗합니다. 더 많은 환자를 포함할 수 있고, 실제 power는 바로 그 지점(§5)에서 나옵니다.\n💡 “Single cell을 했다”는 사실 자체가 더 강한 설계를 뜻하지 않습니다. 때로는 검정력이 부족한 연구를 더 비싸게 수행한 것뿐입니다.",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1137,7 +1137,7 @@
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s2-1",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
     "section": "1) Platform의 trade-off",
-    "text": "1) Platform의 trade-off\n모든 platform은 cell 수를 위해 depth를 포기하거나, depth를 위해 cell 수를 포기합니다.\n\n\n\n\n\n\n\n\n\nPlatform\nCell 수\nDepth\n사용 시점\n\n\n\n\nDroplet (10x)\n10³–10⁵\ncell당 gene 수천 개, 3′ end만 측정\n현재의 기본 선택\n\n\nPlate (Smart-seq3)\n10²\nfull-length, deep\nisoform, 매우 민감한 detection\n\n\nCombinatorial (sci-, SPLiT-seq)\n10⁶\n매우 shallow\nwhole-organism atlas",
+    "text": "1) Platform의 trade-off\n모든 platform은 cell 수를 위해 depth를 포기하거나, depth를 위해 cell 수를 포기\n\n\n\n\n\n\n\n\n\nPlatform\nCell 수\nDepth\n사용 시점\n\n\n\n\nDroplet (10x)\n10³–10⁵\ncell당 gene 수천 개, 3′ end만 측정\n현재의 기본 선택\n\n\nPlate (Smart-seq3)\n10²\nfull-length, deep\nisoform, 매우 민감한 detection\n\n\nCombinatorial (sci-, SPLiT-seq)\n10⁶\n매우 shallow\nwhole-organism atlas",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1148,7 +1148,7 @@
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s2-2",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
     "section": "2) ⚠️ Cell인가 nucleus인가 — 수집할 때 결정되는 이유",
-    "text": "2) ⚠️ Cell인가 nucleus인가 — 수집할 때 결정되는 이유\n\n\n\n측정하는 조성은 살아남은 세포의 조성입니다.\n\n\n\n\n\n\n\n\n\n\n\nscRNA-seq\nsnRNA-seq\n\n\n\n\nFrozen / archived tissue\n❌ fresh tissue 필요\n✅\n\n\n크거나 약한 세포(neuron, adipocyte, myofibre, cardiomyocyte)\n❌ dissociation에서 소실\n✅\n\n\nDissociation stress response\n⚠️ 있음 — protocol이 FOS, JUN, heat-shock gene을 유도\n✅ 최소\n\n\nCytoplasmic transcript\n✅ 포착\n❌ 놓침\n\n\nIntronic read\n낮음\n높음 — nucleus에는 unspliced pre-mRNA가 많음\n\n\n\n\n\n\n\n\n\n경고연구 설계 회의에 가져갈 두 가지 결과\n\n\n\n\n\n\n⚠️ Immediate-early gene은 대표적인 false positive입니다. FOS, JUN, EGR1로 정의된 cluster는 “activated” state가 아니라 dissociation artifact인 경우가 매우 많습니다. 한 condition이 bench에 더 오래 있었다면 더 활성화된 것처럼 보입니다\n⚠️ Depletion 주장은 자세히 살펴봐야 합니다. “질환에서 cell type X가 감소했다”와 “질환 조직에서 cell type X를 분리하기 더 어렵다”는 완전히 같은 데이터를 만듭니다\n\n→ ✅ 완화 방법: cold-active protease로 낮은 온도에서 dissociation하고, condition 간 protocol을 동일하게 유지하며, 가능하다면 nucleus를 사용합니다.",
+    "text": "2) ⚠️ Cell인가 nucleus인가 — 수집할 때 결정되는 이유\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nscRNA-seq\nsnRNA-seq\n\n\n\n\nFrozen / archived tissue\n❌ fresh tissue 필요\n✅\n\n\n크거나 약한 세포(neuron, adipocyte, myofibre, cardiomyocyte)\n❌ dissociation에서 소실\n✅\n\n\nDissociation stress response\n⚠️ 있음 — protocol이 FOS, JUN, heat-shock gene을 유도\n✅ 최소\n\n\nCytoplasmic transcript\n✅ 포착\n❌ 놓침\n\n\nIntronic read\n낮음\n높음 — nucleus에는 unspliced pre-mRNA가 많음\n\n\n\n\n\n\n\n\n\n경고연구 설계 회의에 가져갈 두 가지 결과\n\n\n\n\n\n\n⚠️ Immediate-early gene은 대표적인 false positive. FOS, JUN, EGR1로 정의된 cluster는 “activated” state가 아니라 dissociation artifact인 경우가 매우 많음! 한 condition이 bench에 더 오래 있었다면 더 활성화된 것처럼 보이는..\n⚠️ Depletion 주장은 자세히 살펴봐야 합니다. 데이터로 보면 “질환에서 cell type X가 감소했다” = “질환 조직에서 cell type X를 분리하기 더 어렵다” (구분 안 됨)\n\n→ ✅ 완화 방법: cold-active protease로 낮은 온도에서 dissociation하고, condition 간 protocol을 동일하게 유지하며, 가능하다면 nucleus를 사용",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1158,8 +1158,8 @@
     "objectID": "ko/chapters/part3/w5_scrna_qc.html#w5-s2-3",
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s2-3",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
-    "section": "3) 일찍 명시해야 하는 설계상의 결과",
-    "text": "3) 일찍 명시해야 하는 설계상의 결과\n⚠️ 반복 단위는 donor입니다. §5의 모든 내용은 여기에서 시작하며, 분석보다 먼저 예산에 반영해야 합니다.\n💡 예산이 고정되어 있다면 condition을 비교하는 거의 모든 질문에서 donor는 더 많이, 각 donor의 cell은 더 적게 확보하는 편이 donor는 더 적게, 각 donor의 cell은 더 많이 확보하는 것보다 낫습니다.",
+    "section": "3) study design 시 고려하면 좋을 것",
+    "text": "3) study design 시 고려하면 좋을 것\n⚠️ 반복 단위는 donor. §5의 모든 내용은 여기에서 시작하며, 분석보다 먼저 예산에 반영해야 함\n💡 예산이 고정되어 있다면 condition을 비교하는 거의 모든 질문에서 donor는 더 많이, 각 donor의 cell은 더 적게 확보하는 편이 donor는 더 적게, 각 donor의 cell은 더 많이 확보하는 것보다 나음",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1169,8 +1169,8 @@
     "objectID": "ko/chapters/part3/w5_scrna_qc.html#w5-s3-1",
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s3-1",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
-    "section": "1) Barcode와 UMI",
-    "text": "1) Barcode와 UMI\n포착된 모든 transcript에는 두 개의 tag가 붙습니다.\n\nCell barcode — droplet, 따라서 cell을 식별합니다\nUMI(unique molecular identifier) — 각 original mRNA molecule에 고유한 random sequence입니다\n\nUMI가 중요한 이유: PCR 뒤에는 original molecule 하나가 수백 개 read로 나타날 수 있습니다. 같은 UMI를 공유하는 read를 하나로 합치면 read 수가 아니라 molecule 수를 복원하여 amplification bias를 제거합니다.",
+    "section": "1) two tags: Barcode와 UMI ",
+    "text": "1) two tags: Barcode와 UMI \n\nCell barcode — for the cell\nUMI(unique molecular identifier) — for the transcript … PCR artifacts (x) / amplification bias",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1181,7 +1181,7 @@
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s3-2",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
     "section": "2) Matrix에서 0이 90%가 넘는 이유",
-    "text": "2) Matrix에서 0이 90%가 넘는 이유\nDroplet experiment는 약 20,000개 gene 중 cell 하나에서 대략 1,000–5,000개를 검출합니다. 0에는 매우 다른 두 가지 의미가 있습니다.\n\nBiological zero — 해당 cell에서 gene이 실제로 발현되지 않음\nTechnical zero(dropout) — transcript가 있었지만 포착되지 않음. Droplet capture efficiency는 약 10–30%입니다\n\n💡 이 분야에서는 이를 “zero inflation”이라고 부르는 관행에서 대부분 벗어났습니다. UMI data의 0은 별도 과정이 아니라 low count에 대한 단순한 sampling model이 예측하는 경우가 많기 때문입니다.\n⚠️ 실무적인 결과는 같습니다. Cell 하나에서 0이 나왔다고 gene이 꺼졌다고 결론 내릴 수 없습니다.",
+    "text": "2) Matrix에서 0이 90%가 넘는 이유\nDroplet experiment는 약 20,000개 gene 중 cell 하나에서 대략 1,000–5,000개를 검출. count 0의 의미:\n\nBiological zero — 해당 cell에서 gene이 실제로 발현되지 않음\nTechnical zero(dropout) — transcript (o), detection (x). Droplet capture efficiency는 약 10–30%",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1191,8 +1191,8 @@
     "objectID": "ko/chapters/part3/w5_scrna_qc.html#w5-s3-3",
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s3-3",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
-    "section": "3) ⚠️ QC는 cleaning이 아니라 분석 결정이다",
-    "text": "3) ⚠️ QC는 cleaning이 아니라 분석 결정이다\n\n\n\n왼쪽은 cell과 empty droplet의 분리, 오른쪽은 모든 논문이 보여줘야 할 plot입니다.\n\n\n\n\n\n\n\n\n\n\n문제\n관찰되는 모습\n대응 방법\n\n\n\n\nEmpty droplet\nKnee 아래의 low-UMI barcode\nHard cutoff가 아니라 EmptyDrops\n\n\nAmbient RNA\n풍부한 cell type의 marker가 모든 곳에서 나타남\nSoupX, CellBender, DecontX\n\n\nDoublet\n높은 UMI 및 높은 gene count; 양립할 수 없는 두 marker set\nscDblFinder, DoubletFinder; loading cell 1,000개당 약 1%\n\n\nDying cell\n높은 mitochondrial fraction, 낮은 gene count\n조직에 맞는 mito % threshold\n\n\n\n\n\n\n\n\n\n중요모든 threshold는 실제 population을 삭제한다\n\n\n\n\n\n\nMito cutoff 5%는 관례적이지만 mitochondria가 실제로 많은 cardiomyocyte에는 틀린 기준입니다. 심장 조직에 적용하면 관심 있는 cell type을 제거합니다\nmin.features = 500은 debris뿐 아니라 platelet, 일부 granulocyte, 작고 RNA가 적은 cell도 제거합니다\nnFeature upper cutoff는 doublet뿐 아니라 실제로 크고 transcription activity가 높은 cell도 제거합니다\n\n→ ✅ 분포를 그리고, 제안한 cutoff 밖에 무엇이 있는지 확인한 뒤에 결정하세요. Threshold를 보고해야 합니다. Analyst의 console history가 아니라 methods에 들어갈 내용입니다.",
+    "section": "3) ⚠️ QC는 cleaning이 아니라 분석 결정",
+    "text": "3) ⚠️ QC는 cleaning이 아니라 분석 결정\n\n\n\n\n\n\n\n\n\n\n\n\n\n문제\n관찰되는 모습\n대응 방법\n\n\n\n\nEmpty droplet\nKnee 아래의 low-UMI barcode\nHard cutoff가 아니라 EmptyDrops\n\n\nAmbient RNA\n풍부한 cell type의 marker가 모든 곳에서 나타남\nSoupX, CellBender, DecontX\n\n\nDoublet\n높은 UMI 및 높은 gene count; 양립할 수 없는 두 marker set\nscDblFinder, DoubletFinder; loading cell 1,000개당 약 1%\n\n\nDying cell\n높은 mitochondrial fraction, 낮은 gene count\n조직에 맞는 mito % threshold\n\n\n\n\n\n\n\n\n\n중요모든 threshold는 각자 데이터 특성에 맞게! (QC 자동화는 말도 안 되는 소리)\n\n\n\n\n\n\nMito cutoff 5%는 많이 쓰지만, mitochondria가 실제로 많은 cardiomyocyte에는 틀린 기준. tissue/celltype마다 다르게 해야함!!\nmin.features = 500은 debris뿐 아니라 platelet, 일부 granulocyte, 작고 RNA가 적은 cell도 제거\nnFeature upper cutoff는 doublet뿐 아니라 실제로 크고 transcription activity가 높은 cell도 제거\n\n✅ 분포를 그리고, 제안한 cutoff 밖에 무엇이 있는지 확인→ Threshold 결정",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1202,8 +1202,8 @@
     "objectID": "ko/chapters/part3/w5_scrna_qc.html#w5-s4-1",
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s4-1",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
-    "section": "1) 표준 pipeline",
-    "text": "1) 표준 pipeline\nnormalise → select highly variable genes → PCA\n          → build a k-nearest-neighbour graph\n          → cluster (Leiden)\n          → UMAP, for display only\n          → annotate\n⚠️ 순서를 확인하세요. UMAP은 시각화를 위해 계산합니다. Clustering은 2차원 그림이 아니라 PCA/graph에서 수행됩니다.",
+    "section": "1) standard pipeline",
+    "text": "1) standard pipeline",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1213,8 +1213,8 @@
     "objectID": "ko/chapters/part3/w5_scrna_qc.html#w5-s4-2",
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s4-2",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
-    "section": "2) ⚠️ UMAP을 책임 있게 읽는 방법",
-    "text": "2) ⚠️ UMAP을 책임 있게 읽는 방법\nUMAP은 수십 개 차원을 2차원으로 옮기는 non-linear projection입니다. Local neighbourhood는 비교적 잘 보존하지만 global structure는 잘 보존하지 못합니다.\n\n\n\n\n\n\n경고UMAP이 알려주지 않는 것\n\n\n\n\n\n\n❌ Cluster 사이 거리는 의미가 없습니다. 멀리 떨어진 두 cluster가 가까운 두 cluster보다 반드시 더 다른 것은 아닙니다\n❌ Cluster 면적은 의미가 없습니다. 크기는 cell 수가 아니라 embedding을 반영합니다\n❌ 눈에 보이는 bridge는 trajectory가 아닙니다. 가는 연결은 doublet, ambient RNA 또는 parameter artifact일 수 있습니다\n⚠️ Parameter와 random seed에 따라 배치가 바뀝니다. n_neighbors와 min_dist는 눈에 보이는 형태를 바꿉니다\n\n→ UMAP은 데이터의 그림이지 측정값이 아닙니다. 중요한 주장은 high-dimensional space에서 계산한 숫자로 뒷받침해야 합니다.\n💡 Journal club에서 유용한 질문: “이 results section에서 UMAP만으로 뒷받침되는 문장은 어느 것입니까?”",
+    "section": "2) UMAP",
+    "text": "2) UMAP\n\n수십 개 차원을 2차원으로 옮기는 non-linear projection.\nLocal neighbourhood는 비교적 잘 보존하지만 global structure는 잘 보존x\n\n\n\n\n\n\n\n경고UMAP이 알려주지 않는 것\n\n\n\n\n\n❌ Cluster 사이 거리 중요x. 멀리 떨어진 두 cluster가 가까운 두 cluster보다 더 다르다 (x)\n❌ Cluster 면적 중요x. 크기 from embedding, not from cell number\n❌ (보통) 가운데 bridge != trajectory. 중간에 희끄무리한 거.. 보통 doublet, ambient RNA 또는 parameter artifact. cell-to-cell intermediate 아님!\n⚠️ Parameter와 random seed에 따라 바뀜. n_neighbors / min_dist\n→ UMAP은 시각화일뿐. 통계 분석은 high-dimensional space에서 계산한 숫자로",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1224,8 +1224,8 @@
     "objectID": "ko/chapters/part3/w5_scrna_qc.html#w5-s4-3",
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s4-3",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
-    "section": "3) Clustering resolution은 임의적이다",
-    "text": "3) Clustering resolution은 임의적이다\n\n\n\n같은 cell과 같은 algorithm에서 parameter 하나만 바꿨습니다.\n\n\nLeiden clustering에는 resolution parameter가 있습니다. 높이면 cluster가 늘고 낮추면 줄어듭니다.\n⚠️ 정답인 값도, 결론을 내려줄 통계적 기준도 없습니다. Algorithm은 요청하는 대로 모든 cluster를 나눕니다.\n고민만 하는 대신 다음을 수행하세요.\n\nScore가 아니라 marker gene과 알려진 biology에 비추어 cluster를 확인합니다\nStability를 확인합니다. 다른 resolution, 다른 seed, subsampled dataset에서도 cluster가 유지됩니까?\n높은 resolution에서 생긴 “새” cluster가 실제로 고유한 marker를 가지는지, 아니면 같은 marker의 정도만 다른지 묻습니다\n사용한 resolution을 보고합니다\n\n\n\n\n\n\n\n경고Cluster는 cell type이 아니다\n\n\n\n\n\nCluster는 다음을 모두 반영할 수 있습니다.\n\nCell state(activated vs resting)\nCell-cycle phase\nStress response(§2.2)\nAmbient contamination\nDonor identity\n\n→ Cluster의 top marker gene을 이름으로 붙이고 cell type으로 취급하면 문헌에 존재하지 않는 cell type이 쌓이게 됩니다.",
+    "section": "3) arbitrary clustering resolution",
+    "text": "3) arbitrary clustering resolution\n\n\n\n\n\n\nkey parameter for clustering: resolution\n\n⚠️ 최적의 판단기준은 본인이…\n\nScore가 아니라 marker gene과 알려진 biology에 비추어 cluster를 확인\nStability 확인: 다른 resolution, 다른 seed, subsampled dataset에서도 cluster가 유지되는가?\n높은 resolution에서 생긴 “새” cluster가 실제로 고유한 marker를 가지는지, 아니면 같은 marker의 정도 차이?\n\n\n\n\n\n\n\n경고Cluster는 cell type이 아니다\n\n\n\n\n\nCluster는 아래가 반영됨:\n\nCell state(activated vs resting)\nCell-cycle phase\nStress response(§2.2)\nAmbient contamination\nDonor identity\n\n⚠️정말 novel cell type인가 아주 심혈을 기울여야..",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1236,7 +1236,7 @@
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s4-4",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
     "section": "4) Annotation",
-    "text": "4) Annotation\n\nMarker 기반 — cluster별로 알려진 marker를 확인합니다. ✅ 투명합니다. ⚠️ 순환적입니다. 찾으려고 한 cell type만 찾습니다\nReference 기반 — annotated atlas(Azimuth, SingleR, scANVI)에 mapping합니다. ✅ 빠르고 일관됩니다. ⚠️ Reference의 vocabulary를 물려받고 reference에 없는 것은 이름 붙일 수 없습니다\n\n💡 두 방법을 모두 사용하세요. 두 방법이 불일치하는 지점이 유익한 정보입니다. 실제로 새로운 population이거나 실제로 artifactual한 population이 그곳에 있습니다.",
+    "text": "4) Annotation\n\nMarker 기반 — cluster별로 알려진 marker 확인.\n✅ 깔끔. ⚠️ 순환적. 알려진 cell type만 가능\nReference 기반 — annotated atlas(Azimuth, SingleR, scANVI)에 mapping.\n✅ 빠르고 일관됩니다. ⚠️ Reference의 cell type이 있는 것만, 그대로\n\n💡 두 방법 모두 사용 권장. 두 방법이 불일치? –&gt; novel cell population vs. artifacts",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1247,7 +1247,7 @@
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s5-1",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
     "section": "1) Per-cell test가 틀린 이유",
-    "text": "1) Per-cell test가 틀린 이유\n\n\n\n두 panel은 같은 데이터를 분석합니다. 그중 하나만 처음 질문에 답합니다.\n\n\n\n\n\n\n\n\n중요Donor 한 명에서 나온 cell은 독립적인 sample이 아니다\n\n\n\n\n\nDonor 6명에서 나온 cell 5,400개에 Wilcoxon test를 적용하면 cell을 5,400개의 독립 관측치로 취급합니다. 실제로는 같은 사람의 cell이 그 사람의 genetics, environment, medication, batch, processing을 공유하므로 독립적이지 않습니다.\n그 결과는 다음과 같습니다.\n\np-value가 여러 order of magnitude만큼 부풀려짐\nCell을 추가할수록 p-value가 끝없이 작아짐\n→ 연구한 사람이 몇 명인지가 아니라 loading한 cell이 몇 개인지 측정하게 됨\n\n⚠️ Seurat의 기본 FindMarkers가 이런 방식으로 작동합니다.\n\n✅ 한 dataset 안에서 cluster marker를 찾는 기술적 작업에는 적절합니다\n❌ Condition 비교에는 적절하지 않습니다",
+    "text": "1) Per-cell test가 틀린 이유\n\n\n\n\n\n\n\n\n\n\n\n중요Donor 한 명에서 나온 cell은 독립적인 sample이 아니다\n\n\n\n\n\nDonor 6명에서 나온 cell 5,400개에 Wilcoxon test를 적용하면 cell을 5,400개의 독립 관측치로 취급함. 실제로는 같은 사람의 cell이 그 사람의 genetics, environment, medication, batch, processing을 공유하므로 독립적이지 않음\n그 결과는 다음과 같습니다.\n\np-value가 여러 order of magnitude만큼 부풀려짐\nCell을 추가할수록 p-value가 끝없이 작아짐\n→ 연구한 사람이 몇 명인지가 아니라 loading한 cell이 몇 개인지 측정하게 됨\n\n⚠️ Seurat의 기본 FindMarkers가 이런 방식임..\n\n✅ 한 dataset 안에서 cluster marker를 찾는 건 가능\n❌ Condition 비교",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1258,7 +1258,7 @@
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s5-2",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
     "section": "2) Pseudobulk",
-    "text": "2) Pseudobulk\n해결책: 각 donor × cell type에서 cell의 count를 합합니다. 이제 pseudo-sample의 작은 matrix를 얻었으므로 지난 학기 bulk workflow와 정확히 같은 방식으로 DESeq2 또는 edgeR을 사용합니다.\n\nlibrary(Seurat); library(DESeq2); library(tidyverse)\n\npb &lt;- AggregateExpression(seurat,\n                          group.by = c(\"cell_type\", \"sample_id\"),\n                          assays   = \"RNA\")$RNA\n\n# then, per cell type, a completely ordinary DESeq2 run\n\n\nBenchmark에서 pseudobulk는 per-cell test보다 false positive를 훨씬 잘 통제합니다\nDonor random effect를 사용하는 mixed model도 합리적인 대안입니다. Power를 더 유지하지만 계산량이 많습니다",
+    "text": "2) Pseudobulk\n\n각 donor × cell type에서 cell의 count를 합치는 것.\n이제부터는 bulk RNA-seq처럼 DESeq2 또는 edgeR으로 분석!\n\n\nlibrary(Seurat); library(DESeq2); library(tidyverse)\n\npb &lt;- AggregateExpression(seurat,\n                          group.by = c(\"cell_type\", \"sample_id\"),\n                          assays   = \"RNA\")$RNA\n\n# then, per cell type, a completely ordinary DESeq2 run\n\n\nBenchmark에서 pseudobulk는 per-cell test보다 false positive가 훨씬 적음\nDonor random effect를 사용하는 mixed model도 합리적임. Power를 더 유지하지만 계산량이 많음",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1268,8 +1268,8 @@
     "objectID": "ko/chapters/part3/w5_scrna_qc.html#w5-s5-3",
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s5-3",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
-    "section": "3) Differential abundance는 compositional하다",
-    "text": "3) Differential abundance는 compositional하다\n흥미로운 결과는 cell type의 expression 변화가 아니라 양의 증가 또는 감소인 경우가 많습니다.\n⚠️ Proportion은 compositional입니다. Cell type 하나가 늘면 생물학적 변화가 없어도 단순한 산술 때문에 나머지 모든 proportion이 줄어듭니다.\n\n✅ 이를 다루는 방법: scCODA, miloR, propeller, Dirichlet-multinomial model\n❌ Cell count에 대한 χ² test는 유효하지 않습니다\n⚠️ Abundance 결과를 믿기 전에 §2.2로 돌아가세요. 이것은 실제 composition입니까, 아니면 dissociation의 결과입니까?",
+    "section": "3) Differential abundance = compositional",
+    "text": "3) Differential abundance = compositional\n흥미로운 결과 = cell type의 expression 변화가 아니라 양의 증가 또는 감소\n⚠️ Proportion = compositional. Cell type 하나가 늘면 생물학적 변화가 없어도 단순한 산술 때문에 나머지 모든 proportion이 줄어듦 (서로 연결되어있음 = multivariate)\n\n✅ 이를 다루는 방법: scCODA, miloR, propeller, Dirichlet-multinomial model\n❌ Cell count에 대한 χ² test (please never…)\n⚠️ Abundance 결과를 믿기 전에 §2.2 … 실제 composition 때문에? 아니면 dissociation의 한계?",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1290,8 +1290,8 @@
     "objectID": "ko/chapters/part3/w5_scrna_qc.html#w5-s6-2",
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s6-2",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
-    "section": "2) 처음부터 끝까지 실행하는 pipeline",
-    "text": "2) 처음부터 끝까지 실행하는 pipeline\n\nlibrary(Seurat); library(SeuratData); library(tidyverse)\n\nInstallData(\"pbmc3k\"); data(\"pbmc3k\")\npbmc &lt;- pbmc3k\n\npbmc[[\"percent.mt\"]] &lt;- PercentageFeatureSet(pbmc, pattern = \"^MT-\")\n\n# ⚠️ LOOK before you cut\nVlnPlot(pbmc, c(\"nFeature_RNA\", \"nCount_RNA\", \"percent.mt\"), ncol = 3, pt.size = 0)\n\npbmc &lt;- subset(pbmc, nFeature_RNA &gt; 200 & nFeature_RNA &lt; 2500 & percent.mt &lt; 5)\n\npbmc &lt;- NormalizeData(pbmc) |&gt;\n  FindVariableFeatures(nfeatures = 2000) |&gt;\n  ScaleData() |&gt;\n  RunPCA(verbose = FALSE)\n\nElbowPlot(pbmc, ndims = 30)\n\npbmc &lt;- FindNeighbors(pbmc, dims = 1:10) |&gt;\n  FindClusters(resolution = 0.5) |&gt;\n  RunUMAP(dims = 1:10)\n\nDimPlot(pbmc, label = TRUE)",
+    "section": "2) 3k PBMC tutorial from Seurat",
+    "text": "2) 3k PBMC tutorial from Seurat\n\nlibrary(Seurat); library(SeuratData); library(tidyverse)\n\nInstallData(\"pbmc3k\"); data(\"pbmc3k\")\npbmc &lt;- pbmc3k\n\npbmc[[\"percent.mt\"]] &lt;- PercentageFeatureSet(pbmc, pattern = \"^MT-\")\n\n# ⚠️ LOOK before you cut\nVlnPlot(pbmc, c(\"nFeature_RNA\", \"nCount_RNA\", \"percent.mt\"), ncol = 3, pt.size = 0)\n\npbmc &lt;- subset(pbmc, nFeature_RNA &gt; 200 & nFeature_RNA &lt; 2500 & percent.mt &lt; 5)\n\npbmc &lt;- NormalizeData(pbmc) |&gt;\n  FindVariableFeatures(nfeatures = 2000) |&gt;\n  ScaleData() |&gt;\n  RunPCA(verbose = FALSE)\n\nElbowPlot(pbmc, ndims = 30)\n\npbmc &lt;- FindNeighbors(pbmc, dims = 1:10) |&gt;\n  FindClusters(resolution = 0.5) |&gt;\n  RunUMAP(dims = 1:10)\n\nDimPlot(pbmc, label = TRUE)",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1302,7 +1302,7 @@
     "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s6-3",
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
     "section": "3) ✅ 한 가지 바꾸기",
-    "text": "3) ✅ 한 가지 바꾸기\n\n# ① How many cells did each threshold remove, and which ones?\ntable(pbmc3k$seurat_annotations[pbmc3k$percent.mt &gt;= 5])   # who did the mito cut delete?\n\n# ② Re-cluster at three resolutions and count\nfor (r in c(0.2, 0.5, 1.2)) {\n  pbmc &lt;- FindClusters(pbmc, resolution = r, verbose = FALSE)\n  cat(\"resolution\", r, \"→\", nlevels(pbmc$seurat_clusters), \"clusters\\n\")\n}\n\n# ③ Re-run UMAP with a different seed and compare the picture\npbmc &lt;- RunUMAP(pbmc, dims = 1:10, seed.use = 99)\nDimPlot(pbmc, label = TRUE)\n\n💡 ③은 figure를 읽는 방식을 바꾸는 실습입니다. Biology는 전혀 움직이지 않았습니다.",
+    "text": "3) ✅ 한 가지 바꾸기\n\n# ① How many cells did each threshold remove, and which ones?\ntable(pbmc3k$seurat_annotations[pbmc3k$percent.mt &gt;= 5])   # who did the mito cut delete?\n\n# ② Re-cluster at three resolutions and count\nfor (r in c(0.2, 0.5, 1.2)) {\n  pbmc &lt;- FindClusters(pbmc, resolution = r, verbose = FALSE)\n  cat(\"resolution\", r, \"→\", nlevels(pbmc$seurat_clusters), \"clusters\\n\")\n}\n\n# ③ Re-run UMAP with a different seed and compare the picture\npbmc &lt;- RunUMAP(pbmc, dims = 1:10, seed.use = 99)\nDimPlot(pbmc, label = TRUE)",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -3085,8 +3085,8 @@
     "objectID": "chapters/part3/w5_scrna_qc.html#w5-s1-1",
     "href": "chapters/part3/w5_scrna_qc.html#w5-s1-1",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
-    "section": "1) One number, three biologies",
-    "text": "1) One number, three biologies\n\n\n\nThe mean is compatible with all three. Only one of them is a regulatory story.\n\n\n\n① A general modest response — the case everyone implicitly assumes, and the least interesting\n② A rare responsive subpopulation — usually the interesting one. In bulk it is diluted by the cells doing nothing, and often falls below significance entirely\n③ A change in composition — no cell changed its transcriptome. There are simply more of one cell type\n\n⚠️ ③ deserves attention because it is common in inflamed, fibrotic or infiltrated tissue — exactly the tissue clinicians study — and it is routinely written up as if it were ①.",
+    "section": "1) three biologies in a single number",
+    "text": "1) three biologies in a single number\n\n\n\n\n\n① A general modest response: the case everyone implicitly assumes, and the least interesting\n② A rare responsive subpopulation: usually the interesting one. In bulk it is diluted by the cells doing nothing, and often falls below significance entirely\n③ A change in composition: not any novel cell types. There are simply more of one cell type\n⚠️ ③ deserves attention because it is common in inflamed, fibrotic or infiltrated tissue — exactly the tissue clinicians study — and it is routinely written up as if it were ①.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3098,7 +3098,7 @@
     "href": "chapters/part3/w5_scrna_qc.html#w5-s1-2",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
     "section": "2) When single cell is worth it",
-    "text": "2) When single cell is worth it\nBe specific. Single cell is expensive and frequently used where bulk would have answered better.\n✅ Single cell is right for:\n\nDiscovering or characterising populations, including rare ones\nComposition — which cell types shifted in disease\nCell-type-specific effects — a gene up in one cell type and down in another, invisible in bulk\nContinuous states — activation, exhaustion, differentiation, where discrete labels fail\n\n✅ Bulk is still right for:\n\nA well-defined comparison in a homogeneous system (cell line, sorted population)\nDeep transcript-level work — isoforms, splicing, low-expression genes\nLarge cohorts — n = 200 patients, where 200 single-cell runs is unaffordable\n\n\n\n\n\n\n\nTipSorting first is badly underrated\n\n\n\n\n\nAlready know which cell type you care about?\n→ FACS-sort it and run deep bulk RNA-seq. Often cheaper, deeper, and statistically cleaner than a whole-tissue single-cell experiment — and you can afford far more patients, which (§5) is where your power actually comes from.\n💡 “We did single cell” is not by itself a stronger design. Sometimes it is a more expensive way to be underpowered.",
+    "text": "2) When single cell is worth it\nSingle cell is expensive –&gt; Be specific! Bulk can be enough in many cases\n✅ Single cell is right for:\n\nDiscovering or characterising populations, including rare ones\nComposition — which cell types shifted in disease\nCell-type-specific effects — a gene up in one cell type and down in another, invisible in bulk\nContinuous states — activation, exhaustion, differentiation, where discrete labels fail\n\n✅ Bulk is still right for:\n\nA well-defined comparison in a homogeneous system (cell line, sorted population)\nDeep transcript-level work — isoforms, splicing, low-expression genes\nLarge cohorts — n = 200 patients, where 200 single-cell runs is unaffordable\n\n\n\n\n\n\n\nTipSorting first is badly underrated\n\n\n\n\n\nAlready know which cell type you care about?\n→ FACS-sort it and run deep bulk RNA-seq. Often cheaper, deeper, and statistically cleaner than a whole-tissue single-cell experiment — and you can afford far more patients, which (§5) is where your power actually comes from.\n💡 “We did single cell” is not by itself a stronger design. Sometimes it is a more expensive way to be underpowered.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3133,8 +3133,8 @@
     "objectID": "chapters/part3/w5_scrna_qc.html#w5-s2-3",
     "href": "chapters/part3/w5_scrna_qc.html#w5-s2-3",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
-    "section": "3) The design consequence, stated early",
-    "text": "3) The design consequence, stated early\n⚠️ Your unit of replication is the donor. Everything in §5 follows from this, and it should shape the budget before it shapes the analysis.\n💡 Given a fixed budget: more donors, fewer cells each beats fewer donors, more cells each for almost any question that compares conditions.",
+    "section": "3) considerations for a study design",
+    "text": "3) considerations for a study design\n⚠️ Your unit of replication is the donor. Everything in §5 follows from this, and it should shape the budget before it shapes the analysis.\n💡 Given a fixed budget: more donors, fewer cells each beats fewer donors, more cells each for almost any question that compares conditions.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3145,8 +3145,8 @@
     "objectID": "chapters/part3/w5_scrna_qc.html#w5-s3-1",
     "href": "chapters/part3/w5_scrna_qc.html#w5-s3-1",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
-    "section": "1) Barcodes and UMIs",
-    "text": "1) Barcodes and UMIs\nTwo tags are attached to every captured transcript:\n\nCell barcode — identifies the droplet, and therefore the cell\nUMI (unique molecular identifier) — a random sequence unique to each original mRNA molecule\n\nWhy the UMI matters: after PCR, one original molecule may be represented by hundreds of reads. Collapsing reads that share a UMI recovers the count of molecules rather than reads, removing amplification bias.",
+    "section": "1) two tags: Barcodes and UMIs ",
+    "text": "1) two tags: Barcodes and UMIs \n\nCell barcode — for the cell\nUMI (unique molecular identifier) — for the transcript … PCR artifacts / amplification bias (x)",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3158,7 +3158,7 @@
     "href": "chapters/part3/w5_scrna_qc.html#w5-s3-2",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
     "section": "2) Why the matrix is over 90% zeros",
-    "text": "2) Why the matrix is over 90% zeros\nA droplet experiment detects roughly 1,000–5,000 genes per cell, out of ~20,000. Zeros have two very different meanings:\n\nBiological zero — the gene really is not expressed in that cell\nTechnical zero (dropout) — the transcript was there and was not captured. Droplet capture efficiency is ~10–30%\n\n💡 The field has largely moved past calling this “zero inflation” — for UMI data the zeros are mostly what a simple sampling model predicts from low counts, not an extra process.\n⚠️ The practical consequence stands: you cannot conclude a gene is off in a cell from a single zero.",
+    "text": "2) Why the matrix is over 90% zeros\nA droplet experiment detects roughly 1,000–5,000 genes per cell, out of ~20,000.\nZero count means:\n\nBiological zero — the gene really is not expressed in that cell\nTechnical zero (dropout) — the transcript was there and was not captured. Droplet capture efficiency is ~10–30%",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3170,7 +3170,7 @@
     "href": "chapters/part3/w5_scrna_qc.html#w5-s3-3",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
     "section": "3) ⚠️ QC is an analysis decision, not cleaning",
-    "text": "3) ⚠️ QC is an analysis decision, not cleaning\n\n\n\nLeft: separating cells from empty droplets. Right: the plot every paper should show.\n\n\n\n\n\n\n\n\n\n\nProblem\nWhat it looks like\nWhat to do\n\n\n\n\nEmpty droplets\nLow-UMI barcodes below the knee\nEmptyDrops, not a hard cutoff\n\n\nAmbient RNA\nMarkers of abundant cell types appearing everywhere\nSoupX, CellBender, DecontX\n\n\nDoublets\nHigh UMI and high gene count; two incompatible marker sets\nscDblFinder, DoubletFinder; ~1% per 1,000 cells loaded\n\n\nDying cells\nHigh mitochondrial fraction, low gene count\nThreshold on mito %, tissue-specifically\n\n\n\n\n\n\n\n\n\nImportantEvery threshold deletes a real population\n\n\n\n\n\n\nA mito cutoff of 5% is conventional — and wrong for cardiomyocytes, which are genuinely mitochondria-rich. Applied to heart tissue it removes the cell type you care about\nmin.features = 500 removes debris — and also platelets, some granulocytes, and any small low-RNA cell\nAn upper nFeature cutoff removes doublets — and also genuinely large, transcriptionally active cells\n\n→ ✅ Plot the distribution, look at what sits outside your proposed cut, then decide. And report the thresholds — they belong in the methods, not the analyst’s console history.",
+    "text": "3) ⚠️ QC is an analysis decision, not cleaning\n\n\n\n\n\n\n\n\n\n\n\n\n\nProblem\nWhat it looks like\nWhat to do\n\n\n\n\nEmpty droplets\nLow-UMI barcodes below the knee\nEmptyDrops, not a hard cutoff\n\n\nAmbient RNA\nMarkers of abundant cell types appearing everywhere\nSoupX, CellBender, DecontX\n\n\nDoublets\nHigh UMI and high gene count; two incompatible marker sets\nscDblFinder, DoubletFinder; ~1% per 1,000 cells loaded\n\n\nDying cells\nHigh mitochondrial fraction, low gene count\nThreshold on mito %, tissue-specifically\n\n\n\n\n\n\n\n\n\nImportantEvery threshold needs its rationale\n\n\n\n\n\n\nA mito cutoff of 5% is conventional — and wrong for cardiomyocytes, which are genuinely mitochondria-rich. need to set your data-specific cutoffs\nmin.features = 500 removes debris — and also platelets, some granulocytes, and any small low-RNA cell\nAn upper nFeature cutoff removes doublets — and also genuinely large, transcriptionally active cells\n\n✅ Plot the distribution, look at what sits outside your proposed cut → decide your own thresholds",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3182,7 +3182,7 @@
     "href": "chapters/part3/w5_scrna_qc.html#w5-s4-1",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
     "section": "1) The standard pipeline",
-    "text": "1) The standard pipeline\nnormalise → select highly variable genes → PCA\n          → build a k-nearest-neighbour graph\n          → cluster (Leiden)\n          → UMAP, for display only\n          → annotate\n⚠️ Note the order. UMAP is computed for display. Clustering happens on the PCA/graph, not on the two-dimensional picture.",
+    "text": "1) The standard pipeline",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3193,8 +3193,8 @@
     "objectID": "chapters/part3/w5_scrna_qc.html#w5-s4-2",
     "href": "chapters/part3/w5_scrna_qc.html#w5-s4-2",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
-    "section": "2) ⚠️ How to read a UMAP responsibly",
-    "text": "2) ⚠️ How to read a UMAP responsibly\nUMAP is a non-linear projection of tens of dimensions into two. It preserves local neighbourhoods reasonably and global structure badly.\n\n\n\n\n\n\nWarningWhat a UMAP does not tell you\n\n\n\n\n\n\n❌ Distances between clusters are not meaningful. Two clusters far apart are not necessarily more different than two that are close\n❌ Cluster areas are not meaningful. Size reflects the embedding, not cell number\n❌ Apparent bridges are not trajectories. A thin connection may be doublets, ambient RNA, or a parameter artifact\n⚠️ The layout changes with parameters and random seed. n_neighbors and min_dist visibly reshape it\n\n→ A UMAP is a picture of your data, not a measurement of it. Any claim that matters should be supported by a number computed in the high-dimensional space.\n💡 A useful journal-club question: “which sentence in this results section is supported only by the UMAP?”",
+    "section": "2) UMAP",
+    "text": "2) UMAP\n\na non-linear projection of tens of dimensions into two. It preserves local neighbourhoods reasonably and global structure badly.\n\n\n\n\n\n\n\nWarningWhat a UMAP does not tell you\n\n\n\n\n\n❌ Distances between clusters are not meaningful. Two clusters far apart are not necessarily more different than two that are close\n❌ Cluster areas are not meaningful. Size reflects the embedding, not cell number\n❌ Apparent bridges are not trajectories. A thin connection may be doublets, ambient RNA, or a parameter artifact\n⚠️ The layout changes with parameters and random seed. n_neighbors and min_dist\n→ A UMAP is a picture of your data, not a measurement of it. Any claim that matters should be supported by a number computed in the high-dimensional space.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3206,7 +3206,7 @@
     "href": "chapters/part3/w5_scrna_qc.html#w5-s4-3",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
     "section": "3) Clustering resolution is arbitrary",
-    "text": "3) Clustering resolution is arbitrary\n\n\n\nSame cells, same algorithm, one parameter changed.\n\n\nLeiden clustering takes a resolution parameter. Raise it, get more clusters. Lower it, get fewer.\n⚠️ There is no correct value and no statistical criterion that settles it. The algorithm will split any cluster you ask it to.\n✅ What to do instead of agonising:\n\nCheck clusters against marker genes and known biology, not against a score\nCheck stability — does the cluster survive a different resolution, a different seed, a subsampled dataset?\nAsk whether a “new” cluster at higher resolution has genuinely distinct markers, or just gradations of the same ones\nReport the resolution you used\n\n\n\n\n\n\n\nWarningA cluster is not a cell type\n\n\n\n\n\nClusters can equally reflect:\n\ncell state (activated vs resting)\ncell-cycle phase\nstress response (§2.2)\nambient contamination\ndonor identity\n\n→ Naming a cluster after its top marker gene and treating it as a cell type is how the literature accumulates cell types that do not exist.",
+    "text": "3) Clustering resolution is arbitrary\n\n\n\n\n\n\nkey parameter for clustering: resolution\n\n⚠️ the best resolution is up to you…\n\nCheck clusters against marker genes and known biology, not against a score\nCheck stability: does the cluster survive a different resolution, a different seed, a subsampled dataset?\nAsk whether a “new” cluster at higher resolution has genuinely distinct markers, or just gradations of the same ones\n\n\n\n\n\n\n\nWarningA cluster is not a cell type\n\n\n\n\n\nClusters can equally reflect:\n\ncell state (activated vs resting)\ncell-cycle phase\nstress response (§2.2)\nambient contamination\ndonor identity\n\n⚠️ Naming a cluster after its top marker gene and treating it as a cell type is how the literature accumulates cell types that do not exist.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3230,7 +3230,7 @@
     "href": "chapters/part3/w5_scrna_qc.html#w5-s5-1",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
     "section": "1) Why per-cell tests are wrong",
-    "text": "1) Why per-cell tests are wrong\n\n\n\nBoth panels analyse identical data. Only one of them answers the question that was asked.\n\n\n\n\n\n\n\n\nImportantCells from one donor are not independent samples\n\n\n\n\n\nA Wilcoxon test across 5,400 cells from 6 donors treats those cells as 5,400 independent observations. They are not — cells from the same person share that person’s genetics, environment, medication, batch and processing.\nThe consequence:\n\np-values inflated by many orders of magnitude\nadd cells → the p-value shrinks indefinitely\n→ you are measuring how many cells you loaded, not how many people you studied\n\n⚠️ Seurat’s default FindMarkers behaves this way.\n\n✅ Appropriate for identifying cluster markers within one dataset — a descriptive task\n❌ Not appropriate for comparing conditions",
+    "text": "1) Why per-cell tests are wrong\n\n\n\n\n\n\n\n\n\n\n\nImportantCells from one donor are not independent samples\n\n\n\n\n\nA Wilcoxon test across 5,400 cells from 6 donors treats those cells as 5,400 independent observations. They are not — cells from the same person share that person’s genetics, environment, medication, batch and processing.\nThe consequence:\n\np-values inflated by many orders of magnitude\nadd cells → the p-value shrinks indefinitely\n→ you are measuring how many cells you loaded, not how many people you studied\n\n⚠️ Seurat’s default FindMarkers behaves this way.\n\n✅ Appropriate for identifying cluster markers within one dataset — a descriptive task\n❌ Not appropriate for comparing conditions",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3242,7 +3242,7 @@
     "href": "chapters/part3/w5_scrna_qc.html#w5-s5-2",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
     "section": "2) Pseudobulk",
-    "text": "2) Pseudobulk\nThe fix: for each donor × cell type, sum the counts across cells. You now have a small matrix of pseudo-samples — analyse it with DESeq2 or edgeR exactly as in last semester’s bulk workflow.\n\nlibrary(Seurat); library(DESeq2); library(tidyverse)\n\npb &lt;- AggregateExpression(seurat,\n                          group.by = c(\"cell_type\", \"sample_id\"),\n                          assays   = \"RNA\")$RNA\n\n# then, per cell type, a completely ordinary DESeq2 run\n\n\nBenchmarks consistently find pseudobulk controls false positives far better than per-cell tests\nMixed models with a donor random effect are a reasonable alternative — more power retained, more computation",
+    "text": "2) Pseudobulk\n\nfor each donor × cell type, sum the counts across cells. You now have a small matrix of pseudo-samples — analyse it with DESeq2 or edgeR exactly as in last semester’s bulk workflow.\n\n\nlibrary(Seurat); library(DESeq2); library(tidyverse)\n\npb &lt;- AggregateExpression(seurat,\n                          group.by = c(\"cell_type\", \"sample_id\"),\n                          assays   = \"RNA\")$RNA\n\n# then, per cell type, a completely ordinary DESeq2 run\n\n\nBenchmarks consistently find pseudobulk controls false positives far better than per-cell tests\nMixed models with a donor random effect are a reasonable alternative — more power retained, more computation",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3254,7 +3254,7 @@
     "href": "chapters/part3/w5_scrna_qc.html#w5-s5-3",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
     "section": "3) Differential abundance is compositional",
-    "text": "3) Differential abundance is compositional\nOften the interesting result is not that a cell type changed its expression, but that there is more or less of it.\n⚠️ Proportions are compositional — one cell type expands and every other proportion falls by arithmetic alone, with no biology behind it.\n\n✅ Methods that handle this: scCODA, miloR, propeller, Dirichlet-multinomial models\n❌ A χ² test on cell counts is not valid\n⚠️ And before believing any abundance result, return to §2.2: is this composition, or is this dissociation?",
+    "text": "3) Differential abundance is compositional\nOften the interesting result is not that a cell type changed its expression, but that there is more or less of it.\n⚠️ Proportions are compositional — one cell type expands and every other proportion falls by arithmetic alone, with no biology behind it (multivariate).\n\n✅ Methods that handle this: scCODA, miloR, propeller, Dirichlet-multinomial models\n❌ A χ² test on cell counts is not valid\n⚠️ And before believing any abundance result, return to §2.2: is this composition, or is this dissociation?",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3290,7 +3290,7 @@
     "href": "chapters/part3/w5_scrna_qc.html#w5-s6-3",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
     "section": "3) ✅ Change one thing",
-    "text": "3) ✅ Change one thing\n\n# ① How many cells did each threshold remove, and which ones?\ntable(pbmc3k$seurat_annotations[pbmc3k$percent.mt &gt;= 5])   # who did the mito cut delete?\n\n# ② Re-cluster at three resolutions and count\nfor (r in c(0.2, 0.5, 1.2)) {\n  pbmc &lt;- FindClusters(pbmc, resolution = r, verbose = FALSE)\n  cat(\"resolution\", r, \"→\", nlevels(pbmc$seurat_clusters), \"clusters\\n\")\n}\n\n# ③ Re-run UMAP with a different seed and compare the picture\npbmc &lt;- RunUMAP(pbmc, dims = 1:10, seed.use = 99)\nDimPlot(pbmc, label = TRUE)\n\n💡 ③ is the exercise that changes how you read figures. Nothing about the biology moved.",
+    "text": "3) ✅ Change one thing\n\n# ① How many cells did each threshold remove, and which ones?\ntable(pbmc3k$seurat_annotations[pbmc3k$percent.mt &gt;= 5])   # who did the mito cut delete?\n\n# ② Re-cluster at three resolutions and count\nfor (r in c(0.2, 0.5, 1.2)) {\n  pbmc &lt;- FindClusters(pbmc, resolution = r, verbose = FALSE)\n  cat(\"resolution\", r, \"→\", nlevels(pbmc$seurat_clusters), \"clusters\\n\")\n}\n\n# ③ Re-run UMAP with a different seed and compare the picture\npbmc &lt;- RunUMAP(pbmc, dims = 1:10, seed.use = 99)\nDimPlot(pbmc, label = TRUE)",
     "crumbs": [
       "Home",
       "3 · Single-cell",

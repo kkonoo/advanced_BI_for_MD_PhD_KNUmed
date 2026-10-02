@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eunji Ha">
-<meta name="dcterms.date" content="2026-08-17">
+<meta name="dcterms.date" content="2026-10-02">
 
 <title>W5. Single-cell RNA-seq — Technology, QC, Clustering</title>
 <style>
@@ -587,29 +587,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#w5-s1" id="toc-w5-s1" class="nav-link active" data-scroll-target="#w5-s1">1. What Bulk Cannot See 🔬</a>
   <ul>
-  <li><a href="#w5-s1-1" id="toc-w5-s1-1" class="nav-link" data-scroll-target="#w5-s1-1">1) One number, three biologies</a></li>
+  <li><a href="#w5-s1-1" id="toc-w5-s1-1" class="nav-link" data-scroll-target="#w5-s1-1">1) three biologies in a single number</a></li>
   <li><a href="#w5-s1-2" id="toc-w5-s1-2" class="nav-link" data-scroll-target="#w5-s1-2">2) When single cell is worth it</a></li>
   </ul></li>
   <li><a href="#w5-s2" id="toc-w5-s2" class="nav-link" data-scroll-target="#w5-s2">2. ⚠️ Decisions Made Before the Machine 🧫</a>
   <ul>
   <li><a href="#w5-s2-1" id="toc-w5-s2-1" class="nav-link" data-scroll-target="#w5-s2-1">1) The platform trade-off</a></li>
   <li><a href="#w5-s2-2" id="toc-w5-s2-2" class="nav-link" data-scroll-target="#w5-s2-2">2) ⚠️ Cells or nuclei — and why it is decided at collection</a></li>
-  <li><a href="#w5-s2-3" id="toc-w5-s2-3" class="nav-link" data-scroll-target="#w5-s2-3">3) The design consequence, stated early</a></li>
+  <li><a href="#w5-s2-3" id="toc-w5-s2-3" class="nav-link" data-scroll-target="#w5-s2-3">3) considerations for a study design</a></li>
   </ul></li>
   <li><a href="#w5-s3" id="toc-w5-s3" class="nav-link" data-scroll-target="#w5-s3">3. From Droplets to a Matrix 🧮</a>
   <ul>
-  <li><a href="#w5-s3-1" id="toc-w5-s3-1" class="nav-link" data-scroll-target="#w5-s3-1">1) Barcodes and UMIs</a></li>
+  <li><a href="#w5-s3-1" id="toc-w5-s3-1" class="nav-link" data-scroll-target="#w5-s3-1">1) two tags: Barcodes and UMIs <img src="images/clipboard-150401913.png" class="img-fluid"></a></li>
   <li><a href="#w5-s3-2" id="toc-w5-s3-2" class="nav-link" data-scroll-target="#w5-s3-2">2) Why the matrix is over 90% zeros</a></li>
   <li><a href="#w5-s3-3" id="toc-w5-s3-3" class="nav-link" data-scroll-target="#w5-s3-3">3) ⚠️ QC is an analysis decision, not cleaning</a></li>
   </ul></li>
   <li><a href="#w5-s4" id="toc-w5-s4" class="nav-link" data-scroll-target="#w5-s4">4. Finding Cell Types 🗺️</a>
   <ul>
   <li><a href="#w5-s4-1" id="toc-w5-s4-1" class="nav-link" data-scroll-target="#w5-s4-1">1) The standard pipeline</a></li>
-  <li><a href="#w5-s4-2" id="toc-w5-s4-2" class="nav-link" data-scroll-target="#w5-s4-2">2) ⚠️ How to read a UMAP responsibly</a></li>
+  <li><a href="#w5-s4-2" id="toc-w5-s4-2" class="nav-link" data-scroll-target="#w5-s4-2">2) UMAP</a></li>
   <li><a href="#w5-s4-3" id="toc-w5-s4-3" class="nav-link" data-scroll-target="#w5-s4-3">3) Clustering resolution is arbitrary</a></li>
   <li><a href="#w5-s4-4" id="toc-w5-s4-4" class="nav-link" data-scroll-target="#w5-s4-4">4) Annotation</a></li>
   </ul></li>
-  <li><a href="#w5-s5" id="toc-w5-s5" class="nav-link" data-scroll-target="#w5-s5">5. ⚠️ Statistics 📊</a>
+  <li><a href="#w5-s5" id="toc-w5-s5" class="nav-link" data-scroll-target="#w5-s5">5. Statistics 📊</a>
   <ul>
   <li><a href="#w5-s5-1" id="toc-w5-s5-1" class="nav-link" data-scroll-target="#w5-s5-1">1) Why per-cell tests are wrong</a></li>
   <li><a href="#w5-s5-2" id="toc-w5-s5-2" class="nav-link" data-scroll-target="#w5-s5-2">2) Pseudobulk</a></li>
@@ -658,7 +658,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 17, 2026</p>
+      <p class="date">October 2, 2026</p>
     </div>
   </div>
   
@@ -703,23 +703,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="w5-s1" class="level1">
 <h1>1. What Bulk Cannot See 🔬</h1>
 <section id="w5-s1-1" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s1-1">1) One number, three biologies</h2>
+<h2 class="anchored" data-anchor-id="w5-s1-1">1) three biologies in a single number</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w5/bulk_vs_singlecell.svg" class="img-fluid figure-img"></p>
-<figcaption>The mean is compatible with all three. Only one of them is a regulatory story.</figcaption>
+<p><img src="../..\assets/img/w5/bulk_vs_singlecell.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
-<ul>
-<li><strong>① A general modest response</strong> — the case everyone implicitly assumes, and the least interesting</li>
-<li><strong>② A rare responsive subpopulation</strong> — usually the interesting one. In bulk it is diluted by the cells doing nothing, and often falls below significance entirely</li>
-<li><strong>③ A change in composition</strong> — no cell changed its transcriptome. There are simply more of one cell type</li>
-</ul>
+<p><strong>① A general modest response</strong>: the case everyone implicitly assumes, and the least interesting<br>
+<strong>② A rare responsive subpopulation</strong>: usually the interesting one. In bulk it is diluted by the cells doing nothing, and often falls below significance entirely<br>
+<strong>③ A change in composition</strong>: not any novel cell types. There are simply more of one cell type</p>
 <p>⚠️ ③ deserves attention because it is common in inflamed, fibrotic or infiltrated tissue — exactly the tissue clinicians study — and it is routinely written up as if it were ①.</p>
 </section>
 <section id="w5-s1-2" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s1-2">2) When single cell is worth it</h2>
-<p>Be specific. Single cell is expensive and frequently used where bulk would have answered better.</p>
+<p>Single cell is expensive –&gt; Be specific! Bulk can be enough in many cases</p>
 <p><strong>✅ Single cell is right for:</strong></p>
 <ul>
 <li><strong>Discovering or characterising populations</strong>, including rare ones</li>
@@ -761,10 +758,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Every platform buys cells with depth, or depth with cells.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 27%">
-<col style="width: 18%">
-<col style="width: 18%">
-<col style="width: 35%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 30%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -867,7 +864,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="w5-s2-3" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s2-3">3) The design consequence, stated early</h2>
+<h2 class="anchored" data-anchor-id="w5-s2-3">3) considerations for a study design</h2>
 <p>⚠️ <strong>Your unit of replication is the donor.</strong> Everything in §5 follows from this, and it should shape the budget before it shapes the analysis.</p>
 <p>💡 Given a fixed budget: <strong>more donors, fewer cells each</strong> beats <strong>fewer donors, more cells each</strong> for almost any question that compares conditions.</p>
 <hr>
@@ -876,30 +873,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="w5-s3" class="level1">
 <h1>3. From Droplets to a Matrix 🧮</h1>
 <section id="w5-s3-1" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s3-1">1) Barcodes and UMIs</h2>
-<p>Two tags are attached to every captured transcript:</p>
+<h2 class="anchored" data-anchor-id="w5-s3-1">1) two tags: Barcodes and UMIs <img src="images/clipboard-150401913.png" class="img-fluid"></h2>
 <ul>
-<li><strong>Cell barcode</strong> — identifies the droplet, and therefore the cell</li>
-<li><strong>UMI</strong> (unique molecular identifier) — a random sequence unique to each original mRNA molecule</li>
+<li><strong>Cell barcode</strong> — for the cell</li>
+<li><strong>UMI</strong> (unique molecular identifier) — for the transcript … PCR artifacts / amplification bias (x)</li>
 </ul>
-<p><strong>Why the UMI matters:</strong> after PCR, one original molecule may be represented by hundreds of reads. Collapsing reads that share a UMI recovers the count of <strong>molecules</strong> rather than reads, removing amplification bias.</p>
 </section>
 <section id="w5-s3-2" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s3-2">2) Why the matrix is over 90% zeros</h2>
-<p>A droplet experiment detects roughly 1,000–5,000 genes per cell, out of ~20,000. Zeros have two very different meanings:</p>
+<p>A droplet experiment detects roughly 1,000–5,000 genes per cell, out of ~20,000.<br>
+Zero count means:</p>
 <ul>
 <li><strong>Biological zero</strong> — the gene really is not expressed in that cell</li>
 <li><strong>Technical zero (dropout)</strong> — the transcript was there and was not captured. Droplet capture efficiency is ~10–30%</li>
 </ul>
-<p>💡 The field has largely moved past calling this “zero inflation” — for UMI data the zeros are mostly what a simple sampling model predicts from low counts, not an extra process.</p>
-<p>⚠️ The practical consequence stands: <strong>you cannot conclude a gene is off in a cell from a single zero.</strong></p>
 </section>
 <section id="w5-s3-3" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s3-3">3) ⚠️ QC is an analysis decision, not cleaning</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w5/qc_thresholds.svg" class="img-fluid figure-img"></p>
-<figcaption>Left: separating cells from empty droplets. Right: the plot every paper should show.</figcaption>
+<p><img src="../..\assets/img/w5/qc_thresholds.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <table class="caption-top table">
@@ -944,18 +937,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Every threshold deletes a real population
+<span class="screen-reader-only">Important</span>Every threshold needs its rationale
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>A mito cutoff of 5% is conventional — and <strong>wrong for cardiomyocytes</strong>, which are genuinely mitochondria-rich. Applied to heart tissue it removes the cell type you care about</li>
+<li>A mito cutoff of 5% is conventional — and <strong>wrong for cardiomyocytes</strong>, which are genuinely mitochondria-rich. need to set your <strong>data-specific cutoffs</strong></li>
 <li><code>min.features = 500</code> removes debris — <strong>and also</strong> platelets, some granulocytes, and any small low-RNA cell</li>
 <li>An upper <code>nFeature</code> cutoff removes doublets — <strong>and also</strong> genuinely large, transcriptionally active cells</li>
 </ul>
-<p>→ ✅ Plot the distribution, look at what sits outside your proposed cut, <strong>then</strong> decide. And report the thresholds — they belong in the methods, not the analyst’s console history.</p>
+<p>✅ <strong>Plot</strong> the distribution, look at what sits outside your proposed cut → <strong>decide</strong> your <strong>own</strong> thresholds</p>
 </div>
 </div>
 </div>
@@ -966,16 +959,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>4. Finding Cell Types 🗺️</h1>
 <section id="w5-s4-1" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s4-1">1) The standard pipeline</h2>
-<pre><code>normalise → select highly variable genes → PCA
-          → build a k-nearest-neighbour graph
-          → cluster (Leiden)
-          → UMAP, for display only
-          → annotate</code></pre>
-<p>⚠️ Note the order. <strong>UMAP is computed for display.</strong> Clustering happens on the PCA/graph, not on the two-dimensional picture.</p>
+<p><img src="images/clipboard-949377196.png" class="img-fluid"></p>
 </section>
 <section id="w5-s4-2" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s4-2">2) ⚠️ How to read a UMAP responsibly</h2>
-<p>UMAP is a non-linear projection of tens of dimensions into two. It preserves local neighbourhoods reasonably and global structure badly.</p>
+<h2 class="anchored" data-anchor-id="w5-s4-2">2) UMAP</h2>
+<blockquote class="blockquote">
+<p>a non-linear projection of tens of dimensions into two. It preserves local neighbourhoods reasonably and global structure badly.</p>
+</blockquote>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -988,14 +978,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<ul>
-<li>❌ <strong>Distances between clusters are not meaningful.</strong> Two clusters far apart are not necessarily more different than two that are close</li>
-<li>❌ <strong>Cluster areas are not meaningful.</strong> Size reflects the embedding, not cell number</li>
-<li>❌ <strong>Apparent bridges are not trajectories.</strong> A thin connection may be doublets, ambient RNA, or a parameter artifact</li>
-<li>⚠️ <strong>The layout changes with parameters and random seed.</strong> <code>n_neighbors</code> and <code>min_dist</code> visibly reshape it</li>
-</ul>
+<p>❌ <strong>Distances between clusters are not meaningful.</strong> Two clusters far apart are not necessarily more different than two that are close<br>
+❌ <strong>Cluster areas are not meaningful.</strong> Size reflects the embedding, not cell number<br>
+❌ <strong>Apparent bridges are not trajectories.</strong> A thin connection may be doublets, ambient RNA, or a parameter artifact<br>
+⚠️ <strong>The layout changes with parameters and random seed.</strong> <code>n_neighbors</code> and <code>min_dist</code></p>
 <p>→ A UMAP is a <strong>picture</strong> of your data, not a <strong>measurement</strong> of it. Any claim that matters should be supported by a number computed in the high-dimensional space.</p>
-<p>💡 A useful journal-club question: <em>“which sentence in this results section is supported only by the UMAP?”</em></p>
 </div>
 </div>
 </div>
@@ -1004,18 +991,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="w5-s4-3">3) Clustering resolution is arbitrary</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w5/umap_resolution.svg" class="img-fluid figure-img"></p>
-<figcaption>Same cells, same algorithm, one parameter changed.</figcaption>
+<p><img src="../..\assets/img/w5/umap_resolution.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
-<p>Leiden clustering takes a <strong>resolution</strong> parameter. Raise it, get more clusters. Lower it, get fewer.</p>
-<p>⚠️ There is <strong>no correct value and no statistical criterion that settles it.</strong> The algorithm will split any cluster you ask it to.</p>
-<p>✅ What to do instead of agonising:</p>
+<blockquote class="blockquote">
+<p>key parameter for clustering: <strong>resolution</strong></p>
+</blockquote>
+<p>⚠️ the <strong>best</strong> resolution is <u>up to you</u>…</p>
 <ul>
 <li>Check clusters against <strong>marker genes</strong> and known biology, not against a score</li>
-<li>Check <strong>stability</strong> — does the cluster survive a different resolution, a different seed, a subsampled dataset?</li>
+<li>Check <strong>stability</strong>: does the cluster survive a different resolution, a different seed, a subsampled dataset?</li>
 <li>Ask whether a “new” cluster at higher resolution has genuinely distinct markers, or just gradations of the same ones</li>
-<li><strong>Report the resolution you used</strong></li>
 </ul>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
@@ -1037,7 +1023,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>ambient contamination</li>
 <li><strong>donor identity</strong></li>
 </ul>
-<p>→ Naming a cluster after its top marker gene and treating it as a cell type is how the literature accumulates cell types that do not exist.</p>
+<p>⚠️ Naming a cluster after its top marker gene and treating it as a cell type is how the literature accumulates cell types that do not exist.</p>
 </div>
 </div>
 </div>
@@ -1053,13 +1039,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="w5-s5" class="level1">
-<h1>5. ⚠️ Statistics 📊</h1>
+<h1>5. Statistics 📊</h1>
 <section id="w5-s5-1" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s5-1">1) Why per-cell tests are wrong</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w5/pseudobulk.svg" class="img-fluid figure-img"></p>
-<figcaption>Both panels analyse identical data. Only one of them answers the question that was asked.</figcaption>
+<p><img src="../..\assets/img/w5/pseudobulk.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -1092,15 +1077,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="w5-s5-2" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s5-2">2) Pseudobulk</h2>
-<p><strong>The fix:</strong> for each <strong>donor × cell type</strong>, sum the counts across cells. You now have a small matrix of pseudo-samples — analyse it with DESeq2 or edgeR exactly as in last semester’s bulk workflow.</p>
+<blockquote class="blockquote">
+<p>for each <strong>donor × cell type</strong>, sum the counts across cells. You now have a small matrix of pseudo-samples — analyse it with DESeq2 or edgeR exactly as in last semester’s bulk workflow.</p>
+</blockquote>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat); <span class="fu">library</span>(DESeq2); <span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>pb <span class="ot">&lt;-</span> <span class="fu">AggregateExpression</span>(seurat,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">group.by =</span> <span class="fu">c</span>(<span class="st">"cell_type"</span>, <span class="st">"sample_id"</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">assays   =</span> <span class="st">"RNA"</span>)<span class="sc">$</span>RNA</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># then, per cell type, a completely ordinary DESeq2 run</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat); <span class="fu">library</span>(DESeq2); <span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pb <span class="ot">&lt;-</span> <span class="fu">AggregateExpression</span>(seurat,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">group.by =</span> <span class="fu">c</span>(<span class="st">"cell_type"</span>, <span class="st">"sample_id"</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">assays   =</span> <span class="st">"RNA"</span>)<span class="sc">$</span>RNA</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># then, per cell type, a completely ordinary DESeq2 run</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Benchmarks consistently find pseudobulk controls false positives far better than per-cell tests</li>
@@ -1110,7 +1097,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="w5-s5-3" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s5-3">3) Differential abundance is compositional</h2>
 <p>Often the interesting result is not that a cell type changed its expression, but that <strong>there is more or less of it</strong>.</p>
-<p>⚠️ Proportions are <strong>compositional</strong> — one cell type expands and every other proportion falls by arithmetic alone, with no biology behind it.</p>
+<p>⚠️ Proportions are <strong>compositional</strong> — one cell type expands and every other proportion falls by arithmetic alone, with no biology behind it (multivariate).</p>
 <ul>
 <li>✅ Methods that handle this: <code>scCODA</code>, <code>miloR</code>, <code>propeller</code>, Dirichlet-multinomial models</li>
 <li>❌ A χ² test on cell counts is <strong>not valid</strong></li>
@@ -1134,59 +1121,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="w5-s6-2" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s6-2">2) The pipeline, end to end</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat); <span class="fu">library</span>(SeuratData); <span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">InstallData</span>(<span class="st">"pbmc3k"</span>); <span class="fu">data</span>(<span class="st">"pbmc3k"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> pbmc3k</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>pbmc[[<span class="st">"percent.mt"</span>]] <span class="ot">&lt;-</span> <span class="fu">PercentageFeatureSet</span>(pbmc, <span class="at">pattern =</span> <span class="st">"^MT-"</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚠️ LOOK before you cut</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(pbmc, <span class="fu">c</span>(<span class="st">"nFeature_RNA"</span>, <span class="st">"nCount_RNA"</span>, <span class="st">"percent.mt"</span>), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">pt.size =</span> <span class="dv">0</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">subset</span>(pbmc, nFeature_RNA <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">&amp;</span> nFeature_RNA <span class="sc">&lt;</span> <span class="dv">2500</span> <span class="sc">&amp;</span> percent.mt <span class="sc">&lt;</span> <span class="dv">5</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">NormalizeData</span>(pbmc) <span class="sc">|&gt;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindVariableFeatures</span>(<span class="at">nfeatures =</span> <span class="dv">2000</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ScaleData</span>() <span class="sc">|&gt;</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunPCA</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ElbowPlot</span>(pbmc, <span class="at">ndims =</span> <span class="dv">30</span>)</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">FindNeighbors</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunUMAP</span>(<span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(pbmc, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat); <span class="fu">library</span>(SeuratData); <span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">InstallData</span>(<span class="st">"pbmc3k"</span>); <span class="fu">data</span>(<span class="st">"pbmc3k"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> pbmc3k</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>pbmc[[<span class="st">"percent.mt"</span>]] <span class="ot">&lt;-</span> <span class="fu">PercentageFeatureSet</span>(pbmc, <span class="at">pattern =</span> <span class="st">"^MT-"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚠️ LOOK before you cut</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(pbmc, <span class="fu">c</span>(<span class="st">"nFeature_RNA"</span>, <span class="st">"nCount_RNA"</span>, <span class="st">"percent.mt"</span>), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">pt.size =</span> <span class="dv">0</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">subset</span>(pbmc, nFeature_RNA <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">&amp;</span> nFeature_RNA <span class="sc">&lt;</span> <span class="dv">2500</span> <span class="sc">&amp;</span> percent.mt <span class="sc">&lt;</span> <span class="dv">5</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">NormalizeData</span>(pbmc) <span class="sc">|&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindVariableFeatures</span>(<span class="at">nfeatures =</span> <span class="dv">2000</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ScaleData</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunPCA</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ElbowPlot</span>(pbmc, <span class="at">ndims =</span> <span class="dv">30</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">FindNeighbors</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunUMAP</span>(<span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(pbmc, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="w5-s6-3" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s6-3">3) ✅ Change one thing</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① How many cells did each threshold remove, and which ones?</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pbmc3k<span class="sc">$</span>seurat_annotations[pbmc3k<span class="sc">$</span>percent.mt <span class="sc">&gt;=</span> <span class="dv">5</span>])   <span class="co"># who did the mito cut delete?</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ② Re-cluster at three resolutions and count</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (r <span class="cf">in</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">1.2</span>)) {</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  pbmc <span class="ot">&lt;-</span> <span class="fu">FindClusters</span>(pbmc, <span class="at">resolution =</span> r, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"resolution"</span>, r, <span class="st">"→"</span>, <span class="fu">nlevels</span>(pbmc<span class="sc">$</span>seurat_clusters), <span class="st">"clusters</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ③ Re-run UMAP with a different seed and compare the picture</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">RunUMAP</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">seed.use =</span> <span class="dv">99</span>)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(pbmc, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① How many cells did each threshold remove, and which ones?</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pbmc3k<span class="sc">$</span>seurat_annotations[pbmc3k<span class="sc">$</span>percent.mt <span class="sc">&gt;=</span> <span class="dv">5</span>])   <span class="co"># who did the mito cut delete?</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ② Re-cluster at three resolutions and count</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (r <span class="cf">in</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">1.2</span>)) {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  pbmc <span class="ot">&lt;-</span> <span class="fu">FindClusters</span>(pbmc, <span class="at">resolution =</span> r, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"resolution"</span>, r, <span class="st">"→"</span>, <span class="fu">nlevels</span>(pbmc<span class="sc">$</span>seurat_clusters), <span class="st">"clusters</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ③ Re-run UMAP with a different seed and compare the picture</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">RunUMAP</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">seed.use =</span> <span class="dv">99</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(pbmc, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>💡 ③ is the exercise that changes how you read figures. Nothing about the biology moved.</p>
 </section>
 <section id="w5-s6-4" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s6-4">4) Save for next week</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(pbmc, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"analysis"</span>, <span class="st">"5_pbmc_annotated.rds"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(pbmc, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"analysis"</span>, <span class="st">"5_pbmc_annotated.rds"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>W6 — trajectory, cell–cell communication, and multi-sample integration.</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"monocle3"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"harmony"</span>, <span class="st">"CellChat"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"monocle3"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"harmony"</span>, <span class="st">"CellChat"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <hr>
 </section>
@@ -1211,8 +1197,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>🔑 Key terms</h1>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 37%">
-<col style="width: 62%">
+<col style="width: 38%">
+<col style="width: 61%">
 </colgroup>
 <thead>
 <tr class="header">
