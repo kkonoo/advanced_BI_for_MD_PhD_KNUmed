@@ -961,7 +961,7 @@
     "href": "ko/chapters/part3/w6_scrna_dynamics.html",
     "title": "W6. 궤적, 세포 간 소통과 통합",
     "section": "",
-    "text": "노트🎯 학습목표\n\n\n\n\n\n이 장을 마치면 다음을 할 수 있어야 합니다.\n\nIntegration이 가정하는 것을 설명하고, ⚠️ 찾으려던 biology를 지워버린 경우를 알아본다\n✅ Over-correction을 드러내는 두 가지 colouring을 요구한다\nPseudotime이 무엇의 순서를 정하는지, 그리고 ⚠️ 왜 실제 시간이 아닌지 설명한다\n⚠️ Trajectory algorithm이 항상 trajectory를 반환하는 이유를 설명한다\nRNA velocity의 방향이 어디에서 나오며 어떤 가정이 논쟁 중인지 설명한다\n⚠️ Ligand–receptor co-expression이 interaction의 근거가 아닌 이유를 설명한다\n어떤 결과가 hypothesis로서 연구비 신청서에 들어가고, 어떤 결과가 finding으로서 논문에 들어가는지 판단한다",
+    "text": "노트🎯 학습목표\n\n\n\n\n\n이 장을 마치면 다음을 할 수 있어야 합니다.\n\nIntegration이 가정하는 것을 설명하고, ⚠️ 찾으려던 biology를 지워버린 경우를 알아본다\n✅ Over-correction을 드러내는 두 가지 colouring을 요구한다\nPseudotime이 무엇의 순서를 정하는지, 그리고 ⚠️ 왜 실제 시간이 아닌지 설명한다\n⚠️ Trajectory algorithm이 항상 trajectory를 반환하는 이유를 설명한다\nRNA velocity의 방향이 어디에서 나오며 어떤 가정이 논쟁 중인지 설명한다\n⚠️ TF–target co-expression으로 만든 regulon이 말해주는 것과 말해주지 않는 것을 구분한다\n⚠️ Ligand–receptor co-expression이 interaction의 근거가 아닌 이유를 설명한다\n어떤 결과가 hypothesis로서 연구비 신청서에 들어가고, 어떤 결과가 finding으로서 논문에 들어가는지 판단한다",
     "crumbs": [
       "3 · 단일세포",
       "W6. 궤적, 세포 간 소통과 통합"
@@ -972,7 +972,7 @@
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s1-1",
     "title": "W6. 궤적, 세포 간 소통과 통합",
     "section": "1) Integration이 해결하는 문제",
-    "text": "1) Integration이 해결하는 문제\nSingle-cell data에서 donor는 대개 가장 큰 variation source입니다. Cell type보다 환자에 따라 먼저 clustering되어 데이터를 biology로 해석하기 어려워집니다.\nIntegration method(Harmony, scVI, Seurat RPCA, scANVI)는 서로 다른 donor에서 나온 같은 cell type이 함께 위치하는 shared representation을 찾습니다.",
+    "text": "1) Integration이 해결하는 문제\nSingle-cell data에서 가장 큰 variation source = 대개 donor. Cell type보다 환자별로 먼저 clustering됨 → 이대로는 biology로 해석 불가\nIntegration method(Harmony, scVI, Seurat RPCA, scANVI) = 서로 다른 donor에서 온 같은 cell type이 한곳에 모이는 shared representation 찾기",
     "crumbs": [
       "3 · 단일세포",
       "W6. 궤적, 세포 간 소통과 통합"
@@ -982,8 +982,8 @@
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s1-2",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s1-2",
     "title": "W6. 궤적, 세포 간 소통과 통합",
-    "section": "2) ⚠️ Integration은 숨어 있는 가정이다",
-    "text": "2) ⚠️ Integration은 숨어 있는 가정이다\n\n\n\n오른쪽의 두 panel은 모두 완벽하게 섞인 것처럼 보입니다. 어떤 일이 일어났는지는 colouring 하나만 보여줍니다.\n\n\n가정은 다음과 같습니다. 모든 batch에 같은 cell type이 존재하며 batch와 관련된 variation은 모두 technical하다.\n⚠️ Biology가 흥미로운 바로 그 경우에 이 가정이 실패합니다.\n\n질환 특이적인 cell state\n하나의 condition에만 존재하는 population\nTreatment-induced program\n\n→ Aggressive integration은 이를 합쳐 없애고, 그 결과인 UMAP은 아름답게 섞여 보입니다.\n\n\n\n\n\n\n중요진단 방법과 이것이 거의 제시되지 않는 이유\n\n\n\n\n\n\n✅ Batch 및 cell type으로 각각 colouring하세요. 둘 다 출판해야 합니다\n✅ Integration 뒤에도 알려진 cell-type marker가 분리되는지 확인하세요\n✅ 하나의 condition에만 있는 population이 살아남았는지 확인하세요\n✅ scIB 같은 benchmark는 바로 이 batch-removal / biology-preservation trade-off를 평가합니다\n\n⚠️ 대부분의 논문은 batch colouring만 보여줍니다. 방법이 작동했다는 것을 보여주는 그림이기 때문입니다. 동시에 실패를 드러낼 수 없는 그림이기도 합니다.\n💡 동기 질문으로 돌아가면, 완벽하게 섞인 UMAP과 질환 특이적인 state는 서로 긴장 관계에 있습니다. 불가능한 것은 아니지만 논문은 두 번째 colouring을 제시해야 합니다.",
+    "section": "2) ⚠️ Integration = 숨어 있는 가정",
+    "text": "2) ⚠️ Integration = 숨어 있는 가정\n\n\n\n\n\n가정: 모든 batch에 같은 cell type이 있고, batch와 관련된 variation은 전부 technical\n⚠️ 이 가정은 biology가 흥미로운 바로 그때 깨짐:\n\n질환 특이적인 cell state\n한 condition에만 있는 population\nTreatment-induced program\n\n→ Aggressive integration은 이걸 합쳐서 없애버림. 그런데 결과 UMAP은 아름답게 섞여 보임..\n\n\n\n\n\n\n중요진단 방법, 그리고 이걸 거의 안 보여주는 이유\n\n\n\n\n\n\n✅ Batch 와 cell type으로 각각 colouring. 둘 다 논문에 실을 것\n✅ Integration 후에도 알려진 cell-type marker가 분리되는지 확인\n✅ 한 condition에만 있는 population이 살아남았는지 확인\n✅ scIB 같은 benchmark = 바로 이 batch 제거 vs biology 보존 trade-off를 점수화\n\n⚠️ 대부분의 논문은 batch colouring만 보여줌. 방법이 작동했다는 걸 보여주는 그림이니까.. 동시에 실패는 절대 드러낼 수 없는 그림이기도 함\n💡 동기 질문으로 돌아가면: 완벽하게 섞인 UMAP과 질환 특이적 state는 서로 긴장 관계. 불가능은 아니지만, 그렇다면 논문이 두 번째 colouring을 보여줘야 함",
     "crumbs": [
       "3 · 단일세포",
       "W6. 궤적, 세포 간 소통과 통합"
@@ -993,8 +993,8 @@
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s1-3",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s1-3",
     "title": "W6. 궤적, 세포 간 소통과 통합",
-    "section": "3) ⚠️ Integration이 전혀 도울 수 없는 경우",
-    "text": "3) ⚠️ Integration이 전혀 도울 수 없는 경우\nDisease status와 batch가 완전히 confounded되어 모든 환자를 하루에, 모든 대조군을 다른 날에 처리했다면 어떤 integration method도 둘을 분리할 수 없습니다. 🔗 W1 §3.3의 논리와 정확히 같고, 여기에서도 되돌릴 수 없습니다.",
+    "section": "3) ⚠️ Integration이 전혀 못 도와주는 경우",
+    "text": "3) ⚠️ Integration이 전혀 못 도와주는 경우\nDisease status와 batch가 완전히 confounded (환자는 전부 하루에, 대조군은 전부 다른 날에 처리) → 어떤 integration method로도 둘을 분리 불가. 🔗 W1 §3.3과 똑같은 논리, 여기서도 되돌릴 방법 없음",
     "crumbs": [
       "3 · 단일세포",
       "W6. 궤적, 세포 간 소통과 통합"
@@ -1005,7 +1005,7 @@
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s2-1",
     "title": "W6. 궤적, 세포 간 소통과 통합",
     "section": "1) 아이디어",
-    "text": "1) 아이디어\nBiology는 동적이지만 single-cell experiment는 snapshot입니다. 진행 중인 process의 서로 다른 지점에서 cell을 포착했다면 transcriptional similarity의 축을 따라 순서를 정할 수 있습니다. 이것이 pseudotime입니다.\n\nStem cell → progenitor → differentiated\nNaive T cell → activated → effector → exhausted\nFibroblast → myofibroblast → senescent\n\n도구: Monocle3, Slingshot, PAGA.",
+    "text": "1) 아이디어\nBiology는 동적인데 single-cell experiment는 snapshot. 진행 중인 process의 여러 지점에서 cell이 잡혔다면 → transcriptional similarity 축을 따라 순서 매기기 가능 = pseudotime\n\nStem cell → progenitor → differentiated\nNaive T cell → activated → effector → exhausted\nFibroblast → myofibroblast → senescent\n\n도구: Monocle3, Slingshot, PAGA",
     "crumbs": [
       "3 · 단일세포",
       "W6. 궤적, 세포 간 소통과 통합"
@@ -1016,7 +1016,7 @@
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s2-2",
     "title": "W6. 궤적, 세포 간 소통과 통합",
     "section": "2) ⚠️ Algorithm은 항상 성공한다",
-    "text": "2) ⚠️ Algorithm은 항상 성공한다\n\n\n\n같은 도구, 같은 설정, 똑같이 확신에 찬 출력입니다.\n\n\n\n\n\n\n\n\n경고명확하게 말할 가치가 있는 세 가지 주의점\n\n\n\n\n\n\n⚠️ Trajectory algorithm은 underlying process가 없는 데이터를 포함해 어떤 dataset에서도 trajectory를 반환합니다. “Trajectory를 찾지 못함”이라는 출력은 없습니다\n⚠️ Pseudotime은 시간이 아닙니다. Rate도 duration도 측정하지 않습니다. Pseudotime에서 멀리 떨어진 두 cell은 실제로 수분 또는 수개월 떨어졌을 수 있고, 순서가 반대일 수도 있습니다\n⚠️ Root는 사용자가 선택해야 합니다. Root를 반대로 선택하면 biology도 함께 뒤집힙니다. 이 선택은 결과처럼 보이지만 사실 prior knowledge가 들어온 것입니다\n\n→ ✅ Sanity check: cell label을 섞거나 homogeneous population에서 algorithm을 실행하고 무엇이 나오는지 보세요. 생각을 바꾸게 하는 5분입니다.",
+    "text": "2) ⚠️ Algorithm은 항상 성공한다\n\n\n\n\n\n\n\n\n\n\n\n경고분명히 짚고 갈 세 가지 주의점\n\n\n\n\n\n\n⚠️ Trajectory algorithm은 어떤 dataset에서든 trajectory를 반환함 — underlying process가 없는 데이터도 포함. “Trajectory 없음”이라는 출력은 없음!\n⚠️ Pseudotime ≠ 시간. Rate도 duration도 측정 x. Pseudotime상 멀리 떨어진 두 cell이 실제로는 몇 분 차이일 수도, 몇 달 차이일 수도 — 순서가 거꾸로일 수도\n⚠️ Root는 내가 고르는 것. Root를 뒤집으면 biology도 같이 뒤집힘. 결과처럼 보이지만 사실 prior knowledge가 끼어든 것\n\n✅ Sanity check: cell label을 섞거나 homogeneous population에 algorithm을 돌려서 뭐가 나오는지 보기",
     "crumbs": [
       "3 · 단일세포",
       "W6. 궤적, 세포 간 소통과 통합"
@@ -1027,7 +1027,7 @@
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s2-3",
     "title": "W6. 궤적, 세포 간 소통과 통합",
     "section": "3) RNA velocity",
-    "text": "3) RNA velocity\n\n\n\n화살표가 만들어지는 원리입니다.\n\n\nRNA velocity는 gene별 unspliced(new) transcript와 spliced(mature) transcript를 비교해 방향을 더합니다. Steady state의 예측보다 unspliced transcript가 많다면 해당 gene이 켜지고 있는 것입니다.\n⚠️ Splicing과 degradation kinetics에 관한 가정은 논쟁 중이며 일부 gene과 system에서 실패한다고 알려져 있습니다. 화살표는 UMAP 위에 그려지므로 🔗 W5 §4.2의 모든 distortion을 물려받습니다.\n✅ Trajectory 주장을 확정하는 것은 더 나은 algorithm이 아니라 time course 또는 lineage tracing입니다.",
+    "text": "3) RNA velocity\n\n\n\n화살표가 만들어지는 원리\n\n\nRNA velocity = gene별로 unspliced(new) vs spliced(mature) transcript를 비교해서 방향을 추가. Steady state가 예측하는 것보다 unspliced가 많으면 → 그 gene이 켜지는 중\n⚠️ Splicing·degradation kinetics에 대한 가정은 논쟁 중, 일부 gene·system에서는 안 맞는다고 알려져 있음. 게다가 화살표가 UMAP 위에 그려지므로 🔗 W5 §4.3의 왜곡도 전부 물려받음\n✅ Trajectory 이야기를 하려면 더 좋은 algorithm이 썼다고 하지 말고 time course 또는 lineage tracing",
     "crumbs": [
       "3 · 단일세포",
       "W6. 궤적, 세포 간 소통과 통합"
@@ -1037,8 +1037,8 @@
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s3-1",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s3-1",
     "title": "W6. 궤적, 세포 간 소통과 통합",
-    "section": "1) 도구가 실제로 계산하는 것",
-    "text": "1) 도구가 실제로 계산하는 것\nCellPhoneDB, CellChat, NicheNet은 co-expression을 바탕으로 cluster pair 사이의 ligand–receptor pair에 score를 줍니다. Cluster A에서 ligand mRNA가 높고 cluster B에서 receptor mRNA가 높은지를 계산합니다.\n\n\n\n그림의 화살표는 데이터가 뒷받침하는 것보다 훨씬 많은 일을 하고 있습니다.",
+    "section": "1) Cell 안: gene regulatory network (regulon)",
+    "text": "1) Cell 안: gene regulatory network (regulon)\n\n어떤 TF가 이 cell state를 켜고 있는가?\n\n\n\n\n\n\nSCENIC — 3단계\n\nCo-expression (GRNBoost2) — TF 발현으로 각 gene의 발현을 예측 (tree-based regression) → TF–target 후보. 대부분 간접적인 상관\nMotif pruning (cisTarget) — target의 promoter 주변에 그 TF의 motif가 농축된 것만 남김 → regulon (TF + motif로 뒷받침되는 target). 이 단계 덕분에 단순 co-expression 이상이 됨\nActivity per cell (AUCell) — cell마다 regulon gene들이 발현 순위 상위에 몰려 있는 정도(AUC) → cell × regulon matrix → clustering, UMAP 색칠, 그룹 비교\n\nTool: pySCENIC(Python, 실제로 가장 많이 씀), SCENIC(R, 원조, 느림)\n\n\n\n\n\n\n경고Regulon 해석 시 주의\n\n\n\n\n\n\n⚠️ TF mRNA ≠ TF activity. 인산화, 핵 이동(NF-κB), ligand 결합(nuclear receptor) 같은 번역 후 조절은 RNA에 안 보임. 게다가 TF는 발현이 낮아 dropout이 많음\n⚠️ Motif가 있다 ≠ 실제로 붙는다. Chromatin이 닫혀 있으면 못 붙음 — scRNA만으로는 확인 불가 (multiome/scATAC이 있으면 SCENIC+, 이 수업 범위 밖)\n⚠️ 돌릴 때마다 다름. GRNBoost2는 stochastic → 여러 번 돌려서 반복해서 나오는 regulon만 쓰는 게 관행\n⚠️ 순환 논리. Expression으로 나눈 cluster끼리 regulon activity를 비교 → 차이가 나오는 게 당연\n⚠️ Condition 비교 = W5의 per-cell test 함정 그대로. Donor 단위로 집계해서 비교 (🔗 W5 §5.2)\n\n💡 가벼운 대안: decoupleR + CollecTRI — network를 새로 추론하지 않고, 이미 알려진 TF–target set으로 TF activity만 점수화. 빠르고 재현성 좋고 R/Seurat에서 바로 됨 (§5.4). 대신 알려진 biology 안에서만 답이 나옴\n✅ 검증: binding은 ChIP-seq / CUT&RUN, 기능은 TF knockout / CRISPR / Perturb-seq",
     "crumbs": [
       "3 · 단일세포",
       "W6. 궤적, 세포 간 소통과 통합"
@@ -1048,8 +1048,8 @@
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s3-2",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s3-2",
     "title": "W6. 궤적, 세포 간 소통과 통합",
-    "section": "2) 정직하게 사용하는 방법",
-    "text": "2) 정직하게 사용하는 방법\n\n✅ Hypothesis generator로 사용 — “어떤 axis를 검정할 가치가 있는가?”가 이 도구에 정확히 맞는 질문입니다\n✅ 공간적으로 검증 — 두 cell type이 물리적으로 인접해 있다면(🔗 W7) 예측이 그럴듯해집니다\n✅ 기능적으로 검증 — blocking antibody, receptor knockout, ligand stimulation\n❌ 독립적인 결과로 사용 — “Macrophage가 TNF를 통해 T cell에 signal을 보낸다”는 사실은 co-expression으로 입증되지 않습니다\n\n💡 NicheNet은 종류가 조금 다릅니다. Ligand의 downstream target gene이 receiver cell에서 유도되는지 묻습니다. 여전히 correlative하지만 co-expression만 보는 것보다 더 강한 correlation입니다.",
+    "section": "2) Cell 사이: cell–cell communication",
+    "text": "2) Cell 사이: cell–cell communication\nCellPhoneDB, CellChat, NicheNet = cluster 쌍 사이의 ligand–receptor pair를 co-expression 기반으로 점수화. Cluster A에서 ligand mRNA가 높고, cluster B에서 receptor mRNA가 높은가? 그게 전부\n\n\n\n\n\n💡 NicheNet은 결이 좀 다름 = 두 축을 잇는 방법: ligand(cell 사이)의 downstream target gene이 receiver cell 안에서 실제로 유도되는지(cell 안)를 봄. 여전히 correlative지만, co-expression만 보는 것보단 강한 correlation",
     "crumbs": [
       "3 · 단일세포",
       "W6. 궤적, 세포 간 소통과 통합"
@@ -1060,7 +1060,7 @@
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-1",
     "title": "W6. 궤적, 세포 간 소통과 통합",
     "section": "1) 정직한 진단을 포함한 integration",
-    "text": "1) 정직한 진단을 포함한 integration\n\nlibrary(Seurat); library(harmony); library(patchwork)\n\nobj &lt;- readRDS(here::here(\"analysis\", \"5_pbmc_annotated.rds\"))\n\nobj &lt;- obj |&gt;\n  RunHarmony(group.by.vars = \"donor\") |&gt;\n  FindNeighbors(reduction = \"harmony\", dims = 1:20) |&gt;\n  FindClusters(resolution = 0.5) |&gt;\n  RunUMAP(reduction = \"harmony\", dims = 1:20)\n\n# ✅ the two panels that must always appear together\nDimPlot(obj, group.by = \"donor\")     |\nDimPlot(obj, group.by = \"cell_type\", label = TRUE)\n\n✅ 한 가지 바꾸기: Harmony의 theta를 높여 correction을 더 aggressive하게 만들고, 오른쪽 panel에서 작은 population이 사라지는지 보세요.",
+    "text": "1) 정직한 진단을 포함한 integration\n\nlibrary(Seurat); library(harmony); library(patchwork)\n\nobj &lt;- readRDS(here::here(\"analysis\", \"5_pbmc_annotated.rds\"))\n\nobj &lt;- obj |&gt;\n  RunHarmony(group.by.vars = \"donor\") |&gt;\n  FindNeighbors(reduction = \"harmony\", dims = 1:20) |&gt;\n  FindClusters(resolution = 0.5) |&gt;\n  RunUMAP(reduction = \"harmony\", dims = 1:20)\n\n# ✅ the two panels that must always appear together\nDimPlot(obj, group.by = \"donor\")     |\nDimPlot(obj, group.by = \"cell_type\", label = TRUE)\n\n✅ 한 가지 바꾸기: Harmony의 theta를 올려서 correction을 더 aggressive하게 → 오른쪽 panel에서 작은 population이 사라지는지 확인",
     "crumbs": [
       "3 · 단일세포",
       "W6. 궤적, 세포 간 소통과 통합"
@@ -1071,7 +1071,7 @@
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-2",
     "title": "W6. 궤적, 세포 간 소통과 통합",
     "section": "2) Trajectory와 sanity check",
-    "text": "2) Trajectory와 sanity check\n\nlibrary(monocle3)\n\ncds &lt;- as.cell_data_set(obj)\ncds &lt;- cluster_cells(cds) |&gt; learn_graph()\ncds &lt;- order_cells(cds)              # ⚠️ you choose the root — that is an assumption\nplot_cells(cds, color_cells_by = \"pseudotime\")\n\n⚠️ 그다음 아래 코드를 실행하고 출력을 정직하게 살펴보세요.\n\n# Run the same pipeline on one homogeneous cluster with no expected process\nmono &lt;- subset(obj, cell_type == \"CD14 Mono\")\ncds_null &lt;- as.cell_data_set(mono) |&gt; cluster_cells() |&gt; learn_graph()\nplot_cells(cds_null, color_cells_by = \"pseudotime\")\n\n💡 Trajectory가 나올 것입니다. 이 결과가 앞의 그림에 어떤 의미를 주는지 논의하세요.",
+    "text": "2) Trajectory와 sanity check\n\nlibrary(monocle3)\n\ncds &lt;- as.cell_data_set(obj)\ncds &lt;- cluster_cells(cds) |&gt; learn_graph()\ncds &lt;- order_cells(cds)              # ⚠️ you choose the root — that is an assumption\nplot_cells(cds, color_cells_by = \"pseudotime\")\n\n⚠️ 그다음 아래 코드 실행 → 출력을 정직하게 보기\n\n# Run the same pipeline on one homogeneous cluster with no expected process\nmono &lt;- subset(obj, cell_type == \"CD14 Mono\")\ncds_null &lt;- as.cell_data_set(mono) |&gt; cluster_cells() |&gt; learn_graph()\nplot_cells(cds_null, color_cells_by = \"pseudotime\")\n\n💡 Trajectory가 나올 것.. 이게 앞의 그림에 대해 뭘 말해주는지 토론",
     "crumbs": [
       "3 · 단일세포",
       "W6. 궤적, 세포 간 소통과 통합"
@@ -1082,7 +1082,7 @@
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-3",
     "title": "W6. 궤적, 세포 간 소통과 통합",
     "section": "3) Cell–cell communication",
-    "text": "3) Cell–cell communication\n\nlibrary(CellChat)\n\ncc &lt;- createCellChat(obj, group.by = \"cell_type\") |&gt;\n  subsetData() |&gt; identifyOverExpressedGenes() |&gt;\n  identifyOverExpressedInteractions() |&gt; computeCommunProb() |&gt;\n  filterCommunication(min.cells = 10) |&gt; aggregateNet()\n\nnetVisual_circle(cc@net$weight, weight.scale = TRUE)\n\n✅ 가장 강하게 예측된 interaction 하나를 고르고 이를 검정할 실험을 설명하는 문장 하나를 쓰세요. Plot이 아니라 그 문장이 deliverable입니다.",
+    "text": "3) Cell–cell communication\n\nlibrary(CellChat)\n\ncc &lt;- createCellChat(obj, group.by = \"cell_type\") |&gt;\n  subsetData() |&gt; identifyOverExpressedGenes() |&gt;\n  identifyOverExpressedInteractions() |&gt; computeCommunProb() |&gt;\n  filterCommunication(min.cells = 10) |&gt; aggregateNet()\n\nnetVisual_circle(cc@net$weight, weight.scale = TRUE)\n\n✅ 가장 강하게 예측된 interaction 하나를 고르고, 그걸 검정할 실험을 한 문장으로 쓰기. Deliverable은 plot이 아니라 그 문장",
     "crumbs": [
       "3 · 단일세포",
       "W6. 궤적, 세포 간 소통과 통합"
@@ -1092,8 +1092,8 @@
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-4",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-4",
     "title": "W6. 궤적, 세포 간 소통과 통합",
-    "section": "4) 다음 주 전까지",
-    "text": "4) 다음 주 전까지\nW7 — spatial transcriptomics. 자신의 진료과에 관한 다음 질문의 답을 생각해 오세요.\n\nOutcome data와 연결된 FFPE block이 있는가? 대략 몇 개인가?\n\nW7–W8의 모든 내용이 그 답에 달려 있습니다.",
+    "section": "4) TF activity (decoupleR)",
+    "text": "4) TF activity (decoupleR)\n\nlibrary(decoupleR)\n\nnet  &lt;- get_collectri(organism = \"human\", split_complexes = FALSE)   # known TF–target pairs\nmat  &lt;- as.matrix(LayerData(obj, assay = \"RNA\", layer = \"data\"))      # log-normalised\nacts &lt;- run_ulm(mat = mat, net = net, .source = \"source\", .target = \"target\",\n                .mor = \"mor\", minsize = 5)\n\nobj[[\"tf\"]] &lt;- acts |&gt;\n  tidyr::pivot_wider(id_cols = \"source\", names_from = \"condition\", values_from = \"score\") |&gt;\n  tibble::column_to_rownames(\"source\") |&gt;\n  CreateAssayObject()\n\n# TF mRNA vs TF activity, side by side\nDefaultAssay(obj) &lt;- \"RNA\"; p1 &lt;- FeaturePlot(obj, \"SPI1\")\nDefaultAssay(obj) &lt;- \"tf\";  p2 &lt;- FeaturePlot(obj, \"SPI1\")\np1 | p2\n\n✅ 한 가지 바꾸기: SPI1(PU.1) 말고 관심 있는 TF 하나로 바꿔서 mRNA vs activity 비교 → 얼마나 다른가? Condition을 비교하고 싶다면 cell이 아니라 donor별 평균으로",
     "crumbs": [
       "3 · 단일세포",
       "W6. 궤적, 세포 간 소통과 통합"
@@ -3314,7 +3314,7 @@
     "href": "chapters/part3/w6_scrna_dynamics.html",
     "title": "W6. Trajectory, Communication & Integration",
     "section": "",
-    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nSay what integration assumes, and ⚠️ recognise when it has erased the biology you were looking for\n✅ Demand the two colourings that make over-correction visible\nExplain what pseudotime orders — and ⚠️ why it is not time\n⚠️ Say why a trajectory algorithm always returns a trajectory\nExplain where RNA velocity’s direction comes from, and which of its assumptions are contested\n⚠️ Explain why ligand–receptor co-expression is not evidence of an interaction\nDecide which of these results belongs in a grant as a hypothesis, and which belongs in a paper as a finding",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nSay what integration assumes, and ⚠️ recognise when it has erased the biology you were looking for\n✅ Demand the two colourings that make over-correction visible\nExplain what pseudotime orders — and ⚠️ why it is not time\n⚠️ Say why a trajectory algorithm always returns a trajectory\nExplain where RNA velocity’s direction comes from, and which of its assumptions are contested\n⚠️ Separate what a regulon built from TF–target co-expression does and does not tell you\n⚠️ Explain why ligand–receptor co-expression is not evidence of an interaction\nDecide which of these results belongs in a grant as a hypothesis, and which belongs in a paper as a finding",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3386,7 +3386,7 @@
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s2-3",
     "title": "W6. Trajectory, Communication & Integration",
     "section": "3) RNA velocity",
-    "text": "3) RNA velocity\n\n\n\nWhere the arrows come from.\n\n\nRNA velocity adds direction by comparing unspliced (new) to spliced (mature) transcripts per gene. More unspliced than steady state predicts → the gene is turning on.\n⚠️ The assumptions about splicing and degradation kinetics are contested, and known to fail for some genes and systems. The arrows are also drawn on a UMAP, so they inherit every distortion from 🔗 W5 §4.2.\n✅ What settles a trajectory claim: a time course, or lineage tracing. Not a better algorithm.",
+    "text": "3) RNA velocity\n\n\n\nWhere the arrows come from.\n\n\nRNA velocity adds direction by comparing unspliced (new) to spliced (mature) transcripts per gene. More unspliced than steady state predicts → the gene is turning on.\n⚠️ The assumptions about splicing and degradation kinetics are contested, and known to fail for some genes and systems. The arrows are also drawn on a UMAP, so they inherit every distortion from 🔗 W5 §4.3.\n✅ What settles a trajectory claim: a time course, or lineage tracing. Not a better algorithm.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3397,8 +3397,8 @@
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s3-1",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s3-1",
     "title": "W6. Trajectory, Communication & Integration",
-    "section": "1) What the tools actually compute",
-    "text": "1) What the tools actually compute\nCellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster pairs based on co-expression — the ligand’s mRNA is high in cluster A, its receptor’s mRNA is high in cluster B.\n\n\n\nThe arrow in the figure is doing far more work than the data supports.",
+    "section": "1) Within a cell: gene regulatory networks (regulons)",
+    "text": "1) Within a cell: gene regulatory networks (regulons)\n\nWhich TF is switching this cell state on?\n\n\n\n\n\n\nSCENIC — three steps\n\nCo-expression (GRNBoost2) — predict each gene’s expression from TF expression (tree-based regression) → candidate TF–target pairs. Mostly indirect correlation\nMotif pruning (cisTarget) — keep only targets whose promoter region is enriched for that TF’s motif → a regulon (TF + motif-backed targets). This step is what lifts SCENIC above plain co-expression\nActivity per cell (AUCell) — how strongly the regulon’s genes sit at the top of each cell’s expression ranking (AUC) → a cell × regulon matrix → cluster, colour the UMAP, compare groups\n\nTools: pySCENIC (Python, the one used in practice), SCENIC (R, the original, slow)\n\n\n\n\n\n\nWarningReading regulons\n\n\n\n\n\n\n⚠️ TF mRNA ≠ TF activity. Phosphorylation, nuclear translocation (NF-κB) and ligand binding (nuclear receptors) are invisible in RNA — and TFs are lowly expressed, so dropout is common\n⚠️ A motif ≠ binding. Closed chromatin blocks it, and scRNA alone cannot tell (with multiome / scATAC: SCENIC+, beyond this course)\n⚠️ Different every run. GRNBoost2 is stochastic → run it several times and keep the regulons that recur\n⚠️ Circularity. Comparing regulon activity between clusters that were defined by expression → differences are guaranteed\n⚠️ Comparing conditions = the W5 per-cell trap again. Aggregate per donor before testing (🔗 W5 §5.2)\n\n💡 Lighter alternative: decoupleR + CollecTRI — no network inference; score TF activity from known TF–target sets. Fast, reproducible, runs directly on a Seurat object (§5.4). The price: answers only within known biology\n✅ Validation: binding by ChIP-seq / CUT&RUN; function by TF knockout / CRISPR / Perturb-seq",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3409,8 +3409,8 @@
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s3-2",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s3-2",
     "title": "W6. Trajectory, Communication & Integration",
-    "section": "2) Using them honestly",
-    "text": "2) Using them honestly\n\n✅ As a hypothesis generator — “which axes are worth testing?” is exactly what these tools are for\n✅ Validated spatially — if the two cell types are physically adjacent (🔗 W7), the prediction becomes plausible\n✅ Validated functionally — blocking antibody, receptor knockout, ligand stimulation\n❌ As a standalone result — “macrophages signal to T cells via TNF” is not shown by co-expression\n\n💡 NicheNet is somewhat different in kind: it asks whether the downstream target genes of a ligand are induced in the receiver cell. That is still correlative, but it is a stronger correlation than co-expression alone.",
+    "section": "2) Between cells: cell–cell communication",
+    "text": "2) Between cells: cell–cell communication\nCellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster pairs based on co-expression — the ligand’s mRNA is high in cluster A, its receptor’s mRNA is high in cluster B.\n\n\n\nThe arrow in the figure is doing far more work than the data supports.\n\n\n💡 NicheNet is different in kind — it links the two axes: it asks whether a ligand’s (between cells) downstream target genes are induced inside the receiver cell (within a cell). Still correlative, but a stronger correlation than co-expression alone.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3457,8 +3457,8 @@
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s5-4",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s5-4",
     "title": "W6. Trajectory, Communication & Integration",
-    "section": "4) Before next week",
-    "text": "4) Before next week\nW7 — spatial transcriptomics. Come with an answer to one question about your own department:\n\nDo we have FFPE blocks with linked outcome data, and roughly how many?\n\nEverything in W7–W8 depends on that answer.",
+    "section": "4) TF activity (decoupleR)",
+    "text": "4) TF activity (decoupleR)\n\nlibrary(decoupleR)\n\nnet  &lt;- get_collectri(organism = \"human\", split_complexes = FALSE)   # known TF–target pairs\nmat  &lt;- as.matrix(LayerData(obj, assay = \"RNA\", layer = \"data\"))      # log-normalised\nacts &lt;- run_ulm(mat = mat, net = net, .source = \"source\", .target = \"target\",\n                .mor = \"mor\", minsize = 5)\n\nobj[[\"tf\"]] &lt;- acts |&gt;\n  tidyr::pivot_wider(id_cols = \"source\", names_from = \"condition\", values_from = \"score\") |&gt;\n  tibble::column_to_rownames(\"source\") |&gt;\n  CreateAssayObject()\n\n# TF mRNA vs TF activity, side by side\nDefaultAssay(obj) &lt;- \"RNA\"; p1 &lt;- FeaturePlot(obj, \"SPI1\")\nDefaultAssay(obj) &lt;- \"tf\";  p2 &lt;- FeaturePlot(obj, \"SPI1\")\np1 | p2\n\n✅ Change one thing: swap SPI1 (PU.1) for a TF you care about and compare its mRNA with its activity — how different are they? To compare conditions, average per donor, not per cell.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -4576,6 +4576,52 @@
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
+    ]
+  },
+  {
+    "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s3-3",
+    "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s3-3",
+    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "section": "3) 적절한 사용법 (둘 다)",
+    "text": "3) 적절한 사용법 (둘 다)\n\n✅ Hypothesis generator로 — “어떤 TF / 어떤 axis를 검정해 볼 만한가?”가 딱 이 도구들용 질문\n✅ 공간적으로 검증 (CCC) — 두 cell type이 물리적으로 붙어 있다면(🔗 W7) 예측이 그럴듯해짐\n✅ 기능적으로 검증 — CCC는 blocking antibody, receptor knockout, ligand stimulation / regulon은 TF knockout, Perturb-seq\n❌ 단독 결과로 x — “Macrophage가 TNF로 T cell에 signal을 보낸다”, “TF X가 fibrosis program을 구동한다” 둘 다 co-expression만으로는 입증 안 됨",
+    "crumbs": [
+      "3 · 단일세포",
+      "W6. 궤적, 세포 간 소통과 통합"
+    ]
+  },
+  {
+    "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-5",
+    "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-5",
+    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "section": "5) 다음 주 전까지",
+    "text": "5) 다음 주 전까지\nW7 — spatial transcriptomics. 내 진료과 기준으로 다음 질문의 답을 생각해 오기:\n\nOutcome data와 연결된 FFPE block이 있는가? 대략 몇 개인가?\n\nW7–W8 내용 전부가 그 답에 달려 있음",
+    "crumbs": [
+      "3 · 단일세포",
+      "W6. 궤적, 세포 간 소통과 통합"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s3-3",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s3-3",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "3) Using them honestly (both)",
+    "text": "3) Using them honestly (both)\n\n✅ As a hypothesis generator — “which TF / which axis is worth testing?” is exactly what these tools are for\n✅ Validated spatially (CCC) — if the two cell types are physically adjacent (🔗 W7), the prediction becomes plausible\n✅ Validated functionally — CCC: blocking antibody, receptor knockout, ligand stimulation / regulons: TF knockout, Perturb-seq\n❌ As a standalone result — neither “macrophages signal to T cells via TNF” nor “TF X drives the fibrosis program” is shown by co-expression",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s5-5",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s5-5",
+    "title": "W6. Trajectory, Communication & Integration",
+    "section": "5) Before next week",
+    "text": "5) Before next week\nW7 — spatial transcriptomics. Come with an answer to one question about your own department:\n\nDo we have FFPE blocks with linked outcome data, and roughly how many?\n\nEverything in W7–W8 depends on that answer.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Trajectory, Communication, Integration"
     ]
   }
 ]

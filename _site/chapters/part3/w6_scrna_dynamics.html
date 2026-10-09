@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eunji Ha">
-<meta name="dcterms.date" content="2026-08-17">
+<meta name="dcterms.date" content="2026-10-09">
 
 <title>W6. Trajectory, Communication &amp; Integration</title>
 <style>
@@ -597,10 +597,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#w6-s2-2" id="toc-w6-s2-2" class="nav-link" data-scroll-target="#w6-s2-2">2) ⚠️ The algorithm always succeeds</a></li>
   <li><a href="#w6-s2-3" id="toc-w6-s2-3" class="nav-link" data-scroll-target="#w6-s2-3">3) RNA velocity</a></li>
   </ul></li>
-  <li><a href="#w6-s3" id="toc-w6-s3" class="nav-link" data-scroll-target="#w6-s3">3. ⚠️ Cell–Cell Communication 📡</a>
+  <li><a href="#w6-s3" id="toc-w6-s3" class="nav-link" data-scroll-target="#w6-s3">3. Inferring Mechanism from Co-expression 📡</a>
   <ul>
-  <li><a href="#w6-s3-1" id="toc-w6-s3-1" class="nav-link" data-scroll-target="#w6-s3-1">1) What the tools actually compute</a></li>
-  <li><a href="#w6-s3-2" id="toc-w6-s3-2" class="nav-link" data-scroll-target="#w6-s3-2">2) Using them honestly</a></li>
+  <li><a href="#w6-s3-1" id="toc-w6-s3-1" class="nav-link" data-scroll-target="#w6-s3-1">1) Within a cell: gene regulatory networks (regulons)</a></li>
+  <li><a href="#w6-s3-2" id="toc-w6-s3-2" class="nav-link" data-scroll-target="#w6-s3-2">2) Between cells: cell–cell communication</a></li>
+  <li><a href="#w6-s3-3" id="toc-w6-s3-3" class="nav-link" data-scroll-target="#w6-s3-3">3) Using them honestly (both)</a></li>
   </ul></li>
   <li><a href="#w6-s4" id="toc-w6-s4" class="nav-link" data-scroll-target="#w6-s4">4. Putting the Week Together 🧩</a></li>
   <li><a href="#w6-s5" id="toc-w6-s5" class="nav-link" data-scroll-target="#w6-s5">5. Hands-On 💻</a>
@@ -608,7 +609,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#w6-s5-1" id="toc-w6-s5-1" class="nav-link" data-scroll-target="#w6-s5-1">1) Integration, with the honest diagnostic</a></li>
   <li><a href="#w6-s5-2" id="toc-w6-s5-2" class="nav-link" data-scroll-target="#w6-s5-2">2) A trajectory, and its sanity check</a></li>
   <li><a href="#w6-s5-3" id="toc-w6-s5-3" class="nav-link" data-scroll-target="#w6-s5-3">3) Cell–cell communication</a></li>
-  <li><a href="#w6-s5-4" id="toc-w6-s5-4" class="nav-link" data-scroll-target="#w6-s5-4">4) Before next week</a></li>
+  <li><a href="#w6-s5-4" id="toc-w6-s5-4" class="nav-link" data-scroll-target="#w6-s5-4">4) TF activity (decoupleR)</a></li>
+  <li><a href="#w6-s5-5" id="toc-w6-s5-5" class="nav-link" data-scroll-target="#w6-s5-5">5) Before next week</a></li>
   </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">📝 Summary</a></li>
   <li><a href="#key-terms" id="toc-key-terms" class="nav-link" data-scroll-target="#key-terms">🔑 Key terms</a></li>
@@ -616,6 +618,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#integration" id="toc-integration" class="nav-link" data-scroll-target="#integration">Integration</a></li>
   <li><a href="#trajectory-and-velocity" id="toc-trajectory-and-velocity" class="nav-link" data-scroll-target="#trajectory-and-velocity">Trajectory and velocity</a></li>
+  <li><a href="#gene-regulatory-networks" id="toc-gene-regulatory-networks" class="nav-link" data-scroll-target="#gene-regulatory-networks">Gene regulatory networks</a></li>
   <li><a href="#cellcell-communication" id="toc-cellcell-communication" class="nav-link" data-scroll-target="#cellcell-communication">Cell–cell communication</a></li>
   </ul></li>
   </ul>
@@ -644,7 +647,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 17, 2026</p>
+      <p class="date">October 9, 2026</p>
     </div>
   </div>
   
@@ -675,6 +678,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Explain what pseudotime orders — and ⚠️ why it is not time</li>
 <li>⚠️ Say why a trajectory algorithm always returns a trajectory</li>
 <li>Explain where RNA velocity’s direction comes from, and which of its assumptions are contested</li>
+<li>⚠️ Separate what a regulon built from TF–target co-expression does and does not tell you</li>
 <li>⚠️ Explain why ligand–receptor co-expression is not evidence of an interaction</li>
 <li>Decide which of these results belongs in a grant as a hypothesis, and which belongs in a paper as a finding</li>
 </ul>
@@ -790,15 +794,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <p>RNA velocity adds <strong>direction</strong> by comparing unspliced (new) to spliced (mature) transcripts per gene. More unspliced than steady state predicts → the gene is turning on.</p>
-<p>⚠️ The assumptions about splicing and degradation kinetics are <strong>contested</strong>, and known to fail for some genes and systems. The arrows are also drawn on a UMAP, so they inherit every distortion from 🔗 <a href="../../chapters/part3/w5_scrna_qc.html#w5-s4-2">W5 §4.2</a>.</p>
+<p>⚠️ The assumptions about splicing and degradation kinetics are <strong>contested</strong>, and known to fail for some genes and systems. The arrows are also drawn on a UMAP, so they inherit every distortion from 🔗 <a href="../../chapters/part3/w5_scrna_qc.html#w5-s4-3">W5 §4.3</a>.</p>
 <p>✅ What settles a trajectory claim: a <strong>time course</strong>, or <strong>lineage tracing</strong>. Not a better algorithm.</p>
 <hr>
 </section>
 </section>
 <section id="w6-s3" class="level1">
-<h1>3. ⚠️ Cell–Cell Communication 📡</h1>
+<h1>3. Inferring Mechanism from Co-expression 📡</h1>
+<p>Same raw material — <strong>co-expression</strong> within one snapshot. Only where you look differs:</p>
+<ul>
+<li><strong>Within a cell</strong> — TF ↔︎ target genes → a <strong>regulon</strong> (gene regulatory network)</li>
+<li><strong>Between cells</strong> — ligand ↔︎ receptor → <strong>cell–cell communication</strong></li>
+</ul>
+<p>→ Same limit, too: co-expression is not regulation, and not interaction. Both are hypothesis generators.</p>
 <section id="w6-s3-1" class="level2">
-<h2 class="anchored" data-anchor-id="w6-s3-1">1) What the tools actually compute</h2>
+<h2 class="anchored" data-anchor-id="w6-s3-1">1) Within a cell: gene regulatory networks (regulons)</h2>
+<blockquote class="blockquote">
+<p>Which TF is switching this cell state on?</p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w6/scenic_regulon.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p><strong>SCENIC — three steps</strong></p>
+<ol type="1">
+<li><strong>Co-expression (GRNBoost2)</strong> — predict each gene’s expression from TF expression (tree-based regression) → candidate TF–target pairs. Mostly indirect correlation</li>
+<li><strong>Motif pruning (cisTarget)</strong> — keep only targets whose promoter region is enriched for that TF’s motif → a <strong>regulon</strong> (TF + motif-backed targets). This step is what lifts SCENIC above plain co-expression</li>
+<li><strong>Activity per cell (AUCell)</strong> — how strongly the regulon’s genes sit at the top of each cell’s expression ranking (AUC) → a cell × regulon matrix → cluster, colour the UMAP, compare groups</li>
+</ol>
+<p>Tools: <strong>pySCENIC</strong> (Python, the one used in practice), SCENIC (R, the original, slow)</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Reading regulons
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>⚠️ <strong>TF mRNA ≠ TF activity.</strong> Phosphorylation, nuclear translocation (NF-κB) and ligand binding (nuclear receptors) are invisible in RNA — and TFs are lowly expressed, so dropout is common</li>
+<li>⚠️ <strong>A motif ≠ binding.</strong> Closed chromatin blocks it, and scRNA alone cannot tell (with multiome / scATAC: SCENIC+, beyond this course)</li>
+<li>⚠️ <strong>Different every run.</strong> GRNBoost2 is stochastic → run it several times and keep the regulons that recur</li>
+<li>⚠️ <strong>Circularity.</strong> Comparing regulon activity between clusters that were defined by expression → differences are guaranteed</li>
+<li>⚠️ <strong>Comparing conditions = the W5 per-cell trap again.</strong> Aggregate per donor before testing (🔗 <a href="../../chapters/part3/w5_scrna_qc.html#w5-s5-2">W5 §5.2</a>)</li>
+</ul>
+<p>💡 Lighter alternative: <strong>decoupleR + CollecTRI</strong> — no network inference; score TF activity from known TF–target sets. Fast, reproducible, runs directly on a Seurat object (§5.4). The price: answers only within known biology</p>
+<p>✅ Validation: binding by ChIP-seq / CUT&amp;RUN; function by TF knockout / CRISPR / Perturb-seq</p>
+</div>
+</div>
+</div>
+</section>
+<section id="w6-s3-2" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s3-2">2) Between cells: cell–cell communication</h2>
 <p>CellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster pairs based on <strong>co-expression</strong> — the ligand’s mRNA is high in cluster A, its receptor’s mRNA is high in cluster B.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -806,16 +858,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>The arrow in the figure is doing far more work than the data supports.</figcaption>
 </figure>
 </div>
+<p>💡 NicheNet is different in kind — it links the two axes: it asks whether a ligand’s (between cells) <em>downstream target genes</em> are induced inside the receiver cell (within a cell). Still correlative, but a stronger correlation than co-expression alone.</p>
 </section>
-<section id="w6-s3-2" class="level2">
-<h2 class="anchored" data-anchor-id="w6-s3-2">2) Using them honestly</h2>
+<section id="w6-s3-3" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s3-3">3) Using them honestly (both)</h2>
 <ul>
-<li>✅ <strong>As a hypothesis generator</strong> — “which axes are worth testing?” is exactly what these tools are for</li>
-<li>✅ <strong>Validated spatially</strong> — if the two cell types are physically adjacent (🔗 <a href="../../chapters/part4/w7_spatial_basics.html">W7</a>), the prediction becomes plausible</li>
-<li>✅ <strong>Validated functionally</strong> — blocking antibody, receptor knockout, ligand stimulation</li>
-<li>❌ <strong>As a standalone result</strong> — “macrophages signal to T cells via TNF” is not shown by co-expression</li>
+<li>✅ <strong>As a hypothesis generator</strong> — “which TF / which axis is worth testing?” is exactly what these tools are for</li>
+<li>✅ <strong>Validated spatially (CCC)</strong> — if the two cell types are physically adjacent (🔗 <a href="../../chapters/part4/w7_spatial_basics.html">W7</a>), the prediction becomes plausible</li>
+<li>✅ <strong>Validated functionally</strong> — CCC: blocking antibody, receptor knockout, ligand stimulation / regulons: TF knockout, Perturb-seq</li>
+<li>❌ <strong>As a standalone result</strong> — neither “macrophages signal to T cells via TNF” nor “TF X drives the fibrosis program” is shown by co-expression</li>
 </ul>
-<p>💡 NicheNet is somewhat different in kind: it asks whether the <em>downstream target genes</em> of a ligand are induced in the receiver cell. That is still correlative, but it is a stronger correlation than co-expression alone.</p>
 <hr>
 </section>
 </section>
@@ -824,9 +876,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Everything in this chapter produces a confident-looking output from data that cannot fully support it. That is not a reason to avoid these methods — it is a reason to be precise about what they are.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 26%">
-<col style="width: 36%">
-<col style="width: 37%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -862,6 +914,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Supplementary, or a hypothesis</td>
 </tr>
 <tr class="even">
+<td>Regulon / TF activity (SCENIC, decoupleR)</td>
+<td>⚠️ Hypothesis</td>
+<td>Results, phrased as “consistent with”</td>
+</tr>
+<tr class="odd">
 <td>Ligand–receptor prediction</td>
 <td>❌ Hypothesis only</td>
 <td>Discussion, or a grant aim</td>
@@ -869,7 +926,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -878,7 +935,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><em>“Trajectory analysis revealed that fibroblasts differentiate into myofibroblasts, and cell–cell communication analysis showed that macrophage-derived TGF-β drives this transition.”</em></p>
 <p>Nothing here was revealed or shown. Two algorithms produced two orderings from one snapshot of dissociated cells.</p>
@@ -944,7 +1001,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>✅ Pick the strongest predicted interaction and write <strong>one sentence</strong> describing the experiment that would test it. That sentence is the deliverable, not the plot.</p>
 </section>
 <section id="w6-s5-4" class="level2">
-<h2 class="anchored" data-anchor-id="w6-s5-4">4) Before next week</h2>
+<h2 class="anchored" data-anchor-id="w6-s5-4">4) TF activity (decoupleR)</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(decoupleR)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>net  <span class="ot">&lt;-</span> <span class="fu">get_collectri</span>(<span class="at">organism =</span> <span class="st">"human"</span>, <span class="at">split_complexes =</span> <span class="cn">FALSE</span>)   <span class="co"># known TF–target pairs</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>mat  <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">LayerData</span>(obj, <span class="at">assay =</span> <span class="st">"RNA"</span>, <span class="at">layer =</span> <span class="st">"data"</span>))      <span class="co"># log-normalised</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>acts <span class="ot">&lt;-</span> <span class="fu">run_ulm</span>(<span class="at">mat =</span> mat, <span class="at">net =</span> net, <span class="at">.source =</span> <span class="st">"source"</span>, <span class="at">.target =</span> <span class="st">"target"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">.mor =</span> <span class="st">"mor"</span>, <span class="at">minsize =</span> <span class="dv">5</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>obj[[<span class="st">"tf"</span>]] <span class="ot">&lt;-</span> acts <span class="sc">|&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="st">"source"</span>, <span class="at">names_from =</span> <span class="st">"condition"</span>, <span class="at">values_from =</span> <span class="st">"score"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">column_to_rownames</span>(<span class="st">"source"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">CreateAssayObject</span>()</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># TF mRNA vs TF activity, side by side</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">DefaultAssay</span>(obj) <span class="ot">&lt;-</span> <span class="st">"RNA"</span>; p1 <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(obj, <span class="st">"SPI1"</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">DefaultAssay</span>(obj) <span class="ot">&lt;-</span> <span class="st">"tf"</span>;  p2 <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(obj, <span class="st">"SPI1"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">|</span> p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>✅ <strong>Change one thing:</strong> swap SPI1 (PU.1) for a TF you care about and compare its mRNA with its activity — how different are they? To compare conditions, average per donor, not per cell.</p>
+</section>
+<section id="w6-s5-5" class="level2">
+<h2 class="anchored" data-anchor-id="w6-s5-5">5) Before next week</h2>
 <p><strong>W7 — spatial transcriptomics.</strong> Come with an answer to one question about your own department:</p>
 <blockquote class="blockquote">
 <p><em>Do we have FFPE blocks with linked outcome data, and roughly how many?</em></p>
@@ -963,6 +1042,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>⚠️ <strong>A trajectory algorithm returns a trajectory for random data.</strong> There is no null output</li>
 <li>⚠️ <strong>Pseudotime is not time</strong> — no rate, no duration — and the root is your assumption, not a result</li>
 <li>RNA velocity’s kinetic assumptions are contested, and its arrows sit on a distorted 2D embedding</li>
+<li>Regulons (within a cell) and cell–cell communication (between cells) use the same raw material: snapshot co-expression</li>
+<li>⚠️ <strong>TF–target co-expression is not regulation.</strong> SCENIC filters by motif once, but TF mRNA ≠ activity and motif ≠ binding</li>
 <li>⚠️ <strong>Ligand–receptor co-expression is not interaction</strong>: cells may never be adjacent, the protein may never be made, and the database is biased toward what is already known</li>
 <li>✅ These are hypothesis generators. Phrase them as “consistent with” and name the experiment that would test them</li>
 </ul>
@@ -972,8 +1053,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>🔑 Key terms</h1>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 37%">
-<col style="width: 62%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1015,14 +1096,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Mature mRNA vs intron-containing nascent transcript</td>
 </tr>
 <tr class="odd">
+<td>Regulon</td>
+<td>A TF plus the target genes backed by its motif</td>
+</tr>
+<tr class="even">
+<td>SCENIC</td>
+<td>Three-step GRN inference: co-expression → motif pruning → per-cell regulon activity</td>
+</tr>
+<tr class="odd">
+<td>TF activity</td>
+<td>A TF’s activity inferred from its targets’ expression — not the TF’s own mRNA level</td>
+</tr>
+<tr class="even">
 <td>Ligand–receptor pair</td>
 <td>A curated interaction used to score communication</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>CellChat / CellPhoneDB / NicheNet</td>
 <td>Communication inference tools, all correlative</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Hypothesis generator</td>
 <td>A method whose output is a question, not an answer</td>
 </tr>
@@ -1044,6 +1137,13 @@ Lopez R, et al.&nbsp;<a href="https://doi.org/10.1038/s41592-018-0229-2"><em>Dee
 Cao J, et al.&nbsp;<a href="https://doi.org/10.1038/s41586-019-0969-x"><em>The single-cell transcriptional landscape of mammalian organogenesis.</em></a> Nature. 2019. (Monocle3)<br>
 Bergen V, et al.&nbsp;<a href="https://doi.org/10.1038/s41587-020-0591-3"><em>Generalizing RNA velocity to transient cell states through dynamical modeling.</em></a> Nat Biotechnol. 2020. (scVelo)<br>
 Bergen V, Soldatov RA, Kharchenko PV, Theis FJ. <a href="https://doi.org/10.15252/msb.202110282"><em>RNA velocity — current challenges and future perspectives.</em></a> Mol Syst Biol. 2021. <strong>← read this before using velocity in a figure</strong></p>
+</section>
+<section id="gene-regulatory-networks" class="level3">
+<h3 class="anchored" data-anchor-id="gene-regulatory-networks">Gene regulatory networks</h3>
+<p>Aibar S, et al.&nbsp;<a href="https://doi.org/10.1038/nmeth.4463"><em>SCENIC: single-cell regulatory network inference and clustering.</em></a> Nat Methods. 2017.<br>
+Van de Sande B, et al.&nbsp;<a href="https://doi.org/10.1038/s41596-020-0336-2"><em>A scalable SCENIC workflow for single-cell gene regulatory network analysis.</em></a> Nat Protoc. 2020. <strong>← the practical pySCENIC protocol, including repeated runs</strong><br>
+Badia-i-Mompel P, et al.&nbsp;<a href="https://doi.org/10.1093/bioadv/vbac016"><em>decoupleR: ensemble of computational methods to infer biological activities from omics data.</em></a> Bioinform Adv. 2022.<br>
+Müller-Dott S, et al.&nbsp;<a href="https://doi.org/10.1093/nar/gkad841"><em>Expanding the coverage of regulons from high-confidence prior knowledge for accurate estimation of transcription factor activities.</em></a> Nucleic Acids Res. 2023. (CollecTRI)</p>
 </section>
 <section id="cellcell-communication" class="level3">
 <h3 class="anchored" data-anchor-id="cellcell-communication">Cell–cell communication</h3>

@@ -18,6 +18,7 @@ By the end of this chapter you should be able to:
 -   Explain what pseudotime orders — and ⚠️ why it is not time
 -   ⚠️ Say why a trajectory algorithm always returns a trajectory
 -   Explain where RNA velocity's direction comes from, and which of its assumptions are contested
+-   ⚠️ Separate what a regulon built from TF–target co-expression does and does not tell you
 -   ⚠️ Explain why ligand–receptor co-expression is not evidence of an interaction
 -   Decide which of these results belongs in a grant as a hypothesis, and which belongs in a paper as a finding
 :::
@@ -107,22 +108,57 @@ RNA velocity adds **direction** by comparing unspliced (new) to spliced (mature)
 
 ------------------------------------------------------------------------
 
-# 3. ⚠️ Cell–Cell Communication 📡 {#w6-s3}
+# 3. Inferring Mechanism from Co-expression 📡 {#w6-s3}
 
-## 1) What the tools actually compute {#w6-s3-1}
+Same raw material — **co-expression** within one snapshot. Only where you look differs:
+
+-   **Within a cell** — TF ↔ target genes → a **regulon** (gene regulatory network)
+-   **Between cells** — ligand ↔ receptor → **cell–cell communication**
+
+→ Same limit, too: co-expression is not regulation, and not interaction. Both are hypothesis generators.
+
+## 1) Within a cell: gene regulatory networks (regulons) {#w6-s3-1}
+
+> Which TF is switching this cell state on?
+
+![](/assets/img/w6/scenic_regulon.svg){fig-align="center"}
+
+**SCENIC — three steps**
+
+1.  **Co-expression (GRNBoost2)** — predict each gene's expression from TF expression (tree-based regression) → candidate TF–target pairs. Mostly indirect correlation
+2.  **Motif pruning (cisTarget)** — keep only targets whose promoter region is enriched for that TF's motif → a **regulon** (TF + motif-backed targets). This step is what lifts SCENIC above plain co-expression
+3.  **Activity per cell (AUCell)** — how strongly the regulon's genes sit at the top of each cell's expression ranking (AUC) → a cell × regulon matrix → cluster, colour the UMAP, compare groups
+
+Tools: **pySCENIC** (Python, the one used in practice), SCENIC (R, the original, slow)
+
+::: {.callout-warning collapse="true"}
+## Reading regulons
+
+-   ⚠️ **TF mRNA ≠ TF activity.** Phosphorylation, nuclear translocation (NF-κB) and ligand binding (nuclear receptors) are invisible in RNA — and TFs are lowly expressed, so dropout is common
+-   ⚠️ **A motif ≠ binding.** Closed chromatin blocks it, and scRNA alone cannot tell (with multiome / scATAC: SCENIC+, beyond this course)
+-   ⚠️ **Different every run.** GRNBoost2 is stochastic → run it several times and keep the regulons that recur
+-   ⚠️ **Circularity.** Comparing regulon activity between clusters that were defined by expression → differences are guaranteed
+-   ⚠️ **Comparing conditions = the W5 per-cell trap again.** Aggregate per donor before testing (🔗 [W5 §5.2](w5_scrna_qc.qmd#w5-s5-2))
+
+💡 Lighter alternative: **decoupleR + CollecTRI** — no network inference; score TF activity from known TF–target sets. Fast, reproducible, runs directly on a Seurat object (§5.4). The price: answers only within known biology
+
+✅ Validation: binding by ChIP-seq / CUT&RUN; function by TF knockout / CRISPR / Perturb-seq
+:::
+
+## 2) Between cells: cell–cell communication {#w6-s3-2}
 
 CellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster pairs based on **co-expression** — the ligand's mRNA is high in cluster A, its receptor's mRNA is high in cluster B.
 
 ![The arrow in the figure is doing far more work than the data supports.](/assets/img/w6/ccc_fallacy.svg){fig-align="center"}
 
-## 2) Using them honestly {#w6-s3-2}
+💡 NicheNet is different in kind — it links the two axes: it asks whether a ligand's (between cells) *downstream target genes* are induced inside the receiver cell (within a cell). Still correlative, but a stronger correlation than co-expression alone.
 
--   ✅ **As a hypothesis generator** — "which axes are worth testing?" is exactly what these tools are for
--   ✅ **Validated spatially** — if the two cell types are physically adjacent (🔗 [W7](../part4/w7_spatial_basics.qmd)), the prediction becomes plausible
--   ✅ **Validated functionally** — blocking antibody, receptor knockout, ligand stimulation
--   ❌ **As a standalone result** — "macrophages signal to T cells via TNF" is not shown by co-expression
+## 3) Using them honestly (both) {#w6-s3-3}
 
-💡 NicheNet is somewhat different in kind: it asks whether the *downstream target genes* of a ligand are induced in the receiver cell. That is still correlative, but it is a stronger correlation than co-expression alone.
+-   ✅ **As a hypothesis generator** — "which TF / which axis is worth testing?" is exactly what these tools are for
+-   ✅ **Validated spatially (CCC)** — if the two cell types are physically adjacent (🔗 [W7](../part4/w7_spatial_basics.qmd)), the prediction becomes plausible
+-   ✅ **Validated functionally** — CCC: blocking antibody, receptor knockout, ligand stimulation / regulons: TF knockout, Perturb-seq
+-   ❌ **As a standalone result** — neither "macrophages signal to T cells via TNF" nor "TF X drives the fibrosis program" is shown by co-expression
 
 ------------------------------------------------------------------------
 
@@ -131,12 +167,13 @@ CellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster
 Everything in this chapter produces a confident-looking output from data that cannot fully support it. That is not a reason to avoid these methods — it is a reason to be precise about what they are.
 
 | Result | Strength of evidence | Where it belongs |
-|-------------------|--------------------------|---------------------------|
+|----|----|----|
 | Cluster + validated markers | ✅ Descriptive, solid | Results |
 | Pseudobulk DE across donors (W5) | ✅ Inferential, solid | Results |
 | Differential abundance with a compositional method | ⚠️ Solid if n is donors | Results, with caveats |
 | Pseudotime ordering | ⚠️ Hypothesis | Results, phrased as "consistent with" |
 | RNA velocity direction | ⚠️ Hypothesis, contested method | Supplementary, or a hypothesis |
+| Regulon / TF activity (SCENIC, decoupleR) | ⚠️ Hypothesis | Results, phrased as "consistent with" |
 | Ligand–receptor prediction | ❌ Hypothesis only | Discussion, or a grant aim |
 
 ::: {.callout-tip collapse="true"}
@@ -146,7 +183,7 @@ Everything in this chapter produces a confident-looking output from data that ca
 
 Nothing here was revealed or shown. Two algorithms produced two orderings from one snapshot of dissociated cells.
 
-✅ The honest version: *"Pseudotime ordering is consistent with a fibroblast-to-myofibroblast transition, and ligand–receptor analysis nominates macrophage TGF-β as a candidate driver. We are testing this by [spatial validation / receptor blockade]."*
+✅ The honest version: *"Pseudotime ordering is consistent with a fibroblast-to-myofibroblast transition, and ligand–receptor analysis nominates macrophage TGF-β as a candidate driver. We are testing this by \[spatial validation / receptor blockade\]."*
 
 → The second version is also the one that reads like a fundable next step.
 :::
@@ -212,7 +249,30 @@ netVisual_circle(cc@net$weight, weight.scale = TRUE)
 
 ✅ Pick the strongest predicted interaction and write **one sentence** describing the experiment that would test it. That sentence is the deliverable, not the plot.
 
-## 4) Before next week {#w6-s5-4}
+## 4) TF activity (decoupleR) {#w6-s5-4}
+
+```{r}
+library(decoupleR)
+
+net  <- get_collectri(organism = "human", split_complexes = FALSE)   # known TF–target pairs
+mat  <- as.matrix(LayerData(obj, assay = "RNA", layer = "data"))      # log-normalised
+acts <- run_ulm(mat = mat, net = net, .source = "source", .target = "target",
+                .mor = "mor", minsize = 5)
+
+obj[["tf"]] <- acts |>
+  tidyr::pivot_wider(id_cols = "source", names_from = "condition", values_from = "score") |>
+  tibble::column_to_rownames("source") |>
+  CreateAssayObject()
+
+# TF mRNA vs TF activity, side by side
+DefaultAssay(obj) <- "RNA"; p1 <- FeaturePlot(obj, "SPI1")
+DefaultAssay(obj) <- "tf";  p2 <- FeaturePlot(obj, "SPI1")
+p1 | p2
+```
+
+✅ **Change one thing:** swap SPI1 (PU.1) for a TF you care about and compare its mRNA with its activity — how different are they? To compare conditions, average per donor, not per cell.
+
+## 5) Before next week {#w6-s5-5}
 
 **W7 — spatial transcriptomics.** Come with an answer to one question about your own department:
 
@@ -231,6 +291,8 @@ Everything in W7–W8 depends on that answer.
 -   ⚠️ **A trajectory algorithm returns a trajectory for random data.** There is no null output
 -   ⚠️ **Pseudotime is not time** — no rate, no duration — and the root is your assumption, not a result
 -   RNA velocity's kinetic assumptions are contested, and its arrows sit on a distorted 2D embedding
+-   Regulons (within a cell) and cell–cell communication (between cells) use the same raw material: snapshot co-expression
+-   ⚠️ **TF–target co-expression is not regulation.** SCENIC filters by motif once, but TF mRNA ≠ activity and motif ≠ binding
 -   ⚠️ **Ligand–receptor co-expression is not interaction**: cells may never be adjacent, the protein may never be made, and the database is biased toward what is already known
 -   ✅ These are hypothesis generators. Phrase them as "consistent with" and name the experiment that would test them
 
@@ -239,7 +301,7 @@ Everything in W7–W8 depends on that answer.
 # 🔑 Key terms
 
 | Term | One-line meaning |
-|-------------------------|-----------------------------------------|
+|----|----|
 | Integration | Aligning datasets so shared cell types co-cluster |
 | Over-correction | Integration that removes real biological differences |
 | scIB | Benchmark scoring batch removal against biology preservation |
@@ -248,6 +310,9 @@ Everything in W7–W8 depends on that answer.
 | Trajectory inference | Fitting a path through cells in expression space |
 | RNA velocity | Direction inferred from unspliced vs spliced reads |
 | Spliced / unspliced | Mature mRNA vs intron-containing nascent transcript |
+| Regulon | A TF plus the target genes backed by its motif |
+| SCENIC | Three-step GRN inference: co-expression → motif pruning → per-cell regulon activity |
+| TF activity | A TF's activity inferred from its targets' expression — not the TF's own mRNA level |
 | Ligand–receptor pair | A curated interaction used to score communication |
 | CellChat / CellPhoneDB / NicheNet | Communication inference tools, all correlative |
 | Hypothesis generator | A method whose output is a question, not an answer |
@@ -268,6 +333,13 @@ Saelens W, et al. [*A comparison of single-cell trajectory inference methods.*](
 Cao J, et al. [*The single-cell transcriptional landscape of mammalian organogenesis.*](https://doi.org/10.1038/s41586-019-0969-x) Nature. 2019. (Monocle3)\
 Bergen V, et al. [*Generalizing RNA velocity to transient cell states through dynamical modeling.*](https://doi.org/10.1038/s41587-020-0591-3) Nat Biotechnol. 2020. (scVelo)\
 Bergen V, Soldatov RA, Kharchenko PV, Theis FJ. [*RNA velocity — current challenges and future perspectives.*](https://doi.org/10.15252/msb.202110282) Mol Syst Biol. 2021. **← read this before using velocity in a figure**
+
+### Gene regulatory networks
+
+Aibar S, et al. [*SCENIC: single-cell regulatory network inference and clustering.*](https://doi.org/10.1038/nmeth.4463) Nat Methods. 2017.\
+Van de Sande B, et al. [*A scalable SCENIC workflow for single-cell gene regulatory network analysis.*](https://doi.org/10.1038/s41596-020-0336-2) Nat Protoc. 2020. **← the practical pySCENIC protocol, including repeated runs**\
+Badia-i-Mompel P, et al. [*decoupleR: ensemble of computational methods to infer biological activities from omics data.*](https://doi.org/10.1093/bioadv/vbac016) Bioinform Adv. 2022.\
+Müller-Dott S, et al. [*Expanding the coverage of regulons from high-confidence prior knowledge for accurate estimation of transcription factor activities.*](https://doi.org/10.1093/nar/gkad841) Nucleic Acids Res. 2023. (CollecTRI)
 
 ### Cell–cell communication
 
