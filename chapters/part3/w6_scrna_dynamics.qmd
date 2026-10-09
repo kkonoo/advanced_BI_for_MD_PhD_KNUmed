@@ -1,5 +1,5 @@
 ---
-title: "W6. Trajectory, Communication & Integration"
+title: "W6. Integration, Trajectory, Regulation & Communication"
 author: "Eunji Ha"
 date: last-modified
 format: html

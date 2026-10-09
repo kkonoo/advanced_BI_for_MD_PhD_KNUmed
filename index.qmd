@@ -45,7 +45,7 @@ This course is about the layer above it: **being able to tell when an omics resu
 | **Clinical Genomics** | [W3](chapters/part2/w3_gwas.qmd) | GWAS & post-GWAS | GWAS Catalog, Open Targets |
 |  | [W4](chapters/part2/w4_prs.qmd) | Polygenic risk scores & clinical application | PGS Catalog, PRSice-2 |
 | **Single-cell** | [W5](chapters/part3/w5_scrna_qc.qmd) | scRNA-seq technology, QC, clustering | Seurat, scanpy |
-|  | [W6](chapters/part3/w6_scrna_dynamics.qmd) | Trajectory, cell–cell communication, integration | Monocle3, CellChat, Harmony |
+|  | [W6](chapters/part3/w6_scrna_dynamics.qmd) | Integration, trajectory, gene regulation, cell–cell communication | Harmony, Monocle3, SCENIC / decoupleR, CellChat |
 | **Spatial** | [W7](chapters/part4/w7_spatial_basics.qmd) | Spatial transcriptomics — the basics | Seurat, Squidpy |
 |  | [W8](chapters/part4/w8_spatial_integration.qmd) | Deconvolution & spatial integration | RCTD, cell2location, CARD |
 | **Proteomics** | [W9](chapters/part5/w9_proteomics_tech.qmd) | How proteins are actually measured | MS, Olink, SomaScan |

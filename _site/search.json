@@ -884,7 +884,7 @@
     "href": "ko/chapters/part4/w7_spatial_basics.html#w7-s4-3",
     "title": "W7. 공간전사체학 — 기초",
     "section": "3) ⚠️ 이웃한 spot은 서로 독립적이지 않습니다",
-    "text": "3) ⚠️ 이웃한 spot은 서로 독립적이지 않습니다\n\n\n\n\n\n\n중요공간 자기상관과 모든 결과가 부풀려지는 이유\n\n\n\n\n\n인접한 spot은 확산된 전사체를 공유하고, 같은 국소 조직을 공유하며, 때로는 실제로 세포를 공유합니다. 설계상 서로 양의 상관관계를 가집니다.\n4,000개 spot을 4,000개의 독립 관측치로 취급하는 검정은 🔗 W5 §5.1의 세포별 검정만큼 p-value를 부풀립니다. 이유도 같습니다.\n\n⚠️ “이 영역에는 차등발현 유전자가 3,412개이며 모두 p &lt; 10⁻¹⁵이다”는 결과가 아니라 문제의 증상입니다\n✅ 공간 의존성을 반영하는 방법이 있습니다(nnSVG, SPARK-X, 공간항을 포함한 혼합모형)\n✅ 환자 간 비교에서는 해결법도 늘 같습니다. 환자 단위로 집계한 다음 환자끼리 비교하십시오",
+    "text": "3) ⚠️ 이웃한 spot은 서로 독립적이지 않습니다\n\n\n\n\n\n\n중요공간 자기상관과 모든 결과가 부풀려지는 이유\n\n\n\n\n\n인접한 spot은 확산된 전사체를 공유하고, 같은 국소 조직을 공유하며, 때로는 실제로 세포를 공유합니다. 설계상 서로 양의 상관관계를 가집니다.\n4,000개 spot을 4,000개의 독립 관측치로 취급하는 검정은 🔗 W5 §5.2의 세포별 검정만큼 p-value를 부풀립니다. 이유도 같습니다.\n\n⚠️ “이 영역에는 차등발현 유전자가 3,412개이며 모두 p &lt; 10⁻¹⁵이다”는 결과가 아니라 문제의 증상입니다\n✅ 공간 의존성을 반영하는 방법이 있습니다(nnSVG, SPARK-X, 공간항을 포함한 혼합모형)\n✅ 환자 간 비교에서는 해결법도 늘 같습니다. 환자 단위로 집계한 다음 환자끼리 비교하십시오",
     "crumbs": [
       "4 · 공간오믹스",
       "W7. 공간전사체학의 기초"
@@ -959,144 +959,166 @@
   {
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
     "section": "",
     "text": "노트🎯 학습목표\n\n\n\n\n\n이 장을 마치면 다음을 할 수 있어야 합니다.\n\nIntegration이 가정하는 것을 설명하고, ⚠️ 찾으려던 biology를 지워버린 경우를 알아본다\n✅ Over-correction을 드러내는 두 가지 colouring을 요구한다\nPseudotime이 무엇의 순서를 정하는지, 그리고 ⚠️ 왜 실제 시간이 아닌지 설명한다\n⚠️ Trajectory algorithm이 항상 trajectory를 반환하는 이유를 설명한다\nRNA velocity의 방향이 어디에서 나오며 어떤 가정이 논쟁 중인지 설명한다\n⚠️ TF–target co-expression으로 만든 regulon이 말해주는 것과 말해주지 않는 것을 구분한다\n⚠️ Ligand–receptor co-expression이 interaction의 근거가 아닌 이유를 설명한다\n어떤 결과가 hypothesis로서 연구비 신청서에 들어가고, 어떤 결과가 finding으로서 논문에 들어가는지 판단한다",
     "crumbs": [
       "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
     ]
   },
   {
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s1-1",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s1-1",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
     "section": "1) Integration이 해결하는 문제",
     "text": "1) Integration이 해결하는 문제\nSingle-cell data에서 가장 큰 variation source = 대개 donor. Cell type보다 환자별로 먼저 clustering됨 → 이대로는 biology로 해석 불가\nIntegration method(Harmony, scVI, Seurat RPCA, scANVI) = 서로 다른 donor에서 온 같은 cell type이 한곳에 모이는 shared representation 찾기",
     "crumbs": [
       "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
     ]
   },
   {
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s1-2",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s1-2",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
     "section": "2) ⚠️ Integration = 숨어 있는 가정",
     "text": "2) ⚠️ Integration = 숨어 있는 가정\n\n\n\n\n\n가정: 모든 batch에 같은 cell type이 있고, batch와 관련된 variation은 전부 technical\n⚠️ 이 가정은 biology가 흥미로운 바로 그때 깨짐:\n\n질환 특이적인 cell state\n한 condition에만 있는 population\nTreatment-induced program\n\n→ Aggressive integration은 이걸 합쳐서 없애버림. 그런데 결과 UMAP은 아름답게 섞여 보임..\n\n\n\n\n\n\n중요진단 방법, 그리고 이걸 거의 안 보여주는 이유\n\n\n\n\n\n\n✅ Batch 와 cell type으로 각각 colouring. 둘 다 논문에 실을 것\n✅ Integration 후에도 알려진 cell-type marker가 분리되는지 확인\n✅ 한 condition에만 있는 population이 살아남았는지 확인\n✅ scIB 같은 benchmark = 바로 이 batch 제거 vs biology 보존 trade-off를 점수화\n\n⚠️ 대부분의 논문은 batch colouring만 보여줌. 방법이 작동했다는 걸 보여주는 그림이니까.. 동시에 실패는 절대 드러낼 수 없는 그림이기도 함\n💡 동기 질문으로 돌아가면: 완벽하게 섞인 UMAP과 질환 특이적 state는 서로 긴장 관계. 불가능은 아니지만, 그렇다면 논문이 두 번째 colouring을 보여줘야 함",
     "crumbs": [
       "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
     ]
   },
   {
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s1-3",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s1-3",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
     "section": "3) ⚠️ Integration이 전혀 못 도와주는 경우",
     "text": "3) ⚠️ Integration이 전혀 못 도와주는 경우\nDisease status와 batch가 완전히 confounded (환자는 전부 하루에, 대조군은 전부 다른 날에 처리) → 어떤 integration method로도 둘을 분리 불가. 🔗 W1 §3.3과 똑같은 논리, 여기서도 되돌릴 방법 없음",
     "crumbs": [
       "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
     ]
   },
   {
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s2-1",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s2-1",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
     "section": "1) 아이디어",
     "text": "1) 아이디어\nBiology는 동적인데 single-cell experiment는 snapshot. 진행 중인 process의 여러 지점에서 cell이 잡혔다면 → transcriptional similarity 축을 따라 순서 매기기 가능 = pseudotime\n\nStem cell → progenitor → differentiated\nNaive T cell → activated → effector → exhausted\nFibroblast → myofibroblast → senescent\n\n도구: Monocle3, Slingshot, PAGA",
     "crumbs": [
       "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
     ]
   },
   {
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s2-2",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s2-2",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
     "section": "2) ⚠️ Algorithm은 항상 성공한다",
     "text": "2) ⚠️ Algorithm은 항상 성공한다\n\n\n\n\n\n\n\n\n\n\n\n경고분명히 짚고 갈 세 가지 주의점\n\n\n\n\n\n\n⚠️ Trajectory algorithm은 어떤 dataset에서든 trajectory를 반환함 — underlying process가 없는 데이터도 포함. “Trajectory 없음”이라는 출력은 없음!\n⚠️ Pseudotime ≠ 시간. Rate도 duration도 측정 x. Pseudotime상 멀리 떨어진 두 cell이 실제로는 몇 분 차이일 수도, 몇 달 차이일 수도 — 순서가 거꾸로일 수도\n⚠️ Root는 내가 고르는 것. Root를 뒤집으면 biology도 같이 뒤집힘. 결과처럼 보이지만 사실 prior knowledge가 끼어든 것\n\n✅ Sanity check: cell label을 섞거나 homogeneous population에 algorithm을 돌려서 뭐가 나오는지 보기",
     "crumbs": [
       "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
     ]
   },
   {
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s2-3",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s2-3",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
     "section": "3) RNA velocity",
     "text": "3) RNA velocity\n\n\n\n화살표가 만들어지는 원리\n\n\nRNA velocity = gene별로 unspliced(new) vs spliced(mature) transcript를 비교해서 방향을 추가. Steady state가 예측하는 것보다 unspliced가 많으면 → 그 gene이 켜지는 중\n⚠️ Splicing·degradation kinetics에 대한 가정은 논쟁 중, 일부 gene·system에서는 안 맞는다고 알려져 있음. 게다가 화살표가 UMAP 위에 그려지므로 🔗 W5 §4.3의 왜곡도 전부 물려받음\n✅ Trajectory 이야기를 하려면 더 좋은 algorithm이 썼다고 하지 말고 time course 또는 lineage tracing",
     "crumbs": [
       "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
     ]
   },
   {
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s3-1",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s3-1",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
     "section": "1) Cell 안: gene regulatory network (regulon)",
     "text": "1) Cell 안: gene regulatory network (regulon)\n\n어떤 TF가 이 cell state를 켜고 있는가?\n\n\n\n\n\n\nSCENIC — 3단계\n\nCo-expression (GRNBoost2) — TF 발현으로 각 gene의 발현을 예측 (tree-based regression) → TF–target 후보. 대부분 간접적인 상관\nMotif pruning (cisTarget) — target의 promoter 주변에 그 TF의 motif가 농축된 것만 남김 → regulon (TF + motif로 뒷받침되는 target). 이 단계 덕분에 단순 co-expression 이상이 됨\nActivity per cell (AUCell) — cell마다 regulon gene들이 발현 순위 상위에 몰려 있는 정도(AUC) → cell × regulon matrix → clustering, UMAP 색칠, 그룹 비교\n\nTool: pySCENIC(Python, 실제로 가장 많이 씀), SCENIC(R, 원조, 느림)\n\n\n\n\n\n\n경고Regulon 해석 시 주의\n\n\n\n\n\n\n⚠️ TF mRNA ≠ TF activity. 인산화, 핵 이동(NF-κB), ligand 결합(nuclear receptor) 같은 번역 후 조절은 RNA에 안 보임. 게다가 TF는 발현이 낮아 dropout이 많음\n⚠️ Motif가 있다 ≠ 실제로 붙는다. Chromatin이 닫혀 있으면 못 붙음 — scRNA만으로는 확인 불가 (multiome/scATAC이 있으면 SCENIC+, 이 수업 범위 밖)\n⚠️ 돌릴 때마다 다름. GRNBoost2는 stochastic → 여러 번 돌려서 반복해서 나오는 regulon만 쓰는 게 관행\n⚠️ 순환 논리. Expression으로 나눈 cluster끼리 regulon activity를 비교 → 차이가 나오는 게 당연\n⚠️ Condition 비교 = W5의 per-cell test 함정 그대로. Donor 단위로 집계해서 비교 (🔗 W5 §5.2)\n\n💡 가벼운 대안: decoupleR + CollecTRI — network를 새로 추론하지 않고, 이미 알려진 TF–target set으로 TF activity만 점수화. 빠르고 재현성 좋고 R/Seurat에서 바로 됨 (§5.4). 대신 알려진 biology 안에서만 답이 나옴\n✅ 검증: binding은 ChIP-seq / CUT&RUN, 기능은 TF knockout / CRISPR / Perturb-seq",
     "crumbs": [
       "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
     ]
   },
   {
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s3-2",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s3-2",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
     "section": "2) Cell 사이: cell–cell communication",
     "text": "2) Cell 사이: cell–cell communication\nCellPhoneDB, CellChat, NicheNet = cluster 쌍 사이의 ligand–receptor pair를 co-expression 기반으로 점수화. Cluster A에서 ligand mRNA가 높고, cluster B에서 receptor mRNA가 높은가? 그게 전부\n\n\n\n\n\n💡 NicheNet은 결이 좀 다름 = 두 축을 잇는 방법: ligand(cell 사이)의 downstream target gene이 receiver cell 안에서 실제로 유도되는지(cell 안)를 봄. 여전히 correlative지만, co-expression만 보는 것보단 강한 correlation",
     "crumbs": [
       "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
+    ]
+  },
+  {
+    "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s3-3",
+    "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s3-3",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
+    "section": "3) 적절한 사용법 (둘 다)",
+    "text": "3) 적절한 사용법 (둘 다)\n\n✅ Hypothesis generator로 — “어떤 TF / 어떤 axis를 검정해 볼 만한가?”가 딱 이 도구들용 질문\n✅ 공간적으로 검증 (CCC) — 두 cell type이 물리적으로 붙어 있다면(🔗 W7) 예측이 그럴듯해짐\n✅ 기능적으로 검증 — CCC는 blocking antibody, receptor knockout, ligand stimulation / regulon은 TF knockout, Perturb-seq\n❌ 단독 결과로 x — “Macrophage가 TNF로 T cell에 signal을 보낸다”, “TF X가 fibrosis program을 구동한다” 둘 다 co-expression만으로는 입증 안 됨",
+    "crumbs": [
+      "3 · 단일세포",
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
     ]
   },
   {
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-1",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-1",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
     "section": "1) 정직한 진단을 포함한 integration",
     "text": "1) 정직한 진단을 포함한 integration\n\nlibrary(Seurat); library(harmony); library(patchwork)\n\nobj &lt;- readRDS(here::here(\"analysis\", \"5_pbmc_annotated.rds\"))\n\nobj &lt;- obj |&gt;\n  RunHarmony(group.by.vars = \"donor\") |&gt;\n  FindNeighbors(reduction = \"harmony\", dims = 1:20) |&gt;\n  FindClusters(resolution = 0.5) |&gt;\n  RunUMAP(reduction = \"harmony\", dims = 1:20)\n\n# ✅ the two panels that must always appear together\nDimPlot(obj, group.by = \"donor\")     |\nDimPlot(obj, group.by = \"cell_type\", label = TRUE)\n\n✅ 한 가지 바꾸기: Harmony의 theta를 올려서 correction을 더 aggressive하게 → 오른쪽 panel에서 작은 population이 사라지는지 확인",
     "crumbs": [
       "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
     ]
   },
   {
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-2",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-2",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
     "section": "2) Trajectory와 sanity check",
     "text": "2) Trajectory와 sanity check\n\nlibrary(monocle3)\n\ncds &lt;- as.cell_data_set(obj)\ncds &lt;- cluster_cells(cds) |&gt; learn_graph()\ncds &lt;- order_cells(cds)              # ⚠️ you choose the root — that is an assumption\nplot_cells(cds, color_cells_by = \"pseudotime\")\n\n⚠️ 그다음 아래 코드 실행 → 출력을 정직하게 보기\n\n# Run the same pipeline on one homogeneous cluster with no expected process\nmono &lt;- subset(obj, cell_type == \"CD14 Mono\")\ncds_null &lt;- as.cell_data_set(mono) |&gt; cluster_cells() |&gt; learn_graph()\nplot_cells(cds_null, color_cells_by = \"pseudotime\")\n\n💡 Trajectory가 나올 것.. 이게 앞의 그림에 대해 뭘 말해주는지 토론",
     "crumbs": [
       "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
     ]
   },
   {
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-3",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-3",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
     "section": "3) Cell–cell communication",
     "text": "3) Cell–cell communication\n\nlibrary(CellChat)\n\ncc &lt;- createCellChat(obj, group.by = \"cell_type\") |&gt;\n  subsetData() |&gt; identifyOverExpressedGenes() |&gt;\n  identifyOverExpressedInteractions() |&gt; computeCommunProb() |&gt;\n  filterCommunication(min.cells = 10) |&gt; aggregateNet()\n\nnetVisual_circle(cc@net$weight, weight.scale = TRUE)\n\n✅ 가장 강하게 예측된 interaction 하나를 고르고, 그걸 검정할 실험을 한 문장으로 쓰기. Deliverable은 plot이 아니라 그 문장",
     "crumbs": [
       "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
     ]
   },
   {
     "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-4",
     "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-4",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
     "section": "4) TF activity (decoupleR)",
     "text": "4) TF activity (decoupleR)\n\nlibrary(decoupleR)\n\nnet  &lt;- get_collectri(organism = \"human\", split_complexes = FALSE)   # known TF–target pairs\nmat  &lt;- as.matrix(LayerData(obj, assay = \"RNA\", layer = \"data\"))      # log-normalised\nacts &lt;- run_ulm(mat = mat, net = net, .source = \"source\", .target = \"target\",\n                .mor = \"mor\", minsize = 5)\n\nobj[[\"tf\"]] &lt;- acts |&gt;\n  tidyr::pivot_wider(id_cols = \"source\", names_from = \"condition\", values_from = \"score\") |&gt;\n  tibble::column_to_rownames(\"source\") |&gt;\n  CreateAssayObject()\n\n# TF mRNA vs TF activity, side by side\nDefaultAssay(obj) &lt;- \"RNA\"; p1 &lt;- FeaturePlot(obj, \"SPI1\")\nDefaultAssay(obj) &lt;- \"tf\";  p2 &lt;- FeaturePlot(obj, \"SPI1\")\np1 | p2\n\n✅ 한 가지 바꾸기: SPI1(PU.1) 말고 관심 있는 TF 하나로 바꿔서 mRNA vs activity 비교 → 얼마나 다른가? Condition을 비교하고 싶다면 cell이 아니라 donor별 평균으로",
     "crumbs": [
       "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
+    ]
+  },
+  {
+    "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-5",
+    "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-5",
+    "title": "W6. 통합, 궤적, 유전자 조절과 세포 간 소통",
+    "section": "5) 다음 주 전까지",
+    "text": "5) 다음 주 전까지\nW7 — spatial transcriptomics. 내 진료과 기준으로 다음 질문의 답을 생각해 오기:\n\nOutcome data와 연결된 FFPE block이 있는가? 대략 몇 개인가?\n\nW7–W8 내용 전부가 그 답에 달려 있음",
+    "crumbs": [
+      "3 · 단일세포",
+      "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
     ]
   },
   {
@@ -1138,6 +1160,17 @@
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
     "section": "1) Platform의 trade-off",
     "text": "1) Platform의 trade-off\n모든 platform은 cell 수를 위해 depth를 포기하거나, depth를 위해 cell 수를 포기\n\n\n\n\n\n\n\n\n\nPlatform\nCell 수\nDepth\n사용 시점\n\n\n\n\nDroplet (10x)\n10³–10⁵\ncell당 gene 수천 개, 3′ 또는 5′ end만 측정\n현재의 기본 선택\n\n\nPlate (Smart-seq3)\n10²\nfull-length, deep\nisoform, 매우 민감한 detection\n\n\nCombinatorial (sci-, SPLiT-seq)\n10⁶\n매우 shallow\nwhole-organism atlas",
+    "crumbs": [
+      "3 · 단일세포",
+      "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
+    ]
+  },
+  {
+    "objectID": "ko/chapters/part3/w5_scrna_qc.html#vs.-5-droplet-kit",
+    "href": "ko/chapters/part3/w5_scrna_qc.html#vs.-5-droplet-kit",
+    "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
+    "section": "2) 3′ vs. 5′ (droplet kit)",
+    "text": "2) 3′ vs. 5′ (droplet kit)\nTranscript 전체가 아니라 한쪽 끝만 읽음 → gene 세기엔 충분, isoform은 x\n\n\n\n\n\n\n✅ 대부분의 single-cell data = 3′ (공개 atlas 대부분 포함). Clonotype이 필요하면 5′: T/B cell, 종양면역, 자가면역, 백신 반응\n⚠️ Gene count만 보면 둘은 대체로 비슷. 하지만 한 비교 안에서 섞어 쓰기 x — 3′/5′ sample이 섞인 study = 설계부터 batch effect\n💡 Fixed / FFPE sample이면 세 번째 길: probe 기반 kit(10x Flex). poly(A) tail을 잡는 대신 probe를 hybridise\n§3.2의 bead 그림 = 5′ bead (끝에 TSO가 달림)",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1193,6 +1226,17 @@
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
     "section": "3) data QC: cutoff는 직접 정하기",
     "text": "3) data QC: cutoff는 직접 정하기\n\n① low-quality QC\nCell마다 숫자 3개:\n\n\n\n\n\n\n\n\n\nMetric\nSeurat / scanpy\n너무 낮으면 →\n너무 높으면 →\n\n\n\n\nTotal UMI\nnCount_RNA / total_counts\n빈 droplet, debris, 깨진 cell\ndoublet — 또는 크고 활발한 cell\n\n\n검출된 gene 수\nnFeature_RNA / n_genes_by_counts\n위와 같음\n위와 같음\n\n\nMitochondrial %\npercent.mt / pct_counts_mt\n—\n죽어가는 cell — 또는 원래 mitochondria가 많은 cell\n\n\n\nMito 비율이 높으면 왜 죽어가는 cell? Membrane이 깨지면 cytoplasmic mRNA는 새어 나가지만, mitochondria 안의 transcript는 mitochondrial membrane에 보호돼 남음 → 비율이 올라감 (더 많이 만든 게 아님)\n⚠️ 같이 볼 것. Mito 높음 + gene 적음 = 깨진 cell. Mito가 높아도 gene 수가 정상이면 진짜 mitochondria-rich cell일 수도 (cardiomyocyte, hepatocyte, renal tubule)\n⚠️ snRNA-seq: nucleus엔 mitochondria가 없음 → mito read ≈ 0이 정상. 의미 있는 비율 = cytoplasmic / ambient 오염 → 훨씬 엄격한 cut\n✅ Data-driven cutoff: median에서 k MAD(median absolute deviation) 이상 벗어난 cell을 표시 (scater::isOutlier; k = 3 엄격 … 5 느슨) — threshold가 sample마다 알아서 맞춰짐\n✅ 항상 sample별로. 더 깊게 sequencing된 sample은 세 분포가 다 같이 이동함\n\n\n\n\n\n\n\n\n\n\n\n중요모든 threshold는 각자 데이터 특성에 맞게! (QC 자동화는 말도 안 되는 소리)\n\n\n\n\n\n\nMito cutoff 5%는 많이 쓰지만, mitochondria가 실제로 많은 cardiomyocyte에는 틀린 기준. tissue/celltype마다 다르게 해야함!!\nmin.features = 500은 debris뿐 아니라 platelet, 일부 granulocyte, 작고 RNA가 적은 cell도 제거\nnFeature upper cutoff는 doublet뿐 아니라 실제로 크고 transcription activity가 높은 cell도 제거\n\n✅ 분포를 그리고, 제안한 cutoff 밖에 무엇이 있는지 확인→ Threshold 결정\n\n\n\n\n\n② doublets\nDroplet 하나에 cell 둘 → barcode를 공유 → hybrid profile을 가진 cell 하나처럼 보임. Loading을 많이 할수록 ↑: 표준 10x에서 회수 cell 1,000개당 ~0.8% — 10,000 cells → doublet ~8%\n\n\n\n\n\n\n\n\n\nHeterotypic\nHomotypic\n\n\n\n\n구성\n서로 다른 cell type (T cell + monocyte)\n같은 type의 cell 둘\n\n\n보이는 모습\n두 type의 marker가 다 나옴; 가짜 “중간” cluster나 cluster 사이 bridge\ncount가 ~2배인 cell 하나\n\n\nExpression으로 검출\n✅ 가능\n❌ 거의 불가\n\n\n피해\n⚠️ 없는 cell type·transition을 만들어냄\n경미\n\n\n\n핵심 아이디어: 어떤 barcode가 doublet인지 직접 볼 방법은 없음 — 대신 doublet을 만들어 놓고, 진짜 cell 중 누가 그걸 닮았는지 확인\n\n\n\nPC space에서 가짜 doublet에 둘러싸인 진짜 cell = 아마 doublet\n\n\nDoubletFinder — 4단계 로직\n\nSimulate — 진짜 cell 쌍을 무작위로 골라 profile을 평균 → 가짜 doublet (pN, 기본값 merged data의 25%)\n같이 embedding — 진짜 + 가짜 cell → normalise, HVG, PCA\n가짜 이웃 세기 — 진짜 cell마다 pANN = nearest neighbour 중 가짜 doublet 비율 (proportion of artificial nearest neighbours). 진짜 doublet은 가짜들 사이에 있음 → pANN 높음\nThreshold — pANN 순으로 상위 n개를 doublet으로. n = 예상 비율 × cell 수, 못 보는 homotypic 비율만큼 차감 (modelHomotypic())\n\n중요한 parameter는 pK(neighbourhood 크기) 하나. pK를 sweep해서 pANN이 가장 bimodal해지는 값(singlet은 낮게, doublet은 높게)을 고름 — BCmvn(mean–variance-normalised bimodality coefficient)으로 점수화\n💡 pANN 분포가 뚜렷하게 bimodal = 제대로 작동한다는 증거. Unimodal이면 그 neighbourhood 크기에서는 doublet이 분리 안 됨\n\nlibrary(DoubletFinder)\n\n# one sample at a time, after permissive QC, normalisation, PCA and a rough clustering\nsweep &lt;- paramSweep(seu, PCs = 1:10, sct = FALSE)\nbcmvn &lt;- find.pK(summarizeSweep(sweep, GT = FALSE))\npK    &lt;- as.numeric(as.character(bcmvn$pK[which.max(bcmvn$BCmetric)]))\n\nhomotypic &lt;- modelHomotypic(seu$seurat_clusters)    # share of same-type doublets\nrate      &lt;- 0.008 * ncol(seu) / 1000               # ~0.8% per 1,000 cells (10x)\nnExp      &lt;- round(rate * ncol(seu) * (1 - homotypic))\n\nseu &lt;- doubletFinder(seu, PCs = 1:10, pN = 0.25, pK = pK, nExp = nExp, sct = FALSE)\n# → new metadata columns pANN_* and DF.classifications_* (Singlet / Doublet)\n\nscDblFinder — 뭐가 다른가?\n핵심 아이디어는 같음 (가짜 doublet + 진짜 cell이 그 사이 어디에 있는지). 방법이 다름:\n\n\n\n\n\n\n\n\n\nDoubletFinder\nscDblFinder\n\n\n\n\n가짜 doublet\n무작위 쌍\n무작위, 또는 cluster 간 — 중요한 heterotypic에 집중\n\n\nScore\nneighbourhood 크기 하나에서 통계량 하나 (pANN)\n여러 크기의 kNN feature + library size, 검출 gene 수, co-expression으로 gradient-boosted classifier; 반복 재학습\n\n\nParameter\npK sweep; 예상 n은 직접 설정\n예상 비율과 misclassification으로 threshold 자동 설정\n\n\n여러 sample\nsample마다 직접 실행\nsamples = argument\n\n\n속도\n느림 (pK sweep)\n빠름\n\n\n\n첫 대규모 독립 benchmark에서는 DoubletFinder가 가장 정확 (Xi & Li 2021). 이후 나온 scDblFinder가 같은 dataset에서 동등하거나 더 좋음 (Germain et al. 2021) → 지금은 흔한 기본값. Pipeline 그림에 있는 tool도 이것\n\nlibrary(scDblFinder)\nsce &lt;- scDblFinder(as.SingleCellExperiment(seu), samples = \"sample_id\")\nseu$doublet &lt;- sce$scDblFinder.class                # \"singlet\" / \"doublet\"\n\n\n\n\n\n\n\n경고Doublet detector 공통 규칙\n\n\n\n\n\n⚠️ Sample (capture) 하나씩. Doublet은 capture 안에서만 생김; 서로 다른 환자의 cell로 만든 가짜 doublet = 존재할 수 없는 cell\n⚠️ Homotypic doublet은 expression 기반 방법으로는 다 못 잡음. 어느 정도 남는 건 감수\n⚠️ Cluster 해석 전에 할 것. Doublet cluster는 두 부모 cluster 사이에 놓임 → transitional state로 착각하기 쉬움\n💡 설계가 알고리즘보다 나음. Donor 여러 명을 한 lane에 pooling하고 genotype(demuxlet, souporcell, vireo)이나 hashtag antibody로 demultiplexing → donor 간 doublet은 전부 직접 식별, lane당 cell도 더 많이 loading 가능\n\n\n\n\n\n③ Recap\n\n\n\n\n\n\n\n\n문제\n관찰되는 모습\n대응 방법\n\n\n\n\nEmpty droplet\nKnee 아래의 low-UMI barcode\nHard cutoff가 아니라 EmptyDrops\n\n\nAmbient RNA\n풍부한 cell type의 marker가 모든 곳에서 나타남\nSoupX, CellBender, DecontX\n\n\nDoublet\n높은 UMI 및 높은 gene count; 양립할 수 없는 두 marker set\nscDblFinder, DoubletFinder; 회수 cell 1,000개당 약 0.8%\n\n\nDying cell\n높은 mitochondrial fraction, 낮은 gene count\n조직에 맞는 mito % threshold\n\n\n\n\n\n\n\n\n\n힌트Doublet이 먼저? QC가 먼저?\n\n\n\n\n\n두 tool의 공식 문서가 서로 반대:\n\nDoubletFinder: low-quality cluster를 먼저 제거 — 가짜 doublet과 PCA를 왜곡하니까\nscDblFinder: 엄격한 QC 전에 doublet 찾기 — 예상 비율이 넣어준 cell 수로 계산되고, 좋은 cell + 나쁜 cell로 된 doublet은 나쁜 cell이 데이터에 남아 있어야 알아볼 수 있음\n\n✅ 둘을 절충한 순서 — 위의 ① → ②, pipeline 그림과 같음:\n\nPrimary QC, 느슨하게 — 명백한 쓰레기만: 거의 빈 barcode, 극단적인 mito\nDoublet detection, sample별로\n최종 threshold, data-driven (MAD)\nClustering 후 secondary QC — mito·stress gene으로 정의되거나 양립 불가한 marker 두 세트를 가진 cluster를 통째로 제거 (§4.4)\n\n💡 어느 순서든 명시만 하면 OK. 안 되는 것: upper nFeature cutoff 하나만으로 doublet 거르기",
+    "crumbs": [
+      "3 · 단일세포",
+      "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
+    ]
+  },
+  {
+    "objectID": "ko/chapters/part3/w5_scrna_qc.html#w5-s3-4",
+    "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s3-4",
+    "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
+    "section": "4) dimension reduction",
+    "text": "4) dimension reduction\nQC 후: cell 수천 개 × gene ~20,000개, 대부분 0\n\n① normalization & scaling\n\n\n\n\n\n\n\n\n\n단계\n하는 일\n이유\nSeurat\n\n\n\n\nNormalise\ncell의 total UMI로 나누고 × 10,000 → log(1 + x)\ncapture efficiency가 순전히 기술적인 이유로 cell마다 몇 배씩 차이; log로 몇몇 큰 값을 눌러줌\nNormalizeData()\n\n\nHVG 선택\n평균으로 예측되는 것보다 variance가 큰 gene ~2,000개만 남김\n대부분의 gene은 평평하거나 noise; cell-type signal은 HVG에\nFindVariableFeatures()\n\n\nScale\ngene마다 평균 빼고 SD로 나눔\n발현량이 크다는 이유만으로 PCA를 지배하지 않게\nScaleData()\n\n\n\n\n\n\n\n\n\n노트\n\n\n\n\n\n💡 대안: SCTransform(regularised negative binomial model의 Pearson residual — 세 단계를 한 번에), scran pooled size factor. 대규모 benchmark 결과 단순한 shifted log + PCA가 정교한 방법들과 비슷하거나 더 좋음 (Ahlmann-Eltze & Huber 2023)\n⚠️ ScaleData(vars.to.regress = ...)로 mito %, depth, cell-cycle score를 regress out 가능. 아껴서 쓸 것: 그 “nuisance”가 biology와 상관있으면 (증식성 질환의 cycling cell) biology까지 같이 빠짐\n⚠️ 이제 같은 matrix의 버전 3개가 나란히 존재. §5.1은 뭐가 뭔지 아는 데서 출발:\n\ncounts — raw UMI\ndata — log-normalised\nscale.data — z-score, HVG만\n\n\n\n\n\n\n② PCA: dimension reduction\nHVG 2,000개 → principal component 10–50개. PC 하나 = 같이 움직이는 gene들의 가중 조합 — gene이 아니라 program\n\nDenoising — gene 하나는 noisy, 상관된 program은 그렇지 않음. 상위 PC = biology, 뒤쪽 PC = 대부분 noise\n속도 — 이후 모든 단계(neighbour, clustering, UMAP, batch correction)가 gene이 아니라 PC 위에서 돌아감\n몇 개? ElbowPlot() — variance explained가 평평해지는 지점. 10–50 사이에서는 결과가 꽤 안정적; 적게보다는 넉넉하게 (rare population이 PC 25에 있을 수도)\n\n✅ 상위 PC를 움직이는 게 뭔지 확인. PC1이 nCount_RNA나 percent.mt를 따라가면 주된 변이 축이 기술적인 것 → QC로 복귀. VizDimLoadings()로 gene 확인\n💡 PCA는 linear, 거리에 의미가 있음 — UMAP과 다름(§4.3). 실제 분석은 PC space에서, UMAP은 보는 용도일 뿐\n\n\n③ batch correction\nSample이 여러 개면 cell이 cell type보다 donor나 batch별로 먼저 뭉치는 경우가 많음. 보정은 count가 아니라 embedding에서:\n\nHarmony — PC를 반복적으로 조정\nscVI — batch를 covariate로 넣고 raw count로부터 새 latent space를 학습\nSeurat CCA / RPCA — dataset 간 matched cell을 anchor로\n\n→ neighbour, clustering, UMAP에 사용\n✅ 필요한지부터 확인. 보정 전 UMAP을 sample별로 색칠 → 이미 cell type이 sample 간에 섞여 있으면 생략\n⚠️ 보정된 값은 cell을 묶는 용도, gene 검정용 x. DE는 donor를 model에 넣고 raw count로 돌아가서 (§5.1)\n⚠️ 과보정하면 질환 특이적인 state가 지워질 수 있음 → 🔗 W6 §1\n\n\n\n\n\n\n노트VI universe — 엔진 하나, model 여러 개\n\n\n\n\n\nscVI = 한 family(scvi-tools library)의 첫 번째 member. 모두 같은 엔진:\n\nVariational autoencoder (VAE) — neural network가 cell의 raw count를 latent 숫자 ~10–30개로 압축하고, decoder가 negative binomial model로 count를 재구성\nBatch를 decoder에 input으로 넣음 → latent space가 batch 정보를 담을 필요 x — 이게 integration\nLikelihood를 바꾸거나 modality를 추가 → 새 model\n\n\n\n\n\n\n\n\n\n\nModel\nData\n용도\n이 수업에서\n\n\n\n\nscVI\nscRNA-seq\nintegration, denoised expression, DE\n여기, W6\n\n\nscANVI\nscRNA-seq + 일부 cell-type label\nlabel transfer, annotation\n§4.4\n\n\nscArches\n새 data + 학습된 reference model\n재학습 없이 query를 atlas에 mapping\n§4.4\n\n\ntotalVI\nCITE-seq (RNA + surface protein)\nRNA–protein 통합 분석; antibody background 제거\n\n\n\nPeakVI\nscATAC-seq\nchromatin accessibility: integration, differential accessibility\n\n\n\nMultiVI\nmultiome (RNA + ATAC), paired 여부 무관\nmultiome과 single-modality data 통합\nW11\n\n\nDestVI\nspatial spot + scRNA reference\ndeconvolution, cell type 안의 연속적인 state까지\nW8\n\n\nveloVI\nspliced / unspliced count\n불확실성까지 추정하는 RNA velocity\nW6\n\n\ncontrastiveVI\nperturbed vs control cell\n처리 특이적 변이와 공통 변이 분리\n\n\n\nMrVI\nsample / donor 다수\n대규모 cohort에서 sample(donor) 수준 차이\n\n\n\n\n\n💡 실전: 전부 raw count 필요(counts layer 보관), Python에서 실행(scvi-tools; GPU 있으면 좋음), R에서는 reticulate나 .h5ad export로\n⚠️ Integration 공통 주의: latent space는 cell 묶는 용도. “Batch”를 지우라고 하면 batch와 confounded된 biology도 같이 지워짐 (W6 §1)",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1270,6 +1314,17 @@
     "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
     "section": "3) Pseudobulk",
     "text": "3) Pseudobulk\n\n각 donor × cell type에서 cell의 count를 합치는 것\n\n이제 작은 pseudo-sample matrix가 생김 → 지난 학기 bulk RNA-seq처럼 DESeq2 또는 edgeR으로 분석!\n\nlibrary(Seurat); library(DESeq2); library(tidyverse)\n\npb &lt;- AggregateExpression(seurat,\n                          group.by = c(\"cell_type\", \"sample_id\"),\n                          assays   = \"RNA\")$RNA\n\n# then, per cell type, a completely ordinary DESeq2 run\n\n\nBenchmark에서 pseudobulk는 per-cell test보다 false positive가 훨씬 적음\nDonor random effect를 사용하는 mixed model도 합리적임. Power를 더 유지하지만 계산량이 많음",
+    "crumbs": [
+      "3 · 단일세포",
+      "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
+    ]
+  },
+  {
+    "objectID": "ko/chapters/part3/w5_scrna_qc.html#w5-s5-4",
+    "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s5-4",
+    "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
+    "section": "4) Differential abundance = compositional",
+    "text": "4) Differential abundance = compositional\n흥미로운 결과 = cell type의 expression 변화가 아니라 양의 증가 또는 감소\n⚠️ Proportion = compositional. Cell type 하나가 늘면 생물학적 변화가 없어도 단순한 산술 때문에 나머지 모든 proportion이 줄어듦 (서로 연결되어있음 = multivariate)\n\n✅ 이를 다루는 방법: scCODA, miloR, propeller, Dirichlet-multinomial model\n❌ Cell count에 대한 χ² test (please never…)\n⚠️ Abundance 결과를 믿기 전에 §2.3 … 실제 composition 때문에? 아니면 dissociation의 한계?",
     "crumbs": [
       "3 · 단일세포",
       "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
@@ -1775,7 +1830,7 @@
     "href": "ko/chapters/part1/w2_scripts_ai.html#w2-s2-4",
     "title": "W2. R 스크립트, AI 보조 코딩과 재현성",
     "section": "4) ⚠️ 세 가지 조용한 실패",
-    "text": "4) ⚠️ 세 가지 조용한 실패\n\n\n\n세 경우 모두 오류 없이 실행되고 올바른 class의 object를 반환하지만, 결과는 틀렸습니다.\n\n\n\n\n\n\n\n\n힌트대부분의 실패를 잡아내는 습관\n\n\n\n\n\nJoin, filter, relabel 뒤에는 매번 데이터의 형태를 출력하세요.\n\nnrow(df)                    # did I lose rows?\nsum(is.na(df$key_column))   # did the join fail quietly?\ntable(df$group)             # are both groups still here?\n\n세 줄이면 됩니다. 이 방법은 이번 학기에 배우는 어떤 통계 방법보다 실제 연구의 오류를 더 많이 찾아낼 것입니다.\n💡 Model이 직접 이 검사를 넣게 하세요. “각 join 뒤에 row count와 NA count를 출력하는 줄을 추가하라.”라고 요청하면 그대로 작성하며, 검사가 스크립트에 영구적으로 남습니다.",
+    "text": "4) ⚠️ 세 가지 조용한 실패\n\n\n\n세 경우 모두 오류 없이 실행되고 올바른 class의 object를 반환하지만, 결과는 틀렸습니다.",
     "crumbs": [
       "1 · 시작",
       "W2. R 스크립트, AI 보조 코딩과 재현성"
@@ -2017,7 +2072,7 @@
     "href": "ko/chapters/part1/w1_intro.html#w1-s4-1",
     "title": "W1. 소개와 로드맵",
     "section": "1) 재현성은 임상 문제다",
-    "text": "1) 재현성은 임상 문제다\n분석에서 출판까지는 보통 1–3년이 걸립니다. Reviewer가 재분석을 요구하고, package는 업데이트되며, 노트북 컴퓨터가 바뀝니다.\n세 가지 습관이면 거의 모든 상황을 대비할 수 있습니다.\n\n프로젝트 기반 작업 — 다시는 setwd()를 사용하지 않기\n일관된 디렉터리 구조 — 나와 공동연구자 모두 파일 위치를 알 수 있게 하기\n패키지 버전 고정 — 나중에도 같은 코드가 같은 결과를 내게 하기",
+    "text": "1) 재현성은 임상 문제다\n분석에서 출판까지는 보통 1–3년이 걸립니다. Reviewer가 재분석을 요구하고, package는 업데이트되며, 노트북 컴퓨터가 바뀝니다.\n두 가지 습관부터 시작합니다.\n\n프로젝트 기반 작업 — 다시는 setwd()를 사용하지 않기\n일관된 디렉터리 구조 — 나와 공동연구자 모두 파일 위치를 알 수 있게 하기",
     "crumbs": [
       "1 · 시작",
       "W1. 소개와 로드맵"
@@ -2028,18 +2083,7 @@
     "href": "ko/chapters/part1/w1_intro.html#w1-s4-2",
     "title": "W1. 소개와 로드맵",
     "section": "2) R Project (.Rproj)",
-    "text": "2) R Project (.Rproj)\n.Rproj 파일은 자신이 있는 위치를 working directory로 고정합니다. here::here()로 만든 경로는 어느 컴퓨터에서도 작동합니다.\nRStudio → File → New Project → New Directory (or Existing Directory)\n확장 가능한 구조:\nmy_project/\n├── my_project.Rproj          ← working directory의 기준점\n├── rawdata/                  ← 절대 수정하거나 덮어쓰지 않음\n│   └── clinical_data.xlsx\n├── scripts/                  ← 실행 순서대로 번호 부여\n│   ├── 1_clean.R\n│   ├── 2_analysis.R\n│   └── 3_figures.R\n├── analysis/                 ← 중간 .rds 객체\n├── results/\n│   ├── figures/\n│   └── tables/\n└── logs/\n💡 번호가 핵심입니다. 2_analysis.R은 1_clean.R보다 먼저 실행할 수 없습니다. 6개월 뒤에는 이 순서가 가장 믿을 만한 문서가 됩니다.",
-    "crumbs": [
-      "1 · 시작",
-      "W1. 소개와 로드맵"
-    ]
-  },
-  {
-    "objectID": "ko/chapters/part1/w1_intro.html#w1-s4-3",
-    "href": "ko/chapters/part1/w1_intro.html#w1-s4-3",
-    "title": "W1. 소개와 로드맵",
-    "section": "3) renv — 버전 고정",
-    "text": "3) renv — 버전 고정\n\n# 프로젝트를 시작할 때 한 번\nrenv::init()\n\n# 평소처럼 패키지 설치\ninstall.packages(\"tidyverse\")\nBiocManager::install(\"DESeq2\")\n\n# 현재 버전을 renv.lock에 고정\nrenv::snapshot()\n\n# 새 컴퓨터나 공동연구자의 환경에서 복원\nrenv::restore()\n\n\n\n\n\n\n\n노트생각보다 더 중요한 이유\n\n\n\n\n\nSeurat의 major version이 업데이트되면 기본 clustering 동작이 조용히 달라질 수 있습니다. Lock file이 없다면 “다시 실행했더니 cluster가 달라졌다”는 상황의 원인을 설명할 수도, 해결할 수도 없습니다.\n⚠️ renv::snapshot()은 실제로 실행해야만 유용합니다. 모든 분석 session의 마지막 줄로 만드세요.",
+    "text": "2) R Project (.Rproj)\n.Rproj 파일은 자신이 있는 위치를 working directory로 고정합니다.\nRStudio → File → New Project → New Directory (or Existing Directory)\n확장 가능한 구조:\nmy_project/\n├── my_project.Rproj          ← working directory의 기준점\n├── rawdata/                  ← 절대 수정하거나 덮어쓰지 않음\n│   └── clinical_data.xlsx\n├── scripts/                  ← 실행 순서대로 번호 부여\n│   ├── 1_clean.R\n│   ├── 2_analysis.R\n│   └── 3_figures.R\n├── analysis/                 ← 중간 .rds 객체\n├── results/\n│   ├── figures/\n│   └── tables/\n└── logs/\n💡 번호가 핵심입니다. 2_analysis.R은 1_clean.R보다 먼저 실행할 수 없습니다. 6개월 뒤에는 이 순서가 가장 믿을 만한 문서가 됩니다.",
     "crumbs": [
       "1 · 시작",
       "W1. 소개와 로드맵"
@@ -2061,7 +2105,7 @@
     "href": "ko/chapters/part1/w1_intro.html#w1-s5-2",
     "title": "W1. 소개와 로드맵",
     "section": "2) 프로젝트 구성",
-    "text": "2) 프로젝트 구성\nFile → New Project → New Directory → New Project\nName: advanced_BI\n\ndirs &lt;- c(\"rawdata\", \"analysis\",\n          \"results/figures\", \"results/tables\",\n          \"scripts\", \"logs\")\nsapply(dirs, dir.create, recursive = TRUE, showWarnings = FALSE)\n\ninstall.packages(\"renv\")\nrenv::init()",
+    "text": "2) 프로젝트 구성\nFile → New Project → New Directory → New Project\nName: advanced_BI\n\ndirs &lt;- c(\"rawdata\", \"analysis\",\n          \"results/figures\", \"results/tables\",\n          \"scripts\", \"logs\")\nsapply(dirs, dir.create, recursive = TRUE, showWarnings = FALSE)",
     "crumbs": [
       "1 · 시작",
       "W1. 소개와 로드맵"
@@ -2072,7 +2116,7 @@
     "href": "ko/chapters/part1/w1_intro.html#w1-s5-3",
     "title": "W1. 소개와 로드맵",
     "section": "3) 핵심 패키지 설치",
-    "text": "3) 핵심 패키지 설치\n\ninstall.packages(c(\"tidyverse\", \"BiocManager\", \"here\",\n                   \"patchwork\", \"data.table\"))\n\nBiocManager::install(c(\"DESeq2\", \"SingleR\", \"celldex\"))\n\nrenv::snapshot()\n\n\n\n\n\n\n\n노트설치에 실패한다면\n\n\n\n\n\n\nBioconductor 설치는 느립니다. 몇 분이 걸리는 것은 오류가 아니라 정상입니다.\n⚠️ Version mismatch가 가장 흔한 원인입니다. BiocManager::valid()로 서로 맞지 않는 항목을 확인할 수 있습니다.\nSeurat, ArchR 같은 무거운 package는 지금이 아니라 필요한 주차에 설치합니다.",
+    "text": "3) 핵심 패키지 설치\n\ninstall.packages(c(\"tidyverse\", \"BiocManager\",\n                   \"patchwork\", \"data.table\"))\n\nBiocManager::install(c(\"DESeq2\", \"SingleR\", \"celldex\"))\n\n\n\n\n\n\n\n노트설치에 실패한다면\n\n\n\n\n\n\nBioconductor 설치는 느립니다. 몇 분이 걸리는 것은 오류가 아니라 정상입니다.\n⚠️ Version mismatch가 가장 흔한 원인입니다. BiocManager::valid()로 서로 맞지 않는 항목을 확인할 수 있습니다.\nSeurat, ArchR 같은 무거운 package는 지금이 아니라 필요한 주차에 설치합니다.",
     "crumbs": [
       "1 · 시작",
       "W1. 소개와 로드맵"
@@ -2124,7 +2168,7 @@
     "href": "ko/index.html#강의계획",
     "title": "고급 생물정보학 (융합형 의사과학자 양성 사업)",
     "section": "강의계획",
-    "text": "강의계획\n\n\n\n모듈\n주차\n내용\n주요 도구\n\n\n\n\n시작\nW1\n복습, 로드맵, 데이터가 생기기 전의 연구 설계\nR, Bioconductor\n\n\n\nW2\nR 스크립트, AI 보조 코딩, 재현성\nQuarto, git\n\n\n임상유전체학\nW3\nGWAS와 post-GWAS\nGWAS Catalog, Open Targets\n\n\n\nW4\n다유전자 위험 점수와 임상 적용\nPGS Catalog, PRSice-2\n\n\n단일세포\nW5\nscRNA-seq 기술, QC, 클러스터링\nSeurat, scanpy\n\n\n\nW6\nTrajectory, 세포 간 소통, 통합\nMonocle3, CellChat, Harmony\n\n\n공간오믹스\nW7\nSpatial transcriptomics의 기초\nSeurat, Squidpy\n\n\n\nW8\nDeconvolution과 공간 통합\nRCTD, cell2location, CARD\n\n\n단백체학\nW9\n단백질을 실제로 측정하는 방법\nMS, Olink, SomaScan\n\n\n\nW10\n임상 단백체학과 바이오마커\nlimma, MSstats\n\n\n통합 분석\nW11\nMulti-omics integration\nMOFA+, mixOmics\n\n\n\nW12\nNetwork analysis와 drug target\nSTRING, igraph, Open Targets\n\n\n종합 프로젝트\nW13\n해석과 시각화\nggplot2, clusterProfiler\n\n\n\nW14\n나만의 프로젝트 설계\n—\n\n\n\nW1–W14의 한국어 페이지가 모두 연결되었습니다.",
+    "text": "강의계획\n\n\n\n모듈\n주차\n내용\n주요 도구\n\n\n\n\n시작\nW1\n복습, 로드맵, 데이터가 생기기 전의 연구 설계\nR, Bioconductor\n\n\n\nW2\nR 스크립트, AI 보조 코딩, 재현성\nQuarto, git\n\n\n임상유전체학\nW3\nGWAS와 post-GWAS\nGWAS Catalog, Open Targets\n\n\n\nW4\n다유전자 위험 점수와 임상 적용\nPGS Catalog, PRSice-2\n\n\n단일세포\nW5\nscRNA-seq 기술, QC, 클러스터링\nSeurat, scanpy\n\n\n\nW6\n통합, Trajectory, 유전자 조절, 세포 간 소통\nHarmony, Monocle3, SCENIC / decoupleR, CellChat\n\n\n공간오믹스\nW7\nSpatial transcriptomics의 기초\nSeurat, Squidpy\n\n\n\nW8\nDeconvolution과 공간 통합\nRCTD, cell2location, CARD\n\n\n단백체학\nW9\n단백질을 실제로 측정하는 방법\nMS, Olink, SomaScan\n\n\n\nW10\n임상 단백체학과 바이오마커\nlimma, MSstats\n\n\n통합 분석\nW11\nMulti-omics integration\nMOFA+, mixOmics\n\n\n\nW12\nNetwork analysis와 drug target\nSTRING, igraph, Open Targets\n\n\n종합 프로젝트\nW13\n해석과 시각화\nggplot2, clusterProfiler\n\n\n\nW14\n나만의 프로젝트 설계\n—\n\n\n\nW1–W14의 한국어 페이지가 모두 연결되었습니다.",
     "crumbs": [
       "홈"
     ]
@@ -2194,7 +2238,7 @@
     "href": "index.html#syllabus",
     "title": "Advanced Bioinformatics (융합형 의사과학자 양성 사업)",
     "section": "Syllabus",
-    "text": "Syllabus\n\n\n\nModule\nWeek\nContents\nKey tools\n\n\n\n\nIntro\nW1\nReview, roadmap, study design before any data exists\nR, Bioconductor\n\n\n\nW2\nR scripts, AI-assisted coding, reproducibility\nQuarto, git\n\n\nClinical Genomics\nW3\nGWAS & post-GWAS\nGWAS Catalog, Open Targets\n\n\n\nW4\nPolygenic risk scores & clinical application\nPGS Catalog, PRSice-2\n\n\nSingle-cell\nW5\nscRNA-seq technology, QC, clustering\nSeurat, scanpy\n\n\n\nW6\nTrajectory, cell–cell communication, integration\nMonocle3, CellChat, Harmony\n\n\nSpatial\nW7\nSpatial transcriptomics — the basics\nSeurat, Squidpy\n\n\n\nW8\nDeconvolution & spatial integration\nRCTD, cell2location, CARD\n\n\nProteomics\nW9\nHow proteins are actually measured\nMS, Olink, SomaScan\n\n\n\nW10\nClinical proteomics & biomarkers\nlimma, MSstats\n\n\nIntegration\nW11\nMulti-omics integration\nMOFA+, mixOmics\n\n\n\nW12\nNetwork analysis & drug targets\nSTRING, igraph, Open Targets\n\n\nCapstone\nW13\nInterpretation & visualisation\nggplot2, clusterProfiler\n\n\n\nW14\nDesigning your own project\n—",
+    "text": "Syllabus\n\n\n\nModule\nWeek\nContents\nKey tools\n\n\n\n\nIntro\nW1\nReview, roadmap, study design before any data exists\nR, Bioconductor\n\n\n\nW2\nR scripts, AI-assisted coding, reproducibility\nQuarto, git\n\n\nClinical Genomics\nW3\nGWAS & post-GWAS\nGWAS Catalog, Open Targets\n\n\n\nW4\nPolygenic risk scores & clinical application\nPGS Catalog, PRSice-2\n\n\nSingle-cell\nW5\nscRNA-seq technology, QC, clustering\nSeurat, scanpy\n\n\n\nW6\nIntegration, trajectory, gene regulation, cell–cell communication\nHarmony, Monocle3, SCENIC / decoupleR, CellChat\n\n\nSpatial\nW7\nSpatial transcriptomics — the basics\nSeurat, Squidpy\n\n\n\nW8\nDeconvolution & spatial integration\nRCTD, cell2location, CARD\n\n\nProteomics\nW9\nHow proteins are actually measured\nMS, Olink, SomaScan\n\n\n\nW10\nClinical proteomics & biomarkers\nlimma, MSstats\n\n\nIntegration\nW11\nMulti-omics integration\nMOFA+, mixOmics\n\n\n\nW12\nNetwork analysis & drug targets\nSTRING, igraph, Open Targets\n\n\nCapstone\nW13\nInterpretation & visualisation\nggplot2, clusterProfiler\n\n\n\nW14\nDesigning your own project\n—",
     "crumbs": [
       "Home"
     ]
@@ -2366,7 +2410,7 @@
     "href": "chapters/part1/w1_intro.html#w1-s4-1",
     "title": "W1. Introduction & Roadmap",
     "section": "1) Reproducibility is a clinical problem",
-    "text": "1) Reproducibility is a clinical problem\nThe gap between analysis and publication is typically 1–3 years. Reviewers ask for a reanalysis. A package updated. Your laptop was replaced.\nThree habits cover almost all of it:\n\nProject-based working — never setwd() again\nA consistent directory structure — you know where everything lives, and so does a collaborator\nLocked package versions — the same code gives the same numbers later",
+    "text": "1) Reproducibility is a clinical problem\nThe gap between analysis and publication is typically 1–3 years. Reviewers ask for a reanalysis. A package updated. Your laptop was replaced.\nStart with two habits:\n\nProject-based working — never setwd() again\nA consistent directory structure — you know where everything lives, and so does a collaborator",
     "crumbs": [
       "Home",
       "1 · Intro",
@@ -2378,19 +2422,7 @@
     "href": "chapters/part1/w1_intro.html#w1-s4-2",
     "title": "W1. Introduction & Roadmap",
     "section": "2) R Project (.Rproj)",
-    "text": "2) R Project (.Rproj)\nAn .Rproj file fixes the working directory to wherever it sits. Paths built with here::here() then work on any machine.\nRStudio → File → New Project → New Directory (or Existing Directory)\nA structure that scales:\nmy_project/\n├── my_project.Rproj          ← working directory anchors here\n├── rawdata/                  ← never modified, never overwritten\n│   └── clinical_data.xlsx\n├── scripts/                  ← numbered, in run order\n│   ├── 1_clean.R\n│   ├── 2_analysis.R\n│   └── 3_figures.R\n├── analysis/                 ← intermediate .rds objects\n├── results/\n│   ├── figures/\n│   └── tables/\n└── logs/\n💡 The numbering is the point. 2_analysis.R cannot be run before 1_clean.R, and six months later that ordering is the only documentation you will trust.",
-    "crumbs": [
-      "Home",
-      "1 · Intro",
-      "W1. Introduction & Roadmap"
-    ]
-  },
-  {
-    "objectID": "chapters/part1/w1_intro.html#w1-s4-3",
-    "href": "chapters/part1/w1_intro.html#w1-s4-3",
-    "title": "W1. Introduction & Roadmap",
-    "section": "3) renv — version locking",
-    "text": "3) renv — version locking\n\n# Once, when starting a project\nrenv::init()\n\n# Install packages as usual\ninstall.packages(\"tidyverse\")\nBiocManager::install(\"DESeq2\")\n\n# Lock the current versions into renv.lock\nrenv::snapshot()\n\n# On a new machine, or for a collaborator\nrenv::restore()\n\n\n\n\n\n\n\nNoteWhy this matters more than it sounds\n\n\n\n\n\nA Seurat major-version update can silently change default clustering behaviour. Without a lock file, “I reran it and got different clusters” has no explanation and no fix.\n⚠️ renv::snapshot() is only useful if you actually run it. Make it the last line of every analysis session.",
+    "text": "2) R Project (.Rproj)\nAn .Rproj file fixes the working directory to wherever it sits.\nRStudio → File → New Project → New Directory (or Existing Directory)\nA structure that scales:\nmy_project/\n├── my_project.Rproj          ← working directory anchors here\n├── rawdata/                  ← never modified, never overwritten\n│   └── clinical_data.xlsx\n├── scripts/                  ← numbered, in run order\n│   ├── 1_clean.R\n│   ├── 2_analysis.R\n│   └── 3_figures.R\n├── analysis/                 ← intermediate .rds objects\n├── results/\n│   ├── figures/\n│   └── tables/\n└── logs/\n💡 The numbering is the point. 2_analysis.R cannot be run before 1_clean.R, and six months later that ordering is the only documentation you will trust.",
     "crumbs": [
       "Home",
       "1 · Intro",
@@ -2414,7 +2446,7 @@
     "href": "chapters/part1/w1_intro.html#w1-s5-2",
     "title": "W1. Introduction & Roadmap",
     "section": "2) Set up your project",
-    "text": "2) Set up your project\nFile → New Project → New Directory → New Project\nName: advanced_BI\n\ndirs &lt;- c(\"rawdata\", \"analysis\",\n          \"results/figures\", \"results/tables\",\n          \"scripts\", \"logs\")\nsapply(dirs, dir.create, recursive = TRUE, showWarnings = FALSE)\n\ninstall.packages(\"renv\")\nrenv::init()",
+    "text": "2) Set up your project\nFile → New Project → New Directory → New Project\nName: advanced_BI\n\ndirs &lt;- c(\"rawdata\", \"analysis\",\n          \"results/figures\", \"results/tables\",\n          \"scripts\", \"logs\")\nsapply(dirs, dir.create, recursive = TRUE, showWarnings = FALSE)",
     "crumbs": [
       "Home",
       "1 · Intro",
@@ -2426,7 +2458,7 @@
     "href": "chapters/part1/w1_intro.html#w1-s5-3",
     "title": "W1. Introduction & Roadmap",
     "section": "3) Install the core packages",
-    "text": "3) Install the core packages\n\ninstall.packages(c(\"tidyverse\", \"BiocManager\", \"here\",\n                   \"patchwork\", \"data.table\"))\n\nBiocManager::install(c(\"DESeq2\", \"SingleR\", \"celldex\"))\n\nrenv::snapshot()\n\n\n\n\n\n\n\nNoteIf installation fails\n\n\n\n\n\n\nBioconductor installs are slow — several minutes is normal, not an error\n⚠️ Version mismatch is the usual culprit. BiocManager::valid() tells you what is out of step\nHeavier packages (Seurat, ArchR) are installed in the week we need them, not now",
+    "text": "3) Install the core packages\n\ninstall.packages(c(\"tidyverse\", \"BiocManager\",\n                   \"patchwork\", \"data.table\"))\n\nBiocManager::install(c(\"DESeq2\", \"SingleR\", \"celldex\"))\n\n\n\n\n\n\n\nNoteIf installation fails\n\n\n\n\n\n\nBioconductor installs are slow — several minutes is normal, not an error\n⚠️ Version mismatch is the usual culprit. BiocManager::valid() tells you what is out of step\nHeavier packages (Seurat, ArchR) are installed in the week we need them, not now",
     "crumbs": [
       "Home",
       "1 · Intro",
@@ -2546,7 +2578,7 @@
     "href": "chapters/part1/w2_scripts_ai.html#w2-s2-4",
     "title": "W2. R Scripts, AI-Assisted Coding & Reproducibility",
     "section": "4) ⚠️ Three silent failures",
-    "text": "4) ⚠️ Three silent failures\n\n\n\nAll three of these run cleanly, return the right class of object, and are wrong.\n\n\n\n\n\n\n\n\nTipThe habit that catches most of them\n\n\n\n\n\nAfter every join, filter, or relabel, print the shape:\n\nnrow(df)                    # did I lose rows?\nsum(is.na(df$key_column))   # did the join fail quietly?\ntable(df$group)             # are both groups still here?\n\nThree lines. They will catch more real errors in your career than any statistical method you learn this semester.\n💡 Ask the model to insert these itself: “after each join, add a line printing the row count and NA count.” It will comply, and now the check is in the script permanently.",
+    "text": "4) ⚠️ Three silent failures\n\n\n\nAll three of these run cleanly, return the right class of object, and are wrong.",
     "crumbs": [
       "Home",
       "1 · Intro",
@@ -3118,6 +3150,18 @@
     ]
   },
   {
+    "objectID": "chapters/part3/w5_scrna_qc.html#vs.-5-for-droplet-kits",
+    "href": "chapters/part3/w5_scrna_qc.html#vs.-5-for-droplet-kits",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "2) 3′ vs. 5′ (for droplet kits)",
+    "text": "2) 3′ vs. 5′ (for droplet kits)\none end of each transcript, not the full length — enough to count genes, not to see isoforms.\n\n\n\n\n\n\n✅ Most single-cell data is 3′, including most public atlases. 5′ is the choice when you need clonotypes: T/B cells, tumour immunology, autoimmunity, vaccine responses\n⚠️ For gene counting the two are broadly similar, but not interchangeable within one comparison — 3′ and 5′ samples mixed in one study are a batch effect by design\n💡 For fixed or FFPE samples there is a third route: probe-based kits (10x Flex) that hybridise probes instead of capturing the poly(A) tail\nThe bead drawn in §3.2 is a 5′ bead — note the TSO at its end",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
     "objectID": "chapters/part3/w5_scrna_qc.html#w5-s2-2",
     "href": "chapters/part3/w5_scrna_qc.html#w5-s2-2",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
@@ -3171,6 +3215,18 @@
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
     "section": "3) data QC: your own cutoffs",
     "text": "3) data QC: your own cutoffs\n\n① low-quality QC\nThree numbers per cell:\n\n\n\n\n\n\n\n\n\nMetric\nSeurat / scanpy\nToo low →\nToo high →\n\n\n\n\nTotal UMIs\nnCount_RNA / total_counts\nempty droplet, debris, broken cell\ndoublet — or a large, active cell\n\n\nGenes detected\nnFeature_RNA / n_genes_by_counts\nas above\nas above\n\n\nMitochondrial %\npercent.mt / pct_counts_mt\n—\ndying cell — or a mitochondria-rich one\n\n\n\nWhy a high mito fraction means a dying cell: when the membrane breaks, cytoplasmic mRNA leaks out, but transcripts inside mitochondria are protected by the mitochondrial membrane and stay. The fraction rises — not because the cell made more.\n⚠️ Read them jointly. High mito and few genes = broken cell. High mito with a normal gene count may be a genuinely mitochondria-rich cell (cardiomyocyte, hepatocyte, renal tubule)\n⚠️ snRNA-seq: nuclei contain no mitochondria, so mito reads should be near zero. Any real fraction is cytoplasmic or ambient contamination → a much stricter cut\n✅ Data-driven cutoffs: flag cells more than k median absolute deviations (MADs) from the median (scater::isOutlier; k = 3 strict … 5 permissive) — the threshold adapts to each sample\n✅ Per sample, always. A more deeply sequenced sample shifts all three distributions\n\n\n\n\n\n\n\n\n\n\n\nImportantEvery threshold needs its rationale\n\n\n\n\n\n\nA mito cutoff of 5% is conventional — and wrong for cardiomyocytes, which are genuinely mitochondria-rich. need to set your data-specific cutoffs\nmin.features = 500 removes debris — and also platelets, some granulocytes, and any small low-RNA cell\nAn upper nFeature cutoff removes doublets — and also genuinely large, transcriptionally active cells\n\n✅ Plot the distribution, look at what sits outside your proposed cut → decide your own thresholds\n\n\n\n\n\n② doublets\nTwo cells in one droplet share a barcode and look like one cell with a hybrid profile. The rate rises with loading: ~0.8% per 1,000 cells recovered on standard 10x — 10,000 cells → ~8% doublets.\n\n\n\n\n\n\n\n\n\nHeterotypic\nHomotypic\n\n\n\n\nMade of\ntwo different cell types (T cell + monocyte)\ntwo cells of the same type\n\n\nLooks like\nmarkers of both types; a fake “intermediate” cluster or a bridge between clusters\none cell with ~2× the counts\n\n\nDetectable from expression\n✅ yes\n❌ almost never\n\n\nDamage\n⚠️ invented cell types and transitions\nmild\n\n\n\nThe core idea: we never see which barcodes are doublets — but we can make doublets, and then ask which real cells look like them.\n\n\n\nA real cell surrounded by artificial doublets in PC space is probably a doublet itself.\n\n\nDoubletFinder — the logic in four steps\n\nSimulate — make artificial doublets by averaging the profiles of random pairs of real cells (pN, default 25% of the merged data)\nEmbed together — real + artificial cells → normalise, HVGs, PCA\nCount fake neighbours — for each real cell, pANN = the proportion of artificial doublets among its nearest neighbours. A real doublet sits among the fakes → high pANN\nThreshold — rank by pANN and call the top n as doublets, where n = expected rate × cells, reduced by the homotypic fraction it cannot see (modelHomotypic())\n\nThe one parameter that matters is pK, the neighbourhood size. DoubletFinder sweeps it and keeps the value at which pANN is most bimodal — singlets low, doublets high — scored by BCmvn (mean–variance-normalised bimodality coefficient).\n💡 A clearly bimodal pANN distribution is your evidence that the call works. A unimodal one means doublets are not separable at that neighbourhood size.\n\nlibrary(DoubletFinder)\n\n# one sample at a time, after permissive QC, normalisation, PCA and a rough clustering\nsweep &lt;- paramSweep(seu, PCs = 1:10, sct = FALSE)\nbcmvn &lt;- find.pK(summarizeSweep(sweep, GT = FALSE))\npK    &lt;- as.numeric(as.character(bcmvn$pK[which.max(bcmvn$BCmetric)]))\n\nhomotypic &lt;- modelHomotypic(seu$seurat_clusters)    # share of same-type doublets\nrate      &lt;- 0.008 * ncol(seu) / 1000               # ~0.8% per 1,000 cells (10x)\nnExp      &lt;- round(rate * ncol(seu) * (1 - homotypic))\n\nseu &lt;- doubletFinder(seu, PCs = 1:10, pN = 0.25, pK = pK, nExp = nExp, sct = FALSE)\n# → new metadata columns pANN_* and DF.classifications_* (Singlet / Doublet)\n\nscDblFinder — what is different?\nSame core idea (artificial doublets, and where real cells sit among them), different machinery:\n\n\n\n\n\n\n\n\n\nDoubletFinder\nscDblFinder\n\n\n\n\nArtificial doublets\nrandom pairs\nrandom, or between clusters — focused on the heterotypic ones that matter\n\n\nScore\none statistic (pANN) at one neighbourhood size\ngradient-boosted classifier on kNN features at several sizes + library size, detected genes, co-expression; retrained iteratively\n\n\nParameters\npK sweep; expected n set by hand\nthreshold set automatically from the expected rate and misclassification\n\n\nMultiple samples\nrun each sample yourself\nsamples = argument\n\n\nSpeed\nslow (the pK sweep)\nfast\n\n\n\nDoubletFinder was the most accurate method in the first large independent benchmark (Xi & Li 2021). scDblFinder, released later, matched or beat it on the same datasets (Germain et al. 2021) and is now a common default — it is the tool in the pipeline figure.\n\nlibrary(scDblFinder)\nsce &lt;- scDblFinder(as.SingleCellExperiment(seu), samples = \"sample_id\")\nseu$doublet &lt;- sce$scDblFinder.class                # \"singlet\" / \"doublet\"\n\n\n\n\n\n\n\nWarningRules for any doublet detector\n\n\n\n\n\n⚠️ One sample (capture) at a time. Doublets form only within a capture; artificial doublets between two patients describe cells that cannot exist\n⚠️ Homotypic doublets survive every expression-based method. Accept a residual\n⚠️ Do it before you interpret clusters. A doublet cluster sits between its two parents and is easily named a transitional state\n💡 Design beats algorithms. Pool donors in one lane and demultiplex by genotype (demuxlet, souporcell, vireo) or by hashtag antibodies → every between-donor doublet is identified directly, and you can load more cells per lane\n\n\n\n\n\n③ Recap\n\n\n\n\n\n\n\n\nProblem\nWhat it looks like\nWhat to do\n\n\n\n\nEmpty droplets\nLow-UMI barcodes below the knee\nEmptyDrops, not a hard cutoff\n\n\nAmbient RNA\nMarkers of abundant cell types appearing everywhere\nSoupX, CellBender, DecontX\n\n\nDoublets\nHigh UMI and high gene count; two incompatible marker sets\nscDblFinder, DoubletFinder; ~0.8% per 1,000 cells recovered\n\n\nDying cells\nHigh mitochondrial fraction, low gene count\nThreshold on mito %, tissue-specifically\n\n\n\n\n\n\n\n\n\nTipWhich comes first — doublets or QC?\n\n\n\n\n\nThe two tools’ own documentation points in opposite directions:\n\nDoubletFinder: remove low-quality clusters first — they distort the artificial doublets and the PCA\nscDblFinder: find doublets before stringent QC — the expected rate is computed from the cells you hand it, and a doublet of one good and one bad cell is recognisable only while the bad one is still in the data\n\n✅ The order that reconciles them — ① then ② above, as in the pipeline figure:\n\nPrimary QC, permissive — remove only obvious junk: near-empty barcodes, extreme mito\nDoublet detection, per sample\nFinal thresholds, data-driven (MADs)\nSecondary QC after clustering — drop whole clusters defined by mito or stress genes, or by two incompatible marker sets (§4.4)\n\n💡 Either order is defensible if you state it. What is not: an upper nFeature cutoff as your only doublet filter.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s3-4",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s3-4",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "4) dimension reduction",
+    "text": "4) dimension reduction\nAfter QC: thousands of cells × ~20,000 genes, mostly zeros\n\n① normalization & scaling\n\n\n\n\n\n\n\n\n\nStep\nWhat it does\nWhy\nSeurat\n\n\n\n\nNormalise\ndivide by the cell’s total UMIs, × 10,000, then log(1 + x)\ncapture efficiency differs several-fold between cells for purely technical reasons; the log tames a few huge values\nNormalizeData()\n\n\nSelect HVGs\nkeep ~2,000 genes whose variance exceeds what their mean predicts\nmost genes are flat or noise; HVGs carry the cell-type signal\nFindVariableFeatures()\n\n\nScale\nper gene: subtract the mean, divide by the SD\nso a highly expressed gene does not dominate PCA simply by being large\nScaleData()\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\n\n💡 Alternatives: SCTransform (Pearson residuals from a regularised negative binomial model — all three steps in one) and scran pooled size factors. A large benchmark found the plain shifted log + PCA does as well as or better than the sophisticated options (Ahlmann-Eltze & Huber 2023)\n⚠️ ScaleData(vars.to.regress = ...) can regress out mito %, depth or cell-cycle score. Use sparingly: if the “nuisance” is correlated with biology — cycling cells in a proliferative disease — you regress out the biology too\n⚠️ Three versions of the same matrix now sit side by side. §5.1 depends on knowing which is which:\n\ncounts — raw UMIs\ndata — log-normalised\nscale.data — z-scores, HVGs only\n\n\n\n\n\n\n② PCA: dimension reduction\n2,000 HVGs → 10–50 principal components. Each PC is a weighted combination of genes that move together — a program, not a gene.\n\nDenoising — single genes are noisy; correlated programs are not. Top PCs carry biology, later ones mostly noise\nSpeed — everything downstream (neighbours, clustering, UMAP, batch correction) runs on PCs, not genes\nHow many? ElbowPlot() — where the variance explained flattens. Results are fairly stable across 10–50; err high rather than low, since a rare population can live in PC 25\n\n✅ Check what drives the top PCs. If PC1 tracks nCount_RNA or percent.mt, your main axis of variation is technical → back to QC. VizDimLoadings() shows the genes\n💡 PCA is linear and its distances are meaningful — unlike UMAP (§4.3). PC space is where the analysis actually happens; UMAP is only how we look at it.\n\n\n③ batch correction\nWith several samples, cells often group by donor or batch before cell type. Correction works on the embedding, not on the counts:\n\nHarmony — iteratively adjusts the PCs\nscVI — learns a new latent space from raw counts, with batch as a covariate\nSeurat CCA / RPCA — anchors matched cells between datasets\n\n→ for neighbours, clustering and UMAP\n✅ Check first whether you need it. Colour the uncorrected UMAP by sample. If cell types already mix across samples, skip it\n⚠️ Corrected values are for grouping cells, not for testing genes. DE goes back to raw counts, with donor in the model (§5.1)\n⚠️ Over-correction can erase a disease-specific state → 🔗 W6 §1\n\n\n\n\n\n\nNoteThe VI universe — one engine, many models\n\n\n\n\n\nscVI is the first member of a family (the scvi-tools library). All share one engine:\n\nA variational autoencoder (VAE) — a neural network compresses each cell’s raw counts into ~10–30 latent numbers, and a decoder reconstructs the counts with a negative binomial model\nBatch is handed to the decoder as an input, so the latent space does not have to encode it — that is the integration\nChange the likelihood or add a modality → a new model\n\n\n\n\n\n\n\n\n\n\nModel\nData\nUsed for\nIn this course\n\n\n\n\nscVI\nscRNA-seq\nintegration, denoised expression, DE\nhere, W6\n\n\nscANVI\nscRNA-seq + some cell-type labels\nlabel transfer, annotation\n§4.4\n\n\nscArches\nnew data + a trained reference model\nmapping a query onto an atlas without retraining\n§4.4\n\n\ntotalVI\nCITE-seq (RNA + surface protein)\njoint RNA–protein analysis; removes antibody background\n\n\n\nPeakVI\nscATAC-seq\nchromatin accessibility: integration, differential accessibility\n\n\n\nMultiVI\nmultiome (RNA + ATAC), paired or not\nintegrating multiome with single-modality data\nW11\n\n\nDestVI\nspatial spots + scRNA reference\ndeconvolution, including continuous states within a cell type\nW8\n\n\nveloVI\nspliced / unspliced counts\nRNA velocity with uncertainty\nW6\n\n\ncontrastiveVI\nperturbed vs control cells\nseparating treatment-specific from shared variation\n\n\n\nMrVI\nmany samples / donors\nsample-level (donor) differences in large cohorts\n\n\n\n\n\n💡 Practical: all of them want raw counts (keep the counts layer), run in Python (scvi-tools; a GPU helps), and reach R via reticulate or an exported .h5ad\n⚠️ Same caution as any integration: the latent space is for grouping cells. A model told to remove “batch” also removes any biology confounded with batch (W6 §1)",
     "crumbs": [
       "Home",
       "3 · Single-cell",
@@ -3262,6 +3318,18 @@
     ]
   },
   {
+    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s5-4",
+    "href": "chapters/part3/w5_scrna_qc.html#w5-s5-4",
+    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
+    "section": "4) Differential abundance is compositional",
+    "text": "4) Differential abundance is compositional\nOften the interesting result is not that a cell type changed its expression, but that there is more or less of it.\n⚠️ Proportions are compositional — one cell type expands and every other proportion falls by arithmetic alone, with no biology behind it (multivariate).\n\n✅ Methods that handle this: scCODA, miloR, propeller, Dirichlet-multinomial models\n❌ A χ² test on cell counts is not valid\n⚠️ And before believing any abundance result, return to §2.3: is this composition, or is this dissociation?",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W5. Technology, QC, Clustering"
+    ]
+  },
+  {
     "objectID": "chapters/part3/w5_scrna_qc.html#w5-s6-1",
     "href": "chapters/part3/w5_scrna_qc.html#w5-s6-1",
     "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
@@ -3312,157 +3380,181 @@
   {
     "objectID": "chapters/part3/w6_scrna_dynamics.html",
     "href": "chapters/part3/w6_scrna_dynamics.html",
-    "title": "W6. Trajectory, Communication & Integration",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
     "section": "",
     "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nSay what integration assumes, and ⚠️ recognise when it has erased the biology you were looking for\n✅ Demand the two colourings that make over-correction visible\nExplain what pseudotime orders — and ⚠️ why it is not time\n⚠️ Say why a trajectory algorithm always returns a trajectory\nExplain where RNA velocity’s direction comes from, and which of its assumptions are contested\n⚠️ Separate what a regulon built from TF–target co-expression does and does not tell you\n⚠️ Explain why ligand–receptor co-expression is not evidence of an interaction\nDecide which of these results belongs in a grant as a hypothesis, and which belongs in a paper as a finding",
     "crumbs": [
       "Home",
       "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
+      "W6. Integration, Trajectory, Regulation, Communication"
     ]
   },
   {
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s1-1",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s1-1",
-    "title": "W6. Trajectory, Communication & Integration",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
     "section": "1) The problem integration solves",
     "text": "1) The problem integration solves\nIn single-cell data the donor is usually the dominant source of variation. Cells cluster by patient before they cluster by cell type — which makes the data uninterpretable as biology.\nIntegration methods (Harmony, scVI, Seurat RPCA, scANVI) find a shared representation in which cells of the same type from different donors sit together.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
+      "W6. Integration, Trajectory, Regulation, Communication"
     ]
   },
   {
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s1-2",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s1-2",
-    "title": "W6. Trajectory, Communication & Integration",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
     "section": "2) ⚠️ Integration is an assumption in disguise",
     "text": "2) ⚠️ Integration is an assumption in disguise\n\n\n\nBoth right-hand panels look perfectly mixed. Only one colouring reveals what happened.\n\n\nThe assumption: the same cell types exist in every batch, and any batch-associated variation is technical.\n⚠️ That assumption fails exactly when your biology is interesting:\n\na disease-specific cell state\na population present only in one condition\na treatment-induced program\n\n→ Aggressive integration merges it away, and the resulting UMAP looks beautifully mixed.\n\n\n\n\n\n\nImportantThe diagnostic, and why it is rarely shown\n\n\n\n\n\n\n✅ Colour by batch and by cell type. Publish both\n✅ Confirm that known cell-type markers still separate after integration\n✅ Confirm that a population unique to one condition survived\n✅ Benchmarks such as scIB score exactly this batch-removal / biology-preservation trade-off\n\n⚠️ Most papers show only the batch colouring — because that is the one that demonstrates the method worked. It is also the one that cannot reveal the failure.\n💡 Back to the motivating question: a perfectly mixed UMAP and a disease-specific state are in tension. Not impossible — but the paper owes you the second colouring.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
+      "W6. Integration, Trajectory, Regulation, Communication"
     ]
   },
   {
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s1-3",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s1-3",
-    "title": "W6. Trajectory, Communication & Integration",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
     "section": "3) ⚠️ When integration cannot help at all",
     "text": "3) ⚠️ When integration cannot help at all\nIf disease status is perfectly confounded with batch — all patients processed on one day, all controls on another — no integration method can separate them. Exactly the argument from 🔗 W1 §3.3, and just as unrecoverable here.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
+      "W6. Integration, Trajectory, Regulation, Communication"
     ]
   },
   {
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s2-1",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s2-1",
-    "title": "W6. Trajectory, Communication & Integration",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
     "section": "1) The idea",
     "text": "1) The idea\nBiology is dynamic; a single-cell experiment is a snapshot. If cells were caught mid-process, they can be ordered along an axis of transcriptional similarity — a pseudotime.\n\nStem cell → progenitor → differentiated\nNaive T cell → activated → effector → exhausted\nFibroblast → myofibroblast → senescent\n\nTools: Monocle3, Slingshot, PAGA.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
+      "W6. Integration, Trajectory, Regulation, Communication"
     ]
   },
   {
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s2-2",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s2-2",
-    "title": "W6. Trajectory, Communication & Integration",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
     "section": "2) ⚠️ The algorithm always succeeds",
     "text": "2) ⚠️ The algorithm always succeeds\n\n\n\nSame tool, same settings, same confident output.\n\n\n\n\n\n\n\n\nWarningThree caveats worth stating plainly\n\n\n\n\n\n\n⚠️ A trajectory algorithm returns a trajectory for any dataset, including one with no underlying process. There is no “no trajectory found” output\n⚠️ Pseudotime is not time. It measures neither rate nor duration. Two cells far apart in pseudotime may be minutes or months apart in reality — or the ordering may be reversed\n⚠️ The root has to be chosen by you. Reverse the root and the biology reverses with it. That choice is prior knowledge entering as if it were a result\n\n→ ✅ Sanity check: shuffle your cell labels, or run the algorithm on a homogeneous population, and see what comes back. It is a sobering five minutes.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
+      "W6. Integration, Trajectory, Regulation, Communication"
     ]
   },
   {
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s2-3",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s2-3",
-    "title": "W6. Trajectory, Communication & Integration",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
     "section": "3) RNA velocity",
     "text": "3) RNA velocity\n\n\n\nWhere the arrows come from.\n\n\nRNA velocity adds direction by comparing unspliced (new) to spliced (mature) transcripts per gene. More unspliced than steady state predicts → the gene is turning on.\n⚠️ The assumptions about splicing and degradation kinetics are contested, and known to fail for some genes and systems. The arrows are also drawn on a UMAP, so they inherit every distortion from 🔗 W5 §4.3.\n✅ What settles a trajectory claim: a time course, or lineage tracing. Not a better algorithm.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
+      "W6. Integration, Trajectory, Regulation, Communication"
     ]
   },
   {
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s3-1",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s3-1",
-    "title": "W6. Trajectory, Communication & Integration",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
     "section": "1) Within a cell: gene regulatory networks (regulons)",
     "text": "1) Within a cell: gene regulatory networks (regulons)\n\nWhich TF is switching this cell state on?\n\n\n\n\n\n\nSCENIC — three steps\n\nCo-expression (GRNBoost2) — predict each gene’s expression from TF expression (tree-based regression) → candidate TF–target pairs. Mostly indirect correlation\nMotif pruning (cisTarget) — keep only targets whose promoter region is enriched for that TF’s motif → a regulon (TF + motif-backed targets). This step is what lifts SCENIC above plain co-expression\nActivity per cell (AUCell) — how strongly the regulon’s genes sit at the top of each cell’s expression ranking (AUC) → a cell × regulon matrix → cluster, colour the UMAP, compare groups\n\nTools: pySCENIC (Python, the one used in practice), SCENIC (R, the original, slow)\n\n\n\n\n\n\nWarningReading regulons\n\n\n\n\n\n\n⚠️ TF mRNA ≠ TF activity. Phosphorylation, nuclear translocation (NF-κB) and ligand binding (nuclear receptors) are invisible in RNA — and TFs are lowly expressed, so dropout is common\n⚠️ A motif ≠ binding. Closed chromatin blocks it, and scRNA alone cannot tell (with multiome / scATAC: SCENIC+, beyond this course)\n⚠️ Different every run. GRNBoost2 is stochastic → run it several times and keep the regulons that recur\n⚠️ Circularity. Comparing regulon activity between clusters that were defined by expression → differences are guaranteed\n⚠️ Comparing conditions = the W5 per-cell trap again. Aggregate per donor before testing (🔗 W5 §5.2)\n\n💡 Lighter alternative: decoupleR + CollecTRI — no network inference; score TF activity from known TF–target sets. Fast, reproducible, runs directly on a Seurat object (§5.4). The price: answers only within known biology\n✅ Validation: binding by ChIP-seq / CUT&RUN; function by TF knockout / CRISPR / Perturb-seq",
     "crumbs": [
       "Home",
       "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
+      "W6. Integration, Trajectory, Regulation, Communication"
     ]
   },
   {
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s3-2",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s3-2",
-    "title": "W6. Trajectory, Communication & Integration",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
     "section": "2) Between cells: cell–cell communication",
     "text": "2) Between cells: cell–cell communication\nCellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster pairs based on co-expression — the ligand’s mRNA is high in cluster A, its receptor’s mRNA is high in cluster B.\n\n\n\nThe arrow in the figure is doing far more work than the data supports.\n\n\n💡 NicheNet is different in kind — it links the two axes: it asks whether a ligand’s (between cells) downstream target genes are induced inside the receiver cell (within a cell). Still correlative, but a stronger correlation than co-expression alone.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
+      "W6. Integration, Trajectory, Regulation, Communication"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s3-3",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s3-3",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
+    "section": "3) Using them honestly (both)",
+    "text": "3) Using them honestly (both)\n\n✅ As a hypothesis generator — “which TF / which axis is worth testing?” is exactly what these tools are for\n✅ Validated spatially (CCC) — if the two cell types are physically adjacent (🔗 W7), the prediction becomes plausible\n✅ Validated functionally — CCC: blocking antibody, receptor knockout, ligand stimulation / regulons: TF knockout, Perturb-seq\n❌ As a standalone result — neither “macrophages signal to T cells via TNF” nor “TF X drives the fibrosis program” is shown by co-expression",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Integration, Trajectory, Regulation, Communication"
     ]
   },
   {
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s5-1",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s5-1",
-    "title": "W6. Trajectory, Communication & Integration",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
     "section": "1) Integration, with the honest diagnostic",
     "text": "1) Integration, with the honest diagnostic\n\nlibrary(Seurat); library(harmony); library(patchwork)\n\nobj &lt;- readRDS(here::here(\"analysis\", \"5_pbmc_annotated.rds\"))\n\nobj &lt;- obj |&gt;\n  RunHarmony(group.by.vars = \"donor\") |&gt;\n  FindNeighbors(reduction = \"harmony\", dims = 1:20) |&gt;\n  FindClusters(resolution = 0.5) |&gt;\n  RunUMAP(reduction = \"harmony\", dims = 1:20)\n\n# ✅ the two panels that must always appear together\nDimPlot(obj, group.by = \"donor\")     |\nDimPlot(obj, group.by = \"cell_type\", label = TRUE)\n\n✅ Change one thing: raise Harmony’s theta (more aggressive correction) and watch whether any small population disappears from the right-hand panel.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
+      "W6. Integration, Trajectory, Regulation, Communication"
     ]
   },
   {
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s5-2",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s5-2",
-    "title": "W6. Trajectory, Communication & Integration",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
     "section": "2) A trajectory, and its sanity check",
     "text": "2) A trajectory, and its sanity check\n\nlibrary(monocle3)\n\ncds &lt;- as.cell_data_set(obj)\ncds &lt;- cluster_cells(cds) |&gt; learn_graph()\ncds &lt;- order_cells(cds)              # ⚠️ you choose the root — that is an assumption\nplot_cells(cds, color_cells_by = \"pseudotime\")\n\n⚠️ Then do this, and look at the output honestly:\n\n# Run the same pipeline on one homogeneous cluster with no expected process\nmono &lt;- subset(obj, cell_type == \"CD14 Mono\")\ncds_null &lt;- as.cell_data_set(mono) |&gt; cluster_cells() |&gt; learn_graph()\nplot_cells(cds_null, color_cells_by = \"pseudotime\")\n\n💡 You will get a trajectory. Discuss what that means for the previous figure.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
+      "W6. Integration, Trajectory, Regulation, Communication"
     ]
   },
   {
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s5-3",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s5-3",
-    "title": "W6. Trajectory, Communication & Integration",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
     "section": "3) Cell–cell communication",
     "text": "3) Cell–cell communication\n\nlibrary(CellChat)\n\ncc &lt;- createCellChat(obj, group.by = \"cell_type\") |&gt;\n  subsetData() |&gt; identifyOverExpressedGenes() |&gt;\n  identifyOverExpressedInteractions() |&gt; computeCommunProb() |&gt;\n  filterCommunication(min.cells = 10) |&gt; aggregateNet()\n\nnetVisual_circle(cc@net$weight, weight.scale = TRUE)\n\n✅ Pick the strongest predicted interaction and write one sentence describing the experiment that would test it. That sentence is the deliverable, not the plot.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
+      "W6. Integration, Trajectory, Regulation, Communication"
     ]
   },
   {
     "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s5-4",
     "href": "chapters/part3/w6_scrna_dynamics.html#w6-s5-4",
-    "title": "W6. Trajectory, Communication & Integration",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
     "section": "4) TF activity (decoupleR)",
     "text": "4) TF activity (decoupleR)\n\nlibrary(decoupleR)\n\nnet  &lt;- get_collectri(organism = \"human\", split_complexes = FALSE)   # known TF–target pairs\nmat  &lt;- as.matrix(LayerData(obj, assay = \"RNA\", layer = \"data\"))      # log-normalised\nacts &lt;- run_ulm(mat = mat, net = net, .source = \"source\", .target = \"target\",\n                .mor = \"mor\", minsize = 5)\n\nobj[[\"tf\"]] &lt;- acts |&gt;\n  tidyr::pivot_wider(id_cols = \"source\", names_from = \"condition\", values_from = \"score\") |&gt;\n  tibble::column_to_rownames(\"source\") |&gt;\n  CreateAssayObject()\n\n# TF mRNA vs TF activity, side by side\nDefaultAssay(obj) &lt;- \"RNA\"; p1 &lt;- FeaturePlot(obj, \"SPI1\")\nDefaultAssay(obj) &lt;- \"tf\";  p2 &lt;- FeaturePlot(obj, \"SPI1\")\np1 | p2\n\n✅ Change one thing: swap SPI1 (PU.1) for a TF you care about and compare its mRNA with its activity — how different are they? To compare conditions, average per donor, not per cell.",
     "crumbs": [
       "Home",
       "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
+      "W6. Integration, Trajectory, Regulation, Communication"
+    ]
+  },
+  {
+    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s5-5",
+    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s5-5",
+    "title": "W6. Integration, Trajectory, Regulation & Communication",
+    "section": "5) Before next week",
+    "text": "5) Before next week\nW7 — spatial transcriptomics. Come with an answer to one question about your own department:\n\nDo we have FFPE blocks with linked outcome data, and roughly how many?\n\nEverything in W7–W8 depends on that answer.",
+    "crumbs": [
+      "Home",
+      "3 · Single-cell",
+      "W6. Integration, Trajectory, Regulation, Communication"
     ]
   },
   {
@@ -3566,7 +3658,7 @@
     "href": "chapters/part4/w7_spatial_basics.html#w7-s4-3",
     "title": "W7. Spatial Transcriptomics — The Basics",
     "section": "3) ⚠️ Neighbouring spots are not independent",
-    "text": "3) ⚠️ Neighbouring spots are not independent\n\n\n\n\n\n\nImportantSpatial autocorrelation, and why it inflates everything\n\n\n\n\n\nAdjacent spots share diffused transcripts, share the same local tissue, and sometimes physically share cells. They are positively correlated by construction.\nAny test that treats 4,000 spots as 4,000 independent observations will produce p-values as inflated as the per-cell tests in 🔗 W5 §5.1 — and for the same reason.\n\n⚠️ “This domain has 3,412 differentially expressed genes, all p &lt; 10⁻¹⁵” is a symptom, not a result\n✅ Methods that account for spatial dependence exist (nnSVG, SPARK-X, mixed models with a spatial term)\n✅ And across patients, the fix is the same one as always: aggregate to the patient, then compare patients",
+    "text": "3) ⚠️ Neighbouring spots are not independent\n\n\n\n\n\n\nImportantSpatial autocorrelation, and why it inflates everything\n\n\n\n\n\nAdjacent spots share diffused transcripts, share the same local tissue, and sometimes physically share cells. They are positively correlated by construction.\nAny test that treats 4,000 spots as 4,000 independent observations will produce p-values as inflated as the per-cell tests in 🔗 W5 §5.2 — and for the same reason.\n\n⚠️ “This domain has 3,412 differentially expressed genes, all p &lt; 10⁻¹⁵” is a symptom, not a result\n✅ Methods that account for spatial dependence exist (nnSVG, SPARK-X, mixed models with a spatial term)\n✅ And across patients, the fix is the same one as always: aggregate to the patient, then compare patients",
     "crumbs": [
       "Home",
       "4 · Spatial",
@@ -4507,121 +4599,6 @@
       "Home",
       "7 · Capstone",
       "W14. Designing Your Own Project"
-    ]
-  },
-  {
-    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s3-4",
-    "href": "chapters/part3/w5_scrna_qc.html#w5-s3-4",
-    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
-    "section": "4) dimension reduction",
-    "text": "4) dimension reduction\nAfter QC: thousands of cells × ~20,000 genes, mostly zeros\n\n① normalization & scaling\n\n\n\n\n\n\n\n\n\nStep\nWhat it does\nWhy\nSeurat\n\n\n\n\nNormalise\ndivide by the cell’s total UMIs, × 10,000, then log(1 + x)\ncapture efficiency differs several-fold between cells for purely technical reasons; the log tames a few huge values\nNormalizeData()\n\n\nSelect HVGs\nkeep ~2,000 genes whose variance exceeds what their mean predicts\nmost genes are flat or noise; HVGs carry the cell-type signal\nFindVariableFeatures()\n\n\nScale\nper gene: subtract the mean, divide by the SD\nso a highly expressed gene does not dominate PCA simply by being large\nScaleData()\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\n\n💡 Alternatives: SCTransform (Pearson residuals from a regularised negative binomial model — all three steps in one) and scran pooled size factors. A large benchmark found the plain shifted log + PCA does as well as or better than the sophisticated options (Ahlmann-Eltze & Huber 2023)\n⚠️ ScaleData(vars.to.regress = ...) can regress out mito %, depth or cell-cycle score. Use sparingly: if the “nuisance” is correlated with biology — cycling cells in a proliferative disease — you regress out the biology too\n⚠️ Three versions of the same matrix now sit side by side. §5.1 depends on knowing which is which:\n\ncounts — raw UMIs\ndata — log-normalised\nscale.data — z-scores, HVGs only\n\n\n\n\n\n\n② PCA: dimension reduction\n2,000 HVGs → 10–50 principal components. Each PC is a weighted combination of genes that move together — a program, not a gene.\n\nDenoising — single genes are noisy; correlated programs are not. Top PCs carry biology, later ones mostly noise\nSpeed — everything downstream (neighbours, clustering, UMAP, batch correction) runs on PCs, not genes\nHow many? ElbowPlot() — where the variance explained flattens. Results are fairly stable across 10–50; err high rather than low, since a rare population can live in PC 25\n\n✅ Check what drives the top PCs. If PC1 tracks nCount_RNA or percent.mt, your main axis of variation is technical → back to QC. VizDimLoadings() shows the genes\n💡 PCA is linear and its distances are meaningful — unlike UMAP (§4.3). PC space is where the analysis actually happens; UMAP is only how we look at it.\n\n\n③ batch correction\nWith several samples, cells often group by donor or batch before cell type. Correction works on the embedding, not on the counts:\n\nHarmony — iteratively adjusts the PCs\nscVI — learns a new latent space from raw counts, with batch as a covariate\nSeurat CCA / RPCA — anchors matched cells between datasets\n\n→ for neighbours, clustering and UMAP\n✅ Check first whether you need it. Colour the uncorrected UMAP by sample. If cell types already mix across samples, skip it\n⚠️ Corrected values are for grouping cells, not for testing genes. DE goes back to raw counts, with donor in the model (§5.1)\n⚠️ Over-correction can erase a disease-specific state → 🔗 W6 §1\n\n\n\n\n\n\nNoteThe VI universe — one engine, many models\n\n\n\n\n\nscVI is the first member of a family (the scvi-tools library). All share one engine:\n\nA variational autoencoder (VAE) — a neural network compresses each cell’s raw counts into ~10–30 latent numbers, and a decoder reconstructs the counts with a negative binomial model\nBatch is handed to the decoder as an input, so the latent space does not have to encode it — that is the integration\nChange the likelihood or add a modality → a new model\n\n\n\n\n\n\n\n\n\n\nModel\nData\nUsed for\nIn this course\n\n\n\n\nscVI\nscRNA-seq\nintegration, denoised expression, DE\nhere, W6\n\n\nscANVI\nscRNA-seq + some cell-type labels\nlabel transfer, annotation\n§4.4\n\n\nscArches\nnew data + a trained reference model\nmapping a query onto an atlas without retraining\n§4.4\n\n\ntotalVI\nCITE-seq (RNA + surface protein)\njoint RNA–protein analysis; removes antibody background\n\n\n\nPeakVI\nscATAC-seq\nchromatin accessibility: integration, differential accessibility\n\n\n\nMultiVI\nmultiome (RNA + ATAC), paired or not\nintegrating multiome with single-modality data\nW11\n\n\nDestVI\nspatial spots + scRNA reference\ndeconvolution, including continuous states within a cell type\nW8\n\n\nveloVI\nspliced / unspliced counts\nRNA velocity with uncertainty\nW6\n\n\ncontrastiveVI\nperturbed vs control cells\nseparating treatment-specific from shared variation\n\n\n\nMrVI\nmany samples / donors\nsample-level (donor) differences in large cohorts\n\n\n\n\n\n💡 Practical: all of them want raw counts (keep the counts layer), run in Python (scvi-tools; a GPU helps), and reach R via reticulate or an exported .h5ad\n⚠️ Same caution as any integration: the latent space is for grouping cells. A model told to remove “batch” also removes any biology confounded with batch (W6 §1)",
-    "crumbs": [
-      "Home",
-      "3 · Single-cell",
-      "W5. Technology, QC, Clustering"
-    ]
-  },
-  {
-    "objectID": "chapters/part3/w5_scrna_qc.html#w5-s5-4",
-    "href": "chapters/part3/w5_scrna_qc.html#w5-s5-4",
-    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
-    "section": "4) Differential abundance is compositional",
-    "text": "4) Differential abundance is compositional\nOften the interesting result is not that a cell type changed its expression, but that there is more or less of it.\n⚠️ Proportions are compositional — one cell type expands and every other proportion falls by arithmetic alone, with no biology behind it (multivariate).\n\n✅ Methods that handle this: scCODA, miloR, propeller, Dirichlet-multinomial models\n❌ A χ² test on cell counts is not valid\n⚠️ And before believing any abundance result, return to §2.3: is this composition, or is this dissociation?",
-    "crumbs": [
-      "Home",
-      "3 · Single-cell",
-      "W5. Technology, QC, Clustering"
-    ]
-  },
-  {
-    "objectID": "chapters/part3/w5_scrna_qc.html#vs.-5-for-droplet-kits",
-    "href": "chapters/part3/w5_scrna_qc.html#vs.-5-for-droplet-kits",
-    "title": "W5. Single-cell RNA-seq — Technology, QC, Clustering",
-    "section": "2) 3′ vs. 5′ (for droplet kits)",
-    "text": "2) 3′ vs. 5′ (for droplet kits)\none end of each transcript, not the full length — enough to count genes, not to see isoforms.\n\n\n\n\n\n\n✅ Most single-cell data is 3′, including most public atlases. 5′ is the choice when you need clonotypes: T/B cells, tumour immunology, autoimmunity, vaccine responses\n⚠️ For gene counting the two are broadly similar, but not interchangeable within one comparison — 3′ and 5′ samples mixed in one study are a batch effect by design\n💡 For fixed or FFPE samples there is a third route: probe-based kits (10x Flex) that hybridise probes instead of capturing the poly(A) tail\nThe bead drawn in §3.2 is a 5′ bead — note the TSO at its end",
-    "crumbs": [
-      "Home",
-      "3 · Single-cell",
-      "W5. Technology, QC, Clustering"
-    ]
-  },
-  {
-    "objectID": "ko/chapters/part3/w5_scrna_qc.html#vs.-5-droplet-kit",
-    "href": "ko/chapters/part3/w5_scrna_qc.html#vs.-5-droplet-kit",
-    "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
-    "section": "2) 3′ vs. 5′ (droplet kit)",
-    "text": "2) 3′ vs. 5′ (droplet kit)\nTranscript 전체가 아니라 한쪽 끝만 읽음 → gene 세기엔 충분, isoform은 x\n\n\n\n\n\n\n✅ 대부분의 single-cell data = 3′ (공개 atlas 대부분 포함). Clonotype이 필요하면 5′: T/B cell, 종양면역, 자가면역, 백신 반응\n⚠️ Gene count만 보면 둘은 대체로 비슷. 하지만 한 비교 안에서 섞어 쓰기 x — 3′/5′ sample이 섞인 study = 설계부터 batch effect\n💡 Fixed / FFPE sample이면 세 번째 길: probe 기반 kit(10x Flex). poly(A) tail을 잡는 대신 probe를 hybridise\n§3.2의 bead 그림 = 5′ bead (끝에 TSO가 달림)",
-    "crumbs": [
-      "3 · 단일세포",
-      "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
-    ]
-  },
-  {
-    "objectID": "ko/chapters/part3/w5_scrna_qc.html#w5-s3-4",
-    "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s3-4",
-    "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
-    "section": "4) dimension reduction",
-    "text": "4) dimension reduction\nQC 후: cell 수천 개 × gene ~20,000개, 대부분 0\n\n① normalization & scaling\n\n\n\n\n\n\n\n\n\n단계\n하는 일\n이유\nSeurat\n\n\n\n\nNormalise\ncell의 total UMI로 나누고 × 10,000 → log(1 + x)\ncapture efficiency가 순전히 기술적인 이유로 cell마다 몇 배씩 차이; log로 몇몇 큰 값을 눌러줌\nNormalizeData()\n\n\nHVG 선택\n평균으로 예측되는 것보다 variance가 큰 gene ~2,000개만 남김\n대부분의 gene은 평평하거나 noise; cell-type signal은 HVG에\nFindVariableFeatures()\n\n\nScale\ngene마다 평균 빼고 SD로 나눔\n발현량이 크다는 이유만으로 PCA를 지배하지 않게\nScaleData()\n\n\n\n\n\n\n\n\n\n노트\n\n\n\n\n\n💡 대안: SCTransform(regularised negative binomial model의 Pearson residual — 세 단계를 한 번에), scran pooled size factor. 대규모 benchmark 결과 단순한 shifted log + PCA가 정교한 방법들과 비슷하거나 더 좋음 (Ahlmann-Eltze & Huber 2023)\n⚠️ ScaleData(vars.to.regress = ...)로 mito %, depth, cell-cycle score를 regress out 가능. 아껴서 쓸 것: 그 “nuisance”가 biology와 상관있으면 (증식성 질환의 cycling cell) biology까지 같이 빠짐\n⚠️ 이제 같은 matrix의 버전 3개가 나란히 존재. §5.1은 뭐가 뭔지 아는 데서 출발:\n\ncounts — raw UMI\ndata — log-normalised\nscale.data — z-score, HVG만\n\n\n\n\n\n\n② PCA: dimension reduction\nHVG 2,000개 → principal component 10–50개. PC 하나 = 같이 움직이는 gene들의 가중 조합 — gene이 아니라 program\n\nDenoising — gene 하나는 noisy, 상관된 program은 그렇지 않음. 상위 PC = biology, 뒤쪽 PC = 대부분 noise\n속도 — 이후 모든 단계(neighbour, clustering, UMAP, batch correction)가 gene이 아니라 PC 위에서 돌아감\n몇 개? ElbowPlot() — variance explained가 평평해지는 지점. 10–50 사이에서는 결과가 꽤 안정적; 적게보다는 넉넉하게 (rare population이 PC 25에 있을 수도)\n\n✅ 상위 PC를 움직이는 게 뭔지 확인. PC1이 nCount_RNA나 percent.mt를 따라가면 주된 변이 축이 기술적인 것 → QC로 복귀. VizDimLoadings()로 gene 확인\n💡 PCA는 linear, 거리에 의미가 있음 — UMAP과 다름(§4.3). 실제 분석은 PC space에서, UMAP은 보는 용도일 뿐\n\n\n③ batch correction\nSample이 여러 개면 cell이 cell type보다 donor나 batch별로 먼저 뭉치는 경우가 많음. 보정은 count가 아니라 embedding에서:\n\nHarmony — PC를 반복적으로 조정\nscVI — batch를 covariate로 넣고 raw count로부터 새 latent space를 학습\nSeurat CCA / RPCA — dataset 간 matched cell을 anchor로\n\n→ neighbour, clustering, UMAP에 사용\n✅ 필요한지부터 확인. 보정 전 UMAP을 sample별로 색칠 → 이미 cell type이 sample 간에 섞여 있으면 생략\n⚠️ 보정된 값은 cell을 묶는 용도, gene 검정용 x. DE는 donor를 model에 넣고 raw count로 돌아가서 (§5.1)\n⚠️ 과보정하면 질환 특이적인 state가 지워질 수 있음 → 🔗 W6 §1\n\n\n\n\n\n\n노트VI universe — 엔진 하나, model 여러 개\n\n\n\n\n\nscVI = 한 family(scvi-tools library)의 첫 번째 member. 모두 같은 엔진:\n\nVariational autoencoder (VAE) — neural network가 cell의 raw count를 latent 숫자 ~10–30개로 압축하고, decoder가 negative binomial model로 count를 재구성\nBatch를 decoder에 input으로 넣음 → latent space가 batch 정보를 담을 필요 x — 이게 integration\nLikelihood를 바꾸거나 modality를 추가 → 새 model\n\n\n\n\n\n\n\n\n\n\nModel\nData\n용도\n이 수업에서\n\n\n\n\nscVI\nscRNA-seq\nintegration, denoised expression, DE\n여기, W6\n\n\nscANVI\nscRNA-seq + 일부 cell-type label\nlabel transfer, annotation\n§4.4\n\n\nscArches\n새 data + 학습된 reference model\n재학습 없이 query를 atlas에 mapping\n§4.4\n\n\ntotalVI\nCITE-seq (RNA + surface protein)\nRNA–protein 통합 분석; antibody background 제거\n\n\n\nPeakVI\nscATAC-seq\nchromatin accessibility: integration, differential accessibility\n\n\n\nMultiVI\nmultiome (RNA + ATAC), paired 여부 무관\nmultiome과 single-modality data 통합\nW11\n\n\nDestVI\nspatial spot + scRNA reference\ndeconvolution, cell type 안의 연속적인 state까지\nW8\n\n\nveloVI\nspliced / unspliced count\n불확실성까지 추정하는 RNA velocity\nW6\n\n\ncontrastiveVI\nperturbed vs control cell\n처리 특이적 변이와 공통 변이 분리\n\n\n\nMrVI\nsample / donor 다수\n대규모 cohort에서 sample(donor) 수준 차이\n\n\n\n\n\n💡 실전: 전부 raw count 필요(counts layer 보관), Python에서 실행(scvi-tools; GPU 있으면 좋음), R에서는 reticulate나 .h5ad export로\n⚠️ Integration 공통 주의: latent space는 cell 묶는 용도. “Batch”를 지우라고 하면 batch와 confounded된 biology도 같이 지워짐 (W6 §1)",
-    "crumbs": [
-      "3 · 단일세포",
-      "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
-    ]
-  },
-  {
-    "objectID": "ko/chapters/part3/w5_scrna_qc.html#w5-s5-4",
-    "href": "ko/chapters/part3/w5_scrna_qc.html#w5-s5-4",
-    "title": "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링",
-    "section": "4) Differential abundance = compositional",
-    "text": "4) Differential abundance = compositional\n흥미로운 결과 = cell type의 expression 변화가 아니라 양의 증가 또는 감소\n⚠️ Proportion = compositional. Cell type 하나가 늘면 생물학적 변화가 없어도 단순한 산술 때문에 나머지 모든 proportion이 줄어듦 (서로 연결되어있음 = multivariate)\n\n✅ 이를 다루는 방법: scCODA, miloR, propeller, Dirichlet-multinomial model\n❌ Cell count에 대한 χ² test (please never…)\n⚠️ Abundance 결과를 믿기 전에 §2.3 … 실제 composition 때문에? 아니면 dissociation의 한계?",
-    "crumbs": [
-      "3 · 단일세포",
-      "W5. 단일세포 RNA-seq: 기술, QC, 클러스터링"
-    ]
-  },
-  {
-    "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s3-3",
-    "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s3-3",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
-    "section": "3) 적절한 사용법 (둘 다)",
-    "text": "3) 적절한 사용법 (둘 다)\n\n✅ Hypothesis generator로 — “어떤 TF / 어떤 axis를 검정해 볼 만한가?”가 딱 이 도구들용 질문\n✅ 공간적으로 검증 (CCC) — 두 cell type이 물리적으로 붙어 있다면(🔗 W7) 예측이 그럴듯해짐\n✅ 기능적으로 검증 — CCC는 blocking antibody, receptor knockout, ligand stimulation / regulon은 TF knockout, Perturb-seq\n❌ 단독 결과로 x — “Macrophage가 TNF로 T cell에 signal을 보낸다”, “TF X가 fibrosis program을 구동한다” 둘 다 co-expression만으로는 입증 안 됨",
-    "crumbs": [
-      "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
-    ]
-  },
-  {
-    "objectID": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-5",
-    "href": "ko/chapters/part3/w6_scrna_dynamics.html#w6-s5-5",
-    "title": "W6. 궤적, 세포 간 소통과 통합",
-    "section": "5) 다음 주 전까지",
-    "text": "5) 다음 주 전까지\nW7 — spatial transcriptomics. 내 진료과 기준으로 다음 질문의 답을 생각해 오기:\n\nOutcome data와 연결된 FFPE block이 있는가? 대략 몇 개인가?\n\nW7–W8 내용 전부가 그 답에 달려 있음",
-    "crumbs": [
-      "3 · 단일세포",
-      "W6. 궤적, 세포 간 소통과 통합"
-    ]
-  },
-  {
-    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s3-3",
-    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s3-3",
-    "title": "W6. Trajectory, Communication & Integration",
-    "section": "3) Using them honestly (both)",
-    "text": "3) Using them honestly (both)\n\n✅ As a hypothesis generator — “which TF / which axis is worth testing?” is exactly what these tools are for\n✅ Validated spatially (CCC) — if the two cell types are physically adjacent (🔗 W7), the prediction becomes plausible\n✅ Validated functionally — CCC: blocking antibody, receptor knockout, ligand stimulation / regulons: TF knockout, Perturb-seq\n❌ As a standalone result — neither “macrophages signal to T cells via TNF” nor “TF X drives the fibrosis program” is shown by co-expression",
-    "crumbs": [
-      "Home",
-      "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
-    ]
-  },
-  {
-    "objectID": "chapters/part3/w6_scrna_dynamics.html#w6-s5-5",
-    "href": "chapters/part3/w6_scrna_dynamics.html#w6-s5-5",
-    "title": "W6. Trajectory, Communication & Integration",
-    "section": "5) Before next week",
-    "text": "5) Before next week\nW7 — spatial transcriptomics. Come with an answer to one question about your own department:\n\nDo we have FFPE blocks with linked outcome data, and roughly how many?\n\nEverything in W7–W8 depends on that answer.",
-    "crumbs": [
-      "Home",
-      "3 · Single-cell",
-      "W6. Trajectory, Communication, Integration"
     ]
   }
 ]

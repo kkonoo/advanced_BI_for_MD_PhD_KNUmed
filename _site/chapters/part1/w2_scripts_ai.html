@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eunji Ha">
-<meta name="dcterms.date" content="2026-08-18">
+<meta name="dcterms.date" content="2026-09-11">
 
 <title>W2. R Scripts, AI-Assisted Coding &amp; Reproducibility</title>
 <style>
@@ -340,7 +340,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../../chapters/part3/w6_scrna_dynamics.html">
- <span class="dropdown-text">W6 · Trajectory, CCC &amp; Integration</span></a>
+ <span class="dropdown-text">W6 · Integration, Trajectory, GRN &amp; CCC</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../chapters/part4/w7_spatial_basics.html">
@@ -478,7 +478,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../chapters/part3/w6_scrna_dynamics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">W6. Trajectory, Communication, Integration</span></a>
+ <span class="menu-text">W6. Integration, Trajectory, Regulation, Communication</span></a>
   </div>
 </li>
       </ul>
@@ -653,7 +653,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 18, 2026</p>
+      <p class="date">September 11, 2026</p>
     </div>
   </div>
   
@@ -857,29 +857,6 @@ Constraints: dplyr + DESeq2 + here. Return a tibble sorted by padj.
 <figcaption>All three of these run cleanly, return the right class of object, and are wrong.</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>The habit that catches most of them
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>After every join, filter, or relabel, print the shape:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df)                    <span class="co"># did I lose rows?</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(df<span class="sc">$</span>key_column))   <span class="co"># did the join fail quietly?</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>group)             <span class="co"># are both groups still here?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Three lines. They will catch more real errors in your career than any statistical method you learn this semester.</p>
-<p>💡 Ask the model to insert these itself: <em>“after each join, add a line printing the row count and NA count.”</em> It will comply, and now the check is in the script permanently.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="w2-s2-5" class="level2">
 <h2 class="anchored" data-anchor-id="w2-s2-5">5) Where it is reliable, and where it is not</h2>
@@ -905,27 +882,27 @@ Constraints: dplyr + DESeq2 + here. Return a tibble sorted by padj.
 <section id="w2-s3-2" class="level2">
 <h2 class="anchored" data-anchor-id="w2-s3-2">2) Quarto, minimally</h2>
 <p>A <code>.qmd</code> file is prose with executable code blocks. Render it and you get HTML, PDF, or Word.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "IBD biopsy cohort — DE analysis"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Results</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"analysis"</span>, <span class="st">"2_dds.rds"</span>))</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>sig <span class="ot">&lt;-</span> res <span class="sc">|&gt;</span> <span class="fu">filter</span>(padj <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>We identified <span class="in">`r nrow(sig)`</span> differentially expressed</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>genes (FDR &lt; 0.05), of which <span class="in">`r sum(sig$log2FoldChange &gt; 0)`</span> were upregulated.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "IBD biopsy cohort — DE analysis"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Results</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"analysis"</span>, <span class="st">"2_dds.rds"</span>))</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>sig <span class="ot">&lt;-</span> res <span class="sc">|&gt;</span> <span class="fu">filter</span>(padj <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>We identified <span class="in">`r nrow(sig)`</span> differentially expressed</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>genes (FDR &lt; 0.05), of which <span class="in">`r sum(sig$log2FoldChange &gt; 0)`</span> were upregulated.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>quarto render report.qmd --to html
 quarto render report.qmd --to docx     # for the co-author who wants Word</code></pre>
 <p>✅ The inline <code>r nrow(sig)</code> is the whole idea: <strong>the number in the sentence is computed, not typed.</strong> Change the data, re-render, and the sentence is still true.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -934,7 +911,7 @@ quarto render report.qmd --to docx     # for the co-author who wants Word</code>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Written as a comment at the top of a chunk, prefixed with a hash and a pipe:</p>
 <table class="caption-top table">
@@ -993,17 +970,17 @@ quarto render report.qmd --to docx     # for the co-author who wants Word</code>
 <section id="w2-s4-2" class="level2">
 <h2 class="anchored" data-anchor-id="w2-s4-2">2) The five commands</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># once per machine</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name  <span class="st">"Eunji Ha"</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"you@knu.ac.kr"</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># once per project</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># after each working session — these three, forever</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add DESeq2 analysis; exclude 3 low-RIN samples"</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># once per machine</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name  <span class="st">"Eunji Ha"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"you@knu.ac.kr"</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># once per project</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># after each working session — these three, forever</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add DESeq2 analysis; exclude 3 low-RIN samples"</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>⚠️ <strong>Never commit patient data.</strong> Put <code>rawdata/</code> in <code>.gitignore</code> before the first commit:</p>
 <pre><code>rawdata/
@@ -1012,7 +989,7 @@ quarto render report.qmd --to docx     # for the co-author who wants Word</code>
 .Rproj.user/
 renv/library/</code></pre>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1021,7 +998,7 @@ renv/library/</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Deleting a file in a later commit does <strong>not</strong> remove it from the repository — the earlier version is still recoverable, and on a public repo, still public.</p>
 <p>✅ Add <code>.gitignore</code> <strong>first</strong>, then <code>git init</code>, then commit. In that order.</p>
@@ -1033,7 +1010,7 @@ renv/library/</code></pre>
 <section id="w2-s4-3" class="level2">
 <h2 class="anchored" data-anchor-id="w2-s4-3">3) Publishing</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> publish gh-pages</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> publish gh-pages</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Renders your <code>.qmd</code> files, pushes the HTML, and serves it at <code>https://&lt;username&gt;.github.io/&lt;repo&gt;/</code>.</p>
 <hr>
@@ -1057,11 +1034,11 @@ renv/library/</code></pre>
 <p>We will give you a 30-line script that runs cleanly and contains one planted error of the type in §2.4. Your task is to find it <strong>without being told which line</strong>.</p>
 <p>The only reliable route:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Insert shape checks between every step, then read the numbers</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"rows before join:"</span>, <span class="fu">nrow</span>(clin), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> <span class="fu">left_join</span>(clin, expr, <span class="at">by =</span> <span class="st">"sample_id"</span>)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"rows after join :"</span>, <span class="fu">nrow</span>(merged), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"unmatched       :"</span>, <span class="fu">sum</span>(<span class="fu">is.na</span>(merged<span class="sc">$</span>gene_1)), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Insert shape checks between every step, then read the numbers</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"rows before join:"</span>, <span class="fu">nrow</span>(clin), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> <span class="fu">left_join</span>(clin, expr, <span class="at">by =</span> <span class="st">"sample_id"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"rows after join :"</span>, <span class="fu">nrow</span>(merged), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"unmatched       :"</span>, <span class="fu">sum</span>(<span class="fu">is.na</span>(merged<span class="sc">$</span>gene_1)), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>💡 Time yourself. Most people find it in under five minutes <strong>with</strong> the checks, and not at all without them.</p>
 </section>
@@ -1370,7 +1347,7 @@ Perez-Riverol Y, et al.&nbsp;<a href="https://doi.org/10.1371/journal.pcbi.10049
       ["w3", "W3 · GWAS와 Post-GWAS"],
       ["w4", "W4 · 다유전자 위험 점수(PRS)"],
       ["w5", "W5 · 단일세포 RNA-seq: 기술, QC, 클러스터링"],
-      ["w6", "W6 · 궤적, 세포 간 소통과 통합"],
+      ["w6", "W6 · 통합, 궤적, 유전자 조절과 세포 간 소통"],
       ["w7", "W7 · 공간전사체학의 기초"],
       ["w8", "W8 · 디콘볼루션과 공간 통합"],
       ["w9", "W9 · 단백질을 실제로 측정하는 방법"],

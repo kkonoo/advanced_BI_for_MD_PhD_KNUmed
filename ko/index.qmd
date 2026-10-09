@@ -45,7 +45,7 @@ categories: [의학연구, 생물정보학, R, 오믹스]
 | **임상유전체학** | [W3](chapters/part2/w3_gwas.qmd) | GWAS와 post-GWAS | GWAS Catalog, Open Targets |
 |  | [W4](chapters/part2/w4_prs.qmd) | 다유전자 위험 점수와 임상 적용 | PGS Catalog, PRSice-2 |
 | **단일세포** | [W5](chapters/part3/w5_scrna_qc.qmd) | scRNA-seq 기술, QC, 클러스터링 | Seurat, scanpy |
-|  | [W6](chapters/part3/w6_scrna_dynamics.qmd) | Trajectory, 세포 간 소통, 통합 | Monocle3, CellChat, Harmony |
+|  | [W6](chapters/part3/w6_scrna_dynamics.qmd) | 통합, Trajectory, 유전자 조절, 세포 간 소통 | Harmony, Monocle3, SCENIC / decoupleR, CellChat |
 | **공간오믹스** | [W7](chapters/part4/w7_spatial_basics.qmd) | Spatial transcriptomics의 기초 | Seurat, Squidpy |
 |  | [W8](chapters/part4/w8_spatial_integration.qmd) | Deconvolution과 공간 통합 | RCTD, cell2location, CARD |
 | **단백체학** | [W9](chapters/part5/w9_proteomics_tech.qmd) | 단백질을 실제로 측정하는 방법 | MS, Olink, SomaScan |

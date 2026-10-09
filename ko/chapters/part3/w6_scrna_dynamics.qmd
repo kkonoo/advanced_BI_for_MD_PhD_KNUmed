@@ -1,5 +1,5 @@
 ---
-title: "W6. 궤적, 세포 간 소통과 통합"
+title: "W6. 통합, 궤적, 유전자 조절과 세포 간 소통"
 author: "Eunji Ha"
 date: last-modified
 format: html
