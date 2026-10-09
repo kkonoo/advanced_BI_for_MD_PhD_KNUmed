@@ -18,7 +18,7 @@ By the end of this chapter you should be able to:
 -   Explain what pseudotime orders — and ⚠️ why it is not time
 -   ⚠️ Say why a trajectory algorithm always returns a trajectory
 -   Explain where RNA velocity's direction comes from, and which of its assumptions are contested
--   ⚠️ Separate what a regulon built from TF–target co-expression does and does not tell you
+-   ⚠️ Separate what regulons and gene modules built from co-expression do and do not tell you
 -   ⚠️ Explain why ligand–receptor co-expression is not evidence of an interaction
 -   Decide which of these results belongs in a grant as a hypothesis, and which belongs in a paper as a finding
 :::
@@ -112,12 +112,23 @@ RNA velocity adds **direction** by comparing unspliced (new) to spliced (mature)
 
 Same raw material — **co-expression** within one snapshot. Only where you look differs:
 
--   **Within a cell** — TF ↔ target genes → a **regulon** (gene regulatory network)
+-   **Within a cell** — gene ↔ gene → a **regulon** (TF-centred) or a **module** (gene program)
 -   **Between cells** — ligand ↔ receptor → **cell–cell communication**
 
-→ Same limit, too: co-expression is not regulation, and not interaction. Both are hypothesis generators.
+→ Same limit, too: co-expression is not regulation, and not interaction. All of them are hypothesis generators.
 
-## 1) Within a cell: gene regulatory networks (regulons) {#w6-s3-1}
+## 1) Within a cell: regulons and gene modules {#w6-s3-1}
+
+Co-expression inside a cell, but two different questions:
+
+|   | ① Regulon | ② Module (gene program) |
+|------------------|--------------------------|--------------------------|
+| Asks | Which TF switches this state on? | Which genes move together? |
+| Direction | TF → target (directed) | none — just a group |
+| Prior knowledge | TF list + motif database | none (unsupervised) |
+| Typical tools | SCENIC, decoupleR | cNMF, (hd)WGCNA |
+
+### ① Regulons: TF-centred
 
 > Which TF is switching this cell state on?
 
@@ -145,6 +156,40 @@ Tools: **pySCENIC** (Python, the one used in practice), SCENIC (R, the original,
 ✅ Validation: binding by ChIP-seq / CUT&RUN; function by TF knockout / CRISPR / Perturb-seq
 :::
 
+### ② Modules: gene programs (the NMF family)
+
+> Without a TF list: find the groups of genes that move together, from the data alone
+
+![](/assets/img/w6/nmf_programs.svg){fig-align="center"}
+
+**NMF (non-negative matrix factorisation)**
+
+-   cell × gene matrix ≈ (program usage per cell) × (gene weights per program). Every value is ≥ 0 → programs only add up and never cancel each other out → easy to read
+-   Each cell is a **mixture** of programs: cell-type identity + activities (cell cycle, IFN response, hypoxia, stress…)
+-   A cluster gives each cell one label → a state that cuts across clusters (e.g. cycling cells in two clusters) stays invisible. NMF pulls it out as its own program
+-   **cNMF** (consensus NMF): run NMF many times and keep only the programs that recur — the same logic as rerunning SCENIC. It separates identity programs from activity programs
+-   Applied: tumour **meta-programs** — NMF per tumour → programs that recur across a thousand tumours (cell cycle, stress, hypoxia, EMT-like, IFN…)
+
+::: {.callout-note collapse="true"}
+## Why WGCNA, standard in bulk, is used less in single cells
+
+WGCNA = gene × gene correlation network → soft threshold → modules (eigengenes) → module–trait correlation. The standard tool in bulk RNA-seq.
+
+1.  **Sparsity** — gene–gene correlations computed over individual cells are swamped by zeros and dropout → you first have to pool similar cells into **metacells** (hdWGCNA). Resolution goes down, and the number of choices goes up
+2.  **Composition confounding** — in a mixed tissue the strongest correlations come from cell-type differences → modules end up as cell-type marker sets. To be useful, it has to run within one cell type
+3.  **Hard assignment** — WGCNA puts each gene in exactly one module. NMF lets a gene sit in several programs and a cell mix programs → a better fit for single cells, where identity and activity overlap
+
+💡 hdWGCNA is still the tool when you want module–condition relationships within one cell type — and the direct bridge from the WGCNA you learned for bulk
+:::
+
+::: {.callout-warning collapse="true"}
+## Reading modules
+
+-   ⚠️ **k (the number of programs) is your choice** — as arbitrary as clustering resolution. cNMF gives you a stability / error plot to choose it
+-   ⚠️ **A program is not a pathway.** It needs gene set enrichment to get a name — and that name is still an interpretation
+-   ⚠️ **The same co-expression limit.** Moving together ≠ sharing a regulator. Compare modules between conditions per donor (🔗 [W5 §5.2](w5_scrna_qc.qmd#w5-s5-2))
+:::
+
 ## 2) Between cells: cell–cell communication {#w6-s3-2}
 
 CellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster pairs based on **co-expression** — the ligand's mRNA is high in cluster A, its receptor's mRNA is high in cluster B.
@@ -155,9 +200,9 @@ CellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster
 
 ## 3) Using them honestly (both) {#w6-s3-3}
 
--   ✅ **As a hypothesis generator** — "which TF / which axis is worth testing?" is exactly what these tools are for
+-   ✅ **As a hypothesis generator** — "which TF / which program / which axis is worth testing?" is exactly what these tools are for
 -   ✅ **Validated spatially (CCC)** — if the two cell types are physically adjacent (🔗 [W7](../part4/w7_spatial_basics.qmd)), the prediction becomes plausible
--   ✅ **Validated functionally** — CCC: blocking antibody, receptor knockout, ligand stimulation / regulons: TF knockout, Perturb-seq
+-   ✅ **Validated functionally** — CCC: blocking antibody, receptor knockout, ligand stimulation / regulons and programs: TF knockout, Perturb-seq
 -   ❌ **As a standalone result** — neither "macrophages signal to T cells via TNF" nor "TF X drives the fibrosis program" is shown by co-expression
 
 ------------------------------------------------------------------------
@@ -173,7 +218,7 @@ Everything in this chapter produces a confident-looking output from data that ca
 | Differential abundance with a compositional method | ⚠️ Solid if n is donors | Results, with caveats |
 | Pseudotime ordering | ⚠️ Hypothesis | Results, phrased as "consistent with" |
 | RNA velocity direction | ⚠️ Hypothesis, contested method | Supplementary, or a hypothesis |
-| Regulon / TF activity (SCENIC, decoupleR) | ⚠️ Hypothesis | Results, phrased as "consistent with" |
+| Regulon / TF activity / gene program (SCENIC, decoupleR, cNMF) | ⚠️ Hypothesis | Results, phrased as "consistent with" |
 | Ligand–receptor prediction | ❌ Hypothesis only | Discussion, or a grant aim |
 
 ::: {.callout-tip collapse="true"}
@@ -293,6 +338,7 @@ Everything in W7–W8 depends on that answer.
 -   RNA velocity's kinetic assumptions are contested, and its arrows sit on a distorted 2D embedding
 -   Regulons (within a cell) and cell–cell communication (between cells) use the same raw material: snapshot co-expression
 -   ⚠️ **TF–target co-expression is not regulation.** SCENIC filters by motif once, but TF mRNA ≠ activity and motif ≠ binding
+-   Gene modules are genes that move together, no TF needed. In single cells the NMF family (cNMF) dominates — each cell mixes several programs. WGCNA needs metacells and one cell type at a time
 -   ⚠️ **Ligand–receptor co-expression is not interaction**: cells may never be adjacent, the protein may never be made, and the database is biased toward what is already known
 -   ✅ These are hypothesis generators. Phrase them as "consistent with" and name the experiment that would test them
 
@@ -313,6 +359,8 @@ Everything in W7–W8 depends on that answer.
 | Regulon | A TF plus the target genes backed by its motif |
 | SCENIC | Three-step GRN inference: co-expression → motif pruning → per-cell regulon activity |
 | TF activity | A TF's activity inferred from its targets' expression — not the TF's own mRNA level |
+| Gene program / module | A group of genes that vary together — each cell uses it to a different degree |
+| NMF / cNMF | Factorising expression into non-negative program usage and gene weights; cNMF takes the consensus of many runs |
 | Ligand–receptor pair | A curated interaction used to score communication |
 | CellChat / CellPhoneDB / NicheNet | Communication inference tools, all correlative |
 | Hypothesis generator | A method whose output is a question, not an answer |
@@ -334,12 +382,16 @@ Cao J, et al. [*The single-cell transcriptional landscape of mammalian organogen
 Bergen V, et al. [*Generalizing RNA velocity to transient cell states through dynamical modeling.*](https://doi.org/10.1038/s41587-020-0591-3) Nat Biotechnol. 2020. (scVelo)\
 Bergen V, Soldatov RA, Kharchenko PV, Theis FJ. [*RNA velocity — current challenges and future perspectives.*](https://doi.org/10.15252/msb.202110282) Mol Syst Biol. 2021. **← read this before using velocity in a figure**
 
-### Gene regulatory networks
+### Gene regulatory networks and gene programs
 
 Aibar S, et al. [*SCENIC: single-cell regulatory network inference and clustering.*](https://doi.org/10.1038/nmeth.4463) Nat Methods. 2017.\
 Van de Sande B, et al. [*A scalable SCENIC workflow for single-cell gene regulatory network analysis.*](https://doi.org/10.1038/s41596-020-0336-2) Nat Protoc. 2020. **← the practical pySCENIC protocol, including repeated runs**\
 Badia-i-Mompel P, et al. [*decoupleR: ensemble of computational methods to infer biological activities from omics data.*](https://doi.org/10.1093/bioadv/vbac016) Bioinform Adv. 2022.\
-Müller-Dott S, et al. [*Expanding the coverage of regulons from high-confidence prior knowledge for accurate estimation of transcription factor activities.*](https://doi.org/10.1093/nar/gkad841) Nucleic Acids Res. 2023. (CollecTRI)
+Müller-Dott S, et al. [*Expanding the coverage of regulons from high-confidence prior knowledge for accurate estimation of transcription factor activities.*](https://doi.org/10.1093/nar/gkad841) Nucleic Acids Res. 2023. (CollecTRI)\
+Kotliar D, et al. [*Identifying gene expression programs of cell-type identity and cellular activity with single-cell RNA-Seq.*](https://doi.org/10.7554/eLife.43803) eLife. 2019. (cNMF)\
+Gavish A, et al. [*Hallmarks of transcriptional intratumour heterogeneity across a thousand tumours.*](https://doi.org/10.1038/s41586-023-06130-4) Nature. 2023. **← tumour meta-programs**\
+Langfelder P, Horvath S. [*WGCNA: an R package for weighted correlation network analysis.*](https://doi.org/10.1186/1471-2105-9-559) BMC Bioinformatics. 2008.\
+Morabito S, et al. [*hdWGCNA identifies co-expression networks in high-dimensional transcriptomics data.*](https://doi.org/10.1016/j.crmeth.2023.100498) Cell Rep Methods. 2023. **← WGCNA for single cells (metacells)**
 
 ### Cell–cell communication
 

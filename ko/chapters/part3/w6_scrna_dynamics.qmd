@@ -18,7 +18,7 @@ execute:
 -   Pseudotime이 무엇의 순서를 정하는지, 그리고 ⚠️ 왜 실제 시간이 아닌지 설명한다
 -   ⚠️ Trajectory algorithm이 항상 trajectory를 반환하는 이유를 설명한다
 -   RNA velocity의 방향이 어디에서 나오며 어떤 가정이 논쟁 중인지 설명한다
--   ⚠️ TF–target co-expression으로 만든 regulon이 말해주는 것과 말해주지 않는 것을 구분한다
+-   ⚠️ Co-expression으로 만든 regulon과 gene module이 말해주는 것과 말해주지 않는 것을 구분한다
 -   ⚠️ Ligand–receptor co-expression이 interaction의 근거가 아닌 이유를 설명한다
 -   어떤 결과가 hypothesis로서 연구비 신청서에 들어가고, 어떤 결과가 finding으로서 논문에 들어가는지 판단한다
 :::
@@ -112,12 +112,23 @@ RNA velocity = gene별로 unspliced(new) vs spliced(mature) transcript를 비교
 
 재료는 똑같음 = 같은 snapshot 안의 **co-expression**. 어디를 보느냐만 다름:
 
--   **Cell 안 (within cell)** — TF ↔ target gene → **regulon** (gene regulatory network)
+-   **Cell 안 (within cell)** — gene ↔ gene → **regulon**(TF 중심) / **module**(gene program)
 -   **Cell 사이 (between cells)** — ligand ↔ receptor → **cell–cell communication**
 
-→ 한계도 똑같음: co-expression ≠ 조절, co-expression ≠ 상호작용. 둘 다 hypothesis generator
+→ 한계도 똑같음: co-expression ≠ 조절, co-expression ≠ 상호작용. 전부 hypothesis generator
 
-## 1) Cell 안: gene regulatory network (regulon) {#w6-s3-1}
+## 1) Cell 안: regulon과 gene module {#w6-s3-1}
+
+같은 cell 안의 co-expression인데, 묻는 질문이 둘:
+
+|   | ① Regulon | ② Module (gene program) |
+|------------------|--------------------------|--------------------------|
+| 묻는 것 | 어떤 TF가 이 state를 켜나? | 어떤 gene들이 같이 움직이나? |
+| 방향 | TF → target (방향 있음) | 없음, 묶음만 |
+| 사전지식 | TF 목록 + motif DB | 없음 (unsupervised) |
+| 대표 tool | SCENIC, decoupleR | cNMF, (hd)WGCNA |
+
+### ① Regulon: TF 중심
 
 > 어떤 TF가 이 cell state를 켜고 있는가?
 
@@ -145,6 +156,40 @@ Tool: **pySCENIC**(Python, 실제로 가장 많이 씀), SCENIC(R, 원조, 느�
 ✅ 검증: binding은 ChIP-seq / CUT&RUN, 기능은 TF knockout / CRISPR / Perturb-seq
 :::
 
+### ② Module: gene program (NMF 계열)
+
+> TF 목록 없이, 같이 움직이는 gene 묶음을 데이터에서 찾기
+
+![](../../../assets/img/w6/nmf_programs.svg){fig-align="center"}
+
+**NMF (non-negative matrix factorization)**
+
+-   cell × gene matrix ≈ (cell별 program 사용량) × (program별 gene 가중치). 모든 값 ≥ 0 → program은 더해지기만 하고 서로 상쇄 x → 해석하기 쉬움
+-   cell 하나 = program 여러 개의 혼합: cell-type identity + activity (cell cycle, IFN 반응, hypoxia, stress…)
+-   Cluster는 cell마다 label 하나 → cluster를 가로지르는 state(예: 두 cluster에 다 있는 cycling cell)는 안 보임. NMF는 이걸 program으로 따로 뽑아냄
+-   **cNMF**(consensus NMF): NMF를 여러 번 돌려 반복해서 나오는 program만 남김 (SCENIC의 "여러 번 돌리기"와 같은 논리). Identity program과 activity program을 나눠줌
+-   응용: 종양 **meta-program** — 종양마다 NMF → 1,000개 종양에서 반복해서 나오는 program 모음 (cell cycle, stress, hypoxia, EMT-like, IFN 등)
+
+::: {.callout-note collapse="true"}
+## Bulk에서 쓰던 WGCNA는 왜 single-cell에서 덜 쓰나?
+
+WGCNA = gene × gene 상관 network → soft threshold → module(eigengene) → module–trait 상관. Bulk RNA-seq에선 표준
+
+1.  **Sparsity** — cell 하나하나로 계산한 gene 간 상관은 0과 dropout에 휘둘림 → 비슷한 cell 수십 개를 합친 **metacell**부터 만들어야 함(hdWGCNA). 그만큼 해상도 ↓, 정할 parameter ↑
+2.  **조성 confounding** — 여러 cell type이 섞인 조직에선 가장 강한 상관 = cell type 차이 → module이 결국 cell-type marker 묶음. 의미 있게 쓰려면 cell type 하나 안에서만
+3.  **Hard assignment** — WGCNA는 gene 하나를 module 하나에만. NMF는 gene이 여러 program에 걸치고 cell도 program을 섞어 씀 → identity와 activity가 겹치는 single cell엔 NMF가 더 맞음
+
+💡 그래도 hdWGCNA = cell type 하나 안에서 module–condition 관계를 볼 때 씀. Bulk에서 배운 WGCNA를 그대로 이어서 쓸 수 있는 길
+:::
+
+::: {.callout-warning collapse="true"}
+## Module 해석 시 주의
+
+-   ⚠️ **k(program 수)는 내 선택.** Clustering resolution처럼 임의 → cNMF는 stability / error plot으로 고르게 해줌
+-   ⚠️ **Program ≠ pathway.** Gene set enrichment로 이름을 붙여야 의미가 생김 — 그래도 그 이름은 해석일 뿐
+-   ⚠️ **같은 co-expression 한계.** 같이 움직인다 ≠ 같은 regulator. Module–condition 비교는 donor 단위로 (🔗 [W5 §5.2](w5_scrna_qc.qmd#w5-s5-2))
+:::
+
 ## 2) Cell 사이: cell–cell communication {#w6-s3-2}
 
 CellPhoneDB, CellChat, NicheNet = cluster 쌍 사이의 ligand–receptor pair를 **co-expression** 기반으로 점수화. Cluster A에서 ligand mRNA가 높고, cluster B에서 receptor mRNA가 높은가? 그게 전부
@@ -155,9 +200,9 @@ CellPhoneDB, CellChat, NicheNet = cluster 쌍 사이의 ligand–receptor pair�
 
 ## 3) 적절한 사용법 (둘 다) {#w6-s3-3}
 
--   ✅ **Hypothesis generator로** — "어떤 TF / 어떤 axis를 검정해 볼 만한가?"가 딱 이 도구들용 질문
+-   ✅ **Hypothesis generator로** — "어떤 TF / 어떤 program / 어떤 axis를 검정해 볼 만한가?"가 딱 이 도구들용 질문
 -   ✅ **공간적으로 검증 (CCC)** — 두 cell type이 물리적으로 붙어 있다면(🔗 [W7](../part4/w7_spatial_basics.qmd)) 예측이 그럴듯해짐
--   ✅ **기능적으로 검증** — CCC는 blocking antibody, receptor knockout, ligand stimulation / regulon은 TF knockout, Perturb-seq
+-   ✅ **기능적으로 검증** — CCC는 blocking antibody, receptor knockout, ligand stimulation / regulon·program은 TF knockout, Perturb-seq
 -   ❌ **단독 결과로 x** — "Macrophage가 TNF로 T cell에 signal을 보낸다", "TF X가 fibrosis program을 구동한다" 둘 다 co-expression만으로는 입증 안 됨
 
 ------------------------------------------------------------------------
@@ -173,7 +218,7 @@ CellPhoneDB, CellChat, NicheNet = cluster 쌍 사이의 ligand–receptor pair�
 | Compositional method를 쓴 differential abundance | ⚠️ n이 donor라면 견고함 | Results, caveat 포함 |
 | Pseudotime ordering | ⚠️ Hypothesis | Results, "consistent with"로 표현 |
 | RNA velocity direction | ⚠️ Hypothesis, 논쟁 중인 method | Supplementary 또는 hypothesis |
-| Regulon / TF activity (SCENIC, decoupleR) | ⚠️ Hypothesis | Results, "consistent with"로 표현 |
+| Regulon / TF activity / gene program (SCENIC, decoupleR, cNMF) | ⚠️ Hypothesis | Results, "consistent with"로 표현 |
 | Ligand–receptor prediction | ❌ Hypothesis일 뿐 | Discussion 또는 grant aim |
 
 ::: {.callout-tip collapse="true"}
@@ -293,6 +338,7 @@ W7–W8 내용 전부가 그 답에 달려 있음
 -   RNA velocity의 kinetic assumption은 논쟁 중, 화살표는 왜곡된 2D embedding 위에 그려짐
 -   Regulon(cell 안)과 cell–cell communication(cell 사이)은 같은 재료 = snapshot의 co-expression
 -   ⚠️ **TF–target co-expression ≠ regulation.** SCENIC은 motif로 한 번 거르지만, TF mRNA ≠ activity, motif ≠ binding
+-   Gene module = TF 없이 같이 움직이는 gene 묶음. Single cell에선 NMF 계열(cNMF)이 주류 — cell 하나가 program 여러 개를 섞어 씀. WGCNA는 metacell + cell type 하나씩
 -   ⚠️ **Ligand–receptor co-expression ≠ interaction.** Cell끼리 붙어 있지 않을 수도, protein이 안 만들어질 수도 있고, database는 이미 알려진 것 쪽으로 편향
 -   ✅ 이 방법들 = hypothesis generator. "consistent with"로 표현하고, 검정할 실험을 명시
 
@@ -313,6 +359,8 @@ W7–W8 내용 전부가 그 답에 달려 있음
 | Regulon | 전사인자와, 그 전사인자의 motif로 뒷받침되는 표적 유전자 집합 |
 | SCENIC | 공발현 → motif 가지치기 → 세포별 regulon 활성 점수의 3단계 유전자 조절 네트워크 추론 방법 |
 | TF activity | 표적 유전자들의 발현으로 추정한 전사인자 활성 — 전사인자 자체의 mRNA 양과 다름 |
+| Gene program / module | 함께 변하는 유전자 묶음 — 세포마다 사용하는 정도가 다름 |
+| NMF / cNMF | 발현 행렬을 음수가 아닌 program 사용량과 유전자 가중치로 분해하는 방법; cNMF는 반복 실행 결과의 합의 |
 | Ligand–receptor pair | 세포 간 소통 점수 계산에 사용하는 선별된 상호작용 쌍 |
 | CellChat / CellPhoneDB / NicheNet | 상관관계에 기반해 세포 간 소통을 추정하는 도구 |
 | Hypothesis generator | 출력이 답이 아니라 후속 검증이 필요한 질문인 방법 |
@@ -334,12 +382,16 @@ Cao J, et al. [*The single-cell transcriptional landscape of mammalian organogen
 Bergen V, et al. [*Generalizing RNA velocity to transient cell states through dynamical modeling.*](https://doi.org/10.1038/s41587-020-0591-3) Nat Biotechnol. 2020. (scVelo)\
 Bergen V, Soldatov RA, Kharchenko PV, Theis FJ. [*RNA velocity — current challenges and future perspectives.*](https://doi.org/10.15252/msb.202110282) Mol Syst Biol. 2021. **← Figure에 velocity를 쓰기 전에 읽을 논문**
 
-### Gene regulatory network
+### Gene regulatory network와 gene program
 
 Aibar S, et al. [*SCENIC: single-cell regulatory network inference and clustering.*](https://doi.org/10.1038/nmeth.4463) Nat Methods. 2017.\
 Van de Sande B, et al. [*A scalable SCENIC workflow for single-cell gene regulatory network analysis.*](https://doi.org/10.1038/s41596-020-0336-2) Nat Protoc. 2020. **← pySCENIC 실전 protocol, 여러 번 돌리기 포함**\
 Badia-i-Mompel P, et al. [*decoupleR: ensemble of computational methods to infer biological activities from omics data.*](https://doi.org/10.1093/bioadv/vbac016) Bioinform Adv. 2022.\
-Müller-Dott S, et al. [*Expanding the coverage of regulons from high-confidence prior knowledge for accurate estimation of transcription factor activities.*](https://doi.org/10.1093/nar/gkad841) Nucleic Acids Res. 2023. (CollecTRI)
+Müller-Dott S, et al. [*Expanding the coverage of regulons from high-confidence prior knowledge for accurate estimation of transcription factor activities.*](https://doi.org/10.1093/nar/gkad841) Nucleic Acids Res. 2023. (CollecTRI)\
+Kotliar D, et al. [*Identifying gene expression programs of cell-type identity and cellular activity with single-cell RNA-Seq.*](https://doi.org/10.7554/eLife.43803) eLife. 2019. (cNMF)\
+Gavish A, et al. [*Hallmarks of transcriptional intratumour heterogeneity across a thousand tumours.*](https://doi.org/10.1038/s41586-023-06130-4) Nature. 2023. **← 종양 meta-program**\
+Langfelder P, Horvath S. [*WGCNA: an R package for weighted correlation network analysis.*](https://doi.org/10.1186/1471-2105-9-559) BMC Bioinformatics. 2008.\
+Morabito S, et al. [*hdWGCNA identifies co-expression networks in high-dimensional transcriptomics data.*](https://doi.org/10.1016/j.crmeth.2023.100498) Cell Rep Methods. 2023. **← single-cell용 WGCNA (metacell)**
 
 ### Cell–cell communication
 

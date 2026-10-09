@@ -599,7 +599,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#w6-s3" id="toc-w6-s3" class="nav-link" data-scroll-target="#w6-s3">3. Inferring Mechanism from Co-expression 📡</a>
   <ul>
-  <li><a href="#w6-s3-1" id="toc-w6-s3-1" class="nav-link" data-scroll-target="#w6-s3-1">1) Within a cell: gene regulatory networks (regulons)</a></li>
+  <li><a href="#w6-s3-1" id="toc-w6-s3-1" class="nav-link" data-scroll-target="#w6-s3-1">1) Within a cell: regulons and gene modules</a>
+  <ul class="collapse">
+  <li><a href="#regulons-tf-centred" id="toc-regulons-tf-centred" class="nav-link" data-scroll-target="#regulons-tf-centred">① Regulons: TF-centred</a></li>
+  <li><a href="#modules-gene-programs-the-nmf-family" id="toc-modules-gene-programs-the-nmf-family" class="nav-link" data-scroll-target="#modules-gene-programs-the-nmf-family">② Modules: gene programs (the NMF family)</a></li>
+  </ul></li>
   <li><a href="#w6-s3-2" id="toc-w6-s3-2" class="nav-link" data-scroll-target="#w6-s3-2">2) Between cells: cell–cell communication</a></li>
   <li><a href="#w6-s3-3" id="toc-w6-s3-3" class="nav-link" data-scroll-target="#w6-s3-3">3) Using them honestly (both)</a></li>
   </ul></li>
@@ -618,7 +622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#integration" id="toc-integration" class="nav-link" data-scroll-target="#integration">Integration</a></li>
   <li><a href="#trajectory-and-velocity" id="toc-trajectory-and-velocity" class="nav-link" data-scroll-target="#trajectory-and-velocity">Trajectory and velocity</a></li>
-  <li><a href="#gene-regulatory-networks" id="toc-gene-regulatory-networks" class="nav-link" data-scroll-target="#gene-regulatory-networks">Gene regulatory networks</a></li>
+  <li><a href="#gene-regulatory-networks-and-gene-programs" id="toc-gene-regulatory-networks-and-gene-programs" class="nav-link" data-scroll-target="#gene-regulatory-networks-and-gene-programs">Gene regulatory networks and gene programs</a></li>
   <li><a href="#cellcell-communication" id="toc-cellcell-communication" class="nav-link" data-scroll-target="#cellcell-communication">Cell–cell communication</a></li>
   </ul></li>
   </ul>
@@ -678,7 +682,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Explain what pseudotime orders — and ⚠️ why it is not time</li>
 <li>⚠️ Say why a trajectory algorithm always returns a trajectory</li>
 <li>Explain where RNA velocity’s direction comes from, and which of its assumptions are contested</li>
-<li>⚠️ Separate what a regulon built from TF–target co-expression does and does not tell you</li>
+<li>⚠️ Separate what regulons and gene modules built from co-expression do and do not tell you</li>
 <li>⚠️ Explain why ligand–receptor co-expression is not evidence of an interaction</li>
 <li>Decide which of these results belongs in a grant as a hypothesis, and which belongs in a paper as a finding</li>
 </ul>
@@ -803,12 +807,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>3. Inferring Mechanism from Co-expression 📡</h1>
 <p>Same raw material — <strong>co-expression</strong> within one snapshot. Only where you look differs:</p>
 <ul>
-<li><strong>Within a cell</strong> — TF ↔︎ target genes → a <strong>regulon</strong> (gene regulatory network)</li>
+<li><strong>Within a cell</strong> — gene ↔︎ gene → a <strong>regulon</strong> (TF-centred) or a <strong>module</strong> (gene program)</li>
 <li><strong>Between cells</strong> — ligand ↔︎ receptor → <strong>cell–cell communication</strong></li>
 </ul>
-<p>→ Same limit, too: co-expression is not regulation, and not interaction. Both are hypothesis generators.</p>
+<p>→ Same limit, too: co-expression is not regulation, and not interaction. All of them are hypothesis generators.</p>
 <section id="w6-s3-1" class="level2">
-<h2 class="anchored" data-anchor-id="w6-s3-1">1) Within a cell: gene regulatory networks (regulons)</h2>
+<h2 class="anchored" data-anchor-id="w6-s3-1">1) Within a cell: regulons and gene modules</h2>
+<p>Co-expression inside a cell, but two different questions:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 37%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>① Regulon</th>
+<th>② Module (gene program)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Asks</td>
+<td>Which TF switches this state on?</td>
+<td>Which genes move together?</td>
+</tr>
+<tr class="even">
+<td>Direction</td>
+<td>TF → target (directed)</td>
+<td>none — just a group</td>
+</tr>
+<tr class="odd">
+<td>Prior knowledge</td>
+<td>TF list + motif database</td>
+<td>none (unsupervised)</td>
+</tr>
+<tr class="even">
+<td>Typical tools</td>
+<td>SCENIC, decoupleR</td>
+<td>cNMF, (hd)WGCNA</td>
+</tr>
+</tbody>
+</table>
+<section id="regulons-tf-centred" class="level3">
+<h3 class="anchored" data-anchor-id="regulons-tf-centred">① Regulons: TF-centred</h3>
 <blockquote class="blockquote">
 <p>Which TF is switching this cell state on?</p>
 </blockquote>
@@ -849,6 +892,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
+<section id="modules-gene-programs-the-nmf-family" class="level3">
+<h3 class="anchored" data-anchor-id="modules-gene-programs-the-nmf-family">② Modules: gene programs (the NMF family)</h3>
+<blockquote class="blockquote">
+<p>Without a TF list: find the groups of genes that move together, from the data alone</p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w6/nmf_programs.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p><strong>NMF (non-negative matrix factorisation)</strong></p>
+<ul>
+<li>cell × gene matrix ≈ (program usage per cell) × (gene weights per program). Every value is ≥ 0 → programs only add up and never cancel each other out → easy to read</li>
+<li>Each cell is a <strong>mixture</strong> of programs: cell-type identity + activities (cell cycle, IFN response, hypoxia, stress…)</li>
+<li>A cluster gives each cell one label → a state that cuts across clusters (e.g.&nbsp;cycling cells in two clusters) stays invisible. NMF pulls it out as its own program</li>
+<li><strong>cNMF</strong> (consensus NMF): run NMF many times and keep only the programs that recur — the same logic as rerunning SCENIC. It separates identity programs from activity programs</li>
+<li>Applied: tumour <strong>meta-programs</strong> — NMF per tumour → programs that recur across a thousand tumours (cell cycle, stress, hypoxia, EMT-like, IFN…)</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why WGCNA, standard in bulk, is used less in single cells
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>WGCNA = gene × gene correlation network → soft threshold → modules (eigengenes) → module–trait correlation. The standard tool in bulk RNA-seq.</p>
+<ol type="1">
+<li><strong>Sparsity</strong> — gene–gene correlations computed over individual cells are swamped by zeros and dropout → you first have to pool similar cells into <strong>metacells</strong> (hdWGCNA). Resolution goes down, and the number of choices goes up</li>
+<li><strong>Composition confounding</strong> — in a mixed tissue the strongest correlations come from cell-type differences → modules end up as cell-type marker sets. To be useful, it has to run within one cell type</li>
+<li><strong>Hard assignment</strong> — WGCNA puts each gene in exactly one module. NMF lets a gene sit in several programs and a cell mix programs → a better fit for single cells, where identity and activity overlap</li>
+</ol>
+<p>💡 hdWGCNA is still the tool when you want module–condition relationships within one cell type — and the direct bridge from the WGCNA you learned for bulk</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Reading modules
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>⚠️ <strong>k (the number of programs) is your choice</strong> — as arbitrary as clustering resolution. cNMF gives you a stability / error plot to choose it</li>
+<li>⚠️ <strong>A program is not a pathway.</strong> It needs gene set enrichment to get a name — and that name is still an interpretation</li>
+<li>⚠️ <strong>The same co-expression limit.</strong> Moving together ≠ sharing a regulator. Compare modules between conditions per donor (🔗 <a href="../../chapters/part3/w5_scrna_qc.html#w5-s5-2">W5 §5.2</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
 <section id="w6-s3-2" class="level2">
 <h2 class="anchored" data-anchor-id="w6-s3-2">2) Between cells: cell–cell communication</h2>
 <p>CellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster pairs based on <strong>co-expression</strong> — the ligand’s mRNA is high in cluster A, its receptor’s mRNA is high in cluster B.</p>
@@ -863,9 +968,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="w6-s3-3" class="level2">
 <h2 class="anchored" data-anchor-id="w6-s3-3">3) Using them honestly (both)</h2>
 <ul>
-<li>✅ <strong>As a hypothesis generator</strong> — “which TF / which axis is worth testing?” is exactly what these tools are for</li>
+<li>✅ <strong>As a hypothesis generator</strong> — “which TF / which program / which axis is worth testing?” is exactly what these tools are for</li>
 <li>✅ <strong>Validated spatially (CCC)</strong> — if the two cell types are physically adjacent (🔗 <a href="../../chapters/part4/w7_spatial_basics.html">W7</a>), the prediction becomes plausible</li>
-<li>✅ <strong>Validated functionally</strong> — CCC: blocking antibody, receptor knockout, ligand stimulation / regulons: TF knockout, Perturb-seq</li>
+<li>✅ <strong>Validated functionally</strong> — CCC: blocking antibody, receptor knockout, ligand stimulation / regulons and programs: TF knockout, Perturb-seq</li>
 <li>❌ <strong>As a standalone result</strong> — neither “macrophages signal to T cells via TNF” nor “TF X drives the fibrosis program” is shown by co-expression</li>
 </ul>
 <hr>
@@ -914,7 +1019,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Supplementary, or a hypothesis</td>
 </tr>
 <tr class="even">
-<td>Regulon / TF activity (SCENIC, decoupleR)</td>
+<td>Regulon / TF activity / gene program (SCENIC, decoupleR, cNMF)</td>
 <td>⚠️ Hypothesis</td>
 <td>Results, phrased as “consistent with”</td>
 </tr>
@@ -926,7 +1031,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -935,7 +1040,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><em>“Trajectory analysis revealed that fibroblasts differentiate into myofibroblasts, and cell–cell communication analysis showed that macrophage-derived TGF-β drives this transition.”</em></p>
 <p>Nothing here was revealed or shown. Two algorithms produced two orderings from one snapshot of dissociated cells.</p>
@@ -1044,6 +1149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>RNA velocity’s kinetic assumptions are contested, and its arrows sit on a distorted 2D embedding</li>
 <li>Regulons (within a cell) and cell–cell communication (between cells) use the same raw material: snapshot co-expression</li>
 <li>⚠️ <strong>TF–target co-expression is not regulation.</strong> SCENIC filters by motif once, but TF mRNA ≠ activity and motif ≠ binding</li>
+<li>Gene modules are genes that move together, no TF needed. In single cells the NMF family (cNMF) dominates — each cell mixes several programs. WGCNA needs metacells and one cell type at a time</li>
 <li>⚠️ <strong>Ligand–receptor co-expression is not interaction</strong>: cells may never be adjacent, the protein may never be made, and the database is biased toward what is already known</li>
 <li>✅ These are hypothesis generators. Phrase them as “consistent with” and name the experiment that would test them</li>
 </ul>
@@ -1108,6 +1214,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>A TF’s activity inferred from its targets’ expression — not the TF’s own mRNA level</td>
 </tr>
 <tr class="even">
+<td>Gene program / module</td>
+<td>A group of genes that vary together — each cell uses it to a different degree</td>
+</tr>
+<tr class="odd">
+<td>NMF / cNMF</td>
+<td>Factorising expression into non-negative program usage and gene weights; cNMF takes the consensus of many runs</td>
+</tr>
+<tr class="even">
 <td>Ligand–receptor pair</td>
 <td>A curated interaction used to score communication</td>
 </tr>
@@ -1138,12 +1252,16 @@ Cao J, et al.&nbsp;<a href="https://doi.org/10.1038/s41586-019-0969-x"><em>The s
 Bergen V, et al.&nbsp;<a href="https://doi.org/10.1038/s41587-020-0591-3"><em>Generalizing RNA velocity to transient cell states through dynamical modeling.</em></a> Nat Biotechnol. 2020. (scVelo)<br>
 Bergen V, Soldatov RA, Kharchenko PV, Theis FJ. <a href="https://doi.org/10.15252/msb.202110282"><em>RNA velocity — current challenges and future perspectives.</em></a> Mol Syst Biol. 2021. <strong>← read this before using velocity in a figure</strong></p>
 </section>
-<section id="gene-regulatory-networks" class="level3">
-<h3 class="anchored" data-anchor-id="gene-regulatory-networks">Gene regulatory networks</h3>
+<section id="gene-regulatory-networks-and-gene-programs" class="level3">
+<h3 class="anchored" data-anchor-id="gene-regulatory-networks-and-gene-programs">Gene regulatory networks and gene programs</h3>
 <p>Aibar S, et al.&nbsp;<a href="https://doi.org/10.1038/nmeth.4463"><em>SCENIC: single-cell regulatory network inference and clustering.</em></a> Nat Methods. 2017.<br>
 Van de Sande B, et al.&nbsp;<a href="https://doi.org/10.1038/s41596-020-0336-2"><em>A scalable SCENIC workflow for single-cell gene regulatory network analysis.</em></a> Nat Protoc. 2020. <strong>← the practical pySCENIC protocol, including repeated runs</strong><br>
 Badia-i-Mompel P, et al.&nbsp;<a href="https://doi.org/10.1093/bioadv/vbac016"><em>decoupleR: ensemble of computational methods to infer biological activities from omics data.</em></a> Bioinform Adv. 2022.<br>
-Müller-Dott S, et al.&nbsp;<a href="https://doi.org/10.1093/nar/gkad841"><em>Expanding the coverage of regulons from high-confidence prior knowledge for accurate estimation of transcription factor activities.</em></a> Nucleic Acids Res. 2023. (CollecTRI)</p>
+Müller-Dott S, et al.&nbsp;<a href="https://doi.org/10.1093/nar/gkad841"><em>Expanding the coverage of regulons from high-confidence prior knowledge for accurate estimation of transcription factor activities.</em></a> Nucleic Acids Res. 2023. (CollecTRI)<br>
+Kotliar D, et al.&nbsp;<a href="https://doi.org/10.7554/eLife.43803"><em>Identifying gene expression programs of cell-type identity and cellular activity with single-cell RNA-Seq.</em></a> eLife. 2019. (cNMF)<br>
+Gavish A, et al.&nbsp;<a href="https://doi.org/10.1038/s41586-023-06130-4"><em>Hallmarks of transcriptional intratumour heterogeneity across a thousand tumours.</em></a> Nature. 2023. <strong>← tumour meta-programs</strong><br>
+Langfelder P, Horvath S. <a href="https://doi.org/10.1186/1471-2105-9-559"><em>WGCNA: an R package for weighted correlation network analysis.</em></a> BMC Bioinformatics. 2008.<br>
+Morabito S, et al.&nbsp;<a href="https://doi.org/10.1016/j.crmeth.2023.100498"><em>hdWGCNA identifies co-expression networks in high-dimensional transcriptomics data.</em></a> Cell Rep Methods. 2023. <strong>← WGCNA for single cells (metacells)</strong></p>
 </section>
 <section id="cellcell-communication" class="level3">
 <h3 class="anchored" data-anchor-id="cellcell-communication">Cell–cell communication</h3>
