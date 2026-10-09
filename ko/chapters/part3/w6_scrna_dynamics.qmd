@@ -101,7 +101,7 @@ Biology는 동적이지만 single-cell experiment는 snapshot입니다. 진행 �
 
 RNA velocity는 gene별 unspliced(new) transcript와 spliced(mature) transcript를 비교해 **방향**을 더합니다. Steady state의 예측보다 unspliced transcript가 많다면 해당 gene이 켜지고 있는 것입니다.
 
-⚠️ Splicing과 degradation kinetics에 관한 가정은 **논쟁 중**이며 일부 gene과 system에서 실패한다고 알려져 있습니다. 화살표는 UMAP 위에 그려지므로 🔗 [W5 §4.2](w5_scrna_qc.qmd#w5-s4-2)의 모든 distortion을 물려받습니다.
+⚠️ Splicing과 degradation kinetics에 관한 가정은 **논쟁 중**이며 일부 gene과 system에서 실패한다고 알려져 있습니다. 화살표는 UMAP 위에 그려지므로 🔗 [W5 §4.3](w5_scrna_qc.qmd#w5-s4-3)의 모든 distortion을 물려받습니다.
 
 ✅ Trajectory 주장을 확정하는 것은 더 나은 algorithm이 아니라 **time course** 또는 **lineage tracing**입니다.
 

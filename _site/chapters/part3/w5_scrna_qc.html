@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eunji Ha">
-<meta name="dcterms.date" content="2026-10-02">
+<meta name="dcterms.date" content="2026-10-09">
 
 <title>W5. Single-cell RNA-seq — Technology, QC, Clustering</title>
 <style>
@@ -590,30 +590,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#w5-s1-1" id="toc-w5-s1-1" class="nav-link" data-scroll-target="#w5-s1-1">1) three biologies in a single number</a></li>
   <li><a href="#w5-s1-2" id="toc-w5-s1-2" class="nav-link" data-scroll-target="#w5-s1-2">2) When single cell is worth it</a></li>
   </ul></li>
-  <li><a href="#w5-s2" id="toc-w5-s2" class="nav-link" data-scroll-target="#w5-s2">2. ⚠️ Decisions Made Before the Machine 🧫</a>
+  <li><a href="#w5-s2" id="toc-w5-s2" class="nav-link" data-scroll-target="#w5-s2">2. Decisions Made Before the Machine 🤔</a>
   <ul>
   <li><a href="#w5-s2-1" id="toc-w5-s2-1" class="nav-link" data-scroll-target="#w5-s2-1">1) The platform trade-off</a></li>
-  <li><a href="#w5-s2-2" id="toc-w5-s2-2" class="nav-link" data-scroll-target="#w5-s2-2">2) ⚠️ Cells or nuclei — and why it is decided at collection</a></li>
-  <li><a href="#w5-s2-3" id="toc-w5-s2-3" class="nav-link" data-scroll-target="#w5-s2-3">3) considerations for a study design</a></li>
+  <li><a href="#vs.-5-for-droplet-kits" id="toc-vs.-5-for-droplet-kits" class="nav-link" data-scroll-target="#vs.-5-for-droplet-kits">2) 3′ vs.&nbsp;5′ (for droplet kits)</a></li>
+  <li><a href="#w5-s2-2" id="toc-w5-s2-2" class="nav-link" data-scroll-target="#w5-s2-2">3) Cells vs nuclei</a></li>
+  <li><a href="#w5-s2-3" id="toc-w5-s2-3" class="nav-link" data-scroll-target="#w5-s2-3">4) considerations for a study design</a></li>
   </ul></li>
-  <li><a href="#w5-s3" id="toc-w5-s3" class="nav-link" data-scroll-target="#w5-s3">3. From Droplets to a Matrix 🧮</a>
+  <li><a href="#w5-s3" id="toc-w5-s3" class="nav-link" data-scroll-target="#w5-s3">3. Data pre-processing 🧮</a>
   <ul>
-  <li><a href="#w5-s3-1" id="toc-w5-s3-1" class="nav-link" data-scroll-target="#w5-s3-1">1) two tags: Barcodes and UMIs <img src="images/clipboard-150401913.png" class="img-fluid"></a></li>
-  <li><a href="#w5-s3-2" id="toc-w5-s3-2" class="nav-link" data-scroll-target="#w5-s3-2">2) Why the matrix is over 90% zeros</a></li>
-  <li><a href="#w5-s3-3" id="toc-w5-s3-3" class="nav-link" data-scroll-target="#w5-s3-3">3) ⚠️ QC is an analysis decision, not cleaning</a></li>
+  <li><a href="#w5-s3-1" id="toc-w5-s3-1" class="nav-link" data-scroll-target="#w5-s3-1">1) the standard pipeline: from Droplets to a Matrix</a></li>
+  <li><a href="#w5-s3-2" id="toc-w5-s3-2" class="nav-link" data-scroll-target="#w5-s3-2">2) capturing a single-cell</a>
+  <ul class="collapse">
+  <li><a href="#two-tags-barcodes-and-umis" id="toc-two-tags-barcodes-and-umis" class="nav-link" data-scroll-target="#two-tags-barcodes-and-umis">① two tags: Barcodes and UMIs</a></li>
+  <li><a href="#cell-calling" id="toc-cell-calling" class="nav-link" data-scroll-target="#cell-calling">② cell calling</a></li>
+  <li><a href="#removal-of-ambient-rna" id="toc-removal-of-ambient-rna" class="nav-link" data-scroll-target="#removal-of-ambient-rna">③ removal of ambient RNA</a></li>
+  </ul></li>
+  <li><a href="#w5-s3-3" id="toc-w5-s3-3" class="nav-link" data-scroll-target="#w5-s3-3">3) data QC: your own cutoffs</a>
+  <ul class="collapse">
+  <li><a href="#low-quality-qc" id="toc-low-quality-qc" class="nav-link" data-scroll-target="#low-quality-qc">① low-quality QC</a></li>
+  <li><a href="#doublets" id="toc-doublets" class="nav-link" data-scroll-target="#doublets">② doublets</a></li>
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">③ Recap</a></li>
+  </ul></li>
+  <li><a href="#w5-s3-4" id="toc-w5-s3-4" class="nav-link" data-scroll-target="#w5-s3-4">4) dimension reduction</a>
+  <ul class="collapse">
+  <li><a href="#normalization-scaling" id="toc-normalization-scaling" class="nav-link" data-scroll-target="#normalization-scaling">① normalization &amp; scaling</a></li>
+  <li><a href="#pca-dimension-reduction" id="toc-pca-dimension-reduction" class="nav-link" data-scroll-target="#pca-dimension-reduction">② PCA: dimension reduction</a></li>
+  <li><a href="#batch-correction" id="toc-batch-correction" class="nav-link" data-scroll-target="#batch-correction">③ batch correction</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#w5-s4" id="toc-w5-s4" class="nav-link" data-scroll-target="#w5-s4">4. Finding Cell Types 🗺️</a>
   <ul>
-  <li><a href="#w5-s4-1" id="toc-w5-s4-1" class="nav-link" data-scroll-target="#w5-s4-1">1) The standard pipeline</a></li>
-  <li><a href="#w5-s4-2" id="toc-w5-s4-2" class="nav-link" data-scroll-target="#w5-s4-2">2) UMAP</a></li>
-  <li><a href="#w5-s4-3" id="toc-w5-s4-3" class="nav-link" data-scroll-target="#w5-s4-3">3) Clustering resolution is arbitrary</a></li>
+  <li><a href="#w5-s4-1" id="toc-w5-s4-1" class="nav-link" data-scroll-target="#w5-s4-1">1) neighbors for grouping cells</a></li>
+  <li><a href="#w5-s4-2" id="toc-w5-s4-2" class="nav-link" data-scroll-target="#w5-s4-2">2) clustering</a>
+  <ul class="collapse">
+  <li><a href="#leiden-vs.-louvain" id="toc-leiden-vs.-louvain" class="nav-link" data-scroll-target="#leiden-vs.-louvain">① leiden vs.&nbsp;louvain</a></li>
+  <li><a href="#resolution" id="toc-resolution" class="nav-link" data-scroll-target="#resolution">② resolution</a></li>
+  </ul></li>
+  <li><a href="#w5-s4-3" id="toc-w5-s4-3" class="nav-link" data-scroll-target="#w5-s4-3">3) UMAP</a></li>
   <li><a href="#w5-s4-4" id="toc-w5-s4-4" class="nav-link" data-scroll-target="#w5-s4-4">4) Annotation</a></li>
   </ul></li>
-  <li><a href="#w5-s5" id="toc-w5-s5" class="nav-link" data-scroll-target="#w5-s5">5. Statistics 📊</a>
+  <li><a href="#w5-s5" id="toc-w5-s5" class="nav-link" data-scroll-target="#w5-s5">5. Statistics (DEG analysis) 📊</a>
   <ul>
-  <li><a href="#w5-s5-1" id="toc-w5-s5-1" class="nav-link" data-scroll-target="#w5-s5-1">1) Why per-cell tests are wrong</a></li>
-  <li><a href="#w5-s5-2" id="toc-w5-s5-2" class="nav-link" data-scroll-target="#w5-s5-2">2) Pseudobulk</a></li>
-  <li><a href="#w5-s5-3" id="toc-w5-s5-3" class="nav-link" data-scroll-target="#w5-s5-3">3) Differential abundance is compositional</a></li>
+  <li><a href="#w5-s5-1" id="toc-w5-s5-1" class="nav-link" data-scroll-target="#w5-s5-1">1) values to use</a></li>
+  <li><a href="#w5-s5-2" id="toc-w5-s5-2" class="nav-link" data-scroll-target="#w5-s5-2">2) per-cell tests</a></li>
+  <li><a href="#w5-s5-3" id="toc-w5-s5-3" class="nav-link" data-scroll-target="#w5-s5-3">3) Pseudobulk</a></li>
+  <li><a href="#w5-s5-4" id="toc-w5-s5-4" class="nav-link" data-scroll-target="#w5-s5-4">4) Differential abundance is compositional</a></li>
   </ul></li>
   <li><a href="#w5-s6" id="toc-w5-s6" class="nav-link" data-scroll-target="#w5-s6">6. Hands-On 💻</a>
   <ul>
@@ -658,7 +680,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 2, 2026</p>
+      <p class="date">October 9, 2026</p>
     </div>
   </div>
   
@@ -689,7 +711,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>⚠️ Explain why dissociation changes the composition you measure</li>
 <li>Explain what a UMI is, and why the count matrix is mostly zeros</li>
 <li>⚠️ Read a knee plot and a QC scatter, and name the population each threshold deletes</li>
+<li>Explain how a doublet detector works — and which doublets no detector can see</li>
 <li>⚠️ Read a UMAP responsibly — and say what its distances do and do not mean</li>
+<li>⚠️ Say which version of the matrix — raw, normalised, scaled, batch-corrected — each step should use</li>
 <li>⚠️ Explain why per-cell differential expression across conditions is invalid, and what pseudobulk does instead</li>
 </ul>
 </div>
@@ -752,16 +776,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="w5-s2" class="level1">
-<h1>2. ⚠️ Decisions Made Before the Machine 🧫</h1>
+<h1>2. Decisions Made Before the Machine 🤔</h1>
 <section id="w5-s2-1" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s2-1">1) The platform trade-off</h2>
 <p>Every platform buys cells with depth, or depth with cells.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 23%">
-<col style="width: 23%">
-<col style="width: 23%">
-<col style="width: 30%">
+<col style="width: 27%">
+<col style="width: 10%">
+<col style="width: 33%">
+<col style="width: 26%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -775,7 +799,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td><strong>Droplet (10x)</strong></td>
 <td>10³–10⁵</td>
-<td>a few thousand genes/cell, 3′ end only</td>
+<td>a few thousand genes/cell, 3′ or 5′ end only</td>
 <td>the current default</td>
 </tr>
 <tr class="even">
@@ -793,12 +817,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="w5-s2-2" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s2-2">2) ⚠️ Cells or nuclei — and why it is decided at collection</h2>
+<section id="vs.-5-for-droplet-kits" class="level2">
+<h2 class="anchored" data-anchor-id="vs.-5-for-droplet-kits">2) 3′ vs.&nbsp;5′ (for droplet kits)</h2>
+<p><strong>one end</strong> of each transcript, not the full length — enough to count genes, not to see isoforms.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w5/dissociation_bias.svg" class="img-fluid figure-img"></p>
-<figcaption>The composition you measure is the composition that survived.</figcaption>
+<p><img src="../..\assets/img/w5/three_vs_five_prime.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li>✅ <strong>Most single-cell data is 3′</strong>, including most public atlases. 5′ is the choice when you need clonotypes: T/B cells, tumour immunology, autoimmunity, vaccine responses</li>
+<li>⚠️ For gene counting the two are broadly similar, but <strong>not interchangeable within one comparison</strong> — 3′ and 5′ samples mixed in one study are a batch effect by design</li>
+<li>💡 For fixed or FFPE samples there is a third route: probe-based kits (10x Flex) that hybridise probes instead of capturing the poly(A) tail</li>
+<li>The bead drawn in §3.2 is a 5′ bead — note the TSO at its end</li>
+</ul>
+</section>
+<section id="w5-s2-2" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s2-2">3) Cells vs nuclei</h2>
+<p>⚠️ Decided at collection, not at analysis<br>
+scRNA-seq needs <strong>fresh</strong>, viable tissue dissociated into intact cells</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w5/dissociation_bias.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <table class="caption-top table">
@@ -864,42 +904,347 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="w5-s2-3" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s2-3">3) considerations for a study design</h2>
+<h2 class="anchored" data-anchor-id="w5-s2-3">4) considerations for a study design</h2>
 <p>⚠️ <strong>Your unit of replication is the donor.</strong> Everything in §5 follows from this, and it should shape the budget before it shapes the analysis.</p>
 <p>💡 Given a fixed budget: <strong>more donors, fewer cells each</strong> beats <strong>fewer donors, more cells each</strong> for almost any question that compares conditions.</p>
 <hr>
 </section>
 </section>
 <section id="w5-s3" class="level1">
-<h1>3. From Droplets to a Matrix 🧮</h1>
+<h1>3. Data pre-processing 🧮</h1>
 <section id="w5-s3-1" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s3-1">1) two tags: Barcodes and UMIs <img src="images/clipboard-150401913.png" class="img-fluid"></h2>
-<ul>
-<li><strong>Cell barcode</strong> — for the cell</li>
-<li><strong>UMI</strong> (unique molecular identifier) — for the transcript … PCR artifacts / amplification bias (x)</li>
-</ul>
+<h2 class="anchored" data-anchor-id="w5-s3-1">1) the standard pipeline: from Droplets to a Matrix</h2>
+<p><img src="images/clipboard-949377196.png" class="img-fluid"></p>
+<p>so many steps😟? –&gt; the more steps, the more errors propagate …😵‍💫</p>
 </section>
 <section id="w5-s3-2" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s3-2">2) Why the matrix is over 90% zeros</h2>
+<h2 class="anchored" data-anchor-id="w5-s3-2">2) capturing a single-cell</h2>
+<section id="two-tags-barcodes-and-umis" class="level3">
+<h3 class="anchored" data-anchor-id="two-tags-barcodes-and-umis">① two tags: Barcodes and UMIs</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-150401913.png" class="img-fluid figure-img"></p>
+<figcaption>One gel bead per droplet (a 5′ bead; see §2.2). Every oligo on the bead carries the same cell barcode and a different UMI. (Lower: an antibody-conjugated oligo, which reads out surface protein with the same barcode, as in CITE-seq.)</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Cell barcode</strong> — identical on every oligo of one bead → every molecule captured in that droplet is tagged <em>“from this cell”</em></li>
+<li><strong>UMI</strong> (unique molecular identifier) — random, different on every oligo → tags each original mRNA molecule <strong>before</strong> amplification</li>
+</ul>
+<p>✅ The matrix counts <strong>molecules, not reads</strong> — PCR duplicates and amplification bias are removed<br>
+⚠️ What UMIs cannot fix: a molecule that was never captured gets no UMI at all. Hence the zeros below</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>sparsity: why the matrix is over 90% zeros
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>A droplet experiment detects roughly 1,000–5,000 genes per cell, out of ~20,000.<br>
 Zero count means:</p>
 <ul>
 <li><strong>Biological zero</strong> — the gene really is not expressed in that cell</li>
 <li><strong>Technical zero (dropout)</strong> — the transcript was there and was not captured. Droplet capture efficiency is ~10–30%</li>
 </ul>
+</div>
+</div>
+</div>
+</section>
+<section id="cell-calling" class="level3">
+<h3 class="anchored" data-anchor-id="cell-calling">② cell calling</h3>
+<blockquote class="blockquote">
+<p>Which barcodes are cells, and which are empty droplets?</p>
+</blockquote>
+<ul>
+<li><strong>Droplets.</strong> Cells are loaded dilute on purpose</li>
+<li><strong>Barcode rank plot (knee plot).</strong> Rank every barcode by total UMI count and plot on log–log axes:</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w5/knee_plot.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li>① <strong>High plateau</strong> — real cells</li>
+<li>② <strong>Steep drop (the knee)</strong> — the transition</li>
+<li>③ <strong>Long low tail</strong> — empty droplets carrying only ambient RNA</li>
+</ul>
+<p>⚠️ A hard cut at the knee deletes real cells that simply have little RNA — small or quiescent cells, neutrophils. They sit exactly in the transition zone.</p>
+<p>✅ <strong>EmptyDrops</strong> (Cell Ranger ≥ 3 uses a version of it) asks a better question: not “is the total high?” but “is this barcode’s <strong>profile</strong> different from the ambient profile?” A small cell with a distinct profile is kept even though its total is low.</p>
+<p>💡 Cell Ranger writes two matrices: <code>filtered_feature_bc_matrix</code> (called cells) and <code>raw_feature_bc_matrix</code> (every barcode). <strong>Keep the raw one</strong> — ambient-RNA correction needs the empty droplets.</p>
+</section>
+<section id="removal-of-ambient-rna" class="level3">
+<h3 class="anchored" data-anchor-id="removal-of-ambient-rna">③ removal of ambient RNA</h3>
+<p>Cells that burst during dissociation and loading release their mRNA into the suspension. This <strong>“soup”</strong> is captured in every droplet, so every cell’s profile = its own RNA + a little soup.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w5/ambient_rna.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li><strong>What it looks like</strong> — markers of the most abundant or most fragile cell type at low level in <strong>every</strong> cluster: haemoglobin genes in every cell of a bloody sample, <em>ALB</em> in the immune cells of a liver</li>
+<li><strong>Why it matters</strong> — false co-expression, blurred cluster boundaries, and ⚠️ false DE when one condition releases more soup (diseased, necrotic tissue usually does)</li>
+</ul>
+<p>⚠️ <strong>every droplet-based protocol</strong> has it, and <strong>snRNA-seq the most</strong> (isolating nuclei lyses every cell)</p>
+<p>💡 <strong>Well-based platforms (BD Rhapsody, plate-based Smart-seq) usually skip this step.</strong> Cells settle or are sorted into separate wells carrying little of the surrounding buffer, so far less soup is captured than in a droplet, which seals the buffer in with the cell. ⚠️ Less is not zero — the same symptom (one cell type’s markers everywhere) still means contamination.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 23%">
+<col style="width: 64%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Input</th>
+<th>Idea</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>SoupX</strong></td>
+<td>raw + filtered matrix, clusters</td>
+<td>Estimates the soup from empty droplets, then subtracts a contamination fraction</td>
+</tr>
+<tr class="even">
+<td><strong>CellBender</strong></td>
+<td>raw matrix</td>
+<td>Generative model that calls cells <strong>and</strong> removes ambient RNA in one step; GPU recommended</td>
+</tr>
+<tr class="odd">
+<td><strong>DecontX</strong></td>
+<td>filtered matrix (raw optional)</td>
+<td>Bayesian; usable when the empty droplets were not kept</td>
+</tr>
+</tbody>
+</table>
+<p>✅ Run it <strong>before</strong> QC and clustering, on each sample separately — the corrected counts are the input to everything below.</p>
+</section>
 </section>
 <section id="w5-s3-3" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s3-3">3) ⚠️ QC is an analysis decision, not cleaning</h2>
+<h2 class="anchored" data-anchor-id="w5-s3-3">3) data QC: your own cutoffs</h2>
+<section id="low-quality-qc" class="level3">
+<h3 class="anchored" data-anchor-id="low-quality-qc">① low-quality QC</h3>
+<p>Three numbers per cell:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 28%">
+<col style="width: 26%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Seurat / scanpy</th>
+<th>Too low →</th>
+<th>Too high →</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Total UMIs</td>
+<td><code>nCount_RNA</code> / <code>total_counts</code></td>
+<td>empty droplet, debris, broken cell</td>
+<td>doublet — or a large, active cell</td>
+</tr>
+<tr class="even">
+<td>Genes detected</td>
+<td><code>nFeature_RNA</code> / <code>n_genes_by_counts</code></td>
+<td>as above</td>
+<td>as above</td>
+</tr>
+<tr class="odd">
+<td>Mitochondrial %</td>
+<td><code>percent.mt</code> / <code>pct_counts_mt</code></td>
+<td>—</td>
+<td>dying cell — or a mitochondria-rich one</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why a high mito fraction means a dying cell</strong>: when the membrane breaks, cytoplasmic mRNA leaks out, but transcripts inside mitochondria are protected by the mitochondrial membrane and stay. The <strong>fraction</strong> rises — not because the cell made more.</p>
+<p>⚠️ <strong>Read them jointly.</strong> High mito <strong>and</strong> few genes = broken cell. High mito with a normal gene count may be a genuinely mitochondria-rich cell (cardiomyocyte, hepatocyte, renal tubule)<br>
+⚠️ <strong>snRNA-seq</strong>: nuclei contain no mitochondria, so mito reads should be near zero. Any real fraction is cytoplasmic or ambient contamination → a much stricter cut</p>
+<p>✅ <strong>Data-driven cutoffs</strong>: flag cells more than <em>k</em> <strong>median absolute deviations (MADs)</strong> from the median (<code>scater::isOutlier</code>; <em>k</em> = 3 strict … 5 permissive) — the threshold adapts to each sample<br>
+✅ <strong>Per sample, always.</strong> A more deeply sequenced sample shifts all three distributions</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../..\assets/img/w5/qc_thresholds.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Every threshold needs its rationale
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>A mito cutoff of 5% is conventional — and <strong>wrong for cardiomyocytes</strong>, which are genuinely mitochondria-rich. need to set your <strong>data-specific cutoffs</strong></li>
+<li><code>min.features = 500</code> removes debris — <strong>and also</strong> platelets, some granulocytes, and any small low-RNA cell</li>
+<li>An upper <code>nFeature</code> cutoff removes doublets — <strong>and also</strong> genuinely large, transcriptionally active cells</li>
+</ul>
+<p>✅ <strong>Plot</strong> the distribution, look at what sits outside your proposed cut → <strong>decide</strong> your <strong>own</strong> thresholds</p>
+</div>
+</div>
+</div>
+</section>
+<section id="doublets" class="level3">
+<h3 class="anchored" data-anchor-id="doublets">② doublets</h3>
+<p>Two cells in one droplet share a barcode and look like <strong>one cell with a hybrid profile</strong>. The rate rises with loading: ~0.8% per 1,000 cells recovered on standard 10x — <strong>10,000 cells → ~8% doublets</strong>.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 27%">
-<col style="width: 36%">
-<col style="width: 36%">
+<col style="width: 28%">
+<col style="width: 35%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Heterotypic</strong></th>
+<th><strong>Homotypic</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Made of</td>
+<td>two different cell types (T cell + monocyte)</td>
+<td>two cells of the same type</td>
+</tr>
+<tr class="even">
+<td>Looks like</td>
+<td>markers of both types; a fake “intermediate” cluster or a bridge between clusters</td>
+<td>one cell with ~2× the counts</td>
+</tr>
+<tr class="odd">
+<td>Detectable from expression</td>
+<td>✅ yes</td>
+<td>❌ almost never</td>
+</tr>
+<tr class="even">
+<td>Damage</td>
+<td>⚠️ invented cell types and transitions</td>
+<td>mild</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The core idea</strong>: we never see which barcodes are doublets — but we can <strong>make</strong> doublets, and then ask which real cells look like them.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w5/doublet_detection.svg" class="img-fluid figure-img"></p>
+<figcaption>A real cell surrounded by artificial doublets in PC space is probably a doublet itself.</figcaption>
+</figure>
+</div>
+<p><strong>DoubletFinder — the logic in four steps</strong></p>
+<ol type="1">
+<li><strong>Simulate</strong> — make artificial doublets by averaging the profiles of random pairs of real cells (<code>pN</code>, default 25% of the merged data)</li>
+<li><strong>Embed together</strong> — real + artificial cells → normalise, HVGs, PCA</li>
+<li><strong>Count fake neighbours</strong> — for each real cell, <strong>pANN</strong> = the <strong>p</strong>roportion of <strong>a</strong>rtificial doublets among its <strong>n</strong>earest <strong>n</strong>eighbours. A real doublet sits among the fakes → high pANN</li>
+<li><strong>Threshold</strong> — rank by pANN and call the top <em>n</em> as doublets, where <em>n</em> = expected rate × cells, reduced by the homotypic fraction it cannot see (<code>modelHomotypic()</code>)</li>
+</ol>
+<p>The one parameter that matters is <strong>pK</strong>, the neighbourhood size. DoubletFinder sweeps it and keeps the value at which pANN is most <strong>bimodal</strong> — singlets low, doublets high — scored by BCmvn (mean–variance-normalised bimodality coefficient).</p>
+<p>💡 A clearly bimodal pANN distribution is your evidence that the call works. A unimodal one means doublets are not separable at that neighbourhood size.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DoubletFinder)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># one sample at a time, after permissive QC, normalisation, PCA and a rough clustering</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>sweep <span class="ot">&lt;-</span> <span class="fu">paramSweep</span>(seu, <span class="at">PCs =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">sct =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>bcmvn <span class="ot">&lt;-</span> <span class="fu">find.pK</span>(<span class="fu">summarizeSweep</span>(sweep, <span class="at">GT =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>pK    <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(bcmvn<span class="sc">$</span>pK[<span class="fu">which.max</span>(bcmvn<span class="sc">$</span>BCmetric)]))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>homotypic <span class="ot">&lt;-</span> <span class="fu">modelHomotypic</span>(seu<span class="sc">$</span>seurat_clusters)    <span class="co"># share of same-type doublets</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>rate      <span class="ot">&lt;-</span> <span class="fl">0.008</span> <span class="sc">*</span> <span class="fu">ncol</span>(seu) <span class="sc">/</span> <span class="dv">1000</span>               <span class="co"># ~0.8% per 1,000 cells (10x)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>nExp      <span class="ot">&lt;-</span> <span class="fu">round</span>(rate <span class="sc">*</span> <span class="fu">ncol</span>(seu) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> homotypic))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>seu <span class="ot">&lt;-</span> <span class="fu">doubletFinder</span>(seu, <span class="at">PCs =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">pN =</span> <span class="fl">0.25</span>, <span class="at">pK =</span> pK, <span class="at">nExp =</span> nExp, <span class="at">sct =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># → new metadata columns pANN_* and DF.classifications_* (Singlet / Doublet)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>scDblFinder — what is different?</strong></p>
+<p>Same core idea (artificial doublets, and where real cells sit among them), different machinery:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 24%">
+<col style="width: 64%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>DoubletFinder</th>
+<th>scDblFinder</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Artificial doublets</td>
+<td>random pairs</td>
+<td>random, <strong>or between clusters</strong> — focused on the heterotypic ones that matter</td>
+</tr>
+<tr class="even">
+<td>Score</td>
+<td>one statistic (pANN) at one neighbourhood size</td>
+<td>gradient-boosted classifier on kNN features at several sizes + library size, detected genes, co-expression; retrained iteratively</td>
+</tr>
+<tr class="odd">
+<td>Parameters</td>
+<td>pK sweep; expected <em>n</em> set by hand</td>
+<td>threshold set automatically from the expected rate and misclassification</td>
+</tr>
+<tr class="even">
+<td>Multiple samples</td>
+<td>run each sample yourself</td>
+<td><code>samples =</code> argument</td>
+</tr>
+<tr class="odd">
+<td>Speed</td>
+<td>slow (the pK sweep)</td>
+<td>fast</td>
+</tr>
+</tbody>
+</table>
+<p>DoubletFinder was the most accurate method in the first large independent benchmark (Xi &amp; Li 2021). scDblFinder, released later, matched or beat it on the same datasets (Germain et al.&nbsp;2021) and is now a common default — it is the tool in the pipeline figure.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scDblFinder)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sce <span class="ot">&lt;-</span> <span class="fu">scDblFinder</span>(<span class="fu">as.SingleCellExperiment</span>(seu), <span class="at">samples =</span> <span class="st">"sample_id"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>seu<span class="sc">$</span>doublet <span class="ot">&lt;-</span> sce<span class="sc">$</span>scDblFinder.class                <span class="co"># "singlet" / "doublet"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Rules for any doublet detector
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>⚠️ <strong>One sample (capture) at a time.</strong> Doublets form only within a capture; artificial doublets between two patients describe cells that cannot exist<br>
+⚠️ <strong>Homotypic doublets survive every expression-based method.</strong> Accept a residual<br>
+⚠️ <strong>Do it before you interpret clusters.</strong> A doublet cluster sits between its two parents and is easily named a transitional state<br>
+💡 <strong>Design beats algorithms.</strong> Pool donors in one lane and demultiplex by genotype (<code>demuxlet</code>, <code>souporcell</code>, <code>vireo</code>) or by hashtag antibodies → every between-donor doublet is identified directly, and you can load more cells per lane</p>
+</div>
+</div>
+</div>
+</section>
+<section id="recap" class="level3">
+<h3 class="anchored" data-anchor-id="recap">③ Recap</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 42%">
+<col style="width: 43%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -922,7 +1267,7 @@ Zero count means:</p>
 <tr class="odd">
 <td><strong>Doublets</strong></td>
 <td>High UMI <strong>and</strong> high gene count; two incompatible marker sets</td>
-<td><code>scDblFinder</code>, <code>DoubletFinder</code>; ~1% per 1,000 cells loaded</td>
+<td><code>scDblFinder</code>, <code>DoubletFinder</code>; ~0.8% per 1,000 cells recovered</td>
 </tr>
 <tr class="even">
 <td><strong>Dying cells</strong></td>
@@ -931,52 +1276,342 @@ Zero count means:</p>
 </tr>
 </tbody>
 </table>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Every threshold needs its rationale
+<span class="screen-reader-only">Tip</span>Which comes first — doublets or QC?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p>The two tools’ own documentation points in opposite directions:</p>
 <ul>
-<li>A mito cutoff of 5% is conventional — and <strong>wrong for cardiomyocytes</strong>, which are genuinely mitochondria-rich. need to set your <strong>data-specific cutoffs</strong></li>
-<li><code>min.features = 500</code> removes debris — <strong>and also</strong> platelets, some granulocytes, and any small low-RNA cell</li>
-<li>An upper <code>nFeature</code> cutoff removes doublets — <strong>and also</strong> genuinely large, transcriptionally active cells</li>
+<li><strong>DoubletFinder</strong>: remove low-quality clusters <strong>first</strong> — they distort the artificial doublets and the PCA</li>
+<li><strong>scDblFinder</strong>: find doublets <strong>before</strong> stringent QC — the expected rate is computed from the cells you hand it, and a doublet of one good and one bad cell is recognisable only while the bad one is still in the data</li>
 </ul>
-<p>✅ <strong>Plot</strong> the distribution, look at what sits outside your proposed cut → <strong>decide</strong> your <strong>own</strong> thresholds</p>
+<p>✅ The order that reconciles them — ① then ② above, as in the pipeline figure:</p>
+<ol type="1">
+<li><strong>Primary QC, permissive</strong> — remove only obvious junk: near-empty barcodes, extreme mito</li>
+<li><strong>Doublet detection</strong>, per sample</li>
+<li><strong>Final thresholds</strong>, data-driven (MADs)</li>
+<li><strong>Secondary QC after clustering</strong> — drop whole clusters defined by mito or stress genes, or by two incompatible marker sets (§4.4)</li>
+</ol>
+<p>💡 Either order is defensible if you state it. What is not: an upper <code>nFeature</code> cutoff as your <strong>only</strong> doublet filter.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="w5-s3-4" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s3-4">4) dimension reduction</h2>
+<p>After QC: <strong>thousands of cells</strong> × ~20,000 genes, mostly zeros</p>
+<section id="normalization-scaling" class="level3">
+<h3 class="anchored" data-anchor-id="normalization-scaling">① normalization &amp; scaling</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 29%">
+<col style="width: 50%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>What it does</th>
+<th>Why</th>
+<th>Seurat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Normalise</strong></td>
+<td>divide by the cell’s total UMIs, × 10,000, then log(1 + x)</td>
+<td>capture efficiency differs several-fold between cells for purely technical reasons; the log tames a few huge values</td>
+<td><code>NormalizeData()</code></td>
+</tr>
+<tr class="even">
+<td><strong>Select HVGs</strong></td>
+<td>keep ~2,000 genes whose variance exceeds what their mean predicts</td>
+<td>most genes are flat or noise; HVGs carry the cell-type signal</td>
+<td><code>FindVariableFeatures()</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Scale</strong></td>
+<td>per gene: subtract the mean, divide by the SD</td>
+<td>so a highly expressed gene does not dominate PCA simply by being large</td>
+<td><code>ScaleData()</code></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>💡 Alternatives: <strong>SCTransform</strong> (Pearson residuals from a regularised negative binomial model — all three steps in one) and <strong>scran</strong> pooled size factors. A large benchmark found the plain shifted log + <u><strong>PCA does</strong></u> as well as or better than the sophisticated options (Ahlmann-Eltze &amp; Huber 2023)<br>
+⚠️ <code>ScaleData(vars.to.regress = ...)</code> can regress out mito %, depth or cell-cycle score. Use sparingly: if the “nuisance” is correlated with biology — cycling cells in a proliferative disease — you regress out the biology too<br>
+⚠️ Three versions of the same matrix now sit side by side. §5.1 depends on knowing which is which:</p>
+<ul>
+<li><code>counts</code> — raw UMIs</li>
+<li><code>data</code> — log-normalised</li>
+<li><code>scale.data</code> — z-scores, HVGs only</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="pca-dimension-reduction" class="level3">
+<h3 class="anchored" data-anchor-id="pca-dimension-reduction">② PCA: dimension reduction</h3>
+<p>2,000 HVGs → <strong>10–50 principal components</strong>. Each PC is a weighted combination of genes that move together — a <em>program</em>, not a gene.</p>
+<ul>
+<li><strong>Denoising</strong> — single genes are noisy; correlated programs are not. Top PCs carry biology, later ones mostly noise</li>
+<li><strong>Speed</strong> — everything downstream (neighbours, clustering, UMAP, batch correction) runs on PCs, not genes</li>
+<li><strong>How many?</strong> <code>ElbowPlot()</code> — where the variance explained flattens. Results are fairly stable across 10–50; err high rather than low, since a rare population can live in PC 25</li>
+</ul>
+<p>✅ <strong>Check what drives the top PCs.</strong> If PC1 tracks <code>nCount_RNA</code> or <code>percent.mt</code>, your main axis of variation is technical → back to QC. <code>VizDimLoadings()</code> shows the genes<br>
+💡 PCA is linear and its distances are meaningful — unlike UMAP (§4.3). PC space is where the analysis actually happens; UMAP is only how we look at it.</p>
+</section>
+<section id="batch-correction" class="level3">
+<h3 class="anchored" data-anchor-id="batch-correction">③ batch correction</h3>
+<p>With several samples, cells often group by <strong>donor or batch</strong> before cell type. Correction works on the <strong>embedding</strong>, not on the counts:</p>
+<ul>
+<li><strong>Harmony</strong> — iteratively adjusts the PCs</li>
+<li><strong>scVI</strong> — learns a new latent space <u>from raw counts</u>, with batch as a covariate</li>
+<li><strong>Seurat CCA / RPCA</strong> — anchors matched cells between datasets</li>
+</ul>
+<p>→ for neighbours, clustering and UMAP</p>
+<p>✅ <strong>Check first whether you need it.</strong> Colour the uncorrected UMAP by sample. If cell types already mix across samples, skip it<br>
+⚠️ <strong>Corrected values are for grouping cells, not for testing genes.</strong> DE goes back to raw counts, with donor in the model (§5.1)<br>
+⚠️ Over-correction can erase a disease-specific state → 🔗 <a href="../../chapters/part3/w6_scrna_dynamics.html#w6-s1">W6 §1</a></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The VI universe — one engine, many models
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>scVI is the first member of a family (the <strong>scvi-tools</strong> library). All share one engine:</p>
+<ul>
+<li>A <strong>variational autoencoder (VAE)</strong> — a neural network compresses each cell’s <strong>raw counts</strong> into ~10–30 latent numbers, and a decoder reconstructs the counts with a <strong>negative binomial</strong> model</li>
+<li><strong>Batch is handed to the decoder</strong> as an input, so the latent space does not have to encode it — that is the integration</li>
+<li>Change the likelihood or add a modality → a new model</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 26%">
+<col style="width: 46%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Data</th>
+<th>Used for</th>
+<th>In this course</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>scVI</strong></td>
+<td>scRNA-seq</td>
+<td>integration, denoised expression, DE</td>
+<td>here, W6</td>
+</tr>
+<tr class="even">
+<td><strong>scANVI</strong></td>
+<td>scRNA-seq + some cell-type labels</td>
+<td>label transfer, annotation</td>
+<td>§4.4</td>
+</tr>
+<tr class="odd">
+<td><strong>scArches</strong></td>
+<td>new data + a trained reference model</td>
+<td>mapping a query onto an atlas without retraining</td>
+<td>§4.4</td>
+</tr>
+<tr class="even">
+<td><strong>totalVI</strong></td>
+<td>CITE-seq (RNA + surface protein)</td>
+<td>joint RNA–protein analysis; removes antibody background</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>PeakVI</strong></td>
+<td>scATAC-seq</td>
+<td>chromatin accessibility: integration, differential accessibility</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>MultiVI</strong></td>
+<td>multiome (RNA + ATAC), paired or not</td>
+<td>integrating multiome with single-modality data</td>
+<td>W11</td>
+</tr>
+<tr class="odd">
+<td><strong>DestVI</strong></td>
+<td>spatial spots + scRNA reference</td>
+<td>deconvolution, including continuous states within a cell type</td>
+<td>W8</td>
+</tr>
+<tr class="even">
+<td><strong>veloVI</strong></td>
+<td>spliced / unspliced counts</td>
+<td>RNA velocity with uncertainty</td>
+<td>W6</td>
+</tr>
+<tr class="odd">
+<td><strong>contrastiveVI</strong></td>
+<td>perturbed vs control cells</td>
+<td>separating treatment-specific from shared variation</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>MrVI</strong></td>
+<td>many samples / donors</td>
+<td>sample-level (donor) differences in large cohorts</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>💡 Practical: all of them want <strong>raw counts</strong> (keep the <code>counts</code> layer), run in Python (<code>scvi-tools</code>; a GPU helps), and reach R via <code>reticulate</code> or an exported <code>.h5ad</code></li>
+<li>⚠️ Same caution as any integration: the latent space is for grouping cells. A model told to remove “batch” also removes any biology confounded with batch (W6 §1)</li>
+</ul>
 </div>
 </div>
 </div>
 <hr>
 </section>
 </section>
+</section>
 <section id="w5-s4" class="level1">
 <h1>4. Finding Cell Types 🗺️</h1>
 <section id="w5-s4-1" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s4-1">1) The standard pipeline</h2>
-<p><img src="images/clipboard-949377196.png" class="img-fluid"></p>
+<h2 class="anchored" data-anchor-id="w5-s4-1">1) neighbors for grouping cells</h2>
+<blockquote class="blockquote">
+<p>Clustering and UMAP never see genes. They see a <strong>graph of which cells are near which</strong>, built in PC space.</p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w5/knn_graph.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li><strong>Neighbours</strong> — for each cell, the <em>k</em> cells closest to it in PC space (Euclidean distance on the top PCs)</li>
+<li><strong>kNN graph</strong> — cells are nodes; each cell is linked to its <em>k</em> neighbours. Seurat then reweights each link by how many neighbours the two cells <strong>share</strong> (SNN graph), which damps outliers</li>
+<li><strong>Why a graph</strong> — cell populations are rarely round blobs. A graph follows the shape of the data, including elongated, branching and continuous populations, and scales to millions of cells</li>
+</ul>
+<p>⚠️ “kNN clustering” is a misnomer. kNN only <strong>builds</strong> the graph; clustering (next) <strong>cuts</strong> it into communities. Nor is it <em>k</em>-means, which needs the number of clusters in advance and assumes round clusters.</p>
+<p>⚠️ <em>k</em> sets the scale (<code>k.param = 20</code> in Seurat, <code>n_neighbors = 15</code> in scanpy). Small <em>k</em> → fine local structure, more fragments. Large <em>k</em> → a smoother graph, and a population with fewer cells than <em>k</em> cannot be its own neighbourhood — its members are forced to link outside it.</p>
 </section>
 <section id="w5-s4-2" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s4-2">2) UMAP</h2>
+<h2 class="anchored" data-anchor-id="w5-s4-2">2) clustering</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w5/clustering.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<section id="leiden-vs.-louvain" class="level3">
+<h3 class="anchored" data-anchor-id="leiden-vs.-louvain">① leiden vs.&nbsp;louvain</h3>
+<p>Concept only — recognise the names and know what they optimise; no need to implement them.</p>
+<ul>
+<li>Both are <strong>community detection</strong>: cut the graph into groups whose cells are more densely linked to each other than chance would predict (maximising <strong>modularity</strong>)</li>
+<li><strong>Louvain</strong> (2008) — greedily move each cell into the neighbouring community that most improves modularity; collapse each community into one node; repeat</li>
+<li>⚠️ Known flaw: it can return <strong>badly connected or even disconnected</strong> communities — a “cluster” whose pieces are not linked in the graph</li>
+<li><strong>Leiden</strong> (2019) — adds a refinement step that guarantees every community is internally connected; also faster</li>
+<li>Defaults: scanpy → Leiden. Seurat <code>FindClusters()</code> → Louvain (<code>algorithm = 1</code>); Leiden is <code>algorithm = 4</code></li>
+</ul>
+<p>💡 For the biology, the choice rarely changes the conclusion. <strong>Resolution</strong> does — report both.</p>
+</section>
+<section id="resolution" class="level3">
+<h3 class="anchored" data-anchor-id="resolution">② resolution</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w5/umap_resolution.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 <blockquote class="blockquote">
-<p>a non-linear projection of tens of dimensions into two. It preserves local neighbourhoods reasonably and global structure badly.</p>
+<p>key parameter for clustering: <strong>resolution</strong></p>
 </blockquote>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<p>Resolution is a term inside the modularity score: higher values reward smaller communities → more clusters.</p>
+<p>⚠️ the <strong>best</strong> resolution is <u>up to you</u>…</p>
+<ul>
+<li>Check clusters against <strong>marker genes</strong> and known biology, not against a score</li>
+<li>Check <strong>stability</strong>: does the cluster survive a different resolution, a different seed, a subsampled dataset?</li>
+<li>Ask whether a “new” cluster at higher resolution has genuinely distinct markers, or just gradations of the same ones</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>What a UMAP does <em>not</em> tell you
+<span class="screen-reader-only">Note</span>A cluster is not a cell type
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Clusters can equally reflect:</p>
+<ul>
+<li>cell <strong>state</strong> (activated vs resting)</li>
+<li>cell-cycle phase</li>
+<li>stress response (§2.3)</li>
+<li>ambient contamination</li>
+<li><strong>donor identity</strong></li>
+</ul>
+<p>⚠️ Naming a cluster after its top marker gene and treating it as a cell type is how the literature accumulates cell types that do not exist.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="w5-s4-3" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s4-3">3) UMAP</h2>
+<blockquote class="blockquote">
+<p>a non-linear projection of tens of dimensions into two. It preserves local neighbourhoods reasonably and global structure badly.</p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w5/dimred_compare.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Why UMAP became the default for complex tissue:</p>
+<ul>
+<li><strong>It lays out the same kNN graph as clustering</strong> (§4.1) — so its islands usually agree with your clusters</li>
+<li><strong>Strong pull between neighbours</strong> → compact islands with clear gaps, where t-SNE spreads groups evenly over a round cloud</li>
+<li><strong>It starts from the graph’s own (spectral) layout</strong>, not random positions → related populations tend to land near each other, and reruns look alike</li>
+<li><strong>Fast</strong> — millions of cells, where t-SNE is slow</li>
+</ul>
+<p>⚠️ The t-distribution is not what makes t-SNE look round — its heavy tail is what lets t-SNE open gaps at all. The rounder, looser look comes from a <strong>weaker pull between neighbours</strong>, and the arbitrary arrangement from the <strong>random start</strong>. Start t-SNE from PCA and strengthen the pull, and it looks UMAP-like.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>What a UMAP does <em>not</em> tell you
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>❌ <strong>Distances between clusters are not meaningful.</strong> Two clusters far apart are not necessarily more different than two that are close<br>
 ❌ <strong>Cluster areas are not meaningful.</strong> Size reflects the embedding, not cell number<br>
@@ -986,44 +1621,75 @@ Zero count means:</p>
 </div>
 </div>
 </div>
-</section>
-<section id="w5-s4-3" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s4-3">3) Clustering resolution is arbitrary</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../..\assets/img/w5/umap_resolution.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<blockquote class="blockquote">
-<p>key parameter for clustering: <strong>resolution</strong></p>
-</blockquote>
-<p>⚠️ the <strong>best</strong> resolution is <u>up to you</u>…</p>
-<ul>
-<li>Check clusters against <strong>marker genes</strong> and known biology, not against a score</li>
-<li>Check <strong>stability</strong>: does the cluster survive a different resolution, a different seed, a subsampled dataset?</li>
-<li>Ask whether a “new” cluster at higher resolution has genuinely distinct markers, or just gradations of the same ones</li>
-</ul>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>A cluster is not a cell type
+Note
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Clusters can equally reflect:</p>
-<ul>
-<li>cell <strong>state</strong> (activated vs resting)</li>
-<li>cell-cycle phase</li>
-<li>stress response (§2.2)</li>
-<li>ambient contamination</li>
-<li><strong>donor identity</strong></li>
-</ul>
-<p>⚠️ Naming a cluster after its top marker gene and treating it as a cell type is how the literature accumulates cell types that do not exist.</p>
+<p><strong>PCA, t-SNE, UMAP — and the newer ones</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 5%">
+<col style="width: 51%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Year</th>
+<th>Preserves</th>
+<th>Where you see it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>PCA</strong></td>
+<td>1901</td>
+<td>global, linear structure; distances meaningful</td>
+<td>input to everything downstream; too crude to <em>view</em> clusters</td>
+</tr>
+<tr class="even">
+<td><strong>t-SNE</strong></td>
+<td>2008</td>
+<td>local neighbourhoods; global layout arbitrary</td>
+<td>the standard before UMAP; slower</td>
+</tr>
+<tr class="odd">
+<td><strong>UMAP</strong></td>
+<td>2018</td>
+<td>local neighbourhoods, some global structure; fast</td>
+<td>the current default</td>
+</tr>
+<tr class="even">
+<td><strong>PHATE</strong></td>
+<td>2019</td>
+<td>continuous transitions and branches</td>
+<td>development, differentiation</td>
+</tr>
+<tr class="odd">
+<td><strong>densMAP</strong></td>
+<td>2021</td>
+<td>also local <strong>density</strong> — a homogeneous population stays tight, a heterogeneous one spreads out</td>
+<td>when “how variable is this population” matters</td>
+</tr>
+<tr class="even">
+<td><strong>PaCMAP</strong></td>
+<td>2021</td>
+<td>a balance of local and global structure</td>
+<td>general-purpose; less common in single-cell papers so far</td>
+</tr>
+</tbody>
+</table>
+<p>💡 UMAP’s reputation for better global structure than t-SNE comes mostly from its <strong>initialisation</strong>, not the algorithm; t-SNE started from PCA does about as well (Kobak &amp; Linderman 2021)</p>
+<p>⚠️ Every one of them is still a 2D picture. The newer methods trade one distortion for another; none turns 2D distance into a measurement (Chari &amp; Pachter 2023)</p>
 </div>
 </div>
 </div>
@@ -1031,24 +1697,105 @@ Zero count means:</p>
 <section id="w5-s4-4" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s4-4">4) Annotation</h2>
 <ul>
-<li><strong>Marker-based</strong> — check known markers per cluster. ✅ Transparent. ⚠️ Circular: you find the cell types you looked for</li>
-<li><strong>Reference-based</strong> — map onto an annotated atlas (Azimuth, SingleR, scANVI). ✅ Fast and consistent. ⚠️ Inherits the reference’s vocabulary and cannot name anything the reference lacks</li>
+<li><strong>Marker-based</strong> — check known markers per cluster.<br>
+✅ Transparent.<br>
+⚠️ Circular: you find the cell types you looked for</li>
+<li><strong>Reference-based</strong> — map onto an annotated atlas (Azimuth, SingleR, scANVI).<br>
+✅ Fast and consistent.<br>
+⚠️ Inherits the reference’s vocabulary and cannot name anything the reference lacks</li>
 </ul>
 <p>💡 Use both. <strong>Disagreements between them are the informative part</strong> — that is where a genuinely novel or genuinely artifactual population sits.</p>
 <hr>
 </section>
 </section>
 <section id="w5-s5" class="level1">
-<h1>5. Statistics 📊</h1>
+<h1>5. Statistics (DEG analysis) 📊</h1>
 <section id="w5-s5-1" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s5-1">1) Why per-cell tests are wrong</h2>
+<h2 class="anchored" data-anchor-id="w5-s5-1">1) values to use</h2>
+<p>By now each cell carries several versions of its expression (§3.4). Testing on the wrong one is a common and silent error.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 35%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Where</th>
+<th>✅ Use for</th>
+<th>❌ Not for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Raw UMI counts</strong><br>
+(or ambient-corrected)</td>
+<td><code>counts</code> layer (Seurat), <code>.layers["counts"]</code> (scanpy)</td>
+<td><strong>pseudobulk DE</strong> (§5.3), any count model</td>
+<td>comparing cells directly (depth differs)</td>
+</tr>
+<tr class="even">
+<td><strong>Log-normalised</strong></td>
+<td><code>data</code> layer (Seurat), <code>.X</code> after <code>normalize_total</code> + <code>log1p</code> (scanpy)</td>
+<td>cluster markers within one dataset (§5.2), feature plots</td>
+<td>condition comparisons with cells as <em>n</em></td>
+</tr>
+<tr class="odd">
+<td><strong>Scaled (z-scores)</strong></td>
+<td><code>scale.data</code> layer (Seurat), <code>.X</code> after <code>sc.pp.scale</code> (scanpy)</td>
+<td>PCA, heatmaps</td>
+<td>any DE</td>
+</tr>
+<tr class="even">
+<td><strong>Batch-corrected</strong><br>
+(from Harmony / scVI)</td>
+<td>reductions, e.g.&nbsp;<code>harmony</code> (Seurat), <code>.obsm["X_pca_harmony"]</code>, <code>.obsm["X_scVI"]</code> (scanpy)</td>
+<td>neighbours, clustering, UMAP</td>
+<td>any DE</td>
+</tr>
+<tr class="odd">
+<td><strong>scVI normalised / denoised expression</strong></td>
+<td><code>get_normalized_expression()</code> output, usually stored in <code>.layers</code> (scvi-tools)</td>
+<td>visualisation; scVI’s own DE</td>
+<td>standard tests that assume <u>observed counts</u></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>⚠️ scanpy gotcha: <code>normalize_total</code>, <code>log1p</code> and <code>scale</code> <strong>overwrite <code>.X</code> in place</strong>. Copy the raw counts into <code>.layers["counts"]</code> <em>before</em> normalising — otherwise they are gone, and pseudobulk has nothing to sum.</p>
+<p><strong>Re-normalise after subsetting one cell type?</strong></p>
+<ul>
+<li><strong>For sub-clustering — partly, yes.</strong> Re-run HVG selection, scaling and PCA on the subset: the HVGs of the whole tissue mostly separate cell types from each other, not states within one type</li>
+<li><strong>Log-normalisation itself — no.</strong> It is computed per cell, so subsetting does not change it</li>
+<li><strong>For DE — not relevant.</strong> Pseudobulk starts from raw counts, and DESeq2/edgeR normalise across pseudo-samples themselves</li>
+</ul>
+<p>⚠️ Exception: SCTransform residuals depend on the data they were fitted on. With several SCT models (merged samples), run <code>PrepSCTFindMarkers()</code> before testing</p>
+</div>
+</div>
+</div>
+</section>
+<section id="w5-s5-2" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s5-2">2) per-cell tests</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../..\assets/img/w5/pseudobulk.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1057,7 +1804,7 @@ Zero count means:</p>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>A Wilcoxon test across 5,400 cells from 6 donors treats those cells as 5,400 independent observations. They are not — cells from the same person share that person’s genetics, environment, medication, batch and processing.</p>
 <p>The consequence:</p>
@@ -1075,33 +1822,34 @@ Zero count means:</p>
 </div>
 </div>
 </section>
-<section id="w5-s5-2" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s5-2">2) Pseudobulk</h2>
+<section id="w5-s5-3" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s5-3">3) Pseudobulk</h2>
 <blockquote class="blockquote">
-<p>for each <strong>donor × cell type</strong>, sum the counts across cells. You now have a small matrix of pseudo-samples — analyse it with DESeq2 or edgeR exactly as in last semester’s bulk workflow.</p>
+<p>for each <strong>donor × cell type</strong>, sum the counts across cells.</p>
 </blockquote>
+<p>You now have a small matrix of pseudo-samples — analyse it with DESeq2 or edgeR exactly as in last semester’s bulk workflow.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat); <span class="fu">library</span>(DESeq2); <span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pb <span class="ot">&lt;-</span> <span class="fu">AggregateExpression</span>(seurat,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">group.by =</span> <span class="fu">c</span>(<span class="st">"cell_type"</span>, <span class="st">"sample_id"</span>),</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">assays   =</span> <span class="st">"RNA"</span>)<span class="sc">$</span>RNA</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># then, per cell type, a completely ordinary DESeq2 run</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat); <span class="fu">library</span>(DESeq2); <span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>pb <span class="ot">&lt;-</span> <span class="fu">AggregateExpression</span>(seurat,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">group.by =</span> <span class="fu">c</span>(<span class="st">"cell_type"</span>, <span class="st">"sample_id"</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">assays   =</span> <span class="st">"RNA"</span>)<span class="sc">$</span>RNA</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># then, per cell type, a completely ordinary DESeq2 run</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Benchmarks consistently find pseudobulk controls false positives far better than per-cell tests</li>
 <li><strong>Mixed models</strong> with a donor random effect are a reasonable alternative — more power retained, more computation</li>
 </ul>
 </section>
-<section id="w5-s5-3" class="level2">
-<h2 class="anchored" data-anchor-id="w5-s5-3">3) Differential abundance is compositional</h2>
+<section id="w5-s5-4" class="level2">
+<h2 class="anchored" data-anchor-id="w5-s5-4">4) Differential abundance is compositional</h2>
 <p>Often the interesting result is not that a cell type changed its expression, but that <strong>there is more or less of it</strong>.</p>
 <p>⚠️ Proportions are <strong>compositional</strong> — one cell type expands and every other proportion falls by arithmetic alone, with no biology behind it (multivariate).</p>
 <ul>
 <li>✅ Methods that handle this: <code>scCODA</code>, <code>miloR</code>, <code>propeller</code>, Dirichlet-multinomial models</li>
 <li>❌ A χ² test on cell counts is <strong>not valid</strong></li>
-<li>⚠️ And before believing any abundance result, return to §2.2: is this composition, or is this dissociation?</li>
+<li>⚠️ And before believing any abundance result, return to §2.3: is this composition, or is this dissociation?</li>
 </ul>
 <hr>
 </section>
@@ -1121,58 +1869,58 @@ Zero count means:</p>
 <section id="w5-s6-2" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s6-2">2) The pipeline, end to end</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat); <span class="fu">library</span>(SeuratData); <span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">InstallData</span>(<span class="st">"pbmc3k"</span>); <span class="fu">data</span>(<span class="st">"pbmc3k"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> pbmc3k</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>pbmc[[<span class="st">"percent.mt"</span>]] <span class="ot">&lt;-</span> <span class="fu">PercentageFeatureSet</span>(pbmc, <span class="at">pattern =</span> <span class="st">"^MT-"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚠️ LOOK before you cut</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(pbmc, <span class="fu">c</span>(<span class="st">"nFeature_RNA"</span>, <span class="st">"nCount_RNA"</span>, <span class="st">"percent.mt"</span>), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">pt.size =</span> <span class="dv">0</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">subset</span>(pbmc, nFeature_RNA <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">&amp;</span> nFeature_RNA <span class="sc">&lt;</span> <span class="dv">2500</span> <span class="sc">&amp;</span> percent.mt <span class="sc">&lt;</span> <span class="dv">5</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">NormalizeData</span>(pbmc) <span class="sc">|&gt;</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindVariableFeatures</span>(<span class="at">nfeatures =</span> <span class="dv">2000</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ScaleData</span>() <span class="sc">|&gt;</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunPCA</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ElbowPlot</span>(pbmc, <span class="at">ndims =</span> <span class="dv">30</span>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">FindNeighbors</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunUMAP</span>(<span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(pbmc, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat); <span class="fu">library</span>(SeuratData); <span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">InstallData</span>(<span class="st">"pbmc3k"</span>); <span class="fu">data</span>(<span class="st">"pbmc3k"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> pbmc3k</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>pbmc[[<span class="st">"percent.mt"</span>]] <span class="ot">&lt;-</span> <span class="fu">PercentageFeatureSet</span>(pbmc, <span class="at">pattern =</span> <span class="st">"^MT-"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚠️ LOOK before you cut</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(pbmc, <span class="fu">c</span>(<span class="st">"nFeature_RNA"</span>, <span class="st">"nCount_RNA"</span>, <span class="st">"percent.mt"</span>), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">pt.size =</span> <span class="dv">0</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">subset</span>(pbmc, nFeature_RNA <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">&amp;</span> nFeature_RNA <span class="sc">&lt;</span> <span class="dv">2500</span> <span class="sc">&amp;</span> percent.mt <span class="sc">&lt;</span> <span class="dv">5</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">NormalizeData</span>(pbmc) <span class="sc">|&gt;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindVariableFeatures</span>(<span class="at">nfeatures =</span> <span class="dv">2000</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ScaleData</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunPCA</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ElbowPlot</span>(pbmc, <span class="at">ndims =</span> <span class="dv">30</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">FindNeighbors</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunUMAP</span>(<span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(pbmc, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="w5-s6-3" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s6-3">3) ✅ Change one thing</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① How many cells did each threshold remove, and which ones?</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pbmc3k<span class="sc">$</span>seurat_annotations[pbmc3k<span class="sc">$</span>percent.mt <span class="sc">&gt;=</span> <span class="dv">5</span>])   <span class="co"># who did the mito cut delete?</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ② Re-cluster at three resolutions and count</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (r <span class="cf">in</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">1.2</span>)) {</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  pbmc <span class="ot">&lt;-</span> <span class="fu">FindClusters</span>(pbmc, <span class="at">resolution =</span> r, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"resolution"</span>, r, <span class="st">"→"</span>, <span class="fu">nlevels</span>(pbmc<span class="sc">$</span>seurat_clusters), <span class="st">"clusters</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ③ Re-run UMAP with a different seed and compare the picture</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">RunUMAP</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">seed.use =</span> <span class="dv">99</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(pbmc, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① How many cells did each threshold remove, and which ones?</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pbmc3k<span class="sc">$</span>seurat_annotations[pbmc3k<span class="sc">$</span>percent.mt <span class="sc">&gt;=</span> <span class="dv">5</span>])   <span class="co"># who did the mito cut delete?</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ② Re-cluster at three resolutions and count</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (r <span class="cf">in</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">1.2</span>)) {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  pbmc <span class="ot">&lt;-</span> <span class="fu">FindClusters</span>(pbmc, <span class="at">resolution =</span> r, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"resolution"</span>, r, <span class="st">"→"</span>, <span class="fu">nlevels</span>(pbmc<span class="sc">$</span>seurat_clusters), <span class="st">"clusters</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ③ Re-run UMAP with a different seed and compare the picture</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">RunUMAP</span>(pbmc, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">seed.use =</span> <span class="dv">99</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(pbmc, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="w5-s6-4" class="level2">
 <h2 class="anchored" data-anchor-id="w5-s6-4">4) Save for next week</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(pbmc, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"analysis"</span>, <span class="st">"5_pbmc_annotated.rds"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(pbmc, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"analysis"</span>, <span class="st">"5_pbmc_annotated.rds"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>W6 — trajectory, cell–cell communication, and multi-sample integration.</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"monocle3"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"harmony"</span>, <span class="st">"CellChat"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"monocle3"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"harmony"</span>, <span class="st">"CellChat"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <hr>
 </section>
@@ -1185,9 +1933,13 @@ Zero count means:</p>
 <li>⚠️ <strong>Fresh or frozen is decided at collection</strong> and fixes scRNA-seq vs snRNA-seq permanently</li>
 <li>⚠️ <strong>Dissociation induces stress genes and destroys cells selectively.</strong> <em>FOS</em>/<em>JUN</em> clusters are usually artifacts; depletion claims need scrutiny</li>
 <li>UMIs count molecules, not reads. The matrix is &gt;90% zeros and a single zero means little</li>
+<li>Cell calling and ambient-RNA removal need the <strong>raw</strong> matrix, empty droplets included — keep it</li>
+<li>⚠️ Doublet detection runs <strong>per sample</strong>; homotypic doublets are invisible to every expression-based method</li>
 <li>⚠️ <strong>Every QC threshold deletes a real population</strong> — mito 5% removes cardiomyocytes, min.features 500 removes platelets</li>
+<li>The kNN graph in PC space drives both clustering and UMAP. Leiden vs Louvain matters far less than resolution</li>
 <li>❌ UMAP distances, cluster areas and bridges are <strong>not interpretable</strong></li>
 <li>⚠️ Clustering resolution is arbitrary. Check markers and stability, and <strong>report the value you used</strong></li>
+<li>⚠️ Scaled and batch-corrected values are for grouping cells, <strong>never for DE</strong> — testing goes back to raw counts</li>
 <li>⚠️ <strong>Per-cell differential expression across conditions is invalid.</strong> Use pseudobulk. Your n is the number of <strong>donors</strong></li>
 <li>⚠️ Cell-type proportions are compositional — χ² on cell counts is not valid</li>
 </ul>
@@ -1197,8 +1949,8 @@ Zero count means:</p>
 <h1>🔑 Key terms</h1>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 38%">
-<col style="width: 61%">
+<col style="width: 26%">
+<col style="width: 73%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1220,16 +1972,32 @@ Zero count means:</p>
 <td>An expressed transcript that was not captured — a technical zero</td>
 </tr>
 <tr class="even">
-<td>Knee plot</td>
+<td>Knee plot (barcode rank plot)</td>
 <td>Ranked UMI counts, used to separate cells from empty droplets</td>
 </tr>
 <tr class="odd">
+<td>Cell calling</td>
+<td>Deciding which barcodes are cells and which are empty droplets</td>
+</tr>
+<tr class="even">
 <td>Ambient RNA</td>
 <td>Free-floating RNA contaminating every droplet</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Doublet</td>
 <td>Two cells captured in one droplet</td>
+</tr>
+<tr class="even">
+<td>Homotypic / heterotypic doublet</td>
+<td>Same-type pair (nearly undetectable) / different-type pair (hybrid profile)</td>
+</tr>
+<tr class="odd">
+<td>pANN</td>
+<td>DoubletFinder’s score: proportion of artificial doublets among a cell’s nearest neighbours</td>
+</tr>
+<tr class="even">
+<td>MAD</td>
+<td>Median absolute deviation — basis for per-sample, data-driven QC cutoffs</td>
 </tr>
 <tr class="odd">
 <td>snRNA-seq</td>
@@ -1240,30 +2008,42 @@ Zero count means:</p>
 <td>Gene expression induced by the protocol, not the biology</td>
 </tr>
 <tr class="odd">
+<td>Log-normalisation</td>
+<td>Scale each cell to the same total, then take log(1 + x)</td>
+</tr>
+<tr class="even">
 <td>HVG</td>
 <td>Highly variable genes selected before PCA</td>
 </tr>
+<tr class="odd">
+<td>Batch correction</td>
+<td>Aligning samples in the embedding so cells group by type, not by batch</td>
+</tr>
 <tr class="even">
+<td>kNN / SNN graph</td>
+<td>Each cell linked to its nearest (or shared) neighbours in PC space</td>
+</tr>
+<tr class="odd">
 <td>UMAP / t-SNE</td>
 <td>Non-linear 2D embeddings — for visualisation only</td>
 </tr>
-<tr class="odd">
-<td>Leiden clustering</td>
-<td>Graph-based community detection on the kNN graph</td>
-</tr>
 <tr class="even">
+<td>Leiden / Louvain</td>
+<td>Graph-based community detection on the kNN graph; Leiden guarantees connected clusters</td>
+</tr>
+<tr class="odd">
 <td>Resolution</td>
 <td>Parameter controlling how many clusters you get</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Pseudobulk</td>
 <td>Summing counts per donor × cell type before testing</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Differential abundance</td>
 <td>Testing whether cell-type proportions changed</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Compositional data</td>
 <td>Proportions that must sum to 1, so they cannot move independently</td>
 </tr>
@@ -1284,12 +2064,22 @@ Luecken MD, Theis FJ. <a href="https://doi.org/10.15252/msb.20188746"><em>Curren
 <p>Lun ATL, et al.&nbsp;<a href="https://doi.org/10.1186/s13059-019-1662-y"><em>EmptyDrops: distinguishing cells from empty droplets in droplet-based single-cell RNA sequencing data.</em></a> Genome Biol. 2019.<br>
 Young MD, Behjati S. <a href="https://doi.org/10.1093/gigascience/giaa151"><em>SoupX removes ambient RNA contamination.</em></a> GigaScience. 2020.<br>
 van den Brink SC, et al.&nbsp;<a href="https://doi.org/10.1038/nmeth.4437"><em>Single-cell sequencing reveals dissociation-induced gene expression in tissue subpopulations.</em></a> Nat Methods. 2017. <strong>← read this before designing a dissociation protocol</strong><br>
-Denisenko E, et al.&nbsp;<a href="https://doi.org/10.1186/s13059-020-02048-6"><em>Systematic assessment of tissue dissociation and storage biases in single-cell and single-nucleus RNA-seq workflows.</em></a> Genome Biol. 2020.</p>
+Denisenko E, et al.&nbsp;<a href="https://doi.org/10.1186/s13059-020-02048-6"><em>Systematic assessment of tissue dissociation and storage biases in single-cell and single-nucleus RNA-seq workflows.</em></a> Genome Biol. 2020.<br>
+Fleming SJ, et al.&nbsp;<a href="https://doi.org/10.1038/s41592-023-01943-7"><em>Unsupervised removal of systematic background noise from droplet-based single-cell experiments using CellBender.</em></a> Nat Methods. 2023.<br>
+McGinnis CS, Murrow LM, Gartner ZJ. <a href="https://doi.org/10.1016/j.cels.2019.03.003"><em>DoubletFinder: doublet detection in single-cell RNA sequencing data using artificial nearest neighbors.</em></a> Cell Syst. 2019.<br>
+Germain PL, et al.&nbsp;<a href="https://doi.org/10.12688/f1000research.73600.2"><em>Doublet identification in single-cell sequencing data using scDblFinder.</em></a> F1000Research. 2021.<br>
+Xi NM, Li JJ. <a href="https://doi.org/10.1016/j.cels.2020.11.008"><em>Benchmarking computational doublet-detection methods for single-cell RNA sequencing data.</em></a> Cell Syst. 2021.</p>
 </section>
 <section id="embeddings-and-clustering" class="level3">
 <h3 class="anchored" data-anchor-id="embeddings-and-clustering">Embeddings and clustering</h3>
 <p>Chari T, Pachter L. <a href="https://doi.org/10.1371/journal.pcbi.1011288"><em>The specious art of single-cell genomics.</em></a> PLoS Comput Biol. 2023. <strong>← a sharp, useful critique of 2D embeddings</strong><br>
-Becht E, et al.&nbsp;<a href="https://doi.org/10.1038/nbt.4314"><em>Dimensionality reduction for visualizing single-cell data using UMAP.</em></a> Nat Biotechnol. 2019.</p>
+Becht E, et al.&nbsp;<a href="https://doi.org/10.1038/nbt.4314"><em>Dimensionality reduction for visualizing single-cell data using UMAP.</em></a> Nat Biotechnol. 2019.<br>
+Kobak D, Linderman GC. <a href="https://doi.org/10.1038/s41587-020-00809-z"><em>Initialization is critical for preserving global data structure in both t-SNE and UMAP.</em></a> Nat Biotechnol. 2021.<br>
+Böhm JN, Berens P, Kobak D. <a href="https://jmlr.org/papers/v23/21-0055.html"><em>Attraction-repulsion spectrum in neighbor embeddings.</em></a> J Mach Learn Res. 2022. <strong>← why UMAP looks tighter than t-SNE</strong><br>
+Ahlmann-Eltze C, Huber W. <a href="https://doi.org/10.1038/s41592-023-01814-1"><em>Comparison of transformations for single-cell RNA-seq data.</em></a> Nat Methods. 2023.<br>
+Traag VA, Waltman L, van Eck NJ. <a href="https://doi.org/10.1038/s41598-019-41695-z"><em>From Louvain to Leiden: guaranteeing well-connected communities.</em></a> Sci Rep.&nbsp;2019.<br>
+Lopez R, et al.&nbsp;<a href="https://doi.org/10.1038/s41592-018-0229-2"><em>Deep generative modeling for single-cell transcriptomics.</em></a> Nat Methods. 2018. <strong>← scVI</strong><br>
+Gayoso A, et al.&nbsp;<a href="https://doi.org/10.1038/s41587-021-01206-w"><em>A Python library for probabilistic analysis of single-cell omics data.</em></a> Nat Biotechnol. 2022. <strong>← scvi-tools and its model family</strong></p>
 </section>
 <section id="statistics" class="level3">
 <h3 class="anchored" data-anchor-id="statistics">Statistics</h3>

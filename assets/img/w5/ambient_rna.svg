@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <defs>
+    <path id="mrna" d="M0 0 q2.5 -4 5 0 t5 0 t5 0" fill="none" stroke="#D85A30" stroke-width="1.6" stroke-linecap="round"/>
+  </defs>
+  <rect width="880" height="460" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Ambient RNA: the soup gets into every droplet — including the empty ones.</text>
+
+  <!-- ① suspension -->
+  <rect x="24" y="46" width="256" height="290" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="44" y="72" font-size="13" font-weight="700" fill="#4A3D6B">① The cell suspension</text>
+  <rect x="40" y="86" width="224" height="180" rx="12" fill="#f3f7fb" stroke="#c9d6e6" stroke-width="1.3"/>
+  <circle cx="84" cy="122" r="15" fill="#BA7517"/>
+  <circle cx="222" cy="134" r="15" fill="#BA7517"/>
+  <circle cx="160" cy="230" r="15" fill="#BA7517"/>
+  <circle cx="142" cy="114" r="9" fill="#185FA5"/>
+  <circle cx="80" cy="206" r="9" fill="#185FA5"/>
+  <circle cx="232" cy="214" r="9" fill="#185FA5"/>
+  <circle cx="186" cy="176" r="9" fill="#185FA5"/>
+  <!-- the burst cell -->
+  <circle cx="116" cy="168" r="15" fill="none" stroke="#BA7517" stroke-width="1.6" stroke-dasharray="4 4"/>
+  <text x="116" y="172" font-size="10" font-weight="700" fill="#a8401d" text-anchor="middle">burst</text>
+  <use href="#mrna" x="92" y="146"/><use href="#mrna" x="128" y="144"/><use href="#mrna" x="90" y="190"/>
+  <use href="#mrna" x="132" y="192"/><use href="#mrna" x="58" y="152"/><use href="#mrna" x="160" y="150"/>
+  <use href="#mrna" x="176" y="102"/><use href="#mrna" x="236" y="104"/><use href="#mrna" x="56" y="240"/>
+  <use href="#mrna" x="106" y="244"/><use href="#mrna" x="196" y="246"/><use href="#mrna" x="240" y="174"/>
+  <use href="#mrna" x="110" y="96"/><use href="#mrna" x="206" y="200"/>
+  <text x="40" y="290" font-size="11.5" fill="#666">Damaged cells burst; their mRNA floats</text>
+  <text x="40" y="307" font-size="11.5" fill="#666">free in the buffer — mostly from the most</text>
+  <text x="40" y="324" font-size="11.5" fill="#666">abundant or most fragile cell type.</text>
+
+  <path d="M286 190 L298 190" stroke="#b9b0cc" stroke-width="2"/>
+  <path d="M306 190 l-9 -5 v10 z" fill="#b9b0cc"/>
+
+  <!-- ② droplets -->
+  <rect x="312" y="46" width="256" height="290" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="332" y="72" font-size="13" font-weight="700" fill="#4A3D6B">② Every droplet gets soup</text>
+  <!-- a: T cell -->
+  <circle cx="378" cy="120" r="30" fill="#eef4fb" stroke="#b9c9dc" stroke-width="1.5"/>
+  <circle cx="370" cy="114" r="10" fill="#185FA5"/>
+  <circle cx="393" cy="135" r="6" fill="#534AB7"/>
+  <use href="#mrna" x="378" y="100"/><use href="#mrna" x="354" y="132"/><use href="#mrna" x="384" y="118"/>
+  <text x="422" y="116" font-size="12" font-weight="700" fill="#185FA5">(a) T cell + soup</text>
+  <text x="422" y="132" font-size="11" fill="#666">its own RNA + ALB</text>
+  <!-- b: hepatocyte -->
+  <circle cx="378" cy="198" r="30" fill="#eef4fb" stroke="#b9c9dc" stroke-width="1.5"/>
+  <circle cx="368" cy="194" r="13" fill="#BA7517"/>
+  <circle cx="393" cy="213" r="6" fill="#534AB7"/>
+  <use href="#mrna" x="380" y="178"/><use href="#mrna" x="354" y="214"/><use href="#mrna" x="384" y="198"/>
+  <text x="422" y="194" font-size="12" font-weight="700" fill="#8a6a1f">(b) hepatocyte + soup</text>
+  <text x="422" y="210" font-size="11" fill="#666">own signal dominates</text>
+  <!-- c: empty -->
+  <circle cx="378" cy="276" r="30" fill="#eef4fb" stroke="#b9c9dc" stroke-width="1.5"/>
+  <circle cx="393" cy="291" r="6" fill="#534AB7"/>
+  <use href="#mrna" x="362" y="262"/><use href="#mrna" x="358" y="284"/><use href="#mrna" x="378" y="272"/><use href="#mrna" x="380" y="256"/>
+  <text x="422" y="272" font-size="12" font-weight="700" fill="#8A7FA3">(c) no cell: soup only</text>
+  <text x="422" y="288" font-size="11" fill="#666">still gets a barcode</text>
+
+  <path d="M572 190 L584 190" stroke="#b9b0cc" stroke-width="2"/>
+  <path d="M592 190 l-9 -5 v10 z" fill="#b9b0cc"/>
+
+  <!-- ③ measured profiles -->
+  <rect x="598" y="46" width="258" height="290" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="618" y="72" font-size="13" font-weight="700" fill="#4A3D6B">③ What you measure</text>
+  <text x="652" y="92" font-family="monospace" font-size="9.5" fill="#8A7FA3" text-anchor="middle">CD3E</text>
+  <text x="700" y="92" font-family="monospace" font-size="9.5" fill="#8A7FA3" text-anchor="middle">IL7R</text>
+  <text x="748" y="92" font-family="monospace" font-size="9.5" fill="#8A7FA3" text-anchor="middle">ALB</text>
+  <text x="796" y="92" font-family="monospace" font-size="9.5" fill="#8A7FA3" text-anchor="middle">APOA1</text>
+  <!-- a -->
+  <text x="618" y="128" font-size="11" font-weight="700" fill="#185FA5">(a)</text>
+  <rect x="640" y="100" width="24" height="38" fill="#185FA5"/>
+  <rect x="688" y="108" width="24" height="30" fill="#185FA5"/>
+  <rect x="736" y="127" width="24" height="11" fill="#D85A30"/>
+  <rect x="784" y="133" width="24" height="5" fill="#D85A30"/>
+  <line x1="634" y1="138" x2="816" y2="138" stroke="#cfc9dd" stroke-width="1.2"/>
+  <text x="618" y="155" font-size="11" font-weight="700" fill="#a8401d">⚠️ a T cell "expressing" ALB</text>
+  <!-- b -->
+  <text x="618" y="206" font-size="11" font-weight="700" fill="#8a6a1f">(b)</text>
+  <rect x="736" y="176" width="24" height="40" fill="#BA7517"/>
+  <rect x="784" y="186" width="24" height="30" fill="#BA7517"/>
+  <line x1="634" y1="216" x2="816" y2="216" stroke="#cfc9dd" stroke-width="1.2"/>
+  <text x="618" y="233" font-size="11" fill="#666">little visible damage</text>
+  <!-- c -->
+  <text x="618" y="284" font-size="11" font-weight="700" fill="#8A7FA3">(c)</text>
+  <rect x="736" y="283" width="24" height="11" fill="#D85A30"/>
+  <rect x="784" y="289" width="24" height="5" fill="#D85A30"/>
+  <line x1="634" y1="294" x2="816" y2="294" stroke="#cfc9dd" stroke-width="1.2"/>
+  <text x="618" y="311" font-size="11" font-weight="700" fill="#0F6E56">= the soup profile, measurable</text>
+
+  <!-- bottom -->
+  <rect x="24" y="350" width="410" height="98" rx="8" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.5"/>
+  <text x="44" y="376" font-size="13" font-weight="700" fill="#0F6E56">✅ Correction: learn the soup, subtract it</text>
+  <text x="44" y="398" font-size="12" fill="#3d7a68">Estimate the ambient profile from empty droplets (c),</text>
+  <text x="44" y="416" font-size="12" fill="#3d7a68">then remove it from every cell (a, b).</text>
+  <text x="44" y="437" font-size="12" font-weight="700" fill="#0F6E56">SoupX · CellBender · DecontX</text>
+
+  <rect x="446" y="350" width="410" height="98" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
+  <text x="466" y="376" font-size="13" font-weight="700" fill="#7a5f2a">💡 Well-based: BD Rhapsody, plate-based</text>
+  <text x="466" y="398" font-size="12" fill="#7a5f2a">Cells settle or are sorted into separate wells with little</text>
+  <text x="466" y="416" font-size="12" fill="#7a5f2a">of the surrounding buffer → far less soup.</text>
+  <text x="466" y="437" font-size="12" font-weight="700" fill="#7a5f2a">Usually skipped. Less is not zero.</text>
+</svg>

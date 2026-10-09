@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="540" fill="#fcfcfb"/>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">3′ or 5′: the end that gets the barcode is the end that gets read.</text>
+  <rect x="24" y="46" width="832" height="200" rx="10" fill="#ffffff" stroke="#185FA5" stroke-width="1.5"/>
+  <text x="156" y="98" font-size="9.5" fill="#8A7FA3" text-anchor="middle">5′ UTR</text>
+  <text x="212" y="98" font-size="10.5" font-weight="700" fill="#534AB7" text-anchor="middle">V(D)J</text>
+  <text x="308" y="98" font-size="9.5" fill="#8A7FA3" text-anchor="middle">C (constant)</text>
+  <text x="423" y="98" font-size="9.5" fill="#8A7FA3" text-anchor="middle">3′ UTR</text>
+  <text x="503" y="98" font-size="9.5" fill="#8A7FA3" text-anchor="middle">poly(A)</text>
+  <text x="40" y="70" font-size="10.5" fill="#8A7FA3">an mRNA (here a TCR transcript)</text>
+  <rect x="168" y="166" width="88" height="60" fill="#534AB7" fill-opacity="0.08"/>
+  <rect x="145" y="107" width="23" height="10" fill="#d8d2e4"/>
+  <rect x="168" y="107" width="54" height="10" fill="#534AB7"/>
+  <rect x="222" y="107" width="12" height="10" fill="#8b80d6"/>
+  <rect x="234" y="107" width="22" height="10" fill="#534AB7"/>
+  <rect x="256" y="107" width="104" height="10" fill="#9fb6cf"/>
+  <rect x="360" y="107" width="126" height="10" fill="#d8d2e4"/>
+  <rect x="486" y="107" width="34" height="10" fill="#efeaf5"/>
+  <text x="503" y="115" font-family="monospace" font-size="9" font-weight="700" fill="#5B4D80" text-anchor="middle">AAAA</text>
+  <circle cx="140" cy="112" r="5.5" fill="#8A7FA3"/>
+  <text x="130" y="116" font-size="12" font-weight="700" fill="#4A3D6B" text-anchor="end">5′</text>
+  <text x="526" y="108" font-size="12" font-weight="700" fill="#4A3D6B">3′</text>
+  <rect x="486" y="120" width="34" height="11" rx="2" fill="#5B4D80"/>
+  <text x="503.0" y="128.5" font-size="7.5" font-weight="700" fill="#fff" text-anchor="middle">TTTT</text>
+  <rect x="520" y="120" width="21" height="11" rx="2" fill="#BA7517"/>
+  <text x="530.5" y="128.5" font-size="7.5" font-weight="700" fill="#fff" text-anchor="middle">UMI</text>
+  <rect x="541" y="120" width="21" height="11" rx="2" fill="#1D9E75"/>
+  <text x="551.5" y="128.5" font-size="7.5" font-weight="700" fill="#fff" text-anchor="middle">BC</text>
+  <circle cx="580" cy="126" r="18" fill="#534AB7"/>
+  <text x="580" y="130" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">bead</text>
+  <line x1="486" y1="140" x2="153" y2="140" stroke="#5B4D80" stroke-width="2"/>
+  <path d="M146 140 l8 -4.5 v9 z" fill="#5B4D80"/>
+  <text x="316" y="156" font-size="10.5" fill="#8A7FA3" text-anchor="middle">reverse transcription starts on the bead and runs toward the cap</text>
+  <path d="M142 226 L142 225.9 L145 225.9 L148 225.9 L151 225.9 L154 225.9 L157 225.9 L160 225.9 L163 225.9 L166 225.9 L169 225.9 L172 225.9 L175 225.9 L178 225.9 L181 225.9 L184 225.9 L187 225.9 L190 225.9 L193 225.9 L196 225.9 L199 225.8 L202 225.8 L205 225.8 L208 225.8 L211 225.8 L214 225.8 L217 225.8 L220 225.8 L223 225.8 L226 225.8 L229 225.7 L232 225.7 L235 225.7 L238 225.7 L241 225.7 L244 225.7 L247 225.6 L250 225.6 L253 225.6 L256 225.6 L259 225.5 L262 225.5 L265 225.5 L268 225.5 L271 225.4 L274 225.4 L277 225.4 L280 225.3 L283 225.3 L286 225.3 L289 225.2 L292 225.2 L295 225.1 L298 225.1 L301 225.0 L304 225.0 L307 224.9 L310 224.9 L313 224.8 L316 224.7 L319 224.7 L322 224.6 L325 224.5 L328 224.4 L331 224.3 L334 224.2 L337 224.1 L340 224.0 L343 223.9 L346 223.8 L349 223.7 L352 223.5 L355 223.4 L358 223.3 L361 223.1 L364 223.0 L367 222.8 L370 222.6 L373 222.4 L376 222.2 L379 222.0 L382 221.8 L385 221.5 L388 221.3 L391 221.0 L394 220.7 L397 220.4 L400 220.1 L403 219.8 L406 219.5 L409 219.1 L412 218.7 L415 218.3 L418 217.9 L421 217.4 L424 216.9 L427 216.4 L430 215.9 L433 215.3 L436 214.7 L439 214.1 L442 213.4 L445 212.7 L448 212.0 L451 211.2 L454 210.3 L457 209.5 L460 208.5 L463 207.6 L466 206.5 L469 205.4 L472 204.3 L475 203.1 L478 201.8 L481 200.4 L484 199.0 L487 197.5 L490 195.9 L493 194.2 L496 192.4 L499 190.5 L502 188.5 L505 186.4 L508 184.2 L511 181.8 L514 179.4 L517 176.8 L520 174.0 L520 226 Z" fill="#185FA5" fill-opacity="0.35" stroke="#185FA5" stroke-width="1.5"/>
+  <text x="212" y="204" font-size="10.5" font-weight="700" fill="#a8401d" text-anchor="middle">V(D)J: no reads ❌</text>
+  <text x="40" y="206" font-size="11" fill="#8A7FA3">where the</text>
+  <text x="40" y="221" font-size="11" fill="#8A7FA3">reads land</text>
+  <text x="616" y="76" font-size="14" font-weight="700" fill="#185FA5">3′ kit — the default</text>
+  <text x="616" y="100" font-size="12" fill="#555">bead: <tspan fill="#1D9E75" font-weight="700">barcode</tspan> · <tspan fill="#BA7517" font-weight="700">UMI</tspan> · <tspan fill="#5B4D80" font-weight="700">poly(dT)</tspan></text>
+  <text x="616" y="126" font-size="12" fill="#555">poly(dT) on the bead grabs the</text>
+  <text x="616" y="143" font-size="12" fill="#555">poly(A) tail → the barcode joins</text>
+  <text x="616" y="160" font-size="12" fill="#555">the 3′ end of the transcript.</text>
+  <text x="616" y="188" font-size="12" font-weight="700" fill="#0F6E56">✅ gene expression; most atlases</text>
+  <text x="616" y="208" font-size="12" font-weight="700" fill="#a8401d">❌ V(D)J is too far from the tail</text>
+  <rect x="24" y="258" width="832" height="200" rx="10" fill="#ffffff" stroke="#534AB7" stroke-width="1.5"/>
+  <text x="212" y="316" font-size="10.5" font-weight="700" fill="#534AB7" text-anchor="middle">V(D)J</text>
+  <rect x="168" y="384" width="88" height="54" fill="#534AB7" fill-opacity="0.08"/>
+  <rect x="145" y="325" width="23" height="10" fill="#d8d2e4"/>
+  <rect x="168" y="325" width="54" height="10" fill="#534AB7"/>
+  <rect x="222" y="325" width="12" height="10" fill="#8b80d6"/>
+  <rect x="234" y="325" width="22" height="10" fill="#534AB7"/>
+  <rect x="256" y="325" width="104" height="10" fill="#9fb6cf"/>
+  <rect x="360" y="325" width="126" height="10" fill="#d8d2e4"/>
+  <rect x="486" y="325" width="34" height="10" fill="#efeaf5"/>
+  <text x="503" y="333" font-family="monospace" font-size="9" font-weight="700" fill="#5B4D80" text-anchor="middle">AAAA</text>
+  <circle cx="140" cy="330" r="5.5" fill="#8A7FA3"/>
+  <text x="130" y="334" font-size="12" font-weight="700" fill="#4A3D6B" text-anchor="end">5′</text>
+  <text x="526" y="326" font-size="12" font-weight="700" fill="#4A3D6B">3′</text>
+  <circle cx="62" cy="344" r="18" fill="#534AB7"/>
+  <text x="62" y="348" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">bead</text>
+  <rect x="80" y="339" width="21" height="11" rx="2" fill="#1D9E75"/>
+  <text x="90.5" y="347.5" font-size="7.5" font-weight="700" fill="#fff" text-anchor="middle">BC</text>
+  <rect x="101" y="339" width="21" height="11" rx="2" fill="#BA7517"/>
+  <text x="111.5" y="347.5" font-size="7.5" font-weight="700" fill="#fff" text-anchor="middle">UMI</text>
+  <rect x="122" y="339" width="21" height="11" rx="2" fill="#3a8fd0"/>
+  <text x="132.5" y="347.5" font-size="7.5" font-weight="700" fill="#fff" text-anchor="middle">TSO</text>
+  <rect x="486" y="339" width="34" height="11" rx="2" fill="#5B4D80"/>
+  <text x="503.0" y="347.5" font-size="7.5" font-weight="700" fill="#fff" text-anchor="middle">TTTT</text>
+  <text x="526" y="348" font-size="10" fill="#8A7FA3">free primer</text>
+  <line x1="486" y1="358" x2="153" y2="358" stroke="#5B4D80" stroke-width="2"/>
+  <path d="M146 358 l8 -4.5 v9 z" fill="#5B4D80"/>
+  <text x="316" y="374" font-size="10.5" fill="#8A7FA3" text-anchor="middle">reverse transcription starts at the tail, reaches the cap, then copies the bead's TSO</text>
+  <path d="M142 438 L142 386.0 L145 387.6 L148 389.2 L151 390.7 L154 392.2 L157 393.6 L160 395.0 L163 396.3 L166 397.6 L169 398.9 L172 400.1 L175 401.3 L178 402.4 L181 403.5 L184 404.6 L187 405.6 L190 406.6 L193 407.6 L196 408.5 L199 409.5 L202 410.3 L205 411.2 L208 412.0 L211 412.8 L214 413.6 L217 414.4 L220 415.1 L223 415.8 L226 416.5 L229 417.2 L232 417.8 L235 418.5 L238 419.1 L241 419.7 L244 420.2 L247 420.8 L250 421.3 L253 421.8 L256 422.3 L259 422.8 L262 423.3 L265 423.8 L268 424.2 L271 424.6 L274 425.0 L277 425.4 L280 425.8 L283 426.2 L286 426.6 L289 426.9 L292 427.3 L295 427.6 L298 427.9 L301 428.2 L304 428.6 L307 428.8 L310 429.1 L313 429.4 L316 429.7 L319 429.9 L322 430.2 L325 430.4 L328 430.7 L331 430.9 L334 431.1 L337 431.3 L340 431.5 L343 431.7 L346 431.9 L349 432.1 L352 432.3 L355 432.5 L358 432.6 L361 432.8 L364 433.0 L367 433.1 L370 433.3 L373 433.4 L376 433.6 L379 433.7 L382 433.8 L385 434.0 L388 434.1 L391 434.2 L394 434.3 L397 434.4 L400 434.6 L403 434.7 L406 434.8 L409 434.9 L412 435.0 L415 435.1 L418 435.2 L421 435.2 L424 435.3 L427 435.4 L430 435.5 L433 435.6 L436 435.6 L439 435.7 L442 435.8 L445 435.9 L448 435.9 L451 436.0 L454 436.1 L457 436.1 L460 436.2 L463 436.2 L466 436.3 L469 436.3 L472 436.4 L475 436.4 L478 436.5 L481 436.5 L484 436.6 L487 436.6 L490 436.7 L493 436.7 L496 436.7 L499 436.8 L502 436.8 L505 436.9 L508 436.9 L511 436.9 L514 437.0 L517 437.0 L520 437.0 L520 438 Z" fill="#534AB7" fill-opacity="0.35" stroke="#534AB7" stroke-width="1.5"/>
+  <text x="262" y="420" font-size="10.5" font-weight="700" fill="#0F6E56">← V(D)J covered ✅</text>
+  <text x="40" y="418" font-size="11" fill="#8A7FA3">where the</text>
+  <text x="40" y="433" font-size="11" fill="#8A7FA3">reads land</text>
+  <text x="616" y="288" font-size="14" font-weight="700" fill="#534AB7">5′ kit — immune repertoire</text>
+  <text x="616" y="312" font-size="12" fill="#555">bead: <tspan fill="#1D9E75" font-weight="700">barcode</tspan> · <tspan fill="#BA7517" font-weight="700">UMI</tspan> · <tspan fill="#3a8fd0" font-weight="700">TSO</tspan></text>
+  <text x="616" y="338" font-size="12" fill="#555">A free poly(dT) primer starts RT;</text>
+  <text x="616" y="355" font-size="12" fill="#555">at the cap the enzyme switches onto</text>
+  <text x="616" y="372" font-size="12" fill="#555">the bead's TSO (template switching)</text>
+  <text x="616" y="389" font-size="12" fill="#555">→ the barcode joins the 5′ end.</text>
+  <text x="616" y="416" font-size="12" font-weight="700" fill="#0F6E56">✅ TCR/BCR + gene expression,</text>
+  <text x="616" y="433" font-size="12" font-weight="700" fill="#0F6E56">from the same cells</text>
+  <rect x="24" y="470" width="832" height="58" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
+  <text x="48" y="494" font-size="13" font-weight="700" fill="#7a5f2a">💡 Reads come from whichever end carries the barcode.</text>
+  <text x="48" y="514" font-size="12.5" fill="#7a5f2a">3′: the bead grabs the poly(A) tail.   5′: the bead's TSO is copied onto the cap end.   V(D)J sits near the 5′ end.</text>
+</svg>

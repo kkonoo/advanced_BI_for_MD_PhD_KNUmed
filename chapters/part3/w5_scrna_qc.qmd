@@ -18,7 +18,9 @@ By the end of this chapter you should be able to:
 -   ⚠️ Explain why dissociation changes the composition you measure
 -   Explain what a UMI is, and why the count matrix is mostly zeros
 -   ⚠️ Read a knee plot and a QC scatter, and name the population each threshold deletes
+-   Explain how a doublet detector works — and which doublets no detector can see
 -   ⚠️ Read a UMAP responsibly — and say what its distances do and do not mean
+-   ⚠️ Say which version of the matrix — raw, normalised, scaled, batch-corrected — each step should use
 -   ⚠️ Explain why per-cell differential expression across conditions is invalid, and what pseudobulk does instead
 :::
 
@@ -69,21 +71,39 @@ Already know which cell type you care about?
 
 ------------------------------------------------------------------------
 
-# 2. ⚠️ Decisions Made Before the Machine 🧫 {#w5-s2}
+# 2. Decisions Made Before the Machine 🤔 {#w5-s2}
 
 ## 1) The platform trade-off {#w5-s2-1}
 
 Every platform buys cells with depth, or depth with cells.
 
-| Platform | Cells | Depth | When |
-|-----------------|-----------------|-----------------|----------------------|
-| **Droplet (10x)** | 10³–10⁵ | a few thousand genes/cell, 3′ end only | the current default |
-| **Plate (Smart-seq3)** | 10² | full-length, deep | isoforms, very sensitive detection |
-| **Combinatorial (sci-, SPLiT-seq)** | 10⁶ | very shallow | whole-organism atlases |
++-------------------------------------+--------------+----------------------------------------------+------------------------------------+
+| Platform                            | Cells        | Depth                                        | When                               |
++=====================================+==============+==============================================+====================================+
+| **Droplet (10x)**                   | 10³–10⁵      | a few thousand genes/cell, 3′ or 5′ end only | the current default                |
++-------------------------------------+--------------+----------------------------------------------+------------------------------------+
+| **Plate (Smart-seq3)**              | 10²          | full-length, deep                            | isoforms, very sensitive detection |
++-------------------------------------+--------------+----------------------------------------------+------------------------------------+
+| **Combinatorial (sci-, SPLiT-seq)** | 10⁶          | very shallow                                 | whole-organism atlases             |
++-------------------------------------+--------------+----------------------------------------------+------------------------------------+
 
-## 2) ⚠️ Cells or nuclei — and why it is decided at collection {#w5-s2-2}
+## 2) 3′ vs. 5′ (for droplet kits)
 
-![The composition you measure is the composition that survived.](/assets/img/w5/dissociation_bias.svg){fig-align="center"}
+**one end** of each transcript, not the full length — enough to count genes, not to see isoforms.
+
+![](/assets/img/w5/three_vs_five_prime.svg){fig-align="center"}
+
+-   ✅ **Most single-cell data is 3′**, including most public atlases. 5′ is the choice when you need clonotypes: T/B cells, tumour immunology, autoimmunity, vaccine responses
+-   ⚠️ For gene counting the two are broadly similar, but **not interchangeable within one comparison** — 3′ and 5′ samples mixed in one study are a batch effect by design
+-   💡 For fixed or FFPE samples there is a third route: probe-based kits (10x Flex) that hybridise probes instead of capturing the poly(A) tail
+-   The bead drawn in §3.2 is a 5′ bead — note the TSO at its end
+
+## 3) Cells vs nuclei {#w5-s2-2}
+
+⚠️ Decided at collection, not at analysis\
+scRNA-seq needs **fresh**, viable tissue dissociated into intact cells
+
+![](/assets/img/w5/dissociation_bias.svg){fig-align="center"}
 
 |   | scRNA-seq | snRNA-seq |
 |--------------------------|:---------------------:|:---------------------:|
@@ -102,7 +122,7 @@ Every platform buys cells with depth, or depth with cells.
 → ✅ Mitigations: dissociate at low temperature with cold-active protease, keep the protocol identical across conditions, and — best — use nuclei when the tissue allows it.
 :::
 
-## 3) considerations for a study design {#w5-s2-3}
+## 4) considerations for a study design {#w5-s2-3}
 
 ⚠️ **Your unit of replication is the donor.** Everything in §5 follows from this, and it should shape the budget before it shapes the analysis.
 
@@ -110,31 +130,105 @@ Every platform buys cells with depth, or depth with cells.
 
 ------------------------------------------------------------------------
 
-# 3. From Droplets to a Matrix 🧮 {#w5-s3}
+# 3. Data pre-processing 🧮 {#w5-s3}
 
-## 1) two tags: Barcodes and UMIs ![](images/clipboard-150401913.png) {#w5-s3-1}
+## 1) the standard pipeline: from Droplets to a Matrix {#w5-s3-1}
 
--   **Cell barcode** — for the cell
--   **UMI** (unique molecular identifier) — for the transcript ... PCR artifacts / amplification bias (x)
+![](images/clipboard-949377196.png)
 
-## 2) Why the matrix is over 90% zeros {#w5-s3-2}
+so many steps😟? –\> the more steps, the more errors propagate ...😵‍💫
+
+## 2) capturing a single-cell {#w5-s3-2}
+
+### ① two tags: Barcodes and UMIs
+
+![One gel bead per droplet (a 5′ bead; see §2.2). Every oligo on the bead carries the same cell barcode and a different UMI. (Lower: an antibody-conjugated oligo, which reads out surface protein with the same barcode, as in CITE-seq.)](images/clipboard-150401913.png)
+
+-   **Cell barcode** — identical on every oligo of one bead → every molecule captured in that droplet is tagged *"from this cell"*
+-   **UMI** (unique molecular identifier) — random, different on every oligo → tags each original mRNA molecule **before** amplification
+
+✅ The matrix counts **molecules, not reads** — PCR duplicates and amplification bias are removed\
+⚠️ What UMIs cannot fix: a molecule that was never captured gets no UMI at all. Hence the zeros below
+
+::: {.callout-warning collapse="true"}
+### sparsity: why the matrix is over 90% zeros
 
 A droplet experiment detects roughly 1,000–5,000 genes per cell, out of \~20,000.\
 Zero count means:
 
 -   **Biological zero** — the gene really is not expressed in that cell
 -   **Technical zero (dropout)** — the transcript was there and was not captured. Droplet capture efficiency is \~10–30%
+:::
 
-## 3) ⚠️ QC is an analysis decision, not cleaning {#w5-s3-3}
+### ② cell calling
+
+> Which barcodes are cells, and which are empty droplets?
+
+-   **Droplets.** Cells are loaded dilute on purpose
+-   **Barcode rank plot (knee plot).** Rank every barcode by total UMI count and plot on log–log axes:
+
+![](/assets/img/w5/knee_plot.svg){fig-align="center"}
+
+-   ① **High plateau** — real cells
+-   ② **Steep drop (the knee)** — the transition
+-   ③ **Long low tail** — empty droplets carrying only ambient RNA
+
+⚠️ A hard cut at the knee deletes real cells that simply have little RNA — small or quiescent cells, neutrophils. They sit exactly in the transition zone.
+
+✅ **EmptyDrops** (Cell Ranger ≥ 3 uses a version of it) asks a better question: not "is the total high?" but "is this barcode's **profile** different from the ambient profile?" A small cell with a distinct profile is kept even though its total is low.
+
+💡 Cell Ranger writes two matrices: `filtered_feature_bc_matrix` (called cells) and `raw_feature_bc_matrix` (every barcode). **Keep the raw one** — ambient-RNA correction needs the empty droplets.
+
+### ③ removal of ambient RNA
+
+Cells that burst during dissociation and loading release their mRNA into the suspension. This **"soup"** is captured in every droplet, so every cell's profile = its own RNA + a little soup.
+
+![](/assets/img/w5/ambient_rna.svg){fig-align="center"}
+
+-   **What it looks like** — markers of the most abundant or most fragile cell type at low level in **every** cluster: haemoglobin genes in every cell of a bloody sample, *ALB* in the immune cells of a liver
+-   **Why it matters** — false co-expression, blurred cluster boundaries, and ⚠️ false DE when one condition releases more soup (diseased, necrotic tissue usually does)
+
+⚠️ **every droplet-based protocol** has it, and **snRNA-seq the most** (isolating nuclei lyses every cell)
+
+💡 **Well-based platforms (BD Rhapsody, plate-based Smart-seq) usually skip this step.** Cells settle or are sorted into separate wells carrying little of the surrounding buffer, so far less soup is captured than in a droplet, which seals the buffer in with the cell. ⚠️ Less is not zero — the same symptom (one cell type's markers everywhere) still means contamination.
+
++----------------+---------------------------------+--------------------------------------------------------------------------------------------+
+| Tool           | Input                           | Idea                                                                                       |
++================+=================================+============================================================================================+
+| **SoupX**      | raw + filtered matrix, clusters | Estimates the soup from empty droplets, then subtracts a contamination fraction            |
++----------------+---------------------------------+--------------------------------------------------------------------------------------------+
+| **CellBender** | raw matrix                      | Generative model that calls cells **and** removes ambient RNA in one step; GPU recommended |
++----------------+---------------------------------+--------------------------------------------------------------------------------------------+
+| **DecontX**    | filtered matrix (raw optional)  | Bayesian; usable when the empty droplets were not kept                                     |
++----------------+---------------------------------+--------------------------------------------------------------------------------------------+
+
+✅ Run it **before** QC and clustering, on each sample separately — the corrected counts are the input to everything below.
+
+## 3) data QC: your own cutoffs {#w5-s3-3}
+
+### ① low-quality QC
+
+Three numbers per cell:
+
++-----------------+--------------------------------------+------------------------------------+-----------------------------------------+
+| Metric          | Seurat / scanpy                      | Too low →                          | Too high →                              |
++=================+======================================+====================================+=========================================+
+| Total UMIs      | `nCount_RNA` / `total_counts`        | empty droplet, debris, broken cell | doublet — or a large, active cell       |
++-----------------+--------------------------------------+------------------------------------+-----------------------------------------+
+| Genes detected  | `nFeature_RNA` / `n_genes_by_counts` | as above                           | as above                                |
++-----------------+--------------------------------------+------------------------------------+-----------------------------------------+
+| Mitochondrial % | `percent.mt` / `pct_counts_mt`       | —                                  | dying cell — or a mitochondria-rich one |
++-----------------+--------------------------------------+------------------------------------+-----------------------------------------+
+
+**Why a high mito fraction means a dying cell**: when the membrane breaks, cytoplasmic mRNA leaks out, but transcripts inside mitochondria are protected by the mitochondrial membrane and stay. The **fraction** rises — not because the cell made more.
+
+⚠️ **Read them jointly.** High mito **and** few genes = broken cell. High mito with a normal gene count may be a genuinely mitochondria-rich cell (cardiomyocyte, hepatocyte, renal tubule)\
+⚠️ **snRNA-seq**: nuclei contain no mitochondria, so mito reads should be near zero. Any real fraction is cytoplasmic or ambient contamination → a much stricter cut
+
+✅ **Data-driven cutoffs**: flag cells more than *k* **median absolute deviations (MADs)** from the median (`scater::isOutlier`; *k* = 3 strict … 5 permissive) — the threshold adapts to each sample\
+✅ **Per sample, always.** A more deeply sequenced sample shifts all three distributions
 
 ![](/assets/img/w5/qc_thresholds.svg){fig-align="center"}
-
-| Problem | What it looks like | What to do |
-|--------------------|--------------------------|--------------------------|
-| **Empty droplets** | Low-UMI barcodes below the knee | `EmptyDrops`, not a hard cutoff |
-| **Ambient RNA** | Markers of abundant cell types appearing everywhere | `SoupX`, `CellBender`, `DecontX` |
-| **Doublets** | High UMI **and** high gene count; two incompatible marker sets | `scDblFinder`, `DoubletFinder`; \~1% per 1,000 cells loaded |
-| **Dying cells** | High mitochondrial fraction, low gene count | Threshold on mito %, tissue-specifically |
 
 ::: {.callout-important collapse="true"}
 ## Every threshold needs its rationale
@@ -146,19 +240,281 @@ Zero count means:
 ✅ **Plot** the distribution, look at what sits outside your proposed cut → **decide** your **own** thresholds
 :::
 
+### ② doublets
+
+Two cells in one droplet share a barcode and look like **one cell with a hybrid profile**. The rate rises with loading: \~0.8% per 1,000 cells recovered on standard 10x — **10,000 cells → \~8% doublets**.
+
+|   | **Heterotypic** | **Homotypic** |
+|---------------------|--------------------------|--------------------------|
+| Made of | two different cell types (T cell + monocyte) | two cells of the same type |
+| Looks like | markers of both types; a fake "intermediate" cluster or a bridge between clusters | one cell with \~2× the counts |
+| Detectable from expression | ✅ yes | ❌ almost never |
+| Damage | ⚠️ invented cell types and transitions | mild |
+
+**The core idea**: we never see which barcodes are doublets — but we can **make** doublets, and then ask which real cells look like them.
+
+![A real cell surrounded by artificial doublets in PC space is probably a doublet itself.](/assets/img/w5/doublet_detection.svg){fig-align="center"}
+
+**DoubletFinder — the logic in four steps**
+
+1.  **Simulate** — make artificial doublets by averaging the profiles of random pairs of real cells (`pN`, default 25% of the merged data)
+2.  **Embed together** — real + artificial cells → normalise, HVGs, PCA
+3.  **Count fake neighbours** — for each real cell, **pANN** = the **p**roportion of **a**rtificial doublets among its **n**earest **n**eighbours. A real doublet sits among the fakes → high pANN
+4.  **Threshold** — rank by pANN and call the top *n* as doublets, where *n* = expected rate × cells, reduced by the homotypic fraction it cannot see (`modelHomotypic()`)
+
+The one parameter that matters is **pK**, the neighbourhood size. DoubletFinder sweeps it and keeps the value at which pANN is most **bimodal** — singlets low, doublets high — scored by BCmvn (mean–variance-normalised bimodality coefficient).
+
+💡 A clearly bimodal pANN distribution is your evidence that the call works. A unimodal one means doublets are not separable at that neighbourhood size.
+
+```{r}
+library(DoubletFinder)
+
+# one sample at a time, after permissive QC, normalisation, PCA and a rough clustering
+sweep <- paramSweep(seu, PCs = 1:10, sct = FALSE)
+bcmvn <- find.pK(summarizeSweep(sweep, GT = FALSE))
+pK    <- as.numeric(as.character(bcmvn$pK[which.max(bcmvn$BCmetric)]))
+
+homotypic <- modelHomotypic(seu$seurat_clusters)    # share of same-type doublets
+rate      <- 0.008 * ncol(seu) / 1000               # ~0.8% per 1,000 cells (10x)
+nExp      <- round(rate * ncol(seu) * (1 - homotypic))
+
+seu <- doubletFinder(seu, PCs = 1:10, pN = 0.25, pK = pK, nExp = nExp, sct = FALSE)
+# → new metadata columns pANN_* and DF.classifications_* (Singlet / Doublet)
+```
+
+**scDblFinder — what is different?**
+
+Same core idea (artificial doublets, and where real cells sit among them), different machinery:
+
++---------------------+------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+|                     | DoubletFinder                                  | scDblFinder                                                                                                                       |
++=====================+================================================+===================================================================================================================================+
+| Artificial doublets | random pairs                                   | random, **or between clusters** — focused on the heterotypic ones that matter                                                     |
++---------------------+------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| Score               | one statistic (pANN) at one neighbourhood size | gradient-boosted classifier on kNN features at several sizes + library size, detected genes, co-expression; retrained iteratively |
++---------------------+------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| Parameters          | pK sweep; expected *n* set by hand             | threshold set automatically from the expected rate and misclassification                                                          |
++---------------------+------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| Multiple samples    | run each sample yourself                       | `samples =` argument                                                                                                              |
++---------------------+------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+| Speed               | slow (the pK sweep)                            | fast                                                                                                                              |
++---------------------+------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+
+DoubletFinder was the most accurate method in the first large independent benchmark (Xi & Li 2021). scDblFinder, released later, matched or beat it on the same datasets (Germain et al. 2021) and is now a common default — it is the tool in the pipeline figure.
+
+```{r}
+library(scDblFinder)
+sce <- scDblFinder(as.SingleCellExperiment(seu), samples = "sample_id")
+seu$doublet <- sce$scDblFinder.class                # "singlet" / "doublet"
+```
+
+::: {.callout-warning collapse="true"}
+## Rules for any doublet detector
+
+⚠️ **One sample (capture) at a time.** Doublets form only within a capture; artificial doublets between two patients describe cells that cannot exist\
+⚠️ **Homotypic doublets survive every expression-based method.** Accept a residual\
+⚠️ **Do it before you interpret clusters.** A doublet cluster sits between its two parents and is easily named a transitional state\
+💡 **Design beats algorithms.** Pool donors in one lane and demultiplex by genotype (`demuxlet`, `souporcell`, `vireo`) or by hashtag antibodies → every between-donor doublet is identified directly, and you can load more cells per lane
+:::
+
+### ③ Recap
+
++--------------------+----------------------------------------------------------------+------------------------------------------------------------------+
+| Problem            | What it looks like                                             | What to do                                                       |
++====================+================================================================+==================================================================+
+| **Empty droplets** | Low-UMI barcodes below the knee                                | `EmptyDrops`, not a hard cutoff                                  |
++--------------------+----------------------------------------------------------------+------------------------------------------------------------------+
+| **Ambient RNA**    | Markers of abundant cell types appearing everywhere            | `SoupX`, `CellBender`, `DecontX`                                 |
++--------------------+----------------------------------------------------------------+------------------------------------------------------------------+
+| **Doublets**       | High UMI **and** high gene count; two incompatible marker sets | `scDblFinder`, `DoubletFinder`; \~0.8% per 1,000 cells recovered |
++--------------------+----------------------------------------------------------------+------------------------------------------------------------------+
+| **Dying cells**    | High mitochondrial fraction, low gene count                    | Threshold on mito %, tissue-specifically                         |
++--------------------+----------------------------------------------------------------+------------------------------------------------------------------+
+
+::: {.callout-tip collapse="true"}
+## Which comes first — doublets or QC?
+
+The two tools' own documentation points in opposite directions:
+
+-   **DoubletFinder**: remove low-quality clusters **first** — they distort the artificial doublets and the PCA
+-   **scDblFinder**: find doublets **before** stringent QC — the expected rate is computed from the cells you hand it, and a doublet of one good and one bad cell is recognisable only while the bad one is still in the data
+
+✅ The order that reconciles them — ① then ② above, as in the pipeline figure:
+
+1.  **Primary QC, permissive** — remove only obvious junk: near-empty barcodes, extreme mito
+2.  **Doublet detection**, per sample
+3.  **Final thresholds**, data-driven (MADs)
+4.  **Secondary QC after clustering** — drop whole clusters defined by mito or stress genes, or by two incompatible marker sets (§4.4)
+
+💡 Either order is defensible if you state it. What is not: an upper `nFeature` cutoff as your **only** doublet filter.
+:::
+
+## 4) dimension reduction {#w5-s3-4}
+
+After QC: **thousands of cells** × \~20,000 genes, mostly zeros
+
+### ① normalization & scaling
+
++-----------------+--------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------+--------------------------+
+| Step            | What it does                                                       | Why                                                                                                                 | Seurat                   |
++=================+====================================================================+=====================================================================================================================+==========================+
+| **Normalise**   | divide by the cell's total UMIs, × 10,000, then log(1 + x)         | capture efficiency differs several-fold between cells for purely technical reasons; the log tames a few huge values | `NormalizeData()`        |
++-----------------+--------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------+--------------------------+
+| **Select HVGs** | keep \~2,000 genes whose variance exceeds what their mean predicts | most genes are flat or noise; HVGs carry the cell-type signal                                                       | `FindVariableFeatures()` |
++-----------------+--------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------+--------------------------+
+| **Scale**       | per gene: subtract the mean, divide by the SD                      | so a highly expressed gene does not dominate PCA simply by being large                                              | `ScaleData()`            |
++-----------------+--------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------+--------------------------+
+
+::: {.callout-note collapse="true"}
+💡 Alternatives: **SCTransform** (Pearson residuals from a regularised negative binomial model — all three steps in one) and **scran** pooled size factors. A large benchmark found the plain shifted log + [**PCA does**]{.underline} as well as or better than the sophisticated options (Ahlmann-Eltze & Huber 2023)\
+⚠️ `ScaleData(vars.to.regress = ...)` can regress out mito %, depth or cell-cycle score. Use sparingly: if the "nuisance" is correlated with biology — cycling cells in a proliferative disease — you regress out the biology too\
+⚠️ Three versions of the same matrix now sit side by side. §5.1 depends on knowing which is which:
+
+-   `counts` — raw UMIs
+-   `data` — log-normalised
+-   `scale.data` — z-scores, HVGs only
+:::
+
+### ② PCA: dimension reduction
+
+2,000 HVGs → **10–50 principal components**. Each PC is a weighted combination of genes that move together — a *program*, not a gene.
+
+-   **Denoising** — single genes are noisy; correlated programs are not. Top PCs carry biology, later ones mostly noise
+-   **Speed** — everything downstream (neighbours, clustering, UMAP, batch correction) runs on PCs, not genes
+-   **How many?** `ElbowPlot()` — where the variance explained flattens. Results are fairly stable across 10–50; err high rather than low, since a rare population can live in PC 25
+
+✅ **Check what drives the top PCs.** If PC1 tracks `nCount_RNA` or `percent.mt`, your main axis of variation is technical → back to QC. `VizDimLoadings()` shows the genes\
+💡 PCA is linear and its distances are meaningful — unlike UMAP (§4.3). PC space is where the analysis actually happens; UMAP is only how we look at it.
+
+### ③ batch correction
+
+With several samples, cells often group by **donor or batch** before cell type. Correction works on the **embedding**, not on the counts:
+
+-   **Harmony** — iteratively adjusts the PCs
+-   **scVI** — learns a new latent space [from raw counts]{.underline}, with batch as a covariate
+-   **Seurat CCA / RPCA** — anchors matched cells between datasets
+
+→ for neighbours, clustering and UMAP
+
+✅ **Check first whether you need it.** Colour the uncorrected UMAP by sample. If cell types already mix across samples, skip it\
+⚠️ **Corrected values are for grouping cells, not for testing genes.** DE goes back to raw counts, with donor in the model (§5.1)\
+⚠️ Over-correction can erase a disease-specific state → 🔗 [W6 §1](w6_scrna_dynamics.qmd#w6-s1)
+
+::: {.callout-note collapse="true"}
+## The VI universe — one engine, many models
+
+scVI is the first member of a family (the **scvi-tools** library). All share one engine:
+
+-   A **variational autoencoder (VAE)** — a neural network compresses each cell's **raw counts** into \~10–30 latent numbers, and a decoder reconstructs the counts with a **negative binomial** model
+-   **Batch is handed to the decoder** as an input, so the latent space does not have to encode it — that is the integration
+-   Change the likelihood or add a modality → a new model
+
++-------------------+--------------------------------------+------------------------------------------------------------------+----------------+
+| Model             | Data                                 | Used for                                                         | In this course |
++===================+======================================+==================================================================+================+
+| **scVI**          | scRNA-seq                            | integration, denoised expression, DE                             | here, W6       |
++-------------------+--------------------------------------+------------------------------------------------------------------+----------------+
+| **scANVI**        | scRNA-seq + some cell-type labels    | label transfer, annotation                                       | §4.4           |
++-------------------+--------------------------------------+------------------------------------------------------------------+----------------+
+| **scArches**      | new data + a trained reference model | mapping a query onto an atlas without retraining                 | §4.4           |
++-------------------+--------------------------------------+------------------------------------------------------------------+----------------+
+| **totalVI**       | CITE-seq (RNA + surface protein)     | joint RNA–protein analysis; removes antibody background          |                |
++-------------------+--------------------------------------+------------------------------------------------------------------+----------------+
+| **PeakVI**        | scATAC-seq                           | chromatin accessibility: integration, differential accessibility |                |
++-------------------+--------------------------------------+------------------------------------------------------------------+----------------+
+| **MultiVI**       | multiome (RNA + ATAC), paired or not | integrating multiome with single-modality data                   | W11            |
++-------------------+--------------------------------------+------------------------------------------------------------------+----------------+
+| **DestVI**        | spatial spots + scRNA reference      | deconvolution, including continuous states within a cell type    | W8             |
++-------------------+--------------------------------------+------------------------------------------------------------------+----------------+
+| **veloVI**        | spliced / unspliced counts           | RNA velocity with uncertainty                                    | W6             |
++-------------------+--------------------------------------+------------------------------------------------------------------+----------------+
+| **contrastiveVI** | perturbed vs control cells           | separating treatment-specific from shared variation              |                |
++-------------------+--------------------------------------+------------------------------------------------------------------+----------------+
+| **MrVI**          | many samples / donors                | sample-level (donor) differences in large cohorts                |                |
++-------------------+--------------------------------------+------------------------------------------------------------------+----------------+
+
+-   💡 Practical: all of them want **raw counts** (keep the `counts` layer), run in Python (`scvi-tools`; a GPU helps), and reach R via `reticulate` or an exported `.h5ad`
+-   ⚠️ Same caution as any integration: the latent space is for grouping cells. A model told to remove "batch" also removes any biology confounded with batch (W6 §1)
+:::
+
 ------------------------------------------------------------------------
 
 # 4. Finding Cell Types 🗺️ {#w5-s4}
 
-## 1) The standard pipeline {#w5-s4-1}
+## 1) neighbors for grouping cells {#w5-s4-1}
 
-![](images/clipboard-949377196.png)
+> Clustering and UMAP never see genes. They see a **graph of which cells are near which**, built in PC space.
 
-## 2) UMAP {#w5-s4-2}
+![](/assets/img/w5/knn_graph.svg){fig-align="center"}
+
+-   **Neighbours** — for each cell, the *k* cells closest to it in PC space (Euclidean distance on the top PCs)
+-   **kNN graph** — cells are nodes; each cell is linked to its *k* neighbours. Seurat then reweights each link by how many neighbours the two cells **share** (SNN graph), which damps outliers
+-   **Why a graph** — cell populations are rarely round blobs. A graph follows the shape of the data, including elongated, branching and continuous populations, and scales to millions of cells
+
+⚠️ "kNN clustering" is a misnomer. kNN only **builds** the graph; clustering (next) **cuts** it into communities. Nor is it *k*-means, which needs the number of clusters in advance and assumes round clusters.
+
+⚠️ *k* sets the scale (`k.param = 20` in Seurat, `n_neighbors = 15` in scanpy). Small *k* → fine local structure, more fragments. Large *k* → a smoother graph, and a population with fewer cells than *k* cannot be its own neighbourhood — its members are forced to link outside it.
+
+## 2) clustering {#w5-s4-2}
+
+![](/assets/img/w5/clustering.svg){fig-align="center"}
+
+### ① leiden vs. louvain
+
+Concept only — recognise the names and know what they optimise; no need to implement them.
+
+-   Both are **community detection**: cut the graph into groups whose cells are more densely linked to each other than chance would predict (maximising **modularity**)
+-   **Louvain** (2008) — greedily move each cell into the neighbouring community that most improves modularity; collapse each community into one node; repeat
+-   ⚠️ Known flaw: it can return **badly connected or even disconnected** communities — a "cluster" whose pieces are not linked in the graph
+-   **Leiden** (2019) — adds a refinement step that guarantees every community is internally connected; also faster
+-   Defaults: scanpy → Leiden. Seurat `FindClusters()` → Louvain (`algorithm = 1`); Leiden is `algorithm = 4`
+
+💡 For the biology, the choice rarely changes the conclusion. **Resolution** does — report both.
+
+### ② resolution
+
+![](/assets/img/w5/umap_resolution.svg){fig-align="center"}
+
+> key parameter for clustering: **resolution**
+
+Resolution is a term inside the modularity score: higher values reward smaller communities → more clusters.
+
+⚠️ the **best** resolution is [up to you]{.underline}...
+
+-   Check clusters against **marker genes** and known biology, not against a score
+-   Check **stability**: does the cluster survive a different resolution, a different seed, a subsampled dataset?
+-   Ask whether a "new" cluster at higher resolution has genuinely distinct markers, or just gradations of the same ones
+
+::: {.callout-note collapse="true"}
+## A cluster is not a cell type
+
+Clusters can equally reflect:
+
+-   cell **state** (activated vs resting)
+-   cell-cycle phase
+-   stress response (§2.3)
+-   ambient contamination
+-   **donor identity**
+
+⚠️ Naming a cluster after its top marker gene and treating it as a cell type is how the literature accumulates cell types that do not exist.
+:::
+
+## 3) UMAP {#w5-s4-3}
 
 > a non-linear projection of tens of dimensions into two. It preserves local neighbourhoods reasonably and global structure badly.
 
-::: {.callout-warning collapse="true"}
+![](/assets/img/w5/dimred_compare.svg){fig-align="center"}
+
+Why UMAP became the default for complex tissue:
+
+-   **It lays out the same kNN graph as clustering** (§4.1) — so its islands usually agree with your clusters
+-   **Strong pull between neighbours** → compact islands with clear gaps, where t-SNE spreads groups evenly over a round cloud
+-   **It starts from the graph's own (spectral) layout**, not random positions → related populations tend to land near each other, and reruns look alike
+-   **Fast** — millions of cells, where t-SNE is slow
+
+⚠️ The t-distribution is not what makes t-SNE look round — its heavy tail is what lets t-SNE open gaps at all. The rounder, looser look comes from a **weaker pull between neighbours**, and the arbitrary arrangement from the **random start**. Start t-SNE from PCA and strengthen the pull, and it looks UMAP-like.
+
+::: {.callout-note collapse="true"}
 ## What a UMAP does *not* tell you
 
 ❌ **Distances between clusters are not meaningful.** Two clusters far apart are not necessarily more different than two that are close\
@@ -169,44 +525,78 @@ Zero count means:
 → A UMAP is a **picture** of your data, not a **measurement** of it. Any claim that matters should be supported by a number computed in the high-dimensional space.
 :::
 
-## 3) Clustering resolution is arbitrary {#w5-s4-3}
+::: {.callout-note collapse="true"}
+**PCA, t-SNE, UMAP — and the newer ones**
 
-![](/assets/img/w5/umap_resolution.svg){fig-align="center"}
++-------------+----------+------------------------------------------------------------------------------------------------+--------------------------------------------------------------+
+| Method      | Year     | Preserves                                                                                      | Where you see it                                             |
++=============+==========+================================================================================================+==============================================================+
+| **PCA**     | 1901     | global, linear structure; distances meaningful                                                 | input to everything downstream; too crude to *view* clusters |
++-------------+----------+------------------------------------------------------------------------------------------------+--------------------------------------------------------------+
+| **t-SNE**   | 2008     | local neighbourhoods; global layout arbitrary                                                  | the standard before UMAP; slower                             |
++-------------+----------+------------------------------------------------------------------------------------------------+--------------------------------------------------------------+
+| **UMAP**    | 2018     | local neighbourhoods, some global structure; fast                                              | the current default                                          |
++-------------+----------+------------------------------------------------------------------------------------------------+--------------------------------------------------------------+
+| **PHATE**   | 2019     | continuous transitions and branches                                                            | development, differentiation                                 |
++-------------+----------+------------------------------------------------------------------------------------------------+--------------------------------------------------------------+
+| **densMAP** | 2021     | also local **density** — a homogeneous population stays tight, a heterogeneous one spreads out | when "how variable is this population" matters               |
++-------------+----------+------------------------------------------------------------------------------------------------+--------------------------------------------------------------+
+| **PaCMAP**  | 2021     | a balance of local and global structure                                                        | general-purpose; less common in single-cell papers so far    |
++-------------+----------+------------------------------------------------------------------------------------------------+--------------------------------------------------------------+
 
-> key parameter for clustering: **resolution**
+💡 UMAP's reputation for better global structure than t-SNE comes mostly from its **initialisation**, not the algorithm; t-SNE started from PCA does about as well (Kobak & Linderman 2021)
 
-⚠️ the **best** resolution is [up to you]{.underline}...
-
--   Check clusters against **marker genes** and known biology, not against a score
--   Check **stability**: does the cluster survive a different resolution, a different seed, a subsampled dataset?
--   Ask whether a "new" cluster at higher resolution has genuinely distinct markers, or just gradations of the same ones
-
-::: {.callout-warning collapse="true"}
-## A cluster is not a cell type
-
-Clusters can equally reflect:
-
--   cell **state** (activated vs resting)
--   cell-cycle phase
--   stress response (§2.2)
--   ambient contamination
--   **donor identity**
-
-⚠️ Naming a cluster after its top marker gene and treating it as a cell type is how the literature accumulates cell types that do not exist.
+⚠️ Every one of them is still a 2D picture. The newer methods trade one distortion for another; none turns 2D distance into a measurement (Chari & Pachter 2023)
 :::
 
 ## 4) Annotation {#w5-s4-4}
 
--   **Marker-based** — check known markers per cluster. ✅ Transparent. ⚠️ Circular: you find the cell types you looked for
--   **Reference-based** — map onto an annotated atlas (Azimuth, SingleR, scANVI). ✅ Fast and consistent. ⚠️ Inherits the reference's vocabulary and cannot name anything the reference lacks
+-   **Marker-based** — check known markers per cluster.\
+    ✅ Transparent.\
+    ⚠️ Circular: you find the cell types you looked for
+-   **Reference-based** — map onto an annotated atlas (Azimuth, SingleR, scANVI).\
+    ✅ Fast and consistent.\
+    ⚠️ Inherits the reference's vocabulary and cannot name anything the reference lacks
 
 💡 Use both. **Disagreements between them are the informative part** — that is where a genuinely novel or genuinely artifactual population sits.
 
 ------------------------------------------------------------------------
 
-# 5. Statistics 📊 {#w5-s5}
+# 5. Statistics (DEG analysis) 📊 {#w5-s5}
 
-## 1) Why per-cell tests are wrong {#w5-s5-1}
+## 1) values to use {#w5-s5-1}
+
+By now each cell carries several versions of its expression (§3.4). Testing on the wrong one is a common and silent error.
+
++-------------------------------------------+-------------------------------------------------------------------------------------------+----------------------------------------------------------+----------------------------------------------------------+
+| Value                                     | Where                                                                                     | ✅ Use for                                               | ❌ Not for                                               |
++===========================================+===========================================================================================+==========================================================+==========================================================+
+| **Raw UMI counts**\                       | `counts` layer (Seurat), `.layers["counts"]` (scanpy)                                     | **pseudobulk DE** (§5.3), any count model                | comparing cells directly (depth differs)                 |
+| (or ambient-corrected)                    |                                                                                           |                                                          |                                                          |
++-------------------------------------------+-------------------------------------------------------------------------------------------+----------------------------------------------------------+----------------------------------------------------------+
+| **Log-normalised**                        | `data` layer (Seurat), `.X` after `normalize_total` + `log1p` (scanpy)                    | cluster markers within one dataset (§5.2), feature plots | condition comparisons with cells as *n*                  |
++-------------------------------------------+-------------------------------------------------------------------------------------------+----------------------------------------------------------+----------------------------------------------------------+
+| **Scaled (z-scores)**                     | `scale.data` layer (Seurat), `.X` after `sc.pp.scale` (scanpy)                            | PCA, heatmaps                                            | any DE                                                   |
++-------------------------------------------+-------------------------------------------------------------------------------------------+----------------------------------------------------------+----------------------------------------------------------+
+| **Batch-corrected**\                      | reductions, e.g. `harmony` (Seurat), `.obsm["X_pca_harmony"]`, `.obsm["X_scVI"]` (scanpy) | neighbours, clustering, UMAP                             | any DE                                                   |
+| (from Harmony / scVI)                     |                                                                                           |                                                          |                                                          |
++-------------------------------------------+-------------------------------------------------------------------------------------------+----------------------------------------------------------+----------------------------------------------------------+
+| **scVI normalised / denoised expression** | `get_normalized_expression()` output, usually stored in `.layers` (scvi-tools)            | visualisation; scVI's own DE                             | standard tests that assume [observed counts]{.underline} |
++-------------------------------------------+-------------------------------------------------------------------------------------------+----------------------------------------------------------+----------------------------------------------------------+
+
+::: {.callout-tip collapse="true"}
+⚠️ scanpy gotcha: `normalize_total`, `log1p` and `scale` **overwrite `.X` in place**. Copy the raw counts into `.layers["counts"]` *before* normalising — otherwise they are gone, and pseudobulk has nothing to sum.
+
+**Re-normalise after subsetting one cell type?**
+
+-   **For sub-clustering — partly, yes.** Re-run HVG selection, scaling and PCA on the subset: the HVGs of the whole tissue mostly separate cell types from each other, not states within one type
+-   **Log-normalisation itself — no.** It is computed per cell, so subsetting does not change it
+-   **For DE — not relevant.** Pseudobulk starts from raw counts, and DESeq2/edgeR normalise across pseudo-samples themselves
+
+⚠️ Exception: SCTransform residuals depend on the data they were fitted on. With several SCT models (merged samples), run `PrepSCTFindMarkers()` before testing
+:::
+
+## 2) per-cell tests {#w5-s5-2}
 
 ![](/assets/img/w5/pseudobulk.svg){fig-align="center"}
 
@@ -227,9 +617,11 @@ The consequence:
 -   ❌ Not appropriate for **comparing conditions**
 :::
 
-## 2) Pseudobulk {#w5-s5-2}
+## 3) Pseudobulk {#w5-s5-3}
 
-> for each **donor × cell type**, sum the counts across cells. You now have a small matrix of pseudo-samples — analyse it with DESeq2 or edgeR exactly as in last semester's bulk workflow.
+> for each **donor × cell type**, sum the counts across cells.
+
+You now have a small matrix of pseudo-samples — analyse it with DESeq2 or edgeR exactly as in last semester's bulk workflow.
 
 ```{r}
 library(Seurat); library(DESeq2); library(tidyverse)
@@ -244,7 +636,7 @@ pb <- AggregateExpression(seurat,
 -   Benchmarks consistently find pseudobulk controls false positives far better than per-cell tests
 -   **Mixed models** with a donor random effect are a reasonable alternative — more power retained, more computation
 
-## 3) Differential abundance is compositional {#w5-s5-3}
+## 4) Differential abundance is compositional {#w5-s5-4}
 
 Often the interesting result is not that a cell type changed its expression, but that **there is more or less of it**.
 
@@ -252,7 +644,7 @@ Often the interesting result is not that a cell type changed its expression, but
 
 -   ✅ Methods that handle this: `scCODA`, `miloR`, `propeller`, Dirichlet-multinomial models
 -   ❌ A χ² test on cell counts is **not valid**
--   ⚠️ And before believing any abundance result, return to §2.2: is this composition, or is this dissociation?
+-   ⚠️ And before believing any abundance result, return to §2.3: is this composition, or is this dissociation?
 
 ------------------------------------------------------------------------
 
@@ -335,9 +727,13 @@ install.packages(c("harmony", "CellChat"))
 -   ⚠️ **Fresh or frozen is decided at collection** and fixes scRNA-seq vs snRNA-seq permanently
 -   ⚠️ **Dissociation induces stress genes and destroys cells selectively.** *FOS*/*JUN* clusters are usually artifacts; depletion claims need scrutiny
 -   UMIs count molecules, not reads. The matrix is \>90% zeros and a single zero means little
+-   Cell calling and ambient-RNA removal need the **raw** matrix, empty droplets included — keep it
+-   ⚠️ Doublet detection runs **per sample**; homotypic doublets are invisible to every expression-based method
 -   ⚠️ **Every QC threshold deletes a real population** — mito 5% removes cardiomyocytes, min.features 500 removes platelets
+-   The kNN graph in PC space drives both clustering and UMAP. Leiden vs Louvain matters far less than resolution
 -   ❌ UMAP distances, cluster areas and bridges are **not interpretable**
 -   ⚠️ Clustering resolution is arbitrary. Check markers and stability, and **report the value you used**
+-   ⚠️ Scaled and batch-corrected values are for grouping cells, **never for DE** — testing goes back to raw counts
 -   ⚠️ **Per-cell differential expression across conditions is invalid.** Use pseudobulk. Your n is the number of **donors**
 -   ⚠️ Cell-type proportions are compositional — χ² on cell counts is not valid
 
@@ -345,23 +741,53 @@ install.packages(c("harmony", "CellChat"))
 
 # 🔑 Key terms
 
-| Term | One-line meaning |
-|----------------------------|--------------------------------------------|
-| Cell barcode | Sequence identifying which droplet a read came from |
-| UMI | Tag marking one original mRNA molecule |
-| Dropout | An expressed transcript that was not captured — a technical zero |
-| Knee plot | Ranked UMI counts, used to separate cells from empty droplets |
-| Ambient RNA | Free-floating RNA contaminating every droplet |
-| Doublet | Two cells captured in one droplet |
-| snRNA-seq | Profiling nuclei rather than whole cells |
-| Dissociation artifact | Gene expression induced by the protocol, not the biology |
-| HVG | Highly variable genes selected before PCA |
-| UMAP / t-SNE | Non-linear 2D embeddings — for visualisation only |
-| Leiden clustering | Graph-based community detection on the kNN graph |
-| Resolution | Parameter controlling how many clusters you get |
-| Pseudobulk | Summing counts per donor × cell type before testing |
-| Differential abundance | Testing whether cell-type proportions changed |
-| Compositional data | Proportions that must sum to 1, so they cannot move independently |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Term                            | One-line meaning                                                                           |
++=================================+============================================================================================+
+| Cell barcode                    | Sequence identifying which droplet a read came from                                        |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| UMI                             | Tag marking one original mRNA molecule                                                     |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Dropout                         | An expressed transcript that was not captured — a technical zero                           |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Knee plot (barcode rank plot)   | Ranked UMI counts, used to separate cells from empty droplets                              |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Cell calling                    | Deciding which barcodes are cells and which are empty droplets                             |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Ambient RNA                     | Free-floating RNA contaminating every droplet                                              |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Doublet                         | Two cells captured in one droplet                                                          |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Homotypic / heterotypic doublet | Same-type pair (nearly undetectable) / different-type pair (hybrid profile)                |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| pANN                            | DoubletFinder's score: proportion of artificial doublets among a cell's nearest neighbours |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| MAD                             | Median absolute deviation — basis for per-sample, data-driven QC cutoffs                   |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| snRNA-seq                       | Profiling nuclei rather than whole cells                                                   |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Dissociation artifact           | Gene expression induced by the protocol, not the biology                                   |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Log-normalisation               | Scale each cell to the same total, then take log(1 + x)                                    |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| HVG                             | Highly variable genes selected before PCA                                                  |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Batch correction                | Aligning samples in the embedding so cells group by type, not by batch                     |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| kNN / SNN graph                 | Each cell linked to its nearest (or shared) neighbours in PC space                         |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| UMAP / t-SNE                    | Non-linear 2D embeddings — for visualisation only                                          |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Leiden / Louvain                | Graph-based community detection on the kNN graph; Leiden guarantees connected clusters     |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Resolution                      | Parameter controlling how many clusters you get                                            |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Pseudobulk                      | Summing counts per donor × cell type before testing                                        |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Differential abundance          | Testing whether cell-type proportions changed                                              |
++---------------------------------+--------------------------------------------------------------------------------------------+
+| Compositional data              | Proportions that must sum to 1, so they cannot move independently                          |
++---------------------------------+--------------------------------------------------------------------------------------------+
 
 ------------------------------------------------------------------------
 
@@ -378,12 +804,22 @@ Luecken MD, Theis FJ. [*Current best practices in single-cell RNA-seq analysis: 
 Lun ATL, et al. [*EmptyDrops: distinguishing cells from empty droplets in droplet-based single-cell RNA sequencing data.*](https://doi.org/10.1186/s13059-019-1662-y) Genome Biol. 2019.\
 Young MD, Behjati S. [*SoupX removes ambient RNA contamination.*](https://doi.org/10.1093/gigascience/giaa151) GigaScience. 2020.\
 van den Brink SC, et al. [*Single-cell sequencing reveals dissociation-induced gene expression in tissue subpopulations.*](https://doi.org/10.1038/nmeth.4437) Nat Methods. 2017. **← read this before designing a dissociation protocol**\
-Denisenko E, et al. [*Systematic assessment of tissue dissociation and storage biases in single-cell and single-nucleus RNA-seq workflows.*](https://doi.org/10.1186/s13059-020-02048-6) Genome Biol. 2020.
+Denisenko E, et al. [*Systematic assessment of tissue dissociation and storage biases in single-cell and single-nucleus RNA-seq workflows.*](https://doi.org/10.1186/s13059-020-02048-6) Genome Biol. 2020.\
+Fleming SJ, et al. [*Unsupervised removal of systematic background noise from droplet-based single-cell experiments using CellBender.*](https://doi.org/10.1038/s41592-023-01943-7) Nat Methods. 2023.\
+McGinnis CS, Murrow LM, Gartner ZJ. [*DoubletFinder: doublet detection in single-cell RNA sequencing data using artificial nearest neighbors.*](https://doi.org/10.1016/j.cels.2019.03.003) Cell Syst. 2019.\
+Germain PL, et al. [*Doublet identification in single-cell sequencing data using scDblFinder.*](https://doi.org/10.12688/f1000research.73600.2) F1000Research. 2021.\
+Xi NM, Li JJ. [*Benchmarking computational doublet-detection methods for single-cell RNA sequencing data.*](https://doi.org/10.1016/j.cels.2020.11.008) Cell Syst. 2021.
 
 ### Embeddings and clustering
 
 Chari T, Pachter L. [*The specious art of single-cell genomics.*](https://doi.org/10.1371/journal.pcbi.1011288) PLoS Comput Biol. 2023. **← a sharp, useful critique of 2D embeddings**\
-Becht E, et al. [*Dimensionality reduction for visualizing single-cell data using UMAP.*](https://doi.org/10.1038/nbt.4314) Nat Biotechnol. 2019.
+Becht E, et al. [*Dimensionality reduction for visualizing single-cell data using UMAP.*](https://doi.org/10.1038/nbt.4314) Nat Biotechnol. 2019.\
+Kobak D, Linderman GC. [*Initialization is critical for preserving global data structure in both t-SNE and UMAP.*](https://doi.org/10.1038/s41587-020-00809-z) Nat Biotechnol. 2021.\
+Böhm JN, Berens P, Kobak D. [*Attraction-repulsion spectrum in neighbor embeddings.*](https://jmlr.org/papers/v23/21-0055.html) J Mach Learn Res. 2022. **← why UMAP looks tighter than t-SNE**\
+Ahlmann-Eltze C, Huber W. [*Comparison of transformations for single-cell RNA-seq data.*](https://doi.org/10.1038/s41592-023-01814-1) Nat Methods. 2023.\
+Traag VA, Waltman L, van Eck NJ. [*From Louvain to Leiden: guaranteeing well-connected communities.*](https://doi.org/10.1038/s41598-019-41695-z) Sci Rep. 2019.\
+Lopez R, et al. [*Deep generative modeling for single-cell transcriptomics.*](https://doi.org/10.1038/s41592-018-0229-2) Nat Methods. 2018. **← scVI**\
+Gayoso A, et al. [*A Python library for probabilistic analysis of single-cell omics data.*](https://doi.org/10.1038/s41587-021-01206-w) Nat Biotechnol. 2022. **← scvi-tools and its model family**
 
 ### Statistics
 

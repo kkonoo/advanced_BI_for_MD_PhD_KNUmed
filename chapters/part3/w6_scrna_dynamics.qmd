@@ -101,7 +101,7 @@ Tools: **Monocle3**, **Slingshot**, **PAGA**.
 
 RNA velocity adds **direction** by comparing unspliced (new) to spliced (mature) transcripts per gene. More unspliced than steady state predicts → the gene is turning on.
 
-⚠️ The assumptions about splicing and degradation kinetics are **contested**, and known to fail for some genes and systems. The arrows are also drawn on a UMAP, so they inherit every distortion from 🔗 [W5 §4.2](w5_scrna_qc.qmd#w5-s4-2).
+⚠️ The assumptions about splicing and degradation kinetics are **contested**, and known to fail for some genes and systems. The arrows are also drawn on a UMAP, so they inherit every distortion from 🔗 [W5 §4.3](w5_scrna_qc.qmd#w5-s4-3).
 
 ✅ What settles a trajectory claim: a **time course**, or **lineage tracing**. Not a better algorithm.
 

@@ -133,7 +133,7 @@ Different question from differential expression: not *"does this gene differ bet
 
 Adjacent spots share diffused transcripts, share the same local tissue, and sometimes physically share cells. They are **positively correlated by construction**.
 
-Any test that treats 4,000 spots as 4,000 independent observations will produce p-values as inflated as the per-cell tests in 🔗 [W5 §5.1](../part3/w5_scrna_qc.qmd#w5-s5-1) — and for the same reason.
+Any test that treats 4,000 spots as 4,000 independent observations will produce p-values as inflated as the per-cell tests in 🔗 [W5 §5.2](../part3/w5_scrna_qc.qmd#w5-s5-2) — and for the same reason.
 
 -   ⚠️ "This domain has 3,412 differentially expressed genes, all *p* \< 10⁻¹⁵" is a symptom, not a result
 -   ✅ Methods that account for spatial dependence exist (`nnSVG`, SPARK-X, mixed models with a spatial term)
