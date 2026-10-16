@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eunji Ha">
-<meta name="dcterms.date" content="2026-08-18">
+<meta name="dcterms.date" content="2026-10-16">
 
 <title>W8. Deconvolution &amp; Spatial Integration</title>
 <style>
@@ -590,12 +590,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#w8-s1-1" id="toc-w8-s1-1" class="nav-link" data-scroll-target="#w8-s1-1">1) The problem, restated</a></li>
   <li><a href="#w8-s1-2" id="toc-w8-s1-2" class="nav-link" data-scroll-target="#w8-s1-2">2) ⚠️ Reference bias</a></li>
   <li><a href="#w8-s1-3" id="toc-w8-s1-3" class="nav-link" data-scroll-target="#w8-s1-3">3) What proportions can and cannot tell you</a></li>
+  <li><a href="#w8-s1-4" id="toc-w8-s1-4" class="nav-link" data-scroll-target="#w8-s1-4">4) Single-cell resolution: annotate, don’t deconvolve</a></li>
   </ul></li>
   <li><a href="#w8-s2" id="toc-w8-s2" class="nav-link" data-scroll-target="#w8-s2">2. From Cell Types to Niches 🏘️</a>
   <ul>
   <li><a href="#w8-s2-1" id="toc-w8-s2-1" class="nav-link" data-scroll-target="#w8-s2-1">1) The question that spatial data is actually for</a></li>
   <li><a href="#w8-s2-2" id="toc-w8-s2-2" class="nav-link" data-scroll-target="#w8-s2-2">2) ⚠️ Testing co-localisation honestly</a></li>
   <li><a href="#w8-s2-3" id="toc-w8-s2-3" class="nav-link" data-scroll-target="#w8-s2-3">3) Mapping single cells into space</a></li>
+  <li><a href="#w8-s2-4" id="toc-w8-s2-4" class="nav-link" data-scroll-target="#w8-s2-4">4) ⚠️ Comparing niches between patients</a></li>
+  <li><a href="#w8-s2-5" id="toc-w8-s2-5" class="nav-link" data-scroll-target="#w8-s2-5">5) ⚠️ Ligand–receptor, now with distance</a></li>
   </ul></li>
   <li><a href="#w8-s3" id="toc-w8-s3" class="nav-link" data-scroll-target="#w8-s3">3. ⚠️ Where This Sits in the Evidence 🪜</a></li>
   <li><a href="#w8-s4" id="toc-w8-s4" class="nav-link" data-scroll-target="#w8-s4">4. Designing a Spatial Study 📋</a></li>
@@ -613,6 +616,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#deconvolution" id="toc-deconvolution" class="nav-link" data-scroll-target="#deconvolution">Deconvolution</a></li>
   <li><a href="#niches-and-spatial-statistics" id="toc-niches-and-spatial-statistics" class="nav-link" data-scroll-target="#niches-and-spatial-statistics">Niches and spatial statistics</a></li>
+  <li><a href="#spatial-cellcell-communication" id="toc-spatial-cellcell-communication" class="nav-link" data-scroll-target="#spatial-cellcell-communication">Spatial cell–cell communication</a></li>
   <li><a href="#integration-and-design" id="toc-integration-and-design" class="nav-link" data-scroll-target="#integration-and-design">Integration and design</a></li>
   </ul></li>
   </ul>
@@ -641,7 +645,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 18, 2026</p>
+      <p class="date">October 16, 2026</p>
     </div>
   </div>
   
@@ -669,9 +673,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Explain what deconvolution estimates, and what it cannot estimate</li>
 <li>⚠️ Say why the reference dataset determines the answer, and what to check before trusting one</li>
+<li>Say why single-cell-resolution data is annotated rather than deconvolved, and where those labels go wrong</li>
 <li>Distinguish a cell-type map from a <strong>niche</strong> map, and say why the second is where the biology usually is</li>
 <li>⚠️ Test co-localisation against a null that respects tissue structure</li>
 <li>⚠️ Say why neighbouring spots inflate significance, and what to do about it</li>
+<li>⚠️ Compare niches between patient groups with the patient, not the spot, as the unit</li>
+<li>⚠️ Say what a distance limit adds to ligand–receptor inference, and what it still cannot show</li>
 <li>Place any claim on the evidence ladder from description to demonstration</li>
 <li>Design a spatial validation step for a hypothesis generated in W5–W6</li>
 </ul>
@@ -775,6 +782,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>⚠️ “This spot contains 2.3 macrophages” — only cell2location-style methods attempt absolute numbers, and with wide uncertainty</li>
 <li>❌ “These particular macrophages express gene X” — you cannot get cell-type-specific expression out of a mixture without much stronger assumptions</li>
 </ul>
+</section>
+<section id="w8-s1-4" class="level2">
+<h2 class="anchored" data-anchor-id="w8-s1-4">4) Single-cell resolution: annotate, don’t deconvolve</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w8/cell_annotation.svg" class="img-fluid figure-img"></p>
+<figcaption>On single-cell platforms the question becomes labelling, not unmixing.</figcaption>
+</figure>
+</div>
+<p>On Xenium, CosMx or Visium HD the unit is a segmented cell (🔗 <a href="../../chapters/part4/w7_spatial_basics.html#w7-s3-2">W7 §3.2</a>), not a mixture. The task becomes <strong>annotation</strong>: one label per cell, from the same single-cell reference.</p>
+<ul>
+<li><strong>Label transfer</strong> (Seurat anchors, as in §2.3) or <strong>RCTD in <code>doublet</code> mode</strong> (each cell or 8 µm bin = one or two types) — the logic of §1.1 on a smaller unit</li>
+<li>⚠️ <strong>Only the panel’s genes are used.</strong> The reference has ~20,000 genes, the panel a few hundred to 5,000. A cell type with no marker on the panel cannot be called — it is forced into its nearest neighbour (§1.2 again)</li>
+<li>⚠️ <strong>The label inherits the segmentation.</strong> A cell holding its neighbour’s transcripts gets a mixed, low-confidence or wrong label</li>
+<li>✅ <strong>Map the confidence.</strong> Low-confidence calls piling up at cell–cell contacts = segmentation spillover, not a new “hybrid” state</li>
+<li>✅ After that, everything below — niches, co-localisation, patient comparisons — works the same, with cells in place of spots</li>
+</ul>
+<p>💡 Panel design is an analysis decision made before the experiment: check that every cell type in your hypothesis has markers on the panel.</p>
 <hr>
 </section>
 </section>
@@ -790,6 +815,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <p><strong>How it works:</strong> for each spot, build a vector of the cell-type composition of its neighbours (within <em>k</em> spots or a fixed radius), then cluster those vectors. The clusters are <strong>niches</strong> — recurrent tissue microenvironments.</p>
+<ul>
+<li>Not the same as the spatially aware domains of 🔗 <a href="../../chapters/part4/w7_spatial_basics.html#w7-s4-4">W7 §4.4</a>: domains smooth the neighbours’ <em>expression</em>, niches cluster the neighbours’ <em>composition</em></li>
+</ul>
 <p>💡 Notice what the left panel hides. T cells and macrophages are present almost everywhere and <strong>dominate almost nowhere</strong>, so a “dominant cell type” map erases them entirely. The immune biology is invisible until you look at composition rather than identity.</p>
 </section>
 <section id="w8-s2-2" class="level2">
@@ -825,6 +853,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Tangram</strong>, <strong>Seurat anchor transfer</strong> — project single-cell labels onto spatial data</li>
 <li>✅ Genuinely useful for testing a specific hypothesis: <em>“the exhausted CD8 state we found — is it inside the tumour or at the margin?”</em></li>
 <li>⚠️ Circularity risk: if the mapping uses the same genes that defined the cluster, finding the cluster is not independent evidence</li>
+</ul>
+</section>
+<section id="w8-s2-4" class="level2">
+<h2 class="anchored" data-anchor-id="w8-s2-4">4) ⚠️ Comparing niches between patients</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w8/patient_level.svg" class="img-fluid figure-img"></p>
+<figcaption>One large section from one patient can produce a tiny p on its own.</figcaption>
+</figure>
+</div>
+<p>“TAM-rich niches are more common in non-responders” is a claim about <strong>patients</strong>, so the patient is the unit — the same logic as pseudobulk (🔗 <a href="../../chapters/part3/w5_scrna_qc.html#w5-s5-3">W5 §5.3</a>).</p>
+<ul>
+<li>① Define niches on <strong>all sections together</strong>, so a niche label means the same thing in every patient</li>
+<li>② Per patient: the <strong>fraction of the section in each niche</strong> → one row per patient</li>
+<li>③ Compare groups on those rows, n = patients. Fractions are compositional (🔗 <a href="../../chapters/part3/w5_scrna_qc.html#w5-s5-4">W5 §5.4</a>) → <code>propeller</code>-style tests, or a model with the patient as the unit</li>
+<li>⚠️ <strong>Pooled spots</strong> (a χ² on 5,000 spots) = W5’s per-cell test in a new costume. One big section can carry the whole result</li>
+<li>⚠️ Several sections per patient → average them, or model the patient as a random effect. Never count them as extra patients</li>
+<li>✅ Report the <strong>effect size with an interval</strong>, and show one dot per patient</li>
+</ul>
+</section>
+<section id="w8-s2-5" class="level2">
+<h2 class="anchored" data-anchor-id="w8-s2-5">5) ⚠️ Ligand–receptor, now with distance</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w8/spatial_ccc.svg" class="img-fluid figure-img"></p>
+<figcaption>Distance removes pairs that could never meet. It proves none of the rest.</figcaption>
+</figure>
+</div>
+<p>W6’s cell–cell communication (🔗 <a href="../../chapters/part3/w6_scrna_dynamics.html#w6-s3-2">W6 §3.2</a>) scores every sender cluster against every receiver cluster — including cells that were never in the same place. Spatial data adds the missing constraint.</p>
+<ul>
+<li><strong>Distance limit</strong> — score only sender–receiver pairs within signalling range. Contact signals: direct neighbours. Secreted signals: further, up to a few hundred µm</li>
+<li><code>COMMOT</code> — optimal transport with a distance limit; ligands and receptors compete for each other</li>
+<li><code>CellChat</code> v2 — spatial mode, with separate ranges for contact and secreted signals</li>
+<li><code>LIANA+</code> — local scores: where in the section are ligand and receptor high together?</li>
+<li>✅ <strong>Test against a structure-preserving null</strong> (§2.2) — e.g.&nbsp;shift the receiver layer as a whole. Being near matters only if it is nearer than the tissue predicts</li>
+<li>⚠️ Still mRNA next to mRNA: no protein, no binding, no response. A W6 hypothesis moves to rung ③ at most (🔗 <a href="#w8-s3">§3</a>)</li>
+<li>⚠️ On Visium, sender and receiver can share one spot → “near” is set by 55 µm, not by biology. Single-cell platforms give the cleaner version — with the segmentation caveat of §1.4</li>
 </ul>
 <hr>
 </section>
@@ -966,7 +1031,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="w8-s5-5" class="level2">
 <h2 class="anchored" data-anchor-id="w8-s5-5">5) Before next week</h2>
-<p><strong>W9 — proteomics.</strong> Everything so far measured RNA. Next we ask whether the protein was ever made — and find out how often the answer is no.</p>
+<p><strong><a href="../../chapters/part5/w9_proteomics_tech.html">W9 — proteomics</a>.</strong> Everything so far measured RNA. Next we ask whether the protein was ever made — and find out how often the answer is no.</p>
 <p>Nothing to install; W9 is conceptual.</p>
 <hr>
 </section>
@@ -977,10 +1042,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Deconvolution estimates the cell-type mixture of each spot using a single-cell <strong>reference</strong></li>
 <li>⚠️ <strong>The reference determines the answer.</strong> A missing cell type is redistributed silently onto its nearest neighbour</li>
 <li>✅ Check the reference for tissue, condition, platform, and patients — then verify with an un-deconvolved marker gene</li>
+<li>On single-cell platforms, <strong>annotate</strong> cells instead of deconvolving spots. Only panel genes count, and the label inherits the segmentation → ✅ map the confidence</li>
 <li>A dominant-cell-type map hides everything that is everywhere and dominates nowhere — usually the immune compartment</li>
 <li>✅ <strong>Niches</strong> — clustering spots by their neighbourhood composition — is where the spatial biology lives</li>
 <li>⚠️ Complete spatial randomness is the wrong null. Permute within tissue structure, or compare to matched control tissue</li>
 <li>⚠️ Thousands of spots inflate p-values. <strong>Effect size, replicated across patients</strong>, is the claim</li>
+<li>✅ Compare niches with <strong>one number per patient</strong> (niche fraction) and a compositional test. Pooled spots = W5’s per-cell test again</li>
+<li>⚠️ Spatial ligand–receptor: a distance limit removes pairs that never met, and a structure-preserving null tests the rest. Still mRNA, still rung ③</li>
 <li>Spatial validation promotes a claim from <em>hypothesis</em> to <em>consistent with</em> — not to <em>demonstrated</em></li>
 <li>✅ Design from a hypothesis, count patients not sections, select by outcome, and book the pathologist first</li>
 </ul>
@@ -1021,20 +1089,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Estimated cell numbers rather than proportions</td>
 </tr>
 <tr class="even">
+<td>Cell-level annotation</td>
+<td>One label per segmented cell from a single-cell reference — what replaces deconvolution on single-cell platforms</td>
+</tr>
+<tr class="odd">
+<td>Panel</td>
+<td>The genes an imaging platform measures, chosen in advance; a cell type with no marker on it cannot be called</td>
+</tr>
+<tr class="even">
 <td>Niche / neighbourhood</td>
 <td>Recurrent local composition around a location</td>
 </tr>
 <tr class="odd">
+<td>Niche fraction (per patient)</td>
+<td>Share of a patient’s section in each niche — the unit for comparing groups</td>
+</tr>
+<tr class="even">
 <td>Co-localisation</td>
 <td>Two cell types occurring together more than expected</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Structure-preserving null</td>
 <td>A permutation that keeps tissue architecture intact</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Label transfer</td>
 <td>Projecting single-cell annotations onto spatial data</td>
+</tr>
+<tr class="odd">
+<td>Spatially constrained CCC</td>
+<td>Ligand–receptor scoring limited to cells within signalling range</td>
 </tr>
 <tr class="even">
 <td>Effective sample size</td>
@@ -1063,10 +1147,17 @@ Li B, et al.&nbsp;<a href="https://doi.org/10.1038/s41592-022-01480-9"><em>Bench
 Schürch CM, et al.&nbsp;<a href="https://doi.org/10.1016/j.cell.2020.07.005"><em>Coordinated cellular neighborhoods orchestrate antitumoral immunity at the colorectal cancer invasive front.</em></a> Cell. 2020. <strong>← the paper that made “neighbourhood” a unit of analysis</strong><br>
 Chen Z, Soifer I, Hilton H, Keren L, Jojic V. <a href="https://doi.org/10.1089/cmb.2019.0340"><em>Modeling multiplexed images with spatial-LDA reveals novel tissue microenvironments.</em></a> J Comput Biol. 2020.</p>
 </section>
+<section id="spatial-cellcell-communication" class="level3">
+<h3 class="anchored" data-anchor-id="spatial-cellcell-communication">Spatial cell–cell communication</h3>
+<p>Cang Z, et al.&nbsp;<a href="https://doi.org/10.1038/s41592-022-01728-4"><em>Screening cell–cell communication in spatial transcriptomics via collective optimal transport.</em></a> Nat Methods. 2023. (COMMOT)<br>
+Jin S, Plikus MV, Nie Q. <a href="https://doi.org/10.1038/s41596-024-01045-4"><em>CellChat for systematic analysis of cell–cell communication from single-cell transcriptomics.</em></a> Nat Protoc. 2025. (CellChat v2)<br>
+Dimitrov D, et al.&nbsp;<a href="https://doi.org/10.1038/s41556-024-01469-w"><em>LIANA+ provides an all-in-one framework for cell–cell communication inference.</em></a> Nat Cell Biol. 2024.</p>
+</section>
 <section id="integration-and-design" class="level3">
 <h3 class="anchored" data-anchor-id="integration-and-design">Integration and design</h3>
 <p>Longo SK, et al.&nbsp;<a href="https://doi.org/10.1038/s41576-021-00370-8"><em>Integrating single-cell and spatial transcriptomics to elucidate intercellular tissue dynamics.</em></a> Nat Rev Genet. 2021.<br>
-Biancalani T, et al.&nbsp;<a href="https://doi.org/10.1038/s41592-021-01264-7"><em>Deep learning and alignment of spatially resolved single-cell transcriptomes with Tangram.</em></a> Nat Methods. 2021.</p>
+Biancalani T, et al.&nbsp;<a href="https://doi.org/10.1038/s41592-021-01264-7"><em>Deep learning and alignment of spatially resolved single-cell transcriptomes with Tangram.</em></a> Nat Methods. 2021.<br>
+Marco Salas S, et al.&nbsp;<a href="https://doi.org/10.1038/s41592-025-02617-2"><em>Optimizing Xenium In Situ data utility by quality assessment and best-practice analysis workflows.</em></a> Nat Methods. 2025. <strong>← single-cell-platform analysis, end to end</strong></p>
 
 
 </section>

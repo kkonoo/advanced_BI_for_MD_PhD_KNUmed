@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="880" height="420" fill="#fcfcfb"/>
+  <text x="24.0" y="28.0" font-size="15" fill="#4A3D6B" font-weight="700">Thousands of spots are not thousands of patients. Compare niche abundance one patient at a time.</text>
+  <rect x="24" y="46" width="266" height="280" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="42.0" y="72.0" font-size="13" fill="#4A3D6B" font-weight="700">① Pool the spots</text>
+  <text x="42.0" y="90.0" font-size="10.5" fill="#8A7FA3">TAM-rich niche, % of all spots</text>
+  <line x1="60" y1="236" x2="260" y2="236" stroke="#cfc9dd" stroke-width="1.2"/>
+  <rect x="95.0" y="187.3" width="50.0" height="48.7" rx="3" fill="#185FA5" fill-opacity="0.8"/>
+  <line x1="120" y1="181.9" x2="120" y2="192.3" stroke="#4A3D6B" stroke-width="2"/>
+  <text x="120.0" y="179.3" font-size="11" fill="#4A3D6B" font-weight="700" text-anchor="middle">12%</text>
+  <text x="120.0" y="252.0" font-size="10" fill="#555" text-anchor="middle">R · 2,520 spots</text>
+  <rect x="185.0" y="142.4" width="50.0" height="93.6" rx="3" fill="#D85A30" fill-opacity="0.8"/>
+  <line x1="210" y1="136.3" x2="210" y2="148.4" stroke="#4A3D6B" stroke-width="2"/>
+  <text x="210.0" y="134.4" font-size="11" fill="#4A3D6B" font-weight="700" text-anchor="middle">23%</text>
+  <text x="210.0" y="252.0" font-size="10" fill="#555" text-anchor="middle">NR · 3,040 spots</text>
+  <text x="157.0" y="112.0" font-size="11.5" fill="#a8401d" font-weight="700" text-anchor="middle">χ² on spots: p = 8 × 10⁻²⁷</text>
+  <text x="42.0" y="296.0" font-size="11.5" fill="#666">Every spot counted as a replicate</text>
+  <text x="42.0" y="312.0" font-size="11.5" fill="#a8401d" font-weight="700">→ a tiny p from one tissue's repeats</text>
+  <path d="M292 186 L297 186" stroke="#b9b0cc" stroke-width="2"/>
+  <path d="M305 186 l-9 -5 v10 z" fill="#b9b0cc"/>
+  <rect x="307" y="46" width="266" height="280" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="325.0" y="72.0" font-size="13" fill="#4A3D6B" font-weight="700">② One number per patient</text>
+  <text x="325.0" y="90.0" font-size="10.5" fill="#8A7FA3">% of each section in the niche</text>
+  <line x1="320" y1="236" x2="562" y2="236" stroke="#cfc9dd" stroke-width="1.2"/>
+  <rect x="324.0" y="216.8" width="11.6" height="19.2" rx="1.5" fill="#185FA5" fill-opacity="0.8"/>
+  <rect x="341.6" y="200.0" width="10.1" height="36.0" rx="1.5" fill="#185FA5" fill-opacity="0.8"/>
+  <rect x="357.7" y="209.6" width="14.9" height="26.4" rx="1.5" fill="#185FA5" fill-opacity="0.8"/>
+  <rect x="378.5" y="195.2" width="9.0" height="40.8" rx="1.5" fill="#185FA5" fill-opacity="0.8"/>
+  <rect x="393.5" y="204.8" width="13.0" height="31.2" rx="1.5" fill="#185FA5" fill-opacity="0.8"/>
+  <rect x="412.6" y="212.0" width="10.8" height="24.0" rx="1.5" fill="#185FA5" fill-opacity="0.8"/>
+  <rect x="439.4" y="207.2" width="10.5" height="28.8" rx="1.5" fill="#D85A30" fill-opacity="0.8"/>
+  <rect x="455.9" y="197.6" width="12.3" height="38.4" rx="1.5" fill="#D85A30" fill-opacity="0.8"/>
+  <rect x="474.2" y="214.4" width="9.7" height="21.6" rx="1.5" fill="#D85A30" fill-opacity="0.8"/>
+  <rect x="489.9" y="192.8" width="13.8" height="43.2" rx="1.5" fill="#D85A30" fill-opacity="0.8"/>
+  <rect x="509.7" y="202.4" width="11.2" height="33.6" rx="1.5" fill="#D85A30" fill-opacity="0.8"/>
+  <rect x="526.9" y="130.4" width="31.0" height="105.6" rx="1.5" fill="#D85A30" fill-opacity="0.8"/>
+  <text x="373.7" y="250.0" font-size="10" fill="#555" text-anchor="middle">R1–R6</text>
+  <text x="498.6" y="250.0" font-size="10" fill="#555" text-anchor="middle">NR1–NR6</text>
+  <text x="538.4" y="124.4" font-size="10" fill="#a8401d" font-weight="700" text-anchor="end">NR6: big section, big niche</text>
+  <text x="440.0" y="264.0" font-size="10" fill="#8A7FA3" text-anchor="middle">bar width = spots in that section</text>
+  <text x="325.0" y="296.0" font-size="11.5" fill="#666">Each patient → one niche fraction</text>
+  <text x="325.0" y="312.0" font-size="11.5" fill="#4A3D6B" font-weight="700">→ n = patients, not spots</text>
+  <path d="M575 186 L580 186" stroke="#b9b0cc" stroke-width="2"/>
+  <path d="M588 186 l-9 -5 v10 z" fill="#b9b0cc"/>
+  <rect x="590" y="46" width="266" height="280" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+  <text x="608.0" y="72.0" font-size="13" fill="#4A3D6B" font-weight="700">③ Compare patients</text>
+  <text x="608.0" y="90.0" font-size="10.5" fill="#8A7FA3">responders vs non-responders</text>
+  <line x1="620" y1="236" x2="830" y2="236" stroke="#cfc9dd" stroke-width="1.2"/>
+  <circle cx="660.4" cy="216.8" r="4.5" fill="#185FA5" fill-opacity="0.8" stroke="none" stroke-width="1"/>
+  <circle cx="672.9" cy="200.0" r="4.5" fill="#185FA5" fill-opacity="0.8" stroke="none" stroke-width="1"/>
+  <circle cx="669.8" cy="209.6" r="4.5" fill="#185FA5" fill-opacity="0.8" stroke="none" stroke-width="1"/>
+  <circle cx="660.0" cy="195.2" r="4.5" fill="#185FA5" fill-opacity="0.8" stroke="none" stroke-width="1"/>
+  <circle cx="678.7" cy="204.8" r="4.5" fill="#185FA5" fill-opacity="0.8" stroke="none" stroke-width="1"/>
+  <circle cx="678.6" cy="212.0" r="4.5" fill="#185FA5" fill-opacity="0.8" stroke="none" stroke-width="1"/>
+  <circle cx="763.1" cy="207.2" r="4.5" fill="#D85A30" fill-opacity="0.8" stroke="none" stroke-width="1"/>
+  <circle cx="780.0" cy="197.6" r="4.5" fill="#D85A30" fill-opacity="0.8" stroke="none" stroke-width="1"/>
+  <circle cx="771.2" cy="214.4" r="4.5" fill="#D85A30" fill-opacity="0.8" stroke="none" stroke-width="1"/>
+  <circle cx="773.2" cy="192.8" r="4.5" fill="#D85A30" fill-opacity="0.8" stroke="none" stroke-width="1"/>
+  <circle cx="773.3" cy="202.4" r="4.5" fill="#D85A30" fill-opacity="0.8" stroke="none" stroke-width="1"/>
+  <circle cx="765.7" cy="130.4" r="4.5" fill="#D85A30" fill-opacity="0.8" stroke="none" stroke-width="1"/>
+  <line x1="646" y1="207.2" x2="690" y2="207.2" stroke="#4A3D6B" stroke-width="2.4"/>
+  <line x1="750" y1="200.0" x2="794" y2="200.0" stroke="#4A3D6B" stroke-width="2.4"/>
+  <text x="668.0" y="252.0" font-size="10" fill="#555" text-anchor="middle">R (n = 6)</text>
+  <text x="772.0" y="252.0" font-size="10" fill="#555" text-anchor="middle">NR (n = 6)</text>
+  <text x="720.0" y="112.0" font-size="11.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">Wilcoxon on patients: p = 0.31</text>
+  <text x="608.0" y="270.0" font-size="11.5" fill="#666">median 12% vs 15%</text>
+  <text x="608.0" y="296.0" font-size="11.5" fill="#666">One patient makes the whole story</text>
+  <text x="608.0" y="312.0" font-size="11.5" fill="#0F6E56" font-weight="700">→ effect size + interval, more patients</text>
+  <rect x="24" y="338" width="832" height="70" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
+  <text x="48.0" y="362.0" font-size="12.5" fill="#7a5f2a" font-weight="700">⚠️ Same logic as pseudobulk (W5 §5.3): the patient is the replicate; spots are repeated measurements of one tissue.</text>
+  <text x="48.0" y="388.0" font-size="12.5" fill="#7a5f2a">💡 Niche fractions are compositional (W5 §5.4) → use propeller-style tests. More patients beat more spots.</text>
+</svg>

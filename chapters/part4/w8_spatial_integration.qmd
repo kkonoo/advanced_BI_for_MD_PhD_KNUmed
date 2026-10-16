@@ -15,9 +15,12 @@ By the end of this chapter you should be able to:
 
 -   Explain what deconvolution estimates, and what it cannot estimate
 -   ⚠️ Say why the reference dataset determines the answer, and what to check before trusting one
+-   Say why single-cell-resolution data is annotated rather than deconvolved, and where those labels go wrong
 -   Distinguish a cell-type map from a **niche** map, and say why the second is where the biology usually is
 -   ⚠️ Test co-localisation against a null that respects tissue structure
 -   ⚠️ Say why neighbouring spots inflate significance, and what to do about it
+-   ⚠️ Compare niches between patient groups with the patient, not the spot, as the unit
+-   ⚠️ Say what a distance limit adds to ligand–receptor inference, and what it still cannot show
 -   Place any claim on the evidence ladder from description to demonstration
 -   Design a spatial validation step for a hypothesis generated in W5–W6
 :::
@@ -71,6 +74,20 @@ Deconvolution returns proportions that **sum to one over the cell types you supp
 -   ⚠️ "This spot contains 2.3 macrophages" — only cell2location-style methods attempt absolute numbers, and with wide uncertainty
 -   ❌ "These particular macrophages express gene X" — you cannot get cell-type-specific expression out of a mixture without much stronger assumptions
 
+## 4) Single-cell resolution: annotate, don't deconvolve {#w8-s1-4}
+
+![On single-cell platforms the question becomes labelling, not unmixing.](/assets/img/w8/cell_annotation.svg){fig-align="center"}
+
+On Xenium, CosMx or Visium HD the unit is a segmented cell (🔗 [W7 §3.2](w7_spatial_basics.qmd#w7-s3-2)), not a mixture. The task becomes **annotation**: one label per cell, from the same single-cell reference.
+
+-   **Label transfer** (Seurat anchors, as in §2.3) or **RCTD in `doublet` mode** (each cell or 8 µm bin = one or two types) — the logic of §1.1 on a smaller unit
+-   ⚠️ **Only the panel's genes are used.** The reference has ~20,000 genes, the panel a few hundred to 5,000. A cell type with no marker on the panel cannot be called — it is forced into its nearest neighbour (§1.2 again)
+-   ⚠️ **The label inherits the segmentation.** A cell holding its neighbour's transcripts gets a mixed, low-confidence or wrong label
+-   ✅ **Map the confidence.** Low-confidence calls piling up at cell–cell contacts = segmentation spillover, not a new "hybrid" state
+-   ✅ After that, everything below — niches, co-localisation, patient comparisons — works the same, with cells in place of spots
+
+💡 Panel design is an analysis decision made before the experiment: check that every cell type in your hypothesis has markers on the panel.
+
 ------------------------------------------------------------------------
 
 # 2. From Cell Types to Niches 🏘️ {#w8-s2}
@@ -82,6 +99,8 @@ A per-spot cell-type map is useful, and it is still one location at a time. The 
 ![The interface exists only as a mixture. No single spot defines it.](/assets/img/w8/niches.svg){fig-align="center"}
 
 **How it works:** for each spot, build a vector of the cell-type composition of its neighbours (within *k* spots or a fixed radius), then cluster those vectors. The clusters are **niches** — recurrent tissue microenvironments.
+
+-   Not the same as the spatially aware domains of 🔗 [W7 §4.4](w7_spatial_basics.qmd#w7-s4-4): domains smooth the neighbours' *expression*, niches cluster the neighbours' *composition*
 
 💡 Notice what the left panel hides. T cells and macrophages are present almost everywhere and **dominate almost nowhere**, so a "dominant cell type" map erases them entirely. The immune biology is invisible until you look at composition rather than identity.
 
@@ -108,6 +127,33 @@ The reverse direction: take a cluster you found in scRNA-seq and ask where it si
 -   **Tangram**, **Seurat anchor transfer** — project single-cell labels onto spatial data
 -   ✅ Genuinely useful for testing a specific hypothesis: *"the exhausted CD8 state we found — is it inside the tumour or at the margin?"*
 -   ⚠️ Circularity risk: if the mapping uses the same genes that defined the cluster, finding the cluster is not independent evidence
+
+## 4) ⚠️ Comparing niches between patients {#w8-s2-4}
+
+![One large section from one patient can produce a tiny p on its own.](/assets/img/w8/patient_level.svg){fig-align="center"}
+
+"TAM-rich niches are more common in non-responders" is a claim about **patients**, so the patient is the unit — the same logic as pseudobulk (🔗 [W5 §5.3](../part3/w5_scrna_qc.qmd#w5-s5-3)).
+
+-   ① Define niches on **all sections together**, so a niche label means the same thing in every patient
+-   ② Per patient: the **fraction of the section in each niche** → one row per patient
+-   ③ Compare groups on those rows, n = patients. Fractions are compositional (🔗 [W5 §5.4](../part3/w5_scrna_qc.qmd#w5-s5-4)) → `propeller`-style tests, or a model with the patient as the unit
+-   ⚠️ **Pooled spots** (a χ² on 5,000 spots) = W5's per-cell test in a new costume. One big section can carry the whole result
+-   ⚠️ Several sections per patient → average them, or model the patient as a random effect. Never count them as extra patients
+-   ✅ Report the **effect size with an interval**, and show one dot per patient
+
+## 5) ⚠️ Ligand–receptor, now with distance {#w8-s2-5}
+
+![Distance removes pairs that could never meet. It proves none of the rest.](/assets/img/w8/spatial_ccc.svg){fig-align="center"}
+
+W6's cell–cell communication (🔗 [W6 §3.2](../part3/w6_scrna_dynamics.qmd#w6-s3-2)) scores every sender cluster against every receiver cluster — including cells that were never in the same place. Spatial data adds the missing constraint.
+
+-   **Distance limit** — score only sender–receiver pairs within signalling range. Contact signals: direct neighbours. Secreted signals: further, up to a few hundred µm
+-   `COMMOT` — optimal transport with a distance limit; ligands and receptors compete for each other
+-   `CellChat` v2 — spatial mode, with separate ranges for contact and secreted signals
+-   `LIANA+` — local scores: where in the section are ligand and receptor high together?
+-   ✅ **Test against a structure-preserving null** (§2.2) — e.g. shift the receiver layer as a whole. Being near matters only if it is nearer than the tissue predicts
+-   ⚠️ Still mRNA next to mRNA: no protein, no binding, no response. A W6 hypothesis moves to rung ③ at most (🔗 [§3](#w8-s3))
+-   ⚠️ On Visium, sender and receiver can share one spot → "near" is set by 55 µm, not by biology. Single-cell platforms give the cleaner version — with the segmentation caveat of §1.4
 
 ------------------------------------------------------------------------
 
@@ -219,7 +265,7 @@ cat("observed:", round(observed, 3),
 
 ## 5) Before next week {#w8-s5-5}
 
-**W9 — proteomics.** Everything so far measured RNA. Next we ask whether the protein was ever made — and find out how often the answer is no.
+**[W9 — proteomics](../part5/w9_proteomics_tech.qmd).** Everything so far measured RNA. Next we ask whether the protein was ever made — and find out how often the answer is no.
 
 Nothing to install; W9 is conceptual.
 
@@ -230,10 +276,13 @@ Nothing to install; W9 is conceptual.
 -   Deconvolution estimates the cell-type mixture of each spot using a single-cell **reference**
 -   ⚠️ **The reference determines the answer.** A missing cell type is redistributed silently onto its nearest neighbour
 -   ✅ Check the reference for tissue, condition, platform, and patients — then verify with an un-deconvolved marker gene
+-   On single-cell platforms, **annotate** cells instead of deconvolving spots. Only panel genes count, and the label inherits the segmentation → ✅ map the confidence
 -   A dominant-cell-type map hides everything that is everywhere and dominates nowhere — usually the immune compartment
 -   ✅ **Niches** — clustering spots by their neighbourhood composition — is where the spatial biology lives
 -   ⚠️ Complete spatial randomness is the wrong null. Permute within tissue structure, or compare to matched control tissue
 -   ⚠️ Thousands of spots inflate p-values. **Effect size, replicated across patients**, is the claim
+-   ✅ Compare niches with **one number per patient** (niche fraction) and a compositional test. Pooled spots = W5's per-cell test again
+-   ⚠️ Spatial ligand–receptor: a distance limit removes pairs that never met, and a structure-preserving null tests the rest. Still mRNA, still rung ③
 -   Spatial validation promotes a claim from *hypothesis* to *consistent with* — not to *demonstrated*
 -   ✅ Design from a hypothesis, count patients not sections, select by outcome, and book the pathologist first
 
@@ -248,10 +297,14 @@ Nothing to install; W9 is conceptual.
 | Reference bias | Anything absent from the reference cannot appear in the output |
 | RCTD / cell2location / CARD | Common deconvolution methods |
 | Absolute abundance | Estimated cell numbers rather than proportions |
+| Cell-level annotation | One label per segmented cell from a single-cell reference — what replaces deconvolution on single-cell platforms |
+| Panel | The genes an imaging platform measures, chosen in advance; a cell type with no marker on it cannot be called |
 | Niche / neighbourhood | Recurrent local composition around a location |
+| Niche fraction (per patient) | Share of a patient's section in each niche — the unit for comparing groups |
 | Co-localisation | Two cell types occurring together more than expected |
 | Structure-preserving null | A permutation that keeps tissue architecture intact |
 | Label transfer | Projecting single-cell annotations onto spatial data |
+| Spatially constrained CCC | Ligand–receptor scoring limited to cells within signalling range |
 | Effective sample size | How many independent observations you really have |
 | Evidence ladder | Description → hypothesis → consistent with → supported → demonstrated |
 
@@ -272,7 +325,14 @@ Palla G, et al. [*Squidpy: a scalable framework for spatial omics analysis.*](ht
 Schürch CM, et al. [*Coordinated cellular neighborhoods orchestrate antitumoral immunity at the colorectal cancer invasive front.*](https://doi.org/10.1016/j.cell.2020.07.005) Cell. 2020. **← the paper that made "neighbourhood" a unit of analysis**\
 Chen Z, Soifer I, Hilton H, Keren L, Jojic V. [*Modeling multiplexed images with spatial-LDA reveals novel tissue microenvironments.*](https://doi.org/10.1089/cmb.2019.0340) J Comput Biol. 2020.
 
+### Spatial cell–cell communication
+
+Cang Z, et al. [*Screening cell–cell communication in spatial transcriptomics via collective optimal transport.*](https://doi.org/10.1038/s41592-022-01728-4) Nat Methods. 2023. (COMMOT)\
+Jin S, Plikus MV, Nie Q. [*CellChat for systematic analysis of cell–cell communication from single-cell transcriptomics.*](https://doi.org/10.1038/s41596-024-01045-4) Nat Protoc. 2025. (CellChat v2)\
+Dimitrov D, et al. [*LIANA+ provides an all-in-one framework for cell–cell communication inference.*](https://doi.org/10.1038/s41556-024-01469-w) Nat Cell Biol. 2024.
+
 ### Integration and design
 
 Longo SK, et al. [*Integrating single-cell and spatial transcriptomics to elucidate intercellular tissue dynamics.*](https://doi.org/10.1038/s41576-021-00370-8) Nat Rev Genet. 2021.\
-Biancalani T, et al. [*Deep learning and alignment of spatially resolved single-cell transcriptomes with Tangram.*](https://doi.org/10.1038/s41592-021-01264-7) Nat Methods. 2021.
+Biancalani T, et al. [*Deep learning and alignment of spatially resolved single-cell transcriptomes with Tangram.*](https://doi.org/10.1038/s41592-021-01264-7) Nat Methods. 2021.\
+Marco Salas S, et al. [*Optimizing Xenium In Situ data utility by quality assessment and best-practice analysis workflows.*](https://doi.org/10.1038/s41592-025-02617-2) Nat Methods. 2025. **← single-cell-platform analysis, end to end**

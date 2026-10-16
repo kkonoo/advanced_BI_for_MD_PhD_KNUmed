@@ -664,7 +664,7 @@
     "href": "ko/chapters/part4/w8_spatial_integration.html",
     "title": "W8. 디콘볼루션과 공간 통합",
     "section": "",
-    "text": "노트🎯 학습목표\n\n\n\n\n\n이 장을 마치면 다음을 할 수 있어야 합니다.\n\ndeconvolution이 무엇을 추정하며 무엇은 추정할 수 없는지 설명할 수 있다\n⚠️ 참조 데이터셋이 답을 결정하는 이유와 참조를 신뢰하기 전에 확인할 사항을 말할 수 있다\n세포 유형 지도와 niche 지도를 구분하고, 대개 두 번째 지도에 생물학적 의미가 있는 이유를 말할 수 있다\n⚠️ 조직 구조를 보존하는 귀무가설을 사용해 공위치(co-localisation)를 검정할 수 있다\n⚠️ 이웃한 spot이 유의성을 부풀리는 이유와 그 대처법을 말할 수 있다\n모든 주장을 기술에서 입증까지의 근거 사다리 위에 놓을 수 있다\nW5–W6에서 생성한 가설을 위한 공간 검증 단계를 설계할 수 있다",
+    "text": "노트🎯 학습목표\n\n\n\n\n\n이 장을 마치면 다음을 할 수 있어야 합니다.\n\ndeconvolution이 무엇을 추정하며 무엇은 추정할 수 없는지 설명할 수 있다\n⚠️ 참조 데이터셋이 답을 결정하는 이유와 참조를 신뢰하기 전에 확인할 사항을 말할 수 있다\n단일세포 해상도 데이터는 deconvolution 대신 annotation하는 이유와, 그 label이 어디서 틀리는지 말할 수 있다\n세포 유형 지도와 niche 지도를 구분하고, 대개 두 번째 지도에 생물학적 의미가 있는 이유를 말할 수 있다\n⚠️ 조직 구조를 보존하는 귀무가설을 사용해 공위치(co-localisation)를 검정할 수 있다\n⚠️ 이웃한 spot이 유의성을 부풀리는 이유와 그 대처법을 말할 수 있다\n⚠️ spot이 아니라 환자를 단위로 환자군 간 niche를 비교할 수 있다\n⚠️ ligand–receptor 추론에 거리 제한이 더해 주는 것과 여전히 보여 주지 못하는 것을 말할 수 있다\n모든 주장을 기술에서 입증까지의 근거 사다리 위에 놓을 수 있다\nW5–W6에서 생성한 가설을 위한 공간 검증 단계를 설계할 수 있다",
     "crumbs": [
       "4 · 공간오믹스",
       "W8. 디콘볼루션과 공간 통합"
@@ -674,8 +674,8 @@
     "objectID": "ko/chapters/part4/w8_spatial_integration.html#w8-s1-1",
     "href": "ko/chapters/part4/w8_spatial_integration.html#w8-s1-1",
     "title": "W8. 디콘볼루션과 공간 통합",
-    "section": "1) 문제를 다시 정의하기",
-    "text": "1) 문제를 다시 정의하기\n🔗 W7 §3에서 살펴봤듯이 Visium spot은 혼합물입니다. Deconvolution은 각 세포 유형이 어떤 모습인지 정의하는 사전으로 단일세포 데이터를 사용해, 관측된 발현 profile을 가장 잘 설명하는 세포 유형의 혼합을 추정합니다.\n\n\n\n참조는 기술적 세부사항이 아닙니다. 전체 결과가 의존하는 가정입니다.\n\n\n\n\n\n\n\n\n\n\n방법\n접근법\n특징\n\n\n\n\nRCTD\n통계 모형, 플랫폼 효과를 모형화\n견고하고 널리 사용됨\n\n\ncell2location\n베이지안, 절대 abundance 추정\n✅ 비율뿐 아니라 세포 수도 제시\n\n\nCARD\nspot 간 공간 상관관계 이용\n이웃 spot의 정보를 함께 사용\n\n\nSPOTlight\nNMF 기반\n빠름\n\n\nTangram\n단일세포를 공간에 배치\n짝지어진 데이터가 있을 때 유용\n\n\n\n💡 방법보다 참조 선택이 더 중요합니다. Benchmark에서 방법 간 성능 차이는 크지 않지만, 잘못된 참조는 답 전체를 바꿉니다.",
+    "section": "1) 문제 다시 보기",
+    "text": "1) 문제 다시 보기\n🔗 W7 §3에서 본 대로 Visium spot = 혼합물. Deconvolution = single-cell data를 “cell type별 생김새 사전”으로 써서, 관측된 profile을 가장 잘 설명하는 cell type 혼합을 추정\n\n\n\nReference는 기술적 디테일이 아님. 결과 전체가 기대는 가정\n\n\n\n\n\n\n\n\n\n\n방법\n접근법\n특징\n\n\n\n\nRCTD\n통계 model, platform 효과까지 modelling\n견고, 널리 쓰임\n\n\ncell2location\nBayesian, 절대 abundance 추정\n✅ 비율뿐 아니라 cell 수까지\n\n\nCARD\nspot 간 spatial correlation 이용\n이웃 spot 정보를 빌려 씀\n\n\nSPOTlight\nNMF 기반\n빠름\n\n\nTangram\nsingle cell을 공간에 배치\n짝지어진 data가 있을 때 유용\n\n\n\n💡 Method보다 reference 선택이 더 중요. Benchmark에서 method 간 차이는 크지 않지만, reference가 틀리면 답 자체가 바뀜",
     "crumbs": [
       "4 · 공간오믹스",
       "W8. 디콘볼루션과 공간 통합"
@@ -685,8 +685,8 @@
     "objectID": "ko/chapters/part4/w8_spatial_integration.html#w8-s1-2",
     "href": "ko/chapters/part4/w8_spatial_integration.html#w8-s1-2",
     "title": "W8. 디콘볼루션과 공간 통합",
-    "section": "2) ⚠️ 참조 편향",
-    "text": "2) ⚠️ 참조 편향\n\n\n\n\n\n\n중요오류 메시지 없이 발생하는 실패\n\n\n\n\n\nDeconvolution은 연구자가 제공한 세포 유형 안에서 합이 1이 되는 비율을 반환합니다. “여기에는 내가 한 번도 본 적 없는 무언가가 있다”고 보고할 방법이 없습니다.\n\n⚠️ 참조에 없는 세포 유형은 결측으로 나타나지 않습니다. 그 신호는 참조에서 가장 가까운 유형으로 재분배됩니다. 한 단계 아래에서 다시 나타나는 단일세포판 참조 편향입니다\n⚠️ 건강한 조직의 참조를 종양에 적용하거나 PBMC 참조를 조직 상주 세포에 적용하면, 영향을 받는 유형만이 아니라 모든 비율이 동시에 편향됩니다\n⚠️ 다른 플랫폼의 참조(Smart-seq 대 10x, 세포 대 핵)는 체계적인 차이를 추정치에 그대로 전달합니다\n\n✅ 실제로 확인할 사항:\n\n같은 조직, 같은 상태이며 가능하면 공간 절편과 같은 환자에서 얻은 참조인가?\nDeconvolution에 사용하지 않은 표지 유전자로 검증하십시오. 원시 CD3E를 그려 T세포 비율과 같은 위치에 나타나는지 확인합니다\n드물지만 중요한 세포 집단이 참조에 실제로 들어 있는지 확인하십시오",
+    "section": "2) ⚠️ Reference bias",
+    "text": "2) ⚠️ Reference bias\n\n\n\n\n\n\n중요Error message 없이 일어나는 실패\n\n\n\n\n\nDeconvolution 결과 = 내가 넣어 준 cell type들 안에서 합이 1인 비율. “처음 보는 뭔가가 여기 있다”고 알려줄 방법 x\n\n⚠️ Reference에 없는 cell type → missing으로 안 나옴. 그 signal은 reference에서 가장 가까운 type으로 재분배됨 = single-cell annotation의 reference bias가 한 층 아래에서 반복되는 것\n⚠️ 건강한 조직 reference를 종양에, PBMC reference를 tissue-resident cell에 적용 → 해당 type만이 아니라 모든 비율이 한꺼번에 편향\n⚠️ 다른 platform의 reference(Smart-seq vs 10x, cell vs nucleus) → 체계적 차이가 추정치에 그대로 들어감\n\n✅ 실제로 확인할 것:\n\n같은 조직, 같은 condition, 가능하면 spatial 절편과 같은 환자\nDeconvolution에 안 쓴 marker gene으로 검증 — raw CD3E를 그려서 T cell 비율이 나온 자리와 겹치는지 보기\n드물지만 중요한 population이 reference에 아예 들어 있긴 한지",
     "crumbs": [
       "4 · 공간오믹스",
       "W8. 디콘볼루션과 공간 통합"
@@ -696,8 +696,8 @@
     "objectID": "ko/chapters/part4/w8_spatial_integration.html#w8-s1-3",
     "href": "ko/chapters/part4/w8_spatial_integration.html#w8-s1-3",
     "title": "W8. 디콘볼루션과 공간 통합",
-    "section": "3) 비율이 알려 주는 것과 알려 주지 못하는 것",
-    "text": "3) 비율이 알려 주는 것과 알려 주지 못하는 것\n\n✅ “이 영역은 저 영역보다 대식세포 신호가 풍부하다” — 견고한 주장\n✅ “대식세포 비율은 침윤 전선으로부터의 거리와 상관된다” — 견고하면서 흥미로운 주장\n⚠️ “이 spot에는 대식세포가 2.3개 있다” — cell2location과 같은 방법만 절대 세포 수를 추정하며, 불확실성도 큽니다\n❌ “바로 이 대식세포들이 유전자 X를 발현한다” — 훨씬 강한 가정 없이는 혼합물에서 세포 유형별 발현을 얻을 수 없습니다",
+    "section": "3) 비율로 말할 수 있는 것, 없는 것",
+    "text": "3) 비율로 말할 수 있는 것, 없는 것\n\n✅ “이 영역이 저 영역보다 macrophage signal이 풍부하다” — 탄탄함\n✅ “Macrophage 비율이 invasion front로부터의 거리와 상관있다” — 탄탄하고 흥미로움\n⚠️ “이 spot엔 macrophage가 2.3개 있다” — 절대 수를 시도하는 건 cell2location 계열뿐, 불확실성도 큼\n❌ “바로 이 macrophage들이 gene X를 발현한다” — 훨씬 강한 가정 없이는 혼합물에서 cell type별 발현을 뽑아낼 수 없음",
     "crumbs": [
       "4 · 공간오믹스",
       "W8. 디콘볼루션과 공간 통합"
@@ -707,8 +707,8 @@
     "objectID": "ko/chapters/part4/w8_spatial_integration.html#w8-s2-1",
     "href": "ko/chapters/part4/w8_spatial_integration.html#w8-s2-1",
     "title": "W8. 디콘볼루션과 공간 통합",
-    "section": "1) 공간 데이터가 실제로 답하기 위한 질문",
-    "text": "1) 공간 데이터가 실제로 답하기 위한 질문\nSpot별 세포 유형 지도는 유용하지만 여전히 한 번에 위치 하나만 봅니다. 기하학적 정보를 실제로 사용하는 단계는 각 위치가 무엇에 둘러싸여 있는가를 묻는 것입니다.\n\n\n\n경계면은 혼합으로만 존재합니다. 하나의 spot만으로는 경계면을 정의할 수 없습니다.\n\n\n작동 방식: 각 spot에 대해 k개의 spot 또는 고정된 반경 안에 있는 이웃의 세포 유형 조성 벡터를 만들고, 그 벡터들을 클러스터링합니다. 이렇게 얻은 클러스터가 반복해서 나타나는 조직 미세환경인 niche입니다.\n💡 왼쪽 패널이 무엇을 숨기는지 보십시오. T세포와 대식세포는 거의 어디에나 존재하지만 거의 어디에서도 우세하지 않기 때문에 “우세 세포 유형” 지도에서는 완전히 사라집니다. 정체성이 아니라 조성을 보아야 면역 생물학이 드러납니다.",
+    "section": "1) Spatial data가 진짜 답하려는 질문",
+    "text": "1) Spatial data가 진짜 답하려는 질문\nSpot별 cell type 지도도 유용하지만 여전히 한 번에 한 위치만 봄. Geometry를 실제로 쓰는 단계 = 각 위치가 무엇에 둘러싸여 있나 묻기\n\n\n\n경계면은 혼합으로만 존재. Spot 하나로는 정의 안 됨\n\n\n작동 방식: spot마다 이웃(k개 spot 또는 고정 반경)의 cell type 조성 vector를 만들고 → 그 vector들을 clustering. 이렇게 나온 cluster = niche (반복해서 나타나는 조직 미세환경)\n\n🔗 W7 §4.4의 spatially aware domain과 차이: domain = 이웃의 발현으로 smoothing, niche = 이웃의 조성을 clustering\n\n💡 왼쪽 패널이 뭘 숨기는지 보기. T cell과 macrophage는 거의 어디에나 있지만 거의 어디서도 우세하지 않음 → “우세 cell type” 지도에선 완전히 사라짐. 정체성(identity)이 아니라 조성(composition)을 봐야 면역 biology가 보임",
     "crumbs": [
       "4 · 공간오믹스",
       "W8. 디콘볼루션과 공간 통합"
@@ -718,8 +718,8 @@
     "objectID": "ko/chapters/part4/w8_spatial_integration.html#w8-s2-2",
     "href": "ko/chapters/part4/w8_spatial_integration.html#w8-s2-2",
     "title": "W8. 디콘볼루션과 공간 통합",
-    "section": "2) ⚠️ 공위치를 정직하게 검정하기",
-    "text": "2) ⚠️ 공위치를 정직하게 검정하기\n\n\n\n\n\n\n경고어떤 귀무가설과 비교할 것인가?\n\n\n\n\n\n“세포 유형 A와 B가 기대보다 자주 함께 나타난다”는 말에는 기대의 정의가 필요합니다.\n\n❌ 완전 공간 무작위성은 잘못된 귀무가설입니다. 조직은 무작위가 아니라 층, 혈관, 피막, 샘 구조를 가집니다. 거의 모든 두 세포 유형이 이 귀무가설을 기각할 수 있습니다\n✅ 전체 구조와 각 세포 유형의 총 abundance를 보존하면서 조직 안에서 표지를 순열화하십시오\n✅ 또는 같은 해부학 구조와 다른 질병 상태를 가진 짝지은 대조 조직과 비교하십시오\n\n⚠️ 동기 질문으로 돌아가면, 4,000개 spot에서 나온 p &lt; 10⁻¹²는 대부분 spot이 4,000개였다는 사실을 말해 줍니다. 이웃 spot은 설계상 양의 상관관계를 가지므로(🔗 W7 §4.3) 유효 표본 수는 명목 표본 수보다 훨씬 작습니다.\n→ ✅ 중요한 수치는 여러 환자에서 재현된 효과크기입니다.",
+    "section": "2) ⚠️ Co-localisation 정직하게 검정하기",
+    "text": "2) ⚠️ Co-localisation 정직하게 검정하기\n\n\n\n\n\n\n경고어떤 null과 비교하나?\n\n\n\n\n\n“Cell type A와 B가 기대보다 자주 같이 나온다” → 기대의 정의가 필요\n\n❌ Complete spatial randomness = 잘못된 null. 조직은 무작위가 아님 — 층, 혈관, 피막, 샘. 거의 아무 두 cell type이나 이 null은 이김\n✅ 전체 architecture와 cell type별 총 abundance는 유지한 채 조직 안에서 label permutation\n✅ 또는 matched control 조직과 비교 — 같은 해부학, 다른 질병 상태\n\n⚠️ 동기 질문으로 돌아가면: spot 4,000개에서 나온 p &lt; 10⁻¹² = 대부분 “spot이 4,000개였다”는 얘기. 이웃 spot은 설계상 양의 상관(🔗 W7 §4.3) → effective sample size ≪ 명목 sample size\n→ ✅ 중요한 숫자 = 여러 환자에서 재현된 effect size",
     "crumbs": [
       "4 · 공간오믹스",
       "W8. 디콘볼루션과 공간 통합"
@@ -729,8 +729,8 @@
     "objectID": "ko/chapters/part4/w8_spatial_integration.html#w8-s2-3",
     "href": "ko/chapters/part4/w8_spatial_integration.html#w8-s2-3",
     "title": "W8. 디콘볼루션과 공간 통합",
-    "section": "3) 단일세포를 공간에 배치하기",
-    "text": "3) 단일세포를 공간에 배치하기\n반대 방향의 분석도 가능합니다. scRNA-seq에서 찾은 클러스터를 가져와 조직의 어디에 위치하는지 묻습니다.\n\nTangram, Seurat anchor transfer — 단일세포 표지를 공간 데이터에 투영합니다\n✅ 구체적 가설을 검정하는 데 실제로 유용합니다. “우리가 찾은 탈진 CD8 상태는 종양 내부에 있는가, 경계에 있는가?”\n⚠️ 순환논리의 위험이 있습니다. 클러스터를 정의한 유전자와 같은 유전자로 mapping했다면, 그 클러스터를 다시 찾은 것은 독립적인 근거가 아닙니다",
+    "section": "3) Single cell을 공간에 mapping하기",
+    "text": "3) Single cell을 공간에 mapping하기\n반대 방향: scRNA-seq에서 찾은 cluster가 조직 어디에 있는지 묻기\n\nTangram, Seurat anchor transfer — single-cell label을 spatial data에 투영\n✅ 구체적 가설 검정에 진짜 유용: “우리가 찾은 exhausted CD8 state, 종양 안에 있나 경계에 있나?”\n⚠️ 순환논리 위험: cluster를 정의한 gene으로 mapping했다면, 그 cluster를 다시 찾은 건 독립적 근거 x",
     "crumbs": [
       "4 · 공간오믹스",
       "W8. 디콘볼루션과 공간 통합"
@@ -740,8 +740,8 @@
     "objectID": "ko/chapters/part4/w8_spatial_integration.html#w8-s5-1",
     "href": "ko/chapters/part4/w8_spatial_integration.html#w8-s5-1",
     "title": "W8. 디콘볼루션과 공간 통합",
-    "section": "1) Deconvolution 후 참조 확인",
-    "text": "1) Deconvolution 후 참조 확인\n\nlibrary(Seurat); library(spacexr); library(tidyverse)   # spacexr = RCTD\n\nsp  &lt;- readRDS(here::here(\"analysis\", \"7_visium.rds\"))\nref &lt;- readRDS(here::here(\"analysis\", \"5_pbmc_annotated.rds\"))   # ⚠️ is this the right reference?\n\nreference &lt;- Reference(GetAssayData(ref, \"counts\"), factor(ref$cell_type))\npuck      &lt;- SpatialRNA(GetTissueCoordinates(sp), GetAssayData(sp, \"counts\"))\n\nrctd &lt;- create.RCTD(puck, reference, max_cores = 4) |&gt; run.RCTD(doublet_mode = \"full\")\nprops &lt;- normalize_weights(rctd@results$weights)\n\n⚠️ 결과를 믿기 전에 PBMC 참조를 조직 절편에 사용한다는 것이 무엇을 뜻하는지 물어보십시오. 조직 상주 대식세포, 섬유아세포, 내피세포는 참조에 없습니다. 이들의 신호는 어디로 갔습니까?",
+    "section": "1) Deconvolution 후 reference 점검",
+    "text": "1) Deconvolution 후 reference 점검\n\nlibrary(Seurat); library(spacexr); library(tidyverse)   # spacexr = RCTD\n\nsp  &lt;- readRDS(here::here(\"analysis\", \"7_visium.rds\"))\nref &lt;- readRDS(here::here(\"analysis\", \"5_pbmc_annotated.rds\"))   # ⚠️ is this the right reference?\n\nreference &lt;- Reference(GetAssayData(ref, \"counts\"), factor(ref$cell_type))\npuck      &lt;- SpatialRNA(GetTissueCoordinates(sp), GetAssayData(sp, \"counts\"))\n\nrctd &lt;- create.RCTD(puck, reference, max_cores = 4) |&gt; run.RCTD(doublet_mode = \"full\")\nprops &lt;- normalize_weights(rctd@results$weights)\n\n⚠️ 믿기 전에: PBMC reference를 조직 절편에 쓴다는 게 무슨 뜻인지 생각해보기. Tissue-resident macrophage, fibroblast, endothelium은 reference에 없음 → 이들의 signal은 어디로 갔나?",
     "crumbs": [
       "4 · 공간오믹스",
       "W8. 디콘볼루션과 공간 통합"
@@ -752,7 +752,7 @@
     "href": "ko/chapters/part4/w8_spatial_integration.html#w8-s5-2",
     "title": "W8. 디콘볼루션과 공간 통합",
     "section": "2) ✅ 반사적으로 해야 할 검증",
-    "text": "2) ✅ 반사적으로 해야 할 검증\n\n# Plot a raw marker gene next to the estimated proportion of its cell type\np1 &lt;- SpatialFeaturePlot(sp, features = \"CD3E\") + ggtitle(\"raw CD3E\")\nsp$Tcell_prop &lt;- props[, \"CD8 T\"]\np2 &lt;- SpatialFeaturePlot(sp, features = \"Tcell_prop\") + ggtitle(\"estimated CD8 T\")\np1 | p2\n\n💡 두 지도가 일치하지 않는다면 deconvolution 결과는 조직이 아니라 참조에 관해 말하고 있는 것입니다.",
+    "text": "2) ✅ 반사적으로 해야 할 검증\n\n# Plot a raw marker gene next to the estimated proportion of its cell type\np1 &lt;- SpatialFeaturePlot(sp, features = \"CD3E\") + ggtitle(\"raw CD3E\")\nsp$Tcell_prop &lt;- props[, \"CD8 T\"]\np2 &lt;- SpatialFeaturePlot(sp, features = \"Tcell_prop\") + ggtitle(\"estimated CD8 T\")\np1 | p2\n\n💡 두 지도가 안 맞으면 → deconvolution이 조직이 아니라 reference에 대해 말하고 있는 것",
     "crumbs": [
       "4 · 공간오믹스",
       "W8. 디콘볼루션과 공간 통합"
@@ -774,7 +774,7 @@
     "href": "ko/chapters/part4/w8_spatial_integration.html#w8-s5-4",
     "title": "W8. 디콘볼루션과 공간 통합",
     "section": "4) ✅ 한 가지 바꾸기",
-    "text": "4) ✅ 한 가지 바꾸기\n\n# Does your co-localisation survive a structure-preserving null?\nobserved &lt;- cor(props[, \"CD8 T\"], props[, \"Macrophage\"])\n\nnull &lt;- replicate(1000, {\n  perm &lt;- sample(nrow(props))          # ⚠️ a naive permutation — discuss why this is still too easy\n  cor(props[perm, \"CD8 T\"], props[, \"Macrophage\"])\n})\n\ncat(\"observed:\", round(observed, 3),\n    \" null 95%:\", round(quantile(null, c(.025, .975)), 3), \"\\n\")\n\n⚠️ 이제 논의해 보십시오. 이 순열은 모든 조직 구조를 파괴하므로 §2.2에서 말한 지나치게 쉬운 귀무가설입니다. 더 나은 귀무가설은 어떤 모습일까요? 힌트: 해부학적 영역 안에서만 순열화하거나 전체 표지 지도를 그대로 평행 이동하십시오.",
+    "text": "4) ✅ 한 가지 바꾸기\n\n# Does your co-localisation survive a structure-preserving null?\nobserved &lt;- cor(props[, \"CD8 T\"], props[, \"Macrophage\"])\n\nnull &lt;- replicate(1000, {\n  perm &lt;- sample(nrow(props))          # ⚠️ a naive permutation — discuss why this is still too easy\n  cor(props[perm, \"CD8 T\"], props[, \"Macrophage\"])\n})\n\ncat(\"observed:\", round(observed, 3),\n    \" null 95%:\", round(quantile(null, c(.025, .975)), 3), \"\\n\")\n\n⚠️ 그다음 토론: 이 permutation은 조직 구조를 전부 파괴 → §2.2의 너무 쉬운 null. 더 나은 null은? (힌트: 해부학적 영역 안에서만 permutation, 또는 label 지도 전체를 통째로 평행 이동)",
     "crumbs": [
       "4 · 공간오믹스",
       "W8. 디콘볼루션과 공간 통합"
@@ -785,7 +785,7 @@
     "href": "ko/chapters/part4/w8_spatial_integration.html#w8-s5-5",
     "title": "W8. 디콘볼루션과 공간 통합",
     "section": "5) 다음 주 전까지",
-    "text": "5) 다음 주 전까지\nW9 — 단백체학. 지금까지는 모두 RNA를 측정했습니다. 다음에는 단백질이 실제로 만들어졌는지 묻고, 답이 ‘아니오’인 경우가 얼마나 많은지 살펴봅니다.\n설치할 것은 없습니다. W9은 개념 중심 수업입니다.",
+    "text": "5) 다음 주 전까지\nW9 — 단백체학. 지금까지는 전부 RNA를 측정. 다음 주엔 protein이 실제로 만들어졌는지 묻고 → 답이 “아니오”인 경우가 얼마나 많은지 확인\n설치할 것 없음. W9은 개념 위주",
     "crumbs": [
       "4 · 공간오믹스",
       "W8. 디콘볼루션과 공간 통합"
@@ -3742,7 +3742,7 @@
     "href": "chapters/part4/w8_spatial_integration.html",
     "title": "W8. Deconvolution & Spatial Integration",
     "section": "",
-    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nExplain what deconvolution estimates, and what it cannot estimate\n⚠️ Say why the reference dataset determines the answer, and what to check before trusting one\nDistinguish a cell-type map from a niche map, and say why the second is where the biology usually is\n⚠️ Test co-localisation against a null that respects tissue structure\n⚠️ Say why neighbouring spots inflate significance, and what to do about it\nPlace any claim on the evidence ladder from description to demonstration\nDesign a spatial validation step for a hypothesis generated in W5–W6",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\nExplain what deconvolution estimates, and what it cannot estimate\n⚠️ Say why the reference dataset determines the answer, and what to check before trusting one\nSay why single-cell-resolution data is annotated rather than deconvolved, and where those labels go wrong\nDistinguish a cell-type map from a niche map, and say why the second is where the biology usually is\n⚠️ Test co-localisation against a null that respects tissue structure\n⚠️ Say why neighbouring spots inflate significance, and what to do about it\n⚠️ Compare niches between patient groups with the patient, not the spot, as the unit\n⚠️ Say what a distance limit adds to ligand–receptor inference, and what it still cannot show\nPlace any claim on the evidence ladder from description to demonstration\nDesign a spatial validation step for a hypothesis generated in W5–W6",
     "crumbs": [
       "Home",
       "4 · Spatial",
@@ -3790,7 +3790,7 @@
     "href": "chapters/part4/w8_spatial_integration.html#w8-s2-1",
     "title": "W8. Deconvolution & Spatial Integration",
     "section": "1) The question that spatial data is actually for",
-    "text": "1) The question that spatial data is actually for\nA per-spot cell-type map is useful, and it is still one location at a time. The step that uses the geometry is asking what each location is surrounded by.\n\n\n\nThe interface exists only as a mixture. No single spot defines it.\n\n\nHow it works: for each spot, build a vector of the cell-type composition of its neighbours (within k spots or a fixed radius), then cluster those vectors. The clusters are niches — recurrent tissue microenvironments.\n💡 Notice what the left panel hides. T cells and macrophages are present almost everywhere and dominate almost nowhere, so a “dominant cell type” map erases them entirely. The immune biology is invisible until you look at composition rather than identity.",
+    "text": "1) The question that spatial data is actually for\nA per-spot cell-type map is useful, and it is still one location at a time. The step that uses the geometry is asking what each location is surrounded by.\n\n\n\nThe interface exists only as a mixture. No single spot defines it.\n\n\nHow it works: for each spot, build a vector of the cell-type composition of its neighbours (within k spots or a fixed radius), then cluster those vectors. The clusters are niches — recurrent tissue microenvironments.\n\nNot the same as the spatially aware domains of 🔗 W7 §4.4: domains smooth the neighbours’ expression, niches cluster the neighbours’ composition\n\n💡 Notice what the left panel hides. T cells and macrophages are present almost everywhere and dominate almost nowhere, so a “dominant cell type” map erases them entirely. The immune biology is invisible until you look at composition rather than identity.",
     "crumbs": [
       "Home",
       "4 · Spatial",
@@ -4668,6 +4668,75 @@
     "crumbs": [
       "4 · 공간오믹스",
       "W7. 공간전사체학의 기초"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html#w8-s1-4",
+    "href": "chapters/part4/w8_spatial_integration.html#w8-s1-4",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "4) Single-cell resolution: annotate, don’t deconvolve",
+    "text": "4) Single-cell resolution: annotate, don’t deconvolve\n\n\n\nOn single-cell platforms the question becomes labelling, not unmixing.\n\n\nOn Xenium, CosMx or Visium HD the unit is a segmented cell (🔗 W7 §3.2), not a mixture. The task becomes annotation: one label per cell, from the same single-cell reference.\n\nLabel transfer (Seurat anchors, as in §2.3) or RCTD in doublet mode (each cell or 8 µm bin = one or two types) — the logic of §1.1 on a smaller unit\n⚠️ Only the panel’s genes are used. The reference has ~20,000 genes, the panel a few hundred to 5,000. A cell type with no marker on the panel cannot be called — it is forced into its nearest neighbour (§1.2 again)\n⚠️ The label inherits the segmentation. A cell holding its neighbour’s transcripts gets a mixed, low-confidence or wrong label\n✅ Map the confidence. Low-confidence calls piling up at cell–cell contacts = segmentation spillover, not a new “hybrid” state\n✅ After that, everything below — niches, co-localisation, patient comparisons — works the same, with cells in place of spots\n\n💡 Panel design is an analysis decision made before the experiment: check that every cell type in your hypothesis has markers on the panel.",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html#w8-s2-4",
+    "href": "chapters/part4/w8_spatial_integration.html#w8-s2-4",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "4) ⚠️ Comparing niches between patients",
+    "text": "4) ⚠️ Comparing niches between patients\n\n\n\nOne large section from one patient can produce a tiny p on its own.\n\n\n“TAM-rich niches are more common in non-responders” is a claim about patients, so the patient is the unit — the same logic as pseudobulk (🔗 W5 §5.3).\n\n① Define niches on all sections together, so a niche label means the same thing in every patient\n② Per patient: the fraction of the section in each niche → one row per patient\n③ Compare groups on those rows, n = patients. Fractions are compositional (🔗 W5 §5.4) → propeller-style tests, or a model with the patient as the unit\n⚠️ Pooled spots (a χ² on 5,000 spots) = W5’s per-cell test in a new costume. One big section can carry the whole result\n⚠️ Several sections per patient → average them, or model the patient as a random effect. Never count them as extra patients\n✅ Report the effect size with an interval, and show one dot per patient",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "chapters/part4/w8_spatial_integration.html#w8-s2-5",
+    "href": "chapters/part4/w8_spatial_integration.html#w8-s2-5",
+    "title": "W8. Deconvolution & Spatial Integration",
+    "section": "5) ⚠️ Ligand–receptor, now with distance",
+    "text": "5) ⚠️ Ligand–receptor, now with distance\n\n\n\nDistance removes pairs that could never meet. It proves none of the rest.\n\n\nW6’s cell–cell communication (🔗 W6 §3.2) scores every sender cluster against every receiver cluster — including cells that were never in the same place. Spatial data adds the missing constraint.\n\nDistance limit — score only sender–receiver pairs within signalling range. Contact signals: direct neighbours. Secreted signals: further, up to a few hundred µm\nCOMMOT — optimal transport with a distance limit; ligands and receptors compete for each other\nCellChat v2 — spatial mode, with separate ranges for contact and secreted signals\nLIANA+ — local scores: where in the section are ligand and receptor high together?\n✅ Test against a structure-preserving null (§2.2) — e.g. shift the receiver layer as a whole. Being near matters only if it is nearer than the tissue predicts\n⚠️ Still mRNA next to mRNA: no protein, no binding, no response. A W6 hypothesis moves to rung ③ at most (🔗 §3)\n⚠️ On Visium, sender and receiver can share one spot → “near” is set by 55 µm, not by biology. Single-cell platforms give the cleaner version — with the segmentation caveat of §1.4",
+    "crumbs": [
+      "Home",
+      "4 · Spatial",
+      "W8. Deconvolution & Integration"
+    ]
+  },
+  {
+    "objectID": "ko/chapters/part4/w8_spatial_integration.html#w8-s1-4",
+    "href": "ko/chapters/part4/w8_spatial_integration.html#w8-s1-4",
+    "title": "W8. 디콘볼루션과 공간 통합",
+    "section": "4) Single-cell 해상도: deconvolution 말고 annotation",
+    "text": "4) Single-cell 해상도: deconvolution 말고 annotation\n\n\n\nSingle-cell platform에선 질문이 “섞인 걸 풀기”에서 “label 붙이기”로 바뀜\n\n\nXenium, CosMx, Visium HD에선 단위 = segmentation된 cell(🔗 W7 §3.2), 혼합물이 아님. 할 일 = annotation: 같은 single-cell reference로 cell마다 label 하나\n\nLabel transfer(Seurat anchor, §2.3과 같은 방식) 또는 RCTD doublet mode(cell 또는 8 µm bin 하나 = type 한두 개) — §1.1의 논리를 더 작은 단위에 적용\n⚠️ Panel에 있는 gene만 쓰임. Reference는 gene ~20,000개, panel은 수백~5,000개. Panel에 marker가 없는 cell type은 부를 수 없음 → 가장 가까운 type으로 억지 배정 (§1.2 다시)\n⚠️ Label은 segmentation을 물려받음. 이웃의 transcript를 담은 cell → 섞이거나, 확신 낮거나, 틀린 label\n✅ Confidence를 지도에 그려보기. 확신 낮은 call이 cell–cell 접촉면에 몰려 있다 = segmentation spillover. 새로운 “hybrid” state 아님\n✅ 그다음부턴 아래 내용(niche, co-localisation, 환자 간 비교)이 spot 대신 cell로 똑같이 적용됨\n\n💡 Panel 설계 = 실험 전에 내리는 분석 결정. 가설에 나오는 cell type마다 panel에 marker가 있는지 확인",
+    "crumbs": [
+      "4 · 공간오믹스",
+      "W8. 디콘볼루션과 공간 통합"
+    ]
+  },
+  {
+    "objectID": "ko/chapters/part4/w8_spatial_integration.html#w8-s2-4",
+    "href": "ko/chapters/part4/w8_spatial_integration.html#w8-s2-4",
+    "title": "W8. 디콘볼루션과 공간 통합",
+    "section": "4) ⚠️ 환자 간 niche 비교",
+    "text": "4) ⚠️ 환자 간 niche 비교\n\n\n\n큰 절편 하나가 혼자서 아주 작은 p를 만들 수 있음\n\n\n“비반응자에서 TAM-rich niche가 더 흔하다” = 환자에 대한 주장 → 단위도 환자. Pseudobulk와 같은 논리(🔗 W5 §5.3)\n\n① Niche는 모든 절편을 합쳐서 정의 → 같은 niche label이 모든 환자에서 같은 뜻\n② 환자마다 절편 중 각 niche가 차지하는 비율 → 환자당 한 줄\n③ 그 줄들로 군 비교, n = 환자. 비율은 compositional(🔗 W5 §5.4) → propeller 같은 test, 또는 환자를 단위로 한 model\n⚠️ Spot을 합쳐서 검정(spot 5,000개로 χ²) = W5의 per-cell test가 옷만 바꿔 입은 것. 큰 절편 하나가 결과 전체를 끌고 갈 수 있음\n⚠️ 환자당 절편 여러 장 → 평균 내거나 환자를 random effect로. 절대 환자 수로 세지 않기\n✅ Effect size + 구간으로 보고, 환자당 점 하나씩 보여주기",
+    "crumbs": [
+      "4 · 공간오믹스",
+      "W8. 디콘볼루션과 공간 통합"
+    ]
+  },
+  {
+    "objectID": "ko/chapters/part4/w8_spatial_integration.html#w8-s2-5",
+    "href": "ko/chapters/part4/w8_spatial_integration.html#w8-s2-5",
+    "title": "W8. 디콘볼루션과 공간 통합",
+    "section": "5) ⚠️ Ligand–receptor, 이번엔 거리까지",
+    "text": "5) ⚠️ Ligand–receptor, 이번엔 거리까지\n\n\n\n거리 = 만날 수 없던 짝을 지워줄 뿐, 나머지를 증명하진 않음\n\n\nW6의 cell–cell communication(🔗 W6 §3.2) = 모든 sender cluster x 모든 receiver cluster 점수화 → 같은 장소에 있어본 적 없는 cell끼리도 포함. Spatial data가 빠진 제약을 채워줌\n\n거리 제한 — 신호가 닿는 범위 안의 sender–receiver 쌍만 점수화. Contact 신호: 바로 옆 cell. 분비 신호: 더 멀리, 수백 µm까지\nCOMMOT — 거리 제한을 건 optimal transport. Ligand와 receptor가 서로를 두고 경쟁\nCellChat v2 — spatial mode, contact 신호와 분비 신호의 범위를 따로 설정\nLIANA+ — local score: 절편 어디에서 ligand와 receptor가 같이 높은가?\n✅ Structure-preserving null과 비교(§2.2) — 예: receiver 층 전체를 통째로 이동. 가깝다는 건 조직 구조로 예상되는 것보다 더 가까울 때만 의미 있음\n⚠️ 여전히 mRNA 옆의 mRNA: protein x, 결합 x, 반응 x. W6 가설이 올라가 봤자 ③단계 (🔗 §3)\n⚠️ Visium에선 sender와 receiver가 spot 하나를 공유할 수 있음 → “가깝다”의 기준이 biology가 아니라 55 µm. Single-cell platform이 더 깔끔한 버전 — 단, §1.4의 segmentation 주의점 그대로",
+    "crumbs": [
+      "4 · 공간오믹스",
+      "W8. 디콘볼루션과 공간 통합"
     ]
   }
 ]
