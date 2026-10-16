@@ -5,7 +5,11 @@ date: last-modified
 format: html
 execute:
   echo: true
-  eval: false
+  eval: true
+knitr:
+  opts_chunk:
+    fig.show: hold     # keep each chunk's code in one block, outputs after it
+    results: hold
 ---
 
 ::: {.callout-note collapse="true"}
@@ -64,16 +68,55 @@ Proteomics dataset = 넓고 짧음: protein 수천 개, sample 수십 개. Prote
 
 `limma` = **empirical Bayes**로 protein별 분산을 전체 추세 쪽으로 축소 → 우연히 아주 일정해 보이는 protein이 자동으로 유의 판정을 받지 않음
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
 library(limma); library(tidyverse)
+
+# toy input (illustration only): the simulated plasma panel from the hands-on below
+mat  <- readRDS(here::here("rawdata", "plasma_proteomics.rds"))
+meta <- readRDS(here::here("rawdata", "plasma_meta.rds"))
+mat  <- mat[rowMeans(is.na(mat)) < 0.30, ]    # proteins measured in ≥ 70% of samples
 
 # mat: log2 intensities, proteins × samples. meta: one row per sample.
 design <- model.matrix(~ condition + sex + age + batch, data = meta)   # ⚠️ batch belongs here
 
 fit <- lmFit(mat, design) |> eBayes(trend = TRUE, robust = TRUE)
-res <- topTable(fit, coef = "conditionCase", number = Inf) |>
+res <- topTable(fit, coef = "conditioncase", number = Inf) |>
   as_tibble(rownames = "protein")
+res
 ```
+
+### Python
+
+```{python}
+import numpy as np, pandas as pd, pyreadr
+import statsmodels.formula.api as smf
+from statsmodels.stats.multitest import multipletests
+
+# toy input (illustration only): the simulated plasma panel from the hands-on below
+mat  = pyreadr.read_r("rawdata/plasma_proteomics.rds")[None]    # proteins × samples, log2
+meta = pyreadr.read_r("rawdata/plasma_meta.rds")[None]
+meta["condition"] = meta.condition.cat.reorder_categories(["control", "case"])   # control = reference, as in R
+mat  = mat[mat.isna().mean(axis=1) < 0.30]     # proteins measured in ≥ 70% of samples
+
+# limma's moderated t has no maintained Python port — an ordinary linear model per protein
+def fit_per_protein(mat, meta, rhs, term="condition[T.case]"):
+    rows = []
+    for protein, y in mat.iterrows():
+        f = smf.ols(f"y ~ {rhs}", data=meta.assign(y=y.to_numpy()), missing="drop").fit()
+        rows.append((protein, f.params[term], f.tvalues[term], f.pvalues[term]))
+    res = pd.DataFrame(rows, columns=["protein", "logFC", "t", "P"]).set_index("protein")
+    res["adj_P"] = multipletests(res.P, method="fdr_bh")[1]
+    return res.sort_values("P")
+
+res = fit_per_protein(mat, meta, "condition + sex + age + batch")   # ⚠️ batch belongs here
+res.head(10)
+```
+
+:::
 
 -   ✅ `trend = TRUE` → MS data에 전형적인 intensity–variance 관계를 반영
 -   ⚠️ Design에 **batch, sex, age** 넣기. Model에서 뺀다고 사라지지 않음
@@ -169,6 +212,10 @@ AUC는 유병률과 무관, **PPV(양성예측도)는 아님**
 
 ⚠️ 이 dataset은 simulation (환자 검체는 공유 불가). 그리고 **batch와 condition이 일부 교락**: B1 = 대조군 28 + 환자군 12, B2는 그 반대. 의도한 것 — 환자군과 대조군을 다른 시기에 모은 실제 보관 cohort가 딱 이렇게 생김
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
 library(tidyverse); library(limma)
 
@@ -186,9 +233,37 @@ plot(rowMeans(prot, na.rm = TRUE), miss,
      xlab = "mean intensity", ylab = "fraction missing", pch = 16, col = "#185FA5")
 ```
 
+### Python
+
+```{python}
+import matplotlib.pyplot as plt
+
+prot = pyreadr.read_r("rawdata/plasma_proteomics.rds")[None]    # proteins × samples, log2
+meta = pyreadr.read_r("rawdata/plasma_meta.rds")[None]
+meta["condition"] = meta.condition.cat.reorder_categories(["control", "case"])
+
+print(pd.crosstab(meta.batch, meta.condition))    # ⚠️ look at this before anything else
+
+# ⚠️ Look before deciding
+miss = prot.isna().mean(axis=1)
+plt.hist(miss, bins=40); plt.title("Fraction missing per protein")
+plt.show()
+
+# Is missingness related to abundance? (if yes → MNAR)
+plt.scatter(prot.mean(axis=1), miss, s=16, c="#185FA5")
+plt.xlabel("mean intensity"); plt.ylabel("fraction missing")
+plt.show()
+```
+
+:::
+
 💡 두 번째 plot에서 뚜렷한 음의 추세 = 그게 바로 MNAR의 증거. Supplement에 넣기
 
 ## 2) 중요한 covariate를 넣고 검정 {#w10-s5-2}
+
+::: {.panel-tabset group="lang"}
+
+### R
 
 ```{r}
 keep <- miss < 0.30                       # state this threshold in the methods
@@ -196,13 +271,30 @@ mat  <- prot[keep, ]
 
 design <- model.matrix(~ condition + age + sex + batch, data = meta)
 fit    <- lmFit(mat, design) |> eBayes(trend = TRUE, robust = TRUE)
-res    <- topTable(fit, coef = "conditionCase", number = Inf) |>
+res    <- topTable(fit, coef = "conditioncase", number = Inf) |>
   as_tibble(rownames = "protein")
 
 sum(res$adj.P.Val < 0.05)
 ```
 
+### Python
+
+```{python}
+keep = miss < 0.30                        # state this threshold in the methods
+mat  = prot[keep]
+
+res = fit_per_protein(mat, meta, "condition + age + sex + batch")
+
+int((res.adj_P < 0.05).sum())
+```
+
+:::
+
 ## 3) ✅ 한 가지를 세 번 바꾸기 {#w10-s5-3}
+
+::: {.panel-tabset group="lang"}
+
+### R
 
 ```{r}
 # ① Drop batch from the design. How many hits change?
@@ -211,6 +303,18 @@ sum(res$adj.P.Val < 0.05)
 # ③ Split by patient into train/test, fit on train, evaluate AUC on test.
 #    Compare that AUC with the one from the full dataset.
 ```
+
+### Python
+
+```{python}
+# ① Drop batch from the design. How many hits change?
+#    (you should go from ~40 proteins to ~209 — that gap is 169 false positives)
+# ② Impute from a low distribution instead of filtering. Do the top 10 survive?
+# ③ Split by patient into train/test, fit on train, evaluate AUC on test.
+#    Compare that AUC with the one from the full dataset.
+```
+
+:::
 
 ⚠️ ③이 핵심. In-sample AUC와 held-out AUC의 차이 = overfitting의 크기. 보통 예상보다 큼
 
