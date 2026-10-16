@@ -5,7 +5,11 @@ date: last-modified
 format: html
 execute:
   echo: true
-  eval: false
+  eval: true
+knitr:
+  opts_chunk:
+    fig.show: hold     # keep each chunk's code in one block, outputs after it
+    results: hold
 ---
 
 ::: {.callout-note collapse="true"}
@@ -113,12 +117,47 @@ Case와 control의 ancestry가 체계적으로 다르면 ancestry와 관련된 *
 
 ✅ **해결책:** Genotype으로 계산한 principal component를 covariate에 포함합니다.
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
+# toy cohort so the model runs (illustration only)
+set.seed(1)
+n <- 2000
+toy <- data.frame(SNP = rbinom(n, 2, 0.3), matrix(rnorm(n * 5), n, 5,
+                  dimnames = list(NULL, paste0("PC", 1:5))),
+                  age = rnorm(n, 55, 10), sex = rbinom(n, 1, 0.5),
+                  batch = factor(sample(1:3, n, replace = TRUE)))
+toy$disease <- rbinom(n, 1, plogis(-1 + 0.3 * toy$SNP + 0.5 * toy$PC1))
+
 glm(disease ~ SNP +
       PC1 + PC2 + PC3 + PC4 + PC5 +   # ancestry
       age + sex + batch,              # nuisance
-    family = binomial)
+    family = binomial, data = toy)
 ```
+
+### Python
+
+```{python}
+import numpy as np, pandas as pd
+import statsmodels.formula.api as smf
+
+# toy cohort so the model runs (illustration only)
+rng = np.random.default_rng(1)
+n = 2000
+toy = pd.DataFrame(rng.normal(size=(n, 5)), columns=[f"PC{i}" for i in range(1, 6)])
+toy["SNP"] = rng.binomial(2, 0.3, n)
+toy["age"], toy["sex"], toy["batch"] = rng.normal(55, 10, n), rng.binomial(1, 0.5, n), rng.integers(1, 4, n)
+toy["disease"] = rng.binomial(1, 1 / (1 + np.exp(-(-1 + 0.3 * toy.SNP + 0.5 * toy.PC1))))
+
+smf.logit("disease ~ SNP"
+          " + PC1 + PC2 + PC3 + PC4 + PC5"     # ancestry
+          " + age + sex + C(batch)",           # nuisance
+          data=toy).fit(disp=0).params
+```
+
+:::
 
 ⚠️ 누구도 말하지 않는 trade-off가 있습니다. 하나의 ancestry로 제한하면 통계는 더 깨끗해지지만 **generalisability는 나빠집니다**(§7).
 :::
@@ -184,15 +223,67 @@ LD는 측정된 variant 하나로 측정하지 않은 수십 개를 tag하게 �
 
 **③ Variant → gene.** **eQTL**은 gene expression에 영향을 주는 variant입니다. **Colocalisation**은 GWAS와 eQTL signal이 *동일한* causal variant를 공유하는지 묻습니다.
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
 library(coloc)
 
+# toy locus: 200 variants, variant 100 drives both signals (illustration only)
+set.seed(2)
+maf    <- runif(200, 0.05, 0.5)
+causal <- seq_len(200) == 100
+gwas_p <- 2 * pnorm(-abs(rnorm(200) + 8 * causal))
+eqtl_p <- 2 * pnorm(-abs(rnorm(200) + 6 * causal))
+
+snp    <- paste0("v", 1:200)
+
 res <- coloc.abf(
-  dataset1 = list(pvalues = gwas_p, N = 150000, type = "cc", s = 0.3),
-  dataset2 = list(pvalues = eqtl_p, N = 500,    type = "quant")
+  dataset1 = list(pvalues = gwas_p, N = 150000, type = "cc", s = 0.3, MAF = maf, snp = snp),
+  dataset2 = list(pvalues = eqtl_p, N = 500,    type = "quant",      MAF = maf, snp = snp)
 )
 res$summary["PP.H4.abf"]   # > 0.8 → they share a causal variant
 ```
+
+### Python
+
+```{python}
+import numpy as np
+from scipy.stats import norm
+from scipy.special import logsumexp
+
+# toy locus: 200 variants, variant 100 drives both signals (illustration only)
+rng = np.random.default_rng(2)
+maf    = rng.uniform(0.05, 0.5, 200)
+causal = np.arange(1, 201) == 100
+gwas_p = 2 * norm.sf(np.abs(rng.normal(size=200) + 8 * causal))
+eqtl_p = 2 * norm.sf(np.abs(rng.normal(size=200) + 6 * causal))
+
+# coloc.abf written out (Wakefield approximate Bayes factors, coloc's default priors)
+def log_abf(p, maf, N, s=None, sd_prior=0.15):
+    z2 = norm.isf(p / 2) ** 2
+    V = 1 / (2 * N * maf * (1 - maf))
+    if s is not None:                              # case-control: scale by s(1-s), prior sd 0.2
+        V, sd_prior = V / (s * (1 - s)), 0.2
+    r = sd_prior**2 / (sd_prior**2 + V)
+    return 0.5 * (np.log(1 - r) + r * z2)
+
+l1 = log_abf(gwas_p, maf, 150000, s=0.3)
+l2 = log_abf(eqtl_p, maf, 500)
+p1, p2, p12 = 1e-4, 1e-4, 1e-5
+lH = np.array([
+    0,
+    np.log(p1) + logsumexp(l1),
+    np.log(p2) + logsumexp(l2),
+    np.log(p1) + np.log(p2) + logsumexp([logsumexp(l1) + logsumexp(l2), logsumexp(l1 + l2)], b=[1, -1]),
+    np.log(p12) + logsumexp(l1 + l2),
+])
+pp = np.exp(lH - logsumexp(lH))
+print("PP.H4.abf =", round(pp[4], 3))   # > 0.8 → they share a causal variant
+```
+
+:::
 
 -   ❌ **가장 가까운 gene은 약 절반의 경우 틀립니다.** Enhancer는 가까운 이웃을 건너뛰는 일이 흔합니다
 -   ⚠️ **방향**을 확인하세요. Risk allele이 환자에서 *증가*해 보이는 gene을 오히려 *down-regulation*할 수 있습니다. 이런 불일치는 손상된 보호 반응을 반영하는 경우가 많고 agonist와 antagonist 중 무엇을 선택할지 결정합니다
@@ -320,6 +411,10 @@ Journal club에서 사용할 수 있도록 보관하세요.
 
 공개 summary statistic은 variant마다 한 행이 있고 개인 genotype은 포함하지 않으므로 자유롭게 공유할 수 있습니다. §7.1에서 고른 연구를 내려받으세요. `scripts/download_public_data.R`이 제각각인 column name을 정리합니다.
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
 library(tidyverse); library(qqman); library(here)
 
@@ -341,7 +436,52 @@ manhattan(clean, chr = "CHR", bp = "BP", p = "P", snp = "SNP",
           suggestiveline = -log10(1e-5), genomewideline = -log10(5e-8))
 ```
 
+### Python
+
+```{python}
+import numpy as np, pandas as pd, matplotlib.pyplot as plt
+from scipy.stats import chi2
+
+gwas = pd.read_csv("rawdata/t2d_gwas_summary.tsv", sep="\t")
+
+clean = gwas.query("P > 0 and P <= 1 and FREQ > 0.01 and FREQ < 0.99")
+
+# λ first, always
+def lam(p):
+    return np.median(chi2.isf(p, 1)) / chi2.ppf(0.5, 1)
+print("lambda =", round(lam(clean.P), 3))
+
+# QQ plot
+n = len(clean)
+expected = -np.log10((np.arange(1, n + 1) - 0.5) / n)
+observed = -np.log10(np.sort(clean.P.to_numpy()))
+plt.scatter(expected, observed, s=2, c="#185FA5")
+plt.axline((0, 0), slope=1, c="red")
+plt.title(f"QQ — λ = {lam(clean.P):.3f}")
+plt.xlabel("Expected -log10(p)"); plt.ylabel("Observed -log10(p)")
+plt.show()
+
+# Manhattan plot
+d = clean.sort_values(["CHR", "BP"])
+offset = d.groupby("CHR").BP.max().cumsum().shift(fill_value=0)
+x = d.BP + d.CHR.map(offset)
+fig, ax = plt.subplots(figsize=(12, 4))
+ax.scatter(x, -np.log10(d.P), s=2, c=np.where(d.CHR % 2, "#185FA5", "#9db8d1"))
+ax.axhline(-np.log10(1e-5), c="blue", lw=0.8)
+ax.axhline(-np.log10(5e-8), c="red", lw=0.8)
+ticks = x.groupby(d.CHR).median()
+ax.set_xticks(ticks, ticks.index)
+ax.set_xlabel("Chromosome"); ax.set_ylabel("-log10(p)")
+plt.show()
+```
+
+:::
+
 ✅ **세 가지를 바꾸고, 매번 λ가 어떻게 움직이는지 보세요.**
+
+::: {.panel-tabset group="lang"}
+
+### R
 
 ```{r}
 # ① Drop the MHC — one enormous, hyper-polymorphic locus on chr6
@@ -357,6 +497,25 @@ cat("MAF > 5%    :", round(lambda(common$P), 3), "\n")
 n_eff  <- median(clean$N, na.rm = TRUE)
 cat("lambda_1000 :", round(1 + (lambda(clean$P) - 1) * 1000 / n_eff, 4), "\n")
 ```
+
+### Python
+
+```{python}
+# ① Drop the MHC — one enormous, hyper-polymorphic locus on chr6
+no_mhc = clean.query("not (CHR == 6 and BP > 25e6 and BP < 34e6)")
+print("without MHC :", round(lam(no_mhc.P), 3))
+
+# ② Common variants only — rarer variants are noisier and less well imputed
+common = clean.query("FREQ > 0.05 and FREQ < 0.95")
+print("MAF > 5%    :", round(lam(common.P), 3))
+
+# ③ ⚠️ λ scales with sample size. Rescale to a notional n = 1000 per group
+#    so it can be compared across studies at all
+n_eff = clean.N.median()
+print("lambda_1000 :", round(1 + (lam(clean.P) - 1) * 1000 / n_eff, 4))
+```
+
+:::
 
 💡 ③을 기억할 가치가 있습니다. 대규모 biobank GWAS는 실제 polygenicity 때문에 λ가 n과 함께 커져 λ = 1.15여도 calibration이 완벽할 수 있습니다. **λ₁₀₀₀을 사용해야 두 연구를 비교할 수 있습니다.** 논문에 이 값이 없다면 이유를 물어도 좋습니다.
 
