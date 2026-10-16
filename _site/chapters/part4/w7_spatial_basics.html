@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eunji Ha">
-<meta name="dcterms.date" content="2026-10-07">
+<meta name="dcterms.date" content="2026-10-16">
 
 <title>W7. Spatial Transcriptomics — The Basics</title>
 <style>
@@ -596,13 +596,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#w7-s2-2" id="toc-w7-s2-2" class="nav-link" data-scroll-target="#w7-s2-2">2) ⚠️ FFPE is the fact that matters most to you</a></li>
   <li><a href="#w7-s2-3" id="toc-w7-s2-3" class="nav-link" data-scroll-target="#w7-s2-3">3) Choosing</a></li>
   </ul></li>
-  <li><a href="#w7-s3" id="toc-w7-s3" class="nav-link" data-scroll-target="#w7-s3">3. ⚠️ A Spot Is Not a Cell 🔍</a></li>
+  <li><a href="#w7-s3" id="toc-w7-s3" class="nav-link" data-scroll-target="#w7-s3">3. ⚠️ A Spot Is Not a Cell 🔍</a>
+  <ul>
+  <li><a href="#w7-s3-1" id="toc-w7-s3-1" class="nav-link" data-scroll-target="#w7-s3-1">1) Spot-based platforms: a composition</a></li>
+  <li><a href="#w7-s3-2" id="toc-w7-s3-2" class="nav-link" data-scroll-target="#w7-s3-2">2) ⚠️ Single-cell platforms: a cell is a drawn line</a></li>
+  </ul></li>
   <li><a href="#w7-s4" id="toc-w7-s4" class="nav-link" data-scroll-target="#w7-s4">4. Analysing Spatial Data 📐</a>
   <ul>
   <li><a href="#w7-s4-1" id="toc-w7-s4-1" class="nav-link" data-scroll-target="#w7-s4-1">1) The pipeline</a></li>
   <li><a href="#w7-s4-2" id="toc-w7-s4-2" class="nav-link" data-scroll-target="#w7-s4-2">2) Spatially variable genes</a></li>
   <li><a href="#w7-s4-3" id="toc-w7-s4-3" class="nav-link" data-scroll-target="#w7-s4-3">3) ⚠️ Neighbouring spots are not independent</a></li>
-  <li><a href="#w7-s4-4" id="toc-w7-s4-4" class="nav-link" data-scroll-target="#w7-s4-4">4) Domains and niches</a></li>
+  <li><a href="#w7-s4-4" id="toc-w7-s4-4" class="nav-link" data-scroll-target="#w7-s4-4">4) Domains that use the coordinates, and niches</a></li>
   </ul></li>
   <li><a href="#w7-s5" id="toc-w7-s5" class="nav-link" data-scroll-target="#w7-s5">5. ⚠️ Tissue Reality 🧪</a></li>
   <li><a href="#w7-s6" id="toc-w7-s6" class="nav-link" data-scroll-target="#w7-s6">6. Hands-On 💻</a>
@@ -611,7 +615,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#w7-s6-2" id="toc-w7-s6-2" class="nav-link" data-scroll-target="#w7-s6-2">2) The pipeline</a></li>
   <li><a href="#w7-s6-3" id="toc-w7-s6-3" class="nav-link" data-scroll-target="#w7-s6-3">3) Spatially variable genes</a></li>
   <li><a href="#w7-s6-4" id="toc-w7-s6-4" class="nav-link" data-scroll-target="#w7-s6-4">4) ✅ Change one thing</a></li>
-  <li><a href="#w7-s6-5" id="toc-w7-s6-5" class="nav-link" data-scroll-target="#w7-s6-5">5) Before next week</a></li>
+  <li><a href="#w7-s6-5" id="toc-w7-s6-5" class="nav-link" data-scroll-target="#w7-s6-5">5) Spatially aware domains</a></li>
+  <li><a href="#w7-s6-6" id="toc-w7-s6-6" class="nav-link" data-scroll-target="#w7-s6-6">6) Before next week</a></li>
   </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">📝 Summary</a></li>
   <li><a href="#key-terms" id="toc-key-terms" class="nav-link" data-scroll-target="#key-terms">🔑 Key terms</a></li>
@@ -647,7 +652,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 7, 2026</p>
+      <p class="date">October 16, 2026</p>
     </div>
   </div>
   
@@ -677,8 +682,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Place the major platforms on the resolution-versus-breadth trade-off, and pick one for a given question</li>
 <li>⚠️ Say why <strong>FFPE compatibility</strong> is the single most important practical fact in this chapter</li>
 <li>⚠️ Explain why a Visium spot is not a cell, and what follows from that</li>
+<li>⚠️ Explain how cell segmentation on single-cell platforms can create co-expression that is not there</li>
 <li>⚠️ Recognise the physical artifacts — folds, edges, necrosis — that masquerade as biology</li>
 <li>Say why neighbouring spots are not independent observations</li>
+<li>Say what spatially aware clustering adds, and what its smoothing can erase</li>
 <li>State what your n is in a spatial experiment</li>
 </ul>
 </div>
@@ -797,6 +804,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="w7-s3" class="level1">
 <h1>3. ⚠️ A Spot Is Not a Cell 🔍</h1>
+<section id="w7-s3-1" class="level2">
+<h2 class="anchored" data-anchor-id="w7-s3-1">1) Spot-based platforms: a composition</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../..\assets/img/w7/spot_is_not_a_cell.svg" class="img-fluid figure-img"></p>
@@ -825,7 +834,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section>
+<section id="w7-s3-2" class="level2">
+<h2 class="anchored" data-anchor-id="w7-s3-2">2) ⚠️ Single-cell platforms: a cell is a drawn line</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w7/segmentation.svg" class="img-fluid figure-img"></p>
+<figcaption>Imaging platforms measure molecules. The cell is drawn in afterwards.</figcaption>
+</figure>
+</div>
+<p>Xenium, CosMx, MERFISH — and Visium HD — do not measure cells either. They measure <strong>molecules at coordinates</strong> (or 2 µm bins). A cell exists only after <strong>segmentation</strong> assigns each molecule to an outline.</p>
+<ul>
+<li><strong>Nucleus only</strong> (DAPI) — clean, but drops the cytoplasm → low counts</li>
+<li><strong>Nucleus + fixed expansion</strong> — the common default. Recovers counts, but in dense tissue the outline runs into the neighbour and <strong>takes its transcripts</strong></li>
+<li><strong>Better outlines</strong> — a membrane stain, or tools that use the transcripts themselves (<code>Baysor</code>). Better, still not ground truth</li>
+<li><strong>Visium HD</strong> — 2 µm bins regrouped into cells (<code>bin2cell</code>, or 10x’s own segmentation) → the same problem with a different input</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Two claims a segmented cell does not support on its own
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>❌ <strong>“Macrophages in the tumour nest express epithelial genes”</strong> — the classic spillover artefact. A thin cell squeezed between tumour cells picks up their transcripts: a doublet (🔗 <a href="../../chapters/part3/w5_scrna_qc.html#w5-s3-3">W5 §3.3</a>) in a new costume</li>
+<li>❌ <strong>“These two cell types touch, so they are signalling”</strong> — contact is exactly where outlines are most wrong, so a ligand–receptor pair can be created by the segmentation itself</li>
+</ul>
+<p>→ ✅ Before trusting cell-level results: how often does a marker that should be exclusive (e.g.&nbsp;<code>PTPRC</code> vs <code>EPCAM</code>) show up in the wrong cell type, and is it worse at cell–cell contacts? Then look at the outlines on the image — the same rule as the H&amp;E in 🔗 <a href="#w7-s5">§5</a>.</p>
+</div>
+</div>
+</div>
 <hr>
+</section>
 </section>
 <section id="w7-s4" class="level1">
 <h1>4. Analysing Spatial Data 📐</h1>
@@ -837,7 +883,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    → find spatially variable genes
    → relate domains to histology
    → [W8] deconvolve, then analyse neighbourhoods</code></pre>
-<p>⚠️ Note that standard clustering <strong>ignores coordinates entirely</strong> — it clusters spots the way Seurat clusters cells. That domains come out spatially coherent anyway is a good sign; that they do not is informative.</p>
+<p>⚠️ Note that standard clustering <strong>ignores coordinates entirely</strong> — it clusters spots the way Seurat clusters cells. That domains come out spatially coherent anyway is a good sign; that they do not is informative. Methods that do use the coordinates → 🔗 <a href="#w7-s4-4">§4.4</a>.</p>
 </section>
 <section id="w7-s4-2" class="level2">
 <h2 class="anchored" data-anchor-id="w7-s4-2">2) Spatially variable genes</h2>
@@ -850,7 +896,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="w7-s4-3" class="level2">
 <h2 class="anchored" data-anchor-id="w7-s4-3">3) ⚠️ Neighbouring spots are not independent</h2>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -859,7 +905,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Adjacent spots share diffused transcripts, share the same local tissue, and sometimes physically share cells. They are <strong>positively correlated by construction</strong>.</p>
 <p>Any test that treats 4,000 spots as 4,000 independent observations will produce p-values as inflated as the per-cell tests in 🔗 <a href="../../chapters/part3/w5_scrna_qc.html#w5-s5-2">W5 §5.2</a> — and for the same reason.</p>
@@ -873,8 +919,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="w7-s4-4" class="level2">
-<h2 class="anchored" data-anchor-id="w7-s4-4">4) Domains and niches</h2>
-<p>Beyond clustering spots by expression, you can cluster by <strong>what is around them</strong> — the composition of the local neighbourhood. That is where the genuinely spatial biology lives, and it needs deconvolution first. 🔗 <a href="../../chapters/part4/w8_spatial_integration.html">W8</a>.</p>
+<h2 class="anchored" data-anchor-id="w7-s4-4">4) Domains that use the coordinates, and niches</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w7/spatial_domains.svg" class="img-fluid figure-img"></p>
+<figcaption>A spot’s neighbours are a second measurement of the same tissue.</figcaption>
+</figure>
+</div>
+<p>The autocorrelation that inflates p-values in §4.3 is, for clustering, <strong>signal</strong>: neighbouring spots measure the same tissue again.</p>
+<p><strong>① Spatially aware domains</strong> — a spot’s label depends on its own expression <strong>and</strong> its neighbours’</p>
+<ul>
+<li><code>BayesSpace</code> — a prior that pulls neighbouring spots towards the same label</li>
+<li><code>BANKSY</code> — adds each spot’s neighbour-averaged expression as extra features, weighted by <strong>λ</strong>, then clusters as usual. λ = 0 → ordinary clustering. Runs inside Seurat (🔗 <a href="#w7-s6-5">§6.5</a>)</li>
+<li><code>GraphST</code> — a graph neural network on the spatial neighbour graph</li>
+<li>✅ Salt-and-pepper labels become contiguous domains; noisy spots stop flipping between clusters</li>
+<li>⚠️ <strong>The smoothness is now partly your input.</strong> A coherent domain was a good sign in §4.1 — here you asked for it</li>
+<li>⚠️ <strong>Too much smoothing erases small structures</strong> — a tertiary lymphoid structure (TLS), a micrometastasis, a thin layer. Compare with λ = 0 before reporting a domain map</li>
+</ul>
+<p><strong>② Niches</strong> — cluster by <strong>what is around</strong> each location (the composition of the local neighbourhood) rather than by its own expression. That is where the genuinely spatial biology lives, and it needs deconvolution first. 🔗 <a href="../../chapters/part4/w8_spatial_integration.html">W8</a>.</p>
 <hr>
 </section>
 </section>
@@ -887,7 +949,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -896,7 +958,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><em>“Please show the H&amp;E image beside the expression map, at the same scale.”</em></p>
 <p>If a “novel spatial domain” coincides exactly with the edge of the section, a fold, or a necrotic area, that is visible in two seconds and invisible in any statistic.</p>
@@ -963,7 +1025,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>💡 If one cluster has systematically higher total counts, ask whether it is a tissue region or a <strong>thickness</strong> region before naming it.</p>
 </section>
 <section id="w7-s6-5" class="level2">
-<h2 class="anchored" data-anchor-id="w7-s6-5">5) Before next week</h2>
+<h2 class="anchored" data-anchor-id="w7-s6-5">5) Spatially aware domains</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install("Banksy"); remotes::install_github("satijalab/seurat-wrappers")</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Banksy); <span class="fu">library</span>(SeuratWrappers)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>br<span class="sc">$</span>expr_cluster <span class="ot">&lt;-</span> br<span class="sc">$</span>seurat_clusters   <span class="co"># keep the expression-only labels</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># lambda = weight on the neighbours: ~0.2 for cell typing, ~0.8 for tissue domains</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>br <span class="ot">&lt;-</span> <span class="fu">RunBanksy</span>(br, <span class="at">lambda =</span> <span class="fl">0.8</span>, <span class="at">assay =</span> <span class="st">"SCT"</span>, <span class="at">slot =</span> <span class="st">"data"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">features =</span> <span class="st">"variable"</span>, <span class="at">k_geom =</span> <span class="dv">18</span>)   <span class="co"># sets DefaultAssay to "BANKSY"</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>br <span class="ot">&lt;-</span> <span class="fu">RunPCA</span>(br, <span class="at">features =</span> <span class="fu">rownames</span>(br), <span class="at">npcs =</span> <span class="dv">30</span>, <span class="at">reduction.name =</span> <span class="st">"pca.banksy"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindNeighbors</span>(<span class="at">reduction =</span> <span class="st">"pca.banksy"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.5</span>, <span class="at">cluster.name =</span> <span class="st">"banksy_cluster"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">SpatialDimPlot</span>(br, <span class="at">group.by =</span> <span class="st">"expr_cluster"</span>) <span class="sc">|</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">SpatialDimPlot</span>(br, <span class="at">group.by =</span> <span class="st">"banksy_cluster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>💡 Rerun with <code>lambda = 0.2</code>. Which domains survive at both settings — and does anything small vanish at 0.8?</p>
+</section>
+<section id="w7-s6-6" class="level2">
+<h2 class="anchored" data-anchor-id="w7-s6-6">6) Before next week</h2>
 <p><strong>W8 — deconvolution and integration.</strong> Bring the answer to the question from W6: how many FFPE blocks with linked outcomes does your department hold?</p>
 <hr>
 </section>
@@ -975,7 +1057,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Resolution and transcriptome breadth trade against each other. Imaging = single cell, targeted panel. Sequencing = whole transcriptome, multi-cell spots</li>
 <li>✅ <strong>Most platforms work on FFPE</strong> — which puts a retrospective, outcome-linked cohort within reach of a resident today</li>
 <li>⚠️ <strong>A 55 µm spot is 1–10 cells.</strong> It has a composition, not a cell type. Co-expression within a spot is not co-expression within a cell</li>
+<li>⚠️ <strong>On single-cell platforms, a cell is a segmentation.</strong> Thin cells squeezed between others pick up their neighbours’ transcripts → fake co-expression, fake contact</li>
 <li>⚠️ Standard clustering ignores coordinates; spatially coherent domains are a good sign, not a guarantee</li>
+<li>✅ Spatially aware clustering (BayesSpace, BANKSY) uses the neighbours → cleaner domains. ⚠️ The smoothness is partly assumed and can erase small structures — compare with λ = 0</li>
 <li>⚠️ <strong>Neighbouring spots are not independent.</strong> Thousands of tiny p-values is a symptom of ignoring that</li>
 <li>⚠️ Folds, section edges and necrosis all produce convincing “domains”. ✅ Always show the H&amp;E beside the map</li>
 <li>⚠️ <strong>n is still the patient.</strong> Three sections from one tumour is n = 1</li>
@@ -1021,22 +1105,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>RNA quality metric for FFPE — the number to ask for</td>
 </tr>
 <tr class="odd">
+<td>Cell segmentation</td>
+<td>Assigning molecules (or bins) to cell outlines — the step that creates “cells” on imaging platforms and Visium HD</td>
+</tr>
+<tr class="even">
+<td>Transcript spillover</td>
+<td>A neighbour’s transcripts counted in the wrong cell after segmentation</td>
+</tr>
+<tr class="odd">
 <td>Spatial domain</td>
 <td>A cluster of spots with similar expression</td>
 </tr>
 <tr class="even">
+<td>Spatially aware clustering</td>
+<td>Clustering that uses each spot’s neighbours as well as its own expression (BayesSpace, BANKSY, GraphST)</td>
+</tr>
+<tr class="odd">
 <td>Spatially variable gene</td>
 <td>A gene whose expression is organised in space</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Moran’s I</td>
 <td>Classical statistic for spatial autocorrelation</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Spatial autocorrelation</td>
 <td>Nearby measurements resemble each other by construction</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Niche / neighbourhood</td>
 <td>The local cellular composition around a location (W8)</td>
 </tr>
@@ -1056,7 +1152,12 @@ Bressan D, Battistoni G, Hannon GJ. <a href="https://doi.org/10.1126/science.abq
 <h3 class="anchored" data-anchor-id="methods-and-statistics">Methods and statistics</h3>
 <p>Weber LM, et al.&nbsp;<a href="https://doi.org/10.1038/s41467-023-39748-z"><em>nnSVG for the scalable identification of spatially variable genes using nearest-neighbor Gaussian processes.</em></a> Nat Commun. 2023.<br>
 Svensson V, Teichmann SA, Stegle O. <a href="https://doi.org/10.1038/nmeth.4636"><em>SpatialDE: identification of spatially variable genes.</em></a> Nat Methods. 2018.<br>
-Palla G, et al.&nbsp;<a href="https://doi.org/10.1038/s41592-021-01358-2"><em>Squidpy: a scalable framework for spatial omics analysis.</em></a> Nat Methods. 2022.</p>
+Palla G, et al.&nbsp;<a href="https://doi.org/10.1038/s41592-021-01358-2"><em>Squidpy: a scalable framework for spatial omics analysis.</em></a> Nat Methods. 2022.<br>
+Zhao E, et al.&nbsp;<a href="https://doi.org/10.1038/s41587-021-00935-2"><em>Spatial transcriptomics at subspot resolution with BayesSpace.</em></a> Nat Biotechnol. 2021.<br>
+Singhal V, et al.&nbsp;<a href="https://doi.org/10.1038/s41588-024-01664-3"><em>BANKSY unifies cell typing and tissue domain segmentation for scalable spatial omics data analysis.</em></a> Nat Genet. 2024.<br>
+Long Y, et al.&nbsp;<a href="https://doi.org/10.1038/s41467-023-36796-3"><em>Spatially informed clustering, integration, and deconvolution of spatial transcriptomics with GraphST.</em></a> Nat Commun. 2023.<br>
+Petukhov V, et al.&nbsp;<a href="https://doi.org/10.1038/s41587-021-01044-w"><em>Cell segmentation in imaging-based spatial transcriptomics.</em></a> Nat Biotechnol. 2022.<br>
+Polański K, et al.&nbsp;<a href="https://doi.org/10.1093/bioinformatics/btae546"><em>Bin2cell reconstructs cells from high resolution Visium HD data.</em></a> Bioinformatics. 2024.</p>
 </section>
 <section id="clinical-and-ffpe" class="level3">
 <h3 class="anchored" data-anchor-id="clinical-and-ffpe">Clinical and FFPE</h3>

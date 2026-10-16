@@ -17,8 +17,10 @@ By the end of this chapter you should be able to:
 -   Place the major platforms on the resolution-versus-breadth trade-off, and pick one for a given question
 -   ⚠️ Say why **FFPE compatibility** is the single most important practical fact in this chapter
 -   ⚠️ Explain why a Visium spot is not a cell, and what follows from that
+-   ⚠️ Explain how cell segmentation on single-cell platforms can create co-expression that is not there
 -   ⚠️ Recognise the physical artifacts — folds, edges, necrosis — that masquerade as biology
 -   Say why neighbouring spots are not independent observations
+-   Say what spatially aware clustering adds, and what its smoothing can erase
 -   State what your n is in a spatial experiment
 :::
 
@@ -88,6 +90,8 @@ Your pathology department is storing blocks going back years or decades, and eve
 
 # 3. ⚠️ A Spot Is Not a Cell 🔍 {#w7-s3}
 
+## 1) Spot-based platforms: a composition {#w7-s3-1}
+
 ![The single most misread feature of spot-based spatial data.](/assets/img/w7/spot_is_not_a_cell.svg){fig-align="center"}
 
 A standard Visium spot is 55 µm across and typically contains **1–10 cells**, often of several types. What you measure is their **sum**.
@@ -100,6 +104,26 @@ A standard Visium spot is 55 µm across and typically contains **1–10 cells**,
 -   ⚠️ **"These cell types are interacting"** — being in one 55 µm spot is weak evidence of contact. It is better than dissociated data, and it is not adjacency
 
 → ✅ What you can say: *this region is enriched for macrophage signal.* That is a real, useful, defensible claim — and getting from there to proportions is what W8 is about.
+:::
+
+## 2) ⚠️ Single-cell platforms: a cell is a drawn line {#w7-s3-2}
+
+![Imaging platforms measure molecules. The cell is drawn in afterwards.](/assets/img/w7/segmentation.svg){fig-align="center"}
+
+Xenium, CosMx, MERFISH — and Visium HD — do not measure cells either. They measure **molecules at coordinates** (or 2 µm bins). A cell exists only after **segmentation** assigns each molecule to an outline.
+
+-   **Nucleus only** (DAPI) — clean, but drops the cytoplasm → low counts
+-   **Nucleus + fixed expansion** — the common default. Recovers counts, but in dense tissue the outline runs into the neighbour and **takes its transcripts**
+-   **Better outlines** — a membrane stain, or tools that use the transcripts themselves (`Baysor`). Better, still not ground truth
+-   **Visium HD** — 2 µm bins regrouped into cells (`bin2cell`, or 10x's own segmentation) → the same problem with a different input
+
+::: {.callout-warning collapse="true"}
+## Two claims a segmented cell does not support on its own
+
+-   ❌ **"Macrophages in the tumour nest express epithelial genes"** — the classic spillover artefact. A thin cell squeezed between tumour cells picks up their transcripts: a doublet (🔗 [W5 §3.3](../part3/w5_scrna_qc.qmd#w5-s3-3)) in a new costume
+-   ❌ **"These two cell types touch, so they are signalling"** — contact is exactly where outlines are most wrong, so a ligand–receptor pair can be created by the segmentation itself
+
+→ ✅ Before trusting cell-level results: how often does a marker that should be exclusive (e.g. `PTPRC` vs `EPCAM`) show up in the wrong cell type, and is it worse at cell–cell contacts? Then look at the outlines on the image — the same rule as the H&E in 🔗 [§5](#w7-s5).
 :::
 
 ------------------------------------------------------------------------
@@ -117,7 +141,7 @@ QC (per spot, and against the H&E)
    → [W8] deconvolve, then analyse neighbourhoods
 ```
 
-⚠️ Note that standard clustering **ignores coordinates entirely** — it clusters spots the way Seurat clusters cells. That domains come out spatially coherent anyway is a good sign; that they do not is informative.
+⚠️ Note that standard clustering **ignores coordinates entirely** — it clusters spots the way Seurat clusters cells. That domains come out spatially coherent anyway is a good sign; that they do not is informative. Methods that do use the coordinates → 🔗 [§4.4](#w7-s4-4).
 
 ## 2) Spatially variable genes {#w7-s4-2}
 
@@ -140,9 +164,22 @@ Any test that treats 4,000 spots as 4,000 independent observations will produce 
 -   ✅ And across patients, the fix is the same one as always: **aggregate to the patient, then compare patients**
 :::
 
-## 4) Domains and niches {#w7-s4-4}
+## 4) Domains that use the coordinates, and niches {#w7-s4-4}
 
-Beyond clustering spots by expression, you can cluster by **what is around them** — the composition of the local neighbourhood. That is where the genuinely spatial biology lives, and it needs deconvolution first. 🔗 [W8](w8_spatial_integration.qmd).
+![A spot's neighbours are a second measurement of the same tissue.](/assets/img/w7/spatial_domains.svg){fig-align="center"}
+
+The autocorrelation that inflates p-values in §4.3 is, for clustering, **signal**: neighbouring spots measure the same tissue again.
+
+**① Spatially aware domains** — a spot's label depends on its own expression **and** its neighbours'
+
+-   `BayesSpace` — a prior that pulls neighbouring spots towards the same label
+-   `BANKSY` — adds each spot's neighbour-averaged expression as extra features, weighted by **λ**, then clusters as usual. λ = 0 → ordinary clustering. Runs inside Seurat (🔗 [§6.5](#w7-s6-5))
+-   `GraphST` — a graph neural network on the spatial neighbour graph
+-   ✅ Salt-and-pepper labels become contiguous domains; noisy spots stop flipping between clusters
+-   ⚠️ **The smoothness is now partly your input.** A coherent domain was a good sign in §4.1 — here you asked for it
+-   ⚠️ **Too much smoothing erases small structures** — a tertiary lymphoid structure (TLS), a micrometastasis, a thin layer. Compare with λ = 0 before reporting a domain map
+
+**② Niches** — cluster by **what is around** each location (the composition of the local neighbourhood) rather than by its own expression. That is where the genuinely spatial biology lives, and it needs deconvolution first. 🔗 [W8](w8_spatial_integration.qmd).
 
 ------------------------------------------------------------------------
 
@@ -219,7 +256,28 @@ VlnPlot(br, "log_counts", group.by = "seurat_clusters")
 
 💡 If one cluster has systematically higher total counts, ask whether it is a tissue region or a **thickness** region before naming it.
 
-## 5) Before next week {#w7-s6-5}
+## 5) Spatially aware domains {#w7-s6-5}
+
+```{r}
+# BiocManager::install("Banksy"); remotes::install_github("satijalab/seurat-wrappers")
+library(Banksy); library(SeuratWrappers)
+
+br$expr_cluster <- br$seurat_clusters   # keep the expression-only labels
+
+# lambda = weight on the neighbours: ~0.2 for cell typing, ~0.8 for tissue domains
+br <- RunBanksy(br, lambda = 0.8, assay = "SCT", slot = "data",
+                features = "variable", k_geom = 18)   # sets DefaultAssay to "BANKSY"
+br <- RunPCA(br, features = rownames(br), npcs = 30, reduction.name = "pca.banksy") |>
+  FindNeighbors(reduction = "pca.banksy", dims = 1:30) |>
+  FindClusters(resolution = 0.5, cluster.name = "banksy_cluster")
+
+SpatialDimPlot(br, group.by = "expr_cluster") |
+  SpatialDimPlot(br, group.by = "banksy_cluster")
+```
+
+💡 Rerun with `lambda = 0.2`. Which domains survive at both settings — and does anything small vanish at 0.8?
+
+## 6) Before next week {#w7-s6-6}
 
 **W8 — deconvolution and integration.** Bring the answer to the question from W6: how many FFPE blocks with linked outcomes does your department hold?
 
@@ -231,7 +289,9 @@ VlnPlot(br, "log_counts", group.by = "seurat_clusters")
 -   Resolution and transcriptome breadth trade against each other. Imaging = single cell, targeted panel. Sequencing = whole transcriptome, multi-cell spots
 -   ✅ **Most platforms work on FFPE** — which puts a retrospective, outcome-linked cohort within reach of a resident today
 -   ⚠️ **A 55 µm spot is 1–10 cells.** It has a composition, not a cell type. Co-expression within a spot is not co-expression within a cell
+-   ⚠️ **On single-cell platforms, a cell is a segmentation.** Thin cells squeezed between others pick up their neighbours' transcripts → fake co-expression, fake contact
 -   ⚠️ Standard clustering ignores coordinates; spatially coherent domains are a good sign, not a guarantee
+-   ✅ Spatially aware clustering (BayesSpace, BANKSY) uses the neighbours → cleaner domains. ⚠️ The smoothness is partly assumed and can erase small structures — compare with λ = 0
 -   ⚠️ **Neighbouring spots are not independent.** Thousands of tiny p-values is a symptom of ignoring that
 -   ⚠️ Folds, section edges and necrosis all produce convincing "domains". ✅ Always show the H&E beside the map
 -   ⚠️ **n is still the patient.** Three sections from one tumour is n = 1
@@ -248,7 +308,10 @@ VlnPlot(br, "log_counts", group.by = "seurat_clusters")
 | GeoMx | Region-of-interest profiling — you choose the areas |
 | FFPE | Formalin-fixed paraffin-embedded; the pathology archive format |
 | DV200 | RNA quality metric for FFPE — the number to ask for |
+| Cell segmentation | Assigning molecules (or bins) to cell outlines — the step that creates "cells" on imaging platforms and Visium HD |
+| Transcript spillover | A neighbour's transcripts counted in the wrong cell after segmentation |
 | Spatial domain | A cluster of spots with similar expression |
+| Spatially aware clustering | Clustering that uses each spot's neighbours as well as its own expression (BayesSpace, BANKSY, GraphST) |
 | Spatially variable gene | A gene whose expression is organised in space |
 | Moran's I | Classical statistic for spatial autocorrelation |
 | Spatial autocorrelation | Nearby measurements resemble each other by construction |
@@ -268,7 +331,12 @@ Bressan D, Battistoni G, Hannon GJ. [*The dawn of spatial omics.*](https://doi.o
 
 Weber LM, et al. [*nnSVG for the scalable identification of spatially variable genes using nearest-neighbor Gaussian processes.*](https://doi.org/10.1038/s41467-023-39748-z) Nat Commun. 2023.\
 Svensson V, Teichmann SA, Stegle O. [*SpatialDE: identification of spatially variable genes.*](https://doi.org/10.1038/nmeth.4636) Nat Methods. 2018.\
-Palla G, et al. [*Squidpy: a scalable framework for spatial omics analysis.*](https://doi.org/10.1038/s41592-021-01358-2) Nat Methods. 2022.
+Palla G, et al. [*Squidpy: a scalable framework for spatial omics analysis.*](https://doi.org/10.1038/s41592-021-01358-2) Nat Methods. 2022.\
+Zhao E, et al. [*Spatial transcriptomics at subspot resolution with BayesSpace.*](https://doi.org/10.1038/s41587-021-00935-2) Nat Biotechnol. 2021.\
+Singhal V, et al. [*BANKSY unifies cell typing and tissue domain segmentation for scalable spatial omics data analysis.*](https://doi.org/10.1038/s41588-024-01664-3) Nat Genet. 2024.\
+Long Y, et al. [*Spatially informed clustering, integration, and deconvolution of spatial transcriptomics with GraphST.*](https://doi.org/10.1038/s41467-023-36796-3) Nat Commun. 2023.\
+Petukhov V, et al. [*Cell segmentation in imaging-based spatial transcriptomics.*](https://doi.org/10.1038/s41587-021-01044-w) Nat Biotechnol. 2022.\
+Polański K, et al. [*Bin2cell reconstructs cells from high resolution Visium HD data.*](https://doi.org/10.1093/bioinformatics/btae546) Bioinformatics. 2024.
 
 ### Clinical and FFPE
 
