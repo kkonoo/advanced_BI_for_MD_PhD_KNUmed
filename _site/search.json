@@ -432,8 +432,8 @@
     "objectID": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s1-1",
     "href": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s1-1",
     "title": "W10. 임상 단백체학과 바이오마커",
-    "section": "1) 결측이 무작위가 아닌 이유",
-    "text": "1) 결측이 무작위가 아닌 이유\n어떤 run에서 단백질이 결측되는 주된 이유는 검출한계보다 낮았기 때문, 즉 abundance가 낮았기 때문입니다. 통계학에서는 이를 MNAR(missing not at random)이라고 하며, 대부분의 기본 방법이 가정하는 것과 정반대입니다.\n\n⚠️ DDA는 여기에 기술적 결측을 한 층 더 추가합니다(🔗 W9 §2.2). 단백질이 낮아서가 아니라 선택되지 않아 결측될 수 있습니다\n✅ DIA 데이터는 이 점에서 훨씬 깨끗합니다. 현재 DIA가 기본 선택이 된 가장 큰 이유입니다",
+    "section": "1) 무작위가 아닌 이유",
+    "text": "1) 무작위가 아닌 이유\nRun에서 protein이 빠지는 주된 이유 = 검출한계 아래, 즉 양이 적어서. 통계 용어로 MNAR(missing not at random) — 대부분의 기본 방법이 가정하는 것과 정반대\n\n⚠️ DDA는 여기에 기술적 missing을 한 층 더 얹음 (🔗 W9 §2.2) — 양이 적어서가 아니라 선택되지 않아서 빠질 수도 있음\n✅ DIA data는 이 점에서 훨씬 깨끗함 → 지금 DIA가 기본값이 된 가장 큰 이유",
     "crumbs": [
       "5 · 단백체학",
       "W10. 임상 단백체학과 바이오마커"
@@ -443,8 +443,8 @@
     "objectID": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s1-2",
     "href": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s1-2",
     "title": "W10. 임상 단백체학과 바이오마커",
-    "section": "2) 네 가지 선택과 각 선택이 결과에 미치는 영향",
-    "text": "2) 네 가지 선택과 각 선택이 결과에 미치는 영향\n\n\n\n\n\n\n중요각각은 정리 단계가 아니라 가정입니다\n\n\n\n\n\n\n❌ 결측값이 하나라도 있는 단백질을 제외한다. Abundance가 높고 거의 모든 검체에서 검출되는 단백질만 남깁니다. 새로운 바이오마커가 나올 법한 집합과 정확히 반대입니다\n❌ 행 평균으로 대치한다. 낮은 값이 중앙으로 올라가 검정하려는 차이를 바로 축소합니다\n⚠️ 낮은 분포에서 값을 뽑아 대치한다(예: Perseus의 평균을 이동시키고 폭을 좁힌 정규분포). 대개 MNAR 기전에 합리적으로 맞지만, 여전히 Methods section에 명시해야 할 가정입니다\n✅ 결측을 명시적으로 모형화한다. MSstats를 사용하거나 intensity 검정과 함께 존재/부재 검정을 보고하십시오. NA도 데이터라는 사실을 숨기지 않으므로 가장 방어 가능한 접근입니다\n\n💡 반사적으로 해야 할 확인: 다른 대치법으로 다시 분석해 결과가 살아남는지 보십시오. 살아남지 않는다면 심사자가 지적하기 전에 중요한 사실을 알아낸 것입니다.",
+    "section": "2) 네 가지 선택, 각각이 결과에 하는 일",
+    "text": "2) 네 가지 선택, 각각이 결과에 하는 일\n\n\n\n\n\n\n중요전부 정리 단계가 아니라 가정\n\n\n\n\n\n\n❌ Missing이 하나라도 있는 protein 제외 → 많고 어디서나 검출되는 protein만 남음 = 새 biomarker가 나올 법한 집합과 정반대\n❌ 행 평균으로 대치 → 낮은 값이 가운데로 끌려 올라감 = 검정하려던 차이를 바로 줄여버림\n⚠️ 낮은 분포에서 뽑아 대치 (예: Perseus처럼 평균을 낮추고 폭을 좁힌 정규분포). 대개 MNAR 기전에 그럭저럭 맞음 — 그래도 Methods에 적어야 할 가정\n✅ Missing을 명시적으로 modelling — MSstats, 또는 intensity 검정과 함께 presence/absence 검정도 보고. NA도 data라는 걸 숨기지 않으니 가장 방어 가능\n\n💡 반사적으로 할 확인: 다른 imputation으로 다시 돌려서 hit가 살아남는지 보기. 안 살아남으면 → reviewer보다 먼저 중요한 걸 알게 된 것",
     "crumbs": [
       "5 · 단백체학",
       "W10. 임상 단백체학과 바이오마커"
@@ -454,8 +454,8 @@
     "objectID": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s2-1",
     "href": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s2-1",
     "title": "W10. 임상 단백체학과 바이오마커",
-    "section": "1) t-test가 아니라 limma를 사용하는 이유",
-    "text": "1) t-test가 아니라 limma를 사용하는 이유\n단백체 데이터셋은 넓고 짧습니다. 단백질은 수천 개지만 검체는 수십 개입니다. 단백질별 t-test는 각 분산 추정치가 매우 적은 관측치에 의존하므로 불안정합니다.\nlimma는 경험적 베이즈(empirical Bayes)를 사용해 각 단백질의 분산을 전체 추세 쪽으로 축소합니다. 우연히 매우 일정해 보이는 단백질이 자동으로 유의하다고 판정되지 않게 합니다.\n\nlibrary(limma); library(tidyverse)\n\n# mat: log2 intensities, proteins × samples. meta: one row per sample.\ndesign &lt;- model.matrix(~ condition + sex + age + batch, data = meta)   # ⚠️ batch belongs here\n\nfit &lt;- lmFit(mat, design) |&gt; eBayes(trend = TRUE, robust = TRUE)\nres &lt;- topTable(fit, coef = \"conditionCase\", number = Inf) |&gt;\n  as_tibble(rownames = \"protein\")\n\n\n✅ trend = TRUE는 MS 데이터에 전형적인 intensity–variance 관계를 반영합니다\n⚠️ 설계에 batch, sex, age를 포함하십시오. 모형에서 빼도 이 변수들이 사라지지는 않습니다\n✅ 기술 반복이나 fractionation이 있는 MS 설계에서는 MSstats가 계층 구조를 올바르게 모형화합니다",
+    "section": "1) t-test 말고 limma인 이유",
+    "text": "1) t-test 말고 limma인 이유\nProteomics dataset = 넓고 짧음: protein 수천 개, sample 수십 개. Protein별 t-test → 분산 추정이 아주 적은 관측치에 기대서 불안정\nlimma = empirical Bayes로 protein별 분산을 전체 추세 쪽으로 축소 → 우연히 아주 일정해 보이는 protein이 자동으로 유의 판정을 받지 않음\n\nlibrary(limma); library(tidyverse)\n\n# mat: log2 intensities, proteins × samples. meta: one row per sample.\ndesign &lt;- model.matrix(~ condition + sex + age + batch, data = meta)   # ⚠️ batch belongs here\n\nfit &lt;- lmFit(mat, design) |&gt; eBayes(trend = TRUE, robust = TRUE)\nres &lt;- topTable(fit, coef = \"conditionCase\", number = Inf) |&gt;\n  as_tibble(rownames = \"protein\")\n\n\n✅ trend = TRUE → MS data에 전형적인 intensity–variance 관계를 반영\n⚠️ Design에 batch, sex, age 넣기. Model에서 뺀다고 사라지지 않음\n✅ Technical replicate나 fractionation이 있는 MS 설계 → MSstats가 계층 구조를 제대로 modelling",
     "crumbs": [
       "5 · 단백체학",
       "W10. 임상 단백체학과 바이오마커"
@@ -465,8 +465,8 @@
     "objectID": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s2-2",
     "href": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s2-2",
     "title": "W10. 임상 단백체학과 바이오마커",
-    "section": "2) 보고할 내용",
-    "text": "2) 보고할 내용\n\n효과크기(log2 fold change)와 보정 p-value를 함께 보고하십시오. 지난 학기 DESeq2에서와 같은 원칙입니다\n검정한 단백질 수와 결측 때문에 제외한 단백질 수를 보고하십시오. ⚠️ 다중검정은 살아남은 단백질이 아니라 검정한 단백질 전체를 기준으로 합니다(🔗 W2 §2.4)\n다른 대치법에서도 결과가 유지되는지 보고하십시오",
+    "section": "2) 보고할 것",
+    "text": "2) 보고할 것\n\nEffect size(log2 fold change) + adjusted p-value — 지난 학기 DESeq2와 같은 원칙\n검정한 protein 수, missing 때문에 뺀 protein 수. ⚠️ Multiple testing 기준 = 살아남은 protein이 아니라 검정한 protein 전체 (🔗 W2 §2.4)\n다른 imputation에서도 결과가 유지되는지",
     "crumbs": [
       "5 · 단백체학",
       "W10. 임상 단백체학과 바이오마커"
@@ -476,8 +476,8 @@
     "objectID": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s3-1",
     "href": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s3-1",
     "title": "W10. 임상 단백체학과 바이오마커",
-    "section": "1) 자주 혼동되는 세 종류의 바이오마커",
-    "text": "1) 자주 혼동되는 세 종류의 바이오마커\n\n\n\n\n\n\n\n\n종류\n질문\n필요한 것\n\n\n\n\n진단\n이 환자가 지금 질병을 가지고 있는가?\n내원 시점의 환자군과 올바른 감별진단군\n\n\n예후\n이 환자에게 앞으로 어떤 일이 생길 것인가?\n추적관찰, 임상 결과, 생존모형\n\n\n예측\n이 환자가 이 약물에 반응할 것인가?\n⚠️ 치료군과 비치료군. 그렇지 않으면 치료 반응 예측과 예후를 구분할 수 없음\n\n\n\n⚠️ 예측 바이오마커가 가장 어렵지만 가장 자주 주장됩니다. “반응자는 비반응자보다 수치가 높았다”는 결과는 표지자가 치료와 무관하게 단지 예후가 좋은 질병을 나타내는 경우와도 양립합니다.",
+    "section": "1) 자주 헷갈리는 biomarker 세 종류",
+    "text": "1) 자주 헷갈리는 biomarker 세 종류\n\n\n\n\n\n\n\n\n종류\n묻는 것\n필요한 것\n\n\n\n\n진단 (diagnostic)\n이 환자가 지금 병이 있나?\n내원 시점의 환자군 + 제대로 된 감별진단군\n\n\n예후 (prognostic)\n이 환자에게 앞으로 무슨 일이?\n추적관찰, outcome, 생존 model\n\n\n예측 (predictive)\n이 환자가 이 약에 반응할까?\n⚠️ 치료군 + 비치료군 — 없으면 예측과 예후를 못 가름\n\n\n\n⚠️ 예측 biomarker가 가장 어려운데 가장 자주 주장됨. “반응자가 비반응자보다 수치가 높았다” = 치료와 무관하게 그냥 예후 좋은 병을 표시하는 marker여도 똑같이 나옴",
     "crumbs": [
       "5 · 단백체학",
       "W10. 임상 단백체학과 바이오마커"
@@ -487,8 +487,8 @@
     "objectID": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s3-2",
     "href": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s3-2",
     "title": "W10. 임상 단백체학과 바이오마커",
-    "section": "2) ⚠️ AUC 0.94가 아무 가치도 없을 수 있는 이유",
-    "text": "2) ⚠️ AUC 0.94가 아무 가치도 없을 수 있는 이유\n\n\n\n수치는 실제이지만 연구는 아무도 묻지 않는 질문에 답했습니다.\n\n\n\n\n\n\n\n\n경고동기 질문으로 돌아가기\n\n\n\n\n\n그 연구만으로는 처방하지 않습니다.\n논문은 진행성 암 환자와 건강한 자원자를 비교했습니다. 눈앞의 환자는 어느 쪽에도 속하지 않습니다. 진료에서 유용하려면 표지자가 내원 시점의 조기 암과 이를 모방하는 질환을 구분해야 합니다.\n그 아래에는 두 번째 문제가 숨어 있습니다. 환자군은 종양 병동에서, 대조군은 건강검진센터에서 채혈했다면 채혈 tube, 처리까지 걸린 시간, 공복 여부가 집단 간에 모두 체계적으로 다릅니다(🔗 W9 §5). AUC의 일부는 어디에서 채혈했는가를 측정한 것입니다.\n→ ✅ 환자군과 대조군을 같은 진료 경로의 같은 시점, 같은 장소, 같은 tube로 채취했는지 물어보십시오.",
+    "section": "2) ⚠️ AUC 0.94가 아무 가치 없을 수 있는 이유",
+    "text": "2) ⚠️ AUC 0.94가 아무 가치 없을 수 있는 이유\n\n\n\n숫자는 진짜. 연구가 아무도 묻지 않는 질문에 답했을 뿐\n\n\n\n\n\n\n\n\n경고동기 질문으로 돌아가기\n\n\n\n\n\n처방 x — 적어도 그 연구만으로는\n논문의 비교 = 진행성 암 vs 건강한 자원자. 눈앞의 환자는 둘 다 아님. 진료에서 쓸모 있으려면 → 내원 시점의 조기 암 vs 그걸 흉내 내는 질환을 갈라야 함\n밑에 숨은 두 번째 문제: 환자군은 종양 병동에서, 대조군은 건강검진센터에서 채혈 → 채혈 tube, 처리까지 시간, 공복 여부가 군 간에 전부 체계적으로 다름 (🔗 W9 §5). AUC 일부 = 어디서 채혈했나를 잰 것\n→ ✅ 물어볼 것: 환자군과 대조군을 진료 경로의 같은 시점, 같은 장소, 같은 tube로 채취했나?",
     "crumbs": [
       "5 · 단백체학",
       "W10. 임상 단백체학과 바이오마커"
@@ -498,8 +498,8 @@
     "objectID": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s3-3",
     "href": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s3-3",
     "title": "W10. 임상 단백체학과 바이오마커",
-    "section": "3) 진료 현장에서는 유병률이 모든 것을 바꿉니다",
-    "text": "3) 진료 현장에서는 유병률이 모든 것을 바꿉니다\nAUC는 유병률과 무관하지만 양성예측도는 그렇지 않습니다.\n민감도 90%, 특이도 90%:\n\n  유병률 50%(임상시험 코호트)    →  PPV ≈ 90%\n  유병률  1%(선별검사 진료소)    →  PPV ≈  8%\n⚠️ 같은 검사입니다. 양성 결과 100건 중 92건이 거짓양성이며, 모두 CT 검사를 받게 됩니다.\n💡 이 계산은 여러분이 할 수 있지만 생물정보학자는 할 수 없습니다. 여러분의 진료 현장 유병률이 필요하기 때문입니다.",
+    "section": "3) 진료 현장에선 유병률이 전부를 바꿈",
+    "text": "3) 진료 현장에선 유병률이 전부를 바꿈\nAUC는 유병률과 무관, PPV(양성예측도)는 아님\n민감도 90%, 특이도 90%:\n\n  유병률 50%(임상시험 코호트)    →  PPV ≈ 90%\n  유병률  1%(선별검사 진료소)    →  PPV ≈  8%\n⚠️ 같은 검사. 양성 100건 중 92건이 거짓양성 → 전원 CT\n💡 이 계산은 내가 할 수 있고 bioinformatician은 못 함 — 우리 진료 현장의 유병률이 필요하니까",
     "crumbs": [
       "5 · 단백체학",
       "W10. 임상 단백체학과 바이오마커"
@@ -509,8 +509,8 @@
     "objectID": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s5-1",
     "href": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s5-1",
     "title": "W10. 임상 단백체학과 바이오마커",
-    "section": "1) 결측을 의도적으로 처리하기",
-    "text": "1) 결측을 의도적으로 처리하기\n⚠️ 이 데이터셋은 모의 데이터입니다. 환자 검체를 공유할 수 없으며 batch와 condition이 부분적으로 교락되어 있습니다. B1에는 대조군 28명과 환자군 12명, B2에는 그 반대가 들어 있습니다. 환자군과 대조군을 서로 다른 시기에 수집한 실제 보관 코호트의 모습을 의도적으로 재현한 것입니다.\n\nlibrary(tidyverse); library(limma)\n\nprot &lt;- readRDS(here::here(\"rawdata\", \"plasma_proteomics.rds\"))  # proteins × samples, log2\nmeta &lt;- readRDS(here::here(\"rawdata\", \"plasma_meta.rds\"))\n\ntable(meta$batch, meta$condition)    # ⚠️ look at this before anything else\n\n# ⚠️ Look before deciding\nmiss &lt;- rowMeans(is.na(prot))\nhist(miss, breaks = 40, main = \"Fraction missing per protein\")\n\n# Is missingness related to abundance? (if yes → MNAR)\nplot(rowMeans(prot, na.rm = TRUE), miss,\n     xlab = \"mean intensity\", ylab = \"fraction missing\", pch = 16, col = \"#185FA5\")\n\n💡 두 번째 그림에서 뚜렷한 음의 추세가 보인다면 그것이 바로 MNAR의 근거입니다. Supplement에 제시하십시오.",
+    "section": "1) Missing을 의도적으로 다루기",
+    "text": "1) Missing을 의도적으로 다루기\n⚠️ 이 dataset은 simulation (환자 검체는 공유 불가). 그리고 batch와 condition이 일부 교락: B1 = 대조군 28 + 환자군 12, B2는 그 반대. 의도한 것 — 환자군과 대조군을 다른 시기에 모은 실제 보관 cohort가 딱 이렇게 생김\n\nlibrary(tidyverse); library(limma)\n\nprot &lt;- readRDS(here::here(\"rawdata\", \"plasma_proteomics.rds\"))  # proteins × samples, log2\nmeta &lt;- readRDS(here::here(\"rawdata\", \"plasma_meta.rds\"))\n\ntable(meta$batch, meta$condition)    # ⚠️ look at this before anything else\n\n# ⚠️ Look before deciding\nmiss &lt;- rowMeans(is.na(prot))\nhist(miss, breaks = 40, main = \"Fraction missing per protein\")\n\n# Is missingness related to abundance? (if yes → MNAR)\nplot(rowMeans(prot, na.rm = TRUE), miss,\n     xlab = \"mean intensity\", ylab = \"fraction missing\", pch = 16, col = \"#185FA5\")\n\n💡 두 번째 plot에서 뚜렷한 음의 추세 = 그게 바로 MNAR의 증거. Supplement에 넣기",
     "crumbs": [
       "5 · 단백체학",
       "W10. 임상 단백체학과 바이오마커"
@@ -520,8 +520,8 @@
     "objectID": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s5-2",
     "href": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s5-2",
     "title": "W10. 임상 단백체학과 바이오마커",
-    "section": "2) 중요한 공변량을 포함해 검정하기",
-    "text": "2) 중요한 공변량을 포함해 검정하기\n\nkeep &lt;- miss &lt; 0.30                       # state this threshold in the methods\nmat  &lt;- prot[keep, ]\n\ndesign &lt;- model.matrix(~ condition + age + sex + batch, data = meta)\nfit    &lt;- lmFit(mat, design) |&gt; eBayes(trend = TRUE, robust = TRUE)\nres    &lt;- topTable(fit, coef = \"conditionCase\", number = Inf) |&gt;\n  as_tibble(rownames = \"protein\")\n\nsum(res$adj.P.Val &lt; 0.05)",
+    "section": "2) 중요한 covariate를 넣고 검정",
+    "text": "2) 중요한 covariate를 넣고 검정\n\nkeep &lt;- miss &lt; 0.30                       # state this threshold in the methods\nmat  &lt;- prot[keep, ]\n\ndesign &lt;- model.matrix(~ condition + age + sex + batch, data = meta)\nfit    &lt;- lmFit(mat, design) |&gt; eBayes(trend = TRUE, robust = TRUE)\nres    &lt;- topTable(fit, coef = \"conditionCase\", number = Inf) |&gt;\n  as_tibble(rownames = \"protein\")\n\nsum(res$adj.P.Val &lt; 0.05)",
     "crumbs": [
       "5 · 단백체학",
       "W10. 임상 단백체학과 바이오마커"
@@ -532,7 +532,7 @@
     "href": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s5-3",
     "title": "W10. 임상 단백체학과 바이오마커",
     "section": "3) ✅ 한 가지를 세 번 바꾸기",
-    "text": "3) ✅ 한 가지를 세 번 바꾸기\n\n# ① Drop batch from the design. How many hits change?\n#    (you should go from ~40 proteins to ~209 — that gap is 169 false positives)\n# ② Impute from a low distribution instead of filtering. Do the top 10 survive?\n# ③ Split by patient into train/test, fit on train, evaluate AUC on test.\n#    Compare that AUC with the one from the full dataset.\n\n⚠️ ③이 가장 중요합니다. 표본 내 AUC와 별도로 보관한 데이터의 AUC 차이가 과적합의 크기이며, 보통 예상보다 큽니다.",
+    "text": "3) ✅ 한 가지를 세 번 바꾸기\n\n# ① Drop batch from the design. How many hits change?\n#    (you should go from ~40 proteins to ~209 — that gap is 169 false positives)\n# ② Impute from a low distribution instead of filtering. Do the top 10 survive?\n# ③ Split by patient into train/test, fit on train, evaluate AUC on test.\n#    Compare that AUC with the one from the full dataset.\n\n⚠️ ③이 핵심. In-sample AUC와 held-out AUC의 차이 = overfitting의 크기. 보통 예상보다 큼",
     "crumbs": [
       "5 · 단백체학",
       "W10. 임상 단백체학과 바이오마커"
@@ -542,8 +542,8 @@
     "objectID": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s5-4",
     "href": "ko/chapters/part5/w10_clinical_proteomics.html#w10-s5-4",
     "title": "W10. 임상 단백체학과 바이오마커",
-    "section": "4) 설계 과제 계속하기",
-    "text": "4) 설계 과제 계속하기\n🔗 W9 §6.3에서 작성한 다섯 문장에 다음 내용을 추가하십시오.\n\n실제로 필요한 대조군\n결과가 바꿀 의사결정\n검사를 사용할 진료 현장에서 질환의 유병률\n\nW14에 가져오십시오. 충분히 타당한 종합 프로젝트가 됩니다.",
+    "section": "4) 설계 과제 이어서",
+    "text": "4) 설계 과제 이어서\n🔗 W9 §6.3에서 쓴 다섯 문장에 추가:\n\n실제로 필요한 대조군\n결과가 바꿀 결정\n검사를 쓸 진료 현장의 유병률\n\nW14에 가져오기 — 충분히 말이 되는 capstone project",
     "crumbs": [
       "5 · 단백체학",
       "W10. 임상 단백체학과 바이오마커"
