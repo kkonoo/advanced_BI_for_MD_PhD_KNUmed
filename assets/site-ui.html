@@ -251,3 +251,35 @@
   }
 })();
 </script>
+
+<!-- Fold executed-code output (stdout, messages, figures) under one collapsed <details> per cell. -->
+<script>
+(function () {
+  "use strict";
+
+  function foldCellOutputs() {
+    const label = document.documentElement.lang.startsWith("ko") ? "결과 보기" : "Show output";
+
+    document.querySelectorAll(".cell").forEach((cell) => {
+      const outputs = Array.from(cell.children).filter((el) =>
+        Array.from(el.classList).some((c) => c.startsWith("cell-output"))
+      );
+      if (outputs.length === 0) return;
+
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+      details.className = "cell-output-fold";
+      summary.textContent = label;
+      details.appendChild(summary);
+      details.append(...outputs);
+      cell.append(details);   // always below the code, even if knitr split the chunk
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", foldCellOutputs, { once: true });
+  } else {
+    foldCellOutputs();
+  }
+})();
+</script>

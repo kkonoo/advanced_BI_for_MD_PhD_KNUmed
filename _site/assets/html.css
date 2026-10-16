@@ -369,3 +369,28 @@ html[data-bs-theme="dark"] #ai-chat-input {
   }
 }
 
+
+/* ── 코드 실행 결과 접기 ──────────────────────
+   site-ui.html 이 각 .cell 의 출력을 <details> 로 묶음.
+   currentColor 기준이라 라이트/다크 모두 따라감.  */
+
+details.cell-output-fold {
+  margin: 0.25rem 0 1rem;
+  border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  border-radius: 6px;
+}
+
+details.cell-output-fold > summary {
+  padding: 0.3rem 0.75rem;
+  font-size: 0.85rem;
+  color: color-mix(in srgb, currentColor 72%, transparent);
+  cursor: pointer;
+}
+
+details.cell-output-fold[open] > summary {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+}
+
+details.cell-output-fold > :not(summary) {
+  margin: 0.5rem 0.75rem;
+}

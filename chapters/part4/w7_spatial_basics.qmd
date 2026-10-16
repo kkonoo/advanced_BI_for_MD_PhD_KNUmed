@@ -5,7 +5,11 @@ date: last-modified
 format: html
 execute:
   echo: true
-  eval: false
+  eval: true
+knitr:
+  opts_chunk:
+    fig.show: hold     # keep each chunk's code in one block, outputs after it
+    results: hold
 ---
 
 ::: {.callout-note collapse="true"}
@@ -210,10 +214,21 @@ If a "novel spatial domain" coincides exactly with the edge of the section, a fo
 -   ③ How many patients contributed? How many sections each?
 -   ④ 💡 Then look at the paper's claims and ask which of them survive ①–③
 
+```{python}
+#| include: false
+# silence spatialdata's INFO log (ANSI-coloured, printed by sq.gr.spatial_neighbors)
+import logging, spatialdata
+logging.getLogger("spatialdata._logging").setLevel(logging.WARNING)
+```
+
 ## 2) The pipeline {#w7-s6-2}
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
-library(Seurat); library(tidyverse); library(patchwork)
+library(Seurat); library(SeuratData); library(tidyverse); library(patchwork)
 
 br <- LoadData("stxBrain", type = "anterior1")
 
@@ -233,18 +248,71 @@ DimPlot(br, reduction = "umap", label = TRUE) |
 saveRDS(br, here::here("analysis", "7_visium.rds"))
 ```
 
+### Python
+
+```{python}
+import scanpy as sc, squidpy as sq
+import numpy as np, matplotlib.pyplot as plt
+
+ad = sc.datasets.visium_sge("V1_Mouse_Brain_Sagittal_Anterior")   # same section as stxBrain anterior1
+ad.var_names_make_unique()
+sc.pp.calculate_qc_metrics(ad, inplace=True)
+
+# ⚠️ QC against the image, not just the numbers
+sq.pl.spatial_scatter(ad, color="total_counts",
+                      title="Look for folds and edges before anything else")
+plt.show()
+
+sc.pp.normalize_total(ad); sc.pp.log1p(ad)        # log-normalisation in place of SCTransform
+sc.pp.highly_variable_genes(ad, n_top_genes=3000)
+sc.pp.pca(ad, n_comps=30); sc.pp.neighbors(ad, n_pcs=30)
+sc.tl.leiden(ad, resolution=0.6, key_added="clusters", flavor="igraph", n_iterations=2)
+sc.tl.umap(ad)
+
+# the two views that must always appear together
+fig, axs = plt.subplots(1, 2, figsize=(11, 4.5))
+sc.pl.umap(ad, color="clusters", legend_loc="on data", ax=axs[0], show=False)
+sq.pl.spatial_scatter(ad, color="clusters", legend_loc="on data", ax=axs[1])
+
+# ✅ save it
+ad.write_h5ad("analysis/7_visium.h5ad")
+```
+
+:::
+
 ## 3) Spatially variable genes {#w7-s6-3}
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
-svg_genes <- FindSpatiallyVariableFeatures(
+br <- FindSpatiallyVariableFeatures(
   br, assay = "SCT", features = VariableFeatures(br)[1:1000],
   selection.method = "moransi")
 
-top <- SpatiallyVariableFeatures(br, selection.method = "moransi")[1:6]
+top <- SpatiallyVariableFeatures(br, method = "moransi")[1:6]
 SpatialFeaturePlot(br, features = top, ncol = 3, alpha = c(0.1, 1))
 ```
 
+### Python
+
+```{python}
+sq.gr.spatial_neighbors(ad)                       # Visium hex grid: 6 neighbours
+hvg = ad.var.sort_values("dispersions_norm", ascending=False).index[:1000]
+sq.gr.spatial_autocorr(ad, mode="moran", genes=hvg)
+
+top = ad.uns["moranI"].index[:6].tolist()
+sq.pl.spatial_scatter(ad, color=top, ncols=3)
+```
+
+:::
+
 ## 4) ✅ Change one thing {#w7-s6-4}
+
+::: {.panel-tabset group="lang"}
+
+### R
 
 ```{r}
 # Are the domains driven by biology, or by how much tissue was in each spot?
@@ -252,12 +320,26 @@ br$log_counts <- log10(br$nCount_Spatial)
 VlnPlot(br, "log_counts", group.by = "seurat_clusters")
 ```
 
+### Python
+
+```{python}
+# Are the domains driven by biology, or by how much tissue was in each spot?
+ad.obs["log_counts"] = np.log10(ad.obs["total_counts"])
+sc.pl.violin(ad, "log_counts", groupby="clusters")
+```
+
+:::
+
 💡 If one cluster has systematically higher total counts, ask whether it is a tissue region or a **thickness** region before naming it.
 
 ## 5) Spatially aware domains {#w7-s6-5}
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
-# BiocManager::install("Banksy"); remotes::install_github("satijalab/seurat-wrappers")
+# remotes::install_github("prabhakarlab/Banksy"); remotes::install_github("satijalab/seurat-wrappers")
 library(Banksy); library(SeuratWrappers)
 
 br$expr_cluster <- br$seurat_clusters   # keep the expression-only labels
@@ -272,6 +354,29 @@ br <- RunPCA(br, features = rownames(br), npcs = 30, reduction.name = "pca.banks
 SpatialDimPlot(br, group.by = "expr_cluster") |
   SpatialDimPlot(br, group.by = "banksy_cluster")
 ```
+
+### Python
+
+```{python}
+# BANKSY written out: own expression + lambda-weighted neighbour mean, then cluster as usual
+# (full method: pip install pybanksy)
+lam, k_geom = 0.8, 18
+ad.obs["expr_cluster"] = ad.obs["clusters"]      # keep the expression-only labels
+
+sq.gr.spatial_neighbors(ad, coord_type="generic", n_neighs=k_geom, key_added="banksy")
+W = ad.obsp["banksy_connectivities"]
+W = W.multiply(1 / W.sum(axis=1)).tocsr()         # row-normalise -> neighbour mean
+X = ad[:, ad.var.highly_variable].X.toarray()
+z = lambda m: (m - m.mean(0)) / (m.std(0) + 1e-8)
+bk = sc.AnnData(np.hstack([np.sqrt(1 - lam) * z(X), np.sqrt(lam) * z(W @ X)]))
+sc.pp.pca(bk, n_comps=30); sc.pp.neighbors(bk, n_pcs=30)
+sc.tl.leiden(bk, resolution=0.5, flavor="igraph", n_iterations=2)
+ad.obs["banksy_cluster"] = bk.obs["leiden"].values
+
+sq.pl.spatial_scatter(ad, color=["expr_cluster", "banksy_cluster"])
+```
+
+:::
 
 💡 Rerun with `lambda = 0.2`. Which domains survive at both settings — and does anything small vanish at 0.8?
 

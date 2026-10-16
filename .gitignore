@@ -17,3 +17,6 @@
 # renv
 renv/library/
 renv/staging/
+
+# Python 실습 데이터 (scanpy datasets 다운로드 위치)
+/data/
