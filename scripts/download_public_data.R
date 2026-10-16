@@ -33,6 +33,17 @@ dir.create("rawdata", showWarnings = FALSE)
 
 url <- ""   # <- 여기에 붙여넣기
 
+# 연구 전체 표본수 — 파일에 변이별 n 컬럼이 없을 때만 쓴다.
+#   GWAS Catalog harmonised 파일은 대개 n 이 없다. 비워 두면 N 이 전부 NA 라
+#   W3 §7.4 의 λ₁₀₀₀ 도 NA 가 된다.
+#   연구 페이지의 "Initial sample size" 에서 환자 + 대조군을 더해 넣는다.
+#   예) GCST010118 (Spracklen 2020, 동아시아인 T2D): 77,418 + 356,122 = 433540
+n_total <- NA   # <- 예: 433540
+
+# 몇 개 중 하나를 무작위로 남길지. 1 이면 솎지 않는다
+# (GCST010118 기준 약 1,100만 변이, TSV 약 700 MB).
+thin <- 10
+
 if (nzchar(url)) {
   gz <- file.path(tempdir(), basename(url))
   cat("다운로드 중... 수백 MB 일 수 있습니다.\n")
@@ -66,14 +77,34 @@ if (nzchar(url)) {
   gwas$CHR <- suppressWarnings(as.integer(sub("^chr", "", gwas$CHR)))
   gwas <- gwas[!is.na(gwas$CHR) & gwas$CHR %in% 1:22, ]
 
-  # ⚠️ 전체를 그대로 두면 수백만 행이라 수업 중에 느리다.
-  #    유의하지 않은 변이만 솎아낸다 — 신호는 하나도 잃지 않는다.
-  keep <- gwas$P < 0.01 | seq_len(nrow(gwas)) %% 12 == 0
-  gwas <- gwas[keep, ]
+  # ── 표본수 ────────────────────────────────────────────────
+  if (all(is.na(gwas$N))) {
+    if (is.na(n_total)) {
+      cat("⚠️ 파일에 n 컬럼이 없습니다. 위 n_total 을 채우지 않으면",
+          "W3 §7.4 의 λ₁₀₀₀ 이 NA 가 됩니다.\n")
+    } else {
+      gwas$N <- n_total
+      cat("n 컬럼이 없어 연구 전체 표본수", n_total, "을 N 에 넣었습니다.\n")
+    }
+  }
+
+  # ⚠️ 전체를 그대로 두면 천만 행이 넘어 수업 중에 느리다. 그래서 솎아내는데,
+  #    p 값을 보고 고르면 안 된다. 예전처럼 "P < 0.01 은 전부 + 나머지는 12 개 중
+  #    1 개" 를 남기면 작은 p 값만 12 배 부풀려져 χ² 중앙값이 올라간다 —
+  #    GCST010118 에서 λ 가 1.30 → 3.37 이 되었다. 무작위로 솎되 유의한 변이
+  #    (P < 5e-8) 만 따로 다 남겨도 같은 이유로 1.30 → 1.36 이 된다.
+  #    p 값과 상관없이 무작위로 고르면 분포가 그대로라 λ 와 QQ 그림이 변하지 않는다.
+  #    유의한 변이도 같은 비율로 줄지만, 좌위마다 LD 로 묶인 변이가 수십~수백 개라
+  #    Manhattan 의 봉우리는 그대로 보인다. 선두 변이(lead SNP)까지 보려면 thin <- 1.
+  if (thin > 1) {
+    set.seed(1)
+    gwas <- gwas[sort(sample.int(nrow(gwas), ceiling(nrow(gwas) / thin))), ]
+  }
 
   write.table(gwas, "rawdata/t2d_gwas_summary.tsv",
               sep = "\t", quote = FALSE, row.names = FALSE)
-  cat("[W3] t2d_gwas_summary.tsv —", nrow(gwas), "변이,",
+  cat("[W3] t2d_gwas_summary.tsv —", nrow(gwas), "변이",
+      if (thin > 1) paste0("(", thin, " 개 중 1 개 무작위)"), "—",
       sum(gwas$P < 5e-8), "개가 유전체 수준 유의\n")
 } else {
   cat("[W3] url 이 비어 있어 건너뜁니다. 위 주석의 안내를 따르세요.\n")
