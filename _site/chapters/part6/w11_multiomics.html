@@ -84,9 +84,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-771210972c2b3d896dd99f41603bb4dd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-059fd4ccf16d63f8e817c1e7fa4fb424.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-49b1833bbd43c9d03e2e98c0e8c3df20.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-059fd4ccf16d63f8e817c1e7fa4fb424.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -713,7 +713,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>2. Sequential Integration in Practice 🎯</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w11/prioritization.svg" class="img-fluid figure-img"></p>
+<p><img src="../../assets/img/w11/prioritization.svg" class="img-fluid figure-img"></p>
 <figcaption>The most useful form of integration for a clinician, and the least glamorous.</figcaption>
 </figure>
 </div>
@@ -754,7 +754,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>3. Joint Models — Reading the Output 📐</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w11/mofa_factors.svg" class="img-fluid figure-img"></p>
+<p><img src="../../assets/img/w11/mofa_factors.svg" class="img-fluid figure-img"></p>
 <figcaption>Read the columns to find the technical factors, then the rows to find the biology.</figcaption>
 </figure>
 </div>
@@ -796,7 +796,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>4. ⚠️ Three Failures Before the Model 🕳️</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w11/integration_traps.svg" class="img-fluid figure-img"></p>
+<p><img src="../../assets/img/w11/integration_traps.svg" class="img-fluid figure-img"></p>
 <figcaption>None of these is a modelling problem, and all of them are decided at design time.</figcaption>
 </figure>
 </div>
@@ -846,44 +846,582 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="w11-s5-2" class="level2">
 <h2 class="anchored" data-anchor-id="w11-s5-2">2) Check the intersection first</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse); <span class="fu">library</span>(UpSetR)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>have <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> <span class="fu">transmute</span>(</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">clinical   =</span> <span class="dv">1</span>L,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">genotype   =</span> <span class="fu">as.integer</span>(<span class="sc">!</span><span class="fu">is.na</span>(geno_id)),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">rna        =</span> <span class="fu">as.integer</span>(<span class="sc">!</span><span class="fu">is.na</span>(rna_id)),</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">proteomics =</span> <span class="fu">as.integer</span>(<span class="sc">!</span><span class="fu">is.na</span>(prot_id)))</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">upset</span>(<span class="fu">as.data.frame</span>(have), <span class="at">order.by =</span> <span class="st">"freq"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"complete cases:"</span>, <span class="fu">sum</span>(<span class="fu">rowSums</span>(have) <span class="sc">==</span> <span class="fu">ncol</span>(have)), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)   <span class="co"># ⚠️ this is your n</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># toy cohort (illustration only): 200 patients, each layer measured in some of them</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">patient =</span> <span class="fu">sprintf</span>(<span class="st">"P%03d"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">geno_id =</span> <span class="fu">ifelse</span>(<span class="fu">runif</span>(<span class="dv">200</span>) <span class="sc">&lt;</span> <span class="fl">0.90</span>, patient, <span class="cn">NA</span>),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">rna_id  =</span> <span class="fu">ifelse</span>(<span class="fu">runif</span>(<span class="dv">200</span>) <span class="sc">&lt;</span> <span class="fl">0.60</span>, patient, <span class="cn">NA</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">prot_id =</span> <span class="fu">ifelse</span>(<span class="fu">runif</span>(<span class="dv">200</span>) <span class="sc">&lt;</span> <span class="fl">0.45</span>, patient, <span class="cn">NA</span>))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>have <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> <span class="fu">transmute</span>(</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">clinical   =</span> <span class="dv">1</span>L,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">genotype   =</span> <span class="fu">as.integer</span>(<span class="sc">!</span><span class="fu">is.na</span>(geno_id)),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">rna        =</span> <span class="fu">as.integer</span>(<span class="sc">!</span><span class="fu">is.na</span>(rna_id)),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">proteomics =</span> <span class="fu">as.integer</span>(<span class="sc">!</span><span class="fu">is.na</span>(prot_id)))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">upset</span>(<span class="fu">as.data.frame</span>(have), <span class="at">order.by =</span> <span class="st">"freq"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"complete cases:"</span>, <span class="fu">sum</span>(<span class="fu">rowSums</span>(have) <span class="sc">==</span> <span class="fu">ncol</span>(have)), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)   <span class="co"># ⚠️ this is your n</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>complete cases: 53 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w11_multiomics_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> upsetplot <span class="im">import</span> UpSet, from_indicators</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># toy cohort (illustration only): 200 patients, each layer measured in some of them</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">1</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>patient <span class="op">=</span> [<span class="ss">f"P</span><span class="sc">{</span>i<span class="sc">:03d}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">201</span>)]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>meta <span class="op">=</span> pd.DataFrame({<span class="st">"patient"</span>: patient,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"geno_id"</span>: np.where(rng.random(<span class="dv">200</span>) <span class="op">&lt;</span> <span class="fl">0.90</span>, patient, <span class="va">None</span>),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"rna_id"</span>:  np.where(rng.random(<span class="dv">200</span>) <span class="op">&lt;</span> <span class="fl">0.60</span>, patient, <span class="va">None</span>),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"prot_id"</span>: np.where(rng.random(<span class="dv">200</span>) <span class="op">&lt;</span> <span class="fl">0.45</span>, patient, <span class="va">None</span>)})</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>have <span class="op">=</span> pd.DataFrame({<span class="st">"clinical"</span>:   <span class="va">True</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"genotype"</span>:   meta.geno_id.notna(),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"rna"</span>:        meta.rna_id.notna(),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"proteomics"</span>: meta.prot_id.notna()})</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> UpSet(from_indicators(have), subset_size<span class="op">=</span><span class="st">"count"</span>, sort_by<span class="op">=</span><span class="st">"cardinality"</span>).plot()</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"complete cases:"</span>, have.<span class="bu">all</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>())   <span class="co"># ⚠️ this is your n</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w11_multiomics_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>complete cases: 54</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="w11-s5-3" class="level2">
 <h2 class="anchored" data-anchor-id="w11-s5-3">3) MOFA, and annotating its factors</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MOFA2)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mofa <span class="ot">&lt;-</span> <span class="fu">create_mofa</span>(<span class="fu">list</span>(<span class="at">RNA =</span> rna_mat, <span class="at">Protein =</span> prot_mat, <span class="at">Methyl =</span> meth_mat)) <span class="sc">|&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prepare_mofa</span>() <span class="sc">|&gt;</span> <span class="fu">run_mofa</span>()</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_variance_explained</span>(mofa)          <span class="co"># the figure above</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚠️ the step that must come next</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">get_factors</span>(mofa)[[<span class="dv">1</span>]]</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>covars <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> <span class="fu">select</span>(batch, RIN, age, sex, bmi, condition)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>cors <span class="ot">&lt;-</span> <span class="fu">sapply</span>(covars, \(v) <span class="fu">apply</span>(Z, <span class="dv">2</span>, \(f) {</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.numeric</span>(v)) <span class="fu">abs</span>(<span class="fu">cor</span>(f, v, <span class="at">use =</span> <span class="st">"pairwise"</span>)) <span class="cf">else</span> <span class="fu">summary</span>(<span class="fu">aov</span>(f <span class="sc">~</span> <span class="fu">factor</span>(v)))[[<span class="dv">1</span>]][<span class="dv">1</span>, <span class="st">"F value"</span>]</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>}))</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(cors, <span class="dv">2</span>)     <span class="co"># look here before you look at biology</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MOFA2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># toy layers (illustration only): 60 samples × 3 omics, features × samples;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># a batch effect runs through RNA and protein, a weaker case effect through all three</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">sample =</span> <span class="fu">sprintf</span>(<span class="st">"S%02d"</span>, <span class="dv">1</span><span class="sc">:</span>n), <span class="at">batch =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"B1"</span>, <span class="st">"B2"</span>), <span class="at">each =</span> n <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">RIN =</span> <span class="fu">round</span>(<span class="fu">runif</span>(n, <span class="dv">5</span>, <span class="dv">9</span>), <span class="dv">1</span>), <span class="at">age =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n, <span class="dv">60</span>, <span class="dv">10</span>)),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">sex =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"F"</span>, <span class="st">"M"</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>), <span class="at">bmi =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n, <span class="dv">25</span>, <span class="dv">4</span>), <span class="dv">1</span>),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">condition =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"control"</span>, <span class="st">"case"</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="cf">function</span>(p, prefix, batch_shift, case_shift) {</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(p <span class="sc">*</span> n), p, n, <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">paste0</span>(prefix, <span class="dv">1</span><span class="sc">:</span>p), meta<span class="sc">$</span>sample))</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>(p <span class="sc">/</span> <span class="dv">5</span>); k <span class="ot">&lt;-</span> p <span class="sc">/</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">1</span><span class="sc">:</span>(p <span class="sc">/</span> <span class="dv">10</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  m[b, ] <span class="ot">&lt;-</span> m[b, ] <span class="sc">+</span> <span class="fu">rep</span>(batch_shift <span class="sc">*</span> (meta<span class="sc">$</span>batch <span class="sc">==</span> <span class="st">"B2"</span>), <span class="at">each =</span> <span class="fu">length</span>(b))</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  m[k, ] <span class="ot">&lt;-</span> m[k, ] <span class="sc">+</span> <span class="fu">rep</span>(case_shift <span class="sc">*</span> (meta<span class="sc">$</span>condition <span class="sc">==</span> <span class="st">"case"</span>), <span class="at">each =</span> <span class="fu">length</span>(k))</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  m</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>rna_mat <span class="ot">&lt;-</span> <span class="fu">layer</span>(<span class="dv">500</span>, <span class="st">"gene_"</span>, <span class="dv">2</span>, <span class="dv">1</span>); prot_mat <span class="ot">&lt;-</span> <span class="fu">layer</span>(<span class="dv">200</span>, <span class="st">"prot_"</span>, <span class="fl">1.5</span>, <span class="dv">1</span>); meth_mat <span class="ot">&lt;-</span> <span class="fu">layer</span>(<span class="dv">300</span>, <span class="st">"cpg_"</span>, <span class="dv">0</span>, <span class="fl">0.8</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>mofa <span class="ot">&lt;-</span> <span class="fu">create_mofa</span>(<span class="fu">list</span>(<span class="at">RNA =</span> rna_mat, <span class="at">Protein =</span> prot_mat, <span class="at">Methyl =</span> meth_mat)) <span class="sc">|&gt;</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prepare_mofa</span>() <span class="sc">|&gt;</span> <span class="fu">run_mofa</span>()</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_variance_explained</span>(mofa)          <span class="co"># the figure above</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚠️ the step that must come next</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">get_factors</span>(mofa)[[<span class="dv">1</span>]]</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>covars <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> <span class="fu">select</span>(batch, RIN, age, sex, bmi, condition)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>cors <span class="ot">&lt;-</span> <span class="fu">sapply</span>(covars, \(v) <span class="fu">apply</span>(Z, <span class="dv">2</span>, \(f) {</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.numeric</span>(v)) <span class="fu">abs</span>(<span class="fu">cor</span>(f, v, <span class="at">use =</span> <span class="st">"pairwise"</span>)) <span class="cf">else</span> <span class="fu">summary</span>(<span class="fu">aov</span>(f <span class="sc">~</span> <span class="fu">factor</span>(v)))[[<span class="dv">1</span>]][<span class="dv">1</span>, <span class="st">"F value"</span>]</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(cors, <span class="dv">2</span>)     <span class="co"># look here before you look at biology</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+        #########################################################
+        ###           __  __  ____  ______                    ### 
+        ###          |  \/  |/ __ \|  ____/\    _             ### 
+        ###          | \  / | |  | | |__ /  \ _| |_           ### 
+        ###          | |\/| | |  | |  __/ /\ \_   _|          ###
+        ###          | |  | | |__| | | / ____ \|_|            ###
+        ###          |_|  |_|\____/|_|/_/    \_\              ###
+        ###                                                   ### 
+        ######################################################### 
+         
+
+
+use_float32 set to True: replacing float64 arrays by float32 arrays to speed up computations...
+
+Successfully loaded view='RNA' group='group1' with N=60 samples and D=500 features...
+Successfully loaded view='Protein' group='group1' with N=60 samples and D=200 features...
+Successfully loaded view='Methyl' group='group1' with N=60 samples and D=300 features...
+
+
+Model options:
+- Automatic Relevance Determination prior on the factors: False
+- Automatic Relevance Determination prior on the weights: True
+- Spike-and-slab prior on the factors: False
+- Spike-and-slab prior on the weights: False
+Likelihoods:
+- View 0 (RNA): gaussian
+- View 1 (Protein): gaussian
+- View 2 (Methyl): gaussian
+
+
+
+
+######################################
+## Training the model with seed 42 ##
+######################################
+
+
+ELBO before training: -681553.84 
+
+Iteration 1: time=0.00, ELBO=-96318.44, deltaELBO=585235.403 (85.86781664%), Factors=15
+Iteration 2: time=0.00, Factors=15
+Iteration 3: time=0.00, Factors=15
+Iteration 4: time=0.00, Factors=15
+Iteration 5: time=0.00, Factors=15
+Iteration 6: time=0.00, ELBO=-95809.26, deltaELBO=509.174 (0.07470779%), Factors=15
+Iteration 7: time=0.00, Factors=15
+Iteration 8: time=0.00, Factors=15
+Iteration 9: time=0.00, Factors=15
+Iteration 10: time=0.00, Factors=15
+Iteration 11: time=0.00, ELBO=-95749.81, deltaELBO=59.455 (0.00872350%), Factors=15
+Iteration 12: time=0.00, Factors=15
+Iteration 13: time=0.00, Factors=15
+Iteration 14: time=0.00, Factors=15
+Iteration 15: time=0.00, Factors=15
+Iteration 16: time=0.00, ELBO=-95711.17, deltaELBO=38.635 (0.00566865%), Factors=15
+Iteration 17: time=0.00, Factors=15
+Iteration 18: time=0.00, Factors=15
+Iteration 19: time=0.00, Factors=15
+Iteration 20: time=0.00, Factors=15
+Iteration 21: time=0.00, ELBO=-95679.81, deltaELBO=31.365 (0.00460195%), Factors=15
+Iteration 22: time=0.00, Factors=15
+Iteration 23: time=0.00, Factors=15
+Iteration 24: time=0.00, Factors=15
+Iteration 25: time=0.00, Factors=15
+Iteration 26: time=0.00, ELBO=-95652.78, deltaELBO=27.025 (0.00396520%), Factors=15
+Iteration 27: time=0.00, Factors=15
+Iteration 28: time=0.00, Factors=15
+Iteration 29: time=0.00, Factors=15
+Iteration 30: time=0.00, Factors=15
+Iteration 31: time=0.00, ELBO=-95629.10, deltaELBO=23.689 (0.00347578%), Factors=15
+Iteration 32: time=0.00, Factors=15
+Iteration 33: time=0.00, Factors=15
+Iteration 34: time=0.00, Factors=15
+Iteration 35: time=0.00, Factors=15
+Iteration 36: time=0.00, ELBO=-95608.15, deltaELBO=20.947 (0.00307346%), Factors=15
+Iteration 37: time=0.00, Factors=15
+Iteration 38: time=0.00, Factors=15
+Iteration 39: time=0.00, Factors=15
+Iteration 40: time=0.00, Factors=15
+Iteration 41: time=0.00, ELBO=-95589.41, deltaELBO=18.734 (0.00274871%), Factors=15
+Iteration 42: time=0.00, Factors=15
+Iteration 43: time=0.00, Factors=15
+Iteration 44: time=0.00, Factors=15
+Iteration 45: time=0.00, Factors=15
+Iteration 46: time=0.00, ELBO=-95572.34, deltaELBO=17.070 (0.00250455%), Factors=15
+Iteration 47: time=0.00, Factors=15
+Iteration 48: time=0.00, Factors=15
+Iteration 49: time=0.00, Factors=15
+Iteration 50: time=0.00, Factors=15
+Iteration 51: time=0.00, ELBO=-95556.24, deltaELBO=16.106 (0.00236320%), Factors=15
+Iteration 52: time=0.00, Factors=15
+Iteration 53: time=0.00, Factors=15
+Iteration 54: time=0.00, Factors=15
+Iteration 55: time=0.00, Factors=15
+Iteration 56: time=0.00, ELBO=-95540.33, deltaELBO=15.910 (0.00233439%), Factors=15
+Iteration 57: time=0.00, Factors=15
+Iteration 58: time=0.00, Factors=15
+Iteration 59: time=0.00, Factors=15
+Iteration 60: time=0.00, Factors=15
+Iteration 61: time=0.00, ELBO=-95523.95, deltaELBO=16.376 (0.00240270%), Factors=15
+Iteration 62: time=0.00, Factors=15
+Iteration 63: time=0.00, Factors=15
+Iteration 64: time=0.00, Factors=15
+Iteration 65: time=0.00, Factors=15
+Iteration 66: time=0.00, ELBO=-95506.95, deltaELBO=16.998 (0.00249398%), Factors=15
+Iteration 67: time=0.00, Factors=15
+Iteration 68: time=0.00, Factors=15
+Iteration 69: time=0.00, Factors=15
+Iteration 70: time=0.00, Factors=15
+Iteration 71: time=0.00, ELBO=-95489.79, deltaELBO=17.168 (0.00251898%), Factors=15
+Iteration 72: time=0.00, Factors=15
+Iteration 73: time=0.00, Factors=15
+Iteration 74: time=0.00, Factors=15
+Iteration 75: time=0.00, Factors=15
+Iteration 76: time=0.00, ELBO=-95472.93, deltaELBO=16.857 (0.00247337%), Factors=15
+Iteration 77: time=0.00, Factors=15
+Iteration 78: time=0.00, Factors=15
+Iteration 79: time=0.00, Factors=15
+Iteration 80: time=0.00, Factors=15
+Iteration 81: time=0.00, ELBO=-95457.15, deltaELBO=15.774 (0.00231445%), Factors=15
+Iteration 82: time=0.00, Factors=15
+Iteration 83: time=0.00, Factors=15
+Iteration 84: time=0.00, Factors=15
+Iteration 85: time=0.00, Factors=15
+Iteration 86: time=0.00, ELBO=-95442.74, deltaELBO=14.415 (0.00211504%), Factors=15
+Iteration 87: time=0.00, Factors=15
+Iteration 88: time=0.00, Factors=15
+Iteration 89: time=0.00, Factors=15
+Iteration 90: time=0.00, Factors=15
+Iteration 91: time=0.00, ELBO=-95429.07, deltaELBO=13.665 (0.00200496%), Factors=15
+Iteration 92: time=0.00, Factors=15
+Iteration 93: time=0.00, Factors=15
+Iteration 94: time=0.00, Factors=15
+Iteration 95: time=0.00, Factors=15
+Iteration 96: time=0.00, ELBO=-95415.79, deltaELBO=13.283 (0.00194889%), Factors=15
+Iteration 97: time=0.00, Factors=15
+Iteration 98: time=0.00, Factors=15
+Iteration 99: time=0.00, Factors=15
+Iteration 100: time=0.00, Factors=15
+Iteration 101: time=0.00, ELBO=-95403.75, deltaELBO=12.039 (0.00176634%), Factors=15
+Iteration 102: time=0.00, Factors=15
+Iteration 103: time=0.00, Factors=15
+Iteration 104: time=0.00, Factors=15
+Iteration 105: time=0.00, Factors=15
+Iteration 106: time=0.00, ELBO=-95393.52, deltaELBO=10.234 (0.00150163%), Factors=15
+Iteration 107: time=0.00, Factors=15
+Iteration 108: time=0.00, Factors=15
+Iteration 109: time=0.00, Factors=15
+Iteration 110: time=0.00, Factors=15
+Iteration 111: time=0.00, ELBO=-95384.67, deltaELBO=8.845 (0.00129782%), Factors=15
+Iteration 112: time=0.00, Factors=15
+Iteration 113: time=0.00, Factors=15
+Iteration 114: time=0.00, Factors=15
+Iteration 115: time=0.00, Factors=15
+Iteration 116: time=0.00, ELBO=-95376.89, deltaELBO=7.782 (0.00114175%), Factors=15
+Iteration 117: time=0.00, Factors=15
+Iteration 118: time=0.00, Factors=15
+Iteration 119: time=0.00, Factors=15
+Iteration 120: time=0.00, Factors=15
+Iteration 121: time=0.00, ELBO=-95369.98, deltaELBO=6.914 (0.00101446%), Factors=15
+Iteration 122: time=0.00, Factors=15
+Iteration 123: time=0.00, Factors=15
+Iteration 124: time=0.00, Factors=15
+Iteration 125: time=0.00, Factors=15
+Iteration 126: time=0.00, ELBO=-95363.75, deltaELBO=6.227 (0.00091360%), Factors=15
+Iteration 127: time=0.00, Factors=15
+Iteration 128: time=0.00, Factors=15
+Iteration 129: time=0.00, Factors=15
+Iteration 130: time=0.00, Factors=15
+Iteration 131: time=0.00, ELBO=-95358.09, deltaELBO=5.657 (0.00082998%), Factors=15
+Iteration 132: time=0.00, Factors=15
+Iteration 133: time=0.00, Factors=15
+Iteration 134: time=0.00, Factors=15
+Iteration 135: time=0.00, Factors=15
+Iteration 136: time=0.00, ELBO=-95352.88, deltaELBO=5.216 (0.00076526%), Factors=15
+Iteration 137: time=0.00, Factors=15
+Iteration 138: time=0.00, Factors=15
+Iteration 139: time=0.00, Factors=15
+Iteration 140: time=0.00, Factors=15
+Iteration 141: time=0.00, ELBO=-95348.02, deltaELBO=4.856 (0.00071244%), Factors=15
+Iteration 142: time=0.00, Factors=15
+Iteration 143: time=0.00, Factors=15
+Iteration 144: time=0.00, Factors=15
+Iteration 145: time=0.00, Factors=15
+Iteration 146: time=0.00, ELBO=-95343.36, deltaELBO=4.660 (0.00068371%), Factors=15
+Iteration 147: time=0.00, Factors=15
+Iteration 148: time=0.00, Factors=15
+Iteration 149: time=0.00, Factors=15
+Iteration 150: time=0.00, Factors=15
+Iteration 151: time=0.00, ELBO=-95338.77, deltaELBO=4.592 (0.00067371%), Factors=15
+Iteration 152: time=0.00, Factors=15
+Iteration 153: time=0.00, Factors=15
+Iteration 154: time=0.00, Factors=15
+Iteration 155: time=0.00, Factors=15
+Iteration 156: time=0.00, ELBO=-95333.94, deltaELBO=4.831 (0.00070876%), Factors=15
+Iteration 157: time=0.00, Factors=15
+Iteration 158: time=0.00, Factors=15
+Iteration 159: time=0.00, Factors=15
+Iteration 160: time=0.00, Factors=15
+Iteration 161: time=0.00, ELBO=-95328.31, deltaELBO=5.629 (0.00082592%), Factors=15
+Iteration 162: time=0.00, Factors=15
+Iteration 163: time=0.00, Factors=15
+Iteration 164: time=0.00, Factors=15
+Iteration 165: time=0.01, Factors=15
+Iteration 166: time=0.01, ELBO=-95320.90, deltaELBO=7.411 (0.00108737%), Factors=15
+Iteration 167: time=0.01, Factors=15
+Iteration 168: time=0.01, Factors=15
+Iteration 169: time=0.01, Factors=15
+Iteration 170: time=0.01, Factors=15
+Iteration 171: time=0.01, ELBO=-95310.99, deltaELBO=9.912 (0.00145431%), Factors=15
+Iteration 172: time=0.01, Factors=15
+Iteration 173: time=0.01, Factors=15
+Iteration 174: time=0.01, Factors=15
+Iteration 175: time=0.01, Factors=15
+Iteration 176: time=0.01, ELBO=-95300.49, deltaELBO=10.495 (0.00153992%), Factors=15
+Iteration 177: time=0.01, Factors=15
+Iteration 178: time=0.01, Factors=15
+Iteration 179: time=0.01, Factors=15
+Iteration 180: time=0.01, Factors=15
+Iteration 181: time=0.01, ELBO=-95292.20, deltaELBO=8.298 (0.00121756%), Factors=15
+Iteration 182: time=0.01, Factors=15
+Iteration 183: time=0.01, Factors=15
+Iteration 184: time=0.01, Factors=15
+Iteration 185: time=0.01, Factors=15
+Iteration 186: time=0.01, ELBO=-95285.59, deltaELBO=6.605 (0.00096911%), Factors=15
+Iteration 187: time=0.01, Factors=15
+Iteration 188: time=0.01, Factors=15
+Iteration 189: time=0.00, Factors=15
+Iteration 190: time=0.01, Factors=15
+Iteration 191: time=0.01, ELBO=-95279.91, deltaELBO=5.681 (0.00083349%), Factors=15
+Iteration 192: time=0.01, Factors=15
+Iteration 193: time=0.01, Factors=15
+Iteration 194: time=0.01, Factors=15
+Iteration 195: time=0.01, Factors=15
+Iteration 196: time=0.01, ELBO=-95274.73, deltaELBO=5.181 (0.00076013%), Factors=15
+Iteration 197: time=0.01, Factors=15
+Iteration 198: time=0.01, Factors=15
+Iteration 199: time=0.01, Factors=15
+Iteration 200: time=0.01, Factors=15
+Iteration 201: time=0.01, ELBO=-95269.63, deltaELBO=5.094 (0.00074746%), Factors=15
+Iteration 202: time=0.01, Factors=15
+Iteration 203: time=0.01, Factors=15
+Iteration 204: time=0.00, Factors=15
+Iteration 205: time=0.00, Factors=15
+Iteration 206: time=0.00, ELBO=-95263.73, deltaELBO=5.909 (0.00086695%), Factors=15
+Iteration 207: time=0.00, Factors=15
+Iteration 208: time=0.00, Factors=15
+Iteration 209: time=0.00, Factors=15
+Iteration 210: time=0.00, Factors=15
+Iteration 211: time=0.00, ELBO=-95255.02, deltaELBO=8.709 (0.00127779%), Factors=15
+Iteration 212: time=0.00, Factors=15
+Iteration 213: time=0.00, Factors=15
+Iteration 214: time=0.00, Factors=15
+Iteration 215: time=0.00, Factors=15
+Iteration 216: time=0.00, ELBO=-95243.10, deltaELBO=11.918 (0.00174860%), Factors=15
+Iteration 217: time=0.00, Factors=15
+Iteration 218: time=0.00, Factors=15
+Iteration 219: time=0.00, Factors=15
+Iteration 220: time=0.00, Factors=15
+Iteration 221: time=0.00, ELBO=-95233.40, deltaELBO=9.695 (0.00142242%), Factors=15
+Iteration 222: time=0.00, Factors=15
+Iteration 223: time=0.00, Factors=15
+Iteration 224: time=0.00, Factors=15
+Iteration 225: time=0.00, Factors=15
+Iteration 226: time=0.00, ELBO=-95226.77, deltaELBO=6.640 (0.00097419%), Factors=15
+Iteration 227: time=0.00, Factors=15
+Iteration 228: time=0.00, Factors=15
+Iteration 229: time=0.00, Factors=15
+Iteration 230: time=0.00, Factors=15
+Iteration 231: time=0.00, ELBO=-95221.64, deltaELBO=5.124 (0.00075177%), Factors=15
+Iteration 232: time=0.00, Factors=15
+Iteration 233: time=0.00, Factors=15
+Iteration 234: time=0.00, Factors=15
+Iteration 235: time=0.00, Factors=15
+Iteration 236: time=0.00, ELBO=-95217.44, deltaELBO=4.204 (0.00061685%), Factors=15
+Iteration 237: time=0.00, Factors=15
+Iteration 238: time=0.00, Factors=15
+Iteration 239: time=0.00, Factors=15
+Iteration 240: time=0.00, Factors=15
+Iteration 241: time=0.00, ELBO=-95213.88, deltaELBO=3.557 (0.00052190%), Factors=15
+Iteration 242: time=0.00, Factors=15
+Iteration 243: time=0.00, Factors=15
+Iteration 244: time=0.00, Factors=15
+Iteration 245: time=0.00, Factors=15
+Iteration 246: time=0.00, ELBO=-95210.78, deltaELBO=3.098 (0.00045453%), Factors=15
+Iteration 247: time=0.00, Factors=15
+Iteration 248: time=0.00, Factors=15
+Iteration 249: time=0.00, Factors=15
+Iteration 250: time=0.00, Factors=15
+Iteration 251: time=0.00, ELBO=-95208.05, deltaELBO=2.735 (0.00040125%), Factors=15
+
+Converged!
+
+
+
+#######################
+## Training finished ##
+#######################
+
+
+Saving model in /tmp/Rtmp2cZBAY/mofa_20261016-204909.hdf5...
+          batch  RIN  age  sex  bmi condition
+Factor1 6359.50 0.12 0.08 0.07 0.05      0.00
+Factor2    0.05 0.19 0.15 2.78 0.10    374.53
+Factor3    0.02 0.14 0.15 1.94 0.19      0.92
+Factor4    0.07 0.12 0.13 0.95 0.33      0.03
+Factor5    0.00 0.08 0.05 2.12 0.08      3.34
+Factor6    0.28 0.12 0.05 0.85 0.03      0.00
+Factor7    0.00 0.12 0.01 2.92 0.12      0.00
+Factor8    0.00 0.07 0.04 1.77 0.11      0.04</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w11_multiomics_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> f_oneway</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mofapy2.run.entry_point <span class="im">import</span> entry_point</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># toy layers (illustration only): 60 samples × 3 omics, samples × features;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># a batch effect runs through RNA and protein, a weaker case effect through all three</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">2</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">60</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>meta <span class="op">=</span> pd.DataFrame({<span class="st">"sample"</span>: [<span class="ss">f"S</span><span class="sc">{</span>i<span class="sc">:02d}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>)], <span class="st">"batch"</span>: np.repeat([<span class="st">"B1"</span>, <span class="st">"B2"</span>], n <span class="op">//</span> <span class="dv">2</span>),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"RIN"</span>: rng.uniform(<span class="dv">5</span>, <span class="dv">9</span>, n).<span class="bu">round</span>(<span class="dv">1</span>), <span class="st">"age"</span>: rng.normal(<span class="dv">60</span>, <span class="dv">10</span>, n).<span class="bu">round</span>(),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"sex"</span>: rng.choice([<span class="st">"F"</span>, <span class="st">"M"</span>], n), <span class="st">"bmi"</span>: rng.normal(<span class="dv">25</span>, <span class="dv">4</span>, n).<span class="bu">round</span>(<span class="dv">1</span>),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"condition"</span>: rng.choice([<span class="st">"control"</span>, <span class="st">"case"</span>], n)})</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> layer(p, batch_shift, case_shift):</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> rng.normal(size<span class="op">=</span>(n, p))</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    m[:, : p <span class="op">//</span> <span class="dv">5</span>] <span class="op">+=</span> batch_shift <span class="op">*</span> (meta.batch <span class="op">==</span> <span class="st">"B2"</span>).to_numpy()[:, <span class="va">None</span>]</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    m[:, p <span class="op">//</span> <span class="dv">5</span> : p <span class="op">//</span> <span class="dv">5</span> <span class="op">+</span> p <span class="op">//</span> <span class="dv">10</span>] <span class="op">+=</span> case_shift <span class="op">*</span> (meta.condition <span class="op">==</span> <span class="st">"case"</span>).to_numpy()[:, <span class="va">None</span>]</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>views <span class="op">=</span> {<span class="st">"RNA"</span>: layer(<span class="dv">500</span>, <span class="dv">2</span>, <span class="dv">1</span>), <span class="st">"Protein"</span>: layer(<span class="dv">200</span>, <span class="fl">1.5</span>, <span class="dv">1</span>), <span class="st">"Methyl"</span>: layer(<span class="dv">300</span>, <span class="dv">0</span>, <span class="fl">0.8</span>)}</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>ent <span class="op">=</span> entry_point()</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>ent.set_data_matrix([[v] <span class="cf">for</span> v <span class="kw">in</span> views.values()], views_names<span class="op">=</span><span class="bu">list</span>(views))</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>ent.set_model_options(factors<span class="op">=</span><span class="dv">15</span>)                  <span class="co"># MOFA2's default in R</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>ent.set_train_options(seed<span class="op">=</span><span class="dv">1</span>, quiet<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>ent.build()<span class="op">;</span> ent.run()</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> pd.DataFrame(ent.model.calculate_variance_explained()[<span class="dv">0</span>] <span class="op">*</span> <span class="dv">100</span>, index<span class="op">=</span><span class="bu">list</span>(views))</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>r2.columns <span class="op">=</span> [<span class="ss">f"Factor</span><span class="sc">{</span>k <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> k <span class="kw">in</span> r2.columns]</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">2.5</span>))</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.imshow(r2, cmap<span class="op">=</span><span class="st">"Purples"</span>, aspect<span class="op">=</span><span class="st">"auto"</span>)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(<span class="bu">range</span>(r2.shape[<span class="dv">1</span>]), r2.columns, rotation<span class="op">=</span><span class="dv">90</span>)<span class="op">;</span> ax.set_yticks(<span class="bu">range</span>(<span class="bu">len</span>(views)), r2.index)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> fig.colorbar(im, label<span class="op">=</span><span class="st">"variance explained (%)"</span>)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚠️ the step that must come next</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> pd.DataFrame(ent.model.nodes[<span class="st">"Z"</span>].getExpectation(), columns<span class="op">=</span>r2.columns)</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>covars <span class="op">=</span> meta[[<span class="st">"batch"</span>, <span class="st">"RIN"</span>, <span class="st">"age"</span>, <span class="st">"sex"</span>, <span class="st">"bmi"</span>, <span class="st">"condition"</span>]]</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>cors <span class="op">=</span> pd.DataFrame({name: [<span class="bu">abs</span>(np.corrcoef(Z[f], v)[<span class="dv">0</span>, <span class="dv">1</span>]) <span class="cf">if</span> pd.api.types.is_numeric_dtype(v)</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>                            <span class="cf">else</span> f_oneway(<span class="op">*</span>(Z[f][v <span class="op">==</span> g] <span class="cf">for</span> g <span class="kw">in</span> v.unique())).statistic</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>                            <span class="cf">for</span> f <span class="kw">in</span> Z] <span class="cf">for</span> name, v <span class="kw">in</span> covars.items()}, index<span class="op">=</span>Z.columns)</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>cors.<span class="bu">round</span>(<span class="dv">2</span>)     <span class="co"># look here before you look at biology</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+        #########################################################
+        ###           __  __  ____  ______                    ### 
+        ###          |  \/  |/ __ \|  ____/\    _             ### 
+        ###          | \  / | |  | | |__ /  \ _| |_           ### 
+        ###          | |\/| | |  | |  __/ /\ \_   _|          ###
+        ###          | |  | | |__| | | / ____ \|_|            ###
+        ###          |_|  |_|\____/|_|/_/    \_\              ###
+        ###                                                   ### 
+        ######################################################### 
+         
+
+Features names not provided, using default naming convention:
+- feature1_view1, featureD_viewM
+
+Groups names not provided, using default naming convention:
+- group1, group2, ..., groupG
+
+Samples names not provided, using default naming convention:
+- sample1_group1, sample2_group1, sample1_group2, ..., sampleN_groupG
+
+Successfully loaded view='RNA' group='group0' with N=60 samples and D=500 features...
+Successfully loaded view='Protein' group='group0' with N=60 samples and D=200 features...
+Successfully loaded view='Methyl' group='group0' with N=60 samples and D=300 features...
+
+Model options:
+- Automatic Relevance Determination prior on the factors: False
+- Automatic Relevance Determination prior on the weights: True
+- Spike-and-slab prior on the factors: False
+- Spike-and-slab prior on the weights: True
+Likelihoods:
+- View 0 (RNA): gaussian
+- View 1 (Protein): gaussian
+- View 2 (Methyl): gaussian
+
+
+
+######################################
+## Training the model with seed 1 ##
+######################################
+
+
+
+Converged!
+
+
+
+#######################
+## Training finished ##
+#######################
+
+[&lt;matplotlib.axis.XTick object at 0x7f451dd2fb60&gt;, &lt;matplotlib.axis.XTick object at 0x7f4534dd0890&gt;, &lt;matplotlib.axis.XTick object at 0x7f451c687ce0&gt;, &lt;matplotlib.axis.XTick object at 0x7f451c6cff20&gt;, &lt;matplotlib.axis.XTick object at 0x7f451c6ceea0&gt;, &lt;matplotlib.axis.XTick object at 0x7f451c6ce990&gt;, &lt;matplotlib.axis.XTick object at 0x7f451c70c9b0&gt;, &lt;matplotlib.axis.XTick object at 0x7f451c70d340&gt;, &lt;matplotlib.axis.XTick object at 0x7f451c70dcd0&gt;, &lt;matplotlib.axis.XTick object at 0x7f451c70e690&gt;, &lt;matplotlib.axis.XTick object at 0x7f451c70d5b0&gt;, &lt;matplotlib.axis.XTick object at 0x7f451c70ec90&gt;, &lt;matplotlib.axis.XTick object at 0x7f451c70f650&gt;, &lt;matplotlib.axis.XTick object at 0x7f451c70ffb0&gt;, &lt;matplotlib.axis.XTick object at 0x7f451a508a10&gt;]
+[&lt;matplotlib.axis.YTick object at 0x7f451cccafc0&gt;, &lt;matplotlib.axis.YTick object at 0x7f451c6403b0&gt;, &lt;matplotlib.axis.YTick object at 0x7f451a508650&gt;]</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w11_multiomics_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            batch   RIN   age   sex   bmi  condition
+Factor1   6178.80  0.19  0.07  1.28  0.05       0.87
+Factor2      1.56  0.03  0.02  0.03  0.13     632.31
+Factor3      0.35  0.33  0.32  0.22  0.13       0.14
+Factor4      0.51  0.04  0.02  0.02  0.16       0.05
+Factor5      0.49  0.04  0.08  0.01  0.17       0.14
+Factor6      0.16  0.15  0.18  0.39  0.09       0.00
+Factor7      0.07  0.25  0.05  1.22  0.00       0.49
+Factor8      0.00  0.02  0.02  1.02  0.04       0.13
+Factor9      0.12  0.10  0.14  1.44  0.12       0.32
+Factor10     0.16  0.00  0.05  0.01  0.10       0.38
+Factor11     0.94  0.17  0.09  1.58  0.26       0.00
+Factor12     0.47  0.07  0.18  1.55  0.02       0.00
+Factor13     4.99  0.01  0.27  2.26  0.12       0.33
+Factor14     1.89  0.10  0.15  0.09  0.09       0.17
+Factor15     0.43  0.13  0.03  0.41  0.11       2.72</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="w11-s5-4" class="level2">
 <h2 class="anchored" data-anchor-id="w11-s5-4">4) ✅ Change one thing</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-run MOFA with the batch effect removed from each layer first.</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Does Factor 1 disappear? Does anything else change rank?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-run MOFA with the batch effect removed from each layer first.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Does Factor 1 disappear? Does anything else change rank?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-run MOFA with the batch effect removed from each layer first.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Does Factor 1 disappear? Does anything else change rank?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 </div>
 <p>💡 If removing batch reshuffles your factors, that tells you how much of the original result was batch — a number worth knowing before it appears in review.</p>
 </section>
@@ -1246,17 +1784,43 @@ Ochoa D, et al.&nbsp;<a href="https://doi.org/10.1093/nar/gkac1046"><em>The next
   }
 })();
 </script>
-<!-- AI Chat Widget 초기화 -->
 
-<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
-
+<!-- Fold executed-code output (stdout, messages, figures) under one collapsed <details> per cell. -->
 <script>
+(function () {
+  "use strict";
 
+  function foldCellOutputs() {
+    const label = document.documentElement.lang.startsWith("ko") ? "결과 보기" : "Show output";
+
+    document.querySelectorAll(".cell").forEach((cell) => {
+      const outputs = Array.from(cell.children).filter((el) =>
+        Array.from(el.classList).some((c) => c.startsWith("cell-output"))
+      );
+      if (outputs.length === 0) return;
+
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+      details.className = "cell-output-fold";
+      summary.textContent = label;
+      details.appendChild(summary);
+      details.append(...outputs);
+      cell.append(details);   // always below the code, even if knitr split the chunk
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", foldCellOutputs, { once: true });
+  } else {
+    foldCellOutputs();
+  }
+})();
+</script>
+<!-- AI Chat Widget 초기화 -->
+<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
+<script>
   // ★ Cloudflare Worker 배포 후 URL로 교체하세요
-
   const WORKER_URL = "https://falling-wave-447f.eh0129s.workers.dev/";
-
-
 
   // Quarto가 렌더링한 현재 페이지의 본문을 AI 문맥으로 사용합니다.
   // 너무 긴 페이지가 요청 크기를 과도하게 키우지 않도록 문자 수를 제한합니다.
@@ -1291,339 +1855,174 @@ Ochoa D, et al.&nbsp;<a href="https://doi.org/10.1093/nar/gkac1046"><em>The next
   const supplementalContext = metaContext ? metaContext.content.trim() : "";
   const combinedContext = [supplementalContext, pageContext].filter(Boolean).join("\n\n");
 
-
   window.AI_CHAT_CONFIG = {
-
     workerUrl:      WORKER_URL,
-
     chapterContext: combinedContext,
     chapterTitle: metaTitle ? metaTitle.content : document.title,
   };
-
 </script>
-
 <!-- 위젯 코드를 인라인으로 삽입 (외부 src 제거 → 페이지 깊이에 따른 경로 404 방지) -->
-
 <script>
-
 /**
-
  * AI Chat Widget for Quarto
-
  * 현재 Quarto 본문에서 만든 window.AI_CHAT_CONFIG를 사용합니다.
  */
 
-
-
 (function () {
-
   const cfg = window.AI_CHAT_CONFIG || {};
-
   const WORKER_URL = cfg.workerUrl || "";
-
   const CHAPTER_CONTEXT = cfg.chapterContext || "";
-
   const CHAPTER_TITLE = cfg.chapterTitle || document.title;
 
-
-
   if (!WORKER_URL) {
-
     console.warn("[AI Chat] workerUrl이 설정되지 않았습니다.");
-
     return;
-
   }
 
-
-
   /* ── 시스템 프롬프트 ───────────────────────── */
-
   const SYSTEM_PROMPT = `당신은 "${CHAPTER_TITLE}" 강의자료를 도와주는 학습 도우미입니다.
 
-
-
 아래는 현재 챕터의 핵심 내용입니다:
-
 ---
-
 ${CHAPTER_CONTEXT}
-
 ---
-
-
 
 규칙:
-
 - 위 챕터 내용을 중심으로 답변하세요.
-
 - 질문이 챕터 범위를 벗어나면 간단히 언급하고 챕터 내용으로 연결해주세요.
-
 - R 코드 예시가 도움이 될 때는 포함하세요.
-
 - 한국어로 답변하되, 전문 용어는 영어 병기 가능합니다.
-
 - 의학/과학 학생 대상이므로 정확성을 최우선으로 합니다.`;
 
-
-
   /* ── DOM 생성 ────────────────────────────── */
-
   const style = document.createElement("style");
-
   style.textContent = `
-
     #ai-chat-fab {
-
       position: fixed; bottom: 28px; right: 28px; z-index: 9999;
-
       width: 52px; height: 52px; border-radius: 50%;
-
       background: #1a6e3c; color: #fff; border: none;
-
       box-shadow: 0 4px 16px rgba(0,0,0,.22);
-
       cursor: pointer; font-size: 22px;
-
       display: flex; align-items: center; justify-content: center;
-
       transition: background .2s, transform .15s;
-
     }
-
     #ai-chat-fab:hover { background: #155730; transform: scale(1.07); }
 
-
-
     #ai-chat-panel {
-
       position: fixed; bottom: 90px; right: 28px; z-index: 9998;
-
       width: 360px; max-width: calc(100vw - 40px);
-
       height: 500px; max-height: calc(100vh - 120px);
-
       background: #fff; border-radius: 16px;
-
       box-shadow: 0 8px 40px rgba(0,0,0,.18);
-
       display: flex; flex-direction: column;
-
       font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
-
       overflow: hidden;
-
       transform: scale(.92) translateY(12px);
-
       opacity: 0; pointer-events: none;
-
       transition: transform .22s cubic-bezier(.34,1.56,.64,1), opacity .18s;
-
     }
-
     #ai-chat-panel.open {
-
       transform: scale(1) translateY(0);
-
       opacity: 1; pointer-events: all;
-
     }
-
-
 
     #ai-chat-header {
-
       background: #1a6e3c; color: #fff;
-
       padding: 14px 16px 12px;
-
       display: flex; align-items: center; gap: 10px;
-
       font-size: 14px; font-weight: 600; letter-spacing: .01em;
-
       flex-shrink: 0;
-
     }
-
     #ai-chat-header span { flex: 1; }
     #ai-chat-header > div { flex: 1; min-width: 0; }
     #ai-chat-close {
-
       background: none; border: none; color: #fff;
-
       font-size: 18px; cursor: pointer; padding: 0 2px; line-height: 1;
-
       opacity: .8;
-
     }
-
     #ai-chat-close:hover { opacity: 1; }
 
-
-
     #ai-chat-subtitle {
-
       font-size: 11px; color: rgba(255,255,255,.72);
-
       font-weight: 400; display: block; margin-top: 2px;
-
     }
-
-
 
     #ai-chat-messages {
-
       flex: 1; overflow-y: auto; padding: 14px 14px 8px;
-
       display: flex; flex-direction: column; gap: 10px;
-
       scroll-behavior: smooth;
-
     }
-
     #ai-chat-messages::-webkit-scrollbar { width: 4px; }
-
     #ai-chat-messages::-webkit-scrollbar-thumb {
-
       background: #ddd; border-radius: 4px;
-
     }
-
-
 
     .ai-msg {
-
       max-width: 88%; padding: 9px 13px;
-
       border-radius: 14px; font-size: 13.5px; line-height: 1.55;
-
       white-space: pre-wrap; word-break: break-word;
-
     }
-
     .ai-msg.user {
-
       align-self: flex-end;
-
       background: #1a6e3c; color: #fff;
-
       border-bottom-right-radius: 4px;
-
     }
-
     .ai-msg.assistant {
-
       align-self: flex-start;
-
       background: #f3f4f6; color: #1f2937;
-
       border-bottom-left-radius: 4px;
-
     }
-
     .ai-msg.assistant code {
-
       background: #e5e7eb; padding: 1px 5px;
-
       border-radius: 4px; font-size: 12.5px; font-family: monospace;
-
     }
-
     .ai-msg.assistant pre {
-
       background: #1f2937; color: #f9fafb;
-
       padding: 10px 12px; border-radius: 8px; overflow-x: auto;
-
       font-size: 12px; margin: 6px 0;
-
     }
-
     .ai-msg.assistant pre code { background: none; padding: 0; color: inherit; }
 
-
-
     .ai-typing {
-
       align-self: flex-start;
-
       display: flex; gap: 5px; padding: 10px 14px;
-
       background: #f3f4f6; border-radius: 14px; border-bottom-left-radius: 4px;
-
     }
-
     .ai-typing span {
-
       width: 7px; height: 7px; background: #9ca3af;
-
       border-radius: 50%; animation: aiDot 1.2s infinite;
-
     }
-
     .ai-typing span:nth-child(2) { animation-delay: .2s; }
-
     .ai-typing span:nth-child(3) { animation-delay: .4s; }
-
     @keyframes aiDot {
-
       0%, 60%, 100% { transform: translateY(0); opacity: .4; }
-
       30% { transform: translateY(-5px); opacity: 1; }
-
     }
-
-
 
     #ai-chat-input-row {
-
       display: flex; gap: 8px; padding: 10px 12px 12px;
-
       border-top: 1px solid #f0f0f0; flex-shrink: 0;
-
     }
-
     #ai-chat-input {
-
       flex: 1; border: 1px solid #e5e7eb; border-radius: 10px;
-
       padding: 8px 12px; font-size: 13.5px; resize: none;
-
       font-family: inherit; outline: none; max-height: 100px;
-
       line-height: 1.45; color: #1f2937;
-
       transition: border-color .15s;
-
     }
-
     #ai-chat-input:focus { border-color: #1a6e3c; }
-
     #ai-chat-send {
-
       width: 36px; height: 36px; border-radius: 9px;
-
       background: #1a6e3c; color: #fff; border: none;
-
       cursor: pointer; font-size: 16px; flex-shrink: 0;
-
       align-self: flex-end;
-
       display: flex; align-items: center; justify-content: center;
-
       transition: background .15s;
-
     }
-
     #ai-chat-send:hover { background: #155730; }
-
     #ai-chat-send:disabled { background: #9ca3af; cursor: not-allowed; }
-
   `;
-
   document.head.appendChild(style);
-
-
 
   const fabElement = document.createElement("button");
   fabElement.id = "ai-chat-fab";
@@ -1674,68 +2073,38 @@ ${CHAPTER_CONTEXT}
   panelElement.append(headerElement, messagesElement, inputRow);
   document.body.append(fabElement, panelElement);
 
-
   /* ── 상태 ─────────────────────────────────── */
-
   const panel = document.getElementById("ai-chat-panel");
-
   const fab = document.getElementById("ai-chat-fab");
-
   const closeBtn = document.getElementById("ai-chat-close");
-
   const input = document.getElementById("ai-chat-input");
-
   const sendBtn = document.getElementById("ai-chat-send");
-
   const messages = document.getElementById("ai-chat-messages");
   const history = []; // {role, content}[]
 
   appendMsg("assistant", "안녕하세요! 이 챕터에 대해 궁금한 점을 물어보세요 😊");
 
-
   /* ── 토글 ─────────────────────────────────── */
-
   fab.addEventListener("click", () => {
-
     panel.classList.toggle("open");
-
     if (panel.classList.contains("open")) input.focus();
-
   });
-
   closeBtn.addEventListener("click", () => panel.classList.remove("open"));
 
-
-
   /* ── 자동 높이 조정 ───────────────────────── */
-
   input.addEventListener("input", () => {
-
     input.style.height = "auto";
-
     input.style.height = Math.min(input.scrollHeight, 100) + "px";
-
   });
-
-
 
   /* ── 전송 ─────────────────────────────────── */
-
   input.addEventListener("keydown", (e) => {
-
     if (e.key === "Enter" && !e.shiftKey) {
-
       e.preventDefault();
-
       sendMessage();
-
     }
-
   });
-
   sendBtn.addEventListener("click", sendMessage);
-
-
 
   function appendMsg(role, text) {
     const div = document.createElement("div");
@@ -1785,7 +2154,6 @@ ${CHAPTER_CONTEXT}
     appendInlineCode(parent, text.slice(cursor));
   }
 
-
   function showTyping() {
     const el = document.createElement("div");
     el.className = "ai-typing";
@@ -1795,107 +2163,56 @@ ${CHAPTER_CONTEXT}
       document.createElement("span")
     );
     messages.appendChild(el);
-
     messages.scrollTop = messages.scrollHeight;
-
     return el;
-
   }
 
-
-
   async function sendMessage() {
-
     const text = input.value.trim();
-
     if (!text || sendBtn.disabled) return;
 
-
-
     input.value = "";
-
     input.style.height = "auto";
-
     sendBtn.disabled = true;
 
-
-
     appendMsg("user", text);
-
     history.push({ role: "user", content: text });
-
-
 
     const typing = showTyping();
 
-
-
     try {
-
       const res = await fetch(WORKER_URL, {
-
         method: "POST",
-
         headers: { "Content-Type": "application/json" },
-
         body: JSON.stringify({
-
           model: "claude-sonnet-5",
-
           max_tokens: 4096,
-
           system: SYSTEM_PROMPT,
-
           messages: history,
-
         }),
-
       });
 
-
-
       const data = await res.json();
-
       typing.remove();
-
-
 
       if (data.content && data.content[0]) {
-
         const reply = data.content[0].text;
-
         appendMsg("assistant", reply);
-
         history.push({ role: "assistant", content: reply });
-
       } else {
-
         appendMsg("assistant", "오류가 발생했습니다. 다시 시도해주세요.");
-
       }
-
     } catch (err) {
-
       typing.remove();
-
       appendMsg("assistant", "네트워크 오류가 발생했습니다.");
-
       console.error("[AI Chat]", err);
-
     }
 
-
-
     sendBtn.disabled = false;
-
     input.focus();
-
   }
-
 })();
-
 </script>
-
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
