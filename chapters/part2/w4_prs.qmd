@@ -5,7 +5,11 @@ date: last-modified
 format: html
 execute:
   echo: true
-  eval: false
+  eval: true
+knitr:
+  opts_chunk:
+    fig.show: hold     # keep each chunk's code in one block, outputs after it
+    results: hold
 ---
 
 ::: {.callout-note collapse="true"}
@@ -272,6 +276,10 @@ Pick a disease relevant to your specialty, then answer:
 
 `prs_scores.tsv` : pre-computed score table (n=40k) + clinical info `IID`, `PRS`, `disease`, `age`, `sex`⚠️ It is simulated — individual genotypes cannot be shared
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
 library(tidyverse)
 library(here)
@@ -282,7 +290,24 @@ prs <- read_tsv(here("rawdata", "prs_scores.tsv"))
 prs <- prs |> mutate(PRS_z = as.numeric(scale(PRS)))
 ```
 
+### Python
+
+```{python}
+import numpy as np, pandas as pd
+
+prs = pd.read_csv("rawdata/prs_scores.tsv", sep="\t")
+
+# Standardise so the score reads as SD units — always do this before reporting
+prs["PRS_z"] = (prs.PRS - prs.PRS.mean()) / prs.PRS.std()
+```
+
+:::
+
 **Incremental value over a clinical model:**
+
+::: {.panel-tabset group="lang"}
+
+### R
 
 ```{r}
 library(pROC)
@@ -296,7 +321,40 @@ roc_prs  <- roc(prs$disease, predict(m_prs,  type = "response"))
 roc.test(roc_clin, roc_prs)   # ← the number that belongs in the abstract
 ```
 
+### Python
+
+```{python}
+import statsmodels.formula.api as smf
+from scipy.stats import norm, rankdata
+
+m_clin = smf.logit("disease ~ age + sex",         data=prs).fit(disp=0)
+m_prs  = smf.logit("disease ~ age + sex + PRS_z", data=prs).fit(disp=0)
+
+# DeLong test for two correlated AUCs — what pROC::roc.test() runs by default
+def delong(y, s1, s2):
+    y = np.asarray(y, bool); m, n = y.sum(), (~y).sum()
+    auc, v10, v01 = [], [], []
+    for s in (np.asarray(s1), np.asarray(s2)):
+        r, rp, rn = rankdata(s), rankdata(s[y]), rankdata(s[~y])
+        v10.append((r[y] - rp) / n)           # per case: share of controls scored lower
+        v01.append(1 - (r[~y] - rn) / m)      # per control: share of cases scored higher
+        auc.append(v10[-1].mean())
+    c10, c01 = np.cov(v10), np.cov(v01)
+    se = np.sqrt((c10[0, 0] + c10[1, 1] - 2 * c10[0, 1]) / m +
+                 (c01[0, 0] + c01[1, 1] - 2 * c01[0, 1]) / n)
+    z = (auc[0] - auc[1]) / se
+    return pd.Series({"AUC_clin": auc[0], "AUC_prs": auc[1], "Z": z, "p": 2 * norm.sf(abs(z))})
+
+delong(prs.disease, m_clin.predict(), m_prs.predict())   # ← the number that belongs in the abstract
+```
+
+:::
+
 **Risk by decile — against an honest reference:**
+
+::: {.panel-tabset group="lang"}
+
+### R
 
 ```{r}
 by_decile <- prs |>
@@ -316,6 +374,26 @@ ggplot(by_decile, aes(decile, OR_vs_middle)) +
   theme_minimal()
 ```
 
+### Python
+
+```{python}
+import matplotlib.pyplot as plt
+
+prs["decile"] = pd.qcut(prs.PRS_z, 10, labels=False) + 1
+by_decile = prs.groupby("decile").agg(n=("disease", "size"), cases=("disease", "sum"))
+by_decile["risk"] = by_decile.cases / by_decile.n
+odds = by_decile.risk / (1 - by_decile.risk)
+by_decile["OR_vs_middle"] = odds / odds.loc[5]
+
+ax = by_decile.OR_vs_middle.plot.bar(color="#185FA5", rot=0)
+ax.axhline(1, ls="--", c="k")
+ax.set(xlabel="PRS decile", ylabel="OR vs middle decile",
+       title="Risk by PRS decile — referenced to the middle, not the bottom")
+plt.show()
+```
+
+:::
+
 ✅ **Now change one thing:** re-run with `decile == 1` as the reference and compare the top bar. That difference is the one you will meet in abstracts.
 
 ::: {.callout-tip collapse="true"}
@@ -334,11 +412,27 @@ Not required for this course, but the entry points are:
 
 **W5 — single-cell RNA-seq: technology, QC, clustering.** Install in advance:
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
+#| eval: false
 install.packages("Seurat")
 BiocManager::install(c("SingleR", "celldex"))
 renv::snapshot()
 ```
+
+### Python
+
+```{python}
+#| eval: false
+# in a terminal (or prefix each line with ! in Jupyter)
+# pip install scanpy celltypist        # celltypist ≈ SingleR + celldex
+# pip freeze > requirements.txt        # ≈ renv::snapshot()
+```
+
+:::
 
 ------------------------------------------------------------------------
 

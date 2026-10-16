@@ -84,9 +84,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-771210972c2b3d896dd99f41603bb4dd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-059fd4ccf16d63f8e817c1e7fa4fb424.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-49b1833bbd43c9d03e2e98c0e8c3df20.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-059fd4ccf16d63f8e817c1e7fa4fb424.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -790,7 +790,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="w4-s2-1">1) ⚠️ Two datasets (GWAS &amp; target samples) must be independent</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w4/prs_construction.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="../../assets/img/w4/prs_construction.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -877,7 +877,7 @@ window.Quarto = {
 <h1>3. ⚠️ Reading a PRS Paper 🔍</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w4/discrimination_vs_calibration.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="../../assets/img/w4/discrimination_vs_calibration.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <section id="w4-s3-1" class="level2">
@@ -961,7 +961,7 @@ Model B (clinical + PRS)
 <h2 class="anchored" data-anchor-id="w4-s3-4">4) ⚠️ Which deciles are being compared?</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w4/decile_trick.svg" class="img-fluid figure-img"></p>
+<p><img src="../../assets/img/w4/decile_trick.svg" class="img-fluid figure-img"></p>
 <figcaption>Nothing here is fabricated. All three numbers describe the same ten bars.</figcaption>
 </figure>
 </div>
@@ -1083,7 +1083,7 @@ Warning
 <h2 class="anchored" data-anchor-id="w4-s5-1">1) PRS does not transfer across ancestries</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w4/portability.svg" class="img-fluid figure-img"></p>
+<p><img src="../../assets/img/w4/portability.svg" class="img-fluid figure-img"></p>
 <figcaption>Nothing about the score changed. Only the patients did.</figcaption>
 </figure>
 </div>
@@ -1157,6 +1157,10 @@ Warning
 <section id="w4-s7-2" class="level2">
 <h2 class="anchored" data-anchor-id="w4-s7-2">2) Minimal code: turn a score into a clinical figure</h2>
 <p><code>prs_scores.tsv</code> : pre-computed score table (n=40k) + clinical info <code>IID</code>, <code>PRS</code>, <code>disease</code>, <code>age</code>, <code>sex</code>⚠️ It is simulated — individual genotypes cannot be shared</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
@@ -1166,35 +1170,139 @@ Warning
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardise so the score reads as SD units — always do this before reporting</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>prs <span class="ot">&lt;-</span> prs <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">PRS_z =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(PRS)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>Incremental value over a clinical model:</strong></p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>m_clin <span class="ot">&lt;-</span> <span class="fu">glm</span>(disease <span class="sc">~</span> age <span class="sc">+</span> sex,         <span class="at">data =</span> prs, <span class="at">family =</span> binomial)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>m_prs  <span class="ot">&lt;-</span> <span class="fu">glm</span>(disease <span class="sc">~</span> age <span class="sc">+</span> sex <span class="sc">+</span> PRS_z, <span class="at">data =</span> prs, <span class="at">family =</span> binomial)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>roc_clin <span class="ot">&lt;-</span> <span class="fu">roc</span>(prs<span class="sc">$</span>disease, <span class="fu">predict</span>(m_clin, <span class="at">type =</span> <span class="st">"response"</span>))</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>roc_prs  <span class="ot">&lt;-</span> <span class="fu">roc</span>(prs<span class="sc">$</span>disease, <span class="fu">predict</span>(m_prs,  <span class="at">type =</span> <span class="st">"response"</span>))</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">roc.test</span>(roc_clin, roc_prs)   <span class="co"># ← the number that belongs in the abstract</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>prs <span class="op">=</span> pd.read_csv(<span class="st">"rawdata/prs_scores.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardise so the score reads as SD units — always do this before reporting</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>prs[<span class="st">"PRS_z"</span>] <span class="op">=</span> (prs.PRS <span class="op">-</span> prs.PRS.mean()) <span class="op">/</span> prs.PRS.std()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Incremental value over a clinical model:</strong></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>m_clin <span class="ot">&lt;-</span> <span class="fu">glm</span>(disease <span class="sc">~</span> age <span class="sc">+</span> sex,         <span class="at">data =</span> prs, <span class="at">family =</span> binomial)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>m_prs  <span class="ot">&lt;-</span> <span class="fu">glm</span>(disease <span class="sc">~</span> age <span class="sc">+</span> sex <span class="sc">+</span> PRS_z, <span class="at">data =</span> prs, <span class="at">family =</span> binomial)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>roc_clin <span class="ot">&lt;-</span> <span class="fu">roc</span>(prs<span class="sc">$</span>disease, <span class="fu">predict</span>(m_clin, <span class="at">type =</span> <span class="st">"response"</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>roc_prs  <span class="ot">&lt;-</span> <span class="fu">roc</span>(prs<span class="sc">$</span>disease, <span class="fu">predict</span>(m_prs,  <span class="at">type =</span> <span class="st">"response"</span>))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">roc.test</span>(roc_clin, roc_prs)   <span class="co"># ← the number that belongs in the abstract</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    DeLong's test for two correlated ROC curves
+
+data:  roc_clin and roc_prs
+Z = -8.6164, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in AUC is not equal to 0
+95 percent confidence interval:
+ -0.04005795 -0.02521126
+sample estimates:
+AUC of roc1 AUC of roc2 
+  0.7382277   0.7708623 </code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm, rankdata</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>m_clin <span class="op">=</span> smf.logit(<span class="st">"disease ~ age + sex"</span>,         data<span class="op">=</span>prs).fit(disp<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>m_prs  <span class="op">=</span> smf.logit(<span class="st">"disease ~ age + sex + PRS_z"</span>, data<span class="op">=</span>prs).fit(disp<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># DeLong test for two correlated AUCs — what pROC::roc.test() runs by default</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> delong(y, s1, s2):</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.asarray(y, <span class="bu">bool</span>)<span class="op">;</span> m, n <span class="op">=</span> y.<span class="bu">sum</span>(), (<span class="op">~</span>y).<span class="bu">sum</span>()</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    auc, v10, v01 <span class="op">=</span> [], [], []</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> s <span class="kw">in</span> (np.asarray(s1), np.asarray(s2)):</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        r, rp, rn <span class="op">=</span> rankdata(s), rankdata(s[y]), rankdata(s[<span class="op">~</span>y])</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        v10.append((r[y] <span class="op">-</span> rp) <span class="op">/</span> n)           <span class="co"># per case: share of controls scored lower</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        v01.append(<span class="dv">1</span> <span class="op">-</span> (r[<span class="op">~</span>y] <span class="op">-</span> rn) <span class="op">/</span> m)      <span class="co"># per control: share of cases scored higher</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        auc.append(v10[<span class="op">-</span><span class="dv">1</span>].mean())</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    c10, c01 <span class="op">=</span> np.cov(v10), np.cov(v01)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    se <span class="op">=</span> np.sqrt((c10[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">+</span> c10[<span class="dv">1</span>, <span class="dv">1</span>] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> c10[<span class="dv">0</span>, <span class="dv">1</span>]) <span class="op">/</span> m <span class="op">+</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>                 (c01[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">+</span> c01[<span class="dv">1</span>, <span class="dv">1</span>] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> c01[<span class="dv">0</span>, <span class="dv">1</span>]) <span class="op">/</span> n)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> (auc[<span class="dv">0</span>] <span class="op">-</span> auc[<span class="dv">1</span>]) <span class="op">/</span> se</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.Series({<span class="st">"AUC_clin"</span>: auc[<span class="dv">0</span>], <span class="st">"AUC_prs"</span>: auc[<span class="dv">1</span>], <span class="st">"Z"</span>: z, <span class="st">"p"</span>: <span class="dv">2</span> <span class="op">*</span> norm.sf(<span class="bu">abs</span>(z))})</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>delong(prs.disease, m_clin.predict(), m_prs.predict())   <span class="co"># ← the number that belongs in the abstract</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>AUC_clin    7.382359e-01
+AUC_prs     7.708623e-01
+Z          -8.614555e+00
+p           7.021404e-18
+dtype: float64</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <p><strong>Risk by decile — against an honest reference:</strong></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>by_decile <span class="ot">&lt;-</span> prs <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">decile =</span> <span class="fu">ntile</span>(PRS_z, <span class="dv">10</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(decile) <span class="sc">|&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">cases =</span> <span class="fu">sum</span>(disease), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">risk =</span> cases <span class="sc">/</span> n,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">OR_vs_middle =</span> (risk <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> risk)) <span class="sc">/</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                        (risk[decile <span class="sc">==</span> <span class="dv">5</span>] <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> risk[decile <span class="sc">==</span> <span class="dv">5</span>])))</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_decile, <span class="fu">aes</span>(decile, OR_vs_middle)) <span class="sc">+</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#185FA5"</span>) <span class="sc">+</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"PRS decile"</span>, <span class="at">y =</span> <span class="st">"OR vs middle decile"</span>,</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Risk by PRS decile — referenced to the middle, not the bottom"</span>) <span class="sc">+</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>by_decile <span class="ot">&lt;-</span> prs <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">decile =</span> <span class="fu">ntile</span>(PRS_z, <span class="dv">10</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(decile) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">cases =</span> <span class="fu">sum</span>(disease), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">risk =</span> cases <span class="sc">/</span> n,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">OR_vs_middle =</span> (risk <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> risk)) <span class="sc">/</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                        (risk[decile <span class="sc">==</span> <span class="dv">5</span>] <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> risk[decile <span class="sc">==</span> <span class="dv">5</span>])))</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_decile, <span class="fu">aes</span>(decile, OR_vs_middle)) <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#185FA5"</span>) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"PRS decile"</span>, <span class="at">y =</span> <span class="st">"OR vs middle decile"</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Risk by PRS decile — referenced to the middle, not the bottom"</span>) <span class="sc">+</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w4_prs_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>prs[<span class="st">"decile"</span>] <span class="op">=</span> pd.qcut(prs.PRS_z, <span class="dv">10</span>, labels<span class="op">=</span><span class="va">False</span>) <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>by_decile <span class="op">=</span> prs.groupby(<span class="st">"decile"</span>).agg(n<span class="op">=</span>(<span class="st">"disease"</span>, <span class="st">"size"</span>), cases<span class="op">=</span>(<span class="st">"disease"</span>, <span class="st">"sum"</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>by_decile[<span class="st">"risk"</span>] <span class="op">=</span> by_decile.cases <span class="op">/</span> by_decile.n</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>odds <span class="op">=</span> by_decile.risk <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> by_decile.risk)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>by_decile[<span class="st">"OR_vs_middle"</span>] <span class="op">=</span> odds <span class="op">/</span> odds.loc[<span class="dv">5</span>]</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> by_decile.OR_vs_middle.plot.bar(color<span class="op">=</span><span class="st">"#185FA5"</span>, rot<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>ax.axhline(<span class="dv">1</span>, ls<span class="op">=</span><span class="st">"--"</span>, c<span class="op">=</span><span class="st">"k"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"PRS decile"</span>, ylabel<span class="op">=</span><span class="st">"OR vs middle decile"</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>       title<span class="op">=</span><span class="st">"Risk by PRS decile — referenced to the middle, not the bottom"</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w4_prs_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <p>✅ <strong>Now change one thing:</strong> re-run with <code>decile == 1</code> as the reference and compare the top bar. That difference is the one you will meet in abstracts.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -1223,10 +1331,24 @@ Warning
 <section id="w4-s7-3" class="level2">
 <h2 class="anchored" data-anchor-id="w4-s7-3">3) Before next week</h2>
 <p><strong>W5 — single-cell RNA-seq: technology, QC, clustering.</strong> Install in advance:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"Seurat"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">"SingleR"</span>, <span class="st">"celldex"</span>))</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"Seurat"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">"SingleR"</span>, <span class="st">"celldex"</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># in a terminal (or prefix each line with ! in Jupyter)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pip install scanpy celltypist        # celltypist ≈ SingleR + celldex</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pip freeze &gt; requirements.txt        # ≈ renv::snapshot()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 </div>
 <hr>
 </section>
@@ -1608,17 +1730,43 @@ Lee A, et al.&nbsp;<a href="https://doi.org/10.1038/s41436-018-0406-9"><em>BOADI
   }
 })();
 </script>
-<!-- AI Chat Widget 초기화 -->
 
-<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
-
+<!-- Fold executed-code output (stdout, messages, figures) under one collapsed <details> per cell. -->
 <script>
+(function () {
+  "use strict";
 
+  function foldCellOutputs() {
+    const label = document.documentElement.lang.startsWith("ko") ? "결과 보기" : "Show output";
+
+    document.querySelectorAll(".cell").forEach((cell) => {
+      const outputs = Array.from(cell.children).filter((el) =>
+        Array.from(el.classList).some((c) => c.startsWith("cell-output"))
+      );
+      if (outputs.length === 0) return;
+
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+      details.className = "cell-output-fold";
+      summary.textContent = label;
+      details.appendChild(summary);
+      details.append(...outputs);
+      cell.append(details);   // always below the code, even if knitr split the chunk
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", foldCellOutputs, { once: true });
+  } else {
+    foldCellOutputs();
+  }
+})();
+</script>
+<!-- AI Chat Widget 초기화 -->
+<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
+<script>
   // ★ Cloudflare Worker 배포 후 URL로 교체하세요
-
   const WORKER_URL = "https://falling-wave-447f.eh0129s.workers.dev/";
-
-
 
   // Quarto가 렌더링한 현재 페이지의 본문을 AI 문맥으로 사용합니다.
   // 너무 긴 페이지가 요청 크기를 과도하게 키우지 않도록 문자 수를 제한합니다.
@@ -1653,339 +1801,174 @@ Lee A, et al.&nbsp;<a href="https://doi.org/10.1038/s41436-018-0406-9"><em>BOADI
   const supplementalContext = metaContext ? metaContext.content.trim() : "";
   const combinedContext = [supplementalContext, pageContext].filter(Boolean).join("\n\n");
 
-
   window.AI_CHAT_CONFIG = {
-
     workerUrl:      WORKER_URL,
-
     chapterContext: combinedContext,
     chapterTitle: metaTitle ? metaTitle.content : document.title,
   };
-
 </script>
-
 <!-- 위젯 코드를 인라인으로 삽입 (외부 src 제거 → 페이지 깊이에 따른 경로 404 방지) -->
-
 <script>
-
 /**
-
  * AI Chat Widget for Quarto
-
  * 현재 Quarto 본문에서 만든 window.AI_CHAT_CONFIG를 사용합니다.
  */
 
-
-
 (function () {
-
   const cfg = window.AI_CHAT_CONFIG || {};
-
   const WORKER_URL = cfg.workerUrl || "";
-
   const CHAPTER_CONTEXT = cfg.chapterContext || "";
-
   const CHAPTER_TITLE = cfg.chapterTitle || document.title;
 
-
-
   if (!WORKER_URL) {
-
     console.warn("[AI Chat] workerUrl이 설정되지 않았습니다.");
-
     return;
-
   }
 
-
-
   /* ── 시스템 프롬프트 ───────────────────────── */
-
   const SYSTEM_PROMPT = `당신은 "${CHAPTER_TITLE}" 강의자료를 도와주는 학습 도우미입니다.
 
-
-
 아래는 현재 챕터의 핵심 내용입니다:
-
 ---
-
 ${CHAPTER_CONTEXT}
-
 ---
-
-
 
 규칙:
-
 - 위 챕터 내용을 중심으로 답변하세요.
-
 - 질문이 챕터 범위를 벗어나면 간단히 언급하고 챕터 내용으로 연결해주세요.
-
 - R 코드 예시가 도움이 될 때는 포함하세요.
-
 - 한국어로 답변하되, 전문 용어는 영어 병기 가능합니다.
-
 - 의학/과학 학생 대상이므로 정확성을 최우선으로 합니다.`;
 
-
-
   /* ── DOM 생성 ────────────────────────────── */
-
   const style = document.createElement("style");
-
   style.textContent = `
-
     #ai-chat-fab {
-
       position: fixed; bottom: 28px; right: 28px; z-index: 9999;
-
       width: 52px; height: 52px; border-radius: 50%;
-
       background: #1a6e3c; color: #fff; border: none;
-
       box-shadow: 0 4px 16px rgba(0,0,0,.22);
-
       cursor: pointer; font-size: 22px;
-
       display: flex; align-items: center; justify-content: center;
-
       transition: background .2s, transform .15s;
-
     }
-
     #ai-chat-fab:hover { background: #155730; transform: scale(1.07); }
 
-
-
     #ai-chat-panel {
-
       position: fixed; bottom: 90px; right: 28px; z-index: 9998;
-
       width: 360px; max-width: calc(100vw - 40px);
-
       height: 500px; max-height: calc(100vh - 120px);
-
       background: #fff; border-radius: 16px;
-
       box-shadow: 0 8px 40px rgba(0,0,0,.18);
-
       display: flex; flex-direction: column;
-
       font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
-
       overflow: hidden;
-
       transform: scale(.92) translateY(12px);
-
       opacity: 0; pointer-events: none;
-
       transition: transform .22s cubic-bezier(.34,1.56,.64,1), opacity .18s;
-
     }
-
     #ai-chat-panel.open {
-
       transform: scale(1) translateY(0);
-
       opacity: 1; pointer-events: all;
-
     }
-
-
 
     #ai-chat-header {
-
       background: #1a6e3c; color: #fff;
-
       padding: 14px 16px 12px;
-
       display: flex; align-items: center; gap: 10px;
-
       font-size: 14px; font-weight: 600; letter-spacing: .01em;
-
       flex-shrink: 0;
-
     }
-
     #ai-chat-header span { flex: 1; }
     #ai-chat-header > div { flex: 1; min-width: 0; }
     #ai-chat-close {
-
       background: none; border: none; color: #fff;
-
       font-size: 18px; cursor: pointer; padding: 0 2px; line-height: 1;
-
       opacity: .8;
-
     }
-
     #ai-chat-close:hover { opacity: 1; }
 
-
-
     #ai-chat-subtitle {
-
       font-size: 11px; color: rgba(255,255,255,.72);
-
       font-weight: 400; display: block; margin-top: 2px;
-
     }
-
-
 
     #ai-chat-messages {
-
       flex: 1; overflow-y: auto; padding: 14px 14px 8px;
-
       display: flex; flex-direction: column; gap: 10px;
-
       scroll-behavior: smooth;
-
     }
-
     #ai-chat-messages::-webkit-scrollbar { width: 4px; }
-
     #ai-chat-messages::-webkit-scrollbar-thumb {
-
       background: #ddd; border-radius: 4px;
-
     }
-
-
 
     .ai-msg {
-
       max-width: 88%; padding: 9px 13px;
-
       border-radius: 14px; font-size: 13.5px; line-height: 1.55;
-
       white-space: pre-wrap; word-break: break-word;
-
     }
-
     .ai-msg.user {
-
       align-self: flex-end;
-
       background: #1a6e3c; color: #fff;
-
       border-bottom-right-radius: 4px;
-
     }
-
     .ai-msg.assistant {
-
       align-self: flex-start;
-
       background: #f3f4f6; color: #1f2937;
-
       border-bottom-left-radius: 4px;
-
     }
-
     .ai-msg.assistant code {
-
       background: #e5e7eb; padding: 1px 5px;
-
       border-radius: 4px; font-size: 12.5px; font-family: monospace;
-
     }
-
     .ai-msg.assistant pre {
-
       background: #1f2937; color: #f9fafb;
-
       padding: 10px 12px; border-radius: 8px; overflow-x: auto;
-
       font-size: 12px; margin: 6px 0;
-
     }
-
     .ai-msg.assistant pre code { background: none; padding: 0; color: inherit; }
 
-
-
     .ai-typing {
-
       align-self: flex-start;
-
       display: flex; gap: 5px; padding: 10px 14px;
-
       background: #f3f4f6; border-radius: 14px; border-bottom-left-radius: 4px;
-
     }
-
     .ai-typing span {
-
       width: 7px; height: 7px; background: #9ca3af;
-
       border-radius: 50%; animation: aiDot 1.2s infinite;
-
     }
-
     .ai-typing span:nth-child(2) { animation-delay: .2s; }
-
     .ai-typing span:nth-child(3) { animation-delay: .4s; }
-
     @keyframes aiDot {
-
       0%, 60%, 100% { transform: translateY(0); opacity: .4; }
-
       30% { transform: translateY(-5px); opacity: 1; }
-
     }
-
-
 
     #ai-chat-input-row {
-
       display: flex; gap: 8px; padding: 10px 12px 12px;
-
       border-top: 1px solid #f0f0f0; flex-shrink: 0;
-
     }
-
     #ai-chat-input {
-
       flex: 1; border: 1px solid #e5e7eb; border-radius: 10px;
-
       padding: 8px 12px; font-size: 13.5px; resize: none;
-
       font-family: inherit; outline: none; max-height: 100px;
-
       line-height: 1.45; color: #1f2937;
-
       transition: border-color .15s;
-
     }
-
     #ai-chat-input:focus { border-color: #1a6e3c; }
-
     #ai-chat-send {
-
       width: 36px; height: 36px; border-radius: 9px;
-
       background: #1a6e3c; color: #fff; border: none;
-
       cursor: pointer; font-size: 16px; flex-shrink: 0;
-
       align-self: flex-end;
-
       display: flex; align-items: center; justify-content: center;
-
       transition: background .15s;
-
     }
-
     #ai-chat-send:hover { background: #155730; }
-
     #ai-chat-send:disabled { background: #9ca3af; cursor: not-allowed; }
-
   `;
-
   document.head.appendChild(style);
-
-
 
   const fabElement = document.createElement("button");
   fabElement.id = "ai-chat-fab";
@@ -2036,68 +2019,38 @@ ${CHAPTER_CONTEXT}
   panelElement.append(headerElement, messagesElement, inputRow);
   document.body.append(fabElement, panelElement);
 
-
   /* ── 상태 ─────────────────────────────────── */
-
   const panel = document.getElementById("ai-chat-panel");
-
   const fab = document.getElementById("ai-chat-fab");
-
   const closeBtn = document.getElementById("ai-chat-close");
-
   const input = document.getElementById("ai-chat-input");
-
   const sendBtn = document.getElementById("ai-chat-send");
-
   const messages = document.getElementById("ai-chat-messages");
   const history = []; // {role, content}[]
 
   appendMsg("assistant", "안녕하세요! 이 챕터에 대해 궁금한 점을 물어보세요 😊");
 
-
   /* ── 토글 ─────────────────────────────────── */
-
   fab.addEventListener("click", () => {
-
     panel.classList.toggle("open");
-
     if (panel.classList.contains("open")) input.focus();
-
   });
-
   closeBtn.addEventListener("click", () => panel.classList.remove("open"));
 
-
-
   /* ── 자동 높이 조정 ───────────────────────── */
-
   input.addEventListener("input", () => {
-
     input.style.height = "auto";
-
     input.style.height = Math.min(input.scrollHeight, 100) + "px";
-
   });
-
-
 
   /* ── 전송 ─────────────────────────────────── */
-
   input.addEventListener("keydown", (e) => {
-
     if (e.key === "Enter" && !e.shiftKey) {
-
       e.preventDefault();
-
       sendMessage();
-
     }
-
   });
-
   sendBtn.addEventListener("click", sendMessage);
-
-
 
   function appendMsg(role, text) {
     const div = document.createElement("div");
@@ -2147,7 +2100,6 @@ ${CHAPTER_CONTEXT}
     appendInlineCode(parent, text.slice(cursor));
   }
 
-
   function showTyping() {
     const el = document.createElement("div");
     el.className = "ai-typing";
@@ -2157,107 +2109,56 @@ ${CHAPTER_CONTEXT}
       document.createElement("span")
     );
     messages.appendChild(el);
-
     messages.scrollTop = messages.scrollHeight;
-
     return el;
-
   }
 
-
-
   async function sendMessage() {
-
     const text = input.value.trim();
-
     if (!text || sendBtn.disabled) return;
 
-
-
     input.value = "";
-
     input.style.height = "auto";
-
     sendBtn.disabled = true;
 
-
-
     appendMsg("user", text);
-
     history.push({ role: "user", content: text });
-
-
 
     const typing = showTyping();
 
-
-
     try {
-
       const res = await fetch(WORKER_URL, {
-
         method: "POST",
-
         headers: { "Content-Type": "application/json" },
-
         body: JSON.stringify({
-
           model: "claude-sonnet-5",
-
           max_tokens: 4096,
-
           system: SYSTEM_PROMPT,
-
           messages: history,
-
         }),
-
       });
 
-
-
       const data = await res.json();
-
       typing.remove();
-
-
 
       if (data.content && data.content[0]) {
-
         const reply = data.content[0].text;
-
         appendMsg("assistant", reply);
-
         history.push({ role: "assistant", content: reply });
-
       } else {
-
         appendMsg("assistant", "오류가 발생했습니다. 다시 시도해주세요.");
-
       }
-
     } catch (err) {
-
       typing.remove();
-
       appendMsg("assistant", "네트워크 오류가 발생했습니다.");
-
       console.error("[AI Chat]", err);
-
     }
 
-
-
     sendBtn.disabled = false;
-
     input.focus();
-
   }
-
 })();
-
 </script>
-
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
