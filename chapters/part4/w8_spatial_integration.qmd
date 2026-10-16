@@ -203,6 +203,10 @@ You now have enough to design one. The order matters.
 
 ## 1) Deconvolve, then check the reference {#w8-s5-1}
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
 library(Seurat); library(spacexr); library(tidyverse)   # spacexr = RCTD
 
@@ -216,9 +220,31 @@ rctd <- create.RCTD(puck, reference, max_cores = 4) |> run.RCTD(doublet_mode = "
 props <- normalize_weights(rctd@results$weights)
 ```
 
+### Python
+
+```{python}
+import numpy as np, pandas as pd, scanpy as sc, squidpy as sq
+import tangram as tg                                    # pip install tangram-sc
+
+sp  = sc.read_h5ad("analysis/7_visium.h5ad")
+ref = sc.read_h5ad("analysis/5_pbmc_annotated.h5ad")    # ⚠️ is this the right reference?
+
+tg.pp_adatas(ref, sp)                                   # shared genes only
+ad_map = tg.map_cells_to_space(ref, sp, mode="clusters", cluster_label="cell_type")
+tg.project_cell_annotations(ad_map, sp, annotation="cell_type")
+props = sp.obsm["tangram_ct_pred"]
+props = props.div(props.sum(axis=1), axis=0)            # per-spot proportions
+```
+
+:::
+
 ⚠️ **Before believing any of it**, ask what a PBMC reference implies for a tissue section. Tissue-resident macrophages, fibroblasts and endothelium are not in it — where did their signal go?
 
 ## 2) ✅ The verification that should be reflexive {#w8-s5-2}
+
+::: {.panel-tabset group="lang"}
+
+### R
 
 ```{r}
 # Plot a raw marker gene next to the estimated proportion of its cell type
@@ -228,9 +254,23 @@ p2 <- SpatialFeaturePlot(sp, features = "Tcell_prop") + ggtitle("estimated CD8 T
 p1 | p2
 ```
 
+### Python
+
+```{python}
+# Plot a raw marker gene next to the estimated proportion of its cell type
+sp.obs["Tcell_prop"] = props["CD8 T"]
+sq.pl.spatial_scatter(sp, color=["CD3E", "Tcell_prop"], title=["raw CD3E", "estimated CD8 T"])
+```
+
+:::
+
 💡 If these two maps disagree, the deconvolution is telling you about your reference, not about the tissue.
 
 ## 3) Niches {#w8-s5-3}
+
+::: {.panel-tabset group="lang"}
+
+### R
 
 ```{r}
 library(FNN)
@@ -246,7 +286,29 @@ sp$niche <- factor(kmeans(nbr_comp, centers = 5)$cluster)
 SpatialDimPlot(sp, group.by = "niche")
 ```
 
+### Python
+
+```{python}
+from sklearn.neighbors import NearestNeighbors
+from sklearn.cluster import KMeans
+
+coords = sp.obsm["spatial"]
+nn = NearestNeighbors().fit(coords).kneighbors(coords, n_neighbors=7, return_distance=False)[:, 1:]   # drop self
+
+# neighbourhood composition per spot
+nbr_comp = props.to_numpy()[nn].mean(axis=1)
+
+sp.obs["niche"] = KMeans(n_clusters=5, n_init=10, random_state=1).fit_predict(nbr_comp).astype(str)
+sq.pl.spatial_scatter(sp, color="niche")
+```
+
+:::
+
 ## 4) ✅ Change one thing {#w8-s5-4}
+
+::: {.panel-tabset group="lang"}
+
+### R
 
 ```{r}
 # Does your co-localisation survive a structure-preserving null?
@@ -260,6 +322,21 @@ null <- replicate(1000, {
 cat("observed:", round(observed, 3),
     " null 95%:", round(quantile(null, c(.025, .975)), 3), "\n")
 ```
+
+### Python
+
+```{python}
+# Does your co-localisation survive a structure-preserving null?
+observed = np.corrcoef(props["CD8 T"], props["Macrophage"])[0, 1]
+
+rng  = np.random.default_rng(1)
+null = [np.corrcoef(rng.permutation(props["CD8 T"]),     # ⚠️ a naive permutation — discuss why this is still too easy
+                    props["Macrophage"])[0, 1] for _ in range(1000)]
+
+print("observed:", round(observed, 3), " null 95%:", np.round(np.quantile(null, [.025, .975]), 3))
+```
+
+:::
 
 ⚠️ Then discuss: this permutation destroys **all** tissue structure, so it is the too-easy null from §2.2. What would a better one look like? (Hint: permute within anatomical region, or shift the whole label map rigidly.)
 
