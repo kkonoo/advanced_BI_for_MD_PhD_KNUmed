@@ -559,12 +559,15 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#w9-s2-1" id="toc-w9-s2-1" class="nav-link" data-scroll-target="#w9-s2-1">1) The measurement, honestly</a></li>
   <li><a href="#w9-s2-2" id="toc-w9-s2-2" class="nav-link" data-scroll-target="#w9-s2-2">2) ⚠️ DDA and DIA — the distinction that decides your statistics</a></li>
+  <li><a href="#w9-s2-3" id="toc-w9-s2-3" class="nav-link" data-scroll-target="#w9-s2-3">3) ⚠️ Label-free vs TMT — when the plex is the batch</a></li>
   </ul></li>
   <li><a href="#w9-s3" id="toc-w9-s3" class="nav-link" data-scroll-target="#w9-s3">3. ⚠️ Plasma: The Hardest Sample You Will Most Want to Use 🩸</a></li>
   <li><a href="#w9-s4" id="toc-w9-s4" class="nav-link" data-scroll-target="#w9-s4">4. Two Technologies, Two Different Measurements ⚖️</a>
   <ul>
   <li><a href="#w9-s4-1" id="toc-w9-s4-1" class="nav-link" data-scroll-target="#w9-s4-1">1) ⚠️ Affinity assays measure binding</a></li>
   <li><a href="#w9-s4-2" id="toc-w9-s4-2" class="nav-link" data-scroll-target="#w9-s4-2">2) Cross-platform disagreement is normal</a></li>
+  <li><a href="#w9-s4-3" id="toc-w9-s4-3" class="nav-link" data-scroll-target="#w9-s4-3">3) From discovery to a clinical assay: targeted MS</a></li>
+  <li><a href="#w9-s4-4" id="toc-w9-s4-4" class="nav-link" data-scroll-target="#w9-s4-4">4) Proteins in place: tissue sections and single cells</a></li>
   </ul></li>
   <li><a href="#w9-s5" id="toc-w9-s5" class="nav-link" data-scroll-target="#w9-s5">5. Talking to a Proteomics Core 💬</a></li>
   <li><a href="#w9-s6" id="toc-w9-s6" class="nav-link" data-scroll-target="#w9-s6">6. Hands-On 💻</a>
@@ -581,6 +584,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#mass-spectrometry" id="toc-mass-spectrometry" class="nav-link" data-scroll-target="#mass-spectrometry">Mass spectrometry</a></li>
   <li><a href="#plasma-and-clinical-proteomics" id="toc-plasma-and-clinical-proteomics" class="nav-link" data-scroll-target="#plasma-and-clinical-proteomics">Plasma and clinical proteomics</a></li>
   <li><a href="#affinity-platforms-and-pqtls" id="toc-affinity-platforms-and-pqtls" class="nav-link" data-scroll-target="#affinity-platforms-and-pqtls">Affinity platforms and pQTLs</a></li>
+  <li><a href="#proteins-in-tissue-and-single-cells" id="toc-proteins-in-tissue-and-single-cells" class="nav-link" data-scroll-target="#proteins-in-tissue-and-single-cells">Proteins in tissue and single cells</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul></li>
   </ul>
@@ -638,9 +642,12 @@ ul.task-list li input[type="checkbox"] {
 <li>⚠️ Say why mRNA is a limited proxy for protein, and quantify how limited</li>
 <li>Describe what a mass spectrometer measures, in one paragraph, without hand-waving</li>
 <li>⚠️ Explain why DDA produces missing values that look like biology</li>
+<li>⚠️ Say why a TMT plex is a batch, and how to design around it</li>
 <li>Say why plasma is the hardest and most clinically useful sample in proteomics</li>
 <li>Choose between mass spectrometry and an affinity panel for a given question</li>
 <li>⚠️ Recognise the epitope artifact that produces false pQTLs</li>
+<li>Describe how a discovery candidate becomes a clinical assay, and what heavy-isotope standards add</li>
+<li>Say what multiplexed tissue imaging measures, and which W7–W8 caveats it inherits</li>
 <li>Ask a proteomics core the three questions that determine whether your study will work</li>
 </ul>
 </div>
@@ -744,6 +751,25 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
+</section>
+<section id="w9-s2-3" class="level2">
+<h2 class="anchored" data-anchor-id="w9-s2-3">3) ⚠️ Label-free vs TMT — when the plex is the batch</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w9/tmt_plex.svg" class="img-fluid figure-img"></p>
+<figcaption>TMT runs 16–18 samples as one. That one run is also one batch.</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Label-free</strong> — every sample is its own LC-MS run (DDA or DIA). ✅ No limit on the number of samples. ⚠️ Run order and instrument drift become the batch</li>
+<li><strong>TMT (isobaric labelling)</strong> — tag each sample’s peptides with a different mass tag, pool 16–18 samples, run once. The tags separate only after fragmentation (reporter ions)
+<ul>
+<li>✅ Within a plex, every sample is measured on the same peptides → the missing-value problem moves from “per sample” to “per plex”</li>
+<li>⚠️ <strong>The plex is the batch.</strong> A cohort of 100 = 6–7 plexes; values compare well within a plex, much less across</li>
+<li>⚠️ <strong>Ratio compression</strong> — co-isolated peptides pull every ratio towards 1 → fold changes are underestimated (MS3 or a narrower isolation window helps)</li>
+</ul></li>
+<li>✅ For TMT: <strong>balance groups within every plex</strong>, and put the <strong>same pooled reference sample in every plex</strong> to bridge them</li>
+</ul>
 <hr>
 </section>
 </section>
@@ -816,6 +842,40 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>⚠️ Two papers reporting different results for the same protein may both be right about what they measured</li>
 <li>✅ When it matters, confirm on a second platform. That is a reviewer-proof sentence in a methods section</li>
+</ul>
+</section>
+<section id="w9-s4-3" class="level2">
+<h2 class="anchored" data-anchor-id="w9-s4-3">3) From discovery to a clinical assay: targeted MS</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w9/discovery_to_assay.svg" class="img-fluid figure-img"></p>
+<figcaption>Each stage trades breadth for precision and sample number.</figcaption>
+</figure>
+</div>
+<p>Discovery proteomics (DIA, TMT) measures thousands of proteins in tens of samples — and its output is a <strong>candidate list</strong>, not a test.</p>
+<ul>
+<li><strong>Targeted MS (PRM / MRM)</strong> — the instrument watches only chosen peptides → better precision and more samples per day, for fewer proteins</li>
+<li><strong>Heavy-isotope standards</strong> — spike in a known amount of the same peptide made with heavy isotopes. Light / heavy ratio × spiked amount = <strong>absolute concentration</strong></li>
+<li>✅ The protein is read as a digested peptide by mass → interfering autoantibodies are digested too, and an epitope change cannot hide it (the §4.1 problem). Your hospital lab already does this: thyroglobulin by LC-MS/MS when anti-Tg autoantibodies make the immunoassay unreliable</li>
+<li>⚠️ Each stage needs a <strong>new, larger, independent cohort</strong>. Most discovery candidates never reach the last one (🔗 <a href="../../chapters/part5/w10_clinical_proteomics.html#w10-s3">W10 §3</a>)</li>
+</ul>
+</section>
+<section id="w9-s4-4" class="level2">
+<h2 class="anchored" data-anchor-id="w9-s4-4">4) Proteins in place: tissue sections and single cells</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w9/tissue_protein.svg" class="img-fluid figure-img"></p>
+<figcaption>The same antibodies on a slide — with the segmentation and epitope caveats attached.</figcaption>
+</figure>
+</div>
+<p>The spatial logic of W7–W8, with proteins instead of RNA:</p>
+<ul>
+<li><strong>Multiplex IF</strong> (4–8 markers) → <strong>cyclic IF / CODEX (PhenoCycler)</strong> (40–100 markers; stain, image, strip, repeat) → <strong>IMC / MIBI</strong> (metal-tagged antibodies read by mass, ~40 markers)</li>
+<li>✅ Works on <strong>FFPE</strong> (🔗 <a href="../../chapters/part4/w7_spatial_basics.html#w7-s2-2">W7 §2.2</a>), measures the effector molecule itself, and pathologists already read IHC</li>
+<li>Analysis = W7–W8 again: <strong>segment → phenotype cells by marker intensity → neighbourhoods</strong> (🔗 <a href="../../chapters/part4/w8_spatial_integration.html#w8-s2">W8 §2</a>). The colorectal-cancer CODEX study that made “neighbourhood” a unit of analysis (Schürch 2020) is exactly this</li>
+<li>⚠️ <strong>Still affinity</strong> — every marker is an antibody: validate each one in your tissue and fixation (the §4.1 problem on a slide)</li>
+<li>⚠️ <strong>Still segmentation</strong> — membrane markers spill into neighbouring cells just like transcripts (🔗 <a href="../../chapters/part4/w7_spatial_basics.html#w7-s3-2">W7 §3.2</a>)</li>
+<li><strong>In suspension:</strong> CITE-seq reads antibody–oligo tags with the same cell barcode as the RNA (🔗 <a href="../../chapters/part3/w5_scrna_qc.html#w5-s3-2">W5 §3.2</a>) → protein and RNA from one cell</li>
 </ul>
 <hr>
 </section>
@@ -892,9 +952,12 @@ ul.task-list li input[type="checkbox"] {
 <li>MS weighs peptides and infers proteins; identification depends on a database, quantification is usually relative</li>
 <li>⚠️ <strong>DDA selects the most intense precursors</strong>, so missingness varies run to run and can mimic a group difference</li>
 <li>✅ <strong>DIA is the default for clinical cohorts</strong> — the same proteins are quantified every time</li>
+<li>⚠️ <strong>TMT: the plex is the batch.</strong> Balance groups within plexes and bridge them with a shared reference; ratios are compressed towards 1</li>
 <li>⚠️ Plasma spans &gt;10 orders of magnitude; albumin is half the mass, and depletion removes bound proteins too</li>
 <li>✅ Affinity panels (Olink, SomaScan) reach pg/mL without depletion — at the cost of a fixed panel</li>
 <li>⚠️ <strong>Affinity assays measure binding.</strong> An epitope-altering variant produces a false <em>cis</em>-pQTL</li>
+<li>Discovery gives candidates; <strong>targeted MS with heavy standards</strong> gives an absolute, antibody-independent number — after new, larger cohorts</li>
+<li>Multiplexed tissue imaging (mIF, CODEX, IMC) = W7–W8 with proteins: FFPE-friendly, still antibodies, still segmentation</li>
 <li>⚠️ <strong>Pre-analytical variation</strong> — serum vs plasma, tube type, time to spin, freeze–thaw, haemolysis — sinks more biomarker studies than any statistical choice</li>
 </ul>
 <hr>
@@ -930,6 +993,14 @@ ul.task-list li input[type="checkbox"] {
 <td>Data-independent acquisition — everything in fixed windows</td>
 </tr>
 <tr class="odd">
+<td>TMT (isobaric labelling)</td>
+<td>Mass tags that let 16–18 samples run together; the plex becomes the batch</td>
+</tr>
+<tr class="even">
+<td>Ratio compression</td>
+<td>Co-isolated peptides pulling TMT ratios towards 1</td>
+</tr>
+<tr class="odd">
 <td>Spectral library</td>
 <td>Reference used to interpret DIA spectra</td>
 </tr>
@@ -962,10 +1033,22 @@ ul.task-list li input[type="checkbox"] {
 <td>Variant altering reagent binding, mimicking a change in abundance</td>
 </tr>
 <tr class="odd">
+<td>PRM / MRM</td>
+<td>Targeted MS that monitors only chosen peptides</td>
+</tr>
+<tr class="even">
+<td>Heavy-isotope standard</td>
+<td>Spiked-in labelled peptide that turns a ratio into an absolute amount</td>
+</tr>
+<tr class="odd">
+<td>Multiplexed tissue imaging</td>
+<td>Many antibodies imaged on one section (mIF, CODEX, IMC)</td>
+</tr>
+<tr class="even">
 <td>Pre-analytical variation</td>
 <td>Everything between the patient and the freezer</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>PTM</td>
 <td>Post-translational modification — invisible to RNA-seq</td>
 </tr>
@@ -984,18 +1067,28 @@ Buccitelli C, Selbach M. <a href="https://doi.org/10.1038/s41576-020-0258-4"><em
 <h3 class="anchored" data-anchor-id="mass-spectrometry">Mass spectrometry</h3>
 <p>Aebersold R, Mann M. <a href="https://doi.org/10.1038/nature19949"><em>Mass-spectrometric exploration of proteome structure and function.</em></a> Nature. 2016.<br>
 Ludwig C, et al.&nbsp;<a href="https://doi.org/10.15252/msb.20178126"><em>Data-independent acquisition-based SWATH-MS for quantitative proteomics: a tutorial.</em></a> Mol Syst Biol. 2018.<br>
-Sinitcyn P, Rudolph JD, Cox J. <a href="https://doi.org/10.1146/annurev-biodatasci-080917-013516"><em>Computational methods for understanding mass spectrometry-based shotgun proteomics data.</em></a> Annu Rev Biomed Data Sci. 2018.</p>
+Sinitcyn P, Rudolph JD, Cox J. <a href="https://doi.org/10.1146/annurev-biodatasci-080917-013516"><em>Computational methods for understanding mass spectrometry-based shotgun proteomics data.</em></a> Annu Rev Biomed Data Sci. 2018.<br>
+Ting L, Rad R, Gygi SP, Haas W. <a href="https://doi.org/10.1038/nmeth.1714"><em>MS3 eliminates ratio distortion in isobaric multiplexed quantitative proteomics.</em></a> Nat Methods. 2011. (ratio compression)<br>
+Li J, et al.&nbsp;<a href="https://doi.org/10.1038/s41592-020-0781-4"><em>TMTpro reagents: a set of isobaric labeling mass tags enables simultaneous proteome-wide measurements across 16 samples.</em></a> Nat Methods. 2020.</p>
 </section>
 <section id="plasma-and-clinical-proteomics" class="level3">
 <h3 class="anchored" data-anchor-id="plasma-and-clinical-proteomics">Plasma and clinical proteomics</h3>
 <p>Geyer PE, et al.&nbsp;<a href="https://doi.org/10.15252/msb.20156297"><em>Revisiting biomarker discovery by plasma proteomics.</em></a> Mol Syst Biol. 2017. <strong>← read before designing any plasma study</strong><br>
-Anderson NL, Anderson NG. <a href="https://doi.org/10.1074/mcp.r200007-mcp200"><em>The human plasma proteome: history, character, and diagnostic prospects.</em></a> Mol Cell Proteomics. 2002. (the original dynamic-range argument)</p>
+Anderson NL, Anderson NG. <a href="https://doi.org/10.1074/mcp.r200007-mcp200"><em>The human plasma proteome: history, character, and diagnostic prospects.</em></a> Mol Cell Proteomics. 2002. (the original dynamic-range argument)<br>
+Rifai N, Gillette MA, Carr SA. <a href="https://doi.org/10.1038/nbt1235"><em>Protein biomarker discovery and validation: the long and uncertain path to clinical utility.</em></a> Nat Biotechnol. 2006. <strong>← discovery → verification → validation, and why most candidates stop</strong><br>
+Hoofnagle AN, et al.&nbsp;<a href="https://doi.org/10.1373/clinchem.2008.109652"><em>Quantification of thyroglobulin, a low-abundance serum protein, by immunoaffinity peptide enrichment and tandem mass spectrometry.</em></a> Clin Chem. 2008.</p>
 </section>
 <section id="affinity-platforms-and-pqtls" class="level3">
 <h3 class="anchored" data-anchor-id="affinity-platforms-and-pqtls">Affinity platforms and pQTLs</h3>
 <p>Sun BB, et al.&nbsp;<a href="https://doi.org/10.1038/s41586-018-0175-2"><em>Genomic atlas of the human plasma proteome.</em></a> Nature. 2018.<br>
 Ferkingstad E, et al.&nbsp;<a href="https://doi.org/10.1038/s41588-021-00978-w"><em>Large-scale integration of the plasma proteome with genetics and disease.</em></a> Nat Genet. 2021.<br>
 Pietzner M, et al.&nbsp;<a href="https://doi.org/10.1038/s41467-021-27164-0"><em>Synergistic insights into human health from aptamer- and antibody-based proteomic profiling.</em></a> Nat Commun. 2021. <strong>← how much two platforms disagree, measured</strong></p>
+</section>
+<section id="proteins-in-tissue-and-single-cells" class="level3">
+<h3 class="anchored" data-anchor-id="proteins-in-tissue-and-single-cells">Proteins in tissue and single cells</h3>
+<p>Goltsev Y, et al.&nbsp;<a href="https://doi.org/10.1016/j.cell.2018.07.010"><em>Deep profiling of mouse splenic architecture with CODEX multiplexed imaging.</em></a> Cell. 2018.<br>
+Giesen C, et al.&nbsp;<a href="https://doi.org/10.1038/nmeth.2869"><em>Highly multiplexed imaging of tumor tissues with subcellular resolution by mass cytometry.</em></a> Nat Methods. 2014. (IMC)<br>
+Stoeckius M, et al.&nbsp;<a href="https://doi.org/10.1038/nmeth.4380"><em>Simultaneous epitope and transcriptome measurement in single cells.</em></a> Nat Methods. 2017. (CITE-seq)</p>
 </section>
 <section id="resources" class="level3">
 <h3 class="anchored" data-anchor-id="resources">Resources</h3>

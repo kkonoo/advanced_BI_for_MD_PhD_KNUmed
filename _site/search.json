@@ -554,7 +554,7 @@
     "href": "ko/chapters/part5/w9_proteomics_tech.html",
     "title": "W9. 단백체학 — 단백질을 실제로 측정하는 방법",
     "section": "",
-    "text": "노트🎯 학습목표\n\n\n\n\n\n이 장을 마치면 다음을 할 수 있어야 합니다.\n\n⚠️ mRNA가 단백질의 제한적인 대리 지표인 이유를 말하고 그 한계의 크기를 수치로 설명할 수 있다\n질량분석기가 무엇을 측정하는지 모호한 표현 없이 한 문단으로 설명할 수 있다\n⚠️ DDA가 생물학적 신호처럼 보이는 결측값을 만드는 이유를 설명할 수 있다\n혈장이 단백체학에서 가장 어렵지만 임상적으로 가장 유용한 검체인 이유를 말할 수 있다\n연구 질문에 따라 질량분석과 affinity panel 중 하나를 선택할 수 있다\n⚠️ 거짓 pQTL을 만드는 epitope artifact를 알아볼 수 있다\n단백체 코어 시설에 연구의 성패를 결정하는 세 가지 질문을 할 수 있다",
+    "text": "노트🎯 학습목표\n\n\n\n\n\n이 장을 마치면 다음을 할 수 있어야 합니다.\n\n⚠️ mRNA가 단백질의 제한적인 대리 지표인 이유를 말하고 그 한계의 크기를 수치로 설명할 수 있다\n질량분석기가 무엇을 측정하는지 모호한 표현 없이 한 문단으로 설명할 수 있다\n⚠️ DDA가 생물학적 신호처럼 보이는 결측값을 만드는 이유를 설명할 수 있다\n⚠️ TMT plex가 곧 batch인 이유와 이를 고려한 설계를 말할 수 있다\n혈장이 단백체학에서 가장 어렵지만 임상적으로 가장 유용한 검체인 이유를 말할 수 있다\n연구 질문에 따라 질량분석과 affinity panel 중 하나를 선택할 수 있다\n⚠️ 거짓 pQTL을 만드는 epitope artifact를 알아볼 수 있다\ndiscovery 후보가 임상 검사가 되기까지의 과정과 heavy-isotope 표준물질의 역할을 설명할 수 있다\nmultiplex 조직 영상이 무엇을 측정하며 W7–W8의 어떤 주의점을 물려받는지 말할 수 있다\n단백체 코어 시설에 연구의 성패를 결정하는 세 가지 질문을 할 수 있다",
     "crumbs": [
       "5 · 단백체학",
       "W9. 단백질을 실제로 측정하는 방법"
@@ -3886,7 +3886,7 @@
     "href": "chapters/part5/w9_proteomics_tech.html",
     "title": "W9. Proteomics — How Proteins Are Actually Measured",
     "section": "",
-    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\n⚠️ Say why mRNA is a limited proxy for protein, and quantify how limited\nDescribe what a mass spectrometer measures, in one paragraph, without hand-waving\n⚠️ Explain why DDA produces missing values that look like biology\nSay why plasma is the hardest and most clinically useful sample in proteomics\nChoose between mass spectrometry and an affinity panel for a given question\n⚠️ Recognise the epitope artifact that produces false pQTLs\nAsk a proteomics core the three questions that determine whether your study will work",
+    "text": "Note🎯 Learning objectives\n\n\n\n\n\nBy the end of this chapter you should be able to:\n\n⚠️ Say why mRNA is a limited proxy for protein, and quantify how limited\nDescribe what a mass spectrometer measures, in one paragraph, without hand-waving\n⚠️ Explain why DDA produces missing values that look like biology\n⚠️ Say why a TMT plex is a batch, and how to design around it\nSay why plasma is the hardest and most clinically useful sample in proteomics\nChoose between mass spectrometry and an affinity panel for a given question\n⚠️ Recognise the epitope artifact that produces false pQTLs\nDescribe how a discovery candidate becomes a clinical assay, and what heavy-isotope standards add\nSay what multiplexed tissue imaging measures, and which W7–W8 caveats it inherits\nAsk a proteomics core the three questions that determine whether your study will work",
     "crumbs": [
       "Home",
       "5 · Proteomics",
@@ -4737,6 +4737,75 @@
     "crumbs": [
       "4 · 공간오믹스",
       "W8. 디콘볼루션과 공간 통합"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w9_proteomics_tech.html#w9-s2-3",
+    "href": "chapters/part5/w9_proteomics_tech.html#w9-s2-3",
+    "title": "W9. Proteomics — How Proteins Are Actually Measured",
+    "section": "3) ⚠️ Label-free vs TMT — when the plex is the batch",
+    "text": "3) ⚠️ Label-free vs TMT — when the plex is the batch\n\n\n\nTMT runs 16–18 samples as one. That one run is also one batch.\n\n\n\nLabel-free — every sample is its own LC-MS run (DDA or DIA). ✅ No limit on the number of samples. ⚠️ Run order and instrument drift become the batch\nTMT (isobaric labelling) — tag each sample’s peptides with a different mass tag, pool 16–18 samples, run once. The tags separate only after fragmentation (reporter ions)\n\n✅ Within a plex, every sample is measured on the same peptides → the missing-value problem moves from “per sample” to “per plex”\n⚠️ The plex is the batch. A cohort of 100 = 6–7 plexes; values compare well within a plex, much less across\n⚠️ Ratio compression — co-isolated peptides pull every ratio towards 1 → fold changes are underestimated (MS3 or a narrower isolation window helps)\n\n✅ For TMT: balance groups within every plex, and put the same pooled reference sample in every plex to bridge them",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W9. How Proteins Are Measured"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w9_proteomics_tech.html#w9-s4-3",
+    "href": "chapters/part5/w9_proteomics_tech.html#w9-s4-3",
+    "title": "W9. Proteomics — How Proteins Are Actually Measured",
+    "section": "3) From discovery to a clinical assay: targeted MS",
+    "text": "3) From discovery to a clinical assay: targeted MS\n\n\n\nEach stage trades breadth for precision and sample number.\n\n\nDiscovery proteomics (DIA, TMT) measures thousands of proteins in tens of samples — and its output is a candidate list, not a test.\n\nTargeted MS (PRM / MRM) — the instrument watches only chosen peptides → better precision and more samples per day, for fewer proteins\nHeavy-isotope standards — spike in a known amount of the same peptide made with heavy isotopes. Light / heavy ratio × spiked amount = absolute concentration\n✅ The protein is read as a digested peptide by mass → interfering autoantibodies are digested too, and an epitope change cannot hide it (the §4.1 problem). Your hospital lab already does this: thyroglobulin by LC-MS/MS when anti-Tg autoantibodies make the immunoassay unreliable\n⚠️ Each stage needs a new, larger, independent cohort. Most discovery candidates never reach the last one (🔗 W10 §3)",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W9. How Proteins Are Measured"
+    ]
+  },
+  {
+    "objectID": "chapters/part5/w9_proteomics_tech.html#w9-s4-4",
+    "href": "chapters/part5/w9_proteomics_tech.html#w9-s4-4",
+    "title": "W9. Proteomics — How Proteins Are Actually Measured",
+    "section": "4) Proteins in place: tissue sections and single cells",
+    "text": "4) Proteins in place: tissue sections and single cells\n\n\n\nThe same antibodies on a slide — with the segmentation and epitope caveats attached.\n\n\nThe spatial logic of W7–W8, with proteins instead of RNA:\n\nMultiplex IF (4–8 markers) → cyclic IF / CODEX (PhenoCycler) (40–100 markers; stain, image, strip, repeat) → IMC / MIBI (metal-tagged antibodies read by mass, ~40 markers)\n✅ Works on FFPE (🔗 W7 §2.2), measures the effector molecule itself, and pathologists already read IHC\nAnalysis = W7–W8 again: segment → phenotype cells by marker intensity → neighbourhoods (🔗 W8 §2). The colorectal-cancer CODEX study that made “neighbourhood” a unit of analysis (Schürch 2020) is exactly this\n⚠️ Still affinity — every marker is an antibody: validate each one in your tissue and fixation (the §4.1 problem on a slide)\n⚠️ Still segmentation — membrane markers spill into neighbouring cells just like transcripts (🔗 W7 §3.2)\nIn suspension: CITE-seq reads antibody–oligo tags with the same cell barcode as the RNA (🔗 W5 §3.2) → protein and RNA from one cell",
+    "crumbs": [
+      "Home",
+      "5 · Proteomics",
+      "W9. How Proteins Are Measured"
+    ]
+  },
+  {
+    "objectID": "ko/chapters/part5/w9_proteomics_tech.html#w9-s2-3",
+    "href": "ko/chapters/part5/w9_proteomics_tech.html#w9-s2-3",
+    "title": "W9. 단백체학 — 단백질을 실제로 측정하는 방법",
+    "section": "3) ⚠️ Label-free vs TMT — plex = batch",
+    "text": "3) ⚠️ Label-free vs TMT — plex = batch\n\n\n\nTMT = sample 16–18개를 한 run으로. 그 한 run이 곧 batch 하나\n\n\n\nLabel-free — sample마다 LC-MS run 하나씩 (DDA든 DIA든). ✅ Sample 수 제한 x. ⚠️ Run 순서, 장비 drift가 batch\nTMT (isobaric labelling) — sample마다 peptide에 서로 다른 mass tag → 16–18개를 섞어 한 번에 run. Tag는 fragment된 뒤에야 갈라짐 (reporter ion)\n\n✅ 한 plex 안에선 모든 sample을 같은 peptide로 잼 → missing 문제가 “sample별”에서 “plex별”로 옮겨감\n⚠️ Plex = batch. Cohort 100명 = plex 6–7개. Plex 안에선 비교가 잘 되지만, plex 사이는 훨씬 덜\n⚠️ Ratio compression — 같이 분리된 다른 peptide가 모든 비율을 1 쪽으로 끌어당김 → fold change 과소추정 (MS3나 좁은 isolation window가 도움)\n\n✅ TMT라면: plex마다 군을 균형 있게 배치 + 모든 plex에 같은 pooled reference sample을 넣어 plex끼리 연결",
+    "crumbs": [
+      "5 · 단백체학",
+      "W9. 단백질을 실제로 측정하는 방법"
+    ]
+  },
+  {
+    "objectID": "ko/chapters/part5/w9_proteomics_tech.html#w9-s4-3",
+    "href": "ko/chapters/part5/w9_proteomics_tech.html#w9-s4-3",
+    "title": "W9. 단백체학 — 단백질을 실제로 측정하는 방법",
+    "section": "3) Discovery에서 임상 assay까지: targeted MS",
+    "text": "3) Discovery에서 임상 assay까지: targeted MS\n\n\n\n단계마다 범위를 내주고 정밀도와 sample 수를 얻음\n\n\nDiscovery proteomics(DIA, TMT) = sample 수십 개에서 protein 수천 개 → 결과물 = 후보 목록이지 검사가 아님\n\nTargeted MS (PRM / MRM) — 장비가 미리 고른 peptide만 지켜봄 → 정밀도 ↑, 하루에 도는 sample 수 ↑, 대신 protein 수 ↓\nHeavy-isotope 표준물질 — 같은 peptide를 무거운 동위원소로 만들어 정해진 양을 spike-in. Light / heavy 비율 × 넣은 양 = 절대 농도\n✅ Protein을 분해된 peptide의 질량으로 읽음 → 방해하던 자가항체도 같이 분해되고, epitope가 바뀌어도 숨지 못함 (§4.1 문제). 병원 검사실이 이미 하는 방법: anti-Tg 자가항체 때문에 면역측정을 믿기 어려울 때 thyroglobulin을 LC-MS/MS로\n⚠️ 단계마다 새롭고, 더 크고, 독립적인 cohort가 필요. Discovery 후보 대부분은 마지막 단계까지 못 감 (🔗 W10 §3)",
+    "crumbs": [
+      "5 · 단백체학",
+      "W9. 단백질을 실제로 측정하는 방법"
+    ]
+  },
+  {
+    "objectID": "ko/chapters/part5/w9_proteomics_tech.html#w9-s4-4",
+    "href": "ko/chapters/part5/w9_proteomics_tech.html#w9-s4-4",
+    "title": "W9. 단백체학 — 단백질을 실제로 측정하는 방법",
+    "section": "4) 제자리의 protein: 조직 절편과 single cell",
+    "text": "4) 제자리의 protein: 조직 절편과 single cell\n\n\n\n같은 항체를 이번엔 slide 위에서. Segmentation과 epitope 주의점도 그대로 따라옴\n\n\nW7–W8의 spatial 논리를 RNA 대신 protein으로:\n\nMultiplex IF(marker 4–8개) → cyclic IF / CODEX(PhenoCycler)(40–100개, 염색–촬영–제거를 반복) → IMC / MIBI(금속 표지 항체를 질량으로 읽음, ~40개)\n✅ FFPE에서 됨(🔗 W7 §2.2), 실제로 일하는 분자 자체를 잼, 병리의사는 이미 IHC를 읽음\n분석 = W7–W8 그대로: segmentation → marker intensity로 cell phenotyping → neighbourhood (🔗 W8 §2). “Neighbourhood”를 분석 단위로 만든 대장암 CODEX 연구(Schürch 2020)가 정확히 이것\n⚠️ 여전히 affinity — marker 하나하나가 항체: 내 조직, 내 고정 조건에서 항체마다 검증 (§4.1 문제의 slide 버전)\n⚠️ 여전히 segmentation — membrane marker도 transcript처럼 이웃 cell로 번짐 (🔗 W7 §3.2)\nSuspension에선: CITE-seq = 항체–oligo tag를 RNA와 같은 cell barcode로 읽음 (🔗 W5 §3.2) → 한 cell에서 protein + RNA",
+    "crumbs": [
+      "5 · 단백체학",
+      "W9. 단백질을 실제로 측정하는 방법"
     ]
   }
 ]

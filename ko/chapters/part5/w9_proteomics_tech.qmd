@@ -16,9 +16,12 @@ execute:
 -   ⚠️ mRNA가 단백질의 제한적인 대리 지표인 이유를 말하고 그 한계의 크기를 수치로 설명할 수 있다
 -   질량분석기가 무엇을 측정하는지 모호한 표현 없이 한 문단으로 설명할 수 있다
 -   ⚠️ DDA가 생물학적 신호처럼 보이는 결측값을 만드는 이유를 설명할 수 있다
+-   ⚠️ TMT plex가 곧 batch인 이유와 이를 고려한 설계를 말할 수 있다
 -   혈장이 단백체학에서 가장 어렵지만 임상적으로 가장 유용한 검체인 이유를 말할 수 있다
 -   연구 질문에 따라 질량분석과 affinity panel 중 하나를 선택할 수 있다
 -   ⚠️ 거짓 pQTL을 만드는 epitope artifact를 알아볼 수 있다
+-   discovery 후보가 임상 검사가 되기까지의 과정과 heavy-isotope 표준물질의 역할을 설명할 수 있다
+-   multiplex 조직 영상이 무엇을 측정하며 W7–W8의 어떤 주의점을 물려받는지 말할 수 있다
 -   단백체 코어 시설에 연구의 성패를 결정하는 세 가지 질문을 할 수 있다
 :::
 
@@ -95,6 +98,17 @@ DDA = 매 cycle마다 장비가 intensity 가장 높은 precursor를 고름. 뭐
 → ✅ **DIA = 고정된 window 안의 모든 것을 fragment** → 모든 run에서 같은 protein이 정량됨. 임상 cohort라면 이게 기본값 — 남의 dataset을 볼 때도 제일 먼저 물어볼 것
 :::
 
+## 3) ⚠️ Label-free vs TMT — plex = batch {#w9-s2-3}
+
+![TMT = sample 16–18개를 한 run으로. 그 한 run이 곧 batch 하나](../../../assets/img/w9/tmt_plex.svg){fig-align="center"}
+
+-   **Label-free** — sample마다 LC-MS run 하나씩 (DDA든 DIA든). ✅ Sample 수 제한 x. ⚠️ Run 순서, 장비 drift가 batch
+-   **TMT (isobaric labelling)** — sample마다 peptide에 서로 다른 mass tag → 16–18개를 섞어 한 번에 run. Tag는 fragment된 뒤에야 갈라짐 (reporter ion)
+    -   ✅ 한 plex 안에선 모든 sample을 같은 peptide로 잼 → missing 문제가 "sample별"에서 "plex별"로 옮겨감
+    -   ⚠️ **Plex = batch.** Cohort 100명 = plex 6–7개. Plex 안에선 비교가 잘 되지만, plex 사이는 훨씬 덜
+    -   ⚠️ **Ratio compression** — 같이 분리된 다른 peptide가 모든 비율을 1 쪽으로 끌어당김 → fold change 과소추정 (MS3나 좁은 isolation window가 도움)
+-   ✅ TMT라면: **plex마다 군을 균형 있게 배치** + **모든 plex에 같은 pooled reference sample**을 넣어 plex끼리 연결
+
 ------------------------------------------------------------------------
 
 # 3. ⚠️ Plasma: 가장 쓰고 싶은데 가장 어려운 검체 🩸 {#w9-s3}
@@ -140,6 +154,30 @@ Affinity platform끼리, 또는 affinity vs MS를 비교한 연구 → 상당수
 
 -   ⚠️ 같은 protein에 다른 결과를 낸 두 논문이, 각자 잰 것에 대해선 둘 다 맞을 수 있음
 -   ✅ 중요한 결과면 두 번째 platform으로 확인. Methods에 넣으면 reviewer를 막아주는 문장
+
+## 3) Discovery에서 임상 assay까지: targeted MS {#w9-s4-3}
+
+![단계마다 범위를 내주고 정밀도와 sample 수를 얻음](../../../assets/img/w9/discovery_to_assay.svg){fig-align="center"}
+
+Discovery proteomics(DIA, TMT) = sample 수십 개에서 protein 수천 개 → 결과물 = **후보 목록**이지 검사가 아님
+
+-   **Targeted MS (PRM / MRM)** — 장비가 미리 고른 peptide만 지켜봄 → 정밀도 ↑, 하루에 도는 sample 수 ↑, 대신 protein 수 ↓
+-   **Heavy-isotope 표준물질** — 같은 peptide를 무거운 동위원소로 만들어 정해진 양을 spike-in. Light / heavy 비율 × 넣은 양 = **절대 농도**
+-   ✅ Protein을 분해된 peptide의 질량으로 읽음 → 방해하던 자가항체도 같이 분해되고, epitope가 바뀌어도 숨지 못함 (§4.1 문제). 병원 검사실이 이미 하는 방법: anti-Tg 자가항체 때문에 면역측정을 믿기 어려울 때 thyroglobulin을 LC-MS/MS로
+-   ⚠️ 단계마다 **새롭고, 더 크고, 독립적인 cohort**가 필요. Discovery 후보 대부분은 마지막 단계까지 못 감 (🔗 [W10 §3](w10_clinical_proteomics.qmd#w10-s3))
+
+## 4) 제자리의 protein: 조직 절편과 single cell {#w9-s4-4}
+
+![같은 항체를 이번엔 slide 위에서. Segmentation과 epitope 주의점도 그대로 따라옴](../../../assets/img/w9/tissue_protein.svg){fig-align="center"}
+
+W7–W8의 spatial 논리를 RNA 대신 protein으로:
+
+-   **Multiplex IF**(marker 4–8개) → **cyclic IF / CODEX(PhenoCycler)**(40–100개, 염색–촬영–제거를 반복) → **IMC / MIBI**(금속 표지 항체를 질량으로 읽음, ~40개)
+-   ✅ **FFPE**에서 됨(🔗 [W7 §2.2](../part4/w7_spatial_basics.qmd#w7-s2-2)), 실제로 일하는 분자 자체를 잼, 병리의사는 이미 IHC를 읽음
+-   분석 = W7–W8 그대로: **segmentation → marker intensity로 cell phenotyping → neighbourhood** (🔗 [W8 §2](../part4/w8_spatial_integration.qmd#w8-s2)). "Neighbourhood"를 분석 단위로 만든 대장암 CODEX 연구(Schürch 2020)가 정확히 이것
+-   ⚠️ **여전히 affinity** — marker 하나하나가 항체: 내 조직, 내 고정 조건에서 항체마다 검증 (§4.1 문제의 slide 버전)
+-   ⚠️ **여전히 segmentation** — membrane marker도 transcript처럼 이웃 cell로 번짐 (🔗 [W7 §3.2](../part4/w7_spatial_basics.qmd#w7-s3-2))
+-   **Suspension에선:** CITE-seq = 항체–oligo tag를 RNA와 같은 cell barcode로 읽음 (🔗 [W5 §3.2](../part3/w5_scrna_qc.qmd#w5-s3-2)) → 한 cell에서 protein + RNA
 
 ------------------------------------------------------------------------
 
@@ -210,9 +248,12 @@ Affinity platform끼리, 또는 affinity vs MS를 비교한 연구 → 상당수
 -   MS = peptide 질량을 재고 protein을 추론. 식별은 database 의존, 정량은 대개 상대적
 -   ⚠️ **DDA는 intensity 가장 높은 precursor를 고름** → run마다 missing이 달라지고 군 간 차이처럼 보일 수 있음
 -   ✅ **임상 cohort의 기본값 = DIA** — 매번 같은 protein을 정량
+-   ⚠️ **TMT: plex = batch.** Plex마다 군을 균형 있게, 공통 reference로 plex끼리 연결. 비율은 1 쪽으로 압축됨
 -   ⚠️ Plasma dynamic range \>10자릿수. Albumin이 질량의 절반, depletion은 붙어 있던 protein까지 제거
 -   ✅ Affinity panel(Olink, SomaScan) = depletion 없이 pg/mL까지. 대신 panel이 고정
 -   ⚠️ **Affinity assay는 결합을 잼.** Epitope를 바꾸는 variant → 가짜 *cis*-pQTL
+-   Discovery = 후보. **Heavy 표준물질을 쓴 targeted MS** = 항체와 무관한 절대 수치 — 단, 새롭고 더 큰 cohort를 거친 뒤에
+-   Multiplex 조직 영상(mIF, CODEX, IMC) = protein으로 하는 W7–W8: FFPE 가능, 그래도 항체, 그래도 segmentation
 -   ⚠️ **Pre-analytical variation**(serum vs plasma, tube 종류, 원심분리까지 시간, 동결–해동, 용혈)이 어떤 통계 선택보다 더 많은 biomarker 연구를 무너뜨림
 
 ------------------------------------------------------------------------
@@ -225,6 +266,8 @@ Affinity platform끼리, 또는 affinity vs MS를 비교한 연구 → 상당수
 | MS1 / MS2 | 온전한 펩타이드의 탐색 스캔 / 펩타이드 조각의 질량 스펙트럼 |
 | DDA | 장비가 신호가 강한 상위 N개 전구체를 선택해 측정하는 방식 |
 | DIA | 고정된 질량 범위 안의 모든 물질을 빠짐없이 측정하는 방식 |
+| TMT (isobaric labelling) | 16–18개 검체를 함께 측정할 수 있게 하는 질량 표지. 한 plex가 하나의 batch가 됨 |
+| Ratio compression | 함께 분리된 펩타이드 때문에 TMT 비율이 1 쪽으로 당겨지는 현상 |
 | Spectral library | DIA 스펙트럼을 해석하는 데 사용하는 참조 자료 |
 | Protein inference | 여러 단백질에 공통된 펩타이드를 원래 단백질에 배정하는 과정 |
 | Dynamic range | 검체에서 가장 많은 단백질과 가장 적은 단백질 사이의 범위 |
@@ -233,6 +276,9 @@ Affinity platform끼리, 또는 affinity vs MS를 비교한 연구 → 상당수
 | Aptamer (SomaScan) | 항체 대신 표적 단백질에 결합하도록 만든 핵산 분자 |
 | pQTL | 단백질 수치와 연관된 유전 변이 |
 | Epitope artifact | 변이가 시약 결합을 바꾸어 단백질 양이 변한 것처럼 보이는 현상 |
+| PRM / MRM | 미리 고른 펩타이드만 측정하는 표적 질량분석 |
+| Heavy-isotope standard | 비율을 절대량으로 바꾸기 위해 첨가하는 동위원소 표지 펩타이드 |
+| Multiplexed tissue imaging | 한 절편에서 여러 항체를 영상화하는 방법(mIF, CODEX, IMC) |
 | Pre-analytical variation | 환자에게서 검체를 채취한 뒤 냉동고에 보관할 때까지 생기는 모든 변이 |
 | PTM | 단백질 번역 후 일어나는 변형으로 RNA-seq에서는 관측되지 않음 |
 
@@ -249,18 +295,28 @@ Buccitelli C, Selbach M. [*mRNAs, proteins and the emerging principles of gene e
 
 Aebersold R, Mann M. [*Mass-spectrometric exploration of proteome structure and function.*](https://doi.org/10.1038/nature19949) Nature. 2016.\
 Ludwig C, et al. [*Data-independent acquisition-based SWATH-MS for quantitative proteomics: a tutorial.*](https://doi.org/10.15252/msb.20178126) Mol Syst Biol. 2018.\
-Sinitcyn P, Rudolph JD, Cox J. [*Computational methods for understanding mass spectrometry-based shotgun proteomics data.*](https://doi.org/10.1146/annurev-biodatasci-080917-013516) Annu Rev Biomed Data Sci. 2018.
+Sinitcyn P, Rudolph JD, Cox J. [*Computational methods for understanding mass spectrometry-based shotgun proteomics data.*](https://doi.org/10.1146/annurev-biodatasci-080917-013516) Annu Rev Biomed Data Sci. 2018.\
+Ting L, Rad R, Gygi SP, Haas W. [*MS3 eliminates ratio distortion in isobaric multiplexed quantitative proteomics.*](https://doi.org/10.1038/nmeth.1714) Nat Methods. 2011. (ratio compression)\
+Li J, et al. [*TMTpro reagents: a set of isobaric labeling mass tags enables simultaneous proteome-wide measurements across 16 samples.*](https://doi.org/10.1038/s41592-020-0781-4) Nat Methods. 2020.
 
 ### 혈장과 임상 단백체학
 
 Geyer PE, et al. [*Revisiting biomarker discovery by plasma proteomics.*](https://doi.org/10.15252/msb.20156297) Mol Syst Biol. 2017. **← 혈장 연구를 설계하기 전에 읽어야 할 논문**\
-Anderson NL, Anderson NG. [*The human plasma proteome: history, character, and diagnostic prospects.*](https://doi.org/10.1074/mcp.r200007-mcp200) Mol Cell Proteomics. 2002. (dynamic range 논의를 시작한 논문)
+Anderson NL, Anderson NG. [*The human plasma proteome: history, character, and diagnostic prospects.*](https://doi.org/10.1074/mcp.r200007-mcp200) Mol Cell Proteomics. 2002. (dynamic range 논의를 시작한 논문)\
+Rifai N, Gillette MA, Carr SA. [*Protein biomarker discovery and validation: the long and uncertain path to clinical utility.*](https://doi.org/10.1038/nbt1235) Nat Biotechnol. 2006. **← discovery → verification → validation, 후보 대부분이 멈추는 이유**\
+Hoofnagle AN, et al. [*Quantification of thyroglobulin, a low-abundance serum protein, by immunoaffinity peptide enrichment and tandem mass spectrometry.*](https://doi.org/10.1373/clinchem.2008.109652) Clin Chem. 2008.
 
 ### Affinity 플랫폼과 pQTL
 
 Sun BB, et al. [*Genomic atlas of the human plasma proteome.*](https://doi.org/10.1038/s41586-018-0175-2) Nature. 2018.\
 Ferkingstad E, et al. [*Large-scale integration of the plasma proteome with genetics and disease.*](https://doi.org/10.1038/s41588-021-00978-w) Nat Genet. 2021.\
 Pietzner M, et al. [*Synergistic insights into human health from aptamer- and antibody-based proteomic profiling.*](https://doi.org/10.1038/s41467-021-27164-0) Nat Commun. 2021. **← 두 플랫폼이 얼마나 일치하지 않는지 측정한 연구**
+
+### 조직과 single cell 속 protein
+
+Goltsev Y, et al. [*Deep profiling of mouse splenic architecture with CODEX multiplexed imaging.*](https://doi.org/10.1016/j.cell.2018.07.010) Cell. 2018.\
+Giesen C, et al. [*Highly multiplexed imaging of tumor tissues with subcellular resolution by mass cytometry.*](https://doi.org/10.1038/nmeth.2869) Nat Methods. 2014. (IMC)\
+Stoeckius M, et al. [*Simultaneous epitope and transcriptome measurement in single cells.*](https://doi.org/10.1038/nmeth.4380) Nat Methods. 2017. (CITE-seq)
 
 ### 자료
 
