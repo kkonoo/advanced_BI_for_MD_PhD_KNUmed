@@ -425,7 +425,7 @@ Jagadeesh KA, et al. [*Identifying disease-critical cell types and cellular proc
 ### Causality and translation
 
 Davies NM, Holmes MV, Davey Smith G. [*Reading Mendelian randomisation studies: a guide, glossary, and checklist for clinicians.*](https://doi.org/10.1136/bmj.k601) BMJ. 2018. **← the single best entry point for a clinician**\
-Reay WR, Cairns MJ. [*Advancing the use of GWAS for drug repurposing.*](https://doi.org/10.1038/s41576-020-00387-5) Nat Rev Genet. 2021.\
+Reay WR, Cairns MJ. [*Advancing the use of genome-wide association studies for drug repurposing.*](https://doi.org/10.1038/s41576-021-00387-z) Nat Rev Genet. 2021.\
 Denny JC, Bastarache L, Roden DM. [*Phenome-wide association studies as a tool to advance precision medicine.*](https://doi.org/10.1146/annurev-genom-090314-024956) Annu Rev Genomics Hum Genet. 2016.
 
 ### Beyond SNPs, and diversity
@@ -436,4 +436,4 @@ Martin AR, et al. [*Clinical use of current polygenic risk scores may exacerbate
 
 ### Resources
 
-[GWAS Catalog](https://www.ebi.ac.uk/gwas) · [Open Targets](https://platform.opentargets.org) · [IEU OpenGWAS](https://gwas.mrcieu.ac.uk) · [GTEx](https://gtexportal.org) · [gnomAD](https://gnomad.broadinstitute.org) · [LDlink](https://ldlink.nci.nih.gov)
+[GWAS Catalog](https://www.ebi.ac.uk/gwas) · [Open Targets](https://platform.opentargets.org) · [IEU OpenGWAS](https://opengwas.io) · [GTEx](https://gtexportal.org) · [gnomAD](https://gnomad.broadinstitute.org) · [LDlink](https://ldlink.nih.gov)

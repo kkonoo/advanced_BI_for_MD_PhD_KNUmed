@@ -27,107 +27,107 @@ execute:
 
 ------------------------------------------------------------------------
 
-# 1. 두 가지 통합 방법 🧭 {#w11-s1}
+# 1. 통합하는 두 가지 방법 🧭 {#w11-s1}
 
-## 1) 순차 통합 — 각 층이 이전 결과를 걸러 냅니다 {#w11-s1-1}
+## 1) Sequential — 층마다 앞 결과를 걸러냄 {#w11-s1-1}
 
-이미 통합이라고 부르지 않았을 뿐 이 과정을 수행했습니다. W3에서 locus를 좁히고, W5에서 세포 유형을 특정했으며, W9에서 단백질이 존재하는지 물었습니다. 각 층이 후보를 제거합니다.
+이미 해봤음, 통합이라고 안 불렀을 뿐: W3에서 locus를 좁히고, W5에서 cell type을 특정하고, W9에서 protein이 실제로 있는지 물음. 층마다 후보가 줄어듦
 
--   ✅ 각 분석은 해당 층이 있는 검체만 사용하므로 모든 단계에서 **전체 n**을 유지합니다
--   ✅ 각 단계를 독립적으로 해석할 수 있고 Methods section에서 방어할 수 있습니다
--   ✅ 서로 **다른 코호트**에서 얻은 층도 사용할 수 있습니다. 공개 eQTL 데이터, 출판된 atlas, 자신의 검체를 함께 활용할 수 있습니다
--   ⚠️ 여러 층을 *함께 보아야만* 존재하는 pattern은 발견할 수 없습니다
+-   ✅ 분석마다 그 층이 있는 sample만 씀 → 단계마다 **전체 n** 유지
+-   ✅ 단계마다 따로 해석 가능, Methods에서 방어 가능
+-   ✅ 층이 **서로 다른 cohort**에서 와도 됨 — 공개 eQTL data, 출판된 atlas, 내 sample
+-   ⚠️ 층을 *가로질러서만* 보이는 pattern은 못 찾음
 
-## 2) 공동 통합 — 여러 층을 함께 모형화합니다 {#w11-s1-2}
+## 2) Joint — 층을 한꺼번에 modelling {#w11-s1-2}
 
-**MOFA+**, **mixOmics/DIABLO**, **iCluster**와 같은 방법은 여러 층의 변이를 동시에 설명하는 잠재 factor를 찾습니다.
+**MOFA+**, **mixOmics/DIABLO**, **iCluster** 같은 방법 = 여러 층의 변이를 동시에 설명하는 latent factor를 찾음
 
--   ✅ 어느 한 층만으로는 보이지 않는 조율된 program을 찾을 수 있습니다
--   ✅ 비지도 방식이므로 질문하지 않았던 구조, 예를 들면 환자 subtype을 발견할 수 있습니다
--   ⚠️ 모든 층을 측정한 **동일한 검체**가 필요합니다
--   ⚠️ 결과는 factor이지 기전이 아닙니다
+-   ✅ 어느 한 층만으론 안 보이는, 층끼리 맞물린 program을 찾을 수 있음
+-   ✅ Unsupervised → 묻지 않았던 구조(환자 subtype)까지 찾을 수 있음
+-   ⚠️ 모든 층을 잰 **같은 sample**이 필요
+-   ⚠️ 결과 = factor이지 기전이 아님
 
-💡 **동기 질문의 답:** 대개 **처음부터 하나의 모형에 넣지는 않습니다**. 순차적 우선순위화는 대부분의 임상 질문에 답하고 n을 유지하며, 심사자가 따라갈 수 있는 그림을 만듭니다. 여러 층에 걸친 program이 있다고 구체적으로 의심하거나 비지도 환자 subtype을 찾고 싶을 때 공동 모형을 사용하십시오.
+💡 **동기 질문의 답:** 대개 **처음부터는 x**. Sequential 우선순위화로 대부분의 임상 질문에 답할 수 있고, n도 지키고, reviewer가 따라올 수 있는 그림이 나옴. Joint model은 층 간 program을 구체적으로 의심하거나 unsupervised 환자 subtype이 필요할 때 꺼내기
 
 ------------------------------------------------------------------------
 
-# 2. 실제 순차 통합 🎯 {#w11-s2}
+# 2. Sequential integration 실전 🎯 {#w11-s2}
 
-![임상의에게 가장 유용하지만 가장 화려하지 않은 통합 방법입니다.](../../../assets/img/w11/prioritization.svg){fig-align="center"}
+![임상의에게 가장 쓸모 있고, 가장 안 화려한 통합](../../../assets/img/w11/prioritization.svg){fig-align="center"}
 
 ## 1) 수렴이 강한 근거인 이유 {#w11-s2-1}
 
-각 층에는 고유한 거짓양성이 있으며, 이들은 대체로 서로 **독립적**입니다. eQTL colocalisation artifact는 단백체학 artifact와 무관합니다. 다섯 개의 독립적인 filter를 모두 통과한 유전자가 서로 다른 다섯 번의 우연일 가능성은 낮습니다.
+층마다 거짓양성이 따로 있고, 이들은 대체로 **독립적**: eQTL colocalisation artifact ≠ proteomics artifact. 독립적인 filter 5개를 다 통과한 gene = 우연이 다섯 번 겹쳤을 가능성 낮음
 
-## 2) ⚠️ 부재가 근거가 아닌 이유 {#w11-s2-2}
+## 2) ⚠️ 없다 ≠ 근거 {#w11-s2-2}
 
 ::: {.callout-important collapse="true"}
-## 끊임없이 잘못 해석되는 비대칭성
+## 끊임없이 잘못 읽히는 비대칭
 
-어떤 열의 ✕는 거의 언제나 “올바른 맥락에서 측정하지 못했다”는 뜻이지 “측정했지만 없었다”는 뜻이 아닙니다.
+한 열의 ✕ = 거의 항상 **"맞는 맥락에서 측정 못 함"**이지 "측정했는데 없음"이 아님
 
--   ⚠️ eQTL panel은 bulk 조직에서 만들어집니다. 드문 세포 유형에 한정된 효과는 보이지 않습니다
--   ⚠️ 혈장 단백체학은 abundance가 낮은 단백질을 전혀 측정하지 못합니다(🔗 [W9 §3](../part5/w9_proteomics_tech.qmd#w9-s3))
--   ⚠️ 일부 유전자는 측정할 단백질 산물을 만들지 않습니다
--   ⚠️ MR에는 강한 도구변수가 필요합니다. 도구변수가 없는 유전자는 검정할 수 없으며, 이는 검정했지만 실패한 것과 다릅니다
+-   ⚠️ eQTL panel은 bulk 조직 기반 → 드문 cell type에만 있는 효과는 안 보임
+-   ⚠️ Plasma proteomics는 양 적은 protein을 아예 놓침 (🔗 [W9 §3](../part5/w9_proteomics_tech.qmd#w9-s3))
+-   ⚠️ 잴 protein 산물이 없는 gene도 있음
+-   ⚠️ MR엔 강한 instrument가 필요. Instrument 없는 gene = 검정 불가 ≠ 검정해서 실패
 
-→ ✅ 수렴은 양성 근거로 보고하십시오. 빈칸은 결과에서 한 문장으로 **coverage limitation**이라고 보고하십시오.
+→ ✅ 수렴은 양성 근거로 보고. 빈칸은 결과에 한 문장으로 **coverage limitation**이라고 보고
 
-⚠️ 이로부터 생기는 실패도 있습니다. 우선순위화 pipeline은 체계적으로 **잘 측정되고 잘 연구된 유전자**를 선호합니다. 같은 편향이 [W12](w12_network_drug.qmd)에서 network hub의 형태로 다시 나타납니다.
+⚠️ 그리고 여기서 생기는 실패: 우선순위화 pipeline은 체계적으로 **잘 측정되고 잘 연구된 gene**을 선호. 같은 편향이 [W12](w12_network_drug.qmd)에서 network hub로 다시 등장
 :::
 
 ------------------------------------------------------------------------
 
-# 3. 공동 모형 — 결과 읽기 📐 {#w11-s3}
+# 3. Joint model — 결과 읽기 📐 {#w11-s3}
 
-![먼저 열을 읽어 기술 요인을 찾고, 그다음 행을 읽어 생물학적 의미를 찾으십시오.](../../../assets/img/w11/mofa_factors.svg){fig-align="center"}
+![열을 읽어 기술 factor부터 찾고, 그다음 행을 읽어 biology 찾기](../../../assets/img/w11/mofa_factors.svg){fig-align="center"}
 
-## 1) Factor란 무엇인가? {#w11-s3-1}
+## 1) Factor란? {#w11-s3-1}
 
-검체가 달라지는 잠재 축과 함께, 각 층의 어떤 feature가 그 축을 만드는지 보여 주는 **loading**입니다. 분산 설명 그림은 각 factor가 각 층의 변이를 얼마나 설명하는지 보여 줍니다.
+Sample들이 달라지는 잠재 축 + 어느 층의 어느 feature가 그 축을 만드는지 알려주는 **loading**. Variance-explained plot = factor마다 각 층의 변이를 얼마나 설명하나
 
-## 2) ⚠️ 해석 전에 factor를 주석하십시오 {#w11-s3-2}
+## 2) ⚠️ 해석 전에 factor부터 annotate {#w11-s3-2}
 
 ::: {.callout-warning collapse="true"}
-## Factor 1은 거의 언제나 기술 요인입니다
+## Factor 1은 거의 항상 기술적
 
-실제 코호트에서 가장 강한 공통 변이 원인은 질병인 경우가 드뭅니다. Batch, RNA integrity, sex, age일 가능성이 높습니다.
+실제 cohort에서 가장 강한 공통 변이 원인 = 질병인 경우 드묾. Batch, RNA integrity, sex, age일 때가 많음
 
-✅ 다음 순서로 주석하십시오.
+✅ 순서대로 annotate:
 
-1.  **기술 요인** — batch, run date, RIN/DV200, operator, storage time
-2.  **인구학적 요인** — age, sex, BMI, ancestry
-3.  **임상 교란요인** — medication, comorbidity, disease duration
-4.  **그다음에야** — disease status 또는 outcome
+1.  **기술** — batch, run date, RIN/DV200, operator, storage time
+2.  **인구학** — age, sex, BMI, ancestry
+3.  **임상 교란** — medication, comorbidity, disease duration
+4.  **그다음에야** — disease status나 outcome
 
-⚠️ Factor가 batch와 r = 0.8, disease와 r = 0.3의 상관성을 가진다면 이는 질병과 약간 교락된 batch factor입니다. 이를 “disease signature”라고 보고하는 것은 실제로 자주 발생하는 오류입니다.
+⚠️ Factor가 batch와 r = 0.8, disease와 r = 0.3 → disease와 살짝 교락된 batch factor. 이걸 "disease signature"로 보고하는 건 실제로 흔한 오류
 
-💡 **여러** 층에서 loading이 나타나는 factor는 한 층에만 국한된 factor보다 생물학적일 가능성이 높습니다. 그러나 먼저 1–3단계에서 아무것도 나오지 않아야 합니다.
+💡 **여러** 층에 loading이 걸린 factor가 한 층에만 걸린 것보다 biology일 가능성이 높음 — 단, 1–3단계에서 아무것도 안 나온 뒤에
 :::
 
 ------------------------------------------------------------------------
 
-# 4. ⚠️ 모형을 만들기 전의 세 가지 실패 🕳️ {#w11-s4}
+# 4. ⚠️ Model 전에 일어나는 세 가지 실패 🕳️ {#w11-s4}
 
-![어느 것도 모형의 문제가 아니며 모두 연구 설계 시점에 결정됩니다.](../../../assets/img/w11/integration_traps.svg){fig-align="center"}
+![전부 modelling 문제가 아니고, 전부 설계 시점에 결정됨](../../../assets/img/w11/integration_traps.svg){fig-align="center"}
 
-**① n이 붕괴합니다.** 공동 모형은 complete case를 사용합니다. 네 개 층을 가진 300명 코호트라도 네 층을 모두 측정한 환자가 41명뿐이라면 그것이 실제 표본 수입니다.
+**① n이 무너짐.** Joint model은 complete case만 씀. 4개 층을 가진 300명 cohort라도 4개 층을 다 잰 환자가 41명이면 → 그게 진짜 sample size
 
--   ✅ 분석을 계획하기 **전에** 교집합을 확인하십시오
--   ✅ 일부 방법은 결측 view를 처리합니다. 이러한 방법을 쓰는 것은 명시해야 할 결정이지 기본값이 아닙니다
+-   ✅ 분석 계획 **전에** 교집합 확인
+-   ✅ Missing view를 처리하는 방법도 있음. 쓴다면 명시해야 할 결정이지 기본값이 아님
 
-**② Scale 불균형.** Methylation은 450,000개의 feature를 제공하고 임상 변수는 12개를 제공합니다. 층별 scaling을 하지 않으면 factor는 methylation만 설명합니다.
+**② Scale 불균형.** Methylation feature 450,000개 vs 임상 변수 12개. 층별 scaling 없으면 → factor = methylation 설명
 
-**③ Factor는 기전이 아닙니다.** §3.2를 다시 보십시오.
+**③ Factor ≠ 기전.** §3.2 참고
 
 ::: {.callout-tip collapse="true"}
 ## 통합으로 할 수 없는 것
 
--   ❌ 검정력을 만들 수 없습니다. 환자 41명의 잡음 많은 네 개 층은 환자 300명의 좋은 한 개 층보다 강하지 않습니다
--   ❌ 교락을 해결할 수 없습니다. Batch가 질병과 함께 움직이면 모든 층이 이를 물려받고 공동 모형은 그 신호를 하나의 factor에 집중시킵니다
--   ❌ 검정력이 부족한 연구를 출판 가능한 연구로 만들 수 없습니다. 심사자들은 n을 대신하기 위해 통합을 사용한 연구를 잘 알아봅니다
+-   ❌ 검정력을 만들어내지 못함. 41명의 noisy한 층 4개 < 300명의 좋은 층 1개
+-   ❌ 교락을 해결하지 못함. Batch가 disease를 따라가면 모든 층이 물려받고, joint model은 그걸 factor 하나에 모아줌
+-   ❌ 검정력 부족한 연구를 출판 가능하게 만들지 못함. Reviewer들은 n 대신 통합을 들이민 연구를 잘 알아봄
 
-→ ✅ 통합이 실제로 제공하는 것은 다른 방법으로 볼 수 없는 **층 간 조율**과 미리 찾으려 하지 않았던 **비지도 subtype**입니다.
+→ ✅ 통합이 진짜로 주는 것: 다른 방법으론 못 보는 **층 간 맞물림**, 찾을 생각도 못 했던 **unsupervised subtype**
 :::
 
 ------------------------------------------------------------------------
@@ -136,17 +136,17 @@ execute:
 
 ## 1) 우선순위화 표 만들기 {#w11-s5-1}
 
-진료하는 질병에서 locus 하나를 선택하고 브라우저에서 §2의 표를 직접 채우십시오.
+진료하는 질환의 locus 하나 골라서, §2의 표를 브라우저로 직접 채우기:
 
--   **eQTL** — [Open Targets Genetics](https://genetics.opentargets.org) 또는 [GTEx](https://gtexportal.org)
--   **세포 유형** — [CELLxGENE](https://cellxgene.cziscience.com)
--   **단백질** — [Human Protein Atlas](https://www.proteinatlas.org)
--   **방향** — MR 결과는 [IEU OpenGWAS](https://gwas.mrcieu.ac.uk)
--   **약물 표적 가능성** — [Open Targets](https://platform.opentargets.org)의 target profile
+-   **eQTL / locus-to-gene** — [Open Targets Platform](https://platform.opentargets.org) (구 Open Targets Genetics) 또는 [GTEx](https://gtexportal.org)
+-   **Cell type** — [CELLxGENE](https://cellxgene.cziscience.com)
+-   **Protein** — [Human Protein Atlas](https://www.proteinatlas.org)
+-   **방향** — MR 결과는 [IEU OpenGWAS](https://opengwas.io)
+-   **Tractability** — [Open Targets](https://platform.opentargets.org)의 target profile
 
-✅ 후보 유전자 하나가 한 행, 오믹스 층 하나가 한 열입니다. 오후 한 번이면 만들 수 있으며 실제 논문 그림이 될 수 있습니다.
+✅ 후보 gene 하나 = 한 행, 층 하나 = 한 열. 오후 한나절이면 되고, 진짜 논문 figure가 됨
 
-## 2) 교집합부터 확인하기 {#w11-s5-2}
+## 2) 교집합부터 확인 {#w11-s5-2}
 
 ```{r}
 library(tidyverse); library(UpSetR)
@@ -161,7 +161,7 @@ upset(as.data.frame(have), order.by = "freq")
 cat("complete cases:", sum(rowSums(have) == ncol(have)), "\n")   # ⚠️ this is your n
 ```
 
-## 3) MOFA와 factor 주석 {#w11-s5-3}
+## 3) MOFA, 그리고 factor annotation {#w11-s5-3}
 
 ```{r}
 library(MOFA2)
@@ -188,24 +188,24 @@ round(cors, 2)     # look here before you look at biology
 # Does Factor 1 disappear? Does anything else change rank?
 ```
 
-💡 Batch를 제거했을 때 factor의 순서가 바뀐다면 원래 결과에서 batch가 차지한 비중을 알려 줍니다. 심사에서 지적되기 전에 알아 둘 가치가 있는 수치입니다.
+💡 Batch를 빼고 돌렸을 때 factor 순위가 뒤섞인다면 → 원래 결과 중 batch가 얼마였는지 알려주는 것. Review에서 지적받기 전에 알아둘 만한 숫자
 
 ## 5) 다음 주 전까지 {#w11-s5-5}
 
-**[W12 — network와 약물 표적](w12_network_drug.qmd).** §5.1에서 만든 우선순위화 표를 가져오십시오. 살아남은 유전자가 약물 표적이 될 수 있는지 살펴봅니다.
+**[W12 — network와 약물 표적](w12_network_drug.qmd).** §5.1의 우선순위화 표 가져오기. 살아남은 gene이 약물 표적이 될 수 있는지 봄
 
 ------------------------------------------------------------------------
 
 # 📝 요약
 
--   **순차 통합**은 층마다 후보를 걸러 내고, **공동 통합**은 여러 층을 함께 모형화합니다
--   ✅ 순차 통합은 전체 n을 유지하고 서로 다른 코호트를 사용할 수 있으며 대부분의 임상 질문에 답합니다
--   ✅ 각 층의 거짓양성은 서로 **독립적**이므로 여러 층의 수렴은 강한 근거입니다
--   ⚠️ **신호의 부재는 음성 결과가 아니라 coverage gap**이며 우선순위화를 잘 연구된 유전자 쪽으로 편향시킵니다
--   ⚠️ **Factor 1은 거의 언제나 기술 요인입니다.** 질병보다 먼저 batch, RIN, age, sex와의 관계를 주석하십시오
--   ⚠️ 공동 모형은 complete case를 사용합니다. 코호트 전체가 아니라 **교집합이 n**입니다
--   ⚠️ 층별 scaling이 없으면 feature가 가장 많은 층이 모든 factor를 지배합니다
--   ❌ 통합은 검정력을 만들거나 교락을 해결하거나 검정력이 부족한 연구를 구제할 수 없습니다
+-   **Sequential** = 층마다 후보를 걸러냄. **Joint** = 층을 함께 modelling
+-   ✅ Sequential은 전체 n 유지, cohort가 달라도 OK, 대부분의 임상 질문에 답함
+-   ✅ 층마다 거짓양성이 **독립적** → 여러 층의 수렴 = 강한 근거
+-   ⚠️ **신호 없음 = coverage gap이지 음성 결과 아님** — 그리고 우선순위화를 잘 연구된 gene 쪽으로 기울게 함
+-   ⚠️ **Factor 1은 거의 항상 기술적.** Disease보다 먼저 batch, RIN, age, sex로 annotate
+-   ⚠️ Joint model은 complete case만 씀 → **n = 교집합**, cohort 전체가 아님
+-   ⚠️ 층별 scaling 없으면 feature가 제일 많은 층이 모든 factor를 지배
+-   ❌ 통합으로 검정력을 만들거나, 교락을 고치거나, 검정력 부족한 연구를 살릴 수 없음
 
 ------------------------------------------------------------------------
 

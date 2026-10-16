@@ -14,8 +14,8 @@
     "objectID": "ko/chapters/part7/w14_project_design.html#w14-s2-1",
     "href": "ko/chapters/part7/w14_project_design.html#w14-s2-1",
     "title": "W14. 나만의 프로젝트 설계",
-    "section": "1) “이미 가진 데이터”에 실제로 포함되는 것",
-    "text": "1) “이미 가진 데이터”에 실제로 포함되는 것\n전공의들은 다음 목록을 계속 과소평가합니다.\n\n✅ 병리 archive — 결과가 연결된 FFPE block. 공간 분석과 단백체 분석은 모두 FFPE에서 가능합니다(🔗 W7 §2.2)\n✅ 잔여 임상 검체 — 일부 기관에서 기존 동의 아래 보관한 혈청 또는 혈장\n✅ 전자의무기록 — 검사 결과, 영상 판독, 약물, 임상 결과가 이미 디지털 형태로 존재합니다\n✅ 다른 목적으로 수집한 공개 데이터 — GEO, CELLxGENE, TCGA, UK Biobank return file. 질문 A에 답하려고 만든 데이터셋에 자신의 질문 B에 대한 답이 들어 있는 경우가 매우 많습니다\n✅ 소속 진료과의 과거 연구 — 하나의 목적으로 한 번 분석하고 끝낸 데이터\n\n💡 가장 좋은 전공의 프로젝트는 대개 기존 데이터셋 하나와 원래 연구자가 관심을 두지 않았던 임상 질문 하나를 결합합니다.",
+    "section": "1) “이미 가진 data”에 실제로 들어가는 것",
+    "text": "1) “이미 가진 data”에 실제로 들어가는 것\n전공의들이 늘 과소평가하는 목록:\n\n✅ 병리 archive — outcome이 연결된 FFPE block. Spatial도 proteomics도 FFPE에서 됨 (🔗 W7 §2.2)\n✅ 잔여 임상 검체 — 기관에 따라 기존 동의로 보관 중인 serum/plasma\n✅ EHR — 검사, 영상 판독, 약물, outcome이 이미 디지털로 있음\n✅ 다른 목적으로 모은 공개 data — GEO, CELLxGENE, TCGA, UK Biobank return file. 질문 A에 답하려고 만든 dataset에 내 질문 B의 답이 들어 있는 경우가 정말 많음\n✅ 우리 과의 예전 연구 — 한 가지 목적으로 한 번 분석하고 끝난 data\n\n💡 좋은 전공의 프로젝트는 대개 기존 dataset 하나 + 원래 연구에선 아무도 관심 없던 임상 질문 하나의 조합",
     "crumbs": [
       "7 · 종합 프로젝트",
       "W14. 나만의 프로젝트 설계"
@@ -25,8 +25,8 @@
     "objectID": "ko/chapters/part7/w14_project_design.html#w14-s2-2",
     "href": "ko/chapters/part7/w14_project_design.html#w14-s2-2",
     "title": "W14. 나만의 프로젝트 설계",
-    "section": "2) 정직한 시간 비용",
-    "text": "2) 정직한 시간 비용\n\n\n\n\n\n\n\n단계\n현실적인 시간\n\n\n\n\n보관 검체의 IRB / 윤리 승인\n⚠️ 1–4개월. 이 단계에서 시간이 흐르기 시작함\n\n\nBlock 확인과 반출\n2–6주. 누군가 직접 해야 함\n\n\n절편 제작, QC(DV200)\n2–4주\n\n\n코어 시설의 assay 수행\n4–12주\n\n\n분석\n⚠️ 언제나 계획보다 오래 걸림\n\n\n논문 작성\n분석보다 더 오래 걸림\n\n\n\n⚠️ 첫 주에 윤리 신청을 시작하십시오. 더 열심히 일해도 단축할 수 없는 유일한 단계입니다.",
+    "section": "2) 시간 비용, 정직하게",
+    "text": "2) 시간 비용, 정직하게\n\n\n\n단계\n현실적인 시간\n\n\n\n\n보관 검체 IRB / 윤리 승인\n⚠️ 1–4개월, 여기서 시계가 돌기 시작\n\n\nBlock 찾고 반출\n2–6주, 누군가 직접 해야 함\n\n\n절편, QC(DV200)\n2–4주\n\n\nCore 시설 assay\n4–12주\n\n\n분석\n⚠️ 항상 계획보다 오래 걸림\n\n\n논문 쓰기\n그보다 더 오래\n\n\n\n⚠️ 윤리 신청은 첫 주에 시작. 더 열심히 해도 줄일 수 없는 유일한 단계",
     "crumbs": [
       "7 · 종합 프로젝트",
       "W14. 나만의 프로젝트 설계"
@@ -36,8 +36,8 @@
     "objectID": "ko/chapters/part7/w14_project_design.html#w14-s3-1",
     "href": "ko/chapters/part7/w14_project_design.html#w14-s3-1",
     "title": "W14. 나만의 프로젝트 설계",
-    "section": "1) 근거 단계를 명시하십시오",
-    "text": "1) 근거 단계를 명시하십시오\n🔗 W8 §3에서 살펴본 단계는 기술 → 가설 → 일치함 → 지지됨 → 입증됨입니다.\n전공의 프로젝트는 현실적으로 ③ 일치함까지 도달합니다. 그 사실을 명시하고 ④나 ⑤로 올리기 위해 필요한 실험을 제시한다면 출판할 수 있고 연구비를 받을 수 있으며 정직한 결과입니다.\n⚠️ 심사에서 프로젝트를 무너뜨리는 것은 ③에서 멈춘 사실이 아닙니다. ③의 근거 위에 ⑤의 동사를 쓰는 것입니다.",
+    "section": "1) 내 단계 정하기",
+    "text": "1) 내 단계 정하기\n🔗 W8 §3의 사다리: 기술 → 가설 → 일치 → 지지 → 입증\n전공의 프로젝트가 현실적으로 닿는 곳 = ③ 일치. 그렇다고 명시하고, ④나 ⑤로 올릴 실험을 제시하면 → 출판 가능, 연구비 가능, 그리고 정직함\n⚠️ 심사에서 프로젝트를 무너뜨리는 건 ③에서 멈춘 게 아님. ③의 근거 위에 ⑤의 동사를 쓰는 것",
     "crumbs": [
       "7 · 종합 프로젝트",
       "W14. 나만의 프로젝트 설계"
@@ -47,8 +47,8 @@
     "objectID": "ko/chapters/part7/w14_project_design.html#w14-s3-2",
     "href": "ko/chapters/part7/w14_project_design.html#w14-s3-2",
     "title": "W14. 나만의 프로젝트 설계",
-    "section": "2) ✅ 음성 결과도 완결된 프로젝트입니다",
-    "text": "2) ✅ 음성 결과도 완결된 프로젝트입니다\n\n\n\n\n\n\n힌트완결된 음성 결과를 만드는 것\n\n\n\n\n\n“아무것도 찾지 못했다”는 말이 아닙니다. 다음 조건이 필요합니다.\n\n✅ 가설이 틀릴 수 있을 만큼 구체적이었습니다\n✅ 설계가 효과를 검출할 수 있었습니다. 어느 크기의 효과를 검출할 검정력이 있었는지 말하십시오\n✅ 측정이 작동했습니다. 양성대조군이 예상대로 움직였습니다\n✅ 다음에는 무엇을 다르게 할지 말할 수 있습니다\n\n→ 이는 p-value 하나를 찾아낸 탐색 연구보다 더 나은 기여입니다. 14주 수업에서 훨씬 달성하기 쉬운 목표이기도 합니다.",
+    "section": "2) ✅ 음성 결과도 완결된 프로젝트",
+    "text": "2) ✅ 음성 결과도 완결된 프로젝트\n\n\n\n\n\n\n힌트음성 결과를 완결시키는 것\n\n\n\n\n\n“아무것도 못 찾았다”가 아니라:\n\n✅ 가설이 틀릴 수 있을 만큼 구체적이었음\n✅ 설계가 효과를 검출할 수 있었음 — 어느 크기의 효과까지 검정력이 있었는지 명시\n✅ 측정은 제대로 됨 — 양성대조군이 예상대로 나옴\n✅ 다음엔 뭘 다르게 할지 말할 수 있음\n\n→ p-value 하나 건진 낚시 연구보다 나은 기여. 그리고 14주 수업에선 훨씬 현실적인 목표",
     "crumbs": [
       "7 · 종합 프로젝트",
       "W14. 나만의 프로젝트 설계"
@@ -58,8 +58,8 @@
     "objectID": "ko/chapters/part7/w14_project_design.html#w14-s5-1",
     "href": "ko/chapters/part7/w14_project_design.html#w14-s5-1",
     "title": "W14. 나만의 프로젝트 설계",
-    "section": "1) 두 명씩 짝지어 각자 10분",
-    "text": "1) 두 명씩 짝지어 각자 10분\n\n① 질문을 한 문장으로 말하십시오. 상대방이 다시 말해 봅니다. 정확히 이해했습니까?\n② §2의 어느 사분면에 있습니까? 정직하게 판단하십시오\n③ 답을 보여 줄 Figure 2를 종이에 그리십시오. 축은 무엇입니까?\n④ n은 무엇이며 반복 단위는 무엇입니까?\n⑤ 예상 결과를 혼자 만들어 낼 수 있는 교란요인 하나를 말하십시오\n⑥ 10번 항목 — 무엇이 나오면 중단합니까?\n\n\n\n\n\n\n\n경고오늘 가장 자주 듣게 될 세 가지 실패\n\n\n\n\n\n\n❌ 너무 넓습니다. “면역 미세환경을 살펴보고 싶다.” → 비교가 나타날 때까지 §1을 적용하십시오\n❌ n이 틀렸습니다. “세포가 40,000개 있다.” → 환자는 몇 명입니까? (🔗 W5 §5)\n❌ 데이터가 아직 존재하지 않습니다. “새 검체를 모으겠다.” → 6개월 안에 몇 개를 모을 수 있습니까? 정직한 답은 대개 10개 미만입니다",
+    "section": "1) 둘씩, 각자 10분",
+    "text": "1) 둘씩, 각자 10분\n\n① 질문을 한 문장으로. 상대가 다시 말해보기. 제대로 이해했나?\n② §2의 어느 사분면? 정직하게\n③ 답을 보여줄 Figure 2를 종이에 그리기. 축은?\n④ n은? 반복 단위는?\n⑤ 예상 결과를 혼자서도 만들어낼 수 있는 교란요인 하나\n⑥ 10번 — 뭐가 나오면 멈추나?\n\n\n\n\n\n\n\n경고오늘 가장 많이 듣게 될 세 가지 실패\n\n\n\n\n\n\n❌ 너무 넓음. “면역 미세환경을 보고 싶어요” → 비교가 나올 때까지 §1 적용\n❌ n이 틀림. “Cell이 40,000개예요” → 환자는 몇 명? (🔗 W5 §5)\n❌ Data가 아직 없음. “새로 검체를 모을게요” → 6개월 안에 몇 개? 정직한 답은 대개 10개 미만",
     "crumbs": [
       "7 · 종합 프로젝트",
       "W14. 나만의 프로젝트 설계"
@@ -69,8 +69,8 @@
     "objectID": "ko/chapters/part7/w14_project_design.html#w14-s5-2",
     "href": "ko/chapters/part7/w14_project_design.html#w14-s5-2",
     "title": "W14. 나만의 프로젝트 설계",
-    "section": "2) 최종 수업 전까지",
-    "text": "2) 최종 수업 전까지\n제출물:\n\n✅ 열 개 제목을 모두 채운 한 페이지 protocol\n✅ 대략적인 형태라도 작성한 Figure 1(코호트)\n✅ 작성한 Figure 2(답) 또는 수치만 빈칸으로 남긴 caption\n✅ 직접 입력한 수치 없이 렌더되는 Quarto 문서(🔗 W2 §3)\n✅ Git 저장소에 저장한 코드(🔗 W2 §4). ⚠️ .gitignore에 rawdata/ 포함\n\n발표: 15분 발표 + 5분 질의응답\n배경                 2분   임상 문제\n질문                 1분   한 문장, 그리고 답할 수 있는 이유\n데이터와 방법        3분   가진 데이터, 수행한 분석, 제외한 항목\n결과               5–7분   그림 네 개, 그림마다 메시지 하나\n해석                 2분   근거 단계와 다음 단계로 올릴 방법\n임상적 의미          1분   결과가 참이라면 무엇이 바뀌는가?",
+    "section": "2) 마지막 수업 전까지",
+    "text": "2) 마지막 수업 전까지\n제출물:\n\n✅ 제목 열 개를 다 채운 한 페이지 protocol\n✅ Figure 1(cohort) 초안, 대충이라도\n✅ Figure 2(답) 초안 — 또는 숫자만 비워둔 caption\n✅ 손으로 친 숫자 없이 render되는 Quarto 문서 (🔗 W2 §3)\n✅ Git 저장소에 올린 코드 (🔗 W2 §4) — ⚠️ .gitignore에 rawdata/ 포함\n\n발표: 15분 + 질의응답 5분\n배경                 2분   임상 문제\n질문                 1분   한 문장, 그리고 답할 수 있는 이유\n데이터와 방법        3분   가진 데이터, 수행한 분석, 제외한 항목\n결과               5–7분   그림 네 개, 그림마다 메시지 하나\n해석                 2분   근거 단계와 다음 단계로 올릴 방법\n임상적 의미          1분   결과가 참이라면 무엇이 바뀌는가?",
     "crumbs": [
       "7 · 종합 프로젝트",
       "W14. 나만의 프로젝트 설계"
@@ -91,8 +91,8 @@
     "objectID": "ko/chapters/part7/w13_visualization.html#w13-s1-1",
     "href": "ko/chapters/part7/w13_visualization.html#w13-s1-1",
     "title": "W13. 해석과 시각화",
-    "section": "1) 나머지 과장 방식 간단히 보기",
-    "text": "1) 나머지 과장 방식 간단히 보기\n\n⚠️ 잘린 축. 막대그래프는 항상 0에서 시작하십시오. 막대의 길이 자체가 값입니다. 0이 유용하지 않다면 막대 대신 point 또는 dot plot을 사용하십시오\n⚠️ 무지개 색상 지도. 지각적으로 순서가 없고 연속적인 데이터에 경계를 만들어 내며, 회색조와 색각이상에서 실패합니다. ✅ 크기에는 단일 색조의 sequential ramp를, 부호가 있는 값에는 중립 중앙점을 가진 두 색조의 diverging ramp를 사용하십시오\n⚠️ n을 숨기는 막대. n ≤ 10이면 ✅ 개별 point를 표시하십시오. n = 3에서 막대와 SEM을 그리면 실제로 갖지 못한 정밀도를 암시합니다",
+    "section": "1) 나머지 셋, 짧게",
+    "text": "1) 나머지 셋, 짧게\n\n⚠️ 잘린 축. 막대는 항상 0에서 시작 — 막대 길이 자체가 값. 0이 의미 없으면 막대 대신 point나 dot plot\n⚠️ Rainbow color map. 지각적으로 순서가 없고, 매끄러운 data에 없는 경계를 만들고, 흑백·색각이상에서 망가짐. ✅ 크기엔 한 색조의 sequential ramp, 부호 있는 값엔 중립 중앙점을 가진 두 색조 diverging ramp\n⚠️ n을 숨기는 막대. n ≤ 10이면 ✅ 개별 point를 그리기. n = 3에 막대 + SEM = 갖지도 않은 정밀도를 암시",
     "crumbs": [
       "7 · 종합 프로젝트",
       "W13. 해석과 시각화"
@@ -102,8 +102,8 @@
     "objectID": "ko/chapters/part7/w13_visualization.html#w13-s3-1",
     "href": "ko/chapters/part7/w13_visualization.html#w13-s3-1",
     "title": "W13. 해석과 시각화",
-    "section": "1) Background가 검정 전체를 결정합니다",
-    "text": "1) Background가 검정 전체를 결정합니다\nEnrichment는 어떤 universe에서 우연히 기대되는 것보다 특정 category의 유전자가 목록에 더 많은지 묻습니다. Universe를 바꾸면 답도 바뀝니다.\n\n❌ 기본값인 “모든 사람 유전자” — 자신의 조직에서 발현되지 않는 유전자는 애초에 목록에 들어갈 수 없었습니다\n✅ Universe는 실제로 검정한 유전자, 즉 기준보다 높게 발현되고 filter를 통과한 유전자입니다\n⚠️ 조직 특이적 데이터에서는 보통 universe가 절반으로 줄며 “유의한” category 전체가 사라질 수 있습니다\n\n\nlibrary(clusterProfiler); library(org.Hs.eg.db)\n\nuniverse &lt;- rownames(dds)[rowSums(counts(dds)) &gt; 10]   # ✅ what was testable\n\nego &lt;- enrichGO(gene = sig_genes, universe = universe,     # ⚠️ not the default\n                OrgDb = org.Hs.eg.db, keyType = \"SYMBOL\",\n                ont = \"BP\", pAdjustMethod = \"BH\")\n\nego &lt;- simplify(ego, cutoff = 0.7)     # collapse redundant nested terms",
+    "section": "1) Background가 검정의 전부",
+    "text": "1) Background가 검정의 전부\nEnrichment = 내 gene 목록에 어떤 category가 어떤 universe에서 우연히 기대되는 것보다 많은가? Universe를 바꾸면 답도 바뀜\n\n❌ 기본값 “모든 사람 gene” — 내 조직에서 발현 안 되는 gene은 애초에 목록에 들어올 수가 없었음\n✅ Universe = 실제로 검정한 gene: 기준 이상 발현되고 filter를 통과한 것\n⚠️ 조직 특이적 data에선 universe가 보통 절반으로 줄고, “유의한” category 하나가 통째로 사라지기도 함\n\n\nlibrary(clusterProfiler); library(org.Hs.eg.db)\n\nuniverse &lt;- rownames(dds)[rowSums(counts(dds)) &gt; 10]   # ✅ what was testable\n\nego &lt;- enrichGO(gene = sig_genes, universe = universe,     # ⚠️ not the default\n                OrgDb = org.Hs.eg.db, keyType = \"SYMBOL\",\n                ont = \"BP\", pAdjustMethod = \"BH\")\n\nego &lt;- simplify(ego, cutoff = 0.7)     # collapse redundant nested terms",
     "crumbs": [
       "7 · 종합 프로젝트",
       "W13. 해석과 시각화"
@@ -113,8 +113,8 @@
     "objectID": "ko/chapters/part7/w13_visualization.html#w13-s3-2",
     "href": "ko/chapters/part7/w13_visualization.html#w13-s3-2",
     "title": "W13. 해석과 시각화",
-    "section": "2) 순위 목록을 사용하는 GSEA",
-    "text": "2) 순위 목록을 사용하는 GSEA\n✅ 과대표 검정보다 나은 경우가 많습니다. 임계값으로 잘라 낸 목록 대신 전체 순위를 사용하므로 자의적인 cut-off가 없고, 작지만 함께 움직이는 변화를 찾을 수 있습니다.\n\nranks &lt;- res |&gt; filter(!is.na(stat)) |&gt; arrange(desc(stat)) |&gt;\n  select(gene, stat) |&gt; deframe()\n\ngseaGO &lt;- gseGO(ranks, OrgDb = org.Hs.eg.db, keyType = \"SYMBOL\", ont = \"BP\")",
+    "section": "2) 순위 목록으로 GSEA",
+    "text": "2) 순위 목록으로 GSEA\n✅ Over-representation test보다 나은 경우가 많음: 잘라낸 목록이 아니라 전체 순위를 씀 → 자의적인 cut-off x, 작지만 같이 움직이는 변화도 잡힘\n\nranks &lt;- res |&gt; filter(!is.na(stat)) |&gt; arrange(desc(stat)) |&gt;\n  select(gene, stat) |&gt; deframe()\n\ngseaGO &lt;- gseGO(ranks, OrgDb = org.Hs.eg.db, keyType = \"SYMBOL\", ont = \"BP\")",
     "crumbs": [
       "7 · 종합 프로젝트",
       "W13. 해석과 시각화"
@@ -124,8 +124,8 @@
     "objectID": "ko/chapters/part7/w13_visualization.html#w13-s3-3",
     "href": "ko/chapters/part7/w13_visualization.html#w13-s3-3",
     "title": "W13. 해석과 시각화",
-    "section": "3) ⚠️ 그다음 유전자 이름을 쓰십시오",
-    "text": "3) ⚠️ 그다음 유전자 이름을 쓰십시오\n“면역반응이 enrichment되었다”는 거의 모든 염증 조직에 해당할 수 있습니다. “IFI44L, ISG15, MX1이 이끄는 interferon signalling”은 독자가 활용하고 확인할 수 있는 문장입니다.",
+    "section": "3) ⚠️ 그다음 gene 이름을 쓰기",
+    "text": "3) ⚠️ 그다음 gene 이름을 쓰기\n“면역반응 enrichment” = 거의 모든 염증 조직에 해당. “IFI44L, ISG15, MX1이 이끄는 interferon signalling” = 독자가 써먹고, 확인할 수 있는 문장",
     "crumbs": [
       "7 · 종합 프로젝트",
       "W13. 해석과 시각화"
@@ -135,8 +135,8 @@
     "objectID": "ko/chapters/part7/w13_visualization.html#w13-s5-1",
     "href": "ko/chapters/part7/w13_visualization.html#w13-s5-1",
     "title": "W13. 해석과 시각화",
-    "section": "1) 가져온 그림 해부하기",
-    "text": "1) 가져온 그림 해부하기\n짝을 지어 진행합니다. 옆 사람의 그림을 보고 다음을 확인하십시오.\n\n① Caption을 한 문장으로 쓸 수 있습니까?\n② 축이 0에서 시작합니까? 그래야 합니까?\n③ n을 볼 수 있습니까? 개별 환자를 볼 수 있습니까?\n④ Heatmap이 있다면 유전자를 어떻게 선택했고, 행 단위 scaling을 했습니까?\n⑤ 색 척도가 있다면 sequential, diverging, rainbow 중 무엇이며 목적에 맞습니까?\n⑥ 요점을 약화하지 않고 supplement로 옮길 수 있는 panel은 무엇입니까?",
+    "section": "1) 가져온 그림 뜯어보기",
+    "text": "1) 가져온 그림 뜯어보기\n둘씩 짝지어서. 옆 사람 그림을 보고:\n\n① Caption을 한 문장으로 쓸 수 있나?\n② 축이 0에서 시작하나? 그래야 하나?\n③ n이 보이나? 개별 환자가 보이나?\n④ Heatmap이 있다면: gene은 어떻게 골랐고, row scaling 했나?\n⑤ 색 척도가 있다면: sequential, diverging, rainbow 중 뭔가 — 할 일과 맞나?\n⑥ 요점을 약하게 하지 않고 supplement로 보낼 수 있는 panel은?",
     "crumbs": [
       "7 · 종합 프로젝트",
       "W13. 해석과 시각화"
@@ -157,8 +157,8 @@
     "objectID": "ko/chapters/part7/w13_visualization.html#w13-s5-3",
     "href": "ko/chapters/part7/w13_visualization.html#w13-s5-3",
     "title": "W13. 해석과 시각화",
-    "section": "3) 올바른 universe로 enrichment 다시 하기",
-    "text": "3) 올바른 universe로 enrichment 다시 하기\n\n# Run enrichGO twice: default universe, then the expressed-gene universe.\n# How many terms survive? Does the top term change?\n\n💡 2분이면 할 수 있으며 결과를 바꿀 만큼 자주 차이가 나므로 매번 수행할 가치가 있습니다.",
+    "section": "3) 맞는 universe로 enrichment 다시 하기",
+    "text": "3) 맞는 universe로 enrichment 다시 하기\n\n# Run enrichGO twice: default universe, then the expressed-gene universe.\n# How many terms survive? Does the top term change?\n\n💡 2분이면 끝나고, 결과가 바뀌는 일이 자주 있어서 매번 할 가치가 있음",
     "crumbs": [
       "7 · 종합 프로젝트",
       "W13. 해석과 시각화"
@@ -169,7 +169,7 @@
     "href": "ko/chapters/part7/w13_visualization.html#w13-s5-4",
     "title": "W13. 해석과 시각화",
     "section": "4) 다음 주 전까지",
-    "text": "4) 다음 주 전까지\nW14 — 자신의 프로젝트. 한 문장으로 쓴 연구 질문과 현실적으로 확보할 수 있는 데이터에 관한 메모를 가져오십시오.",
+    "text": "4) 다음 주 전까지\nW14 — 나만의 프로젝트. 한 문장짜리 연구 질문 + 현실적으로 구할 수 있는 data에 대한 메모 가져오기",
     "crumbs": [
       "7 · 종합 프로젝트",
       "W13. 해석과 시각화"
@@ -190,8 +190,8 @@
     "objectID": "ko/chapters/part6/w12_network_drug.html#w12-s1-1",
     "href": "ko/chapters/part6/w12_network_drug.html#w12-s1-1",
     "title": "W12. 네트워크 분석과 약물 표적",
-    "section": "1) Network의 구성과 여기서 생기는 편향",
-    "text": "1) Network의 구성과 여기서 생기는 편향\n단백질–단백질 상호작용 network는 출판된 실험의 축적입니다. STRING, BioGRID, IntAct는 문헌을 정리하고 그 문헌으로 학습한 예측을 더한 것입니다.\n실험은 이미 사람들이 연구하는 유전자에 집중됩니다. 따라서 node degree는 출판 논문 수를 따라갑니다.\n\n\n\n그 상관관계는 미미하지 않습니다.\n\n\n\n\n\n\n\n\n중요동기 질문의 답: 전혀 놀랍지 않습니다\n\n\n\n\n\nTP53, EGFR, AKT1은 network 분석이 수행된 거의 모든 질병에서 hub로 나타납니다. 각각 수만 편의 논문이 있으므로 모든 것과 연결됩니다.\n⚠️ 구체적으로 다음을 뜻합니다.\n\n“Hub” 분석은 데이터와 무관하게 같은 유전자를 다시 발견합니다\nNetwork proximity 점수는 많이 연구된 약물과 표적을 선호합니다\n논문이 없는 유전자는 degree ≈ 0이므로 아무리 중요해도 우선순위에 오를 수 없습니다\n\n✅ 대처법:\n\nDegree-matched null과 비교하십시오. 각 node의 degree를 보존하며 순열화하면 “연결이 많음” 자체가 자동으로 유리하지 않게 됩니다\n가능하면 문헌을 모은 network보다 하나의 체계적인 실험에서 만든 network, 예를 들면 단백체 interactome이나 CRISPR screen을 사용하십시오\n✅ 모든 hub 주장과 함께 degree를 보고해 독자가 직접 볼 수 있게 하십시오",
+    "section": "1) 만드는 방식, 그리고 거기서 생기는 편향",
+    "text": "1) 만드는 방식, 그리고 거기서 생기는 편향\nProtein–protein interaction network = 출판된 실험의 누적. STRING, BioGRID, IntAct = 정리된 문헌 + 그 문헌으로 학습한 예측\n실험은 이미 많이 연구되는 gene에 몰림 → node degree = 사실상 논문 수를 따라감\n\n\n\n상관이 미묘한 수준이 아님\n\n\n\n\n\n\n\n\n중요동기 질문의 답: 하나도 안 놀라움\n\n\n\n\n\nTP53, EGFR, AKT1은 network 분석을 해본 거의 모든 질병에서 hub로 나옴. 각각 논문이 수만 편 → 모든 것과 연결돼 있음\n⚠️ 구체적으로는:\n\n“Hub” 분석 = 내 data와 상관없이 같은 gene을 다시 발견\nNetwork proximity 점수 = 많이 연구된 약물·표적에 유리\n논문이 없는 gene = degree ≈ 0 → 아무리 중요해도 우선순위에 못 오름\n\n✅ 대처:\n\nDegree-matched null과 비교 — node별 degree를 유지한 채 permutation → “연결이 많다”가 자동 승리가 되지 않게\n가능하면 문헌을 모은 network 대신 체계적 실험 하나로 만든 network (proteomics interactome, CRISPR screen)\n✅ Hub 주장엔 항상 degree도 같이 보고 → 독자가 직접 보게",
     "crumbs": [
       "6 · 통합 분석",
       "W12. 네트워크 분석과 약물 표적"
@@ -201,8 +201,8 @@
     "objectID": "ko/chapters/part6/w12_network_drug.html#w12-s1-2",
     "href": "ko/chapters/part6/w12_network_drug.html#w12-s1-2",
     "title": "W12. 네트워크 분석과 약물 표적",
-    "section": "2) 그래도 network가 유용한 일",
-    "text": "2) 그래도 network가 유용한 일\n\n✅ Module — 기대보다 자주 상호작용하는 유전자 집합으로, 유전자 수준이 아니라 과정 수준의 결과를 제공합니다\n✅ 결과 연결 — 40개의 GWAS locus가 하나의 pathway로 수렴합니까?\n✅ 기능을 모르는 유전자의 이웃으로부터 기전을 제안할 수 있습니다\n⚠️ 언제나 가설로만 사용하십시오. Edge는 자신의 실험이 아니라 다른 사람들의 실험입니다",
+    "section": "2) 그래도 network가 쓸모 있는 곳",
+    "text": "2) 그래도 network가 쓸모 있는 곳\n\n✅ Module — 기대보다 더 많이 상호작용하는 gene 집합 → gene 하나가 아니라 과정 수준의 결과\n✅ 흩어진 hit 연결 — GWAS locus 40개가 pathway 하나로 모이나?\n✅ 기능 모르는 gene의 이웃을 보고 기전 제안\n⚠️ 언제나 가설로만. Edge는 내 실험이 아니라 남의 실험",
     "crumbs": [
       "6 · 통합 분석",
       "W12. 네트워크 분석과 약물 표적"
@@ -212,8 +212,8 @@
     "objectID": "ko/chapters/part6/w12_network_drug.html#w12-s2-1",
     "href": "ko/chapters/part6/w12_network_drug.html#w12-s2-1",
     "title": "W12. 네트워크 분석과 약물 표적",
-    "section": "1) 유전적 근거가 가장 강한 경로입니다",
-    "text": "1) 유전적 근거가 가장 강한 경로입니다\n사람의 유전적 근거가 있는 표적은 임상 개발에 성공할 가능성이 약 두 배 높습니다. 원리는 단순합니다. 표적을 바꾸는 변이는 사람에서 평생에 걸쳐 수행된 자연적 무작위 실험입니다. 🔗 W3 §3.2의 논리입니다.\n\nPCSK9 — loss-of-function 보인자는 LDL과 심혈관 위험이 낮음 → inhibitor가 효과적임\nIL6R — IL-6 차단을 모방하는 변이가 낮은 관상동맥질환 위험과 연관됨 → tocilizumab의 심혈관 신호",
+    "section": "1) 유전적 근거가 가장 강한 경로",
+    "text": "1) 유전적 근거가 가장 강한 경로\n사람의 유전적 근거가 있는 표적 → 임상 개발 성공 확률 약 2배. 원리는 단순: 표적을 바꾸는 variant = 사람에게서 평생 진행된 자연 무작위 실험 — 🔗 W3 §3.2의 논리\n\nPCSK9 — loss-of-function 보인자는 LDL ↓, 심혈관 위험 ↓ → inhibitor가 효과적\nIL6R — IL-6 차단을 흉내 내는 variant가 관상동맥질환 위험 ↓와 연관 → tocilizumab의 심혈관 signal",
     "crumbs": [
       "6 · 통합 분석",
       "W12. 네트워크 분석과 약물 표적"
@@ -224,7 +224,7 @@
     "href": "ko/chapters/part6/w12_network_drug.html#w12-s2-2",
     "title": "W12. 네트워크 분석과 약물 표적",
     "section": "2) ⚠️ 효과 방향",
-    "text": "2) ⚠️ 효과 방향\n\n\n\n\n\n\n경고이 수업에서 가장 큰 결과를 초래하는 실수\n\n\n\n\n\n위험 allele이 표적 활성을 높인다면 inhibitor가 필요합니다. 활성을 낮춘다면 표적은 보호 역할을 할 수 있으며, 이를 억제하면 환자가 더 나빠질 수 있습니다.\n두 가지 문제가 있습니다.\n\n⚠️ 비일관성. 위험 allele이 유전자 발현을 낮추지만 환자에서는 같은 유전자가 높게 발현될 수 있습니다. 흔히 손상된 보호 반응이므로 치료 방향은 발현 데이터가 암시하는 것과 반대입니다\n⚠️ 조직 특이성. 방향은 조직마다 다를 수 있습니다. 질병 과정이 일어나는 조직이 관련 조직입니다(🔗 W5, 🔗 W7)\n\n→ ✅ 환자 조직의 fold change가 아니라 유전학과 MR을 함께 사용해 방향을 정하십시오.",
+    "text": "2) ⚠️ 효과 방향\n\n\n\n\n\n\n경고이 수업에서 결과가 가장 나쁜 실수\n\n\n\n\n\n위험 allele이 표적 활성을 올리면 → inhibitor. 낮추면 → 표적이 보호 역할일 수 있음 → 억제하면 환자가 더 나빠짐\n두 가지 복병:\n\n⚠️ 비일관성. 위험 allele이 gene 발현을 낮추는데, 환자 조직에선 그 gene이 높게 나올 수 있음. 대개 손상된 보호 반응 → 치료 방향은 발현 data가 시사하는 것과 반대\n⚠️ 조직 특이성. 방향이 조직마다 다를 수 있음. 봐야 할 조직 = 질병 과정이 실제로 일어나는 조직 (🔗 W5, 🔗 W7)\n\n→ ✅ 방향은 환자 조직의 fold change가 아니라 유전학 + MR로 정하기",
     "crumbs": [
       "6 · 통합 분석",
       "W12. 네트워크 분석과 약물 표적"
@@ -235,7 +235,7 @@
     "href": "ko/chapters/part6/w12_network_drug.html#w12-s2-3",
     "title": "W12. 네트워크 분석과 약물 표적",
     "section": "3) Signature reversal과 network proximity",
-    "text": "3) Signature reversal과 network proximity\n\nSignature reversal(CMap, LINCS) — 발현 signature가 질병 signature와 음의 상관관계를 갖는 약물을 찾습니다. ⚠️ 참조 profile은 높은 농도로 처리한 세포주에서 얻습니다. 후보 생성에는 유용하지만 근거는 아닙니다\nNetwork proximity — 약물 표적이 질병 module과 가까운지 묻습니다. ⚠️ §1의 모든 편향을 물려받으므로 degree-matched null과 비교해야만 의미가 있습니다",
+    "text": "3) Signature reversal과 network proximity\n\nSignature reversal (CMap, LINCS) — 질병 signature와 반대(음의 상관)인 발현 signature를 가진 약물 찾기. ⚠️ 참조 profile = 고농도로 처리한 cell line. 후보 만들기엔 유용, 근거는 아님\nNetwork proximity — 약물 표적이 질병 module과 가까운가? ⚠️ §1의 편향을 전부 물려받음 → degree-matched null과 비교해야만 의미 있음",
     "crumbs": [
       "6 · 통합 분석",
       "W12. 네트워크 분석과 약물 표적"
@@ -245,8 +245,8 @@
     "objectID": "ko/chapters/part6/w12_network_drug.html#w12-s4-1",
     "href": "ko/chapters/part6/w12_network_drug.html#w12-s4-1",
     "title": "W12. 네트워크 분석과 약물 표적",
-    "section": "1) 코드 없이 살아남은 유전자 검토하기",
-    "text": "1) 코드 없이 살아남은 유전자 검토하기\nOpen Targets → 선택한 유전자 → target profile로 이동하십시오.\n\n① 약물 표적 가능성 — 저분자입니까, 항체입니까? 적응증과 무관하게 어느 임상 단계까지 갔습니까?\n② 안전성 — 특정 장기의 독성 경고가 있습니까?\n③ 알려진 약물 — 어떤 질환에서든 이미 승인된 약물이 있습니까?\n④ gnomAD → LOEUF를 확인하십시오. 이 유전자는 loss of function을 견딜 수 있습니까?\n⑤ Open Targets Genetics → lead variant의 PheWAS를 확인하십시오. 무엇에 또 영향을 줍니까?\n\n✅ 답을 다섯 문장으로 작성하십시오. 이것으로 §3의 checklist를 완료했습니다.",
+    "section": "1) 코드 없이: 살아남은 gene 검토",
+    "text": "1) 코드 없이: 살아남은 gene 검토\nOpen Targets → 내 gene → target profile\n\n① Tractability — small molecule? 항체? 적응증 상관없이 어느 임상 단계까지 갔나?\n② 안전성 — 특정 장기 독성 경고가 있나?\n③ 알려진 약물 — 어떤 질환이든 이미 승인된 약이 있나?\n④ gnomAD → LOEUF. LoF를 견디는 gene인가?\n⑤ Open Targets → lead variant 페이지 → 그 variant가 연관된 다른 형질(= PheWAS). 또 뭐에 영향을 주나?\n\n✅ 답을 다섯 문장으로 쓰기. 그러면 §3 checklist 완료",
     "crumbs": [
       "6 · 통합 분석",
       "W12. 네트워크 분석과 약물 표적"
@@ -256,8 +256,8 @@
     "objectID": "ko/chapters/part6/w12_network_drug.html#w12-s4-2",
     "href": "ko/chapters/part6/w12_network_drug.html#w12-s4-2",
     "title": "W12. 네트워크 분석과 약물 표적",
-    "section": "2) 작은 network를 만들고 스스로 점검하기",
-    "text": "2) 작은 network를 만들고 스스로 점검하기\n\nlibrary(STRINGdb); library(igraph); library(tidyverse)\n\nsdb &lt;- STRINGdb$new(version = \"12\", species = 9606, score_threshold = 700)\nmapped &lt;- sdb$map(data.frame(gene = my_genes), \"gene\", removeUnmappedRows = TRUE)\ng &lt;- sdb$get_subnetwork(mapped$STRING_id) |&gt; igraph::simplify()\n\ndeg &lt;- sort(degree(g), decreasing = TRUE)\nhead(deg, 10)\n\n⚠️ 이제 보통 빠지는 단계를 수행하십시오.\n\n# Is your \"hub\" just a well-studied gene?\n# Fetch PubMed counts for the same genes and correlate with degree.\n# real PubMed counts — scripts/download_public_data.R fetches these\npubs &lt;- readRDS(here::here(\"rawdata\", \"pubmed_counts.rds\"))   # gene → n papers\ncor(log10(pubs[names(deg)] + 1), deg, use = \"complete\", method = \"spearman\")\n\n💡 문헌에서 만든 대부분의 network에서 이 상관성은 강합니다. 이를 보고하면 hub 주장이 자동적인 결론이 아니라 신뢰할 수 있는 주장이 됩니다.",
+    "section": "2) 작은 network 만들고 스스로 점검",
+    "text": "2) 작은 network 만들고 스스로 점검\n\nlibrary(STRINGdb); library(igraph); library(tidyverse)\n\nsdb &lt;- STRINGdb$new(version = \"12\", species = 9606, score_threshold = 700)\nmapped &lt;- sdb$map(data.frame(gene = my_genes), \"gene\", removeUnmappedRows = TRUE)\ng &lt;- sdb$get_subnetwork(mapped$STRING_id) |&gt; igraph::simplify()\n\ndeg &lt;- sort(degree(g), decreasing = TRUE)\nhead(deg, 10)\n\n⚠️ 이제 보통 빠지는 단계:\n\n# Is your \"hub\" just a well-studied gene?\n# Fetch PubMed counts for the same genes and correlate with degree.\n# real PubMed counts — scripts/download_public_data.R fetches these\npubs &lt;- readRDS(here::here(\"rawdata\", \"pubmed_counts.rds\"))   # gene → n papers\ncor(log10(pubs[names(deg)] + 1), deg, use = \"complete\", method = \"spearman\")\n\n💡 문헌 기반 network 대부분에서 이 상관이 강하게 나옴. 같이 보고하면 → hub 주장이 “당연한 결과”가 아니라 믿을 만한 주장이 됨",
     "crumbs": [
       "6 · 통합 분석",
       "W12. 네트워크 분석과 약물 표적"
@@ -268,7 +268,7 @@
     "href": "ko/chapters/part6/w12_network_drug.html#w12-s4-3",
     "title": "W12. 네트워크 분석과 약물 표적",
     "section": "3) Degree-matched null",
-    "text": "3) Degree-matched null\n\nobserved &lt;- mean(distances(g, v = disease_genes, to = drug_targets))\n\nnull &lt;- replicate(1000, {\n  rw &lt;- sample_degseq(degree(g), method = \"vl\")   # same degrees, rewired edges\n  mean(distances(rw, v = disease_genes, to = drug_targets))\n})\n\ncat(\"observed:\", round(observed, 2), \" null mean:\", round(mean(null), 2), \"\\n\")\n\n✅ 관측된 proximity가 degree-matched null보다 분명하게 좋지 않다면 측정한 것은 중요도가 아니라 인기도입니다.",
+    "text": "3) Degree-matched null\n\nobserved &lt;- mean(distances(g, v = disease_genes, to = drug_targets))\n\nnull &lt;- replicate(1000, {\n  rw &lt;- sample_degseq(degree(g), method = \"vl\")   # same degrees, rewired edges\n  mean(distances(rw, v = disease_genes, to = drug_targets))\n})\n\ncat(\"observed:\", round(observed, 2), \" null mean:\", round(mean(null), 2), \"\\n\")\n\n✅ 관측된 proximity가 degree-matched null보다 확실히 낫지 않다면 → 잰 건 중요도가 아니라 인기도",
     "crumbs": [
       "6 · 통합 분석",
       "W12. 네트워크 분석과 약물 표적"
@@ -279,7 +279,7 @@
     "href": "ko/chapters/part6/w12_network_drug.html#w12-s4-4",
     "title": "W12. 네트워크 분석과 약물 표적",
     "section": "4) 다음 주 전까지",
-    "text": "4) 다음 주 전까지\nW13 — 해석과 시각화. 자신의 연구 또는 읽고 있는 논문에서 그림 하나를 가져오십시오. 함께 해부해 봅니다.",
+    "text": "4) 다음 주 전까지\nW13 — 해석과 시각화. 내 연구나 읽고 있는 논문에서 그림 하나 가져오기. 같이 뜯어봄",
     "crumbs": [
       "6 · 통합 분석",
       "W12. 네트워크 분석과 약물 표적"
@@ -300,8 +300,8 @@
     "objectID": "ko/chapters/part6/w11_multiomics.html#w11-s1-1",
     "href": "ko/chapters/part6/w11_multiomics.html#w11-s1-1",
     "title": "W11. 다중오믹스 통합",
-    "section": "1) 순차 통합 — 각 층이 이전 결과를 걸러 냅니다",
-    "text": "1) 순차 통합 — 각 층이 이전 결과를 걸러 냅니다\n이미 통합이라고 부르지 않았을 뿐 이 과정을 수행했습니다. W3에서 locus를 좁히고, W5에서 세포 유형을 특정했으며, W9에서 단백질이 존재하는지 물었습니다. 각 층이 후보를 제거합니다.\n\n✅ 각 분석은 해당 층이 있는 검체만 사용하므로 모든 단계에서 전체 n을 유지합니다\n✅ 각 단계를 독립적으로 해석할 수 있고 Methods section에서 방어할 수 있습니다\n✅ 서로 다른 코호트에서 얻은 층도 사용할 수 있습니다. 공개 eQTL 데이터, 출판된 atlas, 자신의 검체를 함께 활용할 수 있습니다\n⚠️ 여러 층을 함께 보아야만 존재하는 pattern은 발견할 수 없습니다",
+    "section": "1) Sequential — 층마다 앞 결과를 걸러냄",
+    "text": "1) Sequential — 층마다 앞 결과를 걸러냄\n이미 해봤음, 통합이라고 안 불렀을 뿐: W3에서 locus를 좁히고, W5에서 cell type을 특정하고, W9에서 protein이 실제로 있는지 물음. 층마다 후보가 줄어듦\n\n✅ 분석마다 그 층이 있는 sample만 씀 → 단계마다 전체 n 유지\n✅ 단계마다 따로 해석 가능, Methods에서 방어 가능\n✅ 층이 서로 다른 cohort에서 와도 됨 — 공개 eQTL data, 출판된 atlas, 내 sample\n⚠️ 층을 가로질러서만 보이는 pattern은 못 찾음",
     "crumbs": [
       "6 · 통합 분석",
       "W11. 다중오믹스 통합"
@@ -311,8 +311,8 @@
     "objectID": "ko/chapters/part6/w11_multiomics.html#w11-s1-2",
     "href": "ko/chapters/part6/w11_multiomics.html#w11-s1-2",
     "title": "W11. 다중오믹스 통합",
-    "section": "2) 공동 통합 — 여러 층을 함께 모형화합니다",
-    "text": "2) 공동 통합 — 여러 층을 함께 모형화합니다\nMOFA+, mixOmics/DIABLO, iCluster와 같은 방법은 여러 층의 변이를 동시에 설명하는 잠재 factor를 찾습니다.\n\n✅ 어느 한 층만으로는 보이지 않는 조율된 program을 찾을 수 있습니다\n✅ 비지도 방식이므로 질문하지 않았던 구조, 예를 들면 환자 subtype을 발견할 수 있습니다\n⚠️ 모든 층을 측정한 동일한 검체가 필요합니다\n⚠️ 결과는 factor이지 기전이 아닙니다\n\n💡 동기 질문의 답: 대개 처음부터 하나의 모형에 넣지는 않습니다. 순차적 우선순위화는 대부분의 임상 질문에 답하고 n을 유지하며, 심사자가 따라갈 수 있는 그림을 만듭니다. 여러 층에 걸친 program이 있다고 구체적으로 의심하거나 비지도 환자 subtype을 찾고 싶을 때 공동 모형을 사용하십시오.",
+    "section": "2) Joint — 층을 한꺼번에 modelling",
+    "text": "2) Joint — 층을 한꺼번에 modelling\nMOFA+, mixOmics/DIABLO, iCluster 같은 방법 = 여러 층의 변이를 동시에 설명하는 latent factor를 찾음\n\n✅ 어느 한 층만으론 안 보이는, 층끼리 맞물린 program을 찾을 수 있음\n✅ Unsupervised → 묻지 않았던 구조(환자 subtype)까지 찾을 수 있음\n⚠️ 모든 층을 잰 같은 sample이 필요\n⚠️ 결과 = factor이지 기전이 아님\n\n💡 동기 질문의 답: 대개 처음부터는 x. Sequential 우선순위화로 대부분의 임상 질문에 답할 수 있고, n도 지키고, reviewer가 따라올 수 있는 그림이 나옴. Joint model은 층 간 program을 구체적으로 의심하거나 unsupervised 환자 subtype이 필요할 때 꺼내기",
     "crumbs": [
       "6 · 통합 분석",
       "W11. 다중오믹스 통합"
@@ -323,7 +323,7 @@
     "href": "ko/chapters/part6/w11_multiomics.html#w11-s2-1",
     "title": "W11. 다중오믹스 통합",
     "section": "1) 수렴이 강한 근거인 이유",
-    "text": "1) 수렴이 강한 근거인 이유\n각 층에는 고유한 거짓양성이 있으며, 이들은 대체로 서로 독립적입니다. eQTL colocalisation artifact는 단백체학 artifact와 무관합니다. 다섯 개의 독립적인 filter를 모두 통과한 유전자가 서로 다른 다섯 번의 우연일 가능성은 낮습니다.",
+    "text": "1) 수렴이 강한 근거인 이유\n층마다 거짓양성이 따로 있고, 이들은 대체로 독립적: eQTL colocalisation artifact ≠ proteomics artifact. 독립적인 filter 5개를 다 통과한 gene = 우연이 다섯 번 겹쳤을 가능성 낮음",
     "crumbs": [
       "6 · 통합 분석",
       "W11. 다중오믹스 통합"
@@ -333,8 +333,8 @@
     "objectID": "ko/chapters/part6/w11_multiomics.html#w11-s2-2",
     "href": "ko/chapters/part6/w11_multiomics.html#w11-s2-2",
     "title": "W11. 다중오믹스 통합",
-    "section": "2) ⚠️ 부재가 근거가 아닌 이유",
-    "text": "2) ⚠️ 부재가 근거가 아닌 이유\n\n\n\n\n\n\n중요끊임없이 잘못 해석되는 비대칭성\n\n\n\n\n\n어떤 열의 ✕는 거의 언제나 “올바른 맥락에서 측정하지 못했다”는 뜻이지 “측정했지만 없었다”는 뜻이 아닙니다.\n\n⚠️ eQTL panel은 bulk 조직에서 만들어집니다. 드문 세포 유형에 한정된 효과는 보이지 않습니다\n⚠️ 혈장 단백체학은 abundance가 낮은 단백질을 전혀 측정하지 못합니다(🔗 W9 §3)\n⚠️ 일부 유전자는 측정할 단백질 산물을 만들지 않습니다\n⚠️ MR에는 강한 도구변수가 필요합니다. 도구변수가 없는 유전자는 검정할 수 없으며, 이는 검정했지만 실패한 것과 다릅니다\n\n→ ✅ 수렴은 양성 근거로 보고하십시오. 빈칸은 결과에서 한 문장으로 coverage limitation이라고 보고하십시오.\n⚠️ 이로부터 생기는 실패도 있습니다. 우선순위화 pipeline은 체계적으로 잘 측정되고 잘 연구된 유전자를 선호합니다. 같은 편향이 W12에서 network hub의 형태로 다시 나타납니다.",
+    "section": "2) ⚠️ 없다 ≠ 근거",
+    "text": "2) ⚠️ 없다 ≠ 근거\n\n\n\n\n\n\n중요끊임없이 잘못 읽히는 비대칭\n\n\n\n\n\n한 열의 ✕ = 거의 항상 “맞는 맥락에서 측정 못 함”이지 “측정했는데 없음”이 아님\n\n⚠️ eQTL panel은 bulk 조직 기반 → 드문 cell type에만 있는 효과는 안 보임\n⚠️ Plasma proteomics는 양 적은 protein을 아예 놓침 (🔗 W9 §3)\n⚠️ 잴 protein 산물이 없는 gene도 있음\n⚠️ MR엔 강한 instrument가 필요. Instrument 없는 gene = 검정 불가 ≠ 검정해서 실패\n\n→ ✅ 수렴은 양성 근거로 보고. 빈칸은 결과에 한 문장으로 coverage limitation이라고 보고\n⚠️ 그리고 여기서 생기는 실패: 우선순위화 pipeline은 체계적으로 잘 측정되고 잘 연구된 gene을 선호. 같은 편향이 W12에서 network hub로 다시 등장",
     "crumbs": [
       "6 · 통합 분석",
       "W11. 다중오믹스 통합"
@@ -344,8 +344,8 @@
     "objectID": "ko/chapters/part6/w11_multiomics.html#w11-s3-1",
     "href": "ko/chapters/part6/w11_multiomics.html#w11-s3-1",
     "title": "W11. 다중오믹스 통합",
-    "section": "1) Factor란 무엇인가?",
-    "text": "1) Factor란 무엇인가?\n검체가 달라지는 잠재 축과 함께, 각 층의 어떤 feature가 그 축을 만드는지 보여 주는 loading입니다. 분산 설명 그림은 각 factor가 각 층의 변이를 얼마나 설명하는지 보여 줍니다.",
+    "section": "1) Factor란?",
+    "text": "1) Factor란?\nSample들이 달라지는 잠재 축 + 어느 층의 어느 feature가 그 축을 만드는지 알려주는 loading. Variance-explained plot = factor마다 각 층의 변이를 얼마나 설명하나",
     "crumbs": [
       "6 · 통합 분석",
       "W11. 다중오믹스 통합"
@@ -355,8 +355,8 @@
     "objectID": "ko/chapters/part6/w11_multiomics.html#w11-s3-2",
     "href": "ko/chapters/part6/w11_multiomics.html#w11-s3-2",
     "title": "W11. 다중오믹스 통합",
-    "section": "2) ⚠️ 해석 전에 factor를 주석하십시오",
-    "text": "2) ⚠️ 해석 전에 factor를 주석하십시오\n\n\n\n\n\n\n경고Factor 1은 거의 언제나 기술 요인입니다\n\n\n\n\n\n실제 코호트에서 가장 강한 공통 변이 원인은 질병인 경우가 드뭅니다. Batch, RNA integrity, sex, age일 가능성이 높습니다.\n✅ 다음 순서로 주석하십시오.\n\n기술 요인 — batch, run date, RIN/DV200, operator, storage time\n인구학적 요인 — age, sex, BMI, ancestry\n임상 교란요인 — medication, comorbidity, disease duration\n그다음에야 — disease status 또는 outcome\n\n⚠️ Factor가 batch와 r = 0.8, disease와 r = 0.3의 상관성을 가진다면 이는 질병과 약간 교락된 batch factor입니다. 이를 “disease signature”라고 보고하는 것은 실제로 자주 발생하는 오류입니다.\n💡 여러 층에서 loading이 나타나는 factor는 한 층에만 국한된 factor보다 생물학적일 가능성이 높습니다. 그러나 먼저 1–3단계에서 아무것도 나오지 않아야 합니다.",
+    "section": "2) ⚠️ 해석 전에 factor부터 annotate",
+    "text": "2) ⚠️ 해석 전에 factor부터 annotate\n\n\n\n\n\n\n경고Factor 1은 거의 항상 기술적\n\n\n\n\n\n실제 cohort에서 가장 강한 공통 변이 원인 = 질병인 경우 드묾. Batch, RNA integrity, sex, age일 때가 많음\n✅ 순서대로 annotate:\n\n기술 — batch, run date, RIN/DV200, operator, storage time\n인구학 — age, sex, BMI, ancestry\n임상 교란 — medication, comorbidity, disease duration\n그다음에야 — disease status나 outcome\n\n⚠️ Factor가 batch와 r = 0.8, disease와 r = 0.3 → disease와 살짝 교락된 batch factor. 이걸 “disease signature”로 보고하는 건 실제로 흔한 오류\n💡 여러 층에 loading이 걸린 factor가 한 층에만 걸린 것보다 biology일 가능성이 높음 — 단, 1–3단계에서 아무것도 안 나온 뒤에",
     "crumbs": [
       "6 · 통합 분석",
       "W11. 다중오믹스 통합"
@@ -367,7 +367,7 @@
     "href": "ko/chapters/part6/w11_multiomics.html#w11-s5-1",
     "title": "W11. 다중오믹스 통합",
     "section": "1) 우선순위화 표 만들기",
-    "text": "1) 우선순위화 표 만들기\n진료하는 질병에서 locus 하나를 선택하고 브라우저에서 §2의 표를 직접 채우십시오.\n\neQTL — Open Targets Genetics 또는 GTEx\n세포 유형 — CELLxGENE\n단백질 — Human Protein Atlas\n방향 — MR 결과는 IEU OpenGWAS\n약물 표적 가능성 — Open Targets의 target profile\n\n✅ 후보 유전자 하나가 한 행, 오믹스 층 하나가 한 열입니다. 오후 한 번이면 만들 수 있으며 실제 논문 그림이 될 수 있습니다.",
+    "text": "1) 우선순위화 표 만들기\n진료하는 질환의 locus 하나 골라서, §2의 표를 브라우저로 직접 채우기:\n\neQTL / locus-to-gene — Open Targets Platform (구 Open Targets Genetics) 또는 GTEx\nCell type — CELLxGENE\nProtein — Human Protein Atlas\n방향 — MR 결과는 IEU OpenGWAS\nTractability — Open Targets의 target profile\n\n✅ 후보 gene 하나 = 한 행, 층 하나 = 한 열. 오후 한나절이면 되고, 진짜 논문 figure가 됨",
     "crumbs": [
       "6 · 통합 분석",
       "W11. 다중오믹스 통합"
@@ -377,8 +377,8 @@
     "objectID": "ko/chapters/part6/w11_multiomics.html#w11-s5-2",
     "href": "ko/chapters/part6/w11_multiomics.html#w11-s5-2",
     "title": "W11. 다중오믹스 통합",
-    "section": "2) 교집합부터 확인하기",
-    "text": "2) 교집합부터 확인하기\n\nlibrary(tidyverse); library(UpSetR)\n\nhave &lt;- meta |&gt; transmute(\n  clinical   = 1L,\n  genotype   = as.integer(!is.na(geno_id)),\n  rna        = as.integer(!is.na(rna_id)),\n  proteomics = as.integer(!is.na(prot_id)))\n\nupset(as.data.frame(have), order.by = \"freq\")\ncat(\"complete cases:\", sum(rowSums(have) == ncol(have)), \"\\n\")   # ⚠️ this is your n",
+    "section": "2) 교집합부터 확인",
+    "text": "2) 교집합부터 확인\n\nlibrary(tidyverse); library(UpSetR)\n\nhave &lt;- meta |&gt; transmute(\n  clinical   = 1L,\n  genotype   = as.integer(!is.na(geno_id)),\n  rna        = as.integer(!is.na(rna_id)),\n  proteomics = as.integer(!is.na(prot_id)))\n\nupset(as.data.frame(have), order.by = \"freq\")\ncat(\"complete cases:\", sum(rowSums(have) == ncol(have)), \"\\n\")   # ⚠️ this is your n",
     "crumbs": [
       "6 · 통합 분석",
       "W11. 다중오믹스 통합"
@@ -388,8 +388,8 @@
     "objectID": "ko/chapters/part6/w11_multiomics.html#w11-s5-3",
     "href": "ko/chapters/part6/w11_multiomics.html#w11-s5-3",
     "title": "W11. 다중오믹스 통합",
-    "section": "3) MOFA와 factor 주석",
-    "text": "3) MOFA와 factor 주석\n\nlibrary(MOFA2)\n\nmofa &lt;- create_mofa(list(RNA = rna_mat, Protein = prot_mat, Methyl = meth_mat)) |&gt;\n  prepare_mofa() |&gt; run_mofa()\n\nplot_variance_explained(mofa)          # the figure above\n\n# ⚠️ the step that must come next\nZ &lt;- get_factors(mofa)[[1]]\ncovars &lt;- meta |&gt; select(batch, RIN, age, sex, bmi, condition)\n\ncors &lt;- sapply(covars, \\(v) apply(Z, 2, \\(f) {\n  if (is.numeric(v)) abs(cor(f, v, use = \"pairwise\")) else summary(aov(f ~ factor(v)))[[1]][1, \"F value\"]\n}))\nround(cors, 2)     # look here before you look at biology",
+    "section": "3) MOFA, 그리고 factor annotation",
+    "text": "3) MOFA, 그리고 factor annotation\n\nlibrary(MOFA2)\n\nmofa &lt;- create_mofa(list(RNA = rna_mat, Protein = prot_mat, Methyl = meth_mat)) |&gt;\n  prepare_mofa() |&gt; run_mofa()\n\nplot_variance_explained(mofa)          # the figure above\n\n# ⚠️ the step that must come next\nZ &lt;- get_factors(mofa)[[1]]\ncovars &lt;- meta |&gt; select(batch, RIN, age, sex, bmi, condition)\n\ncors &lt;- sapply(covars, \\(v) apply(Z, 2, \\(f) {\n  if (is.numeric(v)) abs(cor(f, v, use = \"pairwise\")) else summary(aov(f ~ factor(v)))[[1]][1, \"F value\"]\n}))\nround(cors, 2)     # look here before you look at biology",
     "crumbs": [
       "6 · 통합 분석",
       "W11. 다중오믹스 통합"
@@ -400,7 +400,7 @@
     "href": "ko/chapters/part6/w11_multiomics.html#w11-s5-4",
     "title": "W11. 다중오믹스 통합",
     "section": "4) ✅ 한 가지 바꾸기",
-    "text": "4) ✅ 한 가지 바꾸기\n\n# Re-run MOFA with the batch effect removed from each layer first.\n# Does Factor 1 disappear? Does anything else change rank?\n\n💡 Batch를 제거했을 때 factor의 순서가 바뀐다면 원래 결과에서 batch가 차지한 비중을 알려 줍니다. 심사에서 지적되기 전에 알아 둘 가치가 있는 수치입니다.",
+    "text": "4) ✅ 한 가지 바꾸기\n\n# Re-run MOFA with the batch effect removed from each layer first.\n# Does Factor 1 disappear? Does anything else change rank?\n\n💡 Batch를 빼고 돌렸을 때 factor 순위가 뒤섞인다면 → 원래 결과 중 batch가 얼마였는지 알려주는 것. Review에서 지적받기 전에 알아둘 만한 숫자",
     "crumbs": [
       "6 · 통합 분석",
       "W11. 다중오믹스 통합"
@@ -411,7 +411,7 @@
     "href": "ko/chapters/part6/w11_multiomics.html#w11-s5-5",
     "title": "W11. 다중오믹스 통합",
     "section": "5) 다음 주 전까지",
-    "text": "5) 다음 주 전까지\nW12 — network와 약물 표적. §5.1에서 만든 우선순위화 표를 가져오십시오. 살아남은 유전자가 약물 표적이 될 수 있는지 살펴봅니다.",
+    "text": "5) 다음 주 전까지\nW12 — network와 약물 표적. §5.1의 우선순위화 표 가져오기. 살아남은 gene이 약물 표적이 될 수 있는지 봄",
     "crumbs": [
       "6 · 통합 분석",
       "W11. 다중오믹스 통합"
@@ -1566,7 +1566,7 @@
     "href": "ko/chapters/part2/w4_prs.html#w4-s7-2",
     "title": "W4. 다유전자 위험 점수(PRS)",
     "section": "2) 최소한의 코드: score를 임상 그림으로 바꾸기",
-    "text": "2) 최소한의 코드: score를 임상 그림으로 바꾸기\nprs_scores.tsv : 미리 계산한 4만명 PRS + 임상정보 IID, PRS, disease, age, sex⚠️ 개인 genotype은 공유할 수 없으므로 시뮬레이션 데이터임!\n\nlibrary(tidyverse)\nlibrary(here)\n\nprs &lt;- read_tsv(here(\"rawdata\", \"prs_scores.tsv\"))\n\n# Standardise so the score reads as SD units — always do this before reporting\nprs &lt;- prs |&gt; mutate(PRS_z = as.numeric(scale(PRS)))\n\nClinical model을 넘어서는 incremental value:\n\nlibrary(pROC)\n\nm_clin &lt;- glm(disease ~ age + sex,         data = prs, family = binomial)\nm_prs  &lt;- glm(disease ~ age + sex + PRS_z, data = prs, family = binomial)\n\nroc_clin &lt;- roc(prs$disease, predict(m_clin, type = \"response\"))\nroc_prs  &lt;- roc(prs$disease, predict(m_prs,  type = \"response\"))\n\nroc.test(roc_clin, roc_prs)   # ← the number that belongs in the abstract\n\n정직한 reference와 비교한 decile별 risk:\n\nby_decile &lt;- prs |&gt;\n  mutate(decile = ntile(PRS_z, 10)) |&gt;\n  group_by(decile) |&gt;\n  summarise(n = n(), cases = sum(disease), .groups = \"drop\") |&gt;\n  mutate(risk = cases / n,\n         OR_vs_middle = (risk / (1 - risk)) /\n                        (risk[decile == 5] / (1 - risk[decile == 5])))\n\nggplot(by_decile, aes(decile, OR_vs_middle)) +\n  geom_col(fill = \"#185FA5\") +\n  geom_hline(yintercept = 1, linetype = \"dashed\") +\n  scale_x_continuous(breaks = 1:10) +\n  labs(x = \"PRS decile\", y = \"OR vs middle decile\",\n       title = \"Risk by PRS decile — referenced to the middle, not the bottom\") +\n  theme_minimal()\n\n✅ 이제 한 가지만 바꿔보기. Reference를 decile == 1로 바꾸어 다시 실행하고 top bar를 비교\n\n\n\n\n\n\n힌트직접 만들어보고 싶다면\n\n\n\n\n\n이 수업의 필수 내용은 아니지만 참고.\n\nbigsnpr(R) — C+T와 LDpred2 구현; privefl.github.io/bigsnpr\nPRSice-2 — command-line에서 threshold 자동 tuning; prsice.info\nPRS-CSx — Python 기반 multi-ancestry 방법; github.com/getian107/PRScsx\n\n⚠️ 각 방법에는 target ancestry와 일치하는 LD reference panel이 필요함. 임상 project가 어려운 이유…",
+    "text": "2) 최소한의 코드: score를 임상 그림으로 바꾸기\nprs_scores.tsv : 미리 계산한 4만명 PRS + 임상정보 IID, PRS, disease, age, sex⚠️ 개인 genotype은 공유할 수 없으므로 시뮬레이션 데이터임!\n\nlibrary(tidyverse)\nlibrary(here)\n\nprs &lt;- read_tsv(here(\"rawdata\", \"prs_scores.tsv\"))\n\n# Standardise so the score reads as SD units — always do this before reporting\nprs &lt;- prs |&gt; mutate(PRS_z = as.numeric(scale(PRS)))\n\nClinical model을 넘어서는 incremental value:\n\nlibrary(pROC)\n\nm_clin &lt;- glm(disease ~ age + sex,         data = prs, family = binomial)\nm_prs  &lt;- glm(disease ~ age + sex + PRS_z, data = prs, family = binomial)\n\nroc_clin &lt;- roc(prs$disease, predict(m_clin, type = \"response\"))\nroc_prs  &lt;- roc(prs$disease, predict(m_prs,  type = \"response\"))\n\nroc.test(roc_clin, roc_prs)   # ← the number that belongs in the abstract\n\n정직한 reference와 비교한 decile별 risk:\n\nby_decile &lt;- prs |&gt;\n  mutate(decile = ntile(PRS_z, 10)) |&gt;\n  group_by(decile) |&gt;\n  summarise(n = n(), cases = sum(disease), .groups = \"drop\") |&gt;\n  mutate(risk = cases / n,\n         OR_vs_middle = (risk / (1 - risk)) /\n                        (risk[decile == 5] / (1 - risk[decile == 5])))\n\nggplot(by_decile, aes(decile, OR_vs_middle)) +\n  geom_col(fill = \"#185FA5\") +\n  geom_hline(yintercept = 1, linetype = \"dashed\") +\n  scale_x_continuous(breaks = 1:10) +\n  labs(x = \"PRS decile\", y = \"OR vs middle decile\",\n       title = \"Risk by PRS decile — referenced to the middle, not the bottom\") +\n  theme_minimal()\n\n✅ 이제 한 가지만 바꿔보기. Reference를 decile == 1로 바꾸어 다시 실행하고 top bar를 비교\n\n\n\n\n\n\n힌트직접 만들어보고 싶다면\n\n\n\n\n\n이 수업의 필수 내용은 아니지만 참고.\n\nbigsnpr(R) — C+T와 LDpred2 구현; privefl.github.io/bigsnpr\nPRSice-2 — command-line에서 threshold 자동 tuning; choishingwan.github.io/PRSice\nPRS-CSx — Python 기반 multi-ancestry 방법; github.com/getian107/PRScsx\n\n⚠️ 각 방법에는 target ancestry와 일치하는 LD reference panel이 필요함. 임상 project가 어려운 이유…",
     "crumbs": [
       "2 · 임상유전체학",
       "W4. 다유전자 위험 점수(PRS)"
@@ -1599,7 +1599,7 @@
     "href": "ko/chapters/part2/w3_gwas.html#w3-s1-1",
     "title": "W3. GWAS와 Post-GWAS",
     "section": "1) 이미 진료에 영향을 주는 다섯 가지 방식",
-    "text": "1) 이미 진료에 영향을 주는 다섯 가지 방식\n\nDrug target validation — 사람의 유전적 근거가 있는 target은 승인까지 살아남을 가능성이 약 두 배 높습니다\nDisease subtyping — 같은 ICD code라도 유전적 구조와 생물학이 다를 수 있습니다\nRisk stratification — 예방의학에서의 polygenic score(🔗 W4 영문)\nShared aetiology — genetic correlation은 두 진단이 함께 나타나는 이유를 정량화합니다\nCausal inference — Mendelian randomization은 RCT를 수행하지 않고 인과성을 검정합니다\n\n💡 최근 Nature Medicine 호를 아무거나 펼쳐보세요. 임상적 주장 아래로 인용을 세 개쯤 따라가면 GWAS 데이터가 나올 가능성이 높습니다.",
+    "text": "1) 이미 진료에 영향을 주는 다섯 가지 방식\n\nDrug target validation — 사람의 유전적 근거가 있는 target은 승인까지 살아남을 가능성이 약 두 배 높습니다\nDisease subtyping — 같은 ICD code라도 유전적 구조와 생물학이 다를 수 있습니다\nRisk stratification — 예방의학에서의 polygenic score(🔗 W4)\nShared aetiology — genetic correlation은 두 진단이 함께 나타나는 이유를 정량화합니다\nCausal inference — Mendelian randomization은 RCT를 수행하지 않고 인과성을 검정합니다\n\n💡 최근 Nature Medicine 호를 아무거나 펼쳐보세요. 임상적 주장 아래로 인용을 세 개쯤 따라가면 GWAS 데이터가 나올 가능성이 높습니다.",
     "crumbs": [
       "2 · 임상유전체학",
       "W3. GWAS와 Post-GWAS"
@@ -1676,7 +1676,7 @@
     "href": "ko/chapters/part2/w3_gwas.html#w3-s3-2",
     "title": "W3. GWAS와 Post-GWAS",
     "section": "2) 우편번호에서 기전까지의 네 단계",
-    "text": "2) 우편번호에서 기전까지의 네 단계\n\n\n\n각 단계는 주장의 범위를 좁힙니다. 하나를 건너뛰면 reviewer가 찾아낼 틈이 남습니다.\n\n\n① Fine-mapping. Bayesian method(SuSiE, FINEMAP)는 각 variant에 posterior inclusion probability를 부여하고, 예를 들어 causal variant를 95% 확률로 포함하는 가장 작은 집합인 credible set을 반환합니다.\n\n💡 Credible set이 3개라는 것은 결과입니다. 40개라는 것은 해소하지 못했다는 고백입니다\n⚠️ Ancestry-matched LD reference가 필요합니다. 유럽인 panel을 한국인 cohort에 적용하면 출력이 조용히 손상됩니다\n⚠️ PIP가 많은 variant에 얇게 분산된다면 정직한 결론은 “이 sample에서는 이 locus를 해소할 수 없다”입니다\n\n② Functional annotation. Variant가 어디에 위치합니까?\n\n\n\n\n\n\n\n위치\n가능성 높은 mechanism\n\n\n\n\nCoding (missense, nonsense)\n직접적인 protein 변화\n\n\nSplice site\n달라진 mRNA 또는 isoform\n\n\nPromoter / 5′UTR\ntranscription 조절\n\n\nEnhancer\n멀리 떨어진 gene의 조절일 수 있음\n\n\nIntergenic / intronic\n⚠️ 알 수 없음 — eQTL과 chromatin data 필요\n\n\n\n⚠️ GWAS hit의 약 90%는 non-coding입니다. 이 사실 하나가 이 수업의 나머지 부분이 필요한 이유입니다.\n③ Variant → gene. eQTL은 gene expression에 영향을 주는 variant입니다. Colocalisation은 GWAS와 eQTL signal이 동일한 causal variant를 공유하는지 묻습니다.\n\nlibrary(coloc)\n\nres &lt;- coloc.abf(\n  dataset1 = list(pvalues = gwas_p, N = 150000, type = \"cc\", s = 0.3),\n  dataset2 = list(pvalues = eqtl_p, N = 500,    type = \"quant\")\n)\nres$summary[\"PP.H4.abf\"]   # &gt; 0.8 → they share a causal variant\n\n\n❌ 가장 가까운 gene은 약 절반의 경우 틀립니다. Enhancer는 가까운 이웃을 건너뛰는 일이 흔합니다\n⚠️ 방향을 확인하세요. Risk allele이 환자에서 증가해 보이는 gene을 오히려 down-regulation할 수 있습니다. 이런 불일치는 손상된 보호 반응을 반영하는 경우가 많고 agonist와 antagonist 중 무엇을 선택할지 결정합니다\n\n④ Gene → cell type. Colocalisation은 gene을 알려줄 뿐 위치를 알려주지 않습니다. sc-linker 같은 framework는 stratified LD-score regression을 통해 single-cell data와 GWAS를 결합하여 Alzheimer disease에서는 microglia, eczema에서는 T cell을 찾아냅니다. 🔗 W5 영문에서 다시 다룹니다.\n⑤ Causality. Mendelian randomization은 variant를 instrument로 사용합니다. Variant는 수정 시점에 무작위로 배정되므로 lifestyle confounding에 영향을 받지 않는 평생의 RCT를 모방합니다.\nGenetic variants  →  LDL level  →  CAD\n   (instrument)      (exposure)   (outcome)\n⚠️ 세 가지 IV assumption은 relevance, instrument에 대한 confounding 부재, exclusion restriction입니다. 세 번째는 pleiotropy 때문에 깨집니다. MR-Egger와 weighted median은 바로 이것을 확인하기 위해 존재합니다. 단일 방법만 사용한 MR 결과는 불완전합니다.",
+    "text": "2) 우편번호에서 기전까지의 네 단계\n\n\n\n각 단계는 주장의 범위를 좁힙니다. 하나를 건너뛰면 reviewer가 찾아낼 틈이 남습니다.\n\n\n① Fine-mapping. Bayesian method(SuSiE, FINEMAP)는 각 variant에 posterior inclusion probability를 부여하고, 예를 들어 causal variant를 95% 확률로 포함하는 가장 작은 집합인 credible set을 반환합니다.\n\n💡 Credible set이 3개라는 것은 결과입니다. 40개라는 것은 해소하지 못했다는 고백입니다\n⚠️ Ancestry-matched LD reference가 필요합니다. 유럽인 panel을 한국인 cohort에 적용하면 출력이 조용히 손상됩니다\n⚠️ PIP가 많은 variant에 얇게 분산된다면 정직한 결론은 “이 sample에서는 이 locus를 해소할 수 없다”입니다\n\n② Functional annotation. Variant가 어디에 위치합니까?\n\n\n\n\n\n\n\n위치\n가능성 높은 mechanism\n\n\n\n\nCoding (missense, nonsense)\n직접적인 protein 변화\n\n\nSplice site\n달라진 mRNA 또는 isoform\n\n\nPromoter / 5′UTR\ntranscription 조절\n\n\nEnhancer\n멀리 떨어진 gene의 조절일 수 있음\n\n\nIntergenic / intronic\n⚠️ 알 수 없음 — eQTL과 chromatin data 필요\n\n\n\n⚠️ GWAS hit의 약 90%는 non-coding입니다. 이 사실 하나가 이 수업의 나머지 부분이 필요한 이유입니다.\n③ Variant → gene. eQTL은 gene expression에 영향을 주는 variant입니다. Colocalisation은 GWAS와 eQTL signal이 동일한 causal variant를 공유하는지 묻습니다.\n\nlibrary(coloc)\n\nres &lt;- coloc.abf(\n  dataset1 = list(pvalues = gwas_p, N = 150000, type = \"cc\", s = 0.3),\n  dataset2 = list(pvalues = eqtl_p, N = 500,    type = \"quant\")\n)\nres$summary[\"PP.H4.abf\"]   # &gt; 0.8 → they share a causal variant\n\n\n❌ 가장 가까운 gene은 약 절반의 경우 틀립니다. Enhancer는 가까운 이웃을 건너뛰는 일이 흔합니다\n⚠️ 방향을 확인하세요. Risk allele이 환자에서 증가해 보이는 gene을 오히려 down-regulation할 수 있습니다. 이런 불일치는 손상된 보호 반응을 반영하는 경우가 많고 agonist와 antagonist 중 무엇을 선택할지 결정합니다\n\n④ Gene → cell type. Colocalisation은 gene을 알려줄 뿐 위치를 알려주지 않습니다. sc-linker 같은 framework는 stratified LD-score regression을 통해 single-cell data와 GWAS를 결합하여 Alzheimer disease에서는 microglia, eczema에서는 T cell을 찾아냅니다. 🔗 W5에서 다시 다룹니다.\n⑤ Causality. Mendelian randomization은 variant를 instrument로 사용합니다. Variant는 수정 시점에 무작위로 배정되므로 lifestyle confounding에 영향을 받지 않는 평생의 RCT를 모방합니다.\nGenetic variants  →  LDL level  →  CAD\n   (instrument)      (exposure)   (outcome)\n⚠️ 세 가지 IV assumption은 relevance, instrument에 대한 confounding 부재, exclusion restriction입니다. 세 번째는 pleiotropy 때문에 깨집니다. MR-Egger와 weighted median은 바로 이것을 확인하기 위해 존재합니다. 단일 방법만 사용한 MR 결과는 불완전합니다.",
     "crumbs": [
       "2 · 임상유전체학",
       "W3. GWAS와 Post-GWAS"
@@ -3082,7 +3082,7 @@
     "href": "chapters/part2/w4_prs.html#w4-s7-2",
     "title": "W4. Polygenic Risk Scores",
     "section": "2) Minimal code: turn a score into a clinical figure",
-    "text": "2) Minimal code: turn a score into a clinical figure\nprs_scores.tsv : pre-computed score table (n=40k) + clinical info IID, PRS, disease, age, sex⚠️ It is simulated — individual genotypes cannot be shared\n\nlibrary(tidyverse)\nlibrary(here)\n\nprs &lt;- read_tsv(here(\"rawdata\", \"prs_scores.tsv\"))\n\n# Standardise so the score reads as SD units — always do this before reporting\nprs &lt;- prs |&gt; mutate(PRS_z = as.numeric(scale(PRS)))\n\nIncremental value over a clinical model:\n\nlibrary(pROC)\n\nm_clin &lt;- glm(disease ~ age + sex,         data = prs, family = binomial)\nm_prs  &lt;- glm(disease ~ age + sex + PRS_z, data = prs, family = binomial)\n\nroc_clin &lt;- roc(prs$disease, predict(m_clin, type = \"response\"))\nroc_prs  &lt;- roc(prs$disease, predict(m_prs,  type = \"response\"))\n\nroc.test(roc_clin, roc_prs)   # ← the number that belongs in the abstract\n\nRisk by decile — against an honest reference:\n\nby_decile &lt;- prs |&gt;\n  mutate(decile = ntile(PRS_z, 10)) |&gt;\n  group_by(decile) |&gt;\n  summarise(n = n(), cases = sum(disease), .groups = \"drop\") |&gt;\n  mutate(risk = cases / n,\n         OR_vs_middle = (risk / (1 - risk)) /\n                        (risk[decile == 5] / (1 - risk[decile == 5])))\n\nggplot(by_decile, aes(decile, OR_vs_middle)) +\n  geom_col(fill = \"#185FA5\") +\n  geom_hline(yintercept = 1, linetype = \"dashed\") +\n  scale_x_continuous(breaks = 1:10) +\n  labs(x = \"PRS decile\", y = \"OR vs middle decile\",\n       title = \"Risk by PRS decile — referenced to the middle, not the bottom\") +\n  theme_minimal()\n\n✅ Now change one thing: re-run with decile == 1 as the reference and compare the top bar. That difference is the one you will meet in abstracts.\n\n\n\n\n\n\nTipIf you want to build one yourself\n\n\n\n\n\nNot required for this course, but the entry points are:\n\nbigsnpr (R) — implements C+T and LDpred2; privefl.github.io/bigsnpr\nPRSice-2 — command-line, auto-tunes the threshold; prsice.info\nPRS-CSx — Python, multi-ancestry; github.com/getian107/PRScsx\n\n⚠️ Each needs an LD reference panel matched to your target ancestry. That requirement, not the modelling, is what usually stops a clinical project.",
+    "text": "2) Minimal code: turn a score into a clinical figure\nprs_scores.tsv : pre-computed score table (n=40k) + clinical info IID, PRS, disease, age, sex⚠️ It is simulated — individual genotypes cannot be shared\n\nlibrary(tidyverse)\nlibrary(here)\n\nprs &lt;- read_tsv(here(\"rawdata\", \"prs_scores.tsv\"))\n\n# Standardise so the score reads as SD units — always do this before reporting\nprs &lt;- prs |&gt; mutate(PRS_z = as.numeric(scale(PRS)))\n\nIncremental value over a clinical model:\n\nlibrary(pROC)\n\nm_clin &lt;- glm(disease ~ age + sex,         data = prs, family = binomial)\nm_prs  &lt;- glm(disease ~ age + sex + PRS_z, data = prs, family = binomial)\n\nroc_clin &lt;- roc(prs$disease, predict(m_clin, type = \"response\"))\nroc_prs  &lt;- roc(prs$disease, predict(m_prs,  type = \"response\"))\n\nroc.test(roc_clin, roc_prs)   # ← the number that belongs in the abstract\n\nRisk by decile — against an honest reference:\n\nby_decile &lt;- prs |&gt;\n  mutate(decile = ntile(PRS_z, 10)) |&gt;\n  group_by(decile) |&gt;\n  summarise(n = n(), cases = sum(disease), .groups = \"drop\") |&gt;\n  mutate(risk = cases / n,\n         OR_vs_middle = (risk / (1 - risk)) /\n                        (risk[decile == 5] / (1 - risk[decile == 5])))\n\nggplot(by_decile, aes(decile, OR_vs_middle)) +\n  geom_col(fill = \"#185FA5\") +\n  geom_hline(yintercept = 1, linetype = \"dashed\") +\n  scale_x_continuous(breaks = 1:10) +\n  labs(x = \"PRS decile\", y = \"OR vs middle decile\",\n       title = \"Risk by PRS decile — referenced to the middle, not the bottom\") +\n  theme_minimal()\n\n✅ Now change one thing: re-run with decile == 1 as the reference and compare the top bar. That difference is the one you will meet in abstracts.\n\n\n\n\n\n\nTipIf you want to build one yourself\n\n\n\n\n\nNot required for this course, but the entry points are:\n\nbigsnpr (R) — implements C+T and LDpred2; privefl.github.io/bigsnpr\nPRSice-2 — command-line, auto-tunes the threshold; choishingwan.github.io/PRSice\nPRS-CSx — Python, multi-ancestry; github.com/getian107/PRScsx\n\n⚠️ Each needs an LD reference panel matched to your target ancestry. That requirement, not the modelling, is what usually stops a clinical project.",
     "crumbs": [
       "Home",
       "2 · Clinical Genomics",
@@ -4234,7 +4234,7 @@
     "href": "chapters/part6/w11_multiomics.html#w11-s5-1",
     "title": "W11. Multi-omics Integration",
     "section": "1) Build a prioritisation table",
-    "text": "1) Build a prioritisation table\nTake one locus for a disease you treat, and fill in the table from §2 by hand, in the browser:\n\neQTL — Open Targets Genetics or GTEx\nCell type — CELLxGENE\nProtein — Human Protein Atlas\nDirection — IEU OpenGWAS for MR results\nTractability — Open Targets target profile\n\n✅ One row per candidate gene, one column per layer. This is an afternoon, and it is a real figure.",
+    "text": "1) Build a prioritisation table\nTake one locus for a disease you treat, and fill in the table from §2 by hand, in the browser:\n\neQTL / locus-to-gene — Open Targets Platform (formerly Open Targets Genetics) or GTEx\nCell type — CELLxGENE\nProtein — Human Protein Atlas\nDirection — IEU OpenGWAS for MR results\nTractability — Open Targets target profile\n\n✅ One row per candidate gene, one column per layer. This is an afternoon, and it is a real figure.",
     "crumbs": [
       "Home",
       "6 · Integration",
@@ -4366,7 +4366,7 @@
     "href": "chapters/part6/w12_network_drug.html#w12-s4-1",
     "title": "W12. Network Analysis & Drug Targets",
     "section": "1) No code: profile your surviving gene",
-    "text": "1) No code: profile your surviving gene\nOpen Targets → your gene → its target profile.\n\n① Tractability — small molecule? antibody? Which clinical phase, for any indication?\n② Safety — any flagged organ toxicity?\n③ Known drugs — is something already approved against it, for anything?\n④ gnomAD → LOEUF. Is the gene tolerant of loss of function?\n⑤ Open Targets Genetics → PheWAS for the lead variant. What else does it affect?\n\n✅ Write the answers as five sentences. That is §3’s checklist, done.",
+    "text": "1) No code: profile your surviving gene\nOpen Targets → your gene → its target profile.\n\n① Tractability — small molecule? antibody? Which clinical phase, for any indication?\n② Safety — any flagged organ toxicity?\n③ Known drugs — is something already approved against it, for anything?\n④ gnomAD → LOEUF. Is the gene tolerant of loss of function?\n⑤ Open Targets → the lead variant’s page → the other traits it is associated with (a PheWAS). What else does it affect?\n\n✅ Write the answers as five sentences. That is §3’s checklist, done.",
     "crumbs": [
       "Home",
       "6 · Integration",

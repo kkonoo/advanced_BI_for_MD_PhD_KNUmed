@@ -319,7 +319,7 @@ ggplot(by_decile, aes(decile, OR_vs_middle)) +
 이 수업의 필수 내용은 아니지만 참고.
 
 -   `bigsnpr`(R) — C+T와 LDpred2 구현; [privefl.github.io/bigsnpr](https://privefl.github.io/bigsnpr)
--   `PRSice-2` — command-line에서 threshold 자동 tuning; [prsice.info](https://www.prsice.info)
+-   `PRSice-2` — command-line에서 threshold 자동 tuning; [choishingwan.github.io/PRSice](https://choishingwan.github.io/PRSice/)
 -   `PRS-CSx` — Python 기반 multi-ancestry 방법; [github.com/getian107/PRScsx](https://github.com/getian107/PRScsx)
 
 ⚠️ 각 방법에는 target ancestry와 일치하는 LD reference panel이 필요함. 임상 project가 어려운 이유...
@@ -400,4 +400,4 @@ Lee A, et al. [*BOADICEA: a comprehensive breast cancer risk prediction model in
 
 ### 리소스
 
-[PGS Catalog](https://www.pgscatalog.org) · [CanRisk (BOADICEA)](https://www.canrisk.org) · [Korea Biobank](https://biobank.nih.go.kr) · [PRSice-2](https://www.prsice.info)
+[PGS Catalog](https://www.pgscatalog.org) · [CanRisk (BOADICEA)](https://www.canrisk.org) · [Korea Biobank](https://biobank.nih.go.kr) · [PRSice-2](https://choishingwan.github.io/PRSice/)

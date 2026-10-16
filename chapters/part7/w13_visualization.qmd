@@ -177,7 +177,7 @@ d |>
 
 ## 4) Before next week {#w13-s5-4}
 
-**W14 — your own project.** Bring a one-sentence research question and a note of what data you could realistically get hold of.
+**[W14 — your own project](w14_project_design.qmd).** Bring a one-sentence research question and a note of what data you could realistically get hold of.
 
 ------------------------------------------------------------------------
 

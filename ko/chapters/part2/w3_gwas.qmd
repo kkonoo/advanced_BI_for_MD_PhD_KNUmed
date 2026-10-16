@@ -35,7 +35,7 @@ execute:
 
 -   **Drug target validation** — 사람의 유전적 근거가 있는 target은 승인까지 살아남을 가능성이 약 **두 배** 높습니다
 -   **Disease subtyping** — 같은 ICD code라도 유전적 구조와 생물학이 다를 수 있습니다
--   **Risk stratification** — 예방의학에서의 polygenic score(🔗 [W4 영문](../../../chapters/part2/w4_prs.qmd))
+-   **Risk stratification** — 예방의학에서의 polygenic score(🔗 [W4](w4_prs.qmd))
 -   **Shared aetiology** — genetic correlation은 두 진단이 함께 나타나는 이유를 정량화합니다
 -   **Causal inference** — Mendelian randomization은 RCT를 수행하지 않고 인과성을 검정합니다
 
@@ -197,7 +197,7 @@ res$summary["PP.H4.abf"]   # > 0.8 → they share a causal variant
 -   ❌ **가장 가까운 gene은 약 절반의 경우 틀립니다.** Enhancer는 가까운 이웃을 건너뛰는 일이 흔합니다
 -   ⚠️ **방향**을 확인하세요. Risk allele이 환자에서 *증가*해 보이는 gene을 오히려 *down-regulation*할 수 있습니다. 이런 불일치는 손상된 보호 반응을 반영하는 경우가 많고 agonist와 antagonist 중 무엇을 선택할지 결정합니다
 
-**④ Gene → cell type.** Colocalisation은 gene을 알려줄 뿐 위치를 알려주지 않습니다. **sc-linker** 같은 framework는 stratified LD-score regression을 통해 single-cell data와 GWAS를 결합하여 Alzheimer disease에서는 microglia, eczema에서는 T cell을 찾아냅니다. 🔗 [W5 영문](../../../chapters/part3/w5_scrna_qc.qmd)에서 다시 다룹니다.
+**④ Gene → cell type.** Colocalisation은 gene을 알려줄 뿐 위치를 알려주지 않습니다. **sc-linker** 같은 framework는 stratified LD-score regression을 통해 single-cell data와 GWAS를 결합하여 Alzheimer disease에서는 microglia, eczema에서는 T cell을 찾아냅니다. 🔗 [W5](../part3/w5_scrna_qc.qmd)에서 다시 다룹니다.
 
 **⑤ Causality.** Mendelian randomization은 variant를 **instrument**로 사용합니다. Variant는 수정 시점에 무작위로 배정되므로 lifestyle confounding에 영향을 받지 않는 평생의 RCT를 모방합니다.
 
@@ -272,7 +272,7 @@ ICD code를 phenotype으로 삼아 electronic health record 전체에서 실행�
 
 -   ⚠️ **놓치는 발견** — 유럽인에서 드물거나 없는 variant는 보이지 않습니다. Multi-ethnic cohort는 대규모 유럽 연구가 놓친 association을 계속 찾아내고 있습니다
 -   ✅ **더 나은 해상도** — 서로 다른 LD pattern이 haplotype block을 깨뜨려 **더 작은 credible set**을 만듭니다(§3.1)
--   ❌ **낮은 portability** — effect size와 risk score는 그대로 이전되지 않습니다. 무리하게 적용하면 격차가 커집니다(🔗 [W4 §5 영문](../../../chapters/part2/w4_prs.qmd#w4-s5))
+-   ❌ **낮은 portability** — effect size와 risk score는 그대로 이전되지 않습니다. 무리하게 적용하면 격차가 커집니다(🔗 [W4 §5](w4_prs.qmd#w4-s5))
 
 ::: {.callout-important collapse="true"}
 ## 한국인 cohort에서 구체적으로 할 일
@@ -425,7 +425,7 @@ Jagadeesh KA, et al. [*Identifying disease-critical cell types and cellular proc
 ### 인과성과 임상 적용
 
 Davies NM, Holmes MV, Davey Smith G. [*Reading Mendelian randomisation studies: a guide, glossary, and checklist for clinicians.*](https://doi.org/10.1136/bmj.k601) BMJ. 2018. **← 임상의에게 가장 좋은 입문 자료**  
-Reay WR, Cairns MJ. [*Advancing the use of GWAS for drug repurposing.*](https://doi.org/10.1038/s41576-020-00387-5) Nat Rev Genet. 2021.  
+Reay WR, Cairns MJ. [*Advancing the use of genome-wide association studies for drug repurposing.*](https://doi.org/10.1038/s41576-021-00387-z) Nat Rev Genet. 2021.  
 Denny JC, Bastarache L, Roden DM. [*Phenome-wide association studies as a tool to advance precision medicine.*](https://doi.org/10.1146/annurev-genom-090314-024956) Annu Rev Genomics Hum Genet. 2016.
 
 ### SNP 너머와 다양성
@@ -436,4 +436,4 @@ Martin AR, et al. [*Clinical use of current polygenic risk scores may exacerbate
 
 ### 리소스
 
-[GWAS Catalog](https://www.ebi.ac.uk/gwas) · [Open Targets](https://platform.opentargets.org) · [IEU OpenGWAS](https://gwas.mrcieu.ac.uk) · [GTEx](https://gtexportal.org) · [gnomAD](https://gnomad.broadinstitute.org) · [LDlink](https://ldlink.nci.nih.gov)
+[GWAS Catalog](https://www.ebi.ac.uk/gwas) · [Open Targets](https://platform.opentargets.org) · [IEU OpenGWAS](https://opengwas.io) · [GTEx](https://gtexportal.org) · [gnomAD](https://gnomad.broadinstitute.org) · [LDlink](https://ldlink.nih.gov)

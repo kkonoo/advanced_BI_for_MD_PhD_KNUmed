@@ -73,7 +73,7 @@ A ✕ in one column almost always means **"not measured in the right context"**,
 
 → ✅ Report convergence as positive evidence. Report gaps as **coverage limitations**, in a sentence, in the results.
 
-⚠️ And the failure mode this creates: prioritisation pipelines systematically favour **well-measured, well-studied genes**. The same bias returns in W12 as network hubs.
+⚠️ And the failure mode this creates: prioritisation pipelines systematically favour **well-measured, well-studied genes**. The same bias returns in [W12](w12_network_drug.qmd) as network hubs.
 :::
 
 ------------------------------------------------------------------------
@@ -138,10 +138,10 @@ The strongest shared source of variation in a real cohort is rarely disease. It 
 
 Take one locus for a disease you treat, and fill in the table from §2 by hand, in the browser:
 
--   **eQTL** — [Open Targets Genetics](https://genetics.opentargets.org) or [GTEx](https://gtexportal.org)
+-   **eQTL / locus-to-gene** — [Open Targets Platform](https://platform.opentargets.org) (formerly Open Targets Genetics) or [GTEx](https://gtexportal.org)
 -   **Cell type** — [CELLxGENE](https://cellxgene.cziscience.com)
 -   **Protein** — [Human Protein Atlas](https://www.proteinatlas.org)
--   **Direction** — [IEU OpenGWAS](https://gwas.mrcieu.ac.uk) for MR results
+-   **Direction** — [IEU OpenGWAS](https://opengwas.io) for MR results
 -   **Tractability** — [Open Targets](https://platform.opentargets.org) target profile
 
 ✅ One row per candidate gene, one column per layer. This is an afternoon, and it is a real figure.
@@ -192,7 +192,7 @@ round(cors, 2)     # look here before you look at biology
 
 ## 5) Before next week {#w11-s5-5}
 
-**W12 — networks and drug targets.** Bring the prioritisation table from §5.1. We will ask whether the surviving gene is druggable.
+**[W12 — networks and drug targets](w12_network_drug.qmd).** Bring the prioritisation table from §5.1. We will ask whether the surviving gene is druggable.
 
 ------------------------------------------------------------------------
 

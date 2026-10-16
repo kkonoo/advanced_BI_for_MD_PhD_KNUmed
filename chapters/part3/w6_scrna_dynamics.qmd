@@ -395,6 +395,6 @@ Morabito S, et al. [*hdWGCNA identifies co-expression networks in high-dimension
 
 ### Cell–cell communication
 
-Jin S, et al. [*Inference and analysis of cell-cell communication using CellChat.*](https://doi.org/10.1038/s41467-021-21246-w) Nat Commun. 2021.\
+Jin S, et al. [*Inference and analysis of cell-cell communication using CellChat.*](https://doi.org/10.1038/s41467-021-21246-9) Nat Commun. 2021.\
 Browaeys R, Saelens W, Saeys Y. [*NicheNet: modeling intercellular communication by linking ligands to target genes.*](https://doi.org/10.1038/s41592-019-0667-5) Nat Methods. 2020.\
 Dimitrov D, et al. [*Comparison of methods and resources for cell-cell communication inference from single-cell RNA-Seq data.*](https://doi.org/10.1038/s41467-022-30755-0) Nat Commun. 2022. **← how much the answer depends on which tool and database you picked**

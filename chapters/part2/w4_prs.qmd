@@ -324,7 +324,7 @@ ggplot(by_decile, aes(decile, OR_vs_middle)) +
 Not required for this course, but the entry points are:
 
 -   `bigsnpr` (R) — implements C+T and LDpred2; [privefl.github.io/bigsnpr](https://privefl.github.io/bigsnpr)
--   `PRSice-2` — command-line, auto-tunes the threshold; [prsice.info](https://www.prsice.info)
+-   `PRSice-2` — command-line, auto-tunes the threshold; [choishingwan.github.io/PRSice](https://choishingwan.github.io/PRSice/)
 -   `PRS-CSx` — Python, multi-ancestry; [github.com/getian107/PRScsx](https://github.com/getian107/PRScsx)
 
 ⚠️ Each needs an LD reference panel matched to your target ancestry. That requirement, not the modelling, is what usually stops a clinical project.
@@ -405,4 +405,4 @@ Lee A, et al. [*BOADICEA: a comprehensive breast cancer risk prediction model in
 
 ### Resources
 
-[PGS Catalog](https://www.pgscatalog.org) · [CanRisk (BOADICEA)](https://www.canrisk.org) · [Korea Biobank](https://biobank.nih.go.kr) · [PRSice-2](https://www.prsice.info)
+[PGS Catalog](https://www.pgscatalog.org) · [CanRisk (BOADICEA)](https://www.canrisk.org) · [Korea Biobank](https://biobank.nih.go.kr) · [PRSice-2](https://choishingwan.github.io/PRSice/)

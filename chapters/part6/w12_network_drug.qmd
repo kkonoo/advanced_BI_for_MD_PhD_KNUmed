@@ -127,7 +127,7 @@ Bring the prioritisation table from 🔗 [W11 §5.1](w11_multiomics.qmd#w11-s5-1
 -   ② **Safety** — any flagged organ toxicity?
 -   ③ **Known drugs** — is something already approved against it, for anything?
 -   ④ [**gnomAD**](https://gnomad.broadinstitute.org) → **LOEUF**. Is the gene tolerant of loss of function?
--   ⑤ [**Open Targets Genetics**](https://genetics.opentargets.org) → PheWAS for the lead variant. What else does it affect?
+-   ⑤ [**Open Targets**](https://platform.opentargets.org) → the lead variant's page → the other traits it is associated with (a PheWAS). What else does it affect?
 
 ✅ Write the answers as five sentences. That is §3's checklist, done.
 
@@ -173,7 +173,7 @@ cat("observed:", round(observed, 2), " null mean:", round(mean(null), 2), "\n")
 
 ## 4) Before next week {#w12-s4-4}
 
-**W13 — interpretation and visualisation.** Bring **one figure** from your own work or from a paper you are reading. We will take it apart.
+**[W13 — interpretation and visualisation](../part7/w13_visualization.qmd).** Bring **one figure** from your own work or from a paper you are reading. We will take it apart.
 
 ------------------------------------------------------------------------
 
@@ -222,7 +222,7 @@ Barabási AL, Gulbahce N, Loscalzo J. [*Network medicine: a network-based approa
 
 Nelson MR, et al. [*The support of human genetic evidence for approved drug indications.*](https://doi.org/10.1038/ng.3314) Nat Genet. 2015. **← the paper behind "roughly doubles"**\
 King EA, Davis JW, Degner JF. [*Are drug targets with genetic support twice as likely to be approved?*](https://doi.org/10.1371/journal.pgen.1008489) PLoS Genet. 2019.\
-Reay WR, Cairns MJ. [*Advancing the use of GWAS for drug repurposing.*](https://doi.org/10.1038/s41576-020-00387-5) Nat Rev Genet. 2021.\
+Reay WR, Cairns MJ. [*Advancing the use of genome-wide association studies for drug repurposing.*](https://doi.org/10.1038/s41576-021-00387-z) Nat Rev Genet. 2021.\
 Minikel EV, et al. [*Evaluating drug targets through human loss-of-function genetic variation.*](https://doi.org/10.1038/s41586-020-2267-z) Nature. 2020. **← human knockouts as a safety readout**
 
 ### Repurposing methods
