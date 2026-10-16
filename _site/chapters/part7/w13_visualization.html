@@ -84,9 +84,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-771210972c2b3d896dd99f41603bb4dd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-059fd4ccf16d63f8e817c1e7fa4fb424.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-49b1833bbd43c9d03e2e98c0e8c3df20.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-059fd4ccf16d63f8e817c1e7fa4fb424.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -683,7 +683,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>1. ⚠️ Four Ways a Figure Overstates 📉</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w13/figure_traps.svg" class="img-fluid figure-img"></p>
+<p><img src="../../assets/img/w13/figure_traps.svg" class="img-fluid figure-img"></p>
 <figcaption>None of these is dishonest. All four are defaults.</figcaption>
 </figure>
 </div>
@@ -791,7 +791,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>3. ⚠️ Enrichment Analysis 🧾</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w13/enrichment_traps.svg" class="img-fluid figure-img"></p>
+<p><img src="../../assets/img/w13/enrichment_traps.svg" class="img-fluid figure-img"></p>
 <figcaption>Seven terms. One fact. And the fact may be an artifact of the background.</figcaption>
 </figure>
 </div>
@@ -803,26 +803,128 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>✅ The universe is <strong>the genes you actually tested</strong>: expressed above threshold, passing filters</li>
 <li>⚠️ In tissue-specific data this typically halves the universe, and it can remove an entire “significant” category</li>
 </ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(clusterProfiler); <span class="fu">library</span>(org.Hs.eg.db)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>universe <span class="ot">&lt;-</span> <span class="fu">rownames</span>(dds)[<span class="fu">rowSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">&gt;</span> <span class="dv">10</span>]   <span class="co"># ✅ what was testable</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ego <span class="ot">&lt;-</span> <span class="fu">enrichGO</span>(<span class="at">gene =</span> sig_genes, <span class="at">universe =</span> universe,     <span class="co"># ⚠️ not the default</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">OrgDb =</span> org.Hs.eg.db, <span class="at">keyType =</span> <span class="st">"SYMBOL"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">ont =</span> <span class="st">"BP"</span>, <span class="at">pAdjustMethod =</span> <span class="st">"BH"</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>ego <span class="ot">&lt;-</span> <span class="fu">simplify</span>(ego, <span class="at">cutoff =</span> <span class="fl">0.7</span>)     <span class="co"># collapse redundant nested terms</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># toy input (illustration only): airway smooth-muscle cells ± dexamethasone, through DESeq2</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2); <span class="fu">library</span>(airway)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(airway)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>airway<span class="sc">$</span>dex <span class="ot">&lt;-</span> <span class="fu">relevel</span>(airway<span class="sc">$</span>dex, <span class="st">"untrt"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>sym <span class="ot">&lt;-</span> AnnotationDbi<span class="sc">::</span><span class="fu">mapIds</span>(org.Hs.eg.db<span class="sc">::</span>org.Hs.eg.db, <span class="fu">rownames</span>(airway), <span class="st">"SYMBOL"</span>, <span class="st">"ENSEMBL"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>airway <span class="ot">&lt;-</span> airway[<span class="sc">!</span><span class="fu">is.na</span>(sym) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">duplicated</span>(sym), ]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(airway) <span class="ot">&lt;-</span> sym[<span class="fu">rownames</span>(airway)]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSet</span>(airway, <span class="at">design =</span> <span class="sc">~</span> cell <span class="sc">+</span> dex) <span class="sc">|&gt;</span> <span class="fu">DESeq</span>()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">results</span>(dds)); res<span class="sc">$</span>gene <span class="ot">&lt;-</span> <span class="fu">rownames</span>(res)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>sig_genes <span class="ot">&lt;-</span> res<span class="sc">$</span>gene[<span class="fu">which</span>(res<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="sc">&amp;</span> <span class="fu">abs</span>(res<span class="sc">$</span>log2FoldChange) <span class="sc">&gt;</span> <span class="dv">1</span>)]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(clusterProfiler); <span class="fu">library</span>(org.Hs.eg.db)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>universe <span class="ot">&lt;-</span> <span class="fu">rownames</span>(dds)[<span class="fu">rowSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">&gt;</span> <span class="dv">10</span>]   <span class="co"># ✅ what was testable</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>ego <span class="ot">&lt;-</span> <span class="fu">enrichGO</span>(<span class="at">gene =</span> sig_genes, <span class="at">universe =</span> universe,     <span class="co"># ⚠️ not the default</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">OrgDb =</span> org.Hs.eg.db, <span class="at">keyType =</span> <span class="st">"SYMBOL"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                <span class="at">ont =</span> <span class="st">"BP"</span>, <span class="at">pAdjustMethod =</span> <span class="st">"BH"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>ego <span class="ot">&lt;-</span> <span class="fu">simplify</span>(ego, <span class="at">cutoff =</span> <span class="fl">0.7</span>)     <span class="co"># collapse redundant nested terms</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">as.data.frame</span>(ego)[, <span class="fu">c</span>(<span class="st">"Description"</span>, <span class="st">"GeneRatio"</span>, <span class="st">"p.adjust"</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                               Description
+GO:0003013                                      circulatory system process
+GO:0044057                                    regulation of system process
+GO:0001568                                        blood vessel development
+GO:0007411                                                   axon guidance
+GO:0003012                                           muscle system process
+GO:0007169 cell surface receptor protein tyrosine kinase signaling pathway
+           GeneRatio     p.adjust
+GO:0003013    58/818 6.468066e-06
+GO:0044057    55/818 6.468066e-06
+GO:0001568    64/818 2.108804e-05
+GO:0007411    28/818 3.463644e-05
+GO:0003012    49/818 4.426555e-05
+GO:0007169    60/818 6.617473e-05</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, gseapy <span class="im">as</span> gp</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># toy input (illustration only): the same airway experiment (± dexamethasone),</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># as the authors' published differential-expression table (GEO GSE52778, Cuffdiff)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> pd.read_csv(<span class="st">"https://ftp.ncbi.nlm.nih.gov/geo/series/GSE52nnn/GSE52778/suppl/"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"GSE52778_Dex_vs_Untreated_gene_exp.diff.gz"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> res[res.status <span class="op">==</span> <span class="st">"OK"</span>]                                 <span class="co"># ✅ what was testable</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>sig_genes <span class="op">=</span> res.gene[(res.q_value <span class="op">&lt;</span> <span class="fl">0.05</span>) <span class="op">&amp;</span> (res[<span class="st">"log2(fold_change)"</span>].<span class="bu">abs</span>() <span class="op">&gt;</span> <span class="dv">1</span>)].unique().tolist()</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>universe  <span class="op">=</span> res.gene.unique().tolist()</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>ego <span class="op">=</span> gp.enrichr(gene_list<span class="op">=</span>sig_genes, background<span class="op">=</span>universe,   <span class="co"># ⚠️ not the default</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                 gene_sets<span class="op">=</span><span class="st">"GO_Biological_Process_2023"</span>, outdir<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># (no GO-similarity simplify() in Python — read past near-duplicate terms yourself)</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ego.results.sort_values(<span class="st">"Adjusted P-value"</span>)[[<span class="st">"Term"</span>, <span class="st">"Odds Ratio"</span>, <span class="st">"Adjusted P-value"</span>]].head(<span class="dv">6</span>).to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                         Term  Odds Ratio  Adjusted P-value
+                                    Regulation Of Cell Migration (GO:0030334)    3.805568          0.000367
+                                          Response To Fatty Acid (GO:0070542)   53.026527          0.000771
+Transmembrane Receptor Protein Tyrosine Kinase Signaling Pathway (GO:0007169)    4.356856          0.001211
+         Positive Regulation Of Multicellular Organismal Process (GO:0051240)    3.735475          0.003376
+                            Negative Regulation Of Cell Motility (GO:2000146)    5.630094          0.005092
+                           Negative Regulation Of Cell Migration (GO:0030336)    4.969509          0.005517</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="w13-s3-2" class="level2">
 <h2 class="anchored" data-anchor-id="w13-s3-2">2) GSEA on the ranked list</h2>
 <p>✅ Often better than an over-representation test: it uses the whole ranking rather than a thresholded list, so there is no arbitrary cut-off, and modest coordinated shifts are detectable.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ranks <span class="ot">&lt;-</span> res <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stat)) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(stat)) <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(gene, stat) <span class="sc">|&gt;</span> <span class="fu">deframe</span>()</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>gseaGO <span class="ot">&lt;-</span> <span class="fu">gseGO</span>(ranks, <span class="at">OrgDb =</span> org.Hs.eg.db, <span class="at">keyType =</span> <span class="st">"SYMBOL"</span>, <span class="at">ont =</span> <span class="st">"BP"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)                    <span class="co"># dplyr verbs; loaded after AnnotationDbi so select() is dplyr's</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ranks <span class="ot">&lt;-</span> res <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stat)) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(stat)) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(gene, stat) <span class="sc">|&gt;</span> <span class="fu">deframe</span>()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>gseaGO <span class="ot">&lt;-</span> <span class="fu">gseGO</span>(ranks, <span class="at">OrgDb =</span> org.Hs.eg.db, <span class="at">keyType =</span> <span class="st">"SYMBOL"</span>, <span class="at">ont =</span> <span class="st">"BP"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">as.data.frame</span>(gseaGO)[, <span class="fu">c</span>(<span class="st">"Description"</span>, <span class="st">"NES"</span>, <span class="st">"p.adjust"</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                          Description       NES    p.adjust
+GO:0050951 sensory perception of temperature stimulus -2.032597 0.007269209
+GO:0071276           cellular response to cadmium ion  1.992867 0.010087523
+GO:0098704 carbohydrate import across plasma membrane  1.920976 0.009924289
+GO:0098708    D-glucose import across plasma membrane  1.920976 0.009924289
+GO:0140271       hexose import across plasma membrane  1.920976 0.009924289
+GO:0006112           energy reserve metabolic process  1.918799 0.007269209</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cuffdiff's test_stat is positive when a gene is higher with dexamethasone, like DESeq2's stat</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ranks <span class="op">=</span> res.groupby(<span class="st">"gene"</span>).test_stat.mean().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>gseaGO <span class="op">=</span> gp.prerank(rnk<span class="op">=</span>ranks, gene_sets<span class="op">=</span><span class="st">"GO_Biological_Process_2023"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                    threads<span class="op">=</span><span class="dv">8</span>, seed<span class="op">=</span><span class="dv">1</span>, outdir<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>gseaGO.res2d[[<span class="st">"Term"</span>, <span class="st">"NES"</span>, <span class="st">"FDR q-val"</span>]].head(<span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2026-10-16 20:51:33,142 [WARNING] Duplicated values found in preranked stats: 1.34% of genes
+The order of those genes will be arbitrary, which may produce unexpected results.
+                                              Term       NES  FDR q-val
+0             Cytoplasmic Translation (GO:0002181)  2.187902        1.0
+1        Peptide Biosynthetic Process (GO:0043043)  2.022959        1.0
+2  Macromolecule Biosynthetic Process (GO:0009059)  1.959736        1.0
+3                         Translation (GO:0006412)  1.884123        1.0
+4               Lymphocyte Chemotaxis (GO:0048247) -1.816531        1.0
+5                  Lipid Modification (GO:0030258) -1.778379        1.0</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="w13-s3-3" class="level2">
@@ -835,7 +937,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>4. One Message Per Figure 🎯</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w13/one_message.svg" class="img-fluid figure-img"></p>
+<p><img src="../../assets/img/w13/one_message.svg" class="img-fluid figure-img"></p>
 <figcaption>The left-hand version is what the analysis produced. The right-hand version is what the reader needs.</figcaption>
 </figure>
 </div>
@@ -863,32 +965,111 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="w13-s5-2" class="level2">
 <h2 class="anchored" data-anchor-id="w13-s5-2">2) Rebuild one plot</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ before</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(group, value, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"col"</span>) <span class="sc">+</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_se, <span class="at">geom =</span> <span class="st">"errorbar"</span>, <span class="at">width =</span> .<span class="dv">2</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ after — the patients are visible, and n is on the axis</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">fct_relevel</span>(group, <span class="st">"control"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(group, value)) <span class="sc">+</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">45</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>, <span class="at">colour =</span> <span class="st">"#8A7FA3"</span>) <span class="sc">+</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> .<span class="dv">12</span>, <span class="at">size =</span> <span class="fl">2.6</span>, <span class="at">alpha =</span> .<span class="dv">85</span>, <span class="at">colour =</span> <span class="st">"#185FA5"</span>) <span class="sc">+</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> \(x) <span class="fu">paste0</span>(x, <span class="st">"</span><span class="sc">\n</span><span class="st">(n = "</span>, <span class="fu">table</span>(d<span class="sc">$</span>group)[x], <span class="st">")"</span>)) <span class="sc">+</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"CD8 T-cell fraction"</span>, <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Responders have a higher CD8 T-cell fraction"</span>) <span class="sc">+</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># toy data (illustration only): CD8 T-cell fraction in 8 controls and 9 responders</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">group =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"control"</span>, <span class="st">"responder"</span>), <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">9</span>)),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">value =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">8</span>, <span class="fl">0.15</span>, <span class="fl">0.05</span>), <span class="fu">rnorm</span>(<span class="dv">9</span>, <span class="fl">0.25</span>, <span class="fl">0.07</span>)))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ before</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(group, value, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"col"</span>) <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_se, <span class="at">geom =</span> <span class="st">"errorbar"</span>, <span class="at">width =</span> .<span class="dv">2</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ after — the patients are visible, and n is on the axis</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">fct_relevel</span>(group, <span class="st">"control"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(group, value)) <span class="sc">+</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> .<span class="dv">45</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>, <span class="at">colour =</span> <span class="st">"#8A7FA3"</span>) <span class="sc">+</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> .<span class="dv">12</span>, <span class="at">size =</span> <span class="fl">2.6</span>, <span class="at">alpha =</span> .<span class="dv">85</span>, <span class="at">colour =</span> <span class="st">"#185FA5"</span>) <span class="sc">+</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> \(x) <span class="fu">paste0</span>(x, <span class="st">"</span><span class="sc">\n</span><span class="st">(n = "</span>, <span class="fu">table</span>(d<span class="sc">$</span>group)[x], <span class="st">")"</span>)) <span class="sc">+</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"CD8 T-cell fraction"</span>, <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Responders have a higher CD8 T-cell fraction"</span>) <span class="sc">+</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w13_visualization_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w13_visualization_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt, seaborn <span class="im">as</span> sns</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># toy data (illustration only): CD8 T-cell fraction in 8 controls and 9 responders</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">1</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> pd.DataFrame({<span class="st">"group"</span>: [<span class="st">"control"</span>] <span class="op">*</span> <span class="dv">8</span> <span class="op">+</span> [<span class="st">"responder"</span>] <span class="op">*</span> <span class="dv">9</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"value"</span>: np.r_[rng.normal(<span class="fl">0.15</span>, <span class="fl">0.05</span>, <span class="dv">8</span>), rng.normal(<span class="fl">0.25</span>, <span class="fl">0.07</span>, <span class="dv">9</span>)]})</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ before</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>sns.barplot(d, x<span class="op">=</span><span class="st">"group"</span>, y<span class="op">=</span><span class="st">"value"</span>, hue<span class="op">=</span><span class="st">"group"</span>, errorbar<span class="op">=</span><span class="st">"se"</span>, capsize<span class="op">=</span><span class="fl">.2</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ after — the patients are visible, and n is on the axis</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> [<span class="st">"control"</span>, <span class="st">"responder"</span>]</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> d.group.value_counts()</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.boxplot(d, x<span class="op">=</span><span class="st">"group"</span>, y<span class="op">=</span><span class="st">"value"</span>, order<span class="op">=</span>order, width<span class="op">=</span><span class="fl">.45</span>, showfliers<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                 fill<span class="op">=</span><span class="va">False</span>, color<span class="op">=</span><span class="st">"#8A7FA3"</span>)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>sns.stripplot(d, x<span class="op">=</span><span class="st">"group"</span>, y<span class="op">=</span><span class="st">"value"</span>, order<span class="op">=</span>order, jitter<span class="op">=</span><span class="fl">.12</span>, size<span class="op">=</span><span class="dv">7</span>, alpha<span class="op">=</span><span class="fl">.85</span>,</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>              color<span class="op">=</span><span class="st">"#185FA5"</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(order)), [<span class="ss">f"</span><span class="sc">{</span>g<span class="sc">}</span><span class="ch">\n</span><span class="ss">(n = </span><span class="sc">{</span>n[g]<span class="sc">}</span><span class="ss">)"</span> <span class="cf">for</span> g <span class="kw">in</span> order])</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="va">None</span>, ylabel<span class="op">=</span><span class="st">"CD8 T-cell fraction"</span>, title<span class="op">=</span><span class="st">"Responders have a higher CD8 T-cell fraction"</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>sns.despine()</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w13_visualization_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w13_visualization_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="w13-s5-3" class="level2">
 <h2 class="anchored" data-anchor-id="w13-s5-3">3) Redo an enrichment with the right universe</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run enrichGO twice: default universe, then the expressed-gene universe.</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># How many terms survive? Does the top term change?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run enrichGO twice: default universe, then the expressed-gene universe.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># How many terms survive? Does the top term change?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run gp.enrichr twice: default background, then the expressed-gene universe.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># How many terms survive? Does the top term change?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 </div>
 <p>💡 This takes two minutes and changes results often enough to be worth doing every time.</p>
 </section>
@@ -1249,17 +1430,43 @@ Wu T, et al.&nbsp;<a href="https://doi.org/10.1016/j.xinn.2021.100141"><em>clust
   }
 })();
 </script>
-<!-- AI Chat Widget 초기화 -->
 
-<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
-
+<!-- Fold executed-code output (stdout, messages, figures) under one collapsed <details> per cell. -->
 <script>
+(function () {
+  "use strict";
 
+  function foldCellOutputs() {
+    const label = document.documentElement.lang.startsWith("ko") ? "결과 보기" : "Show output";
+
+    document.querySelectorAll(".cell").forEach((cell) => {
+      const outputs = Array.from(cell.children).filter((el) =>
+        Array.from(el.classList).some((c) => c.startsWith("cell-output"))
+      );
+      if (outputs.length === 0) return;
+
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+      details.className = "cell-output-fold";
+      summary.textContent = label;
+      details.appendChild(summary);
+      details.append(...outputs);
+      cell.append(details);   // always below the code, even if knitr split the chunk
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", foldCellOutputs, { once: true });
+  } else {
+    foldCellOutputs();
+  }
+})();
+</script>
+<!-- AI Chat Widget 초기화 -->
+<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
+<script>
   // ★ Cloudflare Worker 배포 후 URL로 교체하세요
-
   const WORKER_URL = "https://falling-wave-447f.eh0129s.workers.dev/";
-
-
 
   // Quarto가 렌더링한 현재 페이지의 본문을 AI 문맥으로 사용합니다.
   // 너무 긴 페이지가 요청 크기를 과도하게 키우지 않도록 문자 수를 제한합니다.
@@ -1294,339 +1501,174 @@ Wu T, et al.&nbsp;<a href="https://doi.org/10.1016/j.xinn.2021.100141"><em>clust
   const supplementalContext = metaContext ? metaContext.content.trim() : "";
   const combinedContext = [supplementalContext, pageContext].filter(Boolean).join("\n\n");
 
-
   window.AI_CHAT_CONFIG = {
-
     workerUrl:      WORKER_URL,
-
     chapterContext: combinedContext,
     chapterTitle: metaTitle ? metaTitle.content : document.title,
   };
-
 </script>
-
 <!-- 위젯 코드를 인라인으로 삽입 (외부 src 제거 → 페이지 깊이에 따른 경로 404 방지) -->
-
 <script>
-
 /**
-
  * AI Chat Widget for Quarto
-
  * 현재 Quarto 본문에서 만든 window.AI_CHAT_CONFIG를 사용합니다.
  */
 
-
-
 (function () {
-
   const cfg = window.AI_CHAT_CONFIG || {};
-
   const WORKER_URL = cfg.workerUrl || "";
-
   const CHAPTER_CONTEXT = cfg.chapterContext || "";
-
   const CHAPTER_TITLE = cfg.chapterTitle || document.title;
 
-
-
   if (!WORKER_URL) {
-
     console.warn("[AI Chat] workerUrl이 설정되지 않았습니다.");
-
     return;
-
   }
 
-
-
   /* ── 시스템 프롬프트 ───────────────────────── */
-
   const SYSTEM_PROMPT = `당신은 "${CHAPTER_TITLE}" 강의자료를 도와주는 학습 도우미입니다.
 
-
-
 아래는 현재 챕터의 핵심 내용입니다:
-
 ---
-
 ${CHAPTER_CONTEXT}
-
 ---
-
-
 
 규칙:
-
 - 위 챕터 내용을 중심으로 답변하세요.
-
 - 질문이 챕터 범위를 벗어나면 간단히 언급하고 챕터 내용으로 연결해주세요.
-
 - R 코드 예시가 도움이 될 때는 포함하세요.
-
 - 한국어로 답변하되, 전문 용어는 영어 병기 가능합니다.
-
 - 의학/과학 학생 대상이므로 정확성을 최우선으로 합니다.`;
 
-
-
   /* ── DOM 생성 ────────────────────────────── */
-
   const style = document.createElement("style");
-
   style.textContent = `
-
     #ai-chat-fab {
-
       position: fixed; bottom: 28px; right: 28px; z-index: 9999;
-
       width: 52px; height: 52px; border-radius: 50%;
-
       background: #1a6e3c; color: #fff; border: none;
-
       box-shadow: 0 4px 16px rgba(0,0,0,.22);
-
       cursor: pointer; font-size: 22px;
-
       display: flex; align-items: center; justify-content: center;
-
       transition: background .2s, transform .15s;
-
     }
-
     #ai-chat-fab:hover { background: #155730; transform: scale(1.07); }
 
-
-
     #ai-chat-panel {
-
       position: fixed; bottom: 90px; right: 28px; z-index: 9998;
-
       width: 360px; max-width: calc(100vw - 40px);
-
       height: 500px; max-height: calc(100vh - 120px);
-
       background: #fff; border-radius: 16px;
-
       box-shadow: 0 8px 40px rgba(0,0,0,.18);
-
       display: flex; flex-direction: column;
-
       font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
-
       overflow: hidden;
-
       transform: scale(.92) translateY(12px);
-
       opacity: 0; pointer-events: none;
-
       transition: transform .22s cubic-bezier(.34,1.56,.64,1), opacity .18s;
-
     }
-
     #ai-chat-panel.open {
-
       transform: scale(1) translateY(0);
-
       opacity: 1; pointer-events: all;
-
     }
-
-
 
     #ai-chat-header {
-
       background: #1a6e3c; color: #fff;
-
       padding: 14px 16px 12px;
-
       display: flex; align-items: center; gap: 10px;
-
       font-size: 14px; font-weight: 600; letter-spacing: .01em;
-
       flex-shrink: 0;
-
     }
-
     #ai-chat-header span { flex: 1; }
     #ai-chat-header > div { flex: 1; min-width: 0; }
     #ai-chat-close {
-
       background: none; border: none; color: #fff;
-
       font-size: 18px; cursor: pointer; padding: 0 2px; line-height: 1;
-
       opacity: .8;
-
     }
-
     #ai-chat-close:hover { opacity: 1; }
 
-
-
     #ai-chat-subtitle {
-
       font-size: 11px; color: rgba(255,255,255,.72);
-
       font-weight: 400; display: block; margin-top: 2px;
-
     }
-
-
 
     #ai-chat-messages {
-
       flex: 1; overflow-y: auto; padding: 14px 14px 8px;
-
       display: flex; flex-direction: column; gap: 10px;
-
       scroll-behavior: smooth;
-
     }
-
     #ai-chat-messages::-webkit-scrollbar { width: 4px; }
-
     #ai-chat-messages::-webkit-scrollbar-thumb {
-
       background: #ddd; border-radius: 4px;
-
     }
-
-
 
     .ai-msg {
-
       max-width: 88%; padding: 9px 13px;
-
       border-radius: 14px; font-size: 13.5px; line-height: 1.55;
-
       white-space: pre-wrap; word-break: break-word;
-
     }
-
     .ai-msg.user {
-
       align-self: flex-end;
-
       background: #1a6e3c; color: #fff;
-
       border-bottom-right-radius: 4px;
-
     }
-
     .ai-msg.assistant {
-
       align-self: flex-start;
-
       background: #f3f4f6; color: #1f2937;
-
       border-bottom-left-radius: 4px;
-
     }
-
     .ai-msg.assistant code {
-
       background: #e5e7eb; padding: 1px 5px;
-
       border-radius: 4px; font-size: 12.5px; font-family: monospace;
-
     }
-
     .ai-msg.assistant pre {
-
       background: #1f2937; color: #f9fafb;
-
       padding: 10px 12px; border-radius: 8px; overflow-x: auto;
-
       font-size: 12px; margin: 6px 0;
-
     }
-
     .ai-msg.assistant pre code { background: none; padding: 0; color: inherit; }
 
-
-
     .ai-typing {
-
       align-self: flex-start;
-
       display: flex; gap: 5px; padding: 10px 14px;
-
       background: #f3f4f6; border-radius: 14px; border-bottom-left-radius: 4px;
-
     }
-
     .ai-typing span {
-
       width: 7px; height: 7px; background: #9ca3af;
-
       border-radius: 50%; animation: aiDot 1.2s infinite;
-
     }
-
     .ai-typing span:nth-child(2) { animation-delay: .2s; }
-
     .ai-typing span:nth-child(3) { animation-delay: .4s; }
-
     @keyframes aiDot {
-
       0%, 60%, 100% { transform: translateY(0); opacity: .4; }
-
       30% { transform: translateY(-5px); opacity: 1; }
-
     }
-
-
 
     #ai-chat-input-row {
-
       display: flex; gap: 8px; padding: 10px 12px 12px;
-
       border-top: 1px solid #f0f0f0; flex-shrink: 0;
-
     }
-
     #ai-chat-input {
-
       flex: 1; border: 1px solid #e5e7eb; border-radius: 10px;
-
       padding: 8px 12px; font-size: 13.5px; resize: none;
-
       font-family: inherit; outline: none; max-height: 100px;
-
       line-height: 1.45; color: #1f2937;
-
       transition: border-color .15s;
-
     }
-
     #ai-chat-input:focus { border-color: #1a6e3c; }
-
     #ai-chat-send {
-
       width: 36px; height: 36px; border-radius: 9px;
-
       background: #1a6e3c; color: #fff; border: none;
-
       cursor: pointer; font-size: 16px; flex-shrink: 0;
-
       align-self: flex-end;
-
       display: flex; align-items: center; justify-content: center;
-
       transition: background .15s;
-
     }
-
     #ai-chat-send:hover { background: #155730; }
-
     #ai-chat-send:disabled { background: #9ca3af; cursor: not-allowed; }
-
   `;
-
   document.head.appendChild(style);
-
-
 
   const fabElement = document.createElement("button");
   fabElement.id = "ai-chat-fab";
@@ -1677,68 +1719,38 @@ ${CHAPTER_CONTEXT}
   panelElement.append(headerElement, messagesElement, inputRow);
   document.body.append(fabElement, panelElement);
 
-
   /* ── 상태 ─────────────────────────────────── */
-
   const panel = document.getElementById("ai-chat-panel");
-
   const fab = document.getElementById("ai-chat-fab");
-
   const closeBtn = document.getElementById("ai-chat-close");
-
   const input = document.getElementById("ai-chat-input");
-
   const sendBtn = document.getElementById("ai-chat-send");
-
   const messages = document.getElementById("ai-chat-messages");
   const history = []; // {role, content}[]
 
   appendMsg("assistant", "안녕하세요! 이 챕터에 대해 궁금한 점을 물어보세요 😊");
 
-
   /* ── 토글 ─────────────────────────────────── */
-
   fab.addEventListener("click", () => {
-
     panel.classList.toggle("open");
-
     if (panel.classList.contains("open")) input.focus();
-
   });
-
   closeBtn.addEventListener("click", () => panel.classList.remove("open"));
 
-
-
   /* ── 자동 높이 조정 ───────────────────────── */
-
   input.addEventListener("input", () => {
-
     input.style.height = "auto";
-
     input.style.height = Math.min(input.scrollHeight, 100) + "px";
-
   });
-
-
 
   /* ── 전송 ─────────────────────────────────── */
-
   input.addEventListener("keydown", (e) => {
-
     if (e.key === "Enter" && !e.shiftKey) {
-
       e.preventDefault();
-
       sendMessage();
-
     }
-
   });
-
   sendBtn.addEventListener("click", sendMessage);
-
-
 
   function appendMsg(role, text) {
     const div = document.createElement("div");
@@ -1788,7 +1800,6 @@ ${CHAPTER_CONTEXT}
     appendInlineCode(parent, text.slice(cursor));
   }
 
-
   function showTyping() {
     const el = document.createElement("div");
     el.className = "ai-typing";
@@ -1798,107 +1809,56 @@ ${CHAPTER_CONTEXT}
       document.createElement("span")
     );
     messages.appendChild(el);
-
     messages.scrollTop = messages.scrollHeight;
-
     return el;
-
   }
 
-
-
   async function sendMessage() {
-
     const text = input.value.trim();
-
     if (!text || sendBtn.disabled) return;
 
-
-
     input.value = "";
-
     input.style.height = "auto";
-
     sendBtn.disabled = true;
 
-
-
     appendMsg("user", text);
-
     history.push({ role: "user", content: text });
-
-
 
     const typing = showTyping();
 
-
-
     try {
-
       const res = await fetch(WORKER_URL, {
-
         method: "POST",
-
         headers: { "Content-Type": "application/json" },
-
         body: JSON.stringify({
-
           model: "claude-sonnet-5",
-
           max_tokens: 4096,
-
           system: SYSTEM_PROMPT,
-
           messages: history,
-
         }),
-
       });
 
-
-
       const data = await res.json();
-
       typing.remove();
-
-
 
       if (data.content && data.content[0]) {
-
         const reply = data.content[0].text;
-
         appendMsg("assistant", reply);
-
         history.push({ role: "assistant", content: reply });
-
       } else {
-
         appendMsg("assistant", "오류가 발생했습니다. 다시 시도해주세요.");
-
       }
-
     } catch (err) {
-
       typing.remove();
-
       appendMsg("assistant", "네트워크 오류가 발생했습니다.");
-
       console.error("[AI Chat]", err);
-
     }
 
-
-
     sendBtn.disabled = false;
-
     input.focus();
-
   }
-
 })();
-
 </script>
-
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

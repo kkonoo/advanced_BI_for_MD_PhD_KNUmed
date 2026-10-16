@@ -5,7 +5,11 @@ date: last-modified
 format: html
 execute:
   echo: true
-  eval: false
+  eval: true
+knitr:
+  opts_chunk:
+    fig.show: hold     # keep each chunk's code in one block, outputs after it
+    results: hold
 ---
 
 ::: {.callout-note collapse="true"}
@@ -89,7 +93,22 @@ Enrichment asks whether your gene list contains more of a category than expected
 -   ✅ The universe is **the genes you actually tested**: expressed above threshold, passing filters
 -   ⚠️ In tissue-specific data this typically halves the universe, and it can remove an entire "significant" category
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
+# toy input (illustration only): airway smooth-muscle cells ± dexamethasone, through DESeq2
+library(DESeq2); library(airway)
+data(airway)
+airway$dex <- relevel(airway$dex, "untrt")
+sym <- AnnotationDbi::mapIds(org.Hs.eg.db::org.Hs.eg.db, rownames(airway), "SYMBOL", "ENSEMBL")
+airway <- airway[!is.na(sym) & !duplicated(sym), ]
+rownames(airway) <- sym[rownames(airway)]
+dds <- DESeqDataSet(airway, design = ~ cell + dex) |> DESeq()
+res <- as.data.frame(results(dds)); res$gene <- rownames(res)
+sig_genes <- res$gene[which(res$padj < 0.05 & abs(res$log2FoldChange) > 1)]
+
 library(clusterProfiler); library(org.Hs.eg.db)
 
 universe <- rownames(dds)[rowSums(counts(dds)) > 10]   # ✅ what was testable
@@ -99,18 +118,60 @@ ego <- enrichGO(gene = sig_genes, universe = universe,     # ⚠️ not the defa
                 ont = "BP", pAdjustMethod = "BH")
 
 ego <- simplify(ego, cutoff = 0.7)     # collapse redundant nested terms
+head(as.data.frame(ego)[, c("Description", "GeneRatio", "p.adjust")])
 ```
+
+### Python
+
+```{python}
+import numpy as np, pandas as pd, gseapy as gp
+
+# toy input (illustration only): the same airway experiment (± dexamethasone),
+# as the authors' published differential-expression table (GEO GSE52778, Cuffdiff)
+res = pd.read_csv("https://ftp.ncbi.nlm.nih.gov/geo/series/GSE52nnn/GSE52778/suppl/"
+                  "GSE52778_Dex_vs_Untreated_gene_exp.diff.gz", sep="\t")
+res = res[res.status == "OK"]                                 # ✅ what was testable
+sig_genes = res.gene[(res.q_value < 0.05) & (res["log2(fold_change)"].abs() > 1)].unique().tolist()
+universe  = res.gene.unique().tolist()
+
+ego = gp.enrichr(gene_list=sig_genes, background=universe,   # ⚠️ not the default
+                 gene_sets="GO_Biological_Process_2023", outdir=None)
+# (no GO-similarity simplify() in Python — read past near-duplicate terms yourself)
+print(ego.results.sort_values("Adjusted P-value")[["Term", "Odds Ratio", "Adjusted P-value"]].head(6).to_string(index=False))
+```
+
+:::
 
 ## 2) GSEA on the ranked list {#w13-s3-2}
 
 ✅ Often better than an over-representation test: it uses the whole ranking rather than a thresholded list, so there is no arbitrary cut-off, and modest coordinated shifts are detectable.
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
+library(tidyverse)                    # dplyr verbs; loaded after AnnotationDbi so select() is dplyr's
+
 ranks <- res |> filter(!is.na(stat)) |> arrange(desc(stat)) |>
   select(gene, stat) |> deframe()
 
 gseaGO <- gseGO(ranks, OrgDb = org.Hs.eg.db, keyType = "SYMBOL", ont = "BP")
+head(as.data.frame(gseaGO)[, c("Description", "NES", "p.adjust")])
 ```
+
+### Python
+
+```{python}
+# Cuffdiff's test_stat is positive when a gene is higher with dexamethasone, like DESeq2's stat
+ranks = res.groupby("gene").test_stat.mean().sort_values(ascending=False)
+
+gseaGO = gp.prerank(rnk=ranks, gene_sets="GO_Biological_Process_2023",
+                    threads=8, seed=1, outdir=None)
+gseaGO.res2d[["Term", "NES", "FDR q-val"]].head(6)
+```
+
+:::
 
 ## 3) ⚠️ Then name genes {#w13-s3-3}
 
@@ -145,8 +206,17 @@ Work in pairs. For your neighbour's figure:
 
 ## 2) Rebuild one plot {#w13-s5-2}
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
 library(tidyverse)
+
+# toy data (illustration only): CD8 T-cell fraction in 8 controls and 9 responders
+set.seed(1)
+d <- tibble(group = rep(c("control", "responder"), c(8, 9)),
+            value = c(rnorm(8, 0.15, 0.05), rnorm(9, 0.25, 0.07)))
 
 # ❌ before
 ggplot(d, aes(group, value, fill = group)) +
@@ -166,12 +236,54 @@ d |>
   theme(panel.grid.major.x = element_blank())
 ```
 
+### Python
+
+```{python}
+import matplotlib.pyplot as plt, seaborn as sns
+
+# toy data (illustration only): CD8 T-cell fraction in 8 controls and 9 responders
+rng = np.random.default_rng(1)
+d = pd.DataFrame({"group": ["control"] * 8 + ["responder"] * 9,
+                  "value": np.r_[rng.normal(0.15, 0.05, 8), rng.normal(0.25, 0.07, 9)]})
+
+# ❌ before
+sns.barplot(d, x="group", y="value", hue="group", errorbar="se", capsize=.2)
+plt.show()
+
+# ✅ after — the patients are visible, and n is on the axis
+order = ["control", "responder"]
+n = d.group.value_counts()
+ax = sns.boxplot(d, x="group", y="value", order=order, width=.45, showfliers=False,
+                 fill=False, color="#8A7FA3")
+sns.stripplot(d, x="group", y="value", order=order, jitter=.12, size=7, alpha=.85,
+              color="#185FA5", ax=ax)
+ax.set_xticks(range(len(order)), [f"{g}\n(n = {n[g]})" for g in order])
+ax.set(xlabel=None, ylabel="CD8 T-cell fraction", title="Responders have a higher CD8 T-cell fraction")
+sns.despine()
+plt.show()
+```
+
+:::
+
 ## 3) Redo an enrichment with the right universe {#w13-s5-3}
+
+::: {.panel-tabset group="lang"}
+
+### R
 
 ```{r}
 # Run enrichGO twice: default universe, then the expressed-gene universe.
 # How many terms survive? Does the top term change?
 ```
+
+### Python
+
+```{python}
+# Run gp.enrichr twice: default background, then the expressed-gene universe.
+# How many terms survive? Does the top term change?
+```
+
+:::
 
 💡 This takes two minutes and changes results often enough to be worth doing every time.
 
