@@ -84,9 +84,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-771210972c2b3d896dd99f41603bb4dd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-88d021f3aa3e9e2203f4422d19f5e8ad.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-059fd4ccf16d63f8e817c1e7fa4fb424.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-49b1833bbd43c9d03e2e98c0e8c3df20.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-059fd4ccf16d63f8e817c1e7fa4fb424.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -705,7 +705,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="w6-s1-2">2) ⚠️ Integration is an assumption in disguise</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w6/integration_overcorrection.svg" class="img-fluid figure-img"></p>
+<p><img src="../../assets/img/w6/integration_overcorrection.svg" class="img-fluid figure-img"></p>
 <figcaption>Both right-hand panels look perfectly mixed. Only one colouring reveals what happened.</figcaption>
 </figure>
 </div>
@@ -763,7 +763,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="w6-s2-2">2) ⚠️ The algorithm always succeeds</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w6/trajectory_caveats.svg" class="img-fluid figure-img"></p>
+<p><img src="../../assets/img/w6/trajectory_caveats.svg" class="img-fluid figure-img"></p>
 <figcaption>Same tool, same settings, same confident output.</figcaption>
 </figure>
 </div>
@@ -793,7 +793,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="w6-s2-3">3) RNA velocity</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w6/rna_velocity.svg" class="img-fluid figure-img"></p>
+<p><img src="../../assets/img/w6/rna_velocity.svg" class="img-fluid figure-img"></p>
 <figcaption>Where the arrows come from.</figcaption>
 </figure>
 </div>
@@ -857,7 +857,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </blockquote>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w6/scenic_regulon.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="../../assets/img/w6/scenic_regulon.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p><strong>SCENIC — three steps</strong></p>
@@ -899,7 +899,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </blockquote>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w6/nmf_programs.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="../../assets/img/w6/nmf_programs.svg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p><strong>NMF (non-negative matrix factorisation)</strong></p>
@@ -959,7 +959,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>CellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster pairs based on <strong>co-expression</strong> — the ligand’s mRNA is high in cluster A, its receptor’s mRNA is high in cluster B.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\assets/img/w6/ccc_fallacy.svg" class="img-fluid figure-img"></p>
+<p><img src="../../assets/img/w6/ccc_fallacy.svg" class="img-fluid figure-img"></p>
 <figcaption>The arrow in the figure is doing far more work than the data supports.</figcaption>
 </figure>
 </div>
@@ -1055,75 +1055,335 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>5. Hands-On 💻</h1>
 <section id="w6-s5-1" class="level2">
 <h2 class="anchored" data-anchor-id="w6-s5-1">1) Integration, with the honest diagnostic</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat); <span class="fu">library</span>(harmony); <span class="fu">library</span>(patchwork)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"analysis"</span>, <span class="st">"5_pbmc_annotated.rds"</span>))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> obj <span class="sc">|&gt;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunHarmony</span>(<span class="at">group.by.vars =</span> <span class="st">"donor"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindNeighbors</span>(<span class="at">reduction =</span> <span class="st">"harmony"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunUMAP</span>(<span class="at">reduction =</span> <span class="st">"harmony"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ the two panels that must always appear together</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(obj, <span class="at">group.by =</span> <span class="st">"donor"</span>)     <span class="sc">|</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(obj, <span class="at">group.by =</span> <span class="st">"cell_type"</span>, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># W5's pbmc3k is a single donor, so use real multi-donor PBMCs:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Kang et al. 2018 (GEO GSE96583) — 8 donors, the unstimulated cells</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>geo  <span class="ot">&lt;-</span> <span class="st">"https://ftp.ncbi.nlm.nih.gov/geo/"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>get  <span class="ot">&lt;-</span> \(path) {                                     <span class="co"># download once per session, then read locally</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="fu">basename</span>(path))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(f)) <span class="fu">download.file</span>(<span class="fu">paste0</span>(geo, path), f, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  f</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>cnt  <span class="ot">&lt;-</span> Matrix<span class="sc">::</span><span class="fu">readMM</span>(<span class="fu">get</span>(<span class="st">"samples/GSM2560nnn/GSM2560248/suppl/GSM2560248_2.1.mtx.gz"</span>))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(cnt) <span class="ot">&lt;-</span> <span class="fu">make.unique</span>(<span class="fu">read.delim</span>(<span class="fu">get</span>(<span class="st">"series/GSE96nnn/GSE96583/suppl/GSE96583_batch2.genes.tsv.gz"</span>), <span class="at">header =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>V2)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cnt) <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="fu">get</span>(<span class="st">"samples/GSM2560nnn/GSM2560248/suppl/GSM2560248_barcodes.tsv.gz"</span>))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="fu">get</span>(<span class="st">"series/GSE96nnn/GSE96583/suppl/GSE96583_batch2.total.tsne.df.tsv.gz"</span>))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">CreateSeuratObject</span>(<span class="fu">as</span>(cnt, <span class="st">"CsparseMatrix"</span>), <span class="at">meta.data =</span> meta[<span class="fu">colnames</span>(cnt), ]) <span class="sc">|&gt;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(multiplets <span class="sc">==</span> <span class="st">"singlet"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>obj<span class="sc">$</span>donor <span class="ot">&lt;-</span> <span class="fu">factor</span>(obj<span class="sc">$</span>ind); obj<span class="sc">$</span>cell_type <span class="ot">&lt;-</span> obj<span class="sc">$</span>cell</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">NormalizeData</span>(obj) <span class="sc">|&gt;</span> <span class="fu">FindVariableFeatures</span>() <span class="sc">|&gt;</span> <span class="fu">ScaleData</span>() <span class="sc">|&gt;</span> <span class="fu">RunPCA</span>()</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> obj <span class="sc">|&gt;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunHarmony</span>(<span class="at">group.by.vars =</span> <span class="st">"donor"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindNeighbors</span>(<span class="at">reduction =</span> <span class="st">"harmony"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunUMAP</span>(<span class="at">reduction =</span> <span class="st">"harmony"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ the two panels that must always appear together</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(obj, <span class="at">group.by =</span> <span class="st">"donor"</span>)     <span class="sc">|</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(obj, <span class="at">group.by =</span> <span class="st">"cell_type"</span>, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Initializing centroids
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 12315
+Number of edges: 441978
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8937
+Number of communities: 14
+Elapsed time: 1 seconds</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w6_scrna_dynamics_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, scanpy <span class="im">as</span> sc, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gzip, io, urllib.request</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.io <span class="im">import</span> mmread</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># W5's pbmc3k is a single donor, so use real multi-donor PBMCs:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Kang et al. 2018 (GEO GSE96583) — 8 donors, the unstimulated cells</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>geo <span class="op">=</span> <span class="st">"https://ftp.ncbi.nlm.nih.gov/geo/"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>get <span class="op">=</span> <span class="kw">lambda</span> path: io.BytesIO(gzip.decompress(urllib.request.urlopen(geo <span class="op">+</span> path).read()))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>X     <span class="op">=</span> mmread(get(<span class="st">"samples/GSM2560nnn/GSM2560248/suppl/GSM2560248_2.1.mtx.gz"</span>)).T.tocsr()</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>genes <span class="op">=</span> pd.read_csv(get(<span class="st">"series/GSE96nnn/GSE96583/suppl/GSE96583_batch2.genes.tsv.gz"</span>), sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, header<span class="op">=</span><span class="va">None</span>)[<span class="dv">1</span>]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>cells <span class="op">=</span> pd.read_csv(get(<span class="st">"samples/GSM2560nnn/GSM2560248/suppl/GSM2560248_barcodes.tsv.gz"</span>), header<span class="op">=</span><span class="va">None</span>)[<span class="dv">0</span>]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>meta  <span class="op">=</span> pd.read_csv(get(<span class="st">"series/GSE96nnn/GSE96583/suppl/GSE96583_batch2.total.tsne.df.tsv.gz"</span>), sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>ad <span class="op">=</span> sc.AnnData(X, obs<span class="op">=</span>meta.reindex(cells.values), var<span class="op">=</span>pd.DataFrame(index<span class="op">=</span>genes.values))</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>ad.var_names_make_unique()</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>ad <span class="op">=</span> ad[ad.obs.multiplets <span class="op">==</span> <span class="st">"singlet"</span>].copy()</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>ad.obs[<span class="st">"donor"</span>] <span class="op">=</span> ad.obs.ind.astype(<span class="bu">str</span>).astype(<span class="st">"category"</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>ad.obs[<span class="st">"cell_type"</span>] <span class="op">=</span> ad.obs.cell.astype(<span class="st">"category"</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>sc.pp.normalize_total(ad, target_sum<span class="op">=</span><span class="fl">1e4</span>)<span class="op">;</span> sc.pp.log1p(ad)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>ad.raw <span class="op">=</span> ad                                        <span class="co"># keep all genes for later</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>sc.pp.highly_variable_genes(ad, n_top_genes<span class="op">=</span><span class="dv">2000</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>ad <span class="op">=</span> ad[:, ad.var.highly_variable].copy()</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>sc.pp.scale(ad, max_value<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span> sc.pp.pca(ad)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> harmonypy</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> harmonypy.run_harmony(ad.obsm[<span class="st">"X_pca"</span>], ad.obs, <span class="st">"donor"</span>).Z_corr</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>ad.obsm[<span class="st">"X_pca_harmony"</span>] <span class="op">=</span> z <span class="cf">if</span> z.shape[<span class="dv">0</span>] <span class="op">==</span> ad.n_obs <span class="cf">else</span> z.T   <span class="co"># harmonypy ≥ 2 already returns cells × PCs</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>sc.pp.neighbors(ad, use_rep<span class="op">=</span><span class="st">"X_pca_harmony"</span>, n_pcs<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>sc.tl.leiden(ad, resolution<span class="op">=</span><span class="fl">0.5</span>, flavor<span class="op">=</span><span class="st">"igraph"</span>, n_iterations<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>sc.tl.umap(ad)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ the two panels that must always appear together</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>sc.pl.umap(ad, color<span class="op">=</span><span class="st">"donor"</span>, ax<span class="op">=</span>axs[<span class="dv">0</span>], show<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>sc.pl.umap(ad, color<span class="op">=</span><span class="st">"cell_type"</span>, legend_loc<span class="op">=</span><span class="st">"on data"</span>, ax<span class="op">=</span>axs[<span class="dv">1</span>], show<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w6_scrna_dynamics_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <p>✅ <strong>Change one thing:</strong> raise Harmony’s <code>theta</code> (more aggressive correction) and watch whether any small population disappears from the right-hand panel.</p>
 </section>
 <section id="w6-s5-2" class="level2">
 <h2 class="anchored" data-anchor-id="w6-s5-2">2) A trajectory, and its sanity check</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(monocle3)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cds <span class="ot">&lt;-</span> <span class="fu">as.cell_data_set</span>(obj)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cds <span class="ot">&lt;-</span> <span class="fu">cluster_cells</span>(cds) <span class="sc">|&gt;</span> <span class="fu">learn_graph</span>()</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>cds <span class="ot">&lt;-</span> <span class="fu">order_cells</span>(cds)              <span class="co"># ⚠️ you choose the root — that is an assumption</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_cells</span>(cds, <span class="at">color_cells_by =</span> <span class="st">"pseudotime"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(monocle3); <span class="fu">library</span>(SeuratWrappers)    <span class="co"># as.cell_data_set() is in SeuratWrappers</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>cds <span class="ot">&lt;-</span> <span class="fu">as.cell_data_set</span>(obj)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>cds <span class="ot">&lt;-</span> <span class="fu">cluster_cells</span>(cds) <span class="sc">|&gt;</span> <span class="fu">learn_graph</span>()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>cds <span class="ot">&lt;-</span> <span class="fu">order_cells</span>(cds, <span class="at">root_cells =</span> <span class="fu">colnames</span>(cds)[<span class="dv">1</span>])   <span class="co"># ⚠️ you choose the root — that is an assumption</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_cells</span>(cds, <span class="at">color_cells_by =</span> <span class="st">"pseudotime"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w6_scrna_dynamics_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># scanpy's built-in trajectory tools: diffusion pseudotime on the same graph</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ad.uns[<span class="st">"iroot"</span>] <span class="op">=</span> <span class="dv">0</span>                    <span class="co"># ⚠️ you choose the root — that is an assumption</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>sc.tl.diffmap(ad)<span class="op">;</span> sc.tl.dpt(ad)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>sc.pl.umap(ad, color<span class="op">=</span><span class="st">"dpt_pseudotime"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w6_scrna_dynamics_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <p>⚠️ <strong>Then do this</strong>, and look at the output honestly:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the same pipeline on one homogeneous cluster with no expected process</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mono <span class="ot">&lt;-</span> <span class="fu">subset</span>(obj, cell_type <span class="sc">==</span> <span class="st">"CD14 Mono"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cds_null <span class="ot">&lt;-</span> <span class="fu">as.cell_data_set</span>(mono) <span class="sc">|&gt;</span> <span class="fu">cluster_cells</span>() <span class="sc">|&gt;</span> <span class="fu">learn_graph</span>()</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_cells</span>(cds_null, <span class="at">color_cells_by =</span> <span class="st">"pseudotime"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the same pipeline on one homogeneous cluster with no expected process</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>mono <span class="ot">&lt;-</span> <span class="fu">subset</span>(obj, cell_type <span class="sc">==</span> <span class="st">"CD14+ Monocytes"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>cds_null <span class="ot">&lt;-</span> <span class="fu">as.cell_data_set</span>(mono) <span class="sc">|&gt;</span> <span class="fu">cluster_cells</span>() <span class="sc">|&gt;</span> <span class="fu">learn_graph</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">order_cells</span>(<span class="at">root_cells =</span> <span class="fu">colnames</span>(mono)[<span class="dv">1</span>])</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_cells</span>(cds_null, <span class="at">color_cells_by =</span> <span class="st">"pseudotime"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w6_scrna_dynamics_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the same pipeline on one homogeneous cluster with no expected process</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>mono <span class="op">=</span> ad[ad.obs.cell_type <span class="op">==</span> <span class="st">"CD14+ Monocytes"</span>].copy()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>sc.pp.neighbors(mono, use_rep<span class="op">=</span><span class="st">"X_pca_harmony"</span>, n_pcs<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>mono.uns[<span class="st">"iroot"</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>sc.tl.diffmap(mono)<span class="op">;</span> sc.tl.dpt(mono)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>sc.pl.umap(mono, color<span class="op">=</span><span class="st">"dpt_pseudotime"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w6_scrna_dynamics_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <p>💡 You will get a trajectory. Discuss what that means for the previous figure.</p>
 </section>
 <section id="w6-s5-3" class="level2">
 <h2 class="anchored" data-anchor-id="w6-s5-3">3) Cell–cell communication</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CellChat)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>cc <span class="ot">&lt;-</span> <span class="fu">createCellChat</span>(obj, <span class="at">group.by =</span> <span class="st">"cell_type"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subsetData</span>() <span class="sc">|&gt;</span> <span class="fu">identifyOverExpressedGenes</span>() <span class="sc">|&gt;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identifyOverExpressedInteractions</span>() <span class="sc">|&gt;</span> <span class="fu">computeCommunProb</span>() <span class="sc">|&gt;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filterCommunication</span>(<span class="at">min.cells =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> <span class="fu">aggregateNet</span>()</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_circle</span>(cc<span class="sc">@</span>net<span class="sc">$</span>weight, <span class="at">weight.scale =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CellChat)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>cc <span class="ot">&lt;-</span> <span class="fu">createCellChat</span>(obj, <span class="at">group.by =</span> <span class="st">"cell_type"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>cc<span class="sc">@</span>DB <span class="ot">&lt;-</span> CellChatDB.human                  <span class="co"># the ligand–receptor database to use</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>cc <span class="ot">&lt;-</span> cc <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subsetData</span>() <span class="sc">|&gt;</span> <span class="fu">identifyOverExpressedGenes</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identifyOverExpressedInteractions</span>() <span class="sc">|&gt;</span> <span class="fu">computeCommunProb</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filterCommunication</span>(<span class="at">min.cells =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> <span class="fu">aggregateNet</span>()</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_circle</span>(cc<span class="sc">@</span>net<span class="sc">$</span>weight, <span class="at">weight.scale =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Create a CellChat object from a Seurat object"
+The `data` slot in the default assay is used. The default assay is RNA 
+The `meta.data` slot in the Seurat object is used as cell meta information 
+Set cell identities for the new CellChat object 
+The cell groups used for CellChat analysis are  B cells, CD14+ Monocytes, CD4 T cells, CD8 T cells, Dendritic cells, FCGR3A+ Monocytes, Megakaryocytes, NK cells 
+triMean is used for calculating the average gene expression per cell group. 
+The number of highly variable ligand-receptor pairs used for signaling inference is 771 
+[1] "&gt;&gt;&gt; Run CellChat on sc/snRNA-seq data &lt;&lt;&lt; [2026-10-16 20:18:39.624283]"
+[1] "&gt;&gt;&gt; CellChat inference is done. Parameter values are stored in `object@options$parameter` &lt;&lt;&lt; [2026-10-16 20:20:54.235602]"</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w6_scrna_dynamics_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> liana <span class="im">as</span> li</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># LIANA: several ligand–receptor methods (CellChat's among them), ranked by consensus</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>li.mt.rank_aggregate(ad, groupby<span class="op">=</span><span class="st">"cell_type"</span>, resource_name<span class="op">=</span><span class="st">"consensus"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                     expr_prop<span class="op">=</span><span class="fl">0.1</span>, use_raw<span class="op">=</span><span class="va">True</span>, verbose<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>li.pl.circle_plot(ad, groupby<span class="op">=</span><span class="st">"cell_type"</span>, score_key<span class="op">=</span><span class="st">"magnitude_rank"</span>, inverse_score<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                  top_n<span class="op">=</span><span class="dv">50</span>, orderby<span class="op">=</span><span class="st">"magnitude_rank"</span>, orderby_ascending<span class="op">=</span><span class="va">True</span>, figure_size<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">7</span>))</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w6_scrna_dynamics_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <p>✅ Pick the strongest predicted interaction and write <strong>one sentence</strong> describing the experiment that would test it. That sentence is the deliverable, not the plot.</p>
 </section>
 <section id="w6-s5-4" class="level2">
 <h2 class="anchored" data-anchor-id="w6-s5-4">4) TF activity (decoupleR)</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="lang">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">Python</a></li></ul>
+<div class="tab-content" data-group="lang">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(decoupleR)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>net  <span class="ot">&lt;-</span> <span class="fu">get_collectri</span>(<span class="at">organism =</span> <span class="st">"human"</span>, <span class="at">split_complexes =</span> <span class="cn">FALSE</span>)   <span class="co"># known TF–target pairs</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>mat  <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">LayerData</span>(obj, <span class="at">assay =</span> <span class="st">"RNA"</span>, <span class="at">layer =</span> <span class="st">"data"</span>))      <span class="co"># log-normalised</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>acts <span class="ot">&lt;-</span> <span class="fu">run_ulm</span>(<span class="at">mat =</span> mat, <span class="at">net =</span> net, <span class="at">.source =</span> <span class="st">"source"</span>, <span class="at">.target =</span> <span class="st">"target"</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">.mor =</span> <span class="st">"mor"</span>, <span class="at">minsize =</span> <span class="dv">5</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>obj[[<span class="st">"tf"</span>]] <span class="ot">&lt;-</span> acts <span class="sc">|&gt;</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="st">"source"</span>, <span class="at">names_from =</span> <span class="st">"condition"</span>, <span class="at">values_from =</span> <span class="st">"score"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">column_to_rownames</span>(<span class="st">"source"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">CreateAssayObject</span>()</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># TF mRNA vs TF activity, side by side</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">DefaultAssay</span>(obj) <span class="ot">&lt;-</span> <span class="st">"RNA"</span>; p1 <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(obj, <span class="st">"SPI1"</span>)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">DefaultAssay</span>(obj) <span class="ot">&lt;-</span> <span class="st">"tf"</span>;  p2 <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(obj, <span class="st">"SPI1"</span>)</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">|</span> p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(decoupleR)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># CollecTRI from its Zenodo release (get_collectri() currently fails inside OmnipathR 4.x)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>net  <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://zenodo.org/records/8192729/files/CollecTRI_regulons.csv?download=1"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">mor =</span> weight)                                          <span class="co"># known TF–target pairs</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>mat  <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">LayerData</span>(obj, <span class="at">assay =</span> <span class="st">"RNA"</span>, <span class="at">layer =</span> <span class="st">"data"</span>))      <span class="co"># log-normalised</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>acts <span class="ot">&lt;-</span> <span class="fu">run_ulm</span>(<span class="at">mat =</span> mat, <span class="at">net =</span> net, <span class="at">.source =</span> <span class="st">"source"</span>, <span class="at">.target =</span> <span class="st">"target"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">.mor =</span> <span class="st">"mor"</span>, <span class="at">minsize =</span> <span class="dv">5</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>obj[[<span class="st">"tf"</span>]] <span class="ot">&lt;-</span> acts <span class="sc">|&gt;</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="st">"source"</span>, <span class="at">names_from =</span> <span class="st">"condition"</span>, <span class="at">values_from =</span> <span class="st">"score"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">column_to_rownames</span>(<span class="st">"source"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">CreateAssayObject</span>()</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co"># TF mRNA vs TF activity, side by side</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="fu">DefaultAssay</span>(obj) <span class="ot">&lt;-</span> <span class="st">"RNA"</span>; p1 <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(obj, <span class="st">"SPI1"</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="fu">DefaultAssay</span>(obj) <span class="ot">&lt;-</span> <span class="st">"tf"</span>;  p2 <span class="ot">&lt;-</span> <span class="fu">FeaturePlot</span>(obj, <span class="st">"SPI1"</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">|</span> p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w6_scrna_dynamics_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> decoupler <span class="im">as</span> dc</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> dc.op.collectri(organism<span class="op">=</span><span class="st">"human"</span>)                        <span class="co"># known TF–target pairs</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>dc.mt.ulm(ad, net, raw<span class="op">=</span><span class="va">True</span>, tmin<span class="op">=</span><span class="dv">5</span>)                           <span class="co"># log-normalised, all genes</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>acts <span class="op">=</span> dc.pp.get_obsm(ad, key<span class="op">=</span><span class="st">"score_ulm"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># TF mRNA vs TF activity, side by side</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">4.5</span>))</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>sc.pl.umap(ad, color<span class="op">=</span><span class="st">"SPI1"</span>, use_raw<span class="op">=</span><span class="va">True</span>, title<span class="op">=</span><span class="st">"SPI1 mRNA"</span>, ax<span class="op">=</span>axs[<span class="dv">0</span>], show<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>sc.pl.umap(acts, color<span class="op">=</span><span class="st">"SPI1"</span>, cmap<span class="op">=</span><span class="st">"RdBu_r"</span>, vcenter<span class="op">=</span><span class="dv">0</span>, title<span class="op">=</span><span class="st">"SPI1 activity"</span>, ax<span class="op">=</span>axs[<span class="dv">1</span>], show<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="w6_scrna_dynamics_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <p>✅ <strong>Change one thing:</strong> swap SPI1 (PU.1) for a TF you care about and compare its mRNA with its activity — how different are they? To compare conditions, average per donor, not per cell.</p>
 </section>
@@ -1527,17 +1787,43 @@ Dimitrov D, et al.&nbsp;<a href="https://doi.org/10.1038/s41467-022-30755-0"><em
   }
 })();
 </script>
-<!-- AI Chat Widget 초기화 -->
 
-<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
-
+<!-- Fold executed-code output (stdout, messages, figures) under one collapsed <details> per cell. -->
 <script>
+(function () {
+  "use strict";
 
+  function foldCellOutputs() {
+    const label = document.documentElement.lang.startsWith("ko") ? "결과 보기" : "Show output";
+
+    document.querySelectorAll(".cell").forEach((cell) => {
+      const outputs = Array.from(cell.children).filter((el) =>
+        Array.from(el.classList).some((c) => c.startsWith("cell-output"))
+      );
+      if (outputs.length === 0) return;
+
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+      details.className = "cell-output-fold";
+      summary.textContent = label;
+      details.appendChild(summary);
+      details.append(...outputs);
+      cell.append(details);   // always below the code, even if knitr split the chunk
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", foldCellOutputs, { once: true });
+  } else {
+    foldCellOutputs();
+  }
+})();
+</script>
+<!-- AI Chat Widget 초기화 -->
+<!-- _quarto.yml의 include-after-body에 등록되어 모든 페이지에 자동 삽입됩니다 -->
+<script>
   // ★ Cloudflare Worker 배포 후 URL로 교체하세요
-
   const WORKER_URL = "https://falling-wave-447f.eh0129s.workers.dev/";
-
-
 
   // Quarto가 렌더링한 현재 페이지의 본문을 AI 문맥으로 사용합니다.
   // 너무 긴 페이지가 요청 크기를 과도하게 키우지 않도록 문자 수를 제한합니다.
@@ -1572,339 +1858,174 @@ Dimitrov D, et al.&nbsp;<a href="https://doi.org/10.1038/s41467-022-30755-0"><em
   const supplementalContext = metaContext ? metaContext.content.trim() : "";
   const combinedContext = [supplementalContext, pageContext].filter(Boolean).join("\n\n");
 
-
   window.AI_CHAT_CONFIG = {
-
     workerUrl:      WORKER_URL,
-
     chapterContext: combinedContext,
     chapterTitle: metaTitle ? metaTitle.content : document.title,
   };
-
 </script>
-
 <!-- 위젯 코드를 인라인으로 삽입 (외부 src 제거 → 페이지 깊이에 따른 경로 404 방지) -->
-
 <script>
-
 /**
-
  * AI Chat Widget for Quarto
-
  * 현재 Quarto 본문에서 만든 window.AI_CHAT_CONFIG를 사용합니다.
  */
 
-
-
 (function () {
-
   const cfg = window.AI_CHAT_CONFIG || {};
-
   const WORKER_URL = cfg.workerUrl || "";
-
   const CHAPTER_CONTEXT = cfg.chapterContext || "";
-
   const CHAPTER_TITLE = cfg.chapterTitle || document.title;
 
-
-
   if (!WORKER_URL) {
-
     console.warn("[AI Chat] workerUrl이 설정되지 않았습니다.");
-
     return;
-
   }
 
-
-
   /* ── 시스템 프롬프트 ───────────────────────── */
-
   const SYSTEM_PROMPT = `당신은 "${CHAPTER_TITLE}" 강의자료를 도와주는 학습 도우미입니다.
 
-
-
 아래는 현재 챕터의 핵심 내용입니다:
-
 ---
-
 ${CHAPTER_CONTEXT}
-
 ---
-
-
 
 규칙:
-
 - 위 챕터 내용을 중심으로 답변하세요.
-
 - 질문이 챕터 범위를 벗어나면 간단히 언급하고 챕터 내용으로 연결해주세요.
-
 - R 코드 예시가 도움이 될 때는 포함하세요.
-
 - 한국어로 답변하되, 전문 용어는 영어 병기 가능합니다.
-
 - 의학/과학 학생 대상이므로 정확성을 최우선으로 합니다.`;
 
-
-
   /* ── DOM 생성 ────────────────────────────── */
-
   const style = document.createElement("style");
-
   style.textContent = `
-
     #ai-chat-fab {
-
       position: fixed; bottom: 28px; right: 28px; z-index: 9999;
-
       width: 52px; height: 52px; border-radius: 50%;
-
       background: #1a6e3c; color: #fff; border: none;
-
       box-shadow: 0 4px 16px rgba(0,0,0,.22);
-
       cursor: pointer; font-size: 22px;
-
       display: flex; align-items: center; justify-content: center;
-
       transition: background .2s, transform .15s;
-
     }
-
     #ai-chat-fab:hover { background: #155730; transform: scale(1.07); }
 
-
-
     #ai-chat-panel {
-
       position: fixed; bottom: 90px; right: 28px; z-index: 9998;
-
       width: 360px; max-width: calc(100vw - 40px);
-
       height: 500px; max-height: calc(100vh - 120px);
-
       background: #fff; border-radius: 16px;
-
       box-shadow: 0 8px 40px rgba(0,0,0,.18);
-
       display: flex; flex-direction: column;
-
       font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
-
       overflow: hidden;
-
       transform: scale(.92) translateY(12px);
-
       opacity: 0; pointer-events: none;
-
       transition: transform .22s cubic-bezier(.34,1.56,.64,1), opacity .18s;
-
     }
-
     #ai-chat-panel.open {
-
       transform: scale(1) translateY(0);
-
       opacity: 1; pointer-events: all;
-
     }
-
-
 
     #ai-chat-header {
-
       background: #1a6e3c; color: #fff;
-
       padding: 14px 16px 12px;
-
       display: flex; align-items: center; gap: 10px;
-
       font-size: 14px; font-weight: 600; letter-spacing: .01em;
-
       flex-shrink: 0;
-
     }
-
     #ai-chat-header span { flex: 1; }
     #ai-chat-header > div { flex: 1; min-width: 0; }
     #ai-chat-close {
-
       background: none; border: none; color: #fff;
-
       font-size: 18px; cursor: pointer; padding: 0 2px; line-height: 1;
-
       opacity: .8;
-
     }
-
     #ai-chat-close:hover { opacity: 1; }
 
-
-
     #ai-chat-subtitle {
-
       font-size: 11px; color: rgba(255,255,255,.72);
-
       font-weight: 400; display: block; margin-top: 2px;
-
     }
-
-
 
     #ai-chat-messages {
-
       flex: 1; overflow-y: auto; padding: 14px 14px 8px;
-
       display: flex; flex-direction: column; gap: 10px;
-
       scroll-behavior: smooth;
-
     }
-
     #ai-chat-messages::-webkit-scrollbar { width: 4px; }
-
     #ai-chat-messages::-webkit-scrollbar-thumb {
-
       background: #ddd; border-radius: 4px;
-
     }
-
-
 
     .ai-msg {
-
       max-width: 88%; padding: 9px 13px;
-
       border-radius: 14px; font-size: 13.5px; line-height: 1.55;
-
       white-space: pre-wrap; word-break: break-word;
-
     }
-
     .ai-msg.user {
-
       align-self: flex-end;
-
       background: #1a6e3c; color: #fff;
-
       border-bottom-right-radius: 4px;
-
     }
-
     .ai-msg.assistant {
-
       align-self: flex-start;
-
       background: #f3f4f6; color: #1f2937;
-
       border-bottom-left-radius: 4px;
-
     }
-
     .ai-msg.assistant code {
-
       background: #e5e7eb; padding: 1px 5px;
-
       border-radius: 4px; font-size: 12.5px; font-family: monospace;
-
     }
-
     .ai-msg.assistant pre {
-
       background: #1f2937; color: #f9fafb;
-
       padding: 10px 12px; border-radius: 8px; overflow-x: auto;
-
       font-size: 12px; margin: 6px 0;
-
     }
-
     .ai-msg.assistant pre code { background: none; padding: 0; color: inherit; }
 
-
-
     .ai-typing {
-
       align-self: flex-start;
-
       display: flex; gap: 5px; padding: 10px 14px;
-
       background: #f3f4f6; border-radius: 14px; border-bottom-left-radius: 4px;
-
     }
-
     .ai-typing span {
-
       width: 7px; height: 7px; background: #9ca3af;
-
       border-radius: 50%; animation: aiDot 1.2s infinite;
-
     }
-
     .ai-typing span:nth-child(2) { animation-delay: .2s; }
-
     .ai-typing span:nth-child(3) { animation-delay: .4s; }
-
     @keyframes aiDot {
-
       0%, 60%, 100% { transform: translateY(0); opacity: .4; }
-
       30% { transform: translateY(-5px); opacity: 1; }
-
     }
-
-
 
     #ai-chat-input-row {
-
       display: flex; gap: 8px; padding: 10px 12px 12px;
-
       border-top: 1px solid #f0f0f0; flex-shrink: 0;
-
     }
-
     #ai-chat-input {
-
       flex: 1; border: 1px solid #e5e7eb; border-radius: 10px;
-
       padding: 8px 12px; font-size: 13.5px; resize: none;
-
       font-family: inherit; outline: none; max-height: 100px;
-
       line-height: 1.45; color: #1f2937;
-
       transition: border-color .15s;
-
     }
-
     #ai-chat-input:focus { border-color: #1a6e3c; }
-
     #ai-chat-send {
-
       width: 36px; height: 36px; border-radius: 9px;
-
       background: #1a6e3c; color: #fff; border: none;
-
       cursor: pointer; font-size: 16px; flex-shrink: 0;
-
       align-self: flex-end;
-
       display: flex; align-items: center; justify-content: center;
-
       transition: background .15s;
-
     }
-
     #ai-chat-send:hover { background: #155730; }
-
     #ai-chat-send:disabled { background: #9ca3af; cursor: not-allowed; }
-
   `;
-
   document.head.appendChild(style);
-
-
 
   const fabElement = document.createElement("button");
   fabElement.id = "ai-chat-fab";
@@ -1955,68 +2076,38 @@ ${CHAPTER_CONTEXT}
   panelElement.append(headerElement, messagesElement, inputRow);
   document.body.append(fabElement, panelElement);
 
-
   /* ── 상태 ─────────────────────────────────── */
-
   const panel = document.getElementById("ai-chat-panel");
-
   const fab = document.getElementById("ai-chat-fab");
-
   const closeBtn = document.getElementById("ai-chat-close");
-
   const input = document.getElementById("ai-chat-input");
-
   const sendBtn = document.getElementById("ai-chat-send");
-
   const messages = document.getElementById("ai-chat-messages");
   const history = []; // {role, content}[]
 
   appendMsg("assistant", "안녕하세요! 이 챕터에 대해 궁금한 점을 물어보세요 😊");
 
-
   /* ── 토글 ─────────────────────────────────── */
-
   fab.addEventListener("click", () => {
-
     panel.classList.toggle("open");
-
     if (panel.classList.contains("open")) input.focus();
-
   });
-
   closeBtn.addEventListener("click", () => panel.classList.remove("open"));
 
-
-
   /* ── 자동 높이 조정 ───────────────────────── */
-
   input.addEventListener("input", () => {
-
     input.style.height = "auto";
-
     input.style.height = Math.min(input.scrollHeight, 100) + "px";
-
   });
-
-
 
   /* ── 전송 ─────────────────────────────────── */
-
   input.addEventListener("keydown", (e) => {
-
     if (e.key === "Enter" && !e.shiftKey) {
-
       e.preventDefault();
-
       sendMessage();
-
     }
-
   });
-
   sendBtn.addEventListener("click", sendMessage);
-
-
 
   function appendMsg(role, text) {
     const div = document.createElement("div");
@@ -2066,7 +2157,6 @@ ${CHAPTER_CONTEXT}
     appendInlineCode(parent, text.slice(cursor));
   }
 
-
   function showTyping() {
     const el = document.createElement("div");
     el.className = "ai-typing";
@@ -2076,107 +2166,56 @@ ${CHAPTER_CONTEXT}
       document.createElement("span")
     );
     messages.appendChild(el);
-
     messages.scrollTop = messages.scrollHeight;
-
     return el;
-
   }
 
-
-
   async function sendMessage() {
-
     const text = input.value.trim();
-
     if (!text || sendBtn.disabled) return;
 
-
-
     input.value = "";
-
     input.style.height = "auto";
-
     sendBtn.disabled = true;
 
-
-
     appendMsg("user", text);
-
     history.push({ role: "user", content: text });
-
-
 
     const typing = showTyping();
 
-
-
     try {
-
       const res = await fetch(WORKER_URL, {
-
         method: "POST",
-
         headers: { "Content-Type": "application/json" },
-
         body: JSON.stringify({
-
           model: "claude-sonnet-5",
-
           max_tokens: 4096,
-
           system: SYSTEM_PROMPT,
-
           messages: history,
-
         }),
-
       });
 
-
-
       const data = await res.json();
-
       typing.remove();
-
-
 
       if (data.content && data.content[0]) {
-
         const reply = data.content[0].text;
-
         appendMsg("assistant", reply);
-
         history.push({ role: "assistant", content: reply });
-
       } else {
-
         appendMsg("assistant", "오류가 발생했습니다. 다시 시도해주세요.");
-
       }
-
     } catch (err) {
-
       typing.remove();
-
       appendMsg("assistant", "네트워크 오류가 발생했습니다.");
-
       console.error("[AI Chat]", err);
-
     }
 
-
-
     sendBtn.disabled = false;
-
     input.focus();
-
   }
-
 })();
-
 </script>
-
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

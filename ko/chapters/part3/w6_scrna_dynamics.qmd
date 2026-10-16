@@ -5,7 +5,11 @@ date: last-modified
 format: html
 execute:
   echo: true
-  eval: false
+  eval: true
+knitr:
+  opts_chunk:
+    fig.show: hold     # keep each chunk's code in one block, outputs after it
+    results: hold
 ---
 
 ::: {.callout-note collapse="true"}
@@ -239,10 +243,30 @@ CellPhoneDB, CellChat, NicheNet = cluster 쌍 사이의 ligand–receptor pair�
 
 ## 1) 정직한 진단을 포함한 integration {#w6-s5-1}
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
 library(Seurat); library(harmony); library(patchwork)
 
-obj <- readRDS(here::here("analysis", "5_pbmc_annotated.rds"))
+# W5's pbmc3k is a single donor, so use real multi-donor PBMCs:
+# Kang et al. 2018 (GEO GSE96583) — 8 donors, the unstimulated cells
+geo  <- "https://ftp.ncbi.nlm.nih.gov/geo/"
+get  <- \(path) {                                     # download once per session, then read locally
+  f <- file.path(tempdir(), basename(path))
+  if (!file.exists(f)) download.file(paste0(geo, path), f, quiet = TRUE)
+  f
+}
+cnt  <- Matrix::readMM(get("samples/GSM2560nnn/GSM2560248/suppl/GSM2560248_2.1.mtx.gz"))
+rownames(cnt) <- make.unique(read.delim(get("series/GSE96nnn/GSE96583/suppl/GSE96583_batch2.genes.tsv.gz"), header = FALSE)$V2)
+colnames(cnt) <- readLines(get("samples/GSM2560nnn/GSM2560248/suppl/GSM2560248_barcodes.tsv.gz"))
+meta <- read.delim(get("series/GSE96nnn/GSE96583/suppl/GSE96583_batch2.total.tsne.df.tsv.gz"))
+
+obj <- CreateSeuratObject(as(cnt, "CsparseMatrix"), meta.data = meta[colnames(cnt), ]) |>
+  subset(multiplets == "singlet")
+obj$donor <- factor(obj$ind); obj$cell_type <- obj$cell
+obj <- NormalizeData(obj) |> FindVariableFeatures() |> ScaleData() |> RunPCA()
 
 obj <- obj |>
   RunHarmony(group.by.vars = "donor") |>
@@ -255,36 +279,119 @@ DimPlot(obj, group.by = "donor")     |
 DimPlot(obj, group.by = "cell_type", label = TRUE)
 ```
 
+### Python
+
+```{python}
+import numpy as np, pandas as pd, scanpy as sc, matplotlib.pyplot as plt
+import gzip, io, urllib.request
+from scipy.io import mmread
+
+# W5's pbmc3k is a single donor, so use real multi-donor PBMCs:
+# Kang et al. 2018 (GEO GSE96583) — 8 donors, the unstimulated cells
+geo = "https://ftp.ncbi.nlm.nih.gov/geo/"
+get = lambda path: io.BytesIO(gzip.decompress(urllib.request.urlopen(geo + path).read()))
+X     = mmread(get("samples/GSM2560nnn/GSM2560248/suppl/GSM2560248_2.1.mtx.gz")).T.tocsr()
+genes = pd.read_csv(get("series/GSE96nnn/GSE96583/suppl/GSE96583_batch2.genes.tsv.gz"), sep="\t", header=None)[1]
+cells = pd.read_csv(get("samples/GSM2560nnn/GSM2560248/suppl/GSM2560248_barcodes.tsv.gz"), header=None)[0]
+meta  = pd.read_csv(get("series/GSE96nnn/GSE96583/suppl/GSE96583_batch2.total.tsne.df.tsv.gz"), sep="\t")
+
+ad = sc.AnnData(X, obs=meta.reindex(cells.values), var=pd.DataFrame(index=genes.values))
+ad.var_names_make_unique()
+ad = ad[ad.obs.multiplets == "singlet"].copy()
+ad.obs["donor"] = ad.obs.ind.astype(str).astype("category")
+ad.obs["cell_type"] = ad.obs.cell.astype("category")
+
+sc.pp.normalize_total(ad, target_sum=1e4); sc.pp.log1p(ad)
+ad.raw = ad                                        # keep all genes for later
+sc.pp.highly_variable_genes(ad, n_top_genes=2000)
+ad = ad[:, ad.var.highly_variable].copy()
+sc.pp.scale(ad, max_value=10); sc.pp.pca(ad)
+
+import harmonypy
+z = harmonypy.run_harmony(ad.obsm["X_pca"], ad.obs, "donor").Z_corr
+ad.obsm["X_pca_harmony"] = z if z.shape[0] == ad.n_obs else z.T   # harmonypy ≥ 2 already returns cells × PCs
+sc.pp.neighbors(ad, use_rep="X_pca_harmony", n_pcs=20)
+sc.tl.leiden(ad, resolution=0.5, flavor="igraph", n_iterations=2)
+sc.tl.umap(ad)
+
+# ✅ the two panels that must always appear together
+fig, axs = plt.subplots(1, 2, figsize=(12, 5))
+sc.pl.umap(ad, color="donor", ax=axs[0], show=False)
+sc.pl.umap(ad, color="cell_type", legend_loc="on data", ax=axs[1], show=False)
+plt.show()
+```
+
+:::
+
 ✅ **한 가지 바꾸기:** Harmony의 `theta`를 올려서 correction을 더 aggressive하게 → 오른쪽 panel에서 작은 population이 사라지는지 확인
 
 ## 2) Trajectory와 sanity check {#w6-s5-2}
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
-library(monocle3)
+library(monocle3); library(SeuratWrappers)    # as.cell_data_set() is in SeuratWrappers
 
 cds <- as.cell_data_set(obj)
 cds <- cluster_cells(cds) |> learn_graph()
-cds <- order_cells(cds)              # ⚠️ you choose the root — that is an assumption
+cds <- order_cells(cds, root_cells = colnames(cds)[1])   # ⚠️ you choose the root — that is an assumption
 plot_cells(cds, color_cells_by = "pseudotime")
 ```
 
+### Python
+
+```{python}
+# scanpy's built-in trajectory tools: diffusion pseudotime on the same graph
+ad.uns["iroot"] = 0                    # ⚠️ you choose the root — that is an assumption
+sc.tl.diffmap(ad); sc.tl.dpt(ad)
+sc.pl.umap(ad, color="dpt_pseudotime")
+```
+
+:::
+
 ⚠️ **그다음 아래 코드 실행** → 출력을 정직하게 보기
+
+::: {.panel-tabset group="lang"}
+
+### R
 
 ```{r}
 # Run the same pipeline on one homogeneous cluster with no expected process
-mono <- subset(obj, cell_type == "CD14 Mono")
-cds_null <- as.cell_data_set(mono) |> cluster_cells() |> learn_graph()
+mono <- subset(obj, cell_type == "CD14+ Monocytes")
+cds_null <- as.cell_data_set(mono) |> cluster_cells() |> learn_graph() |>
+  order_cells(root_cells = colnames(mono)[1])
 plot_cells(cds_null, color_cells_by = "pseudotime")
 ```
+
+### Python
+
+```{python}
+# Run the same pipeline on one homogeneous cluster with no expected process
+mono = ad[ad.obs.cell_type == "CD14+ Monocytes"].copy()
+sc.pp.neighbors(mono, use_rep="X_pca_harmony", n_pcs=20)
+mono.uns["iroot"] = 0
+sc.tl.diffmap(mono); sc.tl.dpt(mono)
+sc.pl.umap(mono, color="dpt_pseudotime")
+```
+
+:::
 
 💡 Trajectory가 나올 것.. 이게 앞의 그림에 대해 뭘 말해주는지 토론
 
 ## 3) Cell–cell communication {#w6-s5-3}
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
 library(CellChat)
 
-cc <- createCellChat(obj, group.by = "cell_type") |>
+cc <- createCellChat(obj, group.by = "cell_type")
+cc@DB <- CellChatDB.human                  # the ligand–receptor database to use
+cc <- cc |>
   subsetData() |> identifyOverExpressedGenes() |>
   identifyOverExpressedInteractions() |> computeCommunProb() |>
   filterCommunication(min.cells = 10) |> aggregateNet()
@@ -292,14 +399,36 @@ cc <- createCellChat(obj, group.by = "cell_type") |>
 netVisual_circle(cc@net$weight, weight.scale = TRUE)
 ```
 
+### Python
+
+```{python}
+import liana as li
+
+# LIANA: several ligand–receptor methods (CellChat's among them), ranked by consensus
+li.mt.rank_aggregate(ad, groupby="cell_type", resource_name="consensus",
+                     expr_prop=0.1, use_raw=True, verbose=False)
+
+li.pl.circle_plot(ad, groupby="cell_type", score_key="magnitude_rank", inverse_score=True,
+                  top_n=50, orderby="magnitude_rank", orderby_ascending=True, figure_size=(7, 7))
+plt.show()
+```
+
+:::
+
 ✅ 가장 강하게 예측된 interaction 하나를 고르고, 그걸 검정할 실험을 **한 문장**으로 쓰기. Deliverable은 plot이 아니라 그 문장
 
 ## 4) TF activity (decoupleR) {#w6-s5-4}
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
 library(decoupleR)
 
-net  <- get_collectri(organism = "human", split_complexes = FALSE)   # known TF–target pairs
+# CollecTRI from its Zenodo release (get_collectri() currently fails inside OmnipathR 4.x)
+net  <- read.csv("https://zenodo.org/records/8192729/files/CollecTRI_regulons.csv?download=1") |>
+  dplyr::rename(mor = weight)                                          # known TF–target pairs
 mat  <- as.matrix(LayerData(obj, assay = "RNA", layer = "data"))      # log-normalised
 acts <- run_ulm(mat = mat, net = net, .source = "source", .target = "target",
                 .mor = "mor", minsize = 5)
@@ -314,6 +443,24 @@ DefaultAssay(obj) <- "RNA"; p1 <- FeaturePlot(obj, "SPI1")
 DefaultAssay(obj) <- "tf";  p2 <- FeaturePlot(obj, "SPI1")
 p1 | p2
 ```
+
+### Python
+
+```{python}
+import decoupler as dc
+
+net = dc.op.collectri(organism="human")                        # known TF–target pairs
+dc.mt.ulm(ad, net, raw=True, tmin=5)                           # log-normalised, all genes
+acts = dc.pp.get_obsm(ad, key="score_ulm")
+
+# TF mRNA vs TF activity, side by side
+fig, axs = plt.subplots(1, 2, figsize=(11, 4.5))
+sc.pl.umap(ad, color="SPI1", use_raw=True, title="SPI1 mRNA", ax=axs[0], show=False)
+sc.pl.umap(acts, color="SPI1", cmap="RdBu_r", vcenter=0, title="SPI1 activity", ax=axs[1], show=False)
+plt.show()
+```
+
+:::
 
 ✅ **한 가지 바꾸기:** SPI1(PU.1) 말고 관심 있는 TF 하나로 바꿔서 mRNA vs activity 비교 → 얼마나 다른가? Condition을 비교하고 싶다면 cell이 아니라 donor별 평균으로
 
