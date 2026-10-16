@@ -564,8 +564,8 @@
     "objectID": "ko/chapters/part5/w9_proteomics_tech.html#w9-s1-1",
     "href": "ko/chapters/part5/w9_proteomics_tech.html#w9-s1-1",
     "title": "W9. 단백체학 — 단백질을 실제로 측정하는 방법",
-    "section": "1) mRNA는 단백질을 얼마나 잘 예측하는가?",
-    "text": "1) mRNA는 단백질을 얼마나 잘 예측하는가?\n\n\n\n8주 동안 전사체학을 배웠지만, 실제로 기능하는 분자와의 연결 강도는 이 정도입니다.\n\n\n한 검체 안에서 유전자별 mRNA와 단백질 abundance의 상관계수는 보통 약 r = 0.4–0.6입니다. 하나의 유전자를 여러 검체에서 비교한 상관성은 유전자마다 크게 다릅니다. 어떤 유전자는 강하지만 다른 유전자는 사실상 0입니다.\n\n\n\n\n\n\n중요동기 질문의 두 결과는 모두 틀리지 않았습니다\n\n\n\n\n\n서로 다른 것을 측정한 결과입니다.\n\nRNA-seq은 전사와 전사체 안정성을 측정했습니다\n단백질 검사는 번역, 접힘, 분비, 분해의 균형을 측정했습니다\n\nmRNA가 3배 증가했지만 단백질에는 변화가 없는 것은 실제로 해석할 수 있는 결과입니다. 전사 이후의 어떤 과정이 그 변화를 완충하고 있습니다. 이는 두 결과가 일치했을 때보다 더 흥미로울 수 있습니다.\n⚠️ 문제는 불일치 자체가 아닙니다. RNA-seq 결과를 마치 단백질에 관한 진술인 것처럼 작성한 것이 문제입니다.",
+    "section": "1) mRNA는 protein을 얼마나 잘 예측하나?",
+    "text": "1) mRNA는 protein을 얼마나 잘 예측하나?\n\n\n\n8주 동안 transcriptomics를 했는데, 실제로 일하는 분자와의 연결 강도는 이 정도\n\n\n한 sample 안에서 gene별 mRNA vs protein abundance 상관 = 보통 r = 0.4–0.6 정도. Gene 하나를 여러 sample에 걸쳐 본 상관은 gene마다 천차만별 — 강한 gene도 있고, 사실상 0인 gene도 있음\n\n\n\n\n\n\n중요동기 질문의 두 결과, 둘 다 틀리지 않음\n\n\n\n\n\n서로 다른 걸 측정한 것\n\nRNA-seq = 전사 + transcript 안정성\nProtein assay = 번역, folding, 분비, 분해의 균형\n\nmRNA 3배 ↑인데 protein 변화 x = 실제로 해석 가능한 결과: 하류의 뭔가가 완충하고 있다는 뜻. 둘이 일치했을 때보다 오히려 더 흥미로울 때가 많음\n⚠️ 문제는 불일치가 아님. RNA-seq 결과를 protein에 대한 진술처럼 써버린 게 문제",
     "crumbs": [
       "5 · 단백체학",
       "W9. 단백질을 실제로 측정하는 방법"
@@ -575,8 +575,8 @@
     "objectID": "ko/chapters/part5/w9_proteomics_tech.html#w9-s1-2",
     "href": "ko/chapters/part5/w9_proteomics_tech.html#w9-s1-2",
     "title": "W9. 단백체학 — 단백질을 실제로 측정하는 방법",
-    "section": "2) 이것이 기술적으로만 아니라 임상적으로도 중요한 이유",
-    "text": "2) 이것이 기술적으로만 아니라 임상적으로도 중요한 이유\n\n약물은 단백질에 작용합니다. 전사체 데이터만으로 표적을 선정했다면 한 단계를 건너뛴 것입니다\n진료에서 처방하는 모든 바이오마커 검사, 즉 troponin, PSA, CRP, HbA1c는 단백질 또는 단백질 변형을 측정합니다\n번역후 변형은 RNA-seq에서 보이지 않습니다. 인산화, 절단, 당화는 단백질의 양을 바꾸지 않고도 단백질이 무엇을 하는지 바꿉니다\n분비도 보이지 않습니다. 세포는 cytokine을 전사하고도 분비하지 않을 수 있습니다(🔗 W6 §3)",
+    "section": "2) 기술 문제만이 아니라 임상적으로 중요한 이유",
+    "text": "2) 기술 문제만이 아니라 임상적으로 중요한 이유\n\n약은 protein에 작용. Transcript data만으로 고른 target = 한 단계를 건너뛴 것\n처방하는 biomarker 전부(troponin, PSA, CRP, HbA1c) = protein이거나 protein 변형\nPTM은 RNA-seq에 안 보임. 인산화, 절단, 당화 → 양은 그대로인데 protein이 하는 일이 바뀜\n분비도 안 보임. Cell이 cytokine을 전사하고도 내보내지 않을 수 있음 (🔗 W6 §3.2)",
     "crumbs": [
       "5 · 단백체학",
       "W9. 단백질을 실제로 측정하는 방법"
@@ -586,8 +586,8 @@
     "objectID": "ko/chapters/part5/w9_proteomics_tech.html#w9-s2-1",
     "href": "ko/chapters/part5/w9_proteomics_tech.html#w9-s2-1",
     "title": "W9. 단백체학 — 단백질을 실제로 측정하는 방법",
-    "section": "1) 측정 과정을 정확히 말하기",
-    "text": "1) 측정 과정을 정확히 말하기\n질량분석기는 단백질 서열을 읽지 않습니다. 전하를 띤 조각의 질량을 매우 정밀하게 측정하고, 소프트웨어가 그 질량으로부터 서열을 추론합니다.\n단백질 혼합물\n   → trypsin으로 분해          (단백질은 너무 크지만 peptide는 그렇지 않음)\n   → 액체 크로마토그래피       (시간에 따라 peptide를 분리)\n   → MS1: peptide 질량 측정    (현재 용출되는 물질을 조사)\n   → MS2: 분해 후 질량 측정    (조각의 패턴으로 서열을 식별)\n   → 데이터베이스와 대조       → 단백질의 정체와 양\n⚠️ 이후 분석에 중요한 세 가지 결과가 이 설계에서 따라옵니다.\n\nPeptide를 측정하고 단백질을 추론합니다. 단백질 family가 공유하는 peptide는 모호성을 만듭니다\n식별은 데이터베이스에 의존합니다. 데이터베이스에 없는 단백질 형태는 찾을 수 없습니다\n표지된 표준물질을 첨가하지 않는 한 정량은 상대적입니다",
+    "section": "1) 측정 과정, 정확하게",
+    "text": "1) 측정 과정, 정확하게\n질량분석기는 protein 서열을 읽지 않음. 전하 띤 조각의 질량을 아주 정밀하게 재고 → software가 그 질량으로 서열을 추론\n단백질 혼합물\n   → trypsin으로 분해          (단백질은 너무 크지만 peptide는 그렇지 않음)\n   → 액체 크로마토그래피       (시간에 따라 peptide를 분리)\n   → MS1: peptide 질량 측정    (현재 용출되는 물질을 조사)\n   → MS2: 분해 후 질량 측정    (조각의 패턴으로 서열을 식별)\n   → 데이터베이스와 대조       → 단백질의 정체와 양\n⚠️ 이 설계에서 나오는, 하류 분석에 중요한 세 가지:\n\nPeptide를 재고 protein을 추론. Family끼리 공유하는 peptide → 모호성\n식별은 database에 의존. Database에 없는 protein 형태는 못 찾음\n정량은 상대적 — 표지된 표준물질(spike-in)을 넣지 않는 한",
     "crumbs": [
       "5 · 단백체학",
       "W9. 단백질을 실제로 측정하는 방법"
@@ -597,8 +597,8 @@
     "objectID": "ko/chapters/part5/w9_proteomics_tech.html#w9-s2-2",
     "href": "ko/chapters/part5/w9_proteomics_tech.html#w9-s2-2",
     "title": "W9. 단백체학 — 단백질을 실제로 측정하는 방법",
-    "section": "2) ⚠️ DDA와 DIA — 통계를 결정하는 차이",
-    "text": "2) ⚠️ DDA와 DIA — 통계를 결정하는 차이\n\n\n\n같은 장비라도 수집 전략에 따라 매우 다른 데이터가 만들어집니다.\n\n\n\n\n\n\n\n\n경고DDA의 결측이 위험한 이유\n\n\n\n\n\nDDA에서는 장비가 각 cycle에서 intensity가 가장 높은 precursor를 선택합니다. 무엇이 “가장 높은가”는 같은 순간에 함께 용출되는 다른 모든 물질에 따라 달라집니다.\n\n⚠️ 같은 검체를 두 번 측정해도 단백질 목록이 부분적으로 달라집니다\n⚠️ 코호트에서 단백질이 측정되었는지는 총 단백질 양, chromatography drift, 측정 순서와 상관됩니다\n⚠️ 환자군과 대조군을 서로 다른 batch에서 측정했다면(🔗 W1 §3.3), 결측 자체가 집단 차이가 됩니다\n\n→ ✅ DIA는 고정된 window 안의 모든 물질을 분해하므로 모든 run에서 같은 단백질을 정량합니다. 임상 코호트에서는 이를 기본 선택으로 삼아야 하며, 다른 사람의 데이터셋을 볼 때 가장 먼저 물어야 할 사항입니다.",
+    "section": "2) ⚠️ DDA vs DIA — 통계를 결정하는 차이",
+    "text": "2) ⚠️ DDA vs DIA — 통계를 결정하는 차이\n\n\n\n같은 장비, 두 가지 수집 전략, 전혀 다른 data\n\n\n\n\n\n\n\n\n경고DDA의 missing이 위험한 이유\n\n\n\n\n\nDDA = 매 cycle마다 장비가 intensity 가장 높은 precursor를 고름. 뭐가 “가장 높은지”는 그 순간 같이 용출되는 다른 모든 것에 따라 달라짐\n\n⚠️ 같은 sample을 두 번 돌려도 protein 목록이 일부 달라짐\n⚠️ Cohort 전체로 보면, 어떤 protein이 측정됐는지가 총 protein 양, chromatography drift, run 순서와 상관됨\n⚠️ 환자군과 대조군을 다른 batch에서 돌렸다면(🔗 W1 §3.3) → missing 자체가 군 간 차이가 됨\n\n→ ✅ DIA = 고정된 window 안의 모든 것을 fragment → 모든 run에서 같은 protein이 정량됨. 임상 cohort라면 이게 기본값 — 남의 dataset을 볼 때도 제일 먼저 물어볼 것",
     "crumbs": [
       "5 · 단백체학",
       "W9. 단백질을 실제로 측정하는 방법"
@@ -608,8 +608,8 @@
     "objectID": "ko/chapters/part5/w9_proteomics_tech.html#w9-s4-1",
     "href": "ko/chapters/part5/w9_proteomics_tech.html#w9-s4-1",
     "title": "W9. 단백체학 — 단백질을 실제로 측정하는 방법",
-    "section": "1) ⚠️ Affinity assay는 결합을 측정합니다",
-    "text": "1) ⚠️ Affinity assay는 결합을 측정합니다\n\n\n\n\n\n\n중요Epitope artifact와 W11에서 이것이 중요한 이유\n\n\n\n\n\n항체 또는 aptamer가 보고하는 값은 시약이 얼마나 많이 결합했는가입니다. 대개는 단백질 abundance를 반영하지만 때로는 그렇지 않습니다.\n결합 epitope를 바꾸는 coding variant는 단백질 양의 변화 없이 신호를 줄입니다. 유전 분석에서는 단백질 수치를 “낮추는” 변이, 즉 거짓 pQTL처럼 보입니다. 유전자 내부에 있는 cis 변이가 epitope를 바꿀 수 있으므로 이러한 결과는 cis 변이에 특히 집중됩니다.\n✅ 확인법: 모든 cis-pQTL에서 lead variant가 같은 유전자의 단백질 변형 변이인지 물어보십시오. 그렇다면 직교 검증이 필요합니다. Peptide를 직접 측정하는 MS가 가장 좋습니다.\n⚠️ pQTL이 약물 표적 Mendelian randomization에 점점 더 많이 쓰이기 때문에 중요합니다(🔗 W3 §3.2). 여기서 발생한 artifact는 표적 선정까지 전파됩니다.",
+    "section": "1) ⚠️ Affinity assay는 결합을 잼",
+    "text": "1) ⚠️ Affinity assay는 결합을 잼\n\n\n\n\n\n\n중요Epitope artifact — 그리고 W11에서 중요한 이유\n\n\n\n\n\n항체나 aptamer가 보고하는 값 = 시약이 얼마나 결합했나. 대개는 protein abundance를 따라가지만, 아닐 때도 있음\n결합 epitope를 바꾸는 coding variant → protein 양은 그대로인데 signal ↓. 유전 분석에선 protein 수치를 “낮추는” variant로 보임 = 가짜 pQTL. 그리고 cis variant에 특히 몰림 (gene 안에 있는 variant라서)\n✅ 확인법: cis-pQTL마다 lead variant가 같은 gene의 protein-altering variant인지 보기. 그렇다면 → 직교 검증 필요. Peptide를 직접 재는 MS가 가장 좋음\n⚠️ pQTL이 drug-target Mendelian randomization에 점점 많이 쓰여서 중요(🔗 W3 §3.2). 여기서 생긴 artifact → target 선정까지 그대로 전파",
     "crumbs": [
       "5 · 단백체학",
       "W9. 단백질을 실제로 측정하는 방법"
@@ -619,8 +619,8 @@
     "objectID": "ko/chapters/part5/w9_proteomics_tech.html#w9-s4-2",
     "href": "ko/chapters/part5/w9_proteomics_tech.html#w9-s4-2",
     "title": "W9. 단백체학 — 단백질을 실제로 측정하는 방법",
-    "section": "2) 플랫폼 간 불일치는 정상입니다",
-    "text": "2) 플랫폼 간 불일치는 정상입니다\nAffinity 플랫폼끼리 또는 affinity 플랫폼과 MS를 비교한 연구에서는 상당수 표적의 상관성이 낮게 나타납니다.\n\n⚠️ 같은 단백질에서 서로 다른 결과를 보고한 두 논문이 각각 자신이 측정한 것에 대해서는 모두 옳을 수 있습니다\n✅ 중요한 결과라면 두 번째 플랫폼으로 확인하십시오. Methods section에서 심사자의 비판을 견디는 문장이 됩니다",
+    "section": "2) Platform 간 불일치는 정상",
+    "text": "2) Platform 간 불일치는 정상\nAffinity platform끼리, 또는 affinity vs MS를 비교한 연구 → 상당수 target에서 상관이 낮게 나오는 게 보통\n\n⚠️ 같은 protein에 다른 결과를 낸 두 논문이, 각자 잰 것에 대해선 둘 다 맞을 수 있음\n✅ 중요한 결과면 두 번째 platform으로 확인. Methods에 넣으면 reviewer를 막아주는 문장",
     "crumbs": [
       "5 · 단백체학",
       "W9. 단백질을 실제로 측정하는 방법"
@@ -630,8 +630,8 @@
     "objectID": "ko/chapters/part5/w9_proteomics_tech.html#w9-s6-1",
     "href": "ko/chapters/part5/w9_proteomics_tech.html#w9-s6-1",
     "title": "W9. 단백체학 — 단백질을 실제로 측정하는 방법",
-    "section": "1) 진료에서 처방하는 단백질 찾아보기",
-    "text": "1) 진료에서 처방하는 단백질 찾아보기\nHuman Protein Atlas → 진료에서 사용하는 바이오마커 하나를 검색하십시오(troponin I, PSA, CA-125, NT-proBNP 등).\n\n① 어떤 조직과 세포 유형에서 발현됩니까? 임상에서 설명하는 만큼 특이적입니까?\n② 같은 페이지에서 RNA와 단백질의 조직 profile을 비교하십시오. 어디에서 일치하지 않습니까?\n③ 병리 항목을 살펴보십시오. 어떤 암에서든 발현이 생존과 관련됩니까?",
+    "section": "1) 처방하는 protein 찾아보기",
+    "text": "1) 처방하는 protein 찾아보기\nHuman Protein Atlas → 진료에서 쓰는 biomarker 하나 검색 (troponin I, PSA, CA-125, NT-proBNP…)\n\n① 어떤 조직, 어떤 cell type에서 발현? 임상에서 말하는 만큼 특이적인가?\n② 같은 페이지에서 RNA와 protein 조직 profile 비교. 어디서 안 맞나?\n③ Pathology 항목 보기 — 어떤 암에서든 발현이 생존과 연관되나?",
     "crumbs": [
       "5 · 단백체학",
       "W9. 단백질을 실제로 측정하는 방법"
@@ -641,8 +641,8 @@
     "objectID": "ko/chapters/part5/w9_proteomics_tech.html#w9-s6-2",
     "href": "ko/chapters/part5/w9_proteomics_tech.html#w9-s6-2",
     "title": "W9. 단백체학 — 단백질을 실제로 측정하는 방법",
-    "section": "2) 단백체 데이터셋을 믿기 전에 확인하기",
-    "text": "2) 단백체 데이터셋을 믿기 전에 확인하기\n자신의 분야에서 혈장 단백체학 논문 하나를 골라 다음 질문에 답하십시오.\n\n④ 플랫폼은 무엇입니까? MS인가 affinity인가? MS라면 DDA인가 DIA인가?\n⑤ Depletion을 했습니까? 몇 개의 단백질을 정량했으며, 그 수가 검체 유형에 비추어 타당합니까?\n⑥ 결측값은 얼마나 많으며 어떻게 처리했습니까? 이것은 🔗 W10 §1에서 다룹니다\n⑦ 분석 전 조건은 무엇입니까? 환자군과 대조군을 같은 장소에서 같은 방식으로 채취했습니까?\n⑧ Batch에 집단을 무작위 배정했습니까? 이 사실을 언급하기는 했습니까?\n\n💡 ⑦과 ⑧은 보통 supplement에 있거나 아예 없습니다. 없다는 사실 자체가 답입니다.",
+    "section": "2) Proteomics dataset 믿기 전에 확인하기",
+    "text": "2) Proteomics dataset 믿기 전에 확인하기\n내 분야의 plasma proteomics 논문 하나 골라서 답해보기:\n\n④ Platform? MS인가 affinity인가 — MS라면 DDA인가 DIA인가?\n⑤ Depletion? Protein 몇 개를 정량했고, 그 숫자가 검체 종류에 비춰 말이 되나?\n⑥ Missing value — 얼마나 많고, 어떻게 처리했나? (🔗 W10 §1)\n⑦ Pre-analytical — 환자군과 대조군을 같은 방식, 같은 장소에서 채취했나?\n⑧ Batch — 군을 batch에 randomise했나, 언급이라도 했나?\n\n💡 ⑦, ⑧은 보통 supplement에 있거나 아예 없음. 없다는 것 자체가 답",
     "crumbs": [
       "5 · 단백체학",
       "W9. 단백질을 실제로 측정하는 방법"
@@ -653,7 +653,7 @@
     "href": "ko/chapters/part5/w9_proteomics_tech.html#w9-s6-3",
     "title": "W9. 단백체학 — 단백질을 실제로 측정하는 방법",
     "section": "3) 설계 과제",
-    "text": "3) 설계 과제\n소속 진료과에서 현실적으로 수행할 수 있는 단백체 연구를 다섯 문장으로 작성하십시오. 검체 유형, 플랫폼, n, 비교 집단, 가장 우려하는 분석 전 변수를 명시하십시오.\nW10에서 이 설계를 사용합니다.",
+    "text": "3) 설계 과제\n우리 과에서 현실적으로 할 수 있는 proteomics 연구를 다섯 문장으로 써보기: 검체 종류, platform, n, 비교, 가장 걱정되는 pre-analytical 변수 하나\n→ W10에서 이걸로 작업",
     "crumbs": [
       "5 · 단백체학",
       "W9. 단백질을 실제로 측정하는 방법"
@@ -862,7 +862,7 @@
     "href": "ko/chapters/part4/w7_spatial_basics.html#w7-s4-1",
     "title": "W7. 공간전사체학 — 기초",
     "section": "1) Pipeline",
-    "text": "1) Pipeline\nQC (spot별로, 그리고 H&E와 대조)\n   → normalise\n   → expression space에서 clustering  →  \"spatial domain\"\n   → spatially variable gene 찾기\n   → domain을 histology와 연결\n   → [W8] deconvolution 후 neighbourhood 분석\n⚠️ 표준 clustering은 좌표를 완전히 무시 — Seurat가 cell 묶듯 spot을 묶음. 그런데도 domain이 공간적으로 이어져 나오면 좋은 신호, 안 이어지면 그것도 정보. 좌표까지 쓰는 방법 → 🔗 §4.4",
+    "text": "1) Pipeline\n\n\n\n우리 Visium HD (8 µm bin) pipeline: 단계별 input → tool → output\n\n\n\n뼈대는 scRNA-seq(🔗 W5 §3.1)과 같고 cell 자리에 bin. Cell calling, doublet 단계 x — bin은 격자 칸이지 포획된 cell이 아니라서\n✅ 표에는 없지만 꼭 넣어야 할 두 단계: H&E 영상과 대조한 QC, domain을 histology와 연결 (🔗 §5)\n⚠️ Domain 간 DE를 “Wilcoxon”으로 → bin을 전부 독립으로 취급 → p-value 부풀려짐 (🔗 §4.3). Sample × domain pseudobulk가 더 안전한 쪽\nDeconvolution, neighbourhood enrichment, cell–cell communication → 🔗 W8\n\n⚠️ 표준 clustering은 좌표를 완전히 무시 — Seurat가 cell 묶듯 spot을 묶음. 그런데도 domain이 공간적으로 이어져 나오면 좋은 신호, 안 이어지면 그것도 정보. 좌표까지 쓰는 방법 → 🔗 §4.4",
     "crumbs": [
       "4 · 공간오믹스",
       "W7. 공간전사체학의 기초"
@@ -3634,7 +3634,7 @@
     "href": "chapters/part4/w7_spatial_basics.html#w7-s4-1",
     "title": "W7. Spatial Transcriptomics — The Basics",
     "section": "1) The pipeline",
-    "text": "1) The pipeline\nQC (per spot, and against the H&E)\n   → normalise\n   → cluster in expression space  →  \"spatial domains\"\n   → find spatially variable genes\n   → relate domains to histology\n   → [W8] deconvolve, then analyse neighbourhoods\n⚠️ Note that standard clustering ignores coordinates entirely — it clusters spots the way Seurat clusters cells. That domains come out spatially coherent anyway is a good sign; that they do not is informative. Methods that do use the coordinates → 🔗 §4.4.",
+    "text": "1) The pipeline\n\n\n\nOur Visium HD (8 µm bin) pipeline: input, tool and output at each step.\n\n\n\nSame skeleton as scRNA-seq (🔗 W5 §3.1), with bins in place of cells — no cell calling or doublet step, because a bin is a grid square, not a captured cell\n✅ Two steps the table does not show, and you should add: QC against the H&E image, and relating domains back to histology (🔗 §5)\n⚠️ “Wilcoxon” for DE between domains treats every bin as independent → inflated p-values (🔗 §4.3). Pseudobulk per sample × domain is the safer row\nDeconvolution, neighbourhood enrichment and cell–cell communication → 🔗 W8\n\n⚠️ Note that standard clustering ignores coordinates entirely — it clusters spots the way Seurat clusters cells. That domains come out spatially coherent anyway is a good sign; that they do not is informative. Methods that do use the coordinates → 🔗 §4.4.",
     "crumbs": [
       "Home",
       "4 · Spatial",
@@ -3910,7 +3910,7 @@
     "href": "chapters/part5/w9_proteomics_tech.html#w9-s1-2",
     "title": "W9. Proteomics — How Proteins Are Actually Measured",
     "section": "2) Why this matters clinically, not just technically",
-    "text": "2) Why this matters clinically, not just technically\n\nDrugs act on proteins. A target nominated purely from transcript data has skipped a step\nEvery biomarker you order — troponin, PSA, CRP, HbA1c — is a protein or a protein modification\nPost-translational modification is invisible to RNA-seq. Phosphorylation, cleavage and glycosylation change what a protein does without changing how much of it there is\nSecretion is invisible too. A cell can transcribe a cytokine and never release it (🔗 W6 §3)",
+    "text": "2) Why this matters clinically, not just technically\n\nDrugs act on proteins. A target nominated purely from transcript data has skipped a step\nEvery biomarker you order — troponin, PSA, CRP, HbA1c — is a protein or a protein modification\nPost-translational modification is invisible to RNA-seq. Phosphorylation, cleavage and glycosylation change what a protein does without changing how much of it there is\nSecretion is invisible too. A cell can transcribe a cytokine and never release it (🔗 W6 §3.2)",
     "crumbs": [
       "Home",
       "5 · Proteomics",
@@ -3982,7 +3982,7 @@
     "href": "chapters/part5/w9_proteomics_tech.html#w9-s6-2",
     "title": "W9. Proteomics — How Proteins Are Actually Measured",
     "section": "2) Check a proteomics dataset before trusting it",
-    "text": "2) Check a proteomics dataset before trusting it\nPick any plasma proteomics paper in your field and answer:\n\n④ Platform? MS or affinity — and if MS, DDA or DIA?\n⑤ Depletion? How many proteins were quantified, and does that number make sense for the sample type?\n⑥ Missing values — how many, and how were they handled? (This is W10 §1)\n⑦ Pre-analytical — were cases and controls collected the same way, in the same place?\n⑧ Batches — were groups randomised across them, or stated at all?\n\n💡 ⑦ and ⑧ are usually either in the supplement or absent. Absence is itself an answer.",
+    "text": "2) Check a proteomics dataset before trusting it\nPick any plasma proteomics paper in your field and answer:\n\n④ Platform? MS or affinity — and if MS, DDA or DIA?\n⑤ Depletion? How many proteins were quantified, and does that number make sense for the sample type?\n⑥ Missing values — how many, and how were they handled? (🔗 W10 §1)\n⑦ Pre-analytical — were cases and controls collected the same way, in the same place?\n⑧ Batches — were groups randomised across them, or stated at all?\n\n💡 ⑦ and ⑧ are usually either in the supplement or absent. Absence is itself an answer.",
     "crumbs": [
       "Home",
       "5 · Proteomics",

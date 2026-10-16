@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1012 758.0" width="1012" height="758.0" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="1012" height="758.0" fill="#ffffff"/>
+  <rect x="34" y="6" width="180" height="27" fill="#d9d9d9"/>
+  <text x="124" y="24.5" font-size="15" fill="#333" text-anchor="middle">Visium HD · 8 µm bins</text>
+  <rect x="262" y="4" width="210" height="30" fill="#1a7cc1"/>
+  <text x="367.0" y="24.5" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">Input</text>
+  <rect x="492" y="4" width="236" height="30" fill="#13999d"/>
+  <text x="610.0" y="24.5" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">Tool</text>
+  <rect x="748" y="4" width="248" height="30" fill="#00895a"/>
+  <text x="872.0" y="24.5" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">Output</text>
+  <path d="M475.0 11 l6 8 l-6 8 M481.0 11 l6 8 l-6 8" fill="none" stroke="#1a7cc1" stroke-width="2"/>
+  <path d="M731.0 11 l6 8 l-6 8 M737.0 11 l6 8 l-6 8" fill="none" stroke="#13999d" stroke-width="2"/>
+  <rect x="4" y="50.0" width="240" height="48.0" fill="#bfbfbf" stroke="#222" stroke-width="2.2"/>
+  <text x="124.0" y="79.0" font-size="14" fill="#111" text-anchor="middle" font-weight="700">Pre-processing &amp; Alignment</text>
+  <rect x="262" y="50.0" width="210" height="48.0" fill="#ebf3fa" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="367.0" y="70.4" font-size="13.5" fill="#222" text-anchor="middle">.fastq + TIFF</text>
+  <text x="367.0" y="87.4" font-size="13.5" fill="#222" text-anchor="middle">(raw sequences)</text>
+  <rect x="492" y="50.0" width="236" height="48.0" fill="#e9f4f4" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="610.0" y="78.9" font-size="13.5" fill="#222" text-anchor="middle">Space Ranger</text>
+  <rect x="748" y="50.0" width="248" height="48.0" fill="#ebf5f0" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="872.0" y="70.4" font-size="13.5" fill="#222" text-anchor="middle">.h5 (binned matrix) +</text>
+  <text x="872.0" y="87.4" font-size="13.5" fill="#222" text-anchor="middle">spatial positions</text>
+  <path d="M472 74.0 H492 M728 74.0 H748" stroke="#bdbdbd" stroke-width="2"/>
+  <rect x="4" y="124.0" width="240" height="48.0" fill="#bfbfbf" stroke="#222" stroke-width="2.2"/>
+  <text x="124.0" y="153.0" font-size="14" fill="#111" text-anchor="middle" font-weight="700">Bin-level QC &amp; Filtering</text>
+  <rect x="262" y="124.0" width="210" height="48.0" fill="#ebf3fa" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="367.0" y="144.4" font-size="13.5" fill="#222" text-anchor="middle">.h5</text>
+  <text x="367.0" y="161.4" font-size="13.5" fill="#222" text-anchor="middle">(raw bin counts)</text>
+  <rect x="492" y="124.0" width="236" height="48.0" fill="#e9f4f4" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="610.0" y="152.9" font-size="13.5" fill="#222" text-anchor="middle"><tspan font-weight="700">Scanpy</tspan> / Seurat</text>
+  <rect x="748" y="124.0" width="248" height="48.0" fill="#ebf5f0" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="872.0" y="144.4" font-size="13.5" fill="#222" text-anchor="middle">QCed bins</text>
+  <text x="872.0" y="161.4" font-size="13.5" fill="#222" text-anchor="middle">(filtered by mito %, total counts)</text>
+  <path d="M472 148.0 H492 M728 148.0 H748" stroke="#bdbdbd" stroke-width="2"/>
+  <rect x="4" y="198.0" width="240" height="33.0" fill="#bfbfbf" stroke="#222" stroke-width="2.2"/>
+  <text x="124.0" y="219.5" font-size="14" fill="#111" text-anchor="middle" font-weight="700">Normalization &amp; Scaling</text>
+  <rect x="262" y="198.0" width="210" height="33.0" fill="#ebf3fa" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="367.0" y="219.4" font-size="13.5" fill="#222" text-anchor="middle">Filtered counts</text>
+  <rect x="492" y="198.0" width="236" height="33.0" fill="#e9f4f4" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="610.0" y="219.4" font-size="13.5" fill="#222" text-anchor="middle">Lognorm (Scanpy)</text>
+  <rect x="748" y="198.0" width="248" height="33.0" fill="#ebf5f0" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="872.0" y="219.4" font-size="13.5" fill="#222" text-anchor="middle">Normalized &amp; scaled counts</text>
+  <path d="M472 214.5 H492 M728 214.5 H748" stroke="#bdbdbd" stroke-width="2"/>
+  <rect x="4" y="257.0" width="240" height="67.0" fill="#bfbfbf" stroke="#222" stroke-width="2.2"/>
+  <text x="124.0" y="278.5" font-size="14" fill="#111" text-anchor="middle" font-weight="700">Feature selection &amp;</text>
+  <text x="124.0" y="295.5" font-size="14" fill="#111" text-anchor="middle" font-weight="700">Dimension reduction</text>
+  <text x="124.0" y="312.5" font-size="14" fill="#111" text-anchor="middle" font-weight="700">(HVG for PCA)</text>
+  <rect x="262" y="257.0" width="210" height="67.0" fill="#ebf3fa" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="367.0" y="286.9" font-size="13.5" fill="#222" text-anchor="middle">Normalized &amp;</text>
+  <text x="367.0" y="303.9" font-size="13.5" fill="#222" text-anchor="middle">scaled counts</text>
+  <rect x="492" y="257.0" width="236" height="67.0" fill="#e9f4f4" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="610.0" y="295.4" font-size="13.5" fill="#222" text-anchor="middle"><tspan font-weight="700">Scanpy</tspan> / Seurat</text>
+  <rect x="748" y="257.0" width="248" height="67.0" fill="#ebf5f0" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="872.0" y="286.9" font-size="13.5" fill="#222" text-anchor="middle">bin x HVG counts,</text>
+  <text x="872.0" y="303.9" font-size="13.5" fill="#222" text-anchor="middle">bin x PC matrix</text>
+  <path d="M472 290.5 H492 M728 290.5 H748" stroke="#bdbdbd" stroke-width="2"/>
+  <rect x="4" y="350.0" width="240" height="48.0" fill="#bfbfbf" stroke="#222" stroke-width="2.2"/>
+  <text x="124.0" y="379.0" font-size="14" fill="#111" text-anchor="middle" font-weight="700">Batch integration &amp; Clustering</text>
+  <rect x="262" y="350.0" width="210" height="48.0" fill="#ebf3fa" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="367.0" y="370.4" font-size="13.5" fill="#222" text-anchor="middle">bin x gene (scVI)</text>
+  <text x="367.0" y="387.4" font-size="13.5" fill="#222" text-anchor="middle">bin x PC (Harmony)</text>
+  <rect x="492" y="350.0" width="236" height="48.0" fill="#e9f4f4" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="610.0" y="378.9" font-size="13.5" fill="#222" text-anchor="middle">scVI / Harmony</text>
+  <rect x="748" y="350.0" width="248" height="48.0" fill="#ebf5f0" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="872.0" y="378.9" font-size="13.5" fill="#222" text-anchor="middle">bin cluster labels</text>
+  <path d="M472 374.0 H492 M728 374.0 H748" stroke="#bdbdbd" stroke-width="2"/>
+  <rect x="4" y="424.0" width="240" height="62.0" fill="#bfbfbf" stroke="#222" stroke-width="2.2"/>
+  <text x="124.0" y="451.5" font-size="14" fill="#111" text-anchor="middle" font-weight="700">Annotation (manual inspection +</text>
+  <text x="124.0" y="468.5" font-size="14" fill="#111" text-anchor="middle" font-weight="700">cell-type deconvolution)</text>
+  <rect x="262" y="424.0" width="210" height="31.0" fill="#ebf3fa" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="367.0" y="444.4" font-size="13.5" fill="#222" text-anchor="middle">+ known marker genes</text>
+  <rect x="492" y="424.0" width="236" height="31.0" fill="#e9f4f4" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="610.0" y="444.4" font-size="13.5" fill="#222" text-anchor="middle">Scanpy</text>
+  <rect x="748" y="424.0" width="248" height="31.0" fill="#ebf5f0" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="872.0" y="444.4" font-size="13.5" fill="#222" text-anchor="middle">Manual annotations</text>
+  <rect x="262" y="455.0" width="210" height="31.0" fill="#ebf3fa" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="367.0" y="475.4" font-size="13.5" fill="#222" text-anchor="middle">+ scRNA-seq ref</text>
+  <rect x="492" y="455.0" width="236" height="31.0" fill="#e9f4f4" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="610.0" y="475.4" font-size="13.5" fill="#222" text-anchor="middle">Cell2location</text>
+  <rect x="748" y="455.0" width="248" height="31.0" fill="#ebf5f0" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="872.0" y="475.4" font-size="13.5" fill="#222" text-anchor="middle">Cell-type abundance per bin</text>
+  <path d="M472 455.0 H492 M728 455.0 H748" stroke="#bdbdbd" stroke-width="2"/>
+  <rect x="4" y="512.0" width="240" height="240.0" fill="#bfbfbf" stroke="#222" stroke-width="2.2"/>
+  <text x="124.0" y="628.5" font-size="14" fill="#111" text-anchor="middle" font-weight="700">Spatial downstream analyses</text>
+  <text x="124.0" y="645.5" font-size="14" fill="#111" text-anchor="middle" font-weight="700">(8 µm bins)</text>
+  <rect x="262" y="512.0" width="210" height="48.0" fill="#ebf3fa" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="367.0" y="532.4" font-size="13.5" fill="#222" text-anchor="middle">normalized counts +</text>
+  <text x="367.0" y="549.4" font-size="13.5" fill="#222" text-anchor="middle">spatial coords</text>
+  <rect x="492" y="512.0" width="236" height="48.0" fill="#e9f4f4" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="610.0" y="532.4" font-size="13.5" fill="#222" text-anchor="middle">BANKSY, SpaGCN,</text>
+  <text x="610.0" y="549.4" font-size="13.5" fill="#222" text-anchor="middle">Squidpy (spatial_neighbors)</text>
+  <rect x="748" y="512.0" width="248" height="48.0" fill="#ebf5f0" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="872.0" y="540.9" font-size="13.5" fill="#222" text-anchor="middle">Spatial domain identification</text>
+  <rect x="262" y="560.0" width="210" height="48.0" fill="#ebf3fa" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="367.0" y="580.4" font-size="13.5" fill="#222" text-anchor="middle">normalized counts +</text>
+  <text x="367.0" y="597.4" font-size="13.5" fill="#222" text-anchor="middle">spatial coords</text>
+  <rect x="492" y="560.0" width="236" height="48.0" fill="#e9f4f4" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="610.0" y="580.4" font-size="13.5" fill="#222" text-anchor="middle">SPARK-X, SpatialDE,</text>
+  <text x="610.0" y="597.4" font-size="13.5" fill="#222" text-anchor="middle">Squidpy (Moran's I … slow)</text>
+  <rect x="748" y="560.0" width="248" height="48.0" fill="#ebf5f0" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="872.0" y="588.9" font-size="13.5" fill="#222" text-anchor="middle">SVGs (spatially variable genes)</text>
+  <rect x="262" y="608.0" width="210" height="48.0" fill="#ebf3fa" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="367.0" y="628.4" font-size="13.5" fill="#222" text-anchor="middle">normalized counts +</text>
+  <text x="367.0" y="645.4" font-size="13.5" fill="#222" text-anchor="middle">domain labels</text>
+  <rect x="492" y="608.0" width="236" height="48.0" fill="#e9f4f4" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="610.0" y="636.9" font-size="13.5" fill="#222" text-anchor="middle">Wilcoxon, pseudobulk, …</text>
+  <rect x="748" y="608.0" width="248" height="48.0" fill="#ebf5f0" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="872.0" y="636.9" font-size="13.5" fill="#222" text-anchor="middle">DE between domains</text>
+  <rect x="262" y="656.0" width="210" height="48.0" fill="#ebf3fa" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="367.0" y="676.4" font-size="13.5" fill="#222" text-anchor="middle">cell-type labels +</text>
+  <text x="367.0" y="693.4" font-size="13.5" fill="#222" text-anchor="middle">spatial coords</text>
+  <rect x="492" y="656.0" width="236" height="48.0" fill="#e9f4f4" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="610.0" y="676.4" font-size="13.5" fill="#222" text-anchor="middle">Squidpy (nhood_enrichment,</text>
+  <text x="610.0" y="693.4" font-size="13.5" fill="#222" text-anchor="middle">co_occurrence)</text>
+  <rect x="748" y="656.0" width="248" height="48.0" fill="#ebf5f0" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="872.0" y="676.4" font-size="13.5" fill="#222" text-anchor="middle">Neighborhood enrichment /</text>
+  <text x="872.0" y="693.4" font-size="13.5" fill="#222" text-anchor="middle">co-occurrence</text>
+  <rect x="262" y="704.0" width="210" height="48.0" fill="#ebf3fa" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="367.0" y="724.4" font-size="13.5" fill="#222" text-anchor="middle">expression + cell-type</text>
+  <text x="367.0" y="741.4" font-size="13.5" fill="#222" text-anchor="middle">labels + spatial coords</text>
+  <rect x="492" y="704.0" width="236" height="48.0" fill="#e9f4f4" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="610.0" y="732.9" font-size="13.5" fill="#222" text-anchor="middle">CellChat, NicheNet, COMMOT</text>
+  <rect x="748" y="704.0" width="248" height="48.0" fill="#ebf5f0" stroke="#c9c9c9" stroke-width="1.4"/>
+  <text x="872.0" y="732.9" font-size="13.5" fill="#222" text-anchor="middle">Cell–cell communication</text>
+  <path d="M472 632.0 H492 M728 632.0 H748" stroke="#bdbdbd" stroke-width="2"/>
+  <path d="M111.0 104.0 l13 8 l13 -8" fill="none" stroke="#333" stroke-width="1.8"/>
+  <path d="M111.0 109.0 l13 8 l13 -8" fill="none" stroke="#333" stroke-width="1.8"/>
+  <path d="M872.0 98.0 V105.0 H367.0 V118.0" fill="none" stroke="#b5b5b5" stroke-width="1.4" stroke-dasharray="2 3"/>
+  <path d="M367.0 123.0 l-4.5 -7 h9 z" fill="#b5b5b5"/>
+  <path d="M111.0 178.0 l13 8 l13 -8" fill="none" stroke="#333" stroke-width="1.8"/>
+  <path d="M111.0 183.0 l13 8 l13 -8" fill="none" stroke="#333" stroke-width="1.8"/>
+  <path d="M872.0 172.0 V179.0 H367.0 V192.0" fill="none" stroke="#b5b5b5" stroke-width="1.4" stroke-dasharray="2 3"/>
+  <path d="M367.0 197.0 l-4.5 -7 h9 z" fill="#b5b5b5"/>
+  <path d="M111.0 237.0 l13 8 l13 -8" fill="none" stroke="#333" stroke-width="1.8"/>
+  <path d="M111.0 242.0 l13 8 l13 -8" fill="none" stroke="#333" stroke-width="1.8"/>
+  <path d="M872.0 231.0 V238.0 H367.0 V251.0" fill="none" stroke="#b5b5b5" stroke-width="1.4" stroke-dasharray="2 3"/>
+  <path d="M367.0 256.0 l-4.5 -7 h9 z" fill="#b5b5b5"/>
+  <path d="M111.0 330.0 l13 8 l13 -8" fill="none" stroke="#333" stroke-width="1.8"/>
+  <path d="M111.0 335.0 l13 8 l13 -8" fill="none" stroke="#333" stroke-width="1.8"/>
+  <path d="M872.0 324.0 V331.0 H367.0 V344.0" fill="none" stroke="#b5b5b5" stroke-width="1.4" stroke-dasharray="2 3"/>
+  <path d="M367.0 349.0 l-4.5 -7 h9 z" fill="#b5b5b5"/>
+  <path d="M111.0 404.0 l13 8 l13 -8" fill="none" stroke="#333" stroke-width="1.8"/>
+  <path d="M111.0 409.0 l13 8 l13 -8" fill="none" stroke="#333" stroke-width="1.8"/>
+  <path d="M872.0 398.0 V405.0 H367.0 V418.0" fill="none" stroke="#b5b5b5" stroke-width="1.4" stroke-dasharray="2 3"/>
+  <path d="M367.0 423.0 l-4.5 -7 h9 z" fill="#b5b5b5"/>
+  <path d="M111.0 492.0 l13 8 l13 -8" fill="none" stroke="#333" stroke-width="1.8"/>
+  <path d="M111.0 497.0 l13 8 l13 -8" fill="none" stroke="#333" stroke-width="1.8"/>
+  <path d="M872.0 486.0 V493.0 H367.0 V506.0" fill="none" stroke="#b5b5b5" stroke-width="1.4" stroke-dasharray="2 3"/>
+  <path d="M367.0 511.0 l-4.5 -7 h9 z" fill="#b5b5b5"/>
+  <path d="M996 148.0 H1006 V374.0 H1002" fill="none" stroke="#b5b5b5" stroke-width="1.4" stroke-dasharray="2 3"/>
+  <path d="M997 374.0 l7 -4.5 v9 z" fill="#b5b5b5"/>
+</svg>

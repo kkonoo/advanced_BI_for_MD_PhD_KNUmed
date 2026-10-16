@@ -28,41 +28,41 @@ execute:
 
 ------------------------------------------------------------------------
 
-# 1. ⚠️ 지금까지 모든 분석이 의존한 가정 🧬 {#w9-s1}
+# 1. ⚠️ 지금까지 모든 분석이 기대온 가정 🧬 {#w9-s1}
 
-## 1) mRNA는 단백질을 얼마나 잘 예측하는가? {#w9-s1-1}
+## 1) mRNA는 protein을 얼마나 잘 예측하나? {#w9-s1-1}
 
-![8주 동안 전사체학을 배웠지만, 실제로 기능하는 분자와의 연결 강도는 이 정도입니다.](../../../assets/img/w9/mrna_vs_protein.svg){fig-align="center"}
+![8주 동안 transcriptomics를 했는데, 실제로 일하는 분자와의 연결 강도는 이 정도](../../../assets/img/w9/mrna_vs_protein.svg){fig-align="center"}
 
-한 검체 안에서 유전자별 mRNA와 단백질 abundance의 상관계수는 보통 약 **r = 0.4–0.6**입니다. 하나의 유전자를 여러 검체에서 비교한 상관성은 유전자마다 크게 다릅니다. 어떤 유전자는 강하지만 다른 유전자는 사실상 0입니다.
+한 sample 안에서 gene별 mRNA vs protein abundance 상관 = 보통 **r = 0.4–0.6** 정도. Gene 하나를 여러 sample에 걸쳐 본 상관은 gene마다 천차만별 — 강한 gene도 있고, 사실상 0인 gene도 있음
 
 ::: {.callout-important collapse="true"}
-## 동기 질문의 두 결과는 모두 틀리지 않았습니다
+## 동기 질문의 두 결과, 둘 다 틀리지 않음
 
-서로 다른 것을 측정한 결과입니다.
+서로 다른 걸 측정한 것
 
--   RNA-seq은 **전사와 전사체 안정성**을 측정했습니다
--   단백질 검사는 **번역, 접힘, 분비, 분해의 균형**을 측정했습니다
+-   RNA-seq = **전사 + transcript 안정성**
+-   Protein assay = **번역, folding, 분비, 분해의 균형**
 
-mRNA가 3배 증가했지만 단백질에는 변화가 없는 것은 실제로 해석할 수 있는 결과입니다. 전사 이후의 어떤 과정이 그 변화를 완충하고 있습니다. 이는 두 결과가 일치했을 때보다 더 흥미로울 수 있습니다.
+mRNA 3배 ↑인데 protein 변화 x = 실제로 해석 가능한 결과: 하류의 뭔가가 완충하고 있다는 뜻. 둘이 일치했을 때보다 오히려 더 흥미로울 때가 많음
 
-⚠️ 문제는 불일치 자체가 아닙니다. RNA-seq 결과를 마치 단백질에 관한 진술인 것처럼 작성한 것이 문제입니다.
+⚠️ 문제는 불일치가 아님. RNA-seq 결과를 protein에 대한 진술처럼 써버린 게 문제
 :::
 
-## 2) 이것이 기술적으로만 아니라 임상적으로도 중요한 이유 {#w9-s1-2}
+## 2) 기술 문제만이 아니라 임상적으로 중요한 이유 {#w9-s1-2}
 
--   **약물은 단백질에 작용합니다.** 전사체 데이터만으로 표적을 선정했다면 한 단계를 건너뛴 것입니다
--   **진료에서 처방하는 모든 바이오마커 검사**, 즉 troponin, PSA, CRP, HbA1c는 단백질 또는 단백질 변형을 측정합니다
--   **번역후 변형은 RNA-seq에서 보이지 않습니다.** 인산화, 절단, 당화는 단백질의 양을 바꾸지 않고도 단백질이 *무엇을 하는지* 바꿉니다
--   **분비도 보이지 않습니다.** 세포는 cytokine을 전사하고도 분비하지 않을 수 있습니다(🔗 [W6 §3](../part3/w6_scrna_dynamics.qmd#w6-s3))
+-   **약은 protein에 작용.** Transcript data만으로 고른 target = 한 단계를 건너뛴 것
+-   **처방하는 biomarker 전부**(troponin, PSA, CRP, HbA1c) = protein이거나 protein 변형
+-   **PTM은 RNA-seq에 안 보임.** 인산화, 절단, 당화 → 양은 그대로인데 protein이 *하는 일*이 바뀜
+-   **분비도 안 보임.** Cell이 cytokine을 전사하고도 내보내지 않을 수 있음 (🔗 [W6 §3.2](../part3/w6_scrna_dynamics.qmd#w6-s3-2))
 
 ------------------------------------------------------------------------
 
 # 2. 질량분석기가 하는 일 🔬 {#w9-s2}
 
-## 1) 측정 과정을 정확히 말하기 {#w9-s2-1}
+## 1) 측정 과정, 정확하게 {#w9-s2-1}
 
-질량분석기는 단백질 서열을 읽지 않습니다. 전하를 띤 조각의 질량을 매우 정밀하게 측정하고, 소프트웨어가 그 질량으로부터 서열을 추론합니다.
+질량분석기는 protein 서열을 읽지 않음. 전하 띤 조각의 질량을 아주 정밀하게 재고 → software가 그 질량으로 서열을 추론
 
 ```
 단백질 혼합물
@@ -73,147 +73,147 @@ mRNA가 3배 증가했지만 단백질에는 변화가 없는 것은 실제로 �
    → 데이터베이스와 대조       → 단백질의 정체와 양
 ```
 
-⚠️ 이후 분석에 중요한 세 가지 결과가 이 설계에서 따라옵니다.
+⚠️ 이 설계에서 나오는, 하류 분석에 중요한 세 가지:
 
--   **Peptide를 측정하고 단백질을 추론합니다.** 단백질 family가 공유하는 peptide는 모호성을 만듭니다
--   **식별은 데이터베이스에 의존합니다.** 데이터베이스에 없는 단백질 형태는 찾을 수 없습니다
--   표지된 표준물질을 첨가하지 않는 한 **정량은 상대적**입니다
+-   **Peptide를 재고 protein을 추론.** Family끼리 공유하는 peptide → 모호성
+-   **식별은 database에 의존.** Database에 없는 protein 형태는 못 찾음
+-   **정량은 상대적** — 표지된 표준물질(spike-in)을 넣지 않는 한
 
-## 2) ⚠️ DDA와 DIA — 통계를 결정하는 차이 {#w9-s2-2}
+## 2) ⚠️ DDA vs DIA — 통계를 결정하는 차이 {#w9-s2-2}
 
-![같은 장비라도 수집 전략에 따라 매우 다른 데이터가 만들어집니다.](../../../assets/img/w9/dda_vs_dia.svg){fig-align="center"}
+![같은 장비, 두 가지 수집 전략, 전혀 다른 data](../../../assets/img/w9/dda_vs_dia.svg){fig-align="center"}
 
 ::: {.callout-warning collapse="true"}
-## DDA의 결측이 위험한 이유
+## DDA의 missing이 위험한 이유
 
-DDA에서는 장비가 각 cycle에서 intensity가 가장 높은 precursor를 선택합니다. 무엇이 “가장 높은가”는 같은 순간에 함께 용출되는 다른 모든 물질에 따라 달라집니다.
+DDA = 매 cycle마다 장비가 intensity 가장 높은 precursor를 고름. 뭐가 "가장 높은지"는 그 순간 같이 용출되는 다른 모든 것에 따라 달라짐
 
--   ⚠️ 같은 검체를 두 번 측정해도 **단백질 목록이 부분적으로 달라집니다**
--   ⚠️ 코호트에서 단백질이 측정되었는지는 총 단백질 양, chromatography drift, 측정 순서와 상관됩니다
--   ⚠️ 환자군과 대조군을 서로 다른 batch에서 측정했다면(🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3)), 결측 자체가 집단 차이가 됩니다
+-   ⚠️ 같은 sample을 두 번 돌려도 **protein 목록이 일부 달라짐**
+-   ⚠️ Cohort 전체로 보면, 어떤 protein이 측정됐는지가 총 protein 양, chromatography drift, run 순서와 상관됨
+-   ⚠️ 환자군과 대조군을 다른 batch에서 돌렸다면(🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3)) → missing 자체가 군 간 차이가 됨
 
-→ ✅ **DIA는 고정된 window 안의 모든 물질을 분해**하므로 모든 run에서 같은 단백질을 정량합니다. 임상 코호트에서는 이를 기본 선택으로 삼아야 하며, 다른 사람의 데이터셋을 볼 때 가장 먼저 물어야 할 사항입니다.
+→ ✅ **DIA = 고정된 window 안의 모든 것을 fragment** → 모든 run에서 같은 protein이 정량됨. 임상 cohort라면 이게 기본값 — 남의 dataset을 볼 때도 제일 먼저 물어볼 것
 :::
 
 ------------------------------------------------------------------------
 
-# 3. ⚠️ 혈장: 가장 쓰고 싶지만 가장 어려운 검체 🩸 {#w9-s3}
+# 3. ⚠️ Plasma: 가장 쓰고 싶은데 가장 어려운 검체 🩸 {#w9-s3}
 
-![모두가 원하는 임상 검체를 기술은 가장 다루기 어려워합니다.](../../../assets/img/w9/dynamic_range.svg){fig-align="center"}
+![모두가 원하는 임상 검체 = 기술이 가장 못 다루는 검체](../../../assets/img/w9/dynamic_range.svg){fig-align="center"}
 
-혈장 단백질 농도는 **10자릿수보다 넓은 범위**에 걸쳐 있습니다. Albumin 하나가 전체 단백질 질량의 약 절반이며, abundance 상위 약 22개 단백질이 약 99%를 차지합니다. 우리가 관심을 두는 cytokine이나 종양 유래 단백질은 반대편 끝에 있습니다.
+Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 protein 질량의 약 절반, 상위 ~22개 protein이 약 99%. 정작 관심 있는 것(cytokine, 종양 유래 protein)은 반대쪽 끝에 있음
 
 ::: {.callout-tip collapse="true"}
-## 실제로 수행할 연구에서 이것이 뜻하는 것
+## 실제로 할 만한 연구에서 이게 뜻하는 것
 
--   ⚠️ **Depletion하지 않은 혈장을 MS로 분석**하면 대부분 albumin을 다시 측정합니다. 수백 개 단백질을 얻겠지만 대부분 이미 일반 화학검사에서 측정하는 단백질입니다
--   ⚠️ **Depletion column**은 abundance가 높은 단백질과 이에 결합한 abundance가 낮은 단백질, 즉 “albuminome”도 함께 제거합니다. 피할 수 없다고 알려진 손실입니다
--   ✅ **Affinity panel은 표적 단백질만 측정**하므로 tube 안의 다른 물질과 무관하게 이 문제를 우회합니다. 현재 대규모 혈장 바이오마커 연구 대부분이 affinity panel을 사용하는 이유입니다
--   ✅ **조직은 혈장보다 훨씬 쉽습니다.** 생검으로 답할 수 있는 질문이라면 이러한 문제 없이 MS로 수천 개 단백질을 측정할 수 있습니다
+-   ⚠️ **Depletion 안 한 plasma를 MS로** → 대부분 albumin을 또 재는 것. Protein 수백 개가 나오는데, 대부분 일반 화학검사 panel에 이미 있는 것들
+-   ⚠️ **Depletion column** → 많은 protein을 걷어내면서 거기 붙어 있던 적은 protein까지 같이 제거("albuminome"). 알려진, 피할 수 없는 손실
+-   ✅ **Affinity panel은 이 문제를 아예 우회**: 고른 protein만 표적 → tube 안에 뭐가 더 있든 상관 x. 요즘 대규모 plasma biomarker 연구 대부분이 affinity panel을 쓰는 이유
+-   ✅ **조직은 plasma보다 훨씬 쉬움.** 생검으로 물을 수 있는 질문이면 → 이런 문제 없이 MS로 protein 수천 개
 
-💡 누군가 “혈장 단백체학”을 제안하면서 플랫폼을 말하지 않는다면 가장 먼저 그것부터 물어보십시오.
+💡 누가 "plasma proteomics"를 하자면서 platform을 말 안 한다면 → 그것부터 물어보기
 :::
 
 ------------------------------------------------------------------------
 
 # 4. 두 기술, 서로 다른 두 측정값 ⚖️ {#w9-s4}
 
-![같은 검사를 만드는 서로 다른 두 회사의 제품이 아닙니다.](../../../assets/img/w9/ms_vs_affinity.svg){fig-align="center"}
+![같은 assay의 두 브랜드가 아님](../../../assets/img/w9/ms_vs_affinity.svg){fig-align="center"}
 
-## 1) ⚠️ Affinity assay는 결합을 측정합니다 {#w9-s4-1}
+## 1) ⚠️ Affinity assay는 결합을 잼 {#w9-s4-1}
 
 ::: {.callout-important collapse="true"}
-## Epitope artifact와 W11에서 이것이 중요한 이유
+## Epitope artifact — 그리고 W11에서 중요한 이유
 
-항체 또는 aptamer가 보고하는 값은 **시약이 얼마나 많이 결합했는가**입니다. 대개는 단백질 abundance를 반영하지만 때로는 그렇지 않습니다.
+항체나 aptamer가 보고하는 값 = **시약이 얼마나 결합했나**. 대개는 protein abundance를 따라가지만, 아닐 때도 있음
 
-결합 epitope를 바꾸는 coding variant는 단백질 양의 변화 없이 신호를 줄입니다. 유전 분석에서는 단백질 수치를 “낮추는” 변이, 즉 **거짓 pQTL**처럼 보입니다. 유전자 내부에 있는 *cis* 변이가 epitope를 바꿀 수 있으므로 이러한 결과는 *cis* 변이에 특히 집중됩니다.
+결합 epitope를 바꾸는 coding variant → protein 양은 그대로인데 signal ↓. 유전 분석에선 protein 수치를 "낮추는" variant로 보임 = **가짜 pQTL**. 그리고 *cis* variant에 특히 몰림 (gene 안에 있는 variant라서)
 
-✅ 확인법: 모든 *cis*-pQTL에서 lead variant가 같은 유전자의 단백질 변형 변이인지 물어보십시오. 그렇다면 직교 검증이 필요합니다. Peptide를 직접 측정하는 MS가 가장 좋습니다.
+✅ 확인법: *cis*-pQTL마다 lead variant가 같은 gene의 protein-altering variant인지 보기. 그렇다면 → 직교 검증 필요. Peptide를 직접 재는 MS가 가장 좋음
 
-⚠️ pQTL이 약물 표적 Mendelian randomization에 점점 더 많이 쓰이기 때문에 중요합니다(🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). 여기서 발생한 artifact는 표적 선정까지 전파됩니다.
+⚠️ pQTL이 drug-target Mendelian randomization에 점점 많이 쓰여서 중요(🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). 여기서 생긴 artifact → target 선정까지 그대로 전파
 :::
 
-## 2) 플랫폼 간 불일치는 정상입니다 {#w9-s4-2}
+## 2) Platform 간 불일치는 정상 {#w9-s4-2}
 
-Affinity 플랫폼끼리 또는 affinity 플랫폼과 MS를 비교한 연구에서는 상당수 표적의 상관성이 낮게 나타납니다.
+Affinity platform끼리, 또는 affinity vs MS를 비교한 연구 → 상당수 target에서 상관이 낮게 나오는 게 보통
 
--   ⚠️ 같은 단백질에서 서로 다른 결과를 보고한 두 논문이 각각 자신이 측정한 것에 대해서는 모두 옳을 수 있습니다
--   ✅ 중요한 결과라면 두 번째 플랫폼으로 확인하십시오. Methods section에서 심사자의 비판을 견디는 문장이 됩니다
+-   ⚠️ 같은 protein에 다른 결과를 낸 두 논문이, 각자 잰 것에 대해선 둘 다 맞을 수 있음
+-   ✅ 중요한 결과면 두 번째 platform으로 확인. Methods에 넣으면 reviewer를 막아주는 문장
 
 ------------------------------------------------------------------------
 
-# 5. 단백체 코어 시설과 상의하기 💬 {#w9-s5}
+# 5. Proteomics core와 상의하기 💬 {#w9-s5}
 
-이 모든 실험을 직접 수행하지는 않을 것입니다. 다음 세 가지 질문이 연구의 성패를 결정합니다.
+직접 돌릴 일은 없음. 연구 성패를 가르는 질문 세 가지:
 
-**① “제 연구 질문에는 MS와 affinity panel 중 무엇을 권하며, 그 이유는 무엇입니까?”**
+**① "제 질문엔 MS와 affinity panel 중 뭘 권하시나요? 이유는요?"**
 
-좋은 코어 시설은 보유 장비가 아니라 검체 유형과 코호트 크기를 근거로 답합니다.
+좋은 core는 가진 장비가 아니라 내 검체 종류와 cohort 크기를 근거로 답함
 
-**② “한 batch에 검체를 몇 개 측정할 수 있으며, 제 검체는 어떻게 무작위 배정합니까?”**
+**② "한 batch에 sample 몇 개까지 돌리고, 제 sample은 어떻게 randomise하나요?"**
 
-⚠️ 두 번째 질문의 답을 들으면 confounding을 고려했는지 알 수 있습니다. 편의상 환자군과 대조군을 서로 다른 batch에 나누려 한다면 지금 바로 수정하십시오(🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3)).
+⚠️ 뒷부분 답을 들어보면 confounding을 생각해봤는지 알 수 있음. 편의상 환자군과 대조군을 batch별로 나누려 한다면 → 지금 고치기 (🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3))
 
-**③ “필요한 검체량과 분석 전 조건은 무엇입니까?”**
+**③ "검체량은 얼마나 필요하고, 분석 전 조건은요?"**
 
 ::: {.callout-warning collapse="true"}
-## 분석 전 변이는 어떤 분석법 선택보다 더 많은 바이오마커 연구를 좌초시킵니다
+## Pre-analytical variation이 어떤 분석 선택보다 더 많은 biomarker 연구를 무너뜨림
 
--   **혈청인가, 혈장인가?** 혈청은 응고 과정을 거치므로 혈소판 내용물이 방출됩니다
--   **어떤 항응고제를 썼는가?** EDTA, citrate, heparin은 서로 다른 결과를 만들며 heparin은 일부 검사를 방해합니다
--   **처리까지 걸린 시간.** 불안정한 단백질은 실온에서 몇 분만 지나도 영향을 받습니다
--   **동결–해동 횟수.** 횟수를 세고 기록하십시오
--   **용혈.** 분홍색 검체에는 다른 모든 신호를 압도할 농도의 적혈구 내용물이 들어 있습니다
+-   **Serum vs plasma?** Serum은 응고를 거침 → 혈소판 내용물이 방출돼 섞임
+-   **어떤 항응고제?** EDTA, citrate, heparin → 결과가 다름. Heparin은 일부 assay를 방해
+-   **처리까지 걸린 시간.** 불안정한 protein은 실온 몇 분도 영향
+-   **동결–해동 횟수.** 세고, 기록하기
+-   **용혈.** 분홍빛 sample = 적혈구 내용물이 다른 모든 걸 압도하는 농도로 들어 있음
 
-⚠️ 환자군은 외래에서, 대조군은 건강검진센터에서 채취했다면 이 모든 조건이 체계적으로 다릅니다. **실험복을 입은 batch effect**이며 바이오마커가 재현되지 않는 가장 흔한 이유입니다.
+⚠️ 환자군은 외래, 대조군은 건강검진센터에서 채취 → 위 조건이 전부 체계적으로 다름. **실험복 입은 batch effect** = biomarker가 재현 안 되는 가장 흔한 이유
 :::
 
 ------------------------------------------------------------------------
 
 # 6. 실습 💻 {#w9-s6}
 
-이번 주에는 설치할 것이 없습니다. 브라우저 실습 두 가지와 설계 과제 하나를 진행합니다.
+이번 주 설치할 것 없음. 브라우저 실습 2개 + 설계 과제 1개
 
-## 1) 진료에서 처방하는 단백질 찾아보기 {#w9-s6-1}
+## 1) 처방하는 protein 찾아보기 {#w9-s6-1}
 
-[**Human Protein Atlas**](https://www.proteinatlas.org) → 진료에서 사용하는 바이오마커 하나를 검색하십시오(troponin I, PSA, CA-125, NT-proBNP 등).
+[**Human Protein Atlas**](https://www.proteinatlas.org) → 진료에서 쓰는 biomarker 하나 검색 (troponin I, PSA, CA-125, NT-proBNP…)
 
--   ① 어떤 조직과 세포 유형에서 발현됩니까? 임상에서 설명하는 만큼 특이적입니까?
--   ② 같은 페이지에서 **RNA**와 **단백질**의 조직 profile을 비교하십시오. 어디에서 일치하지 않습니까?
--   ③ 병리 항목을 살펴보십시오. 어떤 암에서든 발현이 생존과 관련됩니까?
+-   ① 어떤 조직, 어떤 cell type에서 발현? 임상에서 말하는 만큼 특이적인가?
+-   ② 같은 페이지에서 **RNA**와 **protein** 조직 profile 비교. 어디서 안 맞나?
+-   ③ Pathology 항목 보기 — 어떤 암에서든 발현이 생존과 연관되나?
 
-## 2) 단백체 데이터셋을 믿기 전에 확인하기 {#w9-s6-2}
+## 2) Proteomics dataset 믿기 전에 확인하기 {#w9-s6-2}
 
-자신의 분야에서 혈장 단백체학 논문 하나를 골라 다음 질문에 답하십시오.
+내 분야의 plasma proteomics 논문 하나 골라서 답해보기:
 
--   ④ **플랫폼은 무엇입니까?** MS인가 affinity인가? MS라면 **DDA인가 DIA인가?**
--   ⑤ **Depletion을 했습니까?** 몇 개의 단백질을 정량했으며, 그 수가 검체 유형에 비추어 타당합니까?
--   ⑥ **결측값**은 얼마나 많으며 어떻게 처리했습니까? 이것은 🔗 [W10 §1](w10_clinical_proteomics.qmd#w10-s1)에서 다룹니다
--   ⑦ **분석 전 조건**은 무엇입니까? 환자군과 대조군을 같은 장소에서 같은 방식으로 채취했습니까?
--   ⑧ **Batch**에 집단을 무작위 배정했습니까? 이 사실을 언급하기는 했습니까?
+-   ④ **Platform?** MS인가 affinity인가 — MS라면 **DDA인가 DIA인가**?
+-   ⑤ **Depletion?** Protein 몇 개를 정량했고, 그 숫자가 검체 종류에 비춰 말이 되나?
+-   ⑥ **Missing value** — 얼마나 많고, 어떻게 처리했나? (🔗 [W10 §1](w10_clinical_proteomics.qmd#w10-s1))
+-   ⑦ **Pre-analytical** — 환자군과 대조군을 같은 방식, 같은 장소에서 채취했나?
+-   ⑧ **Batch** — 군을 batch에 randomise했나, 언급이라도 했나?
 
-💡 ⑦과 ⑧은 보통 supplement에 있거나 아예 없습니다. 없다는 사실 자체가 답입니다.
+💡 ⑦, ⑧은 보통 supplement에 있거나 아예 없음. 없다는 것 자체가 답
 
 ## 3) 설계 과제 {#w9-s6-3}
 
-소속 진료과에서 현실적으로 수행할 수 있는 단백체 연구를 다섯 문장으로 작성하십시오. 검체 유형, 플랫폼, n, 비교 집단, 가장 우려하는 분석 전 변수를 명시하십시오.
+우리 과에서 현실적으로 할 수 있는 proteomics 연구를 다섯 문장으로 써보기: 검체 종류, platform, n, 비교, 가장 걱정되는 pre-analytical 변수 하나
 
-[W10](w10_clinical_proteomics.qmd)에서 이 설계를 사용합니다.
+→ [W10](w10_clinical_proteomics.qmd)에서 이걸로 작업
 
 ------------------------------------------------------------------------
 
 # 📝 요약
 
--   ⚠️ mRNA와 단백질의 상관계수는 약 **r = 0.4–0.6**입니다. 그 차이는 RNA-seq으로 볼 수 없는 조절입니다
--   전사체와 단백질의 불일치는 오류가 아니라 **결과**입니다
--   MS는 peptide의 질량을 측정해 단백질을 추론합니다. 식별은 데이터베이스에 의존하고 정량은 대개 상대적입니다
--   ⚠️ **DDA는 intensity가 가장 높은 precursor를 선택**하므로 run마다 결측이 달라지며 집단 차이처럼 보일 수 있습니다
--   ✅ **DIA는 임상 코호트의 기본 선택**입니다. 매번 같은 단백질을 정량합니다
--   ⚠️ 혈장은 10자릿수보다 넓은 dynamic range를 가지며, albumin이 질량의 절반을 차지하고 depletion은 결합 단백질도 제거합니다
--   ✅ Affinity panel(Olink, SomaScan)은 depletion 없이 pg/mL에 도달하지만 고정된 panel만 측정합니다
--   ⚠️ **Affinity assay는 결합을 측정합니다.** Epitope를 바꾸는 변이는 거짓 *cis*-pQTL을 만듭니다
--   ⚠️ 혈청 대 혈장, tube 종류, 원심분리까지 걸린 시간, 동결–해동, 용혈과 같은 **분석 전 변이**는 어떤 통계적 선택보다 더 많은 바이오마커 연구를 좌초시킵니다
+-   ⚠️ mRNA vs protein 상관 ≈ **r = 0.4–0.6** — 그 차이 = RNA-seq이 못 보는 조절
+-   Transcript와 protein의 불일치 = 오류가 아니라 **결과**
+-   MS = peptide 질량을 재고 protein을 추론. 식별은 database 의존, 정량은 대개 상대적
+-   ⚠️ **DDA는 intensity 가장 높은 precursor를 고름** → run마다 missing이 달라지고 군 간 차이처럼 보일 수 있음
+-   ✅ **임상 cohort의 기본값 = DIA** — 매번 같은 protein을 정량
+-   ⚠️ Plasma dynamic range \>10자릿수. Albumin이 질량의 절반, depletion은 붙어 있던 protein까지 제거
+-   ✅ Affinity panel(Olink, SomaScan) = depletion 없이 pg/mL까지. 대신 panel이 고정
+-   ⚠️ **Affinity assay는 결합을 잼.** Epitope를 바꾸는 variant → 가짜 *cis*-pQTL
+-   ⚠️ **Pre-analytical variation**(serum vs plasma, tube 종류, 원심분리까지 시간, 동결–해동, 용혈)이 어떤 통계 선택보다 더 많은 biomarker 연구를 무너뜨림
 
 ------------------------------------------------------------------------
 

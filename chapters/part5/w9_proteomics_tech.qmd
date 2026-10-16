@@ -54,7 +54,7 @@ A 3-fold mRNA increase with no protein change is a real, interpretable finding: 
 -   **Drugs act on proteins.** A target nominated purely from transcript data has skipped a step
 -   **Every biomarker you order** — troponin, PSA, CRP, HbA1c — is a protein or a protein modification
 -   **Post-translational modification is invisible to RNA-seq.** Phosphorylation, cleavage and glycosylation change what a protein *does* without changing how much of it there is
--   **Secretion is invisible too.** A cell can transcribe a cytokine and never release it (🔗 [W6 §3](../part3/w6_scrna_dynamics.qmd#w6-s3))
+-   **Secretion is invisible too.** A cell can transcribe a cytokine and never release it (🔗 [W6 §3.2](../part3/w6_scrna_dynamics.qmd#w6-s3-2))
 
 ------------------------------------------------------------------------
 
@@ -189,7 +189,7 @@ Pick any plasma proteomics paper in your field and answer:
 
 -   ④ **Platform?** MS or affinity — and if MS, **DDA or DIA**?
 -   ⑤ **Depletion?** How many proteins were quantified, and does that number make sense for the sample type?
--   ⑥ **Missing values** — how many, and how were they handled? (This is W10 §1)
+-   ⑥ **Missing values** — how many, and how were they handled? (🔗 [W10 §1](w10_clinical_proteomics.qmd#w10-s1))
 -   ⑦ **Pre-analytical** — were cases and controls collected the same way, in the same place?
 -   ⑧ **Batches** — were groups randomised across them, or stated at all?
 
@@ -199,7 +199,7 @@ Pick any plasma proteomics paper in your field and answer:
 
 Write five sentences specifying a proteomics study you could realistically run in your department: sample type, platform, n, comparison, and the one pre-analytical variable you are most worried about.
 
-We will use these in W10.
+We will use these in [W10](w10_clinical_proteomics.qmd).
 
 ------------------------------------------------------------------------
 

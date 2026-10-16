@@ -132,14 +132,12 @@ Xenium, CosMx, MERFISH, 그리고 Visium HD도 cell을 측정하는 건 아님. 
 
 ## 1) Pipeline {#w7-s4-1}
 
-```
-QC (spot별로, 그리고 H&E와 대조)
-   → normalise
-   → expression space에서 clustering  →  "spatial domain"
-   → spatially variable gene 찾기
-   → domain을 histology와 연결
-   → [W8] deconvolution 후 neighbourhood 분석
-```
+![우리 Visium HD (8 µm bin) pipeline: 단계별 input → tool → output](../../../assets/img/w7/visium_hd_pipeline.svg){fig-align="center"}
+
+-   뼈대는 scRNA-seq(🔗 [W5 §3.1](../part3/w5_scrna_qc.qmd#w5-s3-1))과 같고 cell 자리에 bin. Cell calling, doublet 단계 x — bin은 격자 칸이지 포획된 cell이 아니라서
+-   ✅ 표에는 없지만 꼭 넣어야 할 두 단계: **H&E 영상과 대조한 QC**, **domain을 histology와 연결** (🔗 [§5](#w7-s5))
+-   ⚠️ Domain 간 DE를 "Wilcoxon"으로 → bin을 전부 독립으로 취급 → p-value 부풀려짐 (🔗 [§4.3](#w7-s4-3)). Sample × domain pseudobulk가 더 안전한 쪽
+-   Deconvolution, neighbourhood enrichment, cell–cell communication → 🔗 [W8](w8_spatial_integration.qmd)
 
 ⚠️ 표준 clustering은 **좌표를 완전히 무시** — Seurat가 cell 묶듯 spot을 묶음. 그런데도 domain이 공간적으로 이어져 나오면 좋은 신호, 안 이어지면 그것도 정보. 좌표까지 쓰는 방법 → 🔗 [§4.4](#w7-s4-4)
 

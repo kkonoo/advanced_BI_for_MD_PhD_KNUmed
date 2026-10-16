@@ -132,14 +132,12 @@ Xenium, CosMx, MERFISH — and Visium HD — do not measure cells either. They m
 
 ## 1) The pipeline {#w7-s4-1}
 
-```
-QC (per spot, and against the H&E)
-   → normalise
-   → cluster in expression space  →  "spatial domains"
-   → find spatially variable genes
-   → relate domains to histology
-   → [W8] deconvolve, then analyse neighbourhoods
-```
+![Our Visium HD (8 µm bin) pipeline: input, tool and output at each step.](/assets/img/w7/visium_hd_pipeline.svg){fig-align="center"}
+
+-   Same skeleton as scRNA-seq (🔗 [W5 §3.1](../part3/w5_scrna_qc.qmd#w5-s3-1)), with bins in place of cells — no cell calling or doublet step, because a bin is a grid square, not a captured cell
+-   ✅ Two steps the table does not show, and you should add: **QC against the H&E image**, and **relating domains back to histology** (🔗 [§5](#w7-s5))
+-   ⚠️ "Wilcoxon" for DE between domains treats every bin as independent → inflated p-values (🔗 [§4.3](#w7-s4-3)). Pseudobulk per sample × domain is the safer row
+-   Deconvolution, neighbourhood enrichment and cell–cell communication → 🔗 [W8](w8_spatial_integration.qmd)
 
 ⚠️ Note that standard clustering **ignores coordinates entirely** — it clusters spots the way Seurat clusters cells. That domains come out spatially coherent anyway is a good sign; that they do not is informative. Methods that do use the coordinates → 🔗 [§4.4](#w7-s4-4).
 

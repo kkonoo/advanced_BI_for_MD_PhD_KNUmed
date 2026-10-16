@@ -877,12 +877,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>4. Analysing Spatial Data 📐</h1>
 <section id="w7-s4-1" class="level2">
 <h2 class="anchored" data-anchor-id="w7-s4-1">1) The pipeline</h2>
-<pre><code>QC (per spot, and against the H&amp;E)
-   → normalise
-   → cluster in expression space  →  "spatial domains"
-   → find spatially variable genes
-   → relate domains to histology
-   → [W8] deconvolve, then analyse neighbourhoods</code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../..\assets/img/w7/visium_hd_pipeline.svg" class="img-fluid figure-img"></p>
+<figcaption>Our Visium HD (8 µm bin) pipeline: input, tool and output at each step.</figcaption>
+</figure>
+</div>
+<ul>
+<li>Same skeleton as scRNA-seq (🔗 <a href="../../chapters/part3/w5_scrna_qc.html#w5-s3-1">W5 §3.1</a>), with bins in place of cells — no cell calling or doublet step, because a bin is a grid square, not a captured cell</li>
+<li>✅ Two steps the table does not show, and you should add: <strong>QC against the H&amp;E image</strong>, and <strong>relating domains back to histology</strong> (🔗 <a href="#w7-s5">§5</a>)</li>
+<li>⚠️ “Wilcoxon” for DE between domains treats every bin as independent → inflated p-values (🔗 <a href="#w7-s4-3">§4.3</a>). Pseudobulk per sample × domain is the safer row</li>
+<li>Deconvolution, neighbourhood enrichment and cell–cell communication → 🔗 <a href="../../chapters/part4/w8_spatial_integration.html">W8</a></li>
+</ul>
 <p>⚠️ Note that standard clustering <strong>ignores coordinates entirely</strong> — it clusters spots the way Seurat clusters cells. That domains come out spatially coherent anyway is a good sign; that they do not is informative. Methods that do use the coordinates → 🔗 <a href="#w7-s4-4">§4.4</a>.</p>
 </section>
 <section id="w7-s4-2" class="level2">
@@ -984,63 +990,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="w7-s6-2" class="level2">
 <h2 class="anchored" data-anchor-id="w7-s6-2">2) The pipeline</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat); <span class="fu">library</span>(tidyverse); <span class="fu">library</span>(patchwork)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>br <span class="ot">&lt;-</span> <span class="fu">LoadData</span>(<span class="st">"stxBrain"</span>, <span class="at">type =</span> <span class="st">"anterior1"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚠️ QC against the image, not just the numbers</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">SpatialFeaturePlot</span>(br, <span class="at">features =</span> <span class="st">"nCount_Spatial"</span>) <span class="sc">+</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Look for folds and edges before anything else"</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>br <span class="ot">&lt;-</span> <span class="fu">SCTransform</span>(br, <span class="at">assay =</span> <span class="st">"Spatial"</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunPCA</span>() <span class="sc">|&gt;</span> <span class="fu">FindNeighbors</span>(<span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.6</span>) <span class="sc">|&gt;</span> <span class="fu">RunUMAP</span>(<span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># the two views that must always appear together</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(br, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">label =</span> <span class="cn">TRUE</span>) <span class="sc">|</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">SpatialDimPlot</span>(br, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">label.size =</span> <span class="dv">3</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ save it — W8 picks this object up</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(br, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"analysis"</span>, <span class="st">"7_visium.rds"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat); <span class="fu">library</span>(tidyverse); <span class="fu">library</span>(patchwork)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>br <span class="ot">&lt;-</span> <span class="fu">LoadData</span>(<span class="st">"stxBrain"</span>, <span class="at">type =</span> <span class="st">"anterior1"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚠️ QC against the image, not just the numbers</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">SpatialFeaturePlot</span>(br, <span class="at">features =</span> <span class="st">"nCount_Spatial"</span>) <span class="sc">+</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Look for folds and edges before anything else"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>br <span class="ot">&lt;-</span> <span class="fu">SCTransform</span>(br, <span class="at">assay =</span> <span class="st">"Spatial"</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunPCA</span>() <span class="sc">|&gt;</span> <span class="fu">FindNeighbors</span>(<span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.6</span>) <span class="sc">|&gt;</span> <span class="fu">RunUMAP</span>(<span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># the two views that must always appear together</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(br, <span class="at">reduction =</span> <span class="st">"umap"</span>, <span class="at">label =</span> <span class="cn">TRUE</span>) <span class="sc">|</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">SpatialDimPlot</span>(br, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">label.size =</span> <span class="dv">3</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ save it — W8 picks this object up</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(br, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"analysis"</span>, <span class="st">"7_visium.rds"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="w7-s6-3" class="level2">
 <h2 class="anchored" data-anchor-id="w7-s6-3">3) Spatially variable genes</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>svg_genes <span class="ot">&lt;-</span> <span class="fu">FindSpatiallyVariableFeatures</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  br, <span class="at">assay =</span> <span class="st">"SCT"</span>, <span class="at">features =</span> <span class="fu">VariableFeatures</span>(br)[<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>],</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">selection.method =</span> <span class="st">"moransi"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>top <span class="ot">&lt;-</span> <span class="fu">SpatiallyVariableFeatures</span>(br, <span class="at">selection.method =</span> <span class="st">"moransi"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">SpatialFeaturePlot</span>(br, <span class="at">features =</span> top, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>svg_genes <span class="ot">&lt;-</span> <span class="fu">FindSpatiallyVariableFeatures</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  br, <span class="at">assay =</span> <span class="st">"SCT"</span>, <span class="at">features =</span> <span class="fu">VariableFeatures</span>(br)[<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>],</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">selection.method =</span> <span class="st">"moransi"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>top <span class="ot">&lt;-</span> <span class="fu">SpatiallyVariableFeatures</span>(br, <span class="at">selection.method =</span> <span class="st">"moransi"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">SpatialFeaturePlot</span>(br, <span class="at">features =</span> top, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="w7-s6-4" class="level2">
 <h2 class="anchored" data-anchor-id="w7-s6-4">4) ✅ Change one thing</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Are the domains driven by biology, or by how much tissue was in each spot?</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>br<span class="sc">$</span>log_counts <span class="ot">&lt;-</span> <span class="fu">log10</span>(br<span class="sc">$</span>nCount_Spatial)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(br, <span class="st">"log_counts"</span>, <span class="at">group.by =</span> <span class="st">"seurat_clusters"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Are the domains driven by biology, or by how much tissue was in each spot?</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>br<span class="sc">$</span>log_counts <span class="ot">&lt;-</span> <span class="fu">log10</span>(br<span class="sc">$</span>nCount_Spatial)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(br, <span class="st">"log_counts"</span>, <span class="at">group.by =</span> <span class="st">"seurat_clusters"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>💡 If one cluster has systematically higher total counts, ask whether it is a tissue region or a <strong>thickness</strong> region before naming it.</p>
 </section>
 <section id="w7-s6-5" class="level2">
 <h2 class="anchored" data-anchor-id="w7-s6-5">5) Spatially aware domains</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install("Banksy"); remotes::install_github("satijalab/seurat-wrappers")</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Banksy); <span class="fu">library</span>(SeuratWrappers)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>br<span class="sc">$</span>expr_cluster <span class="ot">&lt;-</span> br<span class="sc">$</span>seurat_clusters   <span class="co"># keep the expression-only labels</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># lambda = weight on the neighbours: ~0.2 for cell typing, ~0.8 for tissue domains</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>br <span class="ot">&lt;-</span> <span class="fu">RunBanksy</span>(br, <span class="at">lambda =</span> <span class="fl">0.8</span>, <span class="at">assay =</span> <span class="st">"SCT"</span>, <span class="at">slot =</span> <span class="st">"data"</span>,</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">features =</span> <span class="st">"variable"</span>, <span class="at">k_geom =</span> <span class="dv">18</span>)   <span class="co"># sets DefaultAssay to "BANKSY"</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>br <span class="ot">&lt;-</span> <span class="fu">RunPCA</span>(br, <span class="at">features =</span> <span class="fu">rownames</span>(br), <span class="at">npcs =</span> <span class="dv">30</span>, <span class="at">reduction.name =</span> <span class="st">"pca.banksy"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindNeighbors</span>(<span class="at">reduction =</span> <span class="st">"pca.banksy"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.5</span>, <span class="at">cluster.name =</span> <span class="st">"banksy_cluster"</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">SpatialDimPlot</span>(br, <span class="at">group.by =</span> <span class="st">"expr_cluster"</span>) <span class="sc">|</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">SpatialDimPlot</span>(br, <span class="at">group.by =</span> <span class="st">"banksy_cluster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install("Banksy"); remotes::install_github("satijalab/seurat-wrappers")</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Banksy); <span class="fu">library</span>(SeuratWrappers)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>br<span class="sc">$</span>expr_cluster <span class="ot">&lt;-</span> br<span class="sc">$</span>seurat_clusters   <span class="co"># keep the expression-only labels</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># lambda = weight on the neighbours: ~0.2 for cell typing, ~0.8 for tissue domains</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>br <span class="ot">&lt;-</span> <span class="fu">RunBanksy</span>(br, <span class="at">lambda =</span> <span class="fl">0.8</span>, <span class="at">assay =</span> <span class="st">"SCT"</span>, <span class="at">slot =</span> <span class="st">"data"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">features =</span> <span class="st">"variable"</span>, <span class="at">k_geom =</span> <span class="dv">18</span>)   <span class="co"># sets DefaultAssay to "BANKSY"</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>br <span class="ot">&lt;-</span> <span class="fu">RunPCA</span>(br, <span class="at">features =</span> <span class="fu">rownames</span>(br), <span class="at">npcs =</span> <span class="dv">30</span>, <span class="at">reduction.name =</span> <span class="st">"pca.banksy"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindNeighbors</span>(<span class="at">reduction =</span> <span class="st">"pca.banksy"</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">FindClusters</span>(<span class="at">resolution =</span> <span class="fl">0.5</span>, <span class="at">cluster.name =</span> <span class="st">"banksy_cluster"</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">SpatialDimPlot</span>(br, <span class="at">group.by =</span> <span class="st">"expr_cluster"</span>) <span class="sc">|</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">SpatialDimPlot</span>(br, <span class="at">group.by =</span> <span class="st">"banksy_cluster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>💡 Rerun with <code>lambda = 0.2</code>. Which domains survive at both settings — and does anything small vanish at 0.8?</p>
 </section>
