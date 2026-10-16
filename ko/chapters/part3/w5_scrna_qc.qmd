@@ -5,7 +5,11 @@ date: last-modified
 format: html
 execute:
   echo: true
-  eval: false
+  eval: true
+knitr:
+  opts_chunk:
+    fig.show: hold     # keep each chunk's code in one block, outputs after it
+    results: hold
 ---
 
 ::: {.callout-note collapse="true"}
@@ -254,8 +258,19 @@ Droplet 하나에 cell 둘 → barcode를 공유 → **hybrid profile을 가진 
 
 💡 pANN 분포가 뚜렷하게 bimodal = 제대로 작동한다는 증거. Unimodal이면 그 neighbourhood 크기에서는 doublet이 분리 안 됨
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
-library(DoubletFinder)
+library(Seurat); library(SeuratData); library(DoubletFinder)
+
+# toy input (illustration only): pbmc3k as one 10x sample, after a rough pass
+seu <- UpdateSeuratObject(LoadData("pbmc3k")) |>
+  NormalizeData(verbose = FALSE) |> FindVariableFeatures(verbose = FALSE) |>
+  ScaleData(verbose = FALSE) |> RunPCA(verbose = FALSE) |>
+  FindNeighbors(dims = 1:10, verbose = FALSE) |> FindClusters(resolution = 0.5, verbose = FALSE)
+seu$sample_id <- "pbmc3k"
 
 # one sample at a time, after permissive QC, normalisation, PCA and a rough clustering
 sweep <- paramSweep(seu, PCs = 1:10, sct = FALSE)
@@ -268,7 +283,26 @@ nExp      <- round(rate * ncol(seu) * (1 - homotypic))
 
 seu <- doubletFinder(seu, PCs = 1:10, pN = 0.25, pK = pK, nExp = nExp, sct = FALSE)
 # → new metadata columns pANN_* and DF.classifications_* (Singlet / Doublet)
+table(seu[[grep("^DF.classifications", colnames(seu[[]]), value = TRUE)]])
 ```
+
+### Python
+
+```{python}
+import scanpy as sc
+
+# toy input (illustration only): pbmc3k as one 10x sample, raw counts
+ad = sc.datasets.pbmc3k()
+ad.obs["sample_id"] = "pbmc3k"
+
+# Scrublet — the same idea in Python: simulate doublets, score each cell by its simulated neighbours
+rate = 0.008 * ad.n_obs / 1000                      # ~0.8% per 1,000 cells (10x)
+sc.pp.scrublet(ad, expected_doublet_rate=rate)
+# → new obs columns doublet_score and predicted_doublet
+ad.obs.predicted_doublet.value_counts()
+```
+
+:::
 
 **scDblFinder — 뭐가 다른가?**
 
@@ -284,11 +318,27 @@ seu <- doubletFinder(seu, PCs = 1:10, pN = 0.25, pK = pK, nExp = nExp, sct = FAL
 
 첫 대규모 독립 benchmark에서는 DoubletFinder가 가장 정확 (Xi & Li 2021). 이후 나온 scDblFinder가 같은 dataset에서 동등하거나 더 좋음 (Germain et al. 2021) → 지금은 흔한 기본값. Pipeline 그림에 있는 tool도 이것
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
 library(scDblFinder)
 sce <- scDblFinder(as.SingleCellExperiment(seu), samples = "sample_id")
 seu$doublet <- sce$scDblFinder.class                # "singlet" / "doublet"
+table(seu$doublet)
 ```
+
+### Python
+
+```{python}
+# no Python port of scDblFinder — Scrublet run per sample is the usual stand-in
+sc.pp.scrublet(ad, batch_key="sample_id")
+ad.obs["doublet"] = ad.obs.predicted_doublet.map({True: "doublet", False: "singlet"})
+ad.obs.doublet.value_counts()
+```
+
+:::
 
 ::: {.callout-warning collapse="true"}
 ## Doublet detector 공통 규칙
@@ -571,15 +621,47 @@ Donor 6명에서 나온 cell 5,400개에 Wilcoxon test를 적용하면 cell을 5
 
 이제 작은 pseudo-sample matrix가 생김 → 지난 학기 bulk RNA-seq처럼 DESeq2 또는 edgeR으로 분석!
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
 library(Seurat); library(DESeq2); library(tidyverse)
+
+# toy input (illustration only): annotated pbmc3k split into 4 pretend donors
+set.seed(1)
+seurat <- UpdateSeuratObject(LoadData("pbmc3k"))
+seurat <- seurat[, !is.na(seurat$seurat_annotations)]
+seurat$cell_type <- seurat$seurat_annotations
+seurat$sample_id <- paste0("donor", sample(1:4, ncol(seurat), replace = TRUE))
 
 pb <- AggregateExpression(seurat,
                           group.by = c("cell_type", "sample_id"),
                           assays   = "RNA")$RNA
 
 # then, per cell type, a completely ordinary DESeq2 run
+dim(pb)   # genes × (cell type, donor) pseudo-samples
 ```
+
+### Python
+
+```{python}
+import numpy as np
+
+# toy input (illustration only): pbmc3k counts + its tutorial labels, 4 pretend donors
+ad = sc.datasets.pbmc3k()
+labels = sc.datasets.pbmc3k_processed().obs["louvain"]
+ad = ad[labels.index].copy()
+ad.obs["cell_type"] = labels
+ad.obs["sample_id"] = np.random.default_rng(1).choice([f"donor{i}" for i in range(1, 5)], ad.n_obs)
+
+pb = sc.get.aggregate(ad, by=["cell_type", "sample_id"], func="sum")
+
+# then, per cell type, a completely ordinary DESeq2 run (pydeseq2)
+pb.shape   # (cell type, donor) pseudo-samples × genes
+```
+
+:::
 
 -   Benchmark에서 pseudobulk는 per-cell test보다 false positive가 훨씬 적음
 -   Donor random effect를 사용하는 **mixed model**도 합리적임. Power를 더 유지하지만 계산량이 많음
@@ -609,10 +691,15 @@ pb <- AggregateExpression(seurat,
 
 ## 2) 3k PBMC tutorial from Seurat {#w5-s6-2}
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
 library(Seurat); library(SeuratData); library(tidyverse)
 
 InstallData("pbmc3k"); data("pbmc3k")
+pbmc3k <- UpdateSeuratObject(pbmc3k)   # stored in the pre-Seurat-5 format
 pbmc <- pbmc3k
 
 pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
@@ -636,11 +723,49 @@ pbmc <- FindNeighbors(pbmc, dims = 1:10) |>
 DimPlot(pbmc, label = TRUE)
 ```
 
+### Python
+
+```{python}
+import scanpy as sc
+
+ad = sc.datasets.pbmc3k()
+sc.pp.filter_genes(ad, min_cells=3)                 # as in the Seurat object
+ad.var["mt"] = ad.var_names.str.startswith("MT-")
+sc.pp.calculate_qc_metrics(ad, qc_vars=["mt"], inplace=True)
+
+# ⚠️ LOOK before you cut
+sc.pl.violin(ad, ["n_genes_by_counts", "total_counts", "pct_counts_mt"], multi_panel=True)
+
+ad = ad[(ad.obs.n_genes_by_counts > 200) & (ad.obs.n_genes_by_counts < 2500) &
+        (ad.obs.pct_counts_mt < 5)].copy()
+
+ad.layers["counts"] = ad.X.copy()
+sc.pp.normalize_total(ad, target_sum=1e4); sc.pp.log1p(ad)
+sc.pp.highly_variable_genes(ad, n_top_genes=2000, flavor="seurat_v3", layer="counts")
+sc.pp.scale(ad, max_value=10)
+sc.pp.pca(ad)
+
+sc.pl.pca_variance_ratio(ad, n_pcs=30)
+
+sc.pp.neighbors(ad, n_pcs=10)
+sc.tl.leiden(ad, resolution=0.5, flavor="igraph", n_iterations=2)
+sc.tl.umap(ad)
+
+sc.pl.umap(ad, color="leiden", legend_loc="on data")
+```
+
+:::
+
 ## 3) ✅ 한 가지 바꾸기 {#w5-s6-3}
+
+::: {.panel-tabset group="lang"}
+
+### R
 
 ```{r}
 # ① How many cells did each threshold remove, and which ones?
-table(pbmc3k$seurat_annotations[pbmc3k$percent.mt >= 5])   # who did the mito cut delete?
+pbmc3k[["percent.mt"]] <- PercentageFeatureSet(pbmc3k, pattern = "^MT-")
+table(pbmc3k$seurat_annotations[pbmc3k$percent.mt >= 5], useNA = "ifany")   # who did the mito cut delete?
 
 # ② Re-cluster at three resolutions and count
 for (r in c(0.2, 0.5, 1.2)) {
@@ -653,18 +778,68 @@ pbmc <- RunUMAP(pbmc, dims = 1:10, seed.use = 99)
 DimPlot(pbmc, label = TRUE)
 ```
 
+### Python
+
+```{python}
+# ① How many cells did each threshold remove, and which ones?
+raw = sc.datasets.pbmc3k()
+raw.var["mt"] = raw.var_names.str.startswith("MT-")
+sc.pp.calculate_qc_metrics(raw, qc_vars=["mt"], inplace=True)
+raw.obs["cell_type"] = sc.datasets.pbmc3k_processed().obs["louvain"].reindex(raw.obs_names)
+raw.obs.cell_type[raw.obs.pct_counts_mt >= 5].value_counts(dropna=False)   # who did the mito cut delete?
+
+# ② Re-cluster at three resolutions and count
+for r in (0.2, 0.5, 1.2):
+    sc.tl.leiden(ad, resolution=r, flavor="igraph", n_iterations=2)
+    print("resolution", r, "→", ad.obs.leiden.nunique(), "clusters")
+
+# ③ Re-run UMAP with a different seed and compare the picture
+sc.tl.umap(ad, random_state=99)
+sc.pl.umap(ad, color="leiden", legend_loc="on data")
+```
+
+:::
+
 ## 4) 다음 주를 위해 저장하기 {#w5-s6-4}
+
+::: {.panel-tabset group="lang"}
+
+### R
 
 ```{r}
 saveRDS(pbmc, here::here("analysis", "5_pbmc_annotated.rds"))
 ```
 
+### Python
+
+```{python}
+ad.write_h5ad("analysis/5_pbmc_annotated.h5ad")
+```
+
+:::
+
 **W6 — trajectory, cell–cell communication, multi-sample integration.**
 
+::: {.panel-tabset group="lang"}
+
+### R
+
 ```{r}
+#| eval: false
 BiocManager::install("monocle3")
 install.packages(c("harmony", "CellChat"))
 ```
+
+### Python
+
+```{python}
+#| eval: false
+# in a terminal (or prefix with ! in Jupyter)
+# pip install harmonypy liana decoupler   # harmony; CellChat ≈ LIANA; decoupleR
+# trajectories (monocle3's job) are built into scanpy: sc.tl.paga, sc.tl.dpt
+```
+
+:::
 
 ------------------------------------------------------------------------
 
