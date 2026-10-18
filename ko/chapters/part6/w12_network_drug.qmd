@@ -265,6 +265,15 @@ print("observed:", round(observed, 2), " null mean:", round(np.mean(null), 2))
 
 ✅ 관측된 proximity가 degree-matched null보다 확실히 낫지 않다면 → 잰 건 중요도가 아니라 인기도
 
+**직접 해 보기** — [네트워크 null model: 차수 보존 재배선 ↗](https://kkonoo.github.io/edu_sims/sims/network-null/?lang=ko){target="_blank"}
+
+::: {.column-page}
+```{=html}
+<iframe src="https://kkonoo.github.io/edu_sims/sims/network-null/?embed=1&lang=ko" title="네트워크 null model: 차수 보존 재배선" loading="lazy"
+        style="width: 100%; height: 1300px; border: 0;"></iframe>
+```
+:::
+
 ## 4) 다음 주 전까지 {#w12-s4-4}
 
 **[W13 — 해석과 시각화](../part7/w13_visualization.qmd).** 내 연구나 읽고 있는 논문에서 **그림 하나** 가져오기. 같이 뜯어봄

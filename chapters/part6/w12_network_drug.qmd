@@ -265,6 +265,15 @@ print("observed:", round(observed, 2), " null mean:", round(np.mean(null), 2))
 
 ✅ If the observed proximity is not clearly better than the degree-matched null, you have measured popularity.
 
+**Try it** — [Network null models: degree-preserving rewiring ↗](https://kkonoo.github.io/edu_sims/sims/network-null/?lang=en){target="_blank"}
+
+::: {.column-page}
+```{=html}
+<iframe src="https://kkonoo.github.io/edu_sims/sims/network-null/?embed=1&lang=en" title="Network null models: degree-preserving rewiring" loading="lazy"
+        style="width: 100%; height: 1300px; border: 0;"></iframe>
+```
+:::
+
 ## 4) Before next week {#w12-s4-4}
 
 **[W13 — interpretation and visualisation](../part7/w13_visualization.qmd).** Bring **one figure** from your own work or from a paper you are reading. We will take it apart.
