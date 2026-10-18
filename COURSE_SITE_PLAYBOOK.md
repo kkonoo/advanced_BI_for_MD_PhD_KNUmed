@@ -34,9 +34,11 @@
 6. 두 타일 사이는 10px. 타일은 44px·모서리 12px(모바일 38px·10px), 흰 표면(다크 #262b33)
    + 1px 얇은 테두리, 그림자 없음. 키보드 포커스, aria-label, 명암 대비도 유지해.
 7. 기존 본문 스타일과 AI 채팅 위젯이 있다면 두 테마에서 모두 읽기 좋게 조정해.
-8. 본문 스타일은 공용 테마(assets/html.css)를 그대로 복사해 쓰고, 맨 위 "Subject colour"
-   블록의 색만 과목에 맞게 바꿔 (생물학 blue, 컴퓨터 violet, 통계·수학 forest,
-   생물정보학 crimson — slide-gallery 팔레트).
+8. 본문 스타일은 공용 테마(assets/html.css, assets/revealjs.css)를 그대로 복사해 쓰고, 맨 위
+   "Subject colour" 블록의 색만 과목에 맞게 바꿔 (생물학 blue, 컴퓨터 violet, 통계·수학 forest,
+   생물정보학 crimson — slide-gallery 팔레트). 제목은 굵기로 위계를 나누되, 챕터 안에서 가장
+   큰 제목(`#`를 쓰는 사이트면 h1, `##`부터 쓰면 h2)은 검은 글자 + 왼쪽 컬러바, 그 다음은 밑줄,
+   그 아래는 굵기만. 학습 목표 callout은 collapse="true"로 접어 둬.
 
 다국어 문서 원칙
 - 번역 본문은 브라우저 문자열 치환으로 만들지 말고 언어별 qmd/원본 문서로 관리해.
