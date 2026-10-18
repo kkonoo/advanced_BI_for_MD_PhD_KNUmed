@@ -113,18 +113,16 @@
     return new URL(state.basePath + route, window.location.href).href;
   }
 
+  // One button that links to the *other* language of the current page
+  // (like the theme button, it shows what you get when you click it).
   function makeLanguageOption(label, language, state) {
-    const isActive = state.language === language;
     const href = state.key ? routeUrl(state, language, state.key) : null;
-    const option = document.createElement(isActive || !href ? "span" : "a");
+    const option = document.createElement(href ? "a" : "span");
 
     option.textContent = label;
     option.lang = language;
 
-    if (isActive) {
-      option.className = "is-active";
-      option.setAttribute("aria-current", "page");
-    } else if (href) {
+    if (href) {
       option.href = href;
       option.hreflang = language;
       option.setAttribute(
@@ -157,10 +155,8 @@
       "aria-label",
       state.language === "ko" ? "언어 선택" : "Language selector"
     );
-    control.append(
-      makeLanguageOption("EN", "en", state),
-      makeLanguageOption("KO", "ko", state)
-    );
+    const other = state.language === "ko" ? "en" : "ko";
+    control.append(makeLanguageOption(other.toUpperCase(), other, state));
 
     const themeToggle = tools.querySelector(".quarto-color-scheme-toggle");
     tools.insertBefore(control, themeToggle || tools.firstChild);
