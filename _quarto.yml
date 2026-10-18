@@ -212,6 +212,7 @@ format:
     include-after-body:
       - assets/site-ui.html
       - assets/ai-chat-init.html
+      - assets/edu-sims-resize.html
 
 
 execute:

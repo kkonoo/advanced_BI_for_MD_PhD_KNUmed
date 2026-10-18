@@ -489,6 +489,15 @@ scVI is the first member of a family (the **scvi-tools** library). All share one
 
 ------------------------------------------------------------------------
 
+**Try it** — [PCA and SVD: low-rank approximation ↗](https://kkonoo.github.io/edu_sims/sims/pca-svd/?lang=en){target="_blank"}
+
+::: {.column-page}
+```{=html}
+<iframe src="https://kkonoo.github.io/edu_sims/sims/pca-svd/?embed=1&lang=en" title="PCA and SVD: low-rank approximation" loading="lazy"
+        style="width: 100%; height: 1300px; border: 0;"></iframe>
+```
+:::
+
 # 4. Finding Cell Types 🗺️ {#w5-s4}
 
 ## 1) neighbors for grouping cells {#w5-s4-1}

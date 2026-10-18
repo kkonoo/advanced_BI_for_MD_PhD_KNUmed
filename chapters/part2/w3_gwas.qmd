@@ -162,6 +162,15 @@ smf.logit("disease ~ SNP"
 ⚠️ And the trade-off nobody states: restricting to one ancestry gives cleaner statistics and **worse generalisability** (§7).
 :::
 
+**Try it** — [Multiple testing and FDR ↗](https://kkonoo.github.io/edu_sims/sims/multiple-testing/?lang=en){target="_blank"}
+
+::: {.column-page}
+```{=html}
+<iframe src="https://kkonoo.github.io/edu_sims/sims/multiple-testing/?embed=1&lang=en" title="Multiple testing and FDR" loading="lazy"
+        style="width: 100%; height: 1300px; border: 0;"></iframe>
+```
+:::
+
 ## 3) The QC that happened before the plot {#w3-s2-3}
 
 | QC step | Typical threshold | What it removes |
