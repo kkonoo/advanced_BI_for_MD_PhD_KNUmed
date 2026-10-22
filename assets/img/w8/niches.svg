@@ -148,13 +148,13 @@
 <circle cx="348" cy="306" r="9" fill="#BA7517" fill-opacity="0.9"/>
 <circle cx="48" cy="346" r="5" fill="#185FA5"/>
 <text x="59" y="350" font-size="11" fill="#555">tumour</text>
-<circle cx="140" cy="346" r="5" fill="#1D9E75"/>
-<text x="151" y="350" font-size="11" fill="#555">T cell</text>
-<circle cx="232" cy="346" r="5" fill="#BA7517"/>
-<text x="243" y="350" font-size="11" fill="#555">fibroblast</text>
-<circle cx="324" cy="346" r="5" fill="#D85A30"/>
-<text x="335" y="350" font-size="11" fill="#555">macrophage</text>
-<text x="48" y="332" font-size="11.5" fill="#a05a3f">⚠️ T cells and macrophages are in every spot — and never dominate one.</text>
+<circle cx="140" cy="346" r="5" fill="#BA7517"/>
+<text x="151" y="350" font-size="11" fill="#555">fibroblast</text>
+<circle cx="236" cy="346" r="5" fill="none" stroke="#1D9E75" stroke-width="1.5"/>
+<text x="247" y="350" font-size="11" fill="#9a94a6">T cell</text>
+<circle cx="314" cy="346" r="5" fill="none" stroke="#D85A30" stroke-width="1.5"/>
+<text x="325" y="350" font-size="11" fill="#9a94a6">macrophage</text>
+<text x="48" y="332" font-size="11.5" fill="#a05a3f">⚠️ Hollow = in every spot, dominant in none → absent from this map.</text>
 <rect x="456" y="46" width="400" height="322" rx="10" fill="#ffffff" stroke="#534AB7" stroke-width="2"/>
 <text x="480" y="72" font-size="13" font-weight="700" fill="#4A3D6B">Niches — spots clustered by their <tspan font-weight="700" fill="#534AB7">neighbourhood</tspan></text>
 <circle cx="492" cy="96" r="9" fill="#2a5a86" fill-opacity="0.9"/>

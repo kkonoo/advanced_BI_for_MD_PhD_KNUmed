@@ -37,7 +37,7 @@ By the end of this chapter you should be able to:
 
 From 🔗 [W7 §3](w7_spatial_basics.qmd#w7-s3): a Visium spot is a **mixture**. Deconvolution asks what mixture of cell types best explains the observed profile — using single-cell data as the dictionary of what each cell type looks like.
 
-![The reference is not a technical detail. It is the assumption the whole result rests on.](/assets/img/w8/deconvolution.svg){fig-align="center"}
+![](/assets/img/w8/deconvolution.svg){fig-align="center"}
 
 | Method | Approach | Notes |
 |----------------------|--------------------|------------------------------|
@@ -76,17 +76,15 @@ Deconvolution returns proportions that **sum to one over the cell types you supp
 
 ## 4) Single-cell resolution: annotate, don't deconvolve {#w8-s1-4}
 
-![On single-cell platforms the question becomes labelling, not unmixing.](/assets/img/w8/cell_annotation.svg){fig-align="center"}
+![](/assets/img/w8/cell_annotation.svg){fig-align="center"}
 
 On Xenium, CosMx or Visium HD the unit is a segmented cell (🔗 [W7 §3.2](w7_spatial_basics.qmd#w7-s3-2)), not a mixture. The task becomes **annotation**: one label per cell, from the same single-cell reference.
 
--   **Label transfer** (Seurat anchors, as in §2.3) or **RCTD in `doublet` mode** (each cell or 8 µm bin = one or two types) — the logic of §1.1 on a smaller unit
--   ⚠️ **Only the panel's genes are used.** The reference has ~20,000 genes, the panel a few hundred to 5,000. A cell type with no marker on the panel cannot be called — it is forced into its nearest neighbour (§1.2 again)
--   ⚠️ **The label inherits the segmentation.** A cell holding its neighbour's transcripts gets a mixed, low-confidence or wrong label
+-   **Label transfer** (Seurat anchors, as in §2.3) or **RCTD in `doublet` mode** (each cell or 8 µm bin = one or two types)
+-   ⚠️ **Only the panel's genes are used.** The reference has ~20,000 genes, the panel a few hundred to 5,000. A cell type with no marker on the panel cannot be called — it is forced into its nearest neighbour
 -   ✅ **Map the confidence.** Low-confidence calls piling up at cell–cell contacts = segmentation spillover, not a new "hybrid" state
--   ✅ After that, everything below — niches, co-localisation, patient comparisons — works the same, with cells in place of spots
 
-💡 Panel design is an analysis decision made before the experiment: check that every cell type in your hypothesis has markers on the panel.
+💡 Panel design is decided before sequencing: check that every cell type you care about has markers on the panel.
 
 ------------------------------------------------------------------------
 
@@ -96,7 +94,7 @@ On Xenium, CosMx or Visium HD the unit is a segmented cell (🔗 [W7 §3.2](w7_s
 
 A per-spot cell-type map is useful, and it is still one location at a time. The step that uses the geometry is asking what each location is **surrounded by**.
 
-![The interface exists only as a mixture. No single spot defines it.](/assets/img/w8/niches.svg){fig-align="center"}
+![The interface exists only as a mixture of several cell types. No single spot defines it.](/assets/img/w8/niches.svg){fig-align="center"}
 
 **How it works:** for each spot, build a vector of the cell-type composition of its neighbours (within *k* spots or a fixed radius), then cluster those vectors. The clusters are **niches** — recurrent tissue microenvironments.
 
@@ -130,7 +128,7 @@ The reverse direction: take a cluster you found in scRNA-seq and ask where it si
 
 ## 4) ⚠️ Comparing niches between patients {#w8-s2-4}
 
-![One large section from one patient can produce a tiny p on its own.](/assets/img/w8/patient_level.svg){fig-align="center"}
+![One large section can produce a tiny p on its own — it simply has that many spots/cells.](/assets/img/w8/patient_level.svg){fig-align="center"}
 
 "TAM-rich niches are more common in non-responders" is a claim about **patients**, so the patient is the unit — the same logic as pseudobulk (🔗 [W5 §5.3](../part3/w5_scrna_qc.qmd#w5-s5-3)).
 
@@ -159,7 +157,7 @@ W6's cell–cell communication (🔗 [W6 §3.2](../part3/w6_scrna_dynamics.qmd#w
 
 # 3. ⚠️ Where This Sits in the Evidence 🪜 {#w8-s3}
 
-![The verb in your sentence should match the rung you are on.](/assets/img/w8/evidence_ladder.svg){fig-align="center"}
+![](/assets/img/w8/evidence_ladder.svg){fig-align="center"}
 
 ::: {.callout-tip collapse="true"}
 ## What spatial validation does and does not buy you

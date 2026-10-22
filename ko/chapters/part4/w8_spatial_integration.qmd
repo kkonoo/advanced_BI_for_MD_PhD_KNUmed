@@ -1,5 +1,5 @@
 ---
-title: "W8. 디콘볼루션과 공간 통합"
+title: "W8. deconvolution과 공간 integration"
 author: "Eunji Ha"
 date: last-modified
 format: html
@@ -13,21 +13,21 @@ execute:
 
 이 장을 마치면 다음을 할 수 있어야 합니다.
 
--   deconvolution이 무엇을 추정하며 무엇은 추정할 수 없는지 설명할 수 있다
--   ⚠️ 참조 데이터셋이 답을 결정하는 이유와 참조를 신뢰하기 전에 확인할 사항을 말할 수 있다
--   단일세포 해상도 데이터는 deconvolution 대신 annotation하는 이유와, 그 label이 어디서 틀리는지 말할 수 있다
--   세포 유형 지도와 **niche** 지도를 구분하고, 대개 두 번째 지도에 생물학적 의미가 있는 이유를 말할 수 있다
--   ⚠️ 조직 구조를 보존하는 귀무가설을 사용해 공위치(co-localisation)를 검정할 수 있다
--   ⚠️ 이웃한 spot이 유의성을 부풀리는 이유와 그 대처법을 말할 수 있다
--   ⚠️ spot이 아니라 환자를 단위로 환자군 간 niche를 비교할 수 있다
--   ⚠️ ligand–receptor 추론에 거리 제한이 더해 주는 것과 여전히 보여 주지 못하는 것을 말할 수 있다
--   모든 주장을 기술에서 입증까지의 근거 사다리 위에 놓을 수 있다
--   W5–W6에서 생성한 가설을 위한 공간 검증 단계를 설계할 수 있다
+- deconvolution이 무엇을 추정하며 무엇은 추정할 수 없는지 설명할 수 있다
+- ⚠️ 참조 데이터셋이 답을 결정하는 이유와 참조를 신뢰하기 전에 확인할 사항을 말할 수 있다
+- 단일세포 해상도 데이터는 deconvolution 대신 annotation하는 이유와, 그 label이 어디서 틀리는지 말할 수 있다
+- 세포 유형 지도와 **niche** 지도를 구분하고, 대개 두 번째 지도에 생물학적 의미가 있는 이유를 말할 수 있다
+- ⚠️ 조직 구조를 보존하는 귀무가설을 사용해 공위치(co-localisation)를 검정할 수 있다
+- ⚠️ 이웃한 spot이 유의성을 부풀리는 이유와 그 대처법을 말할 수 있다
+- ⚠️ spot이 아니라 환자를 단위로 환자군 간 niche를 비교할 수 있다
+- ⚠️ ligand–receptor 추론에 거리 제한이 더해 주는 것과 여전히 보여 주지 못하는 것을 말할 수 있다
+- 모든 주장을 기술에서 입증까지의 근거 사다리 위에 놓을 수 있다
+- W5–W6에서 생성한 가설을 위한 공간 검증 단계를 설계할 수 있다
 :::
 
 > 🤔 **동기 질문**
 >
-> 4,000개 spot을 deconvolution한 결과 조절 T세포와 탈진 CD8 T세포가 함께 나타났습니다(*p* < 10⁻¹²). 이 p-value는 얼마나 많은 것을 알려 줍니까?
+> 4,000개 spot을 deconvolution한 결과 조절 T세포와 탈진 CD8 T세포가 함께 나타났습니다(*p* \< 10⁻¹²). 이 p-value는 얼마나 많은 것을 알려 줍니까?
 
 ------------------------------------------------------------------------
 
@@ -35,12 +35,12 @@ execute:
 
 ## 1) 문제 다시 보기 {#w8-s1-1}
 
-🔗 [W7 §3](w7_spatial_basics.qmd#w7-s3)에서 본 대로 Visium spot = **혼합물**. Deconvolution = single-cell data를 "cell type별 생김새 사전"으로 써서, 관측된 profile을 가장 잘 설명하는 cell type 혼합을 추정
+🔗 [W7 §3](w7_spatial_basics.qmd#w7-s3)에서 본 대로 Visium spot = **mixture**. Deconvolution = single-cell data를 "cell type별 생김새 사전"으로 써서, 관측된 profile을 가장 잘 설명하는 cell type 혼합을 추정
 
-![Reference는 기술적 디테일이 아님. 결과 전체가 기대는 가정](../../../assets/img/w8/deconvolution.svg){fig-align="center"}
+![](../../../assets/img/w8/deconvolution.svg){fig-align="center"}
 
 | 방법 | 접근법 | 특징 |
-|----------------------|--------------------|------------------------------|
+|---------------|--------------------------|------------------------------|
 | **RCTD** | 통계 model, platform 효과까지 modelling | 견고, 널리 쓰임 |
 | **cell2location** | Bayesian, 절대 abundance 추정 | ✅ 비율뿐 아니라 cell 수까지 |
 | **CARD** | spot 간 spatial correlation 이용 | 이웃 spot 정보를 빌려 씀 |
@@ -49,71 +49,70 @@ execute:
 
 💡 Method보다 reference 선택이 더 중요. Benchmark에서 method 간 차이는 크지 않지만, reference가 틀리면 답 자체가 바뀜
 
-## 2) ⚠️ Reference bias {#w8-s1-2}
+## 2) Reference bias⚠️  {#w8-s1-2}
 
 ::: {.callout-important collapse="true"}
-## Error message 없이 일어나는 실패
+## Error message 없지만 잘못된 분석
 
 Deconvolution 결과 = **내가 넣어 준 cell type들 안에서 합이 1**인 비율. "처음 보는 뭔가가 여기 있다"고 알려줄 방법 x
 
--   ⚠️ **Reference에 없는 cell type** → missing으로 안 나옴. 그 signal은 reference에서 가장 가까운 type으로 재분배됨 = single-cell annotation의 reference bias가 한 층 아래에서 반복되는 것
--   ⚠️ **건강한 조직 reference**를 종양에, **PBMC reference**를 tissue-resident cell에 적용 → 해당 type만이 아니라 모든 비율이 한꺼번에 편향
--   ⚠️ **다른 platform의 reference**(Smart-seq vs 10x, cell vs nucleus) → 체계적 차이가 추정치에 그대로 들어감
+- ⚠️ **Reference에 없는 cell type** → missing으로 안 나옴. 그 signal은 reference에서 가장 가까운 type으로 재분배됨 = single-cell annotation의 reference bias가 한 층 아래에서 반복되는 것
+- ⚠️ **건강한 조직 reference**를 종양에, **PBMC reference**를 tissue-resident cell에 적용 → 해당 type만이 아니라 모든 비율이 한꺼번에 편향
+- ⚠️ **다른 platform의 reference**(Smart-seq vs 10x, cell vs nucleus) → 체계적 차이가 추정치에 그대로 들어감
 
 ✅ 실제로 확인할 것:
 
--   같은 조직, 같은 condition, 가능하면 spatial 절편과 **같은 환자**
--   Deconvolution에 안 쓴 marker gene으로 검증 — raw *CD3E*를 그려서 T cell 비율이 나온 자리와 겹치는지 보기
--   드물지만 중요한 population이 reference에 아예 들어 있긴 한지
+- 같은 조직, 같은 condition, 가능하면 spatial 절편과 **같은 환자**
+- Deconvolution에 안 쓴 marker gene으로 검증 — raw *CD3E*를 그려서 T cell 비율이 나온 자리와 겹치는지 보기
+- 드물지만 중요한 population이 reference에 아예 들어 있긴 한지
 :::
 
 ## 3) 비율로 말할 수 있는 것, 없는 것 {#w8-s1-3}
 
--   ✅ "이 영역이 저 영역보다 macrophage signal이 풍부하다" — 탄탄함
--   ✅ "Macrophage 비율이 invasion front로부터의 거리와 상관있다" — 탄탄하고 흥미로움
--   ⚠️ "이 spot엔 macrophage가 2.3개 있다" — 절대 수를 시도하는 건 cell2location 계열뿐, 불확실성도 큼
--   ❌ "바로 이 macrophage들이 gene X를 발현한다" — 훨씬 강한 가정 없이는 혼합물에서 cell type별 발현을 뽑아낼 수 없음
+- ✅ "이 영역이 저 영역보다 macrophage signal이 풍부하다" — robust
+- ✅ "Macrophage 비율이 invasion front로부터의 거리와 상관있다" — robust and interesting
+- ⚠️ "이 spot엔 macrophage가 2.3개 있다" — cell 수가 나오는 cell2location이지만, 불확실성도 큼
+- ❌ "바로 이 macrophage들이 gene X를 발현한다" — experimental validation 없이는 정확히 단정x
 
-## 4) Single-cell 해상도: deconvolution 말고 annotation {#w8-s1-4}
+## 4) Single-cell platform: deconvolution (x), annotation (o) {#w8-s1-4}
 
-![Single-cell platform에선 질문이 "섞인 걸 풀기"에서 "label 붙이기"로 바뀜](../../../assets/img/w8/cell_annotation.svg){fig-align="center"}
+![](../../../assets/img/w8/cell_annotation.svg){fig-align="center"}
 
-Xenium, CosMx, Visium HD에선 단위 = segmentation된 cell(🔗 [W7 §3.2](w7_spatial_basics.qmd#w7-s3-2)), 혼합물이 아님. 할 일 = **annotation**: 같은 single-cell reference로 cell마다 label 하나
+Xenium, CosMx, Visium HD에선 단위 = segmentation된 cell(🔗 [W7 §3.2](w7_spatial_basics.qmd#w7-s3-2)), not mixture. \
+할 일 = **annotation**: 같은 single-cell reference로 cell마다 label 하나
 
--   **Label transfer**(Seurat anchor, §2.3과 같은 방식) 또는 **RCTD `doublet` mode**(cell 또는 8 µm bin 하나 = type 한두 개) — §1.1의 논리를 더 작은 단위에 적용
--   ⚠️ **Panel에 있는 gene만 쓰임.** Reference는 gene ~20,000개, panel은 수백~5,000개. Panel에 marker가 없는 cell type은 부를 수 없음 → 가장 가까운 type으로 억지 배정 (§1.2 다시)
--   ⚠️ **Label은 segmentation을 물려받음.** 이웃의 transcript를 담은 cell → 섞이거나, 확신 낮거나, 틀린 label
--   ✅ **Confidence를 지도에 그려보기.** 확신 낮은 call이 cell–cell 접촉면에 몰려 있다 = segmentation spillover. 새로운 "hybrid" state 아님
--   ✅ 그다음부턴 아래 내용(niche, co-localisation, 환자 간 비교)이 spot 대신 cell로 똑같이 적용됨
+- **Label transfer**(Seurat anchor, §2.3과 같은 방식) 또는 **RCTD `doublet` mode**(cell 또는 8 µm bin 하나 = type 한두 개)
+- ⚠️ **Panel에 있는 gene만 쓰임.** Reference는 gene \~20,000개, panel은 수백\~5,000개. Panel에 marker가 없는 cell type은 부를 수 없음 → 가장 가까운 type으로 억지로 배정
+- ✅ **Confidence를 이미지에 표시해보기.** 확신 낮은 call이 cell–cell 접촉면에 몰려 있다 = segmentation spillover. 새로운 "hybrid" state 아님
 
-💡 Panel 설계 = 실험 전에 내리는 분석 결정. 가설에 나오는 cell type마다 panel에 marker가 있는지 확인
+💡 Panel 설계 = 시퀀싱 하기 전에 결정. 관심있는 cell type마다 [panel에 marker가 있는지 확인]{.underline}!
 
 ------------------------------------------------------------------------
 
 # 2. Cell type에서 niche로 🏘️ {#w8-s2}
 
-## 1) Spatial data가 진짜 답하려는 질문 {#w8-s2-1}
+## 1) Spatial data로 할 수 있는 것 {#w8-s2-1}
 
 Spot별 cell type 지도도 유용하지만 여전히 한 번에 한 위치만 봄. Geometry를 실제로 쓰는 단계 = 각 위치가 **무엇에 둘러싸여 있나** 묻기
 
-![경계면은 혼합으로만 존재. Spot 하나로는 정의 안 됨](../../../assets/img/w8/niches.svg){fig-align="center"}
+![경계면은 여러 cell의 mixture 형태로만 존재. Spot 하나로는 정의 안 됨](../../../assets/img/w8/niches.svg){fig-align="center"}
 
 **작동 방식:** spot마다 이웃(*k*개 spot 또는 고정 반경)의 cell type 조성 vector를 만들고 → 그 vector들을 clustering. 이렇게 나온 cluster = **niche** (반복해서 나타나는 조직 미세환경)
 
--   🔗 [W7 §4.4](w7_spatial_basics.qmd#w7-s4-4)의 spatially aware domain과 차이: domain = 이웃의 *발현*으로 smoothing, niche = 이웃의 *조성*을 clustering
+- 🔗 [W7 §4.4](w7_spatial_basics.qmd#w7-s4-4)의 spatially aware domain과 차이: domain = 이웃의 *발현*으로 smoothing, niche = 이웃의 *조성*을 clustering
 
 💡 왼쪽 패널이 뭘 숨기는지 보기. T cell과 macrophage는 거의 어디에나 있지만 **거의 어디서도 우세하지 않음** → "우세 cell type" 지도에선 완전히 사라짐. 정체성(identity)이 아니라 조성(composition)을 봐야 면역 biology가 보임
 
-## 2) ⚠️ Co-localisation 정직하게 검정하기 {#w8-s2-2}
+## 2) ⚠️ Co-localization 제대로 분석하기 {#w8-s2-2}
 
 ::: {.callout-warning collapse="true"}
 ## 어떤 null과 비교하나?
 
 "Cell type A와 B가 기대보다 자주 같이 나온다" → *기대*의 정의가 필요
 
--   ❌ **Complete spatial randomness** = 잘못된 null. 조직은 무작위가 아님 — 층, 혈관, 피막, 샘. 거의 아무 두 cell type이나 이 null은 이김
--   ✅ 전체 architecture와 cell type별 총 abundance는 유지한 채 **조직 안에서 label permutation**
--   ✅ 또는 **matched control 조직**과 비교 — 같은 해부학, 다른 질병 상태
+- ❌ **Complete spatial randomness** = 잘못된 null. 조직은 무작위가 아님 — 층, 혈관, 피막, 샘. 거의 아무 두 cell type이나 이 null은 이김 (거의 무조건 유의하게 나옴)
+- ✅ 전체 architecture와 cell type별 총 abundance는 유지한 채 **조직 안에서 label permutation**
+- ✅ 또는 **matched control 조직**과 비교 — same anatomy, different condition
 
 ⚠️ 동기 질문으로 돌아가면: spot 4,000개에서 나온 *p* \< 10⁻¹² = 대부분 "spot이 4,000개였다"는 얘기. 이웃 spot은 설계상 양의 상관(🔗 [W7 §4.3](w7_spatial_basics.qmd#w7-s4-3)) → effective sample size ≪ 명목 sample size
 
@@ -124,53 +123,53 @@ Spot별 cell type 지도도 유용하지만 여전히 한 번에 한 위치만 �
 
 반대 방향: scRNA-seq에서 찾은 cluster가 조직 어디에 있는지 묻기
 
--   **Tangram**, **Seurat anchor transfer** — single-cell label을 spatial data에 투영
--   ✅ 구체적 가설 검정에 진짜 유용: *"우리가 찾은 exhausted CD8 state, 종양 안에 있나 경계에 있나?"*
--   ⚠️ 순환논리 위험: cluster를 정의한 gene으로 mapping했다면, 그 cluster를 다시 찾은 건 독립적 근거 x
+- **Tangram**, **Seurat anchor transfer** — single-cell label을 spatial data에 projection
+- ✅ 구체적 가설 검정에 진짜 유용: *"우리가 찾은 exhausted CD8 state, 종양 안에 있나 경계에 있나?"*
+- ⚠️ 순환논리 위험: cluster를 정의한 gene으로 mapping했다면, 그 cluster를 다시 찾은 건 독립적 근거 x
 
 ## 4) ⚠️ 환자 간 niche 비교 {#w8-s2-4}
 
-![큰 절편 하나가 혼자서 아주 작은 p를 만들 수 있음](../../../assets/img/w8/patient_level.svg){fig-align="center"}
+![큰 slide 하나가 혼자서 아주 작은 p를 만들 수 있음 (spot/cell 수가 많으니까)](../../../assets/img/w8/patient_level.svg){fig-align="center"}
 
 "비반응자에서 TAM-rich niche가 더 흔하다" = **환자**에 대한 주장 → 단위도 환자. Pseudobulk와 같은 논리(🔗 [W5 §5.3](../part3/w5_scrna_qc.qmd#w5-s5-3))
 
--   ① Niche는 **모든 절편을 합쳐서** 정의 → 같은 niche label이 모든 환자에서 같은 뜻
--   ② 환자마다 **절편 중 각 niche가 차지하는 비율** → 환자당 한 줄
--   ③ 그 줄들로 군 비교, n = 환자. 비율은 compositional(🔗 [W5 §5.4](../part3/w5_scrna_qc.qmd#w5-s5-4)) → `propeller` 같은 test, 또는 환자를 단위로 한 model
--   ⚠️ **Spot을 합쳐서 검정**(spot 5,000개로 χ²) = W5의 per-cell test가 옷만 바꿔 입은 것. 큰 절편 하나가 결과 전체를 끌고 갈 수 있음
--   ⚠️ 환자당 절편 여러 장 → 평균 내거나 환자를 random effect로. 절대 환자 수로 세지 않기
--   ✅ **Effect size + 구간**으로 보고, 환자당 점 하나씩 보여주기
+- ① Niche는 **모든 slide을 합쳐서** 정의 → 같은 niche label이 모든 환자에서 같은 뜻
+- ② 환자마다 **slide 중 각 niche가 차지하는 비율** → 환자당 한 줄
+- ③ 그 줄들로 군 비교, n = 환자. 비율은 compositional(🔗 [W5 §5.4](../part3/w5_scrna_qc.qmd#w5-s5-4)) → `propeller` 같은 test, 또는 환자를 단위로 한 model
+- ⚠️ **Spot을 합쳐서 검정**(spot 5,000개로 χ²) = W5의 per-cell test랑 같은 거
+- ⚠️ 환자당 slide 여러 장 → 평균 내거나 환자를 random effect로. 절대 환자 수로 세지 않기 (not random individual)
+- ✅ **Effect size + 구간**으로 보고, 환자당 점 하나씩 보여주기
 
-## 5) ⚠️ Ligand–receptor, 이번엔 거리까지 {#w8-s2-5}
+## 5) ⚠️ Ligand–receptor + distance {#w8-s2-5}
 
 ![거리 = 만날 수 없던 짝을 지워줄 뿐, 나머지를 증명하진 않음](../../../assets/img/w8/spatial_ccc.svg){fig-align="center"}
 
 W6의 cell–cell communication(🔗 [W6 §3.2](../part3/w6_scrna_dynamics.qmd#w6-s3-2)) = 모든 sender cluster x 모든 receiver cluster 점수화 → 같은 장소에 있어본 적 없는 cell끼리도 포함. Spatial data가 빠진 제약을 채워줌
 
--   **거리 제한** — 신호가 닿는 범위 안의 sender–receiver 쌍만 점수화. Contact 신호: 바로 옆 cell. 분비 신호: 더 멀리, 수백 µm까지
--   `COMMOT` — 거리 제한을 건 optimal transport. Ligand와 receptor가 서로를 두고 경쟁
--   `CellChat` v2 — spatial mode, contact 신호와 분비 신호의 범위를 따로 설정
--   `LIANA+` — local score: 절편 어디에서 ligand와 receptor가 같이 높은가?
--   ✅ **Structure-preserving null과 비교**(§2.2) — 예: receiver 층 전체를 통째로 이동. 가깝다는 건 조직 구조로 예상되는 것보다 더 가까울 때만 의미 있음
--   ⚠️ 여전히 mRNA 옆의 mRNA: protein x, 결합 x, 반응 x. W6 가설이 올라가 봤자 ③단계 (🔗 [§3](#w8-s3))
--   ⚠️ Visium에선 sender와 receiver가 spot 하나를 공유할 수 있음 → "가깝다"의 기준이 biology가 아니라 55 µm. Single-cell platform이 더 깔끔한 버전 — 단, §1.4의 segmentation 주의점 그대로
+- **거리 제한** — 신호가 닿는 범위 안의 sender–receiver 쌍만 점수화. Contact 신호: 바로 옆 cell. 분비 신호: 더 멀리, 수백 µm까지
+- `COMMOT` — 거리 제한을 건 optimal transport. Ligand와 receptor가 서로를 두고 경쟁
+- `CellChat` v2 — spatial mode, contact 신호와 분비 신호의 범위를 따로 설정
+- `LIANA+` — local score: 절편 어디에서 ligand와 receptor가 같이 높은가?
+- ✅ **Structure-preserving null과 비교**(§2.2) — 예: receiver 층 전체를 통째로 이동. 가깝다는 건 조직 구조로 예상되는 것보다 더 가까울 때만 의미 있음
+- ⚠️ 여전히 mRNA 옆의 mRNA: protein x, 결합 x, 반응 x. W6 가설이 올라가 봤자 ③단계 (🔗 [§3](#w8-s3))
+- ⚠️ Visium에선 sender와 receiver가 spot 하나를 공유할 수 있음 → "가깝다"의 기준이 biology가 아니라 55 µm. Single-cell platform이 더 깔끔한 버전 — 단, §1.4의 segmentation 주의점 그대로
 
 ------------------------------------------------------------------------
 
-# 3. ⚠️ 근거 사다리 위의 위치 🪜 {#w8-s3}
+# 3. evidence levels 🪜 {#w8-s3}
 
-![문장의 동사는 지금 서 있는 단계에 맞춰야 함](../../../assets/img/w8/evidence_ladder.svg){fig-align="center"}
+![](../../../assets/img/w8/evidence_ladder.svg){fig-align="center"}
 
 ::: {.callout-tip collapse="true"}
 ## Spatial 검증으로 얻는 것과 못 얻는 것
 
-Spatial data는 주장을 **② 가설(hypothesis)** → **③ 일치(consistent with)**로 올려줌. 진짜 의미 있는 승급이지만 증명은 아님
+Spatial data는 주장을 **② 가설(hypothesis)** → **③ 일치(consistent with)**로 올려줌. 좀 더 의미 있지만 증명은 아님
 
--   ✅ Ligand–receptor 추론의 가장 흔한 실패를 배제: 같은 장소에 한 번도 없었던 cell끼리 짝지은 경우
--   ✅ 임상의도 병리의사도 읽을 수 있는 그림
--   ❌ Protein이 실제로 만들어졌다는 건 못 보여줌(④), 인과도 못 보여줌(⑤)
+- ✅ Ligand–receptor 추론의 가장 흔한 실패를 배제: 같은 장소에 한 번도 없었던 cell끼리 짝지은 경우
+- ✅ 임상의도 병리의사도 읽을 수 있는 그림
+- ❌ Protein이 실제로 만들어졌다는 건 못 보여줌(④), 인과도 못 보여줌(⑤)
 
-💡 전공의 연구에선 ③이 정직하면서 도달 가능한 천장인 경우가 많음 — ③이라고 쓰면 출판 가능. 논문을 무너뜨리는 건 ③의 근거 위에 ⑤의 동사를 쓰는 것
+💡 전공의 연구에선 ③이 정직하면서 도달 가능한 천장 — ③이라고 쓰면 출판 가능. ③ 정도 evidence 인데 ⑤ 정도로 이야기하면 잘못된 거!
 :::
 
 ------------------------------------------------------------------------
@@ -186,12 +185,12 @@ Spatial data는 주장을 **② 가설(hypothesis)** → **③ 일치(consistent
 **③ 절편 말고 환자를 세기**
 
 | 설계 | Effective n | 판정 |
-|--------------------------|----------------|-----------------------------|
+|------------------------------|------------|-----------------------------|
 | 절편 3장, 환자 1명 | 1 | ❌ spot 4,000개짜리 증례보고 |
 | 환자 6명, 각 1장 | 6 | ⚠️ pilot — pilot이라고 보고 |
 | Outcome 기준으로 고른 환자 20명, 각 1장 | 20 | ✅ 연구 |
 
-**④ 가능하면 outcome 기준으로 증례 선택.** Archive에서 반응자 vs 비반응자 > 동의한 환자를 순서대로 모으기. FFPE라서 가능 (🔗 [W7 §2.2](w7_spatial_basics.qmd#w7-s2-2))
+**④ 가능하면 outcome 기준으로 증례 선택.** Archive에서 반응자 vs 비반응자 \> 동의한 환자를 순서대로 모으기. FFPE라서 가능 (🔗 [W7 §2.2](w7_spatial_basics.qmd#w7-s2-2))
 
 **⑤ 확정 전에 matched single-cell reference 확보** — 같은 조직, 같은 condition. 없으면 생성 비용을 예산에
 
@@ -204,7 +203,6 @@ Spatial data는 주장을 **② 가설(hypothesis)** → **③ 일치(consistent
 ## 1) Deconvolution 후 reference 점검 {#w8-s5-1}
 
 ::: {.panel-tabset group="lang"}
-
 ### R
 
 ```{r}
@@ -235,7 +233,6 @@ tg.project_cell_annotations(ad_map, sp, annotation="cell_type")
 props = sp.obsm["tangram_ct_pred"]
 props = props.div(props.sum(axis=1), axis=0)            # per-spot proportions
 ```
-
 :::
 
 ⚠️ **믿기 전에**: PBMC reference를 조직 절편에 쓴다는 게 무슨 뜻인지 생각해보기. Tissue-resident macrophage, fibroblast, endothelium은 reference에 없음 → 이들의 signal은 어디로 갔나?
@@ -243,7 +240,6 @@ props = props.div(props.sum(axis=1), axis=0)            # per-spot proportions
 ## 2) ✅ 반사적으로 해야 할 검증 {#w8-s5-2}
 
 ::: {.panel-tabset group="lang"}
-
 ### R
 
 ```{r}
@@ -261,7 +257,6 @@ p1 | p2
 sp.obs["Tcell_prop"] = props["CD8 T"]
 sq.pl.spatial_scatter(sp, color=["CD3E", "Tcell_prop"], title=["raw CD3E", "estimated CD8 T"])
 ```
-
 :::
 
 💡 두 지도가 안 맞으면 → deconvolution이 조직이 아니라 reference에 대해 말하고 있는 것
@@ -269,7 +264,6 @@ sq.pl.spatial_scatter(sp, color=["CD3E", "Tcell_prop"], title=["raw CD3E", "esti
 ## 3) Niche {#w8-s5-3}
 
 ::: {.panel-tabset group="lang"}
-
 ### R
 
 ```{r}
@@ -301,13 +295,11 @@ nbr_comp = props.to_numpy()[nn].mean(axis=1)
 sp.obs["niche"] = KMeans(n_clusters=5, n_init=10, random_state=1).fit_predict(nbr_comp).astype(str)
 sq.pl.spatial_scatter(sp, color="niche")
 ```
-
 :::
 
 ## 4) ✅ 한 가지 바꾸기 {#w8-s5-4}
 
 ::: {.panel-tabset group="lang"}
-
 ### R
 
 ```{r}
@@ -335,14 +327,13 @@ null = [np.corrcoef(rng.permutation(props["CD8 T"]),     # ⚠️ a naive permut
 
 print("observed:", round(observed, 3), " null 95%:", np.round(np.quantile(null, [.025, .975]), 3))
 ```
-
 :::
 
 ⚠️ 그다음 토론: 이 permutation은 조직 구조를 **전부** 파괴 → §2.2의 너무 쉬운 null. 더 나은 null은? (힌트: 해부학적 영역 안에서만 permutation, 또는 label 지도 전체를 통째로 평행 이동)
 
 ## 5) 다음 주 전까지 {#w8-s5-5}
 
-**[W9 — 단백체학](../part5/w9_proteomics_tech.qmd).** 지금까지는 전부 RNA를 측정. 다음 주엔 protein이 실제로 만들어졌는지 묻고 → 답이 "아니오"인 경우가 얼마나 많은지 확인
+[**W9 — 단백체학**](../part5/w9_proteomics_tech.qmd)**.** 지금까지는 전부 RNA를 측정. 다음 주엔 protein이 실제로 만들어졌는지 묻고 → 답이 "아니오"인 경우가 얼마나 많은지 확인
 
 설치할 것 없음. W9은 개념 위주
 
@@ -350,25 +341,25 @@ print("observed:", round(observed, 3), " null 95%:", np.round(np.quantile(null, 
 
 # 📝 요약
 
--   Deconvolution = single-cell **reference**로 spot별 cell type 혼합을 추정
--   ⚠️ **Reference가 답을 결정.** Reference에 없는 cell type은 가장 가까운 type으로 조용히 재분배됨
--   ✅ Reference의 조직, condition, platform, 환자 확인 → deconvolution에 안 쓴 marker gene으로 검증
--   Single-cell platform에선 spot을 deconvolution하는 대신 cell을 **annotation**. Panel gene만 쓰이고, label은 segmentation을 물려받음 → ✅ confidence를 지도에
--   우세 cell type 지도 = 어디에나 있지만 어디서도 우세하지 않은 것을 숨김 → 보통 면역 구획
--   ✅ **Niche** (이웃 조성으로 spot을 clustering) = spatial biology가 있는 곳
--   ⚠️ Complete spatial randomness = 잘못된 null. 조직 구조 안에서 permutation하거나 matched control 조직과 비교
--   ⚠️ Spot 수천 개 → p-value 부풀려짐. 주장 = **환자 간 재현된 effect size**
--   ✅ Niche 비교 = **환자당 숫자 하나**(niche 비율) + compositional test. Spot을 합친 검정 = W5의 per-cell test 재탕
--   ⚠️ Spatial ligand–receptor: 거리 제한으로 만난 적 없는 짝을 지우고, structure-preserving null로 나머지를 검정. 그래도 mRNA, 그래도 ③단계
--   Spatial 검증 = 주장을 *가설* → *일치*로 올림. *입증*까지는 아님
--   ✅ 가설에서 설계 시작, 절편 말고 환자 세기, outcome 기준 선택, 병리의사부터 섭외
+- Deconvolution = single-cell **reference**로 spot별 cell type 혼합을 추정
+- ⚠️ **Reference가 답을 결정.** Reference에 없는 cell type은 가장 가까운 type으로 조용히 재분배됨
+- ✅ Reference의 조직, condition, platform, 환자 확인 → deconvolution에 안 쓴 marker gene으로 검증
+- Single-cell platform에선 spot을 deconvolution하는 대신 cell을 **annotation**. Panel gene만 쓰이고, label은 segmentation을 물려받음 → ✅ confidence를 지도에
+- 우세 cell type 지도 = 어디에나 있지만 어디서도 우세하지 않은 것을 숨김 → 보통 면역 구획
+- ✅ **Niche** (이웃 조성으로 spot을 clustering) = spatial biology가 있는 곳
+- ⚠️ Complete spatial randomness = 잘못된 null. 조직 구조 안에서 permutation하거나 matched control 조직과 비교
+- ⚠️ Spot 수천 개 → p-value 부풀려짐. 주장 = **환자 간 재현된 effect size**
+- ✅ Niche 비교 = **환자당 숫자 하나**(niche 비율) + compositional test. Spot을 합친 검정 = W5의 per-cell test 재탕
+- ⚠️ Spatial ligand–receptor: 거리 제한으로 만난 적 없는 짝을 지우고, structure-preserving null로 나머지를 검정. 그래도 mRNA, 그래도 ③단계
+- Spatial 검증 = 주장을 *가설* → *일치*로 올림. *입증*까지는 아님
+- ✅ 가설에서 설계 시작, 절편 말고 환자 세기, outcome 기준 선택, 병리의사부터 섭외
 
 ------------------------------------------------------------------------
 
 # 🔑 핵심 용어
 
 | 용어 | 한 줄 정의 |
-|-------------------------|-----------------------------------------|
+|----------------------------|--------------------------------------------|
 | Deconvolution | 혼합된 공간 측정 위치 안의 세포 유형 비율을 추정하는 방법 |
 | Reference | 각 세포 유형의 분자적 특징을 정의하는 단일세포 데이터셋 |
 | Reference bias | 참조 자료에 없는 세포 유형이나 상태는 결과에 나타날 수 없는 현상 |
