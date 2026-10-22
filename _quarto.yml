@@ -216,7 +216,7 @@ format:
 
 
 execute:
-  freeze: true          # CI는 커밋된 _freeze만 사용(코드 재실행 안 함). 코드 수정 후엔 로컬에서 `quarto render <file> --no-freeze`로 갱신
+  freeze: true          # CI는 커밋된 _freeze만 사용(코드 재실행 안 함). 코드 청크 수정 후엔 로컬에서 재렌더해 _freeze를 갱신
   echo: true
   eval: false
   warning: false
