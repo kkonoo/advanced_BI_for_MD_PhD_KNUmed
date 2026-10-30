@@ -31,11 +31,11 @@ By the end of this chapter you should be able to:
 
 ------------------------------------------------------------------------
 
-# 1. ⚠️ The Assumption Everything So Far Rested On 🧬 {#w9-s1}
+# 1. Is Transcriptomics Enough? 🧬 {#w9-s1}
 
 ## 1) How well does mRNA predict protein? {#w9-s1-1}
 
-![Eight weeks of transcriptomics, and this is the strength of the link to the molecules that do the work.](/assets/img/w9/mrna_vs_protein.svg){fig-align="center"}
+![](/assets/img/w9/mrna_vs_protein.svg){fig-align="center"}
 
 Across genes within a sample, mRNA and protein abundance typically correlate at roughly **r = 0.4–0.6**. Correlation across samples for a single gene varies enormously — strong for some genes, effectively zero for others.
 
@@ -47,21 +47,21 @@ They are measurements of different things.
 -   RNA-seq measured **transcription plus transcript stability**
 -   The protein assay measured **the balance of translation, folding, secretion and degradation**
 
-A 3-fold mRNA increase with no protein change is a real, interpretable finding: something downstream is buffering it. That is often more interesting than agreement would have been.
+A 3-fold mRNA increase with no protein change = translation, or something else, is going on. That can be more interesting than agreement!
 
-⚠️ The mistake is not the discrepancy. The mistake is having written the RNA-seq result as if it were a statement about protein.
+⚠️ The discrepancy is not the problem. Talking about a transcript result as if it were protein is.
 :::
 
-## 2) Why this matters clinically, not just technically {#w9-s1-2}
+## 2) Why protein matters clinically {#w9-s1-2}
 
--   **Drugs act on proteins.** A target nominated purely from transcript data has skipped a step
+-   **Drugs act on proteins.** A target chosen from transcripts alone may not act at all
 -   **Every biomarker you order** — troponin, PSA, CRP, HbA1c — is a protein or a protein modification
--   **Post-translational modification is invisible to RNA-seq.** Phosphorylation, cleavage and glycosylation change what a protein *does* without changing how much of it there is
--   **Secretion is invisible too.** A cell can transcribe a cytokine and never release it (🔗 [W6 §3.2](../part3/w6_scrna_dynamics.qmd#w6-s3-2))
+-   **PTM**: phosphorylation, cleavage, glycosylation → same amount of protein, but what it *does* changes
+-   **Secretion.** A cell can transcribe a cytokine and never release it (🔗 [W6 §3.2](../part3/w6_scrna_dynamics.qmd#w6-s3-2))
 
 ------------------------------------------------------------------------
 
-# 2. What a Mass Spectrometer Does 🔬 {#w9-s2}
+# 2. Measuring Protein 🔬 {#w9-s2}
 
 ## 1) The measurement, honestly {#w9-s2-1}
 
@@ -76,20 +76,20 @@ protein mixture
    → match against a database   → protein identities and amounts
 ```
 
-⚠️ Three consequences of this design that matter downstream:
+⚠️ What matters for analysis:
 
 -   **You measure peptides and infer proteins.** Peptides shared between family members create ambiguity
--   **Identification depends on a database.** A protein form not in the database is not found
--   **Quantification is relative** unless you spike in labelled standards
+-   **Protein identification depends on a database.** Not in the database → not found
+-   **Quantification is relative** — labelled standards (spike-in) needed
 
 ## 2) ⚠️ DDA and DIA — the distinction that decides your statistics {#w9-s2-2}
 
-![The same instrument, two acquisition strategies, very different data.](/assets/img/w9/dda_vs_dia.svg){fig-align="center"}
+![](/assets/img/w9/dda_vs_dia.svg){fig-align="center"}
 
 ::: {.callout-warning collapse="true"}
 ## Why DDA missingness is dangerous
 
-In DDA the instrument selects the most intense precursors in each cycle. What is "most intense" depends on everything else co-eluting at that instant.
+In DDA the instrument selects the most intense precursors in each cycle. What is "most intense" depends on everything else coming off the column at that instant.
 
 -   ⚠️ The same sample run twice yields **partly different protein lists**
 -   ⚠️ Across a cohort, whether a protein was sampled correlates with total protein load, chromatography drift, and run order
@@ -111,21 +111,21 @@ In DDA the instrument selects the most intense precursors in each cycle. What is
 
 ------------------------------------------------------------------------
 
-# 3. ⚠️ Plasma: The Hardest Sample You Will Most Want to Use 🩸 {#w9-s3}
+# 3. Plasma 🩸: Clinically the Best, but Hard {#w9-s3}
 
 ![The clinical sample everyone wants is the one the technology handles worst.](/assets/img/w9/dynamic_range.svg){fig-align="center"}
 
-Plasma spans **more than ten orders of magnitude** in protein concentration. Albumin alone is roughly half the total protein mass; the top ~22 proteins are about 99% of it. The molecules you care about — cytokines, tumour-derived proteins — sit at the far end.
+Plasma spans **more than ten orders of magnitude** in protein concentration. Albumin alone is roughly half the total protein mass; the top ~22 proteins are about 99% of it. The molecules you care about — cytokines, tumour-derived proteins — are present in tiny amounts.
 
 ::: {.callout-tip collapse="true"}
-## What this means for a study you might actually run
+## What to consider in a real study
 
--   ⚠️ **Undepleted plasma by MS** mostly re-measures albumin. You will get a few hundred proteins, and they will be the ones already in the routine chemistry panel
--   ⚠️ **Depletion columns** remove the abundant proteins — and the low-abundance proteins bound to them ("the albuminome"). This is a known, unavoidable loss
--   ✅ **Affinity panels sidestep the problem entirely** by targeting chosen proteins, so what else is in the tube is irrelevant. This is why most large plasma biomarker studies now use them
--   ✅ **Tissue is much easier than plasma.** If your question can be asked of a biopsy, MS gives you thousands of proteins without any of this
+-   ⚠️ **MS without depletion** → mostly albumin
+-   ⚠️ **MS with depletion** → removes a lot of proteins along with it (the albuminome)
+-   ✅ **Affinity panel** (Olink, SomaScan — binding is turned into a DNA signal and read out): targets chosen proteins only → what else is in the tube does not matter. Used in most large plasma biomarker studies today
+-   ✅ **Tissue is much easier than plasma.** If a biopsy is possible → straight to MS
 
-💡 If someone proposes "plasma proteomics" without saying which platform, that is the question to ask first.
+💡 "Plasma proteomics"? → decide/confirm the platform first
 :::
 
 ------------------------------------------------------------------------

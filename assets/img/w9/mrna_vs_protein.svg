@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
-<rect width="880" height="420" fill="#fcfcfb"/>
-<text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Every transcriptomics result in this course carries an unstated assumption. Here it is, measured.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 392" width="880" height="392" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<rect width="880" height="392" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Same mRNA, different protein: what happens after transcription</text>
 <rect x="24" y="46" width="440" height="330" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
 <line x1="96" y1="334" x2="346" y2="334" stroke="#cfc9dd" stroke-width="1.2"/>
 <line x1="96" y1="84" x2="96" y2="334" stroke="#cfc9dd" stroke-width="1.2"/>
@@ -565,19 +565,77 @@
 <text x="44" y="209" font-size="12" fill="#8A7FA3" text-anchor="middle" transform="rotate(-90 44 209)">protein abundance</text>
 <text x="340" y="106" font-size="13" font-weight="700" fill="#4A3D6B" text-anchor="end">r ≈ 0.4–0.6</text>
 <text x="340" y="124" font-size="11.5" fill="#8A7FA3" text-anchor="end">typical across genes</text>
-<rect x="484" y="46" width="372" height="330" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="2"/>
-<text x="508" y="74" font-size="13.5" font-weight="700" fill="#a8401d">⚠️ Everything that happens after transcription</text>
-<text x="508" y="102" font-size="12.5" font-weight="700" fill="#4A3D6B">translation rate</text>
-<text x="508" y="120" font-size="11.5" fill="#666">some transcripts are translated 100× more efficiently than others</text>
-<text x="508" y="148" font-size="12.5" font-weight="700" fill="#4A3D6B">protein half-life</text>
-<text x="508" y="166" font-size="11.5" fill="#666">minutes to days — a stable protein accumulates from little mRNA</text>
-<text x="508" y="194" font-size="12.5" font-weight="700" fill="#4A3D6B">post-translational</text>
-<text x="508" y="212" font-size="11.5" fill="#666">phosphorylation, cleavage, glycosylation change function, not amount</text>
-<text x="508" y="240" font-size="12.5" font-weight="700" fill="#4A3D6B">localisation</text>
-<text x="508" y="258" font-size="11.5" fill="#666">secreted, membrane-bound, or nuclear — RNA-seq cannot tell</text>
-<text x="508" y="286" font-size="12.5" font-weight="700" fill="#4A3D6B">degradation</text>
-<text x="508" y="304" font-size="11.5" fill="#666">ubiquitin–proteasome removes exactly what you were measuring</text>
-<text x="508" y="334" font-size="12" font-weight="700" fill="#a8401d">Drugs act on proteins. Assays measure proteins.</text>
-<text x="508" y="352" font-size="12" font-weight="700" fill="#a8401d">Biomarkers are proteins.</text>
-<text x="24" y="400" font-size="12.5" fill="#666">💡 The correlation is not "bad" — it is the amount of regulation that RNA-seq structurally cannot see. That gap is what W9–W10 measure.</text>
+<rect x="484" y="46" width="372" height="330" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="500" y="72" font-size="13.5" font-weight="700" fill="#4A3D6B">What RNA-seq cannot see</text>
+<rect x="498" y="86" width="167" height="136" rx="7" fill="#fbfaf8" stroke="#eeeaf3"/>
+<circle cx="516" cy="105" r="9" fill="#ffffff" stroke="#4A3D6B" stroke-width="1.4"/>
+<text x="516" y="109" font-size="10.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">1</text>
+<text x="531" y="109.5" font-size="12.5" fill="#4A3D6B" font-weight="700">Translation rate</text>
+<line x1="510" y1="138" x2="590" y2="138" stroke="#8A7FA3" stroke-width="2"/>
+<ellipse cx="542" cy="133" rx="6.5" ry="5" fill="#cfc9dd" stroke="#8A7FA3" stroke-width="0.8"/>
+<path d="M596 136 L605 136" stroke="#b9b0cc" stroke-width="1.5"/>
+<path d="M610 136 l-6 -3.5 v7 z" fill="#b9b0cc"/>
+<circle cx="618" cy="136" r="3.6" fill="#4A3D6B"/>
+<line x1="510" y1="168" x2="590" y2="168" stroke="#8A7FA3" stroke-width="2"/>
+<ellipse cx="520" cy="163" rx="6.5" ry="5" fill="#cfc9dd" stroke="#8A7FA3" stroke-width="0.8"/>
+<ellipse cx="535" cy="163" rx="6.5" ry="5" fill="#cfc9dd" stroke="#8A7FA3" stroke-width="0.8"/>
+<ellipse cx="550" cy="163" rx="6.5" ry="5" fill="#cfc9dd" stroke="#8A7FA3" stroke-width="0.8"/>
+<ellipse cx="565" cy="163" rx="6.5" ry="5" fill="#cfc9dd" stroke="#8A7FA3" stroke-width="0.8"/>
+<ellipse cx="580" cy="163" rx="6.5" ry="5" fill="#cfc9dd" stroke="#8A7FA3" stroke-width="0.8"/>
+<path d="M596 166 L605 166" stroke="#b9b0cc" stroke-width="1.5"/>
+<path d="M610 166 l-6 -3.5 v7 z" fill="#b9b0cc"/>
+<circle cx="618" cy="166" r="3.6" fill="#4A3D6B"/>
+<circle cx="627" cy="166" r="3.6" fill="#4A3D6B"/>
+<circle cx="636" cy="166" r="3.6" fill="#4A3D6B"/>
+<circle cx="645" cy="166" r="3.6" fill="#4A3D6B"/>
+<circle cx="654" cy="166" r="3.6" fill="#4A3D6B"/>
+<text x="510" y="126" font-size="9.5" fill="#8A7FA3">1 ribosome</text>
+<text x="510" y="156" font-size="9.5" fill="#8A7FA3">5 ribosomes</text>
+<text x="510" y="199" font-size="10.5" fill="#666">More ribosomes per mRNA</text>
+<text x="510" y="213" font-size="10.5" fill="#666">→ more protein</text>
+<rect x="675" y="86" width="167" height="136" rx="7" fill="#fbfaf8" stroke="#eeeaf3"/>
+<circle cx="693" cy="105" r="9" fill="#ffffff" stroke="#4A3D6B" stroke-width="1.4"/>
+<text x="693" y="109" font-size="10.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">2</text>
+<text x="708" y="109.5" font-size="12.5" fill="#4A3D6B" font-weight="700">Protein half-life</text>
+<line x1="691" y1="180" x2="829" y2="180" stroke="#cfc9dd" stroke-width="1.2"/>
+<line x1="691" y1="122" x2="691" y2="180" stroke="#cfc9dd" stroke-width="1.2"/>
+<path d="M693 126 C705 166, 717 176, 751 178" fill="none" stroke="#8A7FA3" stroke-width="2.2" stroke-dasharray="4 3"/>
+<path d="M693 126 C741 130, 791 138, 827 148" fill="none" stroke="#4A3D6B" stroke-width="2.2"/>
+<text x="717" y="156" font-size="9.5" fill="#8A7FA3">hours</text>
+<text x="827" y="140" font-size="9.5" fill="#4A3D6B" font-weight="700" text-anchor="end">days</text>
+<text x="829" y="175" font-size="9" fill="#8A7FA3" text-anchor="end">time</text>
+<text x="687" y="199" font-size="10.5" fill="#666">Degraded in hours or days;</text>
+<text x="687" y="213" font-size="10.5" fill="#666">stable proteins pile up</text>
+<rect x="498" y="230" width="167" height="136" rx="7" fill="#fbfaf8" stroke="#eeeaf3"/>
+<circle cx="516" cy="249" r="9" fill="#ffffff" stroke="#4A3D6B" stroke-width="1.4"/>
+<text x="516" y="253" font-size="10.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">3</text>
+<text x="531" y="253.5" font-size="12.5" fill="#4A3D6B" font-weight="700">PTM</text>
+<path d="M526 290 q0 -18 18 -18 q20 0 18 16 q-2 18 -18 18 q-18 0 -18 -16 z" fill="#cfc9dd" stroke="#8A7FA3" stroke-width="1"/>
+<text x="544" y="322" font-size="9.5" fill="#8A7FA3" text-anchor="middle">inactive</text>
+<path d="M596 290 q0 -18 18 -18 q20 0 18 16 q-2 18 -18 18 q-18 0 -18 -16 z" fill="#cfc9dd" stroke="#4A3D6B" stroke-width="1.8"/>
+<text x="614" y="322" font-size="9.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">active</text>
+<circle cx="632" cy="274" r="7.5" fill="#4A3D6B"/>
+<text x="632" y="277.5" font-size="9.5" fill="#ffffff" font-weight="700" text-anchor="middle">P</text>
+<text x="510" y="343" font-size="10.5" fill="#666">Same amount, different</text>
+<text x="510" y="357" font-size="10.5" fill="#666">activity (P, cleavage, glycan)</text>
+<rect x="675" y="230" width="167" height="136" rx="7" fill="#fbfaf8" stroke="#eeeaf3"/>
+<circle cx="693" cy="249" r="9" fill="#ffffff" stroke="#4A3D6B" stroke-width="1.4"/>
+<text x="693" y="253" font-size="10.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">4</text>
+<text x="708" y="253.5" font-size="12.5" fill="#4A3D6B" font-weight="700">Secretion</text>
+<circle cx="719" cy="288" r="22" fill="#ffffff" stroke="#8A7FA3" stroke-width="1.4"/>
+<text x="719" y="324" font-size="9.5" fill="#8A7FA3" text-anchor="middle">kept inside</text>
+<circle cx="789" cy="288" r="22" fill="#ffffff" stroke="#8A7FA3" stroke-width="1.4"/>
+<text x="789" y="324" font-size="9.5" fill="#8A7FA3" text-anchor="middle">released</text>
+<circle cx="711" cy="280" r="3" fill="#4A3D6B"/>
+<circle cx="725" cy="278" r="3" fill="#4A3D6B"/>
+<circle cx="709" cy="294" r="3" fill="#4A3D6B"/>
+<circle cx="723" cy="292" r="3" fill="#4A3D6B"/>
+<circle cx="729" cy="287" r="3" fill="#4A3D6B"/>
+<circle cx="817" cy="274" r="3" fill="#4A3D6B"/>
+<circle cx="823" cy="288" r="3" fill="#4A3D6B"/>
+<circle cx="816" cy="302" r="3" fill="#4A3D6B"/>
+<circle cx="803" cy="260" r="3" fill="#4A3D6B"/>
+<circle cx="829" cy="266" r="3" fill="#4A3D6B"/>
+<text x="687" y="343" font-size="10.5" fill="#666">A cell can make a cytokine</text>
+<text x="687" y="357" font-size="10.5" fill="#666">and never release it</text>
 </svg>
