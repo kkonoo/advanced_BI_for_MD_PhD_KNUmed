@@ -320,7 +320,7 @@ int((res.adj_P < 0.05).sum())
 
 ## 4) Design task, continued {#w10-s5-4}
 
-Take the five sentences you wrote in 🔗 [W9 §7.3](w9_proteomics_tech.qmd#w9-s7-3) and add:
+Take the study you designed in 🔗 [W9 §7.3](w9_proteomics_tech.qmd#w9-s7-3) and add:
 
 -   the **comparator group** you would actually need
 -   the **decision** the result would change

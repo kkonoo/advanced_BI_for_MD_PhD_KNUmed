@@ -239,9 +239,9 @@ Pick any plasma proteomics paper in your field and answer:
 
 ## 3) Design task {#w9-s7-3}
 
-Write five sentences specifying a proteomics study you could realistically run in your department: sample type, platform, n, comparison, and the one pre-analytical variable you are most worried about.
+Design a proteomics study you could realistically run: sample type, platform, n, comparison, and the pre-analytical variable you are most worried about.
 
-We will use these in [W10](w10_clinical_proteomics.qmd).
+→ Hands-on with this in [W10](w10_clinical_proteomics.qmd)
 
 ------------------------------------------------------------------------
 

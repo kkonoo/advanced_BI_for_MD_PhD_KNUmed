@@ -320,7 +320,7 @@ int((res.adj_P < 0.05).sum())
 
 ## 4) 설계 과제 이어서 {#w10-s5-4}
 
-🔗 [W9 §7.3](w9_proteomics_tech.qmd#w9-s7-3)에서 쓴 다섯 문장에 추가:
+🔗 [W9 §7.3](w9_proteomics_tech.qmd#w9-s7-3)에서 설계한 연구에 추가:
 
 -   실제로 필요한 **comparator group**
 -   결과가 바꿀 **결정**

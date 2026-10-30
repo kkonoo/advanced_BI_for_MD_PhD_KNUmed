@@ -239,9 +239,9 @@ Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 pro
 
 ## 3) 설계 과제 {#w9-s7-3}
 
-우리 과에서 현실적으로 할 수 있는 proteomics 연구를 다섯 문장으로 써보기: 검체 종류, platform, n, 비교, 가장 걱정되는 pre-analytical 변수 하나
+내가 현실적으로 할 수 있는 proteomics 연구 설계해보기: 검체 종류, platform, n, 비교, 가장 걱정되는 pre-analytical 변수
 
-→ [W10](w10_clinical_proteomics.qmd)에서 이걸로 작업
+→ [W10](w10_clinical_proteomics.qmd)에서 이걸로 실습
 
 ------------------------------------------------------------------------
 
