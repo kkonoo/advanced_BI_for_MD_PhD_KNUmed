@@ -279,3 +279,146 @@
   }
 })();
 </script>
+
+<!-- Key terms: the first time a term from the chapter's "Key terms" table appears
+     in the text, underline it and show the table's definition on hover / tap / focus. -->
+<script>
+(function () {
+  "use strict";
+
+  const SKIP = "pre, code, a, h1, h2, h3, h4, h5, h6, script, style, svg, mjx-container, .math, " +
+    "figcaption, .callout-header, .cell-output, .cell-output-fold, .quarto-title-block, .glossary-term";
+
+  function keyTermsSection(main) {
+    return Array.from(main.querySelectorAll("section.level1")).find((section) => {
+      const heading = section.querySelector(":scope > h1");
+      return heading && /Key terms|핵심 용어/.test(heading.textContent);
+    });
+  }
+
+  // "Linkage disequilibrium (LD)" → LD is another name; "TMT (isobaric labelling)" →
+  // the bracket is only tried if "TMT" never appears. "PRS / PGS" → either one.
+  function aliases(term) {
+    const bracket = term.match(/^(.*?)\s*\(([^)]+)\)$/);
+    const main = (bracket ? bracket[1] : term).split(/\s+\/\s+/);
+    const fallback = [];
+    if (bracket) (/^[A-Z]/.test(bracket[2]) ? main : fallback).push(bracket[2]);
+    return [main, fallback];
+  }
+
+  function toRegex(alias) {
+    const escaped = alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ /g, "\\s+");
+    // acronyms (two or more capitals) must match exactly; ordinary words ignore case
+    const flags = (alias.match(/[A-Z]/g) || []).length >= 2 ? "" : "i";
+    return new RegExp("(?<![\\w-])" + escaped + "(?:e?s)?(?![\\w-])", flags);
+  }
+
+  function makeWalker(main, isSkipped) {
+    return document.createTreeWalker(main, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        const parent = node.parentElement;
+        if (!node.nodeValue.trim() || !parent || parent.closest(SKIP) || isSkipped(node)) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+  }
+
+  function findFirst(main, isSkipped, words) {
+    const patterns = words.map(toRegex);
+    const walker = makeWalker(main, isSkipped);
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      let best = null;
+      for (const pattern of patterns) {
+        const match = pattern.exec(node.nodeValue);
+        if (match && (!best || match.index < best.index)) best = match;
+      }
+      if (best) return { node, index: best.index, length: best[0].length };
+    }
+    return null;
+  }
+
+  function attach(span, term, definition) {
+    span.className = "glossary-term";
+    span.tabIndex = 0;
+    if (!window.tippy) {
+      span.title = term + ": " + definition;
+      return;
+    }
+    const tip = document.createElement("div");
+    const name = document.createElement("strong");
+    tip.className = "glossary-tip";
+    name.textContent = term;
+    tip.append(name, definition);
+    window.tippy(span, {
+      content: tip,
+      theme: "quarto",
+      placement: "bottom-start",
+      maxWidth: 360,
+      arrow: false,
+      delay: [100, 0],
+      appendTo: () => document.body
+    });
+  }
+
+  function init() {
+    const main = document.querySelector("#quarto-document-content");
+    const glossary = main && keyTermsSection(main);
+    if (!glossary) return;
+
+    // only the chapter text before the table counts; the learning-objectives box is skipped
+    const objectives = Array.from(main.querySelectorAll(".callout")).filter((callout) => {
+      const title = callout.querySelector(".callout-title-container");
+      return title && title.textContent.includes("🎯");
+    });
+    const isSkipped = (node) =>
+      !(node.compareDocumentPosition(glossary) & Node.DOCUMENT_POSITION_FOLLOWING) ||
+      objectives.some((box) => box.contains(node));
+
+    const entries = Array.from(glossary.querySelectorAll("tbody tr")).map((row) => {
+      const [termCell, definitionCell] = row.querySelectorAll("td");
+      if (!termCell || !definitionCell) return null;
+      const term = termCell.textContent.trim();
+      const code = termCell.querySelector("code");
+      return {
+        term,
+        definition: definitionCell.textContent.trim(),
+        isCode: !!code && code.textContent.trim() === term,
+        names: aliases(term)
+      };
+    }).filter(Boolean);
+
+    // longer names first, so "LD-score regression" is claimed before "LD"
+    const longest = (entry) => Math.max(...entry.names[0].map((name) => name.length));
+    entries.sort((a, b) => longest(b) - longest(a));
+
+    for (const entry of entries) {
+      const span = document.createElement("span");
+
+      if (entry.isCode) {
+        const code = Array.from(main.querySelectorAll("code")).find((el) =>
+          el.textContent.trim() === entry.term && !el.closest("pre, a, .glossary-term") && !isSkipped(el));
+        if (!code) continue;
+        code.replaceWith(span);
+        span.appendChild(code);
+      } else {
+        const hit = findFirst(main, isSkipped, entry.names[0]) ||
+          (entry.names[1].length ? findFirst(main, isSkipped, entry.names[1]) : null);
+        if (!hit) continue;
+        const range = document.createRange();
+        range.setStart(hit.node, hit.index);
+        range.setEnd(hit.node, hit.index + hit.length);
+        range.surroundContents(span);
+      }
+      attach(span, entry.term, entry.definition);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
+  }
+})();
+</script>
