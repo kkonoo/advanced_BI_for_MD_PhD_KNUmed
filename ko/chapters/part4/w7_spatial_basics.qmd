@@ -60,8 +60,8 @@ W6까지는 전부 suspension 속 cell로 분석. 그런데 protocol의 첫 단�
 
 ![해상도와 측정 범위는 같은 예산을 나눠 씀](../../../assets/img/w7/platform_tradeoff.svg){fig-align="center"}
 
--   **Sequencing 기반** (Visium, Visium HD, GeoMx, Slide-seq) — 격자나 선택한 영역에서 transcript를 포획. ✅ Whole transcriptome. ⚠️ Capture 영역 하나에 cell 여러 개가 들어갈 수 있음
--   **Imaging 기반** (Xenium, MERFISH, CosMx) — 제자리에서 molecule 하나하나를 영상화. ✅ Single-cell, 때로는 subcellular. ⚠️ 미리 고른 수백~수천 개 gene의 targeted panel만
+-   **Sequencing-based** (Visium, Visium HD, GeoMx, Slide-seq) — 격자나 선택한 영역에서 transcript를 포획. ✅ Whole transcriptome. ⚠️ Capture area 하나에 cell 여러 개가 들어갈 수 있음
+-   **Imaging-based ST** (Xenium, MERFISH, CosMx) — 제자리에서 molecule 하나하나를 영상화. ✅ Single-cell, 때로는 subcellular. ⚠️ 미리 고른 수백~수천 개 gene의 targeted panel만
 
 ## 2) ⚠️ 우리한테 제일 중요한 건 FFPE {#w7-s2-2}
 
@@ -114,7 +114,7 @@ W6까지는 전부 suspension 속 cell로 분석. 그런데 protocol의 첫 단�
 
 ![Imaging platform은 molecule을 잼. Cell은 나중에 그려 넣는 것](../../../assets/img/w7/segmentation.svg){fig-align="center"}
 
-Xenium, CosMx, MERFISH, 그리고 Visium HD도 cell을 측정하는 건 아님. 측정값 = **좌표 위의 molecule**(또는 2 µm bin). Cell은 **segmentation**이 molecule 하나하나를 경계선에 배정한 다음에야 생김
+Xenium, CosMx, MERFISH, 그리고 Visium HD도 cell을 측정하는 건 아님. 측정값 = **좌표 위의 molecule**(또는 2 µm bin). Cell은 **cell segmentation**이 molecule 하나하나를 경계선에 배정한 다음에야 생김
 
 -   **Nucleus만** (DAPI) — 깔끔하지만 cytoplasm을 버림 → count 낮음
 -   **Nucleus + 고정 거리 확장** — 흔한 기본값. Count는 회복되지만 빽빽한 조직에선 경계선이 이웃 cell로 넘어가 **이웃의 transcript를 가져옴**
@@ -124,7 +124,7 @@ Xenium, CosMx, MERFISH, 그리고 Visium HD도 cell을 측정하는 건 아님. 
 ::: {.callout-warning collapse="true"}
 ## Segmentation된 cell 하나로는 할 수 없는 주장 두 가지
 
--   ❌ **"종양 둥지 속 macrophage가 epithelial gene을 발현한다"** — 대표적인 spillover artefact. 종양 cell 사이에 끼인 얇은 cell이 이웃의 transcript를 주워 담음 = 새 옷 입은 doublet(🔗 [W5 §3.3](../part3/w5_scrna_qc.qmd#w5-s3-3))
+-   ❌ **"종양 둥지 속 macrophage가 epithelial gene을 발현한다"** — 대표적인 transcript spillover artefact. 종양 cell 사이에 끼인 얇은 cell이 이웃의 transcript를 주워 담음 = 새 옷 입은 doublet(🔗 [W5 §3.3](../part3/w5_scrna_qc.qmd#w5-s3-3))
 -   ❌ **"두 cell type이 맞닿아 있으니 signalling한다"** — 경계선이 가장 많이 틀리는 곳 = 바로 접촉면. Ligand–receptor 쌍이 segmentation에서 만들어질 수 있음
 
 → ✅ Cell 수준 결과를 믿기 전에: 배타적이어야 할 marker(예: `PTPRC` vs `EPCAM`)가 엉뚱한 cell type에서 얼마나 나오나, 접촉면에서 더 심한가? 그다음 영상 위에 경계선을 겹쳐 보기 — 🔗 [§5](#w7-s5)의 H&E와 같은 원칙
@@ -170,7 +170,7 @@ DE와는 다른 질문: *"이 gene이 그룹 간에 다른가?"*가 아니라 *"
 
 ![이웃 spot = 같은 조직을 한 번 더 잰 측정값](../../../assets/img/w7/spatial_domains.svg){fig-align="center"}
 
-§4.3에서 p-value를 부풀리던 autocorrelation이 clustering에선 **signal**: 이웃 spot = 같은 조직을 한 번 더 잰 것
+§4.3에서 p-value를 부풀리던 spatial autocorrelation이 clustering에선 **signal**: 이웃 spot = 같은 조직을 한 번 더 잰 것
 
 **① Spatially aware domain** — spot의 label을 자기 발현 **+** 이웃의 발현으로 결정
 

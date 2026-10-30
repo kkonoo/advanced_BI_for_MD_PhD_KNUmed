@@ -683,7 +683,7 @@ pb.shape   # (cell type, donor) pseudo-samples × genes
 
 -   ✅ 이를 다루는 방법: `scCODA`, `miloR`, `propeller`, Dirichlet-multinomial model
 -   ❌ Cell count에 대한 χ² test (please never...)
--   ⚠️ Abundance 결과를 믿기 전에 §2.3 ... 실제 composition 때문에? 아니면 dissociation의 한계?
+-   ⚠️ Differential abundance 결과를 믿기 전에 §2.3 ... 실제 composition 때문에? 아니면 dissociation의 한계?
 
 ------------------------------------------------------------------------
 

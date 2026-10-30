@@ -18,7 +18,7 @@ knitr:
 이 장을 마치면 다음을 할 수 있어야 합니다.
 
 -   생물학적 network가 무엇으로 만들어지며 ⚠️ 그 구성 방식이 모든 결과를 편향시키는 이유를 말할 수 있다
--   ⚠️ 대부분의 “hub gene” 결과 뒤에 숨어 있는 연구 편향 artifact를 알아볼 수 있다
+-   ⚠️ 대부분의 “hub gene” 결과 뒤에 숨어 있는 study bias artifact를 알아볼 수 있다
 -   약물 재창출의 세 가지 경로를 비교하고 각각이 어떤 수준의 근거인지 말할 수 있다
 -   ⚠️ 효과 방향이 agonist와 antagonist 중 어느 것을 선택할지 결정하는 이유를 설명할 수 있다
 -   순위가 높은 유전자와 실제 약물 표적을 구분하는 여섯 가지 질문을 검토할 수 있다
@@ -97,7 +97,7 @@ TP53, EGFR, AKT1은 network 분석을 해본 거의 모든 질병에서 hub로 �
 ## 3) Signature reversal과 network proximity {#w12-s2-3}
 
 -   **Signature reversal** (CMap, LINCS) — 질병 signature와 반대(음의 상관)인 발현 signature를 가진 약물 찾기. ⚠️ 참조 profile = 고농도로 처리한 cell line. 후보 만들기엔 유용, 근거는 아님
--   **Network proximity** — 약물 표적이 질병 module과 가까운가? ⚠️ §1의 편향을 전부 물려받음 → degree-matched null과 비교해야만 의미 있음
+-   **Network proximity** — 약물 표적이 질병 module과 가까운가? ⚠️ §1의 study bias를 전부 물려받음 → degree-matched null과 비교해야만 의미 있음
 
 ------------------------------------------------------------------------
 
