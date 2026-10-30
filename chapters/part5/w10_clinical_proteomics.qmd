@@ -132,7 +132,7 @@ res.head(10)
 
 # 3. ⚠️ From a Difference to a Biomarker 🪜 {#w10-s3}
 
-A significant difference between groups is the beginning of a very long process (how the measurement changes along the way: 🔗 [W9 §4.4](w9_proteomics_tech.qmd#w9-s4-4)).
+A significant difference between groups is the beginning of a very long process (how the measurement changes along the way: 🔗 [W9 §4.2](w9_proteomics_tech.qmd#w9-s4-2)).
 
 ![Each row loses about 90% of what entered it.](/assets/img/w10/biomarker_funnel.svg){fig-align="center"}
 
@@ -157,7 +157,7 @@ A significant difference between groups is the beginning of a very long process 
 
 The paper compared advanced cancer with healthy volunteers. Your patient is neither. To be useful in your clinic, the marker must separate **early cancer from the conditions that mimic it, sampled at presentation**.
 
-And there is a second problem hiding underneath. If cases were bled in an oncology ward and controls at a screening centre, then collection tube, time to processing and fasting state all differ systematically between groups (🔗 [W9 §5](w9_proteomics_tech.qmd#w9-s5)). Some of that AUC is measuring **where the blood was drawn**.
+And there is a second problem hiding underneath. If cases were bled in an oncology ward and controls at a screening centre, then collection tube, time to processing and fasting state all differ systematically between groups (🔗 [W9 §6](w9_proteomics_tech.qmd#w9-s6)). Some of that AUC is measuring **where the blood was drawn**.
 
 → ✅ Ask: were cases and controls sampled at the same point in the care pathway, in the same place, into the same tubes?
 :::
@@ -320,7 +320,7 @@ int((res.adj_P < 0.05).sum())
 
 ## 4) Design task, continued {#w10-s5-4}
 
-Take the five sentences you wrote in 🔗 [W9 §6.3](w9_proteomics_tech.qmd#w9-s6-3) and add:
+Take the five sentences you wrote in 🔗 [W9 §7.3](w9_proteomics_tech.qmd#w9-s7-3) and add:
 
 -   the **comparator group** you would actually need
 -   the **decision** the result would change

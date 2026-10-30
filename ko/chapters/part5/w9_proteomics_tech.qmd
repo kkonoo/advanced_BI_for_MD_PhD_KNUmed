@@ -61,9 +61,11 @@ mRNA 3배 ↑인데 protein 변화 x = translation이나 기타 뭔가가 일어
 
 ------------------------------------------------------------------------
 
-# 2. 단백질 측정 🔬 {#w9-s2}
+# 2. 단백질 측정 by MS 🔬 {#w9-s2}
 
-## 1) 측정 과정, 정확하게 {#w9-s2-1}
+## 1) 측정 과정 {#w9-s2-1}
+
+![](../../../assets/img/w9/ms_core.svg){fig-align="center"}
 
 질량분석기(Mass spectrometry)는 protein 서열을 읽지 않음. 전하 띤 조각의 질량을 아주 정밀하게 재고 → software가 그 질량으로 서열을 추론
 
@@ -82,9 +84,12 @@ mRNA 3배 ↑인데 protein 변화 x = translation이나 기타 뭔가가 일어
 -   **Protein identification은 DB에 의존.** DB에 없으면 protein 못 찾음
 -   **정량은 상대적** — 표지된 표준물질(spike-in) 필요
 
-## 2) ⚠️ DDA vs DIA — 통계를 결정하는 차이 {#w9-s2-2}
+## 2) DDA vs DIA {#w9-s2-2}
 
 ![](../../../assets/img/w9/dda_vs_dia.svg){fig-align="center"}
+
+-   **DDA** (data-dependent acquisition) — 매 cycle마다 신호가 가장 센 precursor 몇 개만 골라 fragment
+-   **DIA** (data-independent acquisition) — 정해진 m/z 구간(window)마다 그 안의 precursor를 전부 fragment
 
 ::: {.callout-warning collapse="true"}
 ## DDA의 missing이 위험한 이유
@@ -98,12 +103,12 @@ DDA = 매 cycle마다 장비가 intensity 가장 높은 precursor를 고름. 뭐
 → ✅ **DIA = 고정된 window 안의 모든 것을 fragment** → 모든 run에서 같은 protein이 정량됨. 임상 cohort라면 이게 기본값 — 남의 dataset을 볼 때도 제일 먼저 물어볼 것
 :::
 
-## 3) ⚠️ Label-free vs TMT — plex = batch {#w9-s2-3}
+## 3) Label-free vs TMT {#w9-s2-3}
 
 ![TMT = sample 16–18개를 한 run으로. 그 한 run이 곧 batch 하나](../../../assets/img/w9/tmt_plex.svg){fig-align="center"}
 
 -   **Label-free** — sample마다 LC-MS run 하나씩 (DDA든 DIA든). ✅ Sample 수 제한 x. ⚠️ Run 순서, 장비 drift가 batch
--   **TMT (isobaric labelling)** — sample마다 peptide에 서로 다른 mass tag → 16–18개를 섞어 한 번에 run. Tag는 fragment된 뒤에야 갈라짐 (reporter ion)
+-   **TMT** (tandem mass tag, isobaric labelling) — sample마다 peptide에 서로 다른 mass tag → 16–18개를 섞어 한 번에 run. Tag는 fragment된 뒤에야 갈라짐 (reporter ion)
     -   ✅ 한 plex 안에선 모든 sample을 같은 peptide로 잼 → missing 문제가 "sample별"에서 "plex별"로 옮겨감
     -   ⚠️ **Plex = batch.** Cohort 100명 = plex 6–7개. Plex 안에선 비교가 잘 되지만, plex 사이는 훨씬 덜
     -   ⚠️ **Ratio compression** — 같이 분리된 다른 peptide가 모든 비율을 1 쪽으로 끌어당김 → fold change 과소추정 (MS3나 좁은 isolation window가 도움)
@@ -111,7 +116,66 @@ DDA = 매 cycle마다 장비가 intensity 가장 높은 precursor를 고름. 뭐
 
 ------------------------------------------------------------------------
 
-# 3. Plasma 🩸: 임상적으로 가장 좋지만 어려움 {#w9-s3}
+# 3. 단백질 측정 by affinity 🧪 {#w9-s3}
+
+## 1) Affinity-based + NGS {#w9-s3-1}
+
+![](../../../assets/img/w9/affinity_core.svg){fig-align="center"}
+
+항체 2개가 같은 protein에 붙어야 DNA barcode가 생김 → NGS로 셈 (Olink). SomaScan은 aptamer 하나 → DNA array로 읽음
+
+::: {.callout-important collapse="true"}
+## Epitope artifact — 그리고 W11에서 중요한 이유
+
+항체나 aptamer가 보고하는 값 = **시약이 얼마나 결합했나**. 대개는 protein abundance를 따라가지만, 아닐 때도 있음
+
+결합 epitope를 바꾸는 coding variant → protein 양은 그대로인데 signal ↓. 유전 분석에선 protein 수치를 "낮추는" variant로 보임 = **가짜 pQTL**. 그리고 *cis* variant에 특히 몰림 (gene 안에 있는 variant라서)
+
+✅ 확인법: *cis*-pQTL마다 lead variant가 같은 gene의 protein-altering variant인지 보기. 그렇다면 → 직교 검증 필요. Peptide를 직접 재는 MS가 가장 좋음
+
+⚠️ pQTL이 drug-target Mendelian randomization에 점점 많이 쓰여서 중요(🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). 여기서 생긴 artifact → target 선정까지 그대로 전파
+:::
+
+## 2) Platform 간 consistency {#w9-s3-2}
+
+![같은 assay의 두 브랜드가 아님](../../../assets/img/w9/ms_vs_affinity.svg){fig-align="center"}
+
+Affinity platform끼리, 또는 affinity vs MS를 비교한 연구 → 상당수 target에서 상관이 낮게 나오는 게 보통
+
+-   ⚠️ 같은 protein에 다른 결과를 낸 두 논문이, 각자 잰 것에 대해선 둘 다 맞을 수 있음
+-   ✅ 중요한 결과면 두 번째 platform으로 확인. Methods에 넣으면 reviewer를 막아주는 문장
+
+------------------------------------------------------------------------
+
+# 4. 그 외 proteomics 🧩 {#w9-s4}
+
+## 1) In situ protein 측정: spatial proteomics {#w9-s4-1}
+
+![같은 항체를 이번엔 slide 위에서. Segmentation과 epitope 주의점도 그대로 따라옴](../../../assets/img/w9/tissue_protein.svg){fig-align="center"}
+
+W7–W8의 spatial 논리를 RNA 대신 protein으로:
+
+-   **Multiplex IF**(marker 4–8개) → **cyclic IF / CODEX(PhenoCycler)**(40–100개, 염색–촬영–제거를 반복) → **IMC / MIBI**(금속 표지 항체를 질량으로 읽음, ~40개)
+-   ✅ **FFPE**에서 됨(🔗 [W7 §2.2](../part4/w7_spatial_basics.qmd#w7-s2-2)), 실제로 일하는 분자 자체를 잼, 병리의사는 이미 IHC를 읽음
+-   분석 = W7–W8 그대로: **segmentation → marker intensity로 cell phenotyping → neighbourhood** (🔗 [W8 §2](../part4/w8_spatial_integration.qmd#w8-s2)). "Neighbourhood"를 분석 단위로 만든 대장암 CODEX 연구(Schürch 2020)가 정확히 이것
+-   ⚠️ **여전히 affinity** — marker 하나하나가 항체: 내 조직, 내 고정 조건에서 항체마다 검증 (§3.1 문제의 slide 버전)
+-   ⚠️ **여전히 segmentation** — membrane marker도 transcript처럼 이웃 cell로 번짐 (🔗 [W7 §3.2](../part4/w7_spatial_basics.qmd#w7-s3-2))
+-   **Suspension에선:** CITE-seq = 항체–oligo tag를 RNA와 같은 cell barcode로 읽음 (🔗 [W5 §3.2](../part3/w5_scrna_qc.qmd#w5-s3-2)) → 한 cell에서 protein + RNA
+
+## 2) Targeted MS: Discovery에서 임상 assay까지 {#w9-s4-2}
+
+![단계마다 범위를 내주고 정밀도와 sample 수를 얻음](../../../assets/img/w9/discovery_to_assay.svg){fig-align="center"}
+
+Discovery proteomics(DIA, TMT) = sample 수십 개에서 protein 수천 개 → 결과물 = **후보 목록**이지 검사가 아님
+
+-   **Targeted MS** (PRM = parallel reaction monitoring, MRM = multiple reaction monitoring) — 장비가 미리 고른 peptide만 지켜봄 → 정밀도 ↑, 하루에 도는 sample 수 ↑, 대신 protein 수 ↓
+-   **Heavy-isotope 표준물질** — 같은 peptide를 무거운 동위원소로 만들어 정해진 양을 spike-in. Light / heavy 비율 × 넣은 양 = **절대 농도**
+-   ✅ Protein을 분해된 peptide의 질량으로 읽음 → 방해하던 자가항체도 같이 분해되고, epitope가 바뀌어도 숨지 못함 (§3.1 문제). 병원 검사실이 이미 하는 방법: anti-Tg 자가항체 때문에 면역측정을 믿기 어려울 때 thyroglobulin을 LC-MS/MS로
+-   ⚠️ 단계마다 **새롭고, 더 크고, 독립적인 cohort**가 필요. Discovery 후보 대부분은 마지막 단계까지 못 감 (🔗 [W10 §3](w10_clinical_proteomics.qmd#w10-s3))
+
+------------------------------------------------------------------------
+
+# 5. Plasma 🩸: 임상적으로 가장 좋지만 어려움 {#w9-s5}
 
 ![모두가 원하는 임상 검체 = 기술이 가장 못 다루는 검체](../../../assets/img/w9/dynamic_range.svg){fig-align="center"}
 
@@ -130,70 +194,9 @@ Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 pro
 
 ------------------------------------------------------------------------
 
-# 4. 단백질 측정 기술 🧪 {#w9-s4}
+# 6. Proteomics 분석 시 고려할 것들 📋 {#w9-s6}
 
-## 1) MS {#w9-s4-1}
-
-![](../../../assets/img/w9/ms_core.svg){fig-align="center"}
-
-항체 없이 peptide 자체의 질량을 잼 → protein은 추론 (자세한 과정: 🔗 [§2](#w9-s2))
-
-## 2) Affinity-based + NGS {#w9-s4-2}
-
-![](../../../assets/img/w9/affinity_core.svg){fig-align="center"}
-
-항체 2개가 같은 protein에 붙어야 DNA barcode가 생김 → NGS로 셈 (Olink). SomaScan은 aptamer 하나 → DNA array로 읽음
-
-::: {.callout-important collapse="true"}
-## Epitope artifact — 그리고 W11에서 중요한 이유
-
-항체나 aptamer가 보고하는 값 = **시약이 얼마나 결합했나**. 대개는 protein abundance를 따라가지만, 아닐 때도 있음
-
-결합 epitope를 바꾸는 coding variant → protein 양은 그대로인데 signal ↓. 유전 분석에선 protein 수치를 "낮추는" variant로 보임 = **가짜 pQTL**. 그리고 *cis* variant에 특히 몰림 (gene 안에 있는 variant라서)
-
-✅ 확인법: *cis*-pQTL마다 lead variant가 같은 gene의 protein-altering variant인지 보기. 그렇다면 → 직교 검증 필요. Peptide를 직접 재는 MS가 가장 좋음
-
-⚠️ pQTL이 drug-target Mendelian randomization에 점점 많이 쓰여서 중요(🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). 여기서 생긴 artifact → target 선정까지 그대로 전파
-:::
-
-## 3) Platform 간 consistency {#w9-s4-3}
-
-![같은 assay의 두 브랜드가 아님](../../../assets/img/w9/ms_vs_affinity.svg){fig-align="center"}
-
-Affinity platform끼리, 또는 affinity vs MS를 비교한 연구 → 상당수 target에서 상관이 낮게 나오는 게 보통
-
--   ⚠️ 같은 protein에 다른 결과를 낸 두 논문이, 각자 잰 것에 대해선 둘 다 맞을 수 있음
--   ✅ 중요한 결과면 두 번째 platform으로 확인. Methods에 넣으면 reviewer를 막아주는 문장
-
-## 4) Targeted MS: Discovery에서 임상 assay까지 {#w9-s4-4}
-
-![단계마다 범위를 내주고 정밀도와 sample 수를 얻음](../../../assets/img/w9/discovery_to_assay.svg){fig-align="center"}
-
-Discovery proteomics(DIA, TMT) = sample 수십 개에서 protein 수천 개 → 결과물 = **후보 목록**이지 검사가 아님
-
--   **Targeted MS (PRM / MRM)** — 장비가 미리 고른 peptide만 지켜봄 → 정밀도 ↑, 하루에 도는 sample 수 ↑, 대신 protein 수 ↓
--   **Heavy-isotope 표준물질** — 같은 peptide를 무거운 동위원소로 만들어 정해진 양을 spike-in. Light / heavy 비율 × 넣은 양 = **절대 농도**
--   ✅ Protein을 분해된 peptide의 질량으로 읽음 → 방해하던 자가항체도 같이 분해되고, epitope가 바뀌어도 숨지 못함 (§4.2 문제). 병원 검사실이 이미 하는 방법: anti-Tg 자가항체 때문에 면역측정을 믿기 어려울 때 thyroglobulin을 LC-MS/MS로
--   ⚠️ 단계마다 **새롭고, 더 크고, 독립적인 cohort**가 필요. Discovery 후보 대부분은 마지막 단계까지 못 감 (🔗 [W10 §3](w10_clinical_proteomics.qmd#w10-s3))
-
-## 5) In situ protein 측정: spatial proteomics {#w9-s4-5}
-
-![같은 항체를 이번엔 slide 위에서. Segmentation과 epitope 주의점도 그대로 따라옴](../../../assets/img/w9/tissue_protein.svg){fig-align="center"}
-
-W7–W8의 spatial 논리를 RNA 대신 protein으로:
-
--   **Multiplex IF**(marker 4–8개) → **cyclic IF / CODEX(PhenoCycler)**(40–100개, 염색–촬영–제거를 반복) → **IMC / MIBI**(금속 표지 항체를 질량으로 읽음, ~40개)
--   ✅ **FFPE**에서 됨(🔗 [W7 §2.2](../part4/w7_spatial_basics.qmd#w7-s2-2)), 실제로 일하는 분자 자체를 잼, 병리의사는 이미 IHC를 읽음
--   분석 = W7–W8 그대로: **segmentation → marker intensity로 cell phenotyping → neighbourhood** (🔗 [W8 §2](../part4/w8_spatial_integration.qmd#w8-s2)). "Neighbourhood"를 분석 단위로 만든 대장암 CODEX 연구(Schürch 2020)가 정확히 이것
--   ⚠️ **여전히 affinity** — marker 하나하나가 항체: 내 조직, 내 고정 조건에서 항체마다 검증 (§4.2 문제의 slide 버전)
--   ⚠️ **여전히 segmentation** — membrane marker도 transcript처럼 이웃 cell로 번짐 (🔗 [W7 §3.2](../part4/w7_spatial_basics.qmd#w7-s3-2))
--   **Suspension에선:** CITE-seq = 항체–oligo tag를 RNA와 같은 cell barcode로 읽음 (🔗 [W5 §3.2](../part3/w5_scrna_qc.qmd#w5-s3-2)) → 한 cell에서 protein + RNA
-
-------------------------------------------------------------------------
-
-# 5. Proteomics 분석할 때 고려할 것 📋 {#w9-s5}
-
-**① Platform**: MS vs. affinity panel (🔗 [§4.3](#w9-s4-3))
+**① Platform**: MS vs. affinity panel (🔗 [§3.2](#w9-s3-2))
 
 **② Batch design**: 한 batch에 sample 몇 개까지, how to randomize (🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3))
 
@@ -209,11 +212,11 @@ W7–W8의 spatial 논리를 RNA 대신 protein으로:
 
 ------------------------------------------------------------------------
 
-# 6. 실습 💻 {#w9-s6}
+# 7. 실습 💻 {#w9-s7}
 
 이번 주 설치할 것 없음. 브라우저 실습 2개 + 설계 과제 1개
 
-## 1) 처방하는 protein 찾아보기 {#w9-s6-1}
+## 1) 처방하는 protein 찾아보기 {#w9-s7-1}
 
 [**Human Protein Atlas**](https://www.proteinatlas.org) → 진료에서 쓰는 biomarker 하나 검색 (troponin I, PSA, CA-125, NT-proBNP…)
 
@@ -221,7 +224,7 @@ W7–W8의 spatial 논리를 RNA 대신 protein으로:
 -   ② 같은 페이지에서 **RNA**와 **protein** 조직 profile 비교. 어디서 안 맞나?
 -   ③ Pathology 항목 보기 — 어떤 암에서든 발현이 생존과 연관되나?
 
-## 2) Proteomics dataset 믿기 전에 확인하기 {#w9-s6-2}
+## 2) Proteomics dataset 믿기 전에 확인하기 {#w9-s7-2}
 
 내 분야의 plasma proteomics 논문 하나 골라서 답해보기:
 
@@ -233,7 +236,7 @@ W7–W8의 spatial 논리를 RNA 대신 protein으로:
 
 💡 ⑦, ⑧은 보통 supplement에 있거나 아예 없음. 없다는 것 자체가 답
 
-## 3) 설계 과제 {#w9-s6-3}
+## 3) 설계 과제 {#w9-s7-3}
 
 우리 과에서 현실적으로 할 수 있는 proteomics 연구를 다섯 문장으로 써보기: 검체 종류, platform, n, 비교, 가장 걱정되는 pre-analytical 변수 하나
 

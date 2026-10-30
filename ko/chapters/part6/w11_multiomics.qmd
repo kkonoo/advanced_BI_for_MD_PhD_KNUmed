@@ -71,7 +71,7 @@ knitr:
 한 열의 ✕ = 거의 항상 **"맞는 맥락에서 측정 못 함"**이지 "측정했는데 없음"이 아님
 
 -   ⚠️ eQTL panel은 bulk 조직 기반 → 드문 cell type에만 있는 효과는 안 보임
--   ⚠️ Plasma proteomics는 양 적은 protein을 아예 놓침 (🔗 [W9 §3](../part5/w9_proteomics_tech.qmd#w9-s3))
+-   ⚠️ Plasma proteomics는 양 적은 protein을 아예 놓침 (🔗 [W9 §5](../part5/w9_proteomics_tech.qmd#w9-s5))
 -   ⚠️ 잴 protein 산물이 없는 gene도 있음
 -   ⚠️ MR엔 강한 instrument가 필요. Instrument 없는 gene = 검정 불가 ≠ 검정해서 실패
 

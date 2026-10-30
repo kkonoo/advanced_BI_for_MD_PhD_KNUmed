@@ -71,7 +71,7 @@ Each layer has its own false positives, and they are largely **independent**: an
 A ✕ in one column almost always means **"not measured in the right context"**, not "measured and absent".
 
 -   ⚠️ eQTL panels come from bulk tissue — effects confined to a rare cell type are invisible
--   ⚠️ Plasma proteomics misses low-abundance proteins entirely (🔗 [W9 §3](../part5/w9_proteomics_tech.qmd#w9-s3))
+-   ⚠️ Plasma proteomics misses low-abundance proteins entirely (🔗 [W9 §5](../part5/w9_proteomics_tech.qmd#w9-s5))
 -   ⚠️ Some genes have no protein product to measure
 -   ⚠️ MR needs a strong instrument; a gene without one cannot be tested, which is not the same as being tested and failing
 
