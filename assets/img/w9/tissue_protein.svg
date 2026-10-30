@@ -536,6 +536,6 @@
   <text x="608.0" y="296.0" font-size="11.5" fill="#666">Same neighbourhood analysis as W8,</text>
   <text x="608.0" y="312.0" font-size="11.5" fill="#0F6E56" font-weight="700">with the effector proteins themselves</text>
   <rect x="24" y="338" width="832" height="70" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
-  <text x="48.0" y="362.0" font-size="12.5" fill="#7a5f2a" font-weight="700">⚠️ Still affinity: every marker is an antibody — validate each one in your tissue and fixation (§4.1, now on a slide).</text>
+  <text x="48.0" y="362.0" font-size="12.5" fill="#7a5f2a" font-weight="700">⚠️ Still affinity: every marker is an antibody — validate each one in your tissue and fixation (§4.2, now on a slide).</text>
   <text x="48.0" y="388.0" font-size="12.5" fill="#7a5f2a">💡 In suspension, CITE-seq reads antibody tags with the cell's RNA barcode (W5 §3.2): protein and RNA from one cell.</text>
 </svg>

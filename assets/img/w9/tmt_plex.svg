@@ -180,5 +180,5 @@
   <text x="608.0" y="312.0" font-size="11.5" fill="#0F6E56" font-weight="700">a shared reference to bridge them</text>
   <rect x="24" y="338" width="832" height="70" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
   <text x="48.0" y="362.0" font-size="12.5" fill="#7a5f2a" font-weight="700">⚠️ Ratio compression: co-isolated peptides pull every TMT ratio towards 1, so fold changes are underestimated.</text>
-  <text x="48.0" y="388.0" font-size="12.5" fill="#7a5f2a">💡 §5 question ② made concrete: a 100-patient cohort is 6–7 plexes, and so 6–7 batches.</text>
+  <text x="48.0" y="388.0" font-size="12.5" fill="#7a5f2a">💡 §5 ② (batch design) made concrete: a 100-patient cohort is 6–7 plexes, and so 6–7 batches.</text>
 </svg>

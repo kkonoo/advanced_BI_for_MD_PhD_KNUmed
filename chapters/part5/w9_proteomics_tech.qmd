@@ -22,7 +22,7 @@ By the end of this chapter you should be able to:
 -   ⚠️ Recognise the epitope artifact that produces false pQTLs
 -   Describe how a discovery candidate becomes a clinical assay, and what heavy-isotope standards add
 -   Say what multiplexed tissue imaging measures, and which W7–W8 caveats it inherits
--   Ask a proteomics core the three questions that determine whether your study will work
+-   Name the three things to settle before a proteomics study (platform, batch design, input)
 :::
 
 > 🤔 **Motivating question**
@@ -130,11 +130,19 @@ Plasma spans **more than ten orders of magnitude** in protein concentration. Alb
 
 ------------------------------------------------------------------------
 
-# 4. Two Technologies, Two Different Measurements ⚖️ {#w9-s4}
+# 4. Protein Measurement Technologies 🧪 {#w9-s4}
 
-![They are not two brands of the same assay.](/assets/img/w9/ms_vs_affinity.svg){fig-align="center"}
+## 1) MS {#w9-s4-1}
 
-## 1) ⚠️ Affinity assays measure binding {#w9-s4-1}
+![](/assets/img/w9/ms_core.svg){fig-align="center"}
+
+No antibody: the peptide itself is weighed → the protein is inferred (step by step: 🔗 [§2](#w9-s2))
+
+## 2) Affinity-based + NGS {#w9-s4-2}
+
+![](/assets/img/w9/affinity_core.svg){fig-align="center"}
+
+Two antibodies must bind the same protein before a DNA barcode is made → counted by NGS (Olink). SomaScan: one aptamer → read on a DNA array
 
 ::: {.callout-important collapse="true"}
 ## The epitope artifact, and why it matters in W11
@@ -148,14 +156,16 @@ A coding variant that alters the binding epitope reduces the signal without chan
 ⚠️ This matters because pQTLs are increasingly used for drug-target Mendelian randomization (🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). An artifact here propagates into a target nomination.
 :::
 
-## 2) Cross-platform disagreement is normal {#w9-s4-2}
+## 3) Platform consistency {#w9-s4-3}
+
+![They are not two brands of the same assay.](/assets/img/w9/ms_vs_affinity.svg){fig-align="center"}
 
 Studies comparing affinity platforms with each other, and with MS, routinely find that a substantial fraction of targets correlate poorly.
 
 -   ⚠️ Two papers reporting different results for the same protein may both be right about what they measured
 -   ✅ When it matters, confirm on a second platform. That is a reviewer-proof sentence in a methods section
 
-## 3) From discovery to a clinical assay: targeted MS {#w9-s4-3}
+## 4) Targeted MS: from discovery to a clinical assay {#w9-s4-4}
 
 ![Each stage trades breadth for precision and sample number.](/assets/img/w9/discovery_to_assay.svg){fig-align="center"}
 
@@ -163,10 +173,10 @@ Discovery proteomics (DIA, TMT) measures thousands of proteins in tens of sample
 
 -   **Targeted MS (PRM / MRM)** — the instrument watches only chosen peptides → better precision and more samples per day, for fewer proteins
 -   **Heavy-isotope standards** — spike in a known amount of the same peptide made with heavy isotopes. Light / heavy ratio × spiked amount = **absolute concentration**
--   ✅ The protein is read as a digested peptide by mass → interfering autoantibodies are digested too, and an epitope change cannot hide it (the §4.1 problem). Your hospital lab already does this: thyroglobulin by LC-MS/MS when anti-Tg autoantibodies make the immunoassay unreliable
+-   ✅ The protein is read as a digested peptide by mass → interfering autoantibodies are digested too, and an epitope change cannot hide it (the §4.2 problem). Your hospital lab already does this: thyroglobulin by LC-MS/MS when anti-Tg autoantibodies make the immunoassay unreliable
 -   ⚠️ Each stage needs a **new, larger, independent cohort**. Most discovery candidates never reach the last one (🔗 [W10 §3](w10_clinical_proteomics.qmd#w10-s3))
 
-## 4) Proteins in place: tissue sections and single cells {#w9-s4-4}
+## 5) In situ protein: spatial proteomics {#w9-s4-5}
 
 ![The same antibodies on a slide — with the segmentation and epitope caveats attached.](/assets/img/w9/tissue_protein.svg){fig-align="center"}
 
@@ -175,37 +185,27 @@ The spatial logic of W7–W8, with proteins instead of RNA:
 -   **Multiplex IF** (4–8 markers) → **cyclic IF / CODEX (PhenoCycler)** (40–100 markers; stain, image, strip, repeat) → **IMC / MIBI** (metal-tagged antibodies read by mass, ~40 markers)
 -   ✅ Works on **FFPE** (🔗 [W7 §2.2](../part4/w7_spatial_basics.qmd#w7-s2-2)), measures the effector molecule itself, and pathologists already read IHC
 -   Analysis = W7–W8 again: **segment → phenotype cells by marker intensity → neighbourhoods** (🔗 [W8 §2](../part4/w8_spatial_integration.qmd#w8-s2)). The colorectal-cancer CODEX study that made "neighbourhood" a unit of analysis (Schürch 2020) is exactly this
--   ⚠️ **Still affinity** — every marker is an antibody: validate each one in your tissue and fixation (the §4.1 problem on a slide)
+-   ⚠️ **Still affinity** — every marker is an antibody: validate each one in your tissue and fixation (the §4.2 problem on a slide)
 -   ⚠️ **Still segmentation** — membrane markers spill into neighbouring cells just like transcripts (🔗 [W7 §3.2](../part4/w7_spatial_basics.qmd#w7-s3-2))
 -   **In suspension:** CITE-seq reads antibody–oligo tags with the same cell barcode as the RNA (🔗 [W5 §3.2](../part3/w5_scrna_qc.qmd#w5-s3-2)) → protein and RNA from one cell
 
 ------------------------------------------------------------------------
 
-# 5. Talking to a Proteomics Core 💬 {#w9-s5}
+# 5. What to Consider in a Proteomics Study 📋 {#w9-s5}
 
-You will not run any of this yourself. Three questions determine whether your study works.
+**① Platform**: MS vs. affinity panel (🔗 [§4.3](#w9-s4-3))
 
-**① "For my question, would you recommend MS or an affinity panel — and why?"**
+**② Batch design**: how many samples per batch, how to randomise (🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3))
 
-A good core will answer with your sample type and cohort size, not with what they own.
-
-**② "How many samples can be run in one batch, and how will you randomise mine?"**
-
-⚠️ The answer to the second half tells you whether they have thought about confounding. If cases and controls will be split across batches by convenience, fix it now (🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3)).
-
-**③ "What sample volume, and what pre-analytical conditions?"**
-
-::: {.callout-warning collapse="true"}
-## Pre-analytical variation dominates more biomarker studies than any analysis choice
+**③ Input**: plasma vs. tissue, sample volume, pre-analytical conditions (storage etc.)
 
 -   **Serum or plasma?** Serum has been through clotting — platelets release their contents into it
 -   **Which anticoagulant?** EDTA, citrate and heparin give different results, and heparin interferes with some assays
 -   **Time to processing.** Minutes at room temperature matter for labile proteins
 -   **Freeze–thaw cycles.** Count them. Record them
--   **Haemolysis.** A pink sample has red-cell contents in it, at concentrations that swamp everything else
+-   **Haemolysis.** Pink sample = too much red-cell content in it
 
-⚠️ If cases were collected in clinic and controls at a health screening centre, every one of these differs systematically. **That is a batch effect wearing a lab coat**, and it is the most common reason a biomarker fails to replicate.
-:::
+⚠️ Cases collected in clinic, controls at a health screening centre → every condition above differs. **Batch effect** = the most common reason a biomarker does not replicate!
 
 ------------------------------------------------------------------------
 

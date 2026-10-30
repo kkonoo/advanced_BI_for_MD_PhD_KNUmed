@@ -132,7 +132,7 @@ res.head(10)
 
 # 3. ⚠️ From a Difference to a Biomarker 🪜 {#w10-s3}
 
-A significant difference between groups is the beginning of a very long process (how the measurement changes along the way: 🔗 [W9 §4.3](w9_proteomics_tech.qmd#w9-s4-3)).
+A significant difference between groups is the beginning of a very long process (how the measurement changes along the way: 🔗 [W9 §4.4](w9_proteomics_tech.qmd#w9-s4-4)).
 
 ![Each row loses about 90% of what entered it.](/assets/img/w10/biomarker_funnel.svg){fig-align="center"}
 

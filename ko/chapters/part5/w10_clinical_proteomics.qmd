@@ -132,7 +132,7 @@ res.head(10)
 
 # 3. ⚠️ 차이에서 biomarker로 🪜 {#w10-s3}
 
-군 간 유의한 차이 = 아주 긴 과정의 시작일 뿐 (단계마다 측정법이 어떻게 바뀌는지: 🔗 [W9 §4.3](w9_proteomics_tech.qmd#w9-s4-3))
+군 간 유의한 차이 = 아주 긴 과정의 시작일 뿐 (단계마다 측정법이 어떻게 바뀌는지: 🔗 [W9 §4.4](w9_proteomics_tech.qmd#w9-s4-4))
 
 ![단계마다 들어온 후보의 ~90%가 탈락](../../../assets/img/w10/biomarker_funnel.svg){fig-align="center"}
 

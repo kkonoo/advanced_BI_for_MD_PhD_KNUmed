@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 336" width="880" height="336" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<rect width="880" height="336" fill="#fcfcfb"/>
+<text x="24.0" y="28.0" font-size="15" fill="#4A3D6B" font-weight="700">Affinity (Olink PEA): no DNA signal unless two antibodies bind the same protein</text>
+<rect x="24" y="46" width="199" height="236" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<circle cx="46" cy="70" r="11" fill="#ffffff" stroke="#4A3D6B" stroke-width="1.5"/>
+<text x="46.0" y="74.0" font-size="12" fill="#4A3D6B" font-weight="700" text-anchor="middle">1</text>
+<text x="65.0" y="75.0" font-size="13.5" fill="#4A3D6B" font-weight="700">Bind</text>
+<circle cx="124" cy="130" r="16" fill="#cfc9dd" stroke="#8A7FA3" stroke-width="1.2" opacity="1.0"/>
+<g opacity="1.0">
+<path d="M108.7 137.3 L104.7 149.3 L116.7 145.3 M104.7 149.3 L92.7 161.3" fill="none" stroke="#b9b0cc" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M92.7 161.3 Q92.7 196.0 106.0 196.0" fill="none" stroke="#4A3D6B" stroke-width="1.6"/>
+</g>
+<g opacity="1.0">
+<path d="M139.3 137.3 L143.3 149.3 L131.3 145.3 M143.3 149.3 L155.3 161.3" fill="none" stroke="#b9b0cc" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M155.3 161.3 Q155.3 196.0 142.0 196.0" fill="none" stroke="#4A3D6B" stroke-width="1.6"/>
+</g>
+<text x="124.0" y="134.0" font-size="9.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">IL6</text>
+<text x="40.0" y="108.0" font-size="10" fill="#8A7FA3">antibody + DNA tag</text>
+<text x="40.0" y="220.0" font-size="10" fill="#8A7FA3">two antibodies, two sites</text>
+<text x="40.0" y="250.0" font-size="11.5" fill="#666">Each antibody carries a</text>
+<text x="40.0" y="267.0" font-size="11.5" fill="#666">short DNA tag</text>
+<rect x="235" y="46" width="199" height="236" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<circle cx="257" cy="70" r="11" fill="#4A3D6B" stroke="#4A3D6B" stroke-width="1.5"/>
+<text x="257.0" y="74.0" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+<text x="276.0" y="75.0" font-size="13.5" fill="#4A3D6B" font-weight="700">Pair up</text>
+<circle cx="309" cy="130" r="16" fill="#cfc9dd" stroke="#8A7FA3" stroke-width="1.2" opacity="1.0"/>
+<g opacity="1.0">
+<path d="M293.7 137.3 L289.7 149.3 L301.7 145.3 M289.7 149.3 L277.7 161.3" fill="none" stroke="#b9b0cc" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M277.7 161.3 Q277.7 194.0 321.0 194.0" fill="none" stroke="#4A3D6B" stroke-width="1.6"/>
+</g>
+<g opacity="1.0">
+<path d="M324.3 137.3 L328.3 149.3 L316.3 145.3 M328.3 149.3 L340.3 161.3" fill="none" stroke="#b9b0cc" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M340.3 161.3 Q340.3 197.0 297.0 197.0" fill="none" stroke="#4A3D6B" stroke-width="1.6"/>
+</g>
+<line x1="297" y1="195.5" x2="321" y2="195.5" stroke="#4A3D6B" stroke-width="5" stroke-linecap="round"/>
+<text x="309.0" y="134.0" font-size="9.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">IL6</text>
+<text x="309.0" y="218.0" font-size="10" fill="#4A3D6B" font-weight="700" text-anchor="middle">tags meet</text>
+<circle cx="395" cy="138" r="11" fill="#e6e1ee" stroke="#cfc9dd" stroke-width="1"/>
+<g opacity="0.45">
+<path d="M379.7 145.3 L375.7 157.3 L387.7 153.3 M375.7 157.3 L363.7 169.3" fill="none" stroke="#b9b0cc" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M363.7 169.3 Q363.7 192.0 391.0 192.0" fill="none" stroke="#4A3D6B" stroke-width="1.6"/>
+</g>
+<text x="391.0" y="218.0" font-size="9.5" fill="#8A7FA3" text-anchor="middle">alone:</text>
+<text x="391.0" y="230.0" font-size="9.5" fill="#8A7FA3" text-anchor="middle">no signal</text>
+<text x="251.0" y="250.0" font-size="11.5" fill="#666">Tags join only when both</text>
+<text x="251.0" y="267.0" font-size="11.5" fill="#666">bind → fewer false hits</text>
+<rect x="446" y="46" width="199" height="236" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<circle cx="468" cy="70" r="11" fill="#ffffff" stroke="#4A3D6B" stroke-width="1.5"/>
+<text x="468.0" y="74.0" font-size="12" fill="#4A3D6B" font-weight="700" text-anchor="middle">3</text>
+<text x="487.0" y="75.0" font-size="13.5" fill="#4A3D6B" font-weight="700">Extend</text>
+<circle cx="546" cy="118" r="16" fill="#cfc9dd" stroke="#8A7FA3" stroke-width="1.2" opacity="0.35"/>
+<g opacity="0.35">
+<path d="M530.7 125.3 L526.7 137.3 L538.7 133.3 M526.7 137.3 L514.7 149.3" fill="none" stroke="#b9b0cc" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M514.7 149.3 Q514.7 182.0 558.0 182.0" fill="none" stroke="#4A3D6B" stroke-width="1.6"/>
+</g>
+<g opacity="0.35">
+<path d="M561.3 125.3 L565.3 137.3 L553.3 133.3 M565.3 137.3 L577.3 149.3" fill="none" stroke="#b9b0cc" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M577.3 149.3 Q577.3 185.0 534.0 185.0" fill="none" stroke="#4A3D6B" stroke-width="1.6"/>
+</g>
+<line x1="480" y1="196" x2="612" y2="196" stroke="#4A3D6B" stroke-width="2"/>
+<line x1="480" y1="208" x2="612" y2="208" stroke="#4A3D6B" stroke-width="2"/>
+<line x1="486" y1="196" x2="486" y2="208" stroke="#8A7FA3" stroke-width="1.2"/>
+<line x1="497" y1="196" x2="497" y2="208" stroke="#8A7FA3" stroke-width="1.2"/>
+<line x1="508" y1="196" x2="508" y2="208" stroke="#8A7FA3" stroke-width="1.2"/>
+<line x1="519" y1="196" x2="519" y2="208" stroke="#8A7FA3" stroke-width="1.2"/>
+<line x1="530" y1="196" x2="530" y2="208" stroke="#8A7FA3" stroke-width="1.2"/>
+<line x1="541" y1="196" x2="541" y2="208" stroke="#8A7FA3" stroke-width="1.2"/>
+<line x1="552" y1="196" x2="552" y2="208" stroke="#8A7FA3" stroke-width="1.2"/>
+<line x1="563" y1="196" x2="563" y2="208" stroke="#8A7FA3" stroke-width="1.2"/>
+<line x1="574" y1="196" x2="574" y2="208" stroke="#8A7FA3" stroke-width="1.2"/>
+<line x1="585" y1="196" x2="585" y2="208" stroke="#8A7FA3" stroke-width="1.2"/>
+<line x1="596" y1="196" x2="596" y2="208" stroke="#8A7FA3" stroke-width="1.2"/>
+<line x1="607" y1="196" x2="607" y2="208" stroke="#8A7FA3" stroke-width="1.2"/>
+<text x="546.0" y="228.0" font-size="10" fill="#4A3D6B" font-weight="700" text-anchor="middle">IL6 barcode</text>
+<text x="462.0" y="250.0" font-size="11.5" fill="#666">Polymerase fills in → a DNA</text>
+<text x="462.0" y="267.0" font-size="11.5" fill="#666">barcode for that protein</text>
+<rect x="657" y="46" width="199" height="236" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<circle cx="679" cy="70" r="11" fill="#ffffff" stroke="#4A3D6B" stroke-width="1.5"/>
+<text x="679.0" y="74.0" font-size="12" fill="#4A3D6B" font-weight="700" text-anchor="middle">4</text>
+<text x="698.0" y="75.0" font-size="13.5" fill="#4A3D6B" font-weight="700">Count (NGS)</text>
+<text x="673.0" y="108.0" font-size="10" fill="#8A7FA3">reads per barcode</text>
+<text x="719.0" y="133.0" font-size="10.5" fill="#4A3D6B" font-weight="700" text-anchor="end">IL6</text>
+<rect x="725" y="122" width="118" height="14" rx="2" fill="#8A7FA3"/>
+<text x="719.0" y="159.0" font-size="10.5" fill="#4A3D6B" font-weight="700" text-anchor="end">CRP</text>
+<rect x="725" y="148" width="70" height="14" rx="2" fill="#8A7FA3"/>
+<text x="719.0" y="185.0" font-size="10.5" fill="#4A3D6B" font-weight="700" text-anchor="end">TNF</text>
+<rect x="725" y="174" width="34" height="14" rx="2" fill="#8A7FA3"/>
+<text x="719.0" y="211.0" font-size="10.5" fill="#4A3D6B" font-weight="700" text-anchor="end">CXCL8</text>
+<rect x="725" y="200" width="92" height="14" rx="2" fill="#8A7FA3"/>
+<text x="673.0" y="250.0" font-size="11.5" fill="#666">Amplify, sequence, count →</text>
+<text x="673.0" y="267.0" font-size="11.5" fill="#666">relative amount (NPX)</text>
+<text x="24.0" y="304.0" font-size="12.5" fill="#4A3D6B" font-weight="700">SomaScan: one aptamer per protein — the aptamer is itself DNA, so it is read as DNA too (on an array).</text>
+<text x="24.0" y="324.0" font-size="12.5" fill="#a8401d">⚠️ Either way the number is how much reagent bound, which usually (not always) tracks how much protein was there.</text>
+</svg>

@@ -22,7 +22,7 @@ execute:
 -   ⚠️ 거짓 pQTL을 만드는 epitope artifact를 알아볼 수 있다
 -   discovery 후보가 임상 검사가 되기까지의 과정과 heavy-isotope 표준물질의 역할을 설명할 수 있다
 -   multiplex 조직 영상이 무엇을 측정하며 W7–W8의 어떤 주의점을 물려받는지 말할 수 있다
--   단백체 코어 시설에 연구의 성패를 결정하는 세 가지 질문을 할 수 있다
+-   Proteomics 분석 전에 고려할 세 가지(platform, batch design, input)를 말할 수 있다
 :::
 
 > 🤔 **동기 질문**
@@ -130,11 +130,19 @@ Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 pro
 
 ------------------------------------------------------------------------
 
-# 4. 두 기술, 서로 다른 두 측정값 ⚖️ {#w9-s4}
+# 4. 단백질 측정 기술 🧪 {#w9-s4}
 
-![같은 assay의 두 브랜드가 아님](../../../assets/img/w9/ms_vs_affinity.svg){fig-align="center"}
+## 1) MS {#w9-s4-1}
 
-## 1) ⚠️ Affinity assay는 결합을 잼 {#w9-s4-1}
+![](../../../assets/img/w9/ms_core.svg){fig-align="center"}
+
+항체 없이 peptide 자체의 질량을 잼 → protein은 추론 (자세한 과정: 🔗 [§2](#w9-s2))
+
+## 2) Affinity-based + NGS {#w9-s4-2}
+
+![](../../../assets/img/w9/affinity_core.svg){fig-align="center"}
+
+항체 2개가 같은 protein에 붙어야 DNA barcode가 생김 → NGS로 셈 (Olink). SomaScan은 aptamer 하나 → DNA array로 읽음
 
 ::: {.callout-important collapse="true"}
 ## Epitope artifact — 그리고 W11에서 중요한 이유
@@ -148,14 +156,16 @@ Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 pro
 ⚠️ pQTL이 drug-target Mendelian randomization에 점점 많이 쓰여서 중요(🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). 여기서 생긴 artifact → target 선정까지 그대로 전파
 :::
 
-## 2) Platform 간 불일치는 정상 {#w9-s4-2}
+## 3) Platform 간 consistency {#w9-s4-3}
+
+![같은 assay의 두 브랜드가 아님](../../../assets/img/w9/ms_vs_affinity.svg){fig-align="center"}
 
 Affinity platform끼리, 또는 affinity vs MS를 비교한 연구 → 상당수 target에서 상관이 낮게 나오는 게 보통
 
 -   ⚠️ 같은 protein에 다른 결과를 낸 두 논문이, 각자 잰 것에 대해선 둘 다 맞을 수 있음
 -   ✅ 중요한 결과면 두 번째 platform으로 확인. Methods에 넣으면 reviewer를 막아주는 문장
 
-## 3) Discovery에서 임상 assay까지: targeted MS {#w9-s4-3}
+## 4) Targeted MS: Discovery에서 임상 assay까지 {#w9-s4-4}
 
 ![단계마다 범위를 내주고 정밀도와 sample 수를 얻음](../../../assets/img/w9/discovery_to_assay.svg){fig-align="center"}
 
@@ -163,10 +173,10 @@ Discovery proteomics(DIA, TMT) = sample 수십 개에서 protein 수천 개 → 
 
 -   **Targeted MS (PRM / MRM)** — 장비가 미리 고른 peptide만 지켜봄 → 정밀도 ↑, 하루에 도는 sample 수 ↑, 대신 protein 수 ↓
 -   **Heavy-isotope 표준물질** — 같은 peptide를 무거운 동위원소로 만들어 정해진 양을 spike-in. Light / heavy 비율 × 넣은 양 = **절대 농도**
--   ✅ Protein을 분해된 peptide의 질량으로 읽음 → 방해하던 자가항체도 같이 분해되고, epitope가 바뀌어도 숨지 못함 (§4.1 문제). 병원 검사실이 이미 하는 방법: anti-Tg 자가항체 때문에 면역측정을 믿기 어려울 때 thyroglobulin을 LC-MS/MS로
+-   ✅ Protein을 분해된 peptide의 질량으로 읽음 → 방해하던 자가항체도 같이 분해되고, epitope가 바뀌어도 숨지 못함 (§4.2 문제). 병원 검사실이 이미 하는 방법: anti-Tg 자가항체 때문에 면역측정을 믿기 어려울 때 thyroglobulin을 LC-MS/MS로
 -   ⚠️ 단계마다 **새롭고, 더 크고, 독립적인 cohort**가 필요. Discovery 후보 대부분은 마지막 단계까지 못 감 (🔗 [W10 §3](w10_clinical_proteomics.qmd#w10-s3))
 
-## 4) 제자리의 protein: 조직 절편과 single cell {#w9-s4-4}
+## 5) In situ protein 측정: spatial proteomics {#w9-s4-5}
 
 ![같은 항체를 이번엔 slide 위에서. Segmentation과 epitope 주의점도 그대로 따라옴](../../../assets/img/w9/tissue_protein.svg){fig-align="center"}
 
@@ -175,37 +185,27 @@ W7–W8의 spatial 논리를 RNA 대신 protein으로:
 -   **Multiplex IF**(marker 4–8개) → **cyclic IF / CODEX(PhenoCycler)**(40–100개, 염색–촬영–제거를 반복) → **IMC / MIBI**(금속 표지 항체를 질량으로 읽음, ~40개)
 -   ✅ **FFPE**에서 됨(🔗 [W7 §2.2](../part4/w7_spatial_basics.qmd#w7-s2-2)), 실제로 일하는 분자 자체를 잼, 병리의사는 이미 IHC를 읽음
 -   분석 = W7–W8 그대로: **segmentation → marker intensity로 cell phenotyping → neighbourhood** (🔗 [W8 §2](../part4/w8_spatial_integration.qmd#w8-s2)). "Neighbourhood"를 분석 단위로 만든 대장암 CODEX 연구(Schürch 2020)가 정확히 이것
--   ⚠️ **여전히 affinity** — marker 하나하나가 항체: 내 조직, 내 고정 조건에서 항체마다 검증 (§4.1 문제의 slide 버전)
+-   ⚠️ **여전히 affinity** — marker 하나하나가 항체: 내 조직, 내 고정 조건에서 항체마다 검증 (§4.2 문제의 slide 버전)
 -   ⚠️ **여전히 segmentation** — membrane marker도 transcript처럼 이웃 cell로 번짐 (🔗 [W7 §3.2](../part4/w7_spatial_basics.qmd#w7-s3-2))
 -   **Suspension에선:** CITE-seq = 항체–oligo tag를 RNA와 같은 cell barcode로 읽음 (🔗 [W5 §3.2](../part3/w5_scrna_qc.qmd#w5-s3-2)) → 한 cell에서 protein + RNA
 
 ------------------------------------------------------------------------
 
-# 5. Proteomics core와 상의하기 💬 {#w9-s5}
+# 5. Proteomics 분석할 때 고려할 것 📋 {#w9-s5}
 
-직접 돌릴 일은 없음. 연구 성패를 가르는 질문 세 가지:
+**① Platform**: MS vs. affinity panel (🔗 [§4.3](#w9-s4-3))
 
-**① "제 질문엔 MS와 affinity panel 중 뭘 권하시나요? 이유는요?"**
+**② Batch design**: 한 batch에 sample 몇 개까지, how to randomize (🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3))
 
-좋은 core는 가진 장비가 아니라 내 검체 종류와 cohort 크기를 근거로 답함
-
-**② "한 batch에 sample 몇 개까지 돌리고, 제 sample은 어떻게 randomise하나요?"**
-
-⚠️ 뒷부분 답을 들어보면 confounding을 생각해봤는지 알 수 있음. 편의상 환자군과 대조군을 batch별로 나누려 한다면 → 지금 고치기 (🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3))
-
-**③ "검체량은 얼마나 필요하고, 분석 전 조건은요?"**
-
-::: {.callout-warning collapse="true"}
-## Pre-analytical variation이 어떤 분석 선택보다 더 많은 biomarker 연구를 무너뜨림
+**③ Input**: plasma vs. tissue, 필요한 검체량, 분석 전 조건 (보관 등)
 
 -   **Serum vs plasma?** Serum은 응고를 거침 → 혈소판 내용물이 방출돼 섞임
 -   **어떤 항응고제?** EDTA, citrate, heparin → 결과가 다름. Heparin은 일부 assay를 방해
 -   **처리까지 걸린 시간.** 불안정한 protein은 실온 몇 분도 영향
 -   **동결–해동 횟수.** 세고, 기록하기
--   **용혈.** 분홍빛 sample = 적혈구 내용물이 다른 모든 걸 압도하는 농도로 들어 있음
+-   **용혈.** 분홍빛 sample = 적혈구 내용물이 너무 많음..
 
-⚠️ 환자군은 외래, 대조군은 건강검진센터에서 채취 → 위 조건이 전부 체계적으로 다름. **실험복 입은 batch effect** = biomarker가 재현 안 되는 가장 흔한 이유
-:::
+⚠️ 환자군은 외래, 대조군은 건강검진센터에서 채취 → 위 조건이 전부 다름. **Batch effect** = biomarker가 재현 안 되는 가장 흔한 이유!!
 
 ------------------------------------------------------------------------
 
