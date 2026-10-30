@@ -35,7 +35,7 @@ knitr:
 
 ## 1) 만드는 방식, 그리고 거기서 생기는 편향 {#w12-s1-1}
 
-Protein–protein interaction network = **출판된 실험**의 누적. STRING, BioGRID, IntAct = 정리된 문헌 + 그 문헌으로 학습한 예측
+Protein–protein interaction network(PPI network) = **출판된 실험**의 누적. STRING, BioGRID, IntAct = 정리된 문헌 + 그 문헌으로 학습한 예측
 
 실험은 이미 많이 연구되는 gene에 몰림 → node degree = 사실상 **논문 수**를 따라감
 
@@ -112,7 +112,7 @@ TP53, EGFR, AKT1은 network 분석을 해본 거의 모든 질병에서 hub로 �
 
 -   ✅ **gnomAD** — LoF 보인자가 몇 명? 그 gene에 LoF가 유독 적나? (**LOEUF**가 0에 가까움 = LoF를 못 견딤 → 좋은 표적이 아닐 가능성 높음)
 -   ✅ 그 variant의 **PheWAS** — 그 밖에 뭐가 달라지나? 그게 예측 가능한 부작용
--   ✅ 동형접합 보인자가 있다면 → 임상시험 전 단계에서 얻을 수 있는 가장 강한 signal
+-   ✅ Human knockout(동형접합 보인자)이 있다면 → 임상시험 전 단계에서 얻을 수 있는 가장 강한 signal
 
 ⚠️ LoF를 아주 못 견디는 gene = 뭔가 말해주고 있는 것. 억제하면 질병 말고 다른 데도 영향이 갈 가능성 높음
 :::

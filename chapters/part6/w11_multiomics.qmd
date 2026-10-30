@@ -88,7 +88,7 @@ A ✕ in one column almost always means **"not measured in the right context"**,
 
 ## 1) What a factor is {#w11-s3-1}
 
-A latent axis along which samples vary, together with **loadings** saying which features in which layers drive it. The variance-explained plot says how much of each layer each factor accounts for.
+A latent axis along which samples vary, together with **loadings** saying which features in which layers drive it. The variance explained plot says how much of each layer each factor accounts for.
 
 ## 2) ⚠️ Annotate factors before interpreting them {#w11-s3-2}
 
@@ -322,7 +322,7 @@ cors.round(2)     # look here before you look at biology
 
 -   **Sequential** integration filters candidates layer by layer; **joint** integration models layers together
 -   ✅ Sequential keeps your full n, works across cohorts, and answers most clinical questions
--   ✅ Convergence across layers is strong because each layer's false positives are **independent**
+-   ✅ Convergent evidence across layers is strong because each layer's false positives are **independent**
 -   ⚠️ **An absent signal is a coverage gap, not a negative result** — and it biases prioritisation toward well-studied genes
 -   ⚠️ **Factor 1 is almost always technical.** Annotate against batch, RIN, age and sex *before* disease
 -   ⚠️ Joint models use complete cases — **your n is the intersection**, not the cohort

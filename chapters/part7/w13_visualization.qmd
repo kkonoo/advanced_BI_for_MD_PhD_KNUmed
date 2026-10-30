@@ -40,8 +40,8 @@ By the end of this chapter you should be able to:
 
 Before believing the heatmap, you need three things:
 
--   ① **How were those 50 genes chosen?** If they were selected *because* they differ between the groups, then blocks are guaranteed — the selection created the pattern. This is circularity, and it is extremely common
--   ② **Was it row-scaled?** Z-scoring by row forces every gene to span the full colour range, so noise looks structured
+-   ① **How were those 50 genes chosen?** If they were selected *because* they differ between the groups, then blocks are guaranteed — the selection created the pattern. This is circular selection, and it is extremely common
+-   ② **Was it row-scaled?** Row scaling forces every gene to span the full colour range, so noise looks structured
 -   ③ **What is the colour scale, and is it centred?** A diverging scale with an off-centre midpoint exaggerates one direction
 
 → ✅ The honest version: select genes on one split of the data, display them on the other. Or show an unselected set alongside.
@@ -49,7 +49,7 @@ Before believing the heatmap, you need three things:
 
 ## 1) The others, briefly {#w13-s1-1}
 
--   ⚠️ **Truncated axes.** For bars, always start at zero — a bar's length *is* the value. If zero is uninformative, use points or a dot plot instead
+-   ⚠️ **Truncated axis.** For bars, always start at zero — a bar's length *is* the value. If zero is uninformative, use points or a dot plot instead
 -   ⚠️ **Rainbow colour maps.** Not perceptually ordered, invent boundaries where data is smooth, and fail in greyscale and for colour-vision deficiency. ✅ Use a single-hue sequential ramp for magnitude, and a two-hue diverging ramp with a neutral midpoint for signed values
 -   ⚠️ **Bars that hide n.** With n ≤ 10, ✅ plot the individual points. A bar plus SEM at n = 3 implies a precision you do not have
 
@@ -75,7 +75,7 @@ Pick the chart from the **job**, not from habit.
 ## Three habits that fix most omics figures
 
 -   ✅ **Show the patients.** Points per patient, coloured by nothing else, is more convincing than any summary statistic
--   ✅ **Label directly.** Two to four series labelled on the plot beats a legend the reader has to look back and forth to
+-   ✅ **Direct labelling.** Two to four series labelled on the plot beats a legend the reader has to look back and forth to
 -   ✅ **Recede the furniture.** Grid lines and axes in light grey; the data is the only thing that should be dark
 :::
 

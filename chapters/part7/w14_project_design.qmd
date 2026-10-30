@@ -150,7 +150,7 @@ Decide now what result would make you stop.
 -   ③ **Sketch Figure 2** — the answer figure — on paper. What are the axes?
 -   ④ **What is your n**, and what is the unit of replication?
 -   ⑤ **Name one confounder** that could produce your expected result on its own
--   ⑥ **Heading 10** — what would make you stop?
+-   ⑥ **Heading 10 (stopping rule)** — what would make you stop?
 
 ::: {.callout-warning collapse="true"}
 ## The three failure modes you will hear most often today

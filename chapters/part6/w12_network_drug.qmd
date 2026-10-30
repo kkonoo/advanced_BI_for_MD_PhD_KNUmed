@@ -35,7 +35,7 @@ By the end of this chapter you should be able to:
 
 ## 1) The construction, and the bias it creates {#w12-s1-1}
 
-A protein–protein interaction network is an accumulation of **published experiments**. STRING, BioGRID and IntAct are curated literature, plus predictions trained on that literature.
+A protein–protein interaction network (PPI network) is an accumulation of **published experiments**. STRING, BioGRID and IntAct are curated literature, plus predictions trained on that literature.
 
 Experiments concentrate on genes people already study. So node degree tracks **publication count**.
 
@@ -97,7 +97,7 @@ Two complications:
 ## 3) Signature reversal and network proximity {#w12-s2-3}
 
 -   **Signature reversal** (CMap, LINCS) — find a drug whose expression signature is anti-correlated with the disease signature. ⚠️ Reference profiles come from cell lines at high doses. Useful for generating candidates; not evidence
--   **Network proximity** — is a drug's target close to the disease module? ⚠️ Inherits every bias in §1, so it needs a degree-matched null to mean anything
+-   **Network proximity** — is a drug's target close to the disease module? ⚠️ Inherits the study bias in §1, so it needs a degree-matched null to mean anything
 
 ------------------------------------------------------------------------
 
@@ -112,7 +112,7 @@ People carrying natural loss-of-function variants in your target are a preview o
 
 -   ✅ **gnomAD** — how many LoF carriers exist? Is the gene depleted of them (a **LOEUF** near 0 means intolerant, and probably a poor target)?
 -   ✅ **PheWAS** on the variant — what else changes? Those are your predictable side effects
--   ✅ Homozygotes, where they exist, are the strongest signal available short of a trial
+-   ✅ Human knockouts, where they exist, are the strongest signal available short of a trial
 
 ⚠️ A gene that is highly intolerant to loss of function is telling you something. Inhibiting it is likely to have consequences beyond the disease.
 :::
