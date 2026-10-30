@@ -114,6 +114,10 @@ DDA = 매 cycle마다 장비가 intensity 가장 높은 precursor를 고름. 뭐
     -   ⚠️ **Ratio compression** — 같이 분리된 다른 peptide가 모든 비율을 1 쪽으로 끌어당김 → fold change 과소추정 (MS3나 좁은 isolation window가 도움)
 -   ✅ TMT라면: **plex마다 군을 균형 있게 배치** + **모든 plex에 같은 pooled reference sample**을 넣어 plex끼리 연결
 
+💡 Label-free/TMT(sample을 따로 vs 묶어서)와 DDA/DIA(어떤 peptide를 깨뜨리나)는 다른 축. TMT는 보통 DDA로 돌림
+
+💡 Sample ≤ 16–18개 → TMT (한 plex에 다 들어감 = batch 사실상 x). 임상 cohort(수십–수백 명) → 보통 label-free DIA
+
 ------------------------------------------------------------------------
 
 # 3. 단백질 측정 by affinity 🧪 {#w9-s3}

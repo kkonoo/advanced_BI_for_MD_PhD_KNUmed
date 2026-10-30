@@ -114,6 +114,10 @@ In DDA the instrument selects the most intense precursors in each cycle. What is
     -   ⚠️ **Ratio compression** — co-isolated peptides pull every ratio towards 1 → fold changes are underestimated (MS3 or a narrower isolation window helps)
 -   ✅ For TMT: **balance groups within every plex**, and put the **same pooled reference sample in every plex** to bridge them
 
+💡 Label-free vs TMT (separate runs vs pooled) and DDA vs DIA (which peptides get fragmented) are different axes. TMT is usually run with DDA
+
+💡 ≤ 16–18 samples → TMT (one plex holds them all = effectively no batch). Clinical cohort (tens to hundreds) → usually label-free DIA
+
 ------------------------------------------------------------------------
 
 # 3. Measuring Protein by Affinity 🧪 {#w9-s3}
