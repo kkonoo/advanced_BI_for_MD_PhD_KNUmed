@@ -243,8 +243,8 @@ W7–W8의 spatial 논리를 RNA 대신 protein으로:
 
 # 📝 요약
 
--   ⚠️ mRNA vs protein 상관 ≈ **r = 0.4–0.6** — 그 차이 = RNA-seq이 못 보는 조절
--   Transcript와 protein의 불일치 = 오류가 아니라 **결과**
+-   ⚠️ mRNA vs protein 상관 ≈ **r = 0.4–0.6** — 그 차이 = RNA-seq로는 모르는 단백질 조절 등
+-   Transcript와 protein의 불일치 = 오류 아님
 -   MS = peptide 질량을 재고 protein을 추론. 식별은 database 의존, 정량은 대개 상대적
 -   ⚠️ **DDA는 intensity 가장 높은 precursor를 고름** → run마다 missing이 달라지고 군 간 차이처럼 보일 수 있음
 -   ✅ **임상 cohort의 기본값 = DIA** — 매번 같은 protein을 정량
@@ -252,9 +252,9 @@ W7–W8의 spatial 논리를 RNA 대신 protein으로:
 -   ⚠️ Plasma dynamic range \>10자릿수. Albumin이 질량의 절반, depletion은 붙어 있던 protein까지 제거
 -   ✅ Affinity panel(Olink, SomaScan) = depletion 없이 pg/mL까지. 대신 panel이 고정
 -   ⚠️ **Affinity assay는 결합을 잼.** Epitope를 바꾸는 variant → 가짜 *cis*-pQTL
--   Discovery = 후보. **Heavy 표준물질을 쓴 targeted MS** = 항체와 무관한 절대 수치 — 단, 새롭고 더 큰 cohort를 거친 뒤에
--   Multiplex 조직 영상(mIF, CODEX, IMC) = protein으로 하는 W7–W8: FFPE 가능, 그래도 항체, 그래도 segmentation
--   ⚠️ **Pre-analytical variation**(serum vs plasma, tube 종류, 원심분리까지 시간, 동결–해동, 용혈)이 어떤 통계 선택보다 더 많은 biomarker 연구를 무너뜨림
+-   Discovery = 후보. **Targeted MS** = 항체와 무관한 절대 수치
+-   Multiplex 조직 영상(mIF, CODEX, IMC) = spatial proteomics: FFPE 가능, 그래도 항체, 그래도 segmentation
+-   ⚠️ **Pre-analytical variation**(serum vs plasma, tube 종류, 원심분리까지 시간, 동결–해동, 용혈)이 통계 분석 아무리 잘 해도 이걸 못 하면 biomarker 연구는 망..
 
 ------------------------------------------------------------------------
 

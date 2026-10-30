@@ -243,8 +243,8 @@ We will use these in [W10](w10_clinical_proteomics.qmd).
 
 # 📝 Summary
 
--   ⚠️ mRNA and protein correlate at roughly **r = 0.4–0.6** — the gap is regulation RNA-seq cannot see
--   A discrepancy between transcript and protein is a **finding**, not an error
+-   ⚠️ mRNA and protein correlate at roughly **r = 0.4–0.6** — the gap = protein regulation (and more) that RNA-seq cannot tell you about
+-   A transcript–protein discrepancy is not an error
 -   MS weighs peptides and infers proteins; identification depends on a database, quantification is usually relative
 -   ⚠️ **DDA selects the most intense precursors**, so missingness varies run to run and can mimic a group difference
 -   ✅ **DIA is the default for clinical cohorts** — the same proteins are quantified every time
@@ -252,9 +252,9 @@ We will use these in [W10](w10_clinical_proteomics.qmd).
 -   ⚠️ Plasma spans \>10 orders of magnitude; albumin is half the mass, and depletion removes bound proteins too
 -   ✅ Affinity panels (Olink, SomaScan) reach pg/mL without depletion — at the cost of a fixed panel
 -   ⚠️ **Affinity assays measure binding.** An epitope-altering variant produces a false *cis*-pQTL
--   Discovery gives candidates; **targeted MS with heavy standards** gives an absolute, antibody-independent number — after new, larger cohorts
--   Multiplexed tissue imaging (mIF, CODEX, IMC) = W7–W8 with proteins: FFPE-friendly, still antibodies, still segmentation
--   ⚠️ **Pre-analytical variation** — serum vs plasma, tube type, time to spin, freeze–thaw, haemolysis — sinks more biomarker studies than any statistical choice
+-   Discovery = candidates. **Targeted MS** = an absolute, antibody-independent number
+-   Multiplexed tissue imaging (mIF, CODEX, IMC) = spatial proteomics: FFPE-friendly, still antibodies, still segmentation
+-   ⚠️ **Pre-analytical variation** — serum vs plasma, tube type, time to spin, freeze–thaw, haemolysis — get this wrong and no amount of good statistics saves a biomarker study
 
 ------------------------------------------------------------------------
 
