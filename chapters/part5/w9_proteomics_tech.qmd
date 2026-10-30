@@ -131,19 +131,19 @@ An antibody or aptamer reports **how much reagent bound**. Usually that tracks p
 
 A coding variant that alters the binding epitope reduces the signal without changing the amount of protein present. In a genetic analysis this appears as a variant that "lowers protein levels" — a **false pQTL**, and one that is strongly enriched for *cis* variants because those are the ones inside the gene.
 
-✅ The check: for any *cis*-pQTL, ask whether the lead variant is a protein-altering variant in that same gene. If it is, the finding needs orthogonal confirmation — ideally by MS, which measures peptides directly.
+✅ The check: for any *cis*-pQTL, ask whether the lead variant is a protein-altering variant in that same gene. If it is, the finding needs orthogonal evidence — ideally MS, which measures peptides directly.
 
-⚠️ This matters because pQTLs are increasingly used for drug-target Mendelian randomization (🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). An epitope artifact here propagates into a target nomination.
+⚠️ This matters because pQTLs are increasingly used for drug-target Mendelian randomization (🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). An epitope artifact here carries through to target screening.
 :::
 
 ## 2) Platform consistency {#w9-s3-2}
 
-![They are not two brands of the same assay.](/assets/img/w9/ms_vs_affinity.svg){fig-align="center"}
+![](/assets/img/w9/ms_vs_affinity.svg){fig-align="center"}
 
 Studies comparing affinity platforms with each other, and with MS, routinely find that a substantial fraction of targets correlate poorly.
 
 -   ⚠️ Two papers reporting different results for the same protein may both be right about what they measured
--   ✅ When it matters, confirm on a second platform. That is a reviewer-proof sentence in a methods section
+-   ✅ For an important result, validate on two platforms
 
 ------------------------------------------------------------------------
 
@@ -151,20 +151,20 @@ Studies comparing affinity platforms with each other, and with MS, routinely fin
 
 ## 1) In situ protein: spatial proteomics {#w9-s4-1}
 
-![The same antibodies on a slide — with the segmentation and epitope caveats attached.](/assets/img/w9/tissue_protein.svg){fig-align="center"}
+![](/assets/img/w9/tissue_protein.svg){fig-align="center"}
 
 The spatial logic of W7–W8, with proteins instead of RNA:
 
 -   **Multiplex IF** (4–8 markers) → **cyclic IF / CODEX (PhenoCycler)** (40–100 markers; stain, image, strip, repeat) → **IMC / MIBI** (metal-tagged antibodies read by mass, ~40 markers)
 -   ✅ Works on **FFPE** (🔗 [W7 §2.2](../part4/w7_spatial_basics.qmd#w7-s2-2)), measures the effector molecule itself, and pathologists already read IHC
--   Analysis = W7–W8 again: **segment → phenotype cells by marker intensity → neighbourhoods** (🔗 [W8 §2](../part4/w8_spatial_integration.qmd#w8-s2)). The colorectal-cancer CODEX study that made "neighbourhood" a unit of analysis (Schürch 2020) is exactly this
+-   Analysis = W7–W8 again: **segment → phenotype cells by marker intensity → neighbourhoods** (🔗 [W8 §2](../part4/w8_spatial_integration.qmd#w8-s2)). E.g. the colorectal-cancer CODEX study (Schürch 2020)
 -   ⚠️ **Still affinity** — every marker is an antibody: validate each one in your tissue and fixation (the §3.1 problem on a slide)
--   ⚠️ **Still segmentation** — membrane markers spill into neighbouring cells just like transcripts (🔗 [W7 §3.2](../part4/w7_spatial_basics.qmd#w7-s3-2))
+-   ⚠️ **Still segmentation** — if a cell boundary is off, membrane-marker signal is counted in the neighbouring cell = spillover. Same problem as with transcripts (🔗 [W7 §3.2](../part4/w7_spatial_basics.qmd#w7-s3-2))
 -   **In suspension:** CITE-seq reads antibody–oligo tags with the same cell barcode as the RNA (🔗 [W5 §3.2](../part3/w5_scrna_qc.qmd#w5-s3-2)) → protein and RNA from one cell
 
 ## 2) Targeted MS: from discovery to a clinical assay {#w9-s4-2}
 
-![Each stage trades breadth for precision and sample number.](/assets/img/w9/discovery_to_assay.svg){fig-align="center"}
+![](/assets/img/w9/discovery_to_assay.svg){fig-align="center"}
 
 Discovery proteomics (DIA, TMT) measures thousands of proteins in tens of samples — and its output is a **candidate list**, not a test.
 
@@ -177,7 +177,7 @@ Discovery proteomics (DIA, TMT) measures thousands of proteins in tens of sample
 
 # 5. Plasma 🩸: Clinically the Best, but Hard {#w9-s5}
 
-![The clinical sample everyone wants is the one the technology handles worst.](/assets/img/w9/dynamic_range.svg){fig-align="center"}
+![](/assets/img/w9/dynamic_range.svg){fig-align="center"}
 
 Plasma spans **more than ten orders of magnitude** in protein concentration. Albumin alone is roughly half the total protein mass; the top ~22 proteins are about 99% of it. The molecules you care about — cytokines, tumour-derived proteins — are present in tiny amounts.
 

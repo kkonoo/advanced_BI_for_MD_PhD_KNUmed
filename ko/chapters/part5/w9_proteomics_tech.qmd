@@ -131,19 +131,19 @@ DDA = 매 cycle마다 장비가 intensity 가장 높은 precursor를 고름. 뭐
 
 결합 epitope를 바꾸는 coding variant → protein 양은 그대로인데 signal ↓. 유전 분석에선 protein 수치를 "낮추는" variant로 보임 = **가짜 pQTL**. 그리고 *cis* variant에 특히 몰림 (gene 안에 있는 variant라서)
 
-✅ 확인법: *cis*-pQTL마다 lead variant가 같은 gene의 protein-altering variant인지 보기. 그렇다면 → 직교 검증 필요. Peptide를 직접 재는 MS가 가장 좋음
+✅ 확인법: *cis*-pQTL마다 lead variant가 같은 gene의 protein-altering variant인지 보기. 그렇다면 → orthogonal evidence 필요. Peptide를 직접 재는 MS가 가장 좋음
 
-⚠️ pQTL이 drug-target Mendelian randomization에 점점 많이 쓰여서 중요(🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). 여기서 생긴 epitope artifact → target 선정까지 그대로 전파
+⚠️ pQTL이 drug-target Mendelian randomization에 점점 많이 쓰여서 중요(🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). 여기서 생긴 epitope artifact → target screening까지 영향
 :::
 
 ## 2) Platform 간 consistency {#w9-s3-2}
 
-![같은 assay의 두 브랜드가 아님](../../../assets/img/w9/ms_vs_affinity.svg){fig-align="center"}
+![](../../../assets/img/w9/ms_vs_affinity.svg){fig-align="center"}
 
 Affinity platform끼리, 또는 affinity vs MS를 비교한 연구 → 상당수 target에서 상관이 낮게 나오는 게 보통
 
 -   ⚠️ 같은 protein에 다른 결과를 낸 두 논문이, 각자 잰 것에 대해선 둘 다 맞을 수 있음
--   ✅ 중요한 결과면 두 번째 platform으로 확인. Methods에 넣으면 reviewer를 막아주는 문장
+-   ✅ 중요한 결과면 두 가지 platform으로 validation
 
 ------------------------------------------------------------------------
 
@@ -151,20 +151,20 @@ Affinity platform끼리, 또는 affinity vs MS를 비교한 연구 → 상당수
 
 ## 1) In situ protein 측정: spatial proteomics {#w9-s4-1}
 
-![같은 항체를 이번엔 slide 위에서. Segmentation과 epitope 주의점도 그대로 따라옴](../../../assets/img/w9/tissue_protein.svg){fig-align="center"}
+![](../../../assets/img/w9/tissue_protein.svg){fig-align="center"}
 
 W7–W8의 spatial 논리를 RNA 대신 protein으로:
 
 -   **Multiplex IF**(marker 4–8개) → **cyclic IF / CODEX(PhenoCycler)**(40–100개, 염색–촬영–제거를 반복) → **IMC / MIBI**(금속 표지 항체를 질량으로 읽음, ~40개)
 -   ✅ **FFPE**에서 됨(🔗 [W7 §2.2](../part4/w7_spatial_basics.qmd#w7-s2-2)), 실제로 일하는 분자 자체를 잼, 병리의사는 이미 IHC를 읽음
--   분석 = W7–W8 그대로: **segmentation → marker intensity로 cell phenotyping → neighbourhood** (🔗 [W8 §2](../part4/w8_spatial_integration.qmd#w8-s2)). "Neighbourhood"를 분석 단위로 만든 대장암 CODEX 연구(Schürch 2020)가 정확히 이것
+-   분석 = W7–W8 그대로: **segmentation → marker intensity로 cell phenotyping → neighbourhood** (🔗 [W8 §2](../part4/w8_spatial_integration.qmd#w8-s2)). 예) 대장암 CODEX 연구(Schürch 2020)
 -   ⚠️ **여전히 affinity** — marker 하나하나가 항체: 내 조직, 내 고정 조건에서 항체마다 검증 (§3.1 문제의 slide 버전)
--   ⚠️ **여전히 segmentation** — membrane marker도 transcript처럼 이웃 cell로 번짐 (🔗 [W7 §3.2](../part4/w7_spatial_basics.qmd#w7-s3-2))
+-   ⚠️ **여전히 segmentation** — cell 경계가 어긋나면 membrane marker signal이 이웃 cell 값으로 들어감 = spillover. Transcript와 같은 문제 (🔗 [W7 §3.2](../part4/w7_spatial_basics.qmd#w7-s3-2))
 -   **Suspension에선:** CITE-seq = 항체–oligo tag를 RNA와 같은 cell barcode로 읽음 (🔗 [W5 §3.2](../part3/w5_scrna_qc.qmd#w5-s3-2)) → 한 cell에서 protein + RNA
 
 ## 2) Targeted MS: Discovery에서 임상 assay까지 {#w9-s4-2}
 
-![단계마다 범위를 내주고 정밀도와 sample 수를 얻음](../../../assets/img/w9/discovery_to_assay.svg){fig-align="center"}
+![](../../../assets/img/w9/discovery_to_assay.svg){fig-align="center"}
 
 Discovery proteomics(DIA, TMT) = sample 수십 개에서 protein 수천 개 → 결과물 = **후보 목록**이지 검사가 아님
 
@@ -177,7 +177,7 @@ Discovery proteomics(DIA, TMT) = sample 수십 개에서 protein 수천 개 → 
 
 # 5. Plasma 🩸: 임상적으로 가장 좋지만 어려움 {#w9-s5}
 
-![모두가 원하는 임상 검체 = 기술이 가장 못 다루는 검체](../../../assets/img/w9/dynamic_range.svg){fig-align="center"}
+![](../../../assets/img/w9/dynamic_range.svg){fig-align="center"}
 
 Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 protein 질량의 약 절반, 상위 ~22개 protein이 약 99%. 정작 관심 있는 것(cytokine, 종양 유래 protein)은 아주 조금 들어있음
 
