@@ -61,7 +61,7 @@ Everything through W6 was done on cells in suspension. The protocol's first step
 ![Resolution and breadth are bought with the same budget.](/assets/img/w7/platform_tradeoff.svg){fig-align="center"}
 
 -   **Sequencing-based** (Visium, Visium HD, GeoMx, Slide-seq) — capture transcripts on a grid or in chosen regions. ✅ Whole transcriptome. ⚠️ Each capture area may contain several cells
--   **Imaging-based** (Xenium, MERFISH, CosMx) — image individual molecules in place. ✅ Single-cell, sometimes subcellular. ⚠️ A targeted panel of a few hundred to a few thousand genes, chosen in advance
+-   **Imaging-based ST** (Xenium, MERFISH, CosMx) — image individual molecules in place. ✅ Single-cell, sometimes subcellular. ⚠️ A targeted panel of a few hundred to a few thousand genes, chosen in advance
 
 ## 2) ⚠️ FFPE is the fact that matters most to you {#w7-s2-2}
 
@@ -114,7 +114,7 @@ A standard Visium spot is 55 µm across and typically contains **1–10 cells**,
 
 ![Imaging platforms measure molecules. The cell is drawn in afterwards.](/assets/img/w7/segmentation.svg){fig-align="center"}
 
-Xenium, CosMx, MERFISH — and Visium HD — do not measure cells either. They measure **molecules at coordinates** (or 2 µm bins). A cell exists only after **segmentation** assigns each molecule to an outline.
+Xenium, CosMx, MERFISH — and Visium HD — do not measure cells either. They measure **molecules at coordinates** (or 2 µm bins). A cell exists only after **cell segmentation** assigns each molecule to an outline.
 
 -   **Nucleus only** (DAPI) — clean, but drops the cytoplasm → low counts
 -   **Nucleus + fixed expansion** — the common default. Recovers counts, but in dense tissue the outline runs into the neighbour and **takes its transcripts**
@@ -124,7 +124,7 @@ Xenium, CosMx, MERFISH — and Visium HD — do not measure cells either. They m
 ::: {.callout-warning collapse="true"}
 ## Two claims a segmented cell does not support on its own
 
--   ❌ **"Macrophages in the tumour nest express epithelial genes"** — the classic spillover artefact. A thin cell squeezed between tumour cells picks up their transcripts: a doublet (🔗 [W5 §3.3](../part3/w5_scrna_qc.qmd#w5-s3-3)) in a new costume
+-   ❌ **"Macrophages in the tumour nest express epithelial genes"** — the classic transcript spillover artefact. A thin cell squeezed between tumour cells picks up their transcripts: a doublet (🔗 [W5 §3.3](../part3/w5_scrna_qc.qmd#w5-s3-3)) in a new costume
 -   ❌ **"These two cell types touch, so they are signalling"** — contact is exactly where outlines are most wrong, so a ligand–receptor pair can be created by the segmentation itself
 
 → ✅ Before trusting cell-level results: how often does a marker that should be exclusive (e.g. `PTPRC` vs `EPCAM`) show up in the wrong cell type, and is it worse at cell–cell contacts? Then look at the outlines on the image — the same rule as the H&E in 🔗 [§5](#w7-s5).
@@ -170,7 +170,7 @@ Any test that treats 4,000 spots as 4,000 independent observations will produce 
 
 ![A spot's neighbours are a second measurement of the same tissue.](/assets/img/w7/spatial_domains.svg){fig-align="center"}
 
-The autocorrelation that inflates p-values in §4.3 is, for clustering, **signal**: neighbouring spots measure the same tissue again.
+The spatial autocorrelation that inflates p-values in §4.3 is, for clustering, **signal**: neighbouring spots measure the same tissue again.
 
 **① Spatially aware domains** — a spot's label depends on its own expression **and** its neighbours'
 

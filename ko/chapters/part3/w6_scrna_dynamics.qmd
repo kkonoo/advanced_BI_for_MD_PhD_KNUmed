@@ -93,9 +93,9 @@ Biology는 동적인데 single-cell experiment는 snapshot. 진행 중인 proces
 ::: {.callout-warning collapse="true"}
 ## 분명히 짚고 갈 세 가지 주의점
 
--   ⚠️ **Trajectory algorithm은 어떤 dataset에서든 trajectory를 반환함** — underlying process가 없는 데이터도 포함. "Trajectory 없음"이라는 출력은 없음!
+-   ⚠️ **Trajectory inference algorithm은 어떤 dataset에서든 trajectory를 반환함** — underlying process가 없는 데이터도 포함. "Trajectory 없음"이라는 출력은 없음!
 -   ⚠️ **Pseudotime ≠ 시간.** Rate도 duration도 측정 x. Pseudotime상 멀리 떨어진 두 cell이 실제로는 몇 분 차이일 수도, 몇 달 차이일 수도 — 순서가 거꾸로일 수도
--   ⚠️ **Root는 내가 고르는 것.** Root를 뒤집으면 biology도 같이 뒤집힘. 결과처럼 보이지만 사실 prior knowledge가 끼어든 것
+-   ⚠️ **Root cell은 내가 고르는 것.** Root를 뒤집으면 biology도 같이 뒤집힘. 결과처럼 보이지만 사실 prior knowledge가 끼어든 것
 
 ✅ Sanity check: cell label을 섞거나 homogeneous population에 algorithm을 돌려서 뭐가 나오는지 보기
 :::

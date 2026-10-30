@@ -93,9 +93,9 @@ Tools: **Monocle3**, **Slingshot**, **PAGA**.
 ::: {.callout-warning collapse="true"}
 ## Three caveats worth stating plainly
 
--   ⚠️ **A trajectory algorithm returns a trajectory for any dataset**, including one with no underlying process. There is no "no trajectory found" output
+-   ⚠️ **A trajectory inference algorithm returns a trajectory for any dataset**, including one with no underlying process. There is no "no trajectory found" output
 -   ⚠️ **Pseudotime is not time.** It measures neither rate nor duration. Two cells far apart in pseudotime may be minutes or months apart in reality — or the ordering may be reversed
--   ⚠️ **The root has to be chosen by you.** Reverse the root and the biology reverses with it. That choice is prior knowledge entering as if it were a result
+-   ⚠️ **The root cell has to be chosen by you.** Reverse the root and the biology reverses with it. That choice is prior knowledge entering as if it were a result
 
 → ✅ Sanity check: shuffle your cell labels, or run the algorithm on a homogeneous population, and see what comes back. It is a sobering five minutes.
 :::

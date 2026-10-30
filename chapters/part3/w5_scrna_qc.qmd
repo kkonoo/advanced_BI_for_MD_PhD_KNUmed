@@ -181,7 +181,7 @@ Zero count means:
 
 ✅ **EmptyDrops** (Cell Ranger ≥ 3 uses a version of it) asks a better question: not "is the total high?" but "is this barcode's **profile** different from the ambient profile?" A small cell with a distinct profile is kept even though its total is low.
 
-💡 Cell Ranger writes two matrices: `filtered_feature_bc_matrix` (called cells) and `raw_feature_bc_matrix` (every barcode). **Keep the raw one** — ambient-RNA correction needs the empty droplets.
+💡 Cell Ranger writes two matrices: `filtered_feature_bc_matrix` (called cells) and `raw_feature_bc_matrix` (every barcode). **Keep the raw one** — ambient RNA correction needs the empty droplets.
 
 ### ③ removal of ambient RNA
 
@@ -731,11 +731,11 @@ pb.shape   # (cell type, donor) pseudo-samples × genes
 
 Often the interesting result is not that a cell type changed its expression, but that **there is more or less of it**.
 
-⚠️ Proportions are **compositional** — one cell type expands and every other proportion falls by arithmetic alone, with no biology behind it (multivariate).
+⚠️ Proportions are **compositional data** — one cell type expands and every other proportion falls by arithmetic alone, with no biology behind it (multivariate).
 
 -   ✅ Methods that handle this: `scCODA`, `miloR`, `propeller`, Dirichlet-multinomial models
 -   ❌ A χ² test on cell counts is **not valid**
--   ⚠️ And before believing any abundance result, return to §2.3: is this composition, or is this dissociation?
+-   ⚠️ And before believing any differential abundance result, return to §2.3: is this composition, or is this dissociation?
 
 ------------------------------------------------------------------------
 
@@ -911,7 +911,7 @@ install.packages(c("harmony", "CellChat"))
 -   ⚠️ **Fresh or frozen is decided at collection** and fixes scRNA-seq vs snRNA-seq permanently
 -   ⚠️ **Dissociation induces stress genes and destroys cells selectively.** *FOS*/*JUN* clusters are usually artifacts; depletion claims need scrutiny
 -   UMIs count molecules, not reads. The matrix is \>90% zeros and a single zero means little
--   Cell calling and ambient-RNA removal need the **raw** matrix, empty droplets included — keep it
+-   Cell calling and ambient RNA removal need the **raw** matrix, empty droplets included — keep it
 -   ⚠️ Doublet detection runs **per sample**; homotypic doublets are invisible to every expression-based method
 -   ⚠️ **Every QC threshold deletes a real population** — mito 5% removes cardiomyocytes, min.features 500 removes platelets
 -   The kNN graph in PC space drives both clustering and UMAP. Leiden vs Louvain matters far less than resolution

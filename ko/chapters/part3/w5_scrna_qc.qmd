@@ -679,7 +679,7 @@ pb.shape   # (cell type, donor) pseudo-samples × genes
 
 흥미로운 결과 = cell type의 expression 변화가 아니라 **양의 증가 또는 감소**
 
-⚠️ Proportion = **compositional**. Cell type 하나가 늘면 생물학적 변화가 없어도 단순한 산술 때문에 나머지 모든 proportion이 줄어듦 (서로 연결되어있음 = multivariate)
+⚠️ Proportion = **compositional data**. Cell type 하나가 늘면 생물학적 변화가 없어도 단순한 산술 때문에 나머지 모든 proportion이 줄어듦 (서로 연결되어있음 = multivariate)
 
 -   ✅ 이를 다루는 방법: `scCODA`, `miloR`, `propeller`, Dirichlet-multinomial model
 -   ❌ Cell count에 대한 χ² test (please never...)
