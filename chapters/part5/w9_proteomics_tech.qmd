@@ -168,9 +168,10 @@ The spatial logic of W7–W8, with proteins instead of RNA:
 
 Discovery proteomics (DIA, TMT) measures thousands of proteins in tens of samples — and its output is a **candidate list**, not a test.
 
--   **Targeted MS** (PRM = parallel reaction monitoring, MRM = multiple reaction monitoring) — the instrument watches only chosen peptides → better precision and more samples per day, for fewer proteins
+-   **Targeted MS** (PRM = parallel reaction monitoring, MRM = multiple reaction monitoring) — measures only pre-chosen peptides → precision ↑, samples ↑, proteins ↓
 -   **Heavy-isotope standards** — spike in a known amount of the same peptide made with heavy isotopes. Light / heavy ratio × spiked amount = **absolute concentration**
--   ✅ The protein is read as a digested peptide by mass → interfering autoantibodies are digested too, and an epitope change cannot hide it (the §3.1 problem). Your hospital lab already does this: thyroglobulin by LC-MS/MS when anti-Tg autoantibodies make the immunoassay unreliable
+-   ✅ Weighs peptides instead of relying on an antibody → no trouble from an antibody binding the wrong thing or failing to bind (the §3.1 epitope problem included)
+    -   E.g. thyroglobulin (Tg) in thyroid-cancer follow-up. If the patient has anti-Tg autoantibodies, the immunoassay reads lower than the true value → hospital labs measure it by LC-MS/MS instead (trypsin cuts up the autoantibodies too, so they cannot interfere)
 -   ⚠️ Each stage needs a **new, larger, independent cohort**. Most discovery candidates never reach the last one (🔗 [W10 §3](w10_clinical_proteomics.qmd#w10-s3))
 
 ------------------------------------------------------------------------

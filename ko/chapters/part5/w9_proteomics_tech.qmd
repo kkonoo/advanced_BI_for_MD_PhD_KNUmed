@@ -168,9 +168,10 @@ W7–W8의 spatial 논리를 RNA 대신 protein으로:
 
 Discovery proteomics(DIA, TMT) = sample 수십 개에서 protein 수천 개 → 결과물 = **후보 목록**이지 검사가 아님
 
--   **Targeted MS** (PRM = parallel reaction monitoring, MRM = multiple reaction monitoring) — 장비가 미리 고른 peptide만 지켜봄 → 정밀도 ↑, 하루에 도는 sample 수 ↑, 대신 protein 수 ↓
+-   **Targeted MS** (PRM = parallel reaction monitoring, MRM = multiple reaction monitoring) — 미리 정한 peptide만 측정 → 정밀도 ↑, sample 수 ↑, 대신 protein 수 ↓
 -   **Heavy-isotope standard** — 같은 peptide를 무거운 동위원소로 만들어 정해진 양을 spike-in. Light / heavy 비율 × 넣은 양 = **절대 농도**
--   ✅ Protein을 분해된 peptide의 질량으로 읽음 → 방해하던 자가항체도 같이 분해되고, epitope가 바뀌어도 숨지 못함 (§3.1 문제). 병원 검사실이 이미 하는 방법: anti-Tg 자가항체 때문에 면역측정을 믿기 어려울 때 thyroglobulin을 LC-MS/MS로
+-   ✅ 항체 대신 peptide 질량으로 잼 → 항체가 잘못 붙거나 못 붙는 문제가 없음 (§3.1 epitope 문제 포함)
+    -   예) 갑상선암 추적 검사의 thyroglobulin(Tg). 환자에게 anti-Tg 자가항체가 있으면 면역측정(immunoassay) 수치가 실제보다 낮게 나옴 → 병원 검사실은 LC-MS/MS로 측정 (trypsin이 자가항체까지 다 잘라버려서 방해 x)
 -   ⚠️ 단계마다 **새롭고, 더 크고, 독립적인 cohort**가 필요. Discovery 후보 대부분은 마지막 단계까지 못 감 (🔗 [W10 §3](w10_clinical_proteomics.qmd#w10-s3))
 
 ------------------------------------------------------------------------
