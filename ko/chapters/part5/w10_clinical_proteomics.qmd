@@ -353,7 +353,7 @@ W14에 가져오기 — 충분히 말이 되는 capstone project
 | MNAR / MCAR | 무작위가 아닌 결측 / 완전 무작위 결측 |
 | Left-censoring | 검출한계보다 낮은 값을 결측으로 기록하는 것 |
 | Imputation | 결측값을 채우는 과정으로, 선택한 방법마다 가정이 따름 |
-| MSstats | 결측과 연구 설계를 함께 모형화하는 단백체학 패키지 |
+| `MSstats` | 결측과 연구 설계를 함께 모형화하는 단백체학 패키지 |
 | Empirical Bayes | 단백질별 분산을 전체 분산 추세 쪽으로 축소하는 방법(`limma`) |
 | Discovery / verification / validation | 바이오마커가 임상에 도달하기 전에 거치는 발견·확인·검증의 세 단계 |
 | Diagnostic biomarker | 환자가 현재 질병을 가지고 있는지 판별하는 지표 |

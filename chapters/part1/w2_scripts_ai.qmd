@@ -202,14 +202,14 @@ quarto render report.qmd --to html
 quarto render report.qmd --to docx     # for the co-author who wants Word
 ```
 
-✅ The inline `r knitr::inline_expr("nrow(sig)")` is the whole idea: **the number in the sentence is computed, not typed.** Change the data, re-render, and the sentence is still true.
+✅ The inline code `r knitr::inline_expr("nrow(sig)")` is the whole idea: **the number in the sentence is computed, not typed.** Change the data, re-render, and the sentence is still true.
 
 ::: {.callout-note collapse="true"}
 ## Useful chunk options
 
 Written as a comment at the top of a chunk, prefixed with a hash and a pipe:
 
-| Option | Effect |
+| Chunk option | Effect |
 |------------------------|------------------------------------------------|
 | `echo: false` | run the code, hide it — for a clinical audience |
 | `eval: false` | show the code, don't run it — for teaching |
@@ -305,7 +305,7 @@ cat("rows after join :", nrow(merged), "\n")
 cat("unmatched       :", sum(is.na(merged$gene_1)), "\n")
 ```
 
-💡 Time yourself. Most people find it in under five minutes **with** the checks, and not at all without them.
+💡 Time yourself. Most people find it in under five minutes **with** the shape checks, and not at all without them.
 
 ## 3) One Quarto report {#w2-s5-3}
 

@@ -75,7 +75,7 @@ make sure these when you read PRS papers...
 
 If any of the **target** individuals also contributed to the **base** GWAS, the score has partly memorised their disease status. Performance is inflated, sometimes dramatically.
 
-✅ A trustworthy paper states base and target explicitly, [confirms independence]{.underline}, and evaluates in a **held-out** cohort.
+✅ A trustworthy paper states base GWAS and target cohort explicitly, [confirms independence]{.underline}, and evaluates in a **held-out** cohort.
 :::
 
 ## 2) common ways to estimate PRS {#w4-s2-2}

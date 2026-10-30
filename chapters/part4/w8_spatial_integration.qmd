@@ -78,7 +78,7 @@ Deconvolution returns proportions that **sum to one over the cell types you supp
 
 ![](/assets/img/w8/cell_annotation.svg){fig-align="center"}
 
-On Xenium, CosMx or Visium HD the unit is a segmented cell (🔗 [W7 §3.2](w7_spatial_basics.qmd#w7-s3-2)), not a mixture. The task becomes **annotation**: one label per cell, from the same single-cell reference.
+On Xenium, CosMx or Visium HD the unit is a segmented cell (🔗 [W7 §3.2](w7_spatial_basics.qmd#w7-s3-2)), not a mixture. The task becomes **cell-level annotation**: one label per cell, from the same single-cell reference.
 
 -   **Label transfer** (Seurat anchors, as in §2.3) or **RCTD in `doublet` mode** (each cell or 8 µm bin = one or two types)
 -   ⚠️ **Only the panel's genes are used.** The reference has ~20,000 genes, the panel a few hundred to 5,000. A cell type with no marker on the panel cannot be called — it is forced into its nearest neighbour
@@ -107,7 +107,7 @@ A per-spot cell-type map is useful, and it is still one location at a time. The 
 ::: {.callout-warning collapse="true"}
 ## Against which null?
 
-"Cell type A and cell type B co-occur more than expected" requires a definition of *expected*.
+Co-localisation ("cell type A and cell type B co-occur more than expected") requires a definition of *expected*.
 
 -   ❌ **Complete spatial randomness** is the wrong null. Tissue is not random — it has layers, vessels, capsules, glands. Almost any two cell types will beat this null
 -   ✅ **Permute labels within the tissue**, preserving the overall architecture and each cell type's total abundance
@@ -357,7 +357,7 @@ Nothing to install; W9 is conceptual.
 -   ⚠️ Complete spatial randomness is the wrong null. Permute within tissue structure, or compare to matched control tissue
 -   ⚠️ Thousands of spots inflate p-values. **Effect size, replicated across patients**, is the claim
 -   ✅ Compare niches with **one number per patient** (niche fraction) and a compositional test. Pooled spots = W5's per-cell test again
--   ⚠️ Spatial ligand–receptor: a distance limit removes pairs that never met, and a structure-preserving null tests the rest. Still mRNA, still rung ③
+-   ⚠️ Spatially constrained CCC: a distance limit removes pairs that never met, and a structure-preserving null tests the rest. Still mRNA, still rung ③
 -   Spatial validation promotes a claim from *hypothesis* to *consistent with* — not to *demonstrated*
 -   ✅ Design from a hypothesis, count patients not sections, select by outcome, and book the pathologist first
 

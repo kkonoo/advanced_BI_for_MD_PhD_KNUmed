@@ -319,7 +319,7 @@ BiocManager::install(c("DESeq2", "SingleR", "celldex"))
 -   The semester is one clinical question pursued through eight layers until it becomes testable
 -   ⚠️ Almost every irreversible decision — n, sample type, batching — happens **before anyone opens R**
 -   Your unit of replication is usually the **patient**. 30,000 cells from 3 people is n = 3
--   ⚠️ **Group perfectly confounded with batch cannot be corrected.** Not by ComBat, not by Harmony, not by anything
+-   ⚠️ **Perfect confounding of group with batch cannot be corrected.** Not by ComBat, not by Harmony, not by anything
 -   Fresh vs frozen vs FFPE decides which assays remain possible, permanently
 -   💡 The FFPE archive your department already owns may beat the cohort you were going to fund
 -   Use an `.Rproj` and a consistent folder structure to organize your analysis

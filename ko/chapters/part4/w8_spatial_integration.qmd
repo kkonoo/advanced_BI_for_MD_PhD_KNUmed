@@ -108,7 +108,7 @@ Spot별 cell type 지도도 유용하지만 여전히 한 번에 한 위치만 �
 ::: {.callout-warning collapse="true"}
 ## 어떤 null과 비교하나?
 
-"Cell type A와 B가 기대보다 자주 같이 나온다" → *기대*의 정의가 필요
+Co-localisation("Cell type A와 B가 기대보다 자주 같이 나온다") → *기대*의 정의가 필요
 
 - ❌ **Complete spatial randomness** = 잘못된 null. 조직은 무작위가 아님 — 층, 혈관, 피막, 샘. 거의 아무 두 cell type이나 이 null은 이김 (거의 무조건 유의하게 나옴)
 - ✅ 전체 architecture와 cell type별 총 abundance는 유지한 채 **조직 안에서 label permutation**
@@ -350,7 +350,7 @@ print("observed:", round(observed, 3), " null 95%:", np.round(np.quantile(null, 
 - ⚠️ Complete spatial randomness = 잘못된 null. 조직 구조 안에서 permutation하거나 matched control 조직과 비교
 - ⚠️ Spot 수천 개 → p-value 부풀려짐. 주장 = **환자 간 재현된 effect size**
 - ✅ Niche 비교 = **환자당 숫자 하나**(niche fraction) + compositional test. Spot을 합친 검정 = W5의 per-cell test 재탕
-- ⚠️ Spatial ligand–receptor: 거리 제한으로 만난 적 없는 짝을 지우고, structure-preserving null로 나머지를 검정. 그래도 mRNA, 그래도 ③단계
+- ⚠️ Spatially constrained CCC: 거리 제한으로 만난 적 없는 짝을 지우고, structure-preserving null로 나머지를 검정. 그래도 mRNA, 그래도 ③단계
 - Spatial 검증 = 주장을 *가설* → *일치*로 올림. *입증*까지는 아님
 - ✅ 가설에서 설계 시작, 절편 말고 환자 세기, outcome 기준 선택, 병리의사부터 섭외
 

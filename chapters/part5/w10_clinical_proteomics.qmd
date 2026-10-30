@@ -140,9 +140,9 @@ A significant difference between groups is the beginning of a very long process 
 
 | Type | Asks | Requires |
 |--------------------|--------------------------|--------------------------|
-| **Diagnostic** | Does this patient have the disease *now*? | Cases and the right differential diagnosis, at presentation |
-| **Prognostic** | What will happen to this patient? | Follow-up, outcomes, and a survival model |
-| **Predictive** | Will this patient respond to *this* drug? | ⚠️ A treated and an untreated arm — otherwise you cannot separate prediction from prognosis |
+| **Diagnostic biomarker** | Does this patient have the disease *now*? | Cases and the right differential diagnosis, at presentation |
+| **Prognostic biomarker** | What will happen to this patient? | Follow-up, outcomes, and a survival model |
+| **Predictive biomarker** | Will this patient respond to *this* drug? | ⚠️ A treated and an untreated arm — otherwise you cannot separate prediction from prognosis |
 
 ⚠️ **Predictive is the hardest and the most often claimed.** "Responders had higher levels than non-responders" is compatible with the marker simply indicating better-prognosis disease, regardless of treatment.
 
@@ -353,7 +353,7 @@ Bring it to W14 — this is a legitimate capstone project.
 | MNAR / MCAR | Missing not at random / completely at random |
 | Left-censoring | Values below the detection limit recorded as absent |
 | Imputation | Filling missing values — always an assumption |
-| MSstats | Proteomics package that models missingness and study structure |
+| `MSstats` | Proteomics package that models missingness and study structure |
 | Empirical Bayes | Shrinking per-protein variance toward the overall trend (`limma`) |
 | Discovery / verification / validation | The three pre-clinical stages of biomarker work |
 | Diagnostic biomarker | Does the patient have the disease now? |

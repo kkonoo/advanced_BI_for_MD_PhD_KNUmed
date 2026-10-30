@@ -133,7 +133,7 @@ A coding variant that alters the binding epitope reduces the signal without chan
 
 ✅ The check: for any *cis*-pQTL, ask whether the lead variant is a protein-altering variant in that same gene. If it is, the finding needs orthogonal confirmation — ideally by MS, which measures peptides directly.
 
-⚠️ This matters because pQTLs are increasingly used for drug-target Mendelian randomization (🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). An artifact here propagates into a target nomination.
+⚠️ This matters because pQTLs are increasingly used for drug-target Mendelian randomization (🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). An epitope artifact here propagates into a target nomination.
 :::
 
 ## 2) Platform consistency {#w9-s3-2}
@@ -185,7 +185,7 @@ Plasma spans **more than ten orders of magnitude** in protein concentration. Alb
 ## What to consider in a real study
 
 -   ⚠️ **MS without depletion** → mostly albumin
--   ⚠️ **MS with depletion** → removes a lot of proteins along with it (the albuminome)
+-   ⚠️ **MS with depletion** → does remove a lot of proteins.. albuminome (proteins bound to albumin, including the ones we want)
 -   ✅ **Affinity panel** (Olink, SomaScan — binding is turned into a DNA signal and read out): targets chosen proteins only → what else is in the tube does not matter. Used in most large plasma biomarker studies today
 -   ✅ **Tissue is much easier than plasma.** If a biopsy is possible → straight to MS
 
@@ -252,7 +252,7 @@ We will use these in [W10](w10_clinical_proteomics.qmd).
 -   ⚠️ **DDA selects the most intense precursors**, so missingness varies run to run and can mimic a group difference
 -   ✅ **DIA is the default for clinical cohorts** — the same proteins are quantified every time
 -   ⚠️ **TMT: the plex is the batch.** Balance groups within plexes and bridge them with a shared reference; ratios are compressed towards 1
--   ⚠️ Plasma spans \>10 orders of magnitude; albumin is half the mass, and depletion removes bound proteins too
+-   ⚠️ Plasma dynamic range \>10 orders of magnitude; albumin is half the mass, and depletion removes bound proteins too
 -   ✅ Affinity panels (Olink, SomaScan) reach pg/mL without depletion — at the cost of a fixed panel
 -   ⚠️ **Affinity assays measure binding.** An epitope-altering variant produces a false *cis*-pQTL
 -   Discovery = candidates. **Targeted MS** = an absolute, antibody-independent number
