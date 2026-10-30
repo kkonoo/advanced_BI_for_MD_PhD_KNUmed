@@ -157,7 +157,7 @@ Constraints: dplyr + DESeq2 + here를 사용하라. padj 순으로 정렬한
 → 검증 질문은 “실행되었는가?”일 수 없습니다. **“출력의 형태와 크기가 내가 예상한 것인가?”**여야 합니다. 그러려면 먼저 기대값을 만들어 두어야 합니다.
 :::
 
-## 4) ⚠️ 세 가지 조용한 실패 {#w2-s2-4}
+## 4) ⚠️ 세 가지 silent failure {#w2-s2-4}
 
 ![세 경우 모두 오류 없이 실행되고 올바른 class의 object를 반환하지만, 결과는 틀렸습니다.](../../../assets/img/w2/silent_failures.svg){fig-align="center"}
 
@@ -210,7 +210,7 @@ quarto render report.qmd --to docx     # for the co-author who wants Word
 
 Chunk 맨 위에 hash와 pipe가 붙은 comment로 작성합니다.
 
-| Option | 효과 |
+| Chunk option | 효과 |
 |------------------------|------------------------------------------------|
 | `echo: false` | 코드는 실행하지만 숨김 — 임상 독자를 위한 보고서에 사용 |
 | `eval: false` | 코드는 보여주지만 실행하지 않음 — 교육 자료에 사용 |
@@ -306,7 +306,7 @@ cat("rows after join :", nrow(merged), "\n")
 cat("unmatched       :", sum(is.na(merged$gene_1)), "\n")
 ```
 
-💡 시간을 재어보세요. 대부분은 검사를 사용하면 5분 안에 찾지만, 검사 없이는 전혀 찾지 못합니다.
+💡 시간을 재어보세요. 대부분은 shape check를 사용하면 5분 안에 찾지만, 검사 없이는 전혀 찾지 못합니다.
 
 ## 3) Quarto 보고서 하나 {#w2-s5-3}
 
@@ -327,7 +327,7 @@ cat("unmatched       :", sum(is.na(merged$gene_1)), "\n")
 -   결정의 *이유*를 section 제목에 넣으면 코드와 떨어지지 않습니다
 -   Prompt에는 **context + task + constraints**가 필요합니다. Model이 자신의 design choice를 표시하게 하세요
 -   ⚠️ **“오류 없이 실행되었다”는 것은 근거가 아닙니다.** 생성된 코드는 문법이 아니라 의미에서 실패합니다
--   ⚠️ 세 가지 조용한 실패: 맞지 않는 join, 미리 filtering한 목록에 대한 보정, level을 없애는 relabel
+-   ⚠️ 세 가지 silent failure: 맞지 않는 join, 미리 filtering한 목록에 대한 보정, level을 없애는 relabel
 -   ✅ 모든 join, filter, relabel 뒤에 `nrow()`, `sum(is.na())`, `table()`을 출력하세요
 -   AI는 plotting과 reshaping에는 신뢰할 만하지만, ❌ 비교 대상·n·생물학적 개연성을 결정하게 해서는 안 됩니다
 -   Quarto는 본문의 모든 숫자를 **계산**하므로 재실행 뒤 초록에 오래된 숫자가 남지 않습니다

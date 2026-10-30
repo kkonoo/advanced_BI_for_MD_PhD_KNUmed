@@ -307,10 +307,14 @@
   }
 
   function toRegex(alias) {
-    const escaped = alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ /g, "\\s+");
-    // acronyms (two or more capitals) must match exactly; ordinary words ignore case
-    const flags = (alias.match(/[A-Z]/g) || []).length >= 2 ? "" : "i";
-    return new RegExp("(?<![\\w-])" + escaped + "(?:e?s)?(?![\\w-])", flags);
+    // acronym words (two or more capitals, e.g. GWAS) must match exactly;
+    // every other word ignores case, so "Base GWAS" also finds "base GWAS"
+    const words = alias.split(/\s+/).map((word) => {
+      const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      if ((word.match(/[A-Z]/g) || []).length >= 2) return escaped;
+      return escaped.replace(/[A-Za-z]/g, (c) => "[" + c.toUpperCase() + c.toLowerCase() + "]");
+    });
+    return new RegExp("(?<![\\w-])" + words.join("\\s+") + "(?:e?s)?(?![\\w-])");
   }
 
   function makeWalker(main, isSkipped) {

@@ -434,7 +434,7 @@ renv::snapshot()
 # 📝 요약
 
 -   PRS는 수천에서 수백만 개의 작은 effect를 하나의 숫자로 합칩니다. **Risk indicator**이지 진단이 아닙니다
--   ⚠️ **Base와 target은 독립적이어야 합니다.** 같은 데이터에서 tuning하고 평가하면 보고되는 모든 숫자가 부풀려집니다
+-   ⚠️ **Base GWAS와 target cohort는 독립적이어야 합니다.** 같은 데이터에서 tuning하고 평가하면 보고되는 모든 숫자가 부풀려집니다
 -   방법 이름(C+T, PRSice-2, LDpred2, PRS-CSx)은 ancestry와 cohort보다 덜 중요합니다. 구현할 필요 없이 알아보면 됩니다
 -   ❌ PRS AUC 단독은 의미가 없습니다. ✅ 주장은 clinical model을 넘어선 **ΔAUC와 incremental R²**입니다
 -   ⚠️ **Calibration은 대개 누락**되지만 absolute risk를 신뢰하게 만드는 요소입니다

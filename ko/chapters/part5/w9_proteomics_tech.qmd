@@ -20,8 +20,8 @@ execute:
 -   혈장이 단백체학에서 가장 어렵지만 임상적으로 가장 유용한 검체인 이유를 말할 수 있다
 -   연구 질문에 따라 질량분석과 affinity panel 중 하나를 선택할 수 있다
 -   ⚠️ 거짓 pQTL을 만드는 epitope artifact를 알아볼 수 있다
--   discovery 후보가 임상 검사가 되기까지의 과정과 heavy-isotope 표준물질의 역할을 설명할 수 있다
--   multiplex 조직 영상이 무엇을 측정하며 W7–W8의 어떤 주의점을 물려받는지 말할 수 있다
+-   discovery 후보가 임상 검사가 되기까지의 과정과 heavy-isotope standard의 역할을 설명할 수 있다
+-   multiplexed tissue imaging이 무엇을 측정하며 W7–W8의 어떤 주의점을 물려받는지 말할 수 있다
 -   Proteomics 분석 전에 고려할 세 가지(platform, batch design, input)를 말할 수 있다
 :::
 
@@ -133,7 +133,7 @@ DDA = 매 cycle마다 장비가 intensity 가장 높은 precursor를 고름. 뭐
 
 ✅ 확인법: *cis*-pQTL마다 lead variant가 같은 gene의 protein-altering variant인지 보기. 그렇다면 → 직교 검증 필요. Peptide를 직접 재는 MS가 가장 좋음
 
-⚠️ pQTL이 drug-target Mendelian randomization에 점점 많이 쓰여서 중요(🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). 여기서 생긴 artifact → target 선정까지 그대로 전파
+⚠️ pQTL이 drug-target Mendelian randomization에 점점 많이 쓰여서 중요(🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). 여기서 생긴 epitope artifact → target 선정까지 그대로 전파
 :::
 
 ## 2) Platform 간 consistency {#w9-s3-2}
@@ -169,7 +169,7 @@ W7–W8의 spatial 논리를 RNA 대신 protein으로:
 Discovery proteomics(DIA, TMT) = sample 수십 개에서 protein 수천 개 → 결과물 = **후보 목록**이지 검사가 아님
 
 -   **Targeted MS** (PRM = parallel reaction monitoring, MRM = multiple reaction monitoring) — 장비가 미리 고른 peptide만 지켜봄 → 정밀도 ↑, 하루에 도는 sample 수 ↑, 대신 protein 수 ↓
--   **Heavy-isotope 표준물질** — 같은 peptide를 무거운 동위원소로 만들어 정해진 양을 spike-in. Light / heavy 비율 × 넣은 양 = **절대 농도**
+-   **Heavy-isotope standard** — 같은 peptide를 무거운 동위원소로 만들어 정해진 양을 spike-in. Light / heavy 비율 × 넣은 양 = **절대 농도**
 -   ✅ Protein을 분해된 peptide의 질량으로 읽음 → 방해하던 자가항체도 같이 분해되고, epitope가 바뀌어도 숨지 못함 (§3.1 문제). 병원 검사실이 이미 하는 방법: anti-Tg 자가항체 때문에 면역측정을 믿기 어려울 때 thyroglobulin을 LC-MS/MS로
 -   ⚠️ 단계마다 **새롭고, 더 크고, 독립적인 cohort**가 필요. Discovery 후보 대부분은 마지막 단계까지 못 감 (🔗 [W10 §3](w10_clinical_proteomics.qmd#w10-s3))
 
@@ -185,7 +185,7 @@ Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 pro
 ## 실제 연구에서 고려할 것
 
 -   ⚠️ **MS with Depletion (x)** → albumin이 대부분..
--   ⚠️ **MS with Depletion (o)** → 많은 protein을 없애긴 함(albuminome)
+-   ⚠️ **MS with Depletion (o)** → 많은 protein을 없애긴 함.. albuminome (albumin에 붙어있던 우리가 원하는 proteins 등)
 -   ✅ **Affinity panel** (Olink, SomaScan — 결합한 양을 DNA 신호로 바꿔 읽음): 고른 protein만 표적 → tube 안에 뭐가 더 있든 상관 x. 요즘 대규모 plasma biomarker 연구 대부분에서 사용
 -   ✅ **조직은 plasma보다 훨씬 쉬움.** Biopsy 가능하다면 → 그냥 바로 MS
 
@@ -256,7 +256,7 @@ Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 pro
 -   ✅ Affinity panel(Olink, SomaScan) = depletion 없이 pg/mL까지. 대신 panel이 고정
 -   ⚠️ **Affinity assay는 결합을 잼.** Epitope를 바꾸는 variant → 가짜 *cis*-pQTL
 -   Discovery = 후보. **Targeted MS** = 항체와 무관한 절대 수치
--   Multiplex 조직 영상(mIF, CODEX, IMC) = spatial proteomics: FFPE 가능, 그래도 항체, 그래도 segmentation
+-   Multiplexed tissue imaging(mIF, CODEX, IMC) = spatial proteomics: FFPE 가능, 그래도 항체, 그래도 segmentation
 -   ⚠️ **Pre-analytical variation**(serum vs plasma, tube 종류, 원심분리까지 시간, 동결–해동, 용혈)이 통계 분석 아무리 잘 해도 이걸 못 하면 biomarker 연구는 망..
 
 ------------------------------------------------------------------------

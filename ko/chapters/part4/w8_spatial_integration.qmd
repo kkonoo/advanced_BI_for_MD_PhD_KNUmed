@@ -14,14 +14,14 @@ execute:
 이 장을 마치면 다음을 할 수 있어야 합니다.
 
 - deconvolution이 무엇을 추정하며 무엇은 추정할 수 없는지 설명할 수 있다
-- ⚠️ 참조 데이터셋이 답을 결정하는 이유와 참조를 신뢰하기 전에 확인할 사항을 말할 수 있다
+- ⚠️ reference 데이터셋이 답을 결정하는 이유와 reference를 신뢰하기 전에 확인할 사항을 말할 수 있다
 - 단일세포 해상도 데이터는 deconvolution 대신 annotation하는 이유와, 그 label이 어디서 틀리는지 말할 수 있다
 - 세포 유형 지도와 **niche** 지도를 구분하고, 대개 두 번째 지도에 생물학적 의미가 있는 이유를 말할 수 있다
-- ⚠️ 조직 구조를 보존하는 귀무가설을 사용해 공위치(co-localisation)를 검정할 수 있다
+- ⚠️ structure-preserving null을 사용해 co-localisation을 검정할 수 있다
 - ⚠️ 이웃한 spot이 유의성을 부풀리는 이유와 그 대처법을 말할 수 있다
 - ⚠️ spot이 아니라 환자를 단위로 환자군 간 niche를 비교할 수 있다
 - ⚠️ ligand–receptor 추론에 거리 제한이 더해 주는 것과 여전히 보여 주지 못하는 것을 말할 수 있다
-- 모든 주장을 기술에서 입증까지의 근거 사다리 위에 놓을 수 있다
+- 모든 주장을 기술에서 입증까지의 evidence ladder 위에 놓을 수 있다
 - W5–W6에서 생성한 가설을 위한 공간 검증 단계를 설계할 수 있다
 :::
 
@@ -42,7 +42,7 @@ execute:
 | 방법 | 접근법 | 특징 |
 |---------------|--------------------------|------------------------------|
 | **RCTD** | 통계 model, platform 효과까지 modelling | 견고, 널리 쓰임 |
-| **cell2location** | Bayesian, 절대 abundance 추정 | ✅ 비율뿐 아니라 cell 수까지 |
+| **cell2location** | Bayesian, absolute abundance 추정 | ✅ 비율뿐 아니라 cell 수까지 |
 | **CARD** | spot 간 spatial correlation 이용 | 이웃 spot 정보를 빌려 씀 |
 | **SPOTlight** | NMF 기반 | 빠름 |
 | **Tangram** | single cell을 공간에 배치 | 짝지어진 data가 있을 때 유용 |
@@ -79,7 +79,7 @@ Deconvolution 결과 = **내가 넣어 준 cell type들 안에서 합이 1**인 
 ![](../../../assets/img/w8/cell_annotation.svg){fig-align="center"}
 
 Xenium, CosMx, Visium HD에선 단위 = segmentation된 cell(🔗 [W7 §3.2](w7_spatial_basics.qmd#w7-s3-2)), not mixture. \
-할 일 = **annotation**: 같은 single-cell reference로 cell마다 label 하나
+할 일 = **cell-level annotation**: 같은 single-cell reference로 cell마다 label 하나
 
 - **Label transfer**(Seurat anchor, §2.3과 같은 방식) 또는 **RCTD `doublet` mode**(cell 또는 8 µm bin 하나 = type 한두 개)
 - ⚠️ **Panel에 있는 gene만 쓰임.** Reference는 gene \~20,000개, panel은 수백\~5,000개. Panel에 marker가 없는 cell type은 부를 수 없음 → 가장 가까운 type으로 억지로 배정
@@ -103,7 +103,7 @@ Spot별 cell type 지도도 유용하지만 여전히 한 번에 한 위치만 �
 
 💡 왼쪽 패널이 뭘 숨기는지 보기. T cell과 macrophage는 거의 어디에나 있지만 **거의 어디서도 우세하지 않음** → "우세 cell type" 지도에선 완전히 사라짐. 정체성(identity)이 아니라 조성(composition)을 봐야 면역 biology가 보임
 
-## 2) ⚠️ Co-localization 제대로 분석하기 {#w8-s2-2}
+## 2) ⚠️ Co-localisation 제대로 분석하기 {#w8-s2-2}
 
 ::: {.callout-warning collapse="true"}
 ## 어떤 null과 비교하나?
@@ -349,7 +349,7 @@ print("observed:", round(observed, 3), " null 95%:", np.round(np.quantile(null, 
 - ✅ **Niche** (이웃 조성으로 spot을 clustering) = spatial biology가 있는 곳
 - ⚠️ Complete spatial randomness = 잘못된 null. 조직 구조 안에서 permutation하거나 matched control 조직과 비교
 - ⚠️ Spot 수천 개 → p-value 부풀려짐. 주장 = **환자 간 재현된 effect size**
-- ✅ Niche 비교 = **환자당 숫자 하나**(niche 비율) + compositional test. Spot을 합친 검정 = W5의 per-cell test 재탕
+- ✅ Niche 비교 = **환자당 숫자 하나**(niche fraction) + compositional test. Spot을 합친 검정 = W5의 per-cell test 재탕
 - ⚠️ Spatial ligand–receptor: 거리 제한으로 만난 적 없는 짝을 지우고, structure-preserving null로 나머지를 검정. 그래도 mRNA, 그래도 ③단계
 - Spatial 검증 = 주장을 *가설* → *일치*로 올림. *입증*까지는 아님
 - ✅ 가설에서 설계 시작, 절편 말고 환자 세기, outcome 기준 선택, 병리의사부터 섭외
