@@ -37,11 +37,11 @@ knitr:
 
 ## 1) 이미 진료에 영향을 주는 다섯 가지 방식 {#w3-s1-1}
 
--   **Drug target validation** — 사람의 유전적 근거가 있는 target은 승인까지 살아남을 가능성이 약 **두 배** 높습니다
--   **Disease subtyping** — 같은 ICD code라도 유전적 구조와 생물학이 다를 수 있습니다
--   **Risk stratification** — 예방의학에서의 polygenic score(🔗 [W4](w4_prs.qmd))
--   **Shared aetiology** — genetic correlation은 두 진단이 함께 나타나는 이유를 정량화합니다
--   **Causal inference** — Mendelian randomization은 RCT를 수행하지 않고 인과성을 검정합니다
+-   **Drug target validation**: 사람의 유전적 근거가 있는 target은 승인까지 살아남을 가능성이 약 **두 배** 높습니다
+-   **Disease subtyping**: 같은 ICD code라도 유전적 구조와 생물학이 다를 수 있습니다
+-   **Risk stratification**: 예방의학에서의 polygenic score(🔗 [W4](w4_prs.qmd))
+-   **Shared aetiology**: genetic correlation은 두 진단이 함께 나타나는 이유를 정량화합니다
+-   **Causal inference**: Mendelian randomization은 RCT를 수행하지 않고 인과성을 검정합니다
 
 💡 최근 *Nature Medicine* 호를 아무거나 펼쳐보세요. 임상적 주장 아래로 인용을 세 개쯤 따라가면 GWAS 데이터가 나올 가능성이 높습니다.
 
@@ -50,7 +50,7 @@ knitr:
 > **“질환 X가 없는 matched control보다 질환 X가 있는 사람에게 더 흔한 genetic variant는 무엇인가?”**
 
 -   **수백만 개 variant**의 allele frequency를 동시에 비교합니다
--   **Hypothesis-free** — 연구자가 어떤 유전자를 중요하게 생각하는지 알지도, 신경 쓰지도 않습니다
+-   **Hypothesis-free** — 연구자가 어떤 유전자를 중요하게 생각하는지는 분석에 반영되지 않습니다
 -   출력은 연관된 **locus**의 목록입니다. ⚠️ Gene도, mechanism도 아닙니다
 
 SNP (single-nucleotide polymorphism)
@@ -72,6 +72,7 @@ SNP (single-nucleotide polymorphism)
 Schizophrenia GWAS는 n이 수백일 때 사실상 **아무것도** 찾지 못했지만, n이 수만으로 늘자 **108개 locus**를 찾았습니다. 생물학은 바뀌지 않았습니다.
 
 -   ⚠️ 초기 GWAS의 “실패” 대부분은 틀린 연구가 아니라 **polygenic architecture에 비해 검정력이 부족한 연구**였습니다
+
 -   💡 그래서 환자 200명의 single-centre GWAS는 실행 가능한 project가 아니며, consortium 참여가 이 분야의 실질적인 자산입니다
 
 → Effect size와 druggability도 서로 무관합니다. Common *HMGCR* variant가 설명하는 LDL 분산은 약 0.26%에 불과합니다. Statin은 의학에 가장 큰 영향을 준 약물 중 하나입니다.
@@ -89,9 +90,9 @@ Schizophrenia GWAS는 n이 수백일 때 사실상 **아무것도** 찾지 못�
 
 **Genomic inflation factor λ**는 관측된 test statistic의 median과 null에서 기대되는 median을 비교합니다.
 
--   ✅ **λ ≈ 1.0**이고 꼬리만 들림 — calibration이 잘 되었으며 꼬리의 신호는 실제입니다
--   ❌ **λ \> 1.05**이고 선 전체가 올라감 — 보정되지 않은 population stratification 또는 relatedness입니다. Hit를 의심해야 합니다
--   ⚠️ **λ \< 0.95** — 지나치게 보수적인 QC로 power를 버렸습니다
+-   ✅ **λ ≈ 1.0**이고 꼬리만 들린 경우: calibration이 잘 되었고 꼬리의 신호는 실제입니다
+-   ❌ **λ \> 1.05**이고 선 전체가 올라간 경우: 보정되지 않은 population stratification 또는 relatedness입니다. Hit를 의심해야 합니다
+-   ⚠️ **λ \< 0.95**: 지나치게 보수적인 QC로 power를 버렸습니다
 
 ::: {.callout-note collapse="true"}
 ## 알아둘 가치가 있는 예외
@@ -111,7 +112,7 @@ n이 매우 크면 약한 inflation이 **실제 polygenicity**일 수 있습니�
 -   ⚠️ “Suggestive”(*p* \< 1×10⁻⁵)는 관례일 뿐 발견이 아닙니다. Suggestive-only 결과는 hypothesis로 취급하세요
 
 ::: {.callout-warning collapse="true"}
-## Population stratification — 아름다운 거짓 양성을 만드는 confounder
+## Population stratification: 보기 좋은 거짓 양성을 만드는 confounder
 
 Case와 control의 ancestry가 체계적으로 다르면 ancestry와 관련된 *모든* variant가 disease hit처럼 보입니다. 한국인 case group과 ancestry가 섞인 control group을 비교하면 젓가락 사용에 대한 “hit”를 찾게 됩니다.
 
@@ -161,6 +162,7 @@ smf.logit("disease ~ SNP"
 
 ⚠️ 누구도 말하지 않는 trade-off가 있습니다. 하나의 ancestry로 제한하면 통계는 더 깨끗해지지만 **generalisability는 나빠집니다**(§7).
 :::
+:::
 
 **직접 해 보기** — [다중검정과 FDR ↗](https://kkonoo.github.io/edu_sims/sims/multiple-testing/?lang=ko){target="_blank"}
 
@@ -208,14 +210,14 @@ LD는 측정된 variant 하나로 측정하지 않은 수십 개를 tag하게 �
 -   ✅ 올바른 표현은 “locus”이며 현대적인 논문은 이 용어를 사용합니다
 :::
 
-## 2) 우편번호에서 기전까지의 네 단계 {#w3-s3-2}
+## 2) 위치에서 기전까지의 네 단계 {#w3-s3-2}
 
-![각 단계는 주장의 범위를 좁힙니다. 하나를 건너뛰면 reviewer가 찾아낼 틈이 남습니다.](../../../assets/img/w3/postgwas_pipeline.svg){fig-align="center"}
+![각 단계는 주장의 범위를 좁힙니다. 하나를 건너뛰면 reviewer가 지적할 틈이 남습니다.](../../../assets/img/w3/postgwas_pipeline.svg){fig-align="center"}
 
 **① Fine-mapping.** Bayesian method(SuSiE, FINEMAP)는 각 variant에 **posterior inclusion probability**를 부여하고, 예를 들어 causal variant를 95% 확률로 포함하는 가장 작은 집합인 **credible set**을 반환합니다.
 
 -   💡 Credible set이 3개라는 것은 결과입니다. 40개라는 것은 해소하지 못했다는 고백입니다
--   ⚠️ **Ancestry-matched LD reference**가 필요합니다. 유럽인 panel을 한국인 cohort에 적용하면 출력이 조용히 손상됩니다
+-   ⚠️ **Ancestry-matched LD reference**가 필요합니다. 유럽인 panel을 한국인 cohort에 적용하면 경고 없이 잘못된 결과가 나옵니다
 -   ⚠️ PIP가 많은 variant에 얇게 분산된다면 정직한 결론은 *“이 sample에서는 이 locus를 해소할 수 없다”*입니다
 
 **② Functional annotation.** Variant가 어디에 위치합니까?
@@ -350,7 +352,7 @@ Genetic variants  →  LDL level  →  CAD
 💡 이 표를 반대 방향으로 읽어보세요. 여러 약물은 유전적 근거보다 **먼저** 존재했습니다. GWAS는 우연히 찾아낸 target을 확인해 주었습니다. 흥미로운 사례는 유전적 근거가 먼저 나온 경우이며, W12에서 다룹니다.
 
 ::: {.callout-note collapse="true"}
-## PheWAS — 같은 데이터에서 질문을 뒤집기
+## PheWAS: 같은 데이터에서 질문을 뒤집기
 
 ```
 GWAS   : one disease → scan all variants   → "which variants?"
@@ -359,9 +361,9 @@ PheWAS : one variant → scan all phenotypes → "what else does it do?"
 
 ICD code를 phenotype으로 삼아 electronic health record 전체에서 실행합니다.
 
--   ✅ **Pleiotropy mapping** — 하나의 scan에서 repurposing 후보와 예측 가능한 side effect를 함께 찾습니다
--   ✅ **Pharmacogenomic PheWAS** — variant → drug response 또는 adverse event
--   ⚠️ Phenotype이 ICD code이므로 데이터를 만든 health system의 모든 coding 관행을 그대로 물려받습니다
+-   ✅ **Pleiotropy mapping**: 하나의 scan에서 repurposing 후보와 예측 가능한 side effect를 함께 찾습니다
+-   ✅ **Pharmacogenomic PheWAS**: variant → drug response 또는 adverse event
+-   ⚠️ Phenotype이 ICD code이므로 데이터를 만든 health system의 coding 관행이 결과에 그대로 반영됩니다
 :::
 
 ------------------------------------------------------------------------
@@ -370,9 +372,9 @@ ICD code를 phenotype으로 삼아 electronic health record 전체에서 실행�
 
 대부분의 GWAS, 따라서 대부분의 fine-mapping과 polygenic score는 유럽 ancestry를 대상으로 합니다. 이것은 형평성 문제이기 전에 과학적 문제입니다.
 
--   ⚠️ **놓치는 발견** — 유럽인에서 드물거나 없는 variant는 보이지 않습니다. Multi-ethnic cohort는 대규모 유럽 연구가 놓친 association을 계속 찾아내고 있습니다
--   ✅ **더 나은 해상도** — 서로 다른 LD pattern이 haplotype block을 깨뜨려 **더 작은 credible set**을 만듭니다(§3.1)
--   ❌ **낮은 portability** — effect size와 risk score는 그대로 이전되지 않습니다. 무리하게 적용하면 격차가 커집니다(🔗 [W4 §5](w4_prs.qmd#w4-s5))
+-   ⚠️ **놓치는 발견**: 유럽인에서 드물거나 없는 variant는 보이지 않습니다. Multi-ethnic cohort는 대규모 유럽 연구가 놓친 association을 계속 찾아내고 있습니다
+-   ✅ **더 나은 해상도**: 서로 다른 LD pattern이 haplotype block을 깨뜨려 **더 작은 credible set**을 만듭니다(§3.1)
+-   ❌ **낮은 portability**: effect size와 risk score는 그대로 이전되지 않습니다. 무리하게 적용하면 격차가 커집니다(🔗 [W4 §5](w4_prs.qmd#w4-s5))
 
 ::: {.callout-important collapse="true"}
 ## 한국인 cohort에서 구체적으로 할 일
@@ -413,10 +415,10 @@ Journal club에서 사용할 수 있도록 보관하세요.
 -   ② **Credible set이 얼마나 큽니까?** 아니면 fine-mapping을 건너뛰었습니까?
 -   ③ **Coding, regulatory, unknown 중 무엇입니까?** eQTL이 있습니까?
 -   ④ **어떤 gene, 어떤 cell type입니까?** Nearest ≠ causal임을 기억하세요
--   ⑤ **Effect size와 방향** — 방향이 drug strategy를 결정합니다
+-   ⑤ **Effect size와 방향**: 방향이 drug strategy를 결정합니다
 -   ⑥ **어떤 ancestry**이며 실제 적용할 환자와 일치합니까?
 
-## 4) Summary statistic을 직접 다뤄보고 싶다면 {#w3-s7-4}
+## 4) Summary statistic을 직접 다뤄 보고 싶다면 {#w3-s7-4}
 
 공개 summary statistic은 variant마다 한 행이 있고 개인 genotype은 포함하지 않으므로 자유롭게 공유할 수 있습니다. §7.1에서 고른 연구를 내려받으세요. `scripts/download_public_data.R`이 제각각인 column name을 정리합니다.
 
@@ -530,13 +532,13 @@ print("lambda_1000 :", round(1 + (lam(clean.P) - 1) * 1000 / n_eff, 4))
 
 ## 5) 다음 주 전까지 {#w3-s7-5}
 
-**W4 — Polygenic Risk Score.** [**pgscatalog.org**](https://www.pgscatalog.org)에서 질환 하나를 찾아 development cohort의 ancestry를 기록하세요. 다음 수업은 여기에서 시작합니다.
+**W4: Polygenic Risk Score.** [**pgscatalog.org**](https://www.pgscatalog.org)에서 질환 하나를 찾아 development cohort의 ancestry를 기록하세요. 다음 수업은 여기에서 시작합니다.
 
 ------------------------------------------------------------------------
 
 # 📝 요약
 
--   GWAS는 어떤 variant가 다른지라는 하나의 질문을 묻고 gene이나 mechanism이 아닌 **locus**를 반환합니다
+-   GWAS는 어떤 variant가 다른지 하나만 묻고, gene이나 mechanism이 아닌 **locus**를 반환합니다
 -   Architecture가 연구 설계를 결정합니다. ⚠️ Null GWAS는 생물학의 부재보다 검정력 부족으로 설명되는 경우가 많습니다
 -   ⚠️ **Manhattan보다 QQ plot을 먼저 읽으세요.** 전체 선에서 λ \> 1.05이면 hit를 의심해야 합니다
 -   5×10⁻⁸은 약 100만 개의 독립적인 test에서 나옵니다. “Suggestive”는 관례이지 발견이 아닙니다
@@ -558,7 +560,7 @@ print("lambda_1000 :", round(1 + (lam(clean.P) - 1) * 1000 / n_eff, 4))
 | Imputation | 참조 패널로 직접 유전형 분석하지 않은 변이를 추정하는 것 |
 | MAF | 소수 대립유전자 빈도 |
 | Linkage disequilibrium (LD) | 함께 유전되는 가까운 변이 사이의 상관관계 |
-| Lead SNP | 좌위에서 p-value가 가장 작은 변이 — 대개 원인 변이가 아니라 표지 변이 |
+| Lead SNP | 좌위에서 p-value가 가장 작은 변이. 대개 원인 변이가 아니라 표지 변이 |
 | Locus | 연관성이 관측된 영역; GWAS 결과를 해석하는 기본 단위 |
 | λ (genomic inflation) | 관측 검정통계량 중앙값을 기대 중앙값으로 나눈 값 |
 | LD-score regression | 부풀려진 통계량에서 다유전자성과 교락을 구분하는 방법 |
@@ -568,7 +570,7 @@ print("lambda_1000 :", round(1 + (lam(clean.P) - 1) * 1000 / n_eff, 4))
 | eQTL | 유전자 발현량에 영향을 주는 변이 |
 | Colocalisation | 두 연관 신호가 하나의 원인 변이를 공유하는지 검정하는 방법(PP.H4) |
 | Mendelian randomization | 유전 변이를 도구변수로 사용해 인과성을 검정하는 방법 |
-| Pleiotropy | 하나의 변이가 여러 형질에 영향을 주는 현상 — MR의 세 번째 가정을 위반 |
+| Pleiotropy | 하나의 변이가 여러 형질에 영향을 주는 현상. MR의 세 번째 가정을 위반 |
 | PheWAS | 하나의 변이를 모든 표현형과 비교해 연관성을 탐색하는 연구 |
 | Portability | 결과가 다른 조상 집단에서도 재현되는 정도 |
 | LOEUF | 기능상실 변이에 대한 불내성을 나타내는 gnomAD 지표 |

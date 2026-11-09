@@ -21,7 +21,7 @@ By the end of this chapter you should be able to:
 -   Choose a chart form from the job the data has to do
 -   ⚠️ Say why "enriched for immune response" is almost never a result
 -   Set the right background for an enrichment test, and say why it changes the answer
--   Write a figure caption as one sentence — before drawing the figure
+-   Write a figure caption as one sentence, before drawing the figure
 -   Decide what belongs in a main figure and what belongs in the supplement
 :::
 
@@ -40,7 +40,7 @@ By the end of this chapter you should be able to:
 
 Before believing the heatmap, you need three things:
 
--   ① **How were those 50 genes chosen?** If they were selected *because* they differ between the groups, then blocks are guaranteed — the selection created the pattern. This is circular selection, and it is extremely common
+-   ① **How were those 50 genes chosen?** If they were selected *because* they differ between the groups, then blocks are guaranteed: the selection created the pattern. This is circular selection, and it is extremely common
 -   ② **Was it row-scaled?** Row scaling forces every gene to span the full colour range, so noise looks structured
 -   ③ **What is the colour scale, and is it centred?** A diverging scale with an off-centre midpoint exaggerates one direction
 
@@ -64,7 +64,7 @@ Pick the chart from the **job**, not from habit.
 | Compare a value across a few groups | Points per patient, box or mean overlaid |
 | Show a distribution | Histogram, density, or violin **with points** |
 | Relationship between two measures | Scatter, with the correlation stated |
-| Magnitude across a grid | Heatmap — ✅ single-hue sequential |
+| Magnitude across a grid | Heatmap, ✅ single-hue sequential |
 | Signed change | Diverging ramp, neutral at zero |
 | Change over time | Line, one line per patient where n allows |
 | One headline number | ✅ Just write the number. Not every result needs a chart |
@@ -89,7 +89,7 @@ Pick the chart from the **job**, not from habit.
 
 Enrichment asks whether your gene list contains more of a category than expected **by chance from some universe**. Change the universe, change the answer.
 
--   ❌ Default "all human genes" — but genes not expressed in your tissue could never have been in your list
+-   ❌ Default "all human genes". But genes not expressed in your tissue could never have been in your list
 -   ✅ The universe is **the genes you actually tested**: expressed above threshold, passing filters
 -   ⚠️ In tissue-specific data this typically halves the universe, and it can remove an entire "significant" category
 
@@ -175,7 +175,7 @@ gseaGO.res2d[["Term", "NES", "FDR q-val"]].head(6)
 
 ## 3) ⚠️ Then name genes {#w13-s3-3}
 
-"Enriched for immune response" is compatible with almost any inflammatory tissue. **"Interferon signalling, driven by *IFI44L*, *ISG15* and *MX1*"** is a sentence a reader can act on — and check.
+"Enriched for immune response" is compatible with almost any inflammatory tissue. **"Interferon signalling, driven by *IFI44L*, *ISG15* and *MX1*"** is a sentence a reader can act on, and check.
 
 ------------------------------------------------------------------------
 
@@ -183,7 +183,7 @@ gseaGO.res2d[["Term", "NES", "FDR q-val"]].head(6)
 
 ![The left-hand version is what the analysis produced. The right-hand version is what the reader needs.](/assets/img/w13/one_message.svg){fig-align="center"}
 
-✅ **Write the caption first.** If you cannot state the figure's point as one sentence with a blank for the number, the figure is not ready — and possibly the analysis is not either.
+✅ **Write the caption first.** If you cannot state the figure's point as one sentence with a blank for the number, the figure is not ready, and possibly the analysis is not either.
 
 -   ✅ A caption should state the **direction**, the **n**, and the **number**
 -   ✅ QC panels are not wasted; they belong in the supplement
@@ -201,7 +201,7 @@ Work in pairs. For your neighbour's figure:
 -   ② Does the axis start at zero, and should it?
 -   ③ Can you see the n? Can you see individual patients?
 -   ④ If there is a heatmap: how were the genes chosen, and was it row-scaled?
--   ⑤ If there is a colour scale: sequential, diverging, or rainbow — and does it match the job?
+-   ⑤ If there is a colour scale: sequential, diverging, or rainbow, and does it match the job?
 -   ⑥ Which panel could move to the supplement without weakening the point?
 
 ## 2) Rebuild one plot {#w13-s5-2}
@@ -301,8 +301,8 @@ plt.show()
 -   ✅ Show the patients; label directly; recede the grid
 -   ⚠️ **The enrichment background is the whole test.** Use the genes you actually tested, not the genome
 -   ✅ Collapse redundant GO terms; prefer GSEA on the ranked list; prefer specific gene sets
--   ✅ **Then name genes** — "interferon signalling, driven by *ISG15*" beats "immune response"
--   ✅ **Write the caption first.** Direction, n, number — in one sentence
+-   ✅ **Then name genes.** "Interferon signalling, driven by *ISG15*" beats "immune response"
+-   ✅ **Write the caption first.** Direction, n, number, in one sentence
 -   ✅ One message per figure; QC goes to the supplement
 
 ------------------------------------------------------------------------
@@ -311,10 +311,10 @@ plt.show()
 
 | Term | One-line meaning |
 |-------------------------|-----------------------------------------|
-| Truncated axis | A bar axis not starting at zero — exaggerates differences |
+| Truncated axis | A bar axis not starting at zero; exaggerates differences |
 | Sequential ramp | One hue, light to dark; for magnitude |
 | Diverging ramp | Two hues with a neutral midpoint; for signed values |
-| Row scaling (z-score) | Rescaling each row — makes noise look structured |
+| Row scaling (z-score) | Rescaling each row; makes noise look structured |
 | Circular selection | Choosing features by the effect you then display |
 | Over-representation test | Is this category more frequent than expected? |
 | Universe / background | The set your list could have been drawn from |

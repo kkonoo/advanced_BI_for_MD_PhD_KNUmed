@@ -54,15 +54,15 @@ TP53, EGFR and AKT1 come out as hubs for nearly every disease that has ever been
 
 ✅ What to do:
 
--   Compare against a **degree-matched null** — permute while preserving each node's degree, so "well-connected" stops being an automatic win
+-   Compare against a **degree-matched null**: permute while preserving each node's degree, so "well-connected" stops being an automatic win
 -   Prefer networks built from a **single systematic experiment** (a proteomics interactome, a CRISPR screen) over literature aggregates, where you can
 -   ✅ Report degree alongside any hub claim, and let the reader see it
 :::
 
 ## 2) What networks are still good for {#w12-s1-2}
 
--   ✅ **Modules** — a set of genes that interact more than expected, giving a process-level rather than gene-level result
--   ✅ **Connecting your hits** — do your 40 GWAS loci converge on a pathway?
+-   ✅ **Modules**: a set of genes that interact more than expected, which gives a process-level rather than gene-level result
+-   ✅ **Connecting your hits**: do your 40 GWAS loci converge on a pathway?
 -   ✅ **Suggesting a mechanism** for a gene of unknown function, from its neighbours
 -   ⚠️ Always as a hypothesis. The edges are other people's experiments, not yours
 
@@ -74,17 +74,17 @@ TP53, EGFR and AKT1 come out as hubs for nearly every disease that has ever been
 
 ## 1) Genetic support is the strongest route {#w12-s2-1}
 
-Targets with human genetic support are roughly **twice as likely** to succeed through clinical development. The mechanism is simple: a variant that alters the target is a natural, lifelong, randomised experiment in humans — the argument from 🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2).
+Targets with human genetic support are roughly **twice as likely** to succeed through clinical development. The mechanism is simple: a variant that alters the target is a natural, lifelong, randomised experiment in humans. This is the argument from 🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2).
 
--   **PCSK9** — loss-of-function carriers have low LDL and low cardiovascular risk → inhibitors work
--   **IL6R** — a variant mimicking IL-6 blockade associates with lower CHD risk → tocilizumab's cardiovascular signal
+-   **PCSK9**: loss-of-function carriers have low LDL and low cardiovascular risk → inhibitors work
+-   **IL6R**: a variant mimicking IL-6 blockade associates with lower CHD risk → tocilizumab's cardiovascular signal
 
 ## 2) ⚠️ Direction of effect {#w12-s2-2}
 
 ::: {.callout-warning collapse="true"}
 ## The mistake with the worst consequences in this course
 
-If the risk allele **increases** target activity, you want an inhibitor. If it **decreases** it, the target may be protective — and inhibiting it would make patients worse.
+If the risk allele **increases** target activity, you want an inhibitor. If it **decreases** it, the target may be protective, and inhibiting it would make patients worse.
 
 Two complications:
 
@@ -96,8 +96,8 @@ Two complications:
 
 ## 3) Signature reversal and network proximity {#w12-s2-3}
 
--   **Signature reversal** (CMap, LINCS) — find a drug whose expression signature is anti-correlated with the disease signature. ⚠️ Reference profiles come from cell lines at high doses. Useful for generating candidates; not evidence
--   **Network proximity** — is a drug's target close to the disease module? ⚠️ Inherits the study bias in §1, so it needs a degree-matched null to mean anything
+-   **Signature reversal** (CMap, LINCS): find a drug whose expression signature is anti-correlated with the disease signature. ⚠️ Reference profiles come from cell lines at high doses. Useful for generating candidates; not evidence
+-   **Network proximity**: is a drug's target close to the disease module? ⚠️ Inherits the study bias in §1, so it needs a degree-matched null to mean anything
 
 ------------------------------------------------------------------------
 
@@ -110,11 +110,11 @@ Two complications:
 
 People carrying natural loss-of-function variants in your target are a preview of what inhibiting it does over a lifetime.
 
--   ✅ **gnomAD** — how many LoF carriers exist? Is the gene depleted of them (a **LOEUF** near 0 means intolerant, and probably a poor target)?
--   ✅ **PheWAS** on the variant — what else changes? Those are your predictable side effects
+-   ✅ **gnomAD**: how many LoF carriers exist? Is the gene depleted of them (a **LOEUF** near 0 means intolerant, and probably a poor target)?
+-   ✅ **PheWAS** on the variant: what else changes? Those are your predictable side effects
 -   ✅ Human knockouts, where they exist, are the strongest signal available short of a trial
 
-⚠️ A gene that is highly intolerant to loss of function is telling you something. Inhibiting it is likely to have consequences beyond the disease.
+⚠️ A gene that is highly intolerant to loss of function is a warning sign. Inhibiting it is likely to have consequences beyond the disease.
 :::
 
 ------------------------------------------------------------------------
@@ -127,9 +127,9 @@ Bring the prioritisation table from 🔗 [W11 §5.1](w11_multiomics.qmd#w11-s5-1
 
 [**Open Targets**](https://platform.opentargets.org) → your gene → its target profile.
 
--   ① **Tractability** — small molecule? antibody? Which clinical phase, for any indication?
--   ② **Safety** — any flagged organ toxicity?
--   ③ **Known drugs** — is something already approved against it, for anything?
+-   ① **Tractability**: small molecule? antibody? Which clinical phase, for any indication?
+-   ② **Safety**: any flagged organ toxicity?
+-   ③ **Known drugs**: is something already approved against it, for anything?
 -   ④ [**gnomAD**](https://gnomad.broadinstitute.org) → **LOEUF**. Is the gene tolerant of loss of function?
 -   ⑤ [**Open Targets**](https://platform.opentargets.org) → the lead variant's page → the other traits it is associated with (a PheWAS). What else does it affect?
 
@@ -285,12 +285,12 @@ print("observed:", round(observed, 2), " null mean:", round(np.mean(null), 2))
 -   Biological networks are aggregated published experiments, so ⚠️ **node degree tracks publication count**
 -   ⚠️ Hub analyses rediscover TP53, EGFR and AKT1 for almost every disease. ✅ Use a degree-matched null
 -   ⚠️ Genes with no literature have degree ≈ 0 and can never be prioritised, however important
--   ✅ Networks are good for **modules**, for connecting scattered hits, and for suggesting mechanism — as hypotheses
--   ✅ **Genetic support roughly doubles the chance a target reaches approval** — the strongest evidence class available
+-   ✅ Networks are good for **modules**, for connecting scattered hits, and for suggesting mechanism, all as hypotheses
+-   ✅ **Genetic support roughly doubles the chance a target reaches approval**. It is the strongest evidence class available
 -   ⚠️ **Direction of effect decides agonist vs antagonist**, and getting it backwards harms patients
 -   ⚠️ Signature reversal uses cell lines at high doses. Candidates, not evidence
 -   ✅ Six questions: genetics · direction · expression · tractability · safety · **would it change management**
--   ✅ LoF carriers and PheWAS are a free, human, lifelong safety readout — use them before proposing a target
+-   ✅ LoF carriers and PheWAS are a free, human, lifelong safety readout. Use them before proposing a target
 
 ------------------------------------------------------------------------
 
@@ -300,7 +300,7 @@ print("observed:", round(observed, 2), " null mean:", round(np.mean(null), 2))
 |-------------------------|-----------------------------------------|
 | PPI network | Graph of protein–protein interactions, mostly from literature |
 | Degree | Number of edges at a node |
-| Hub | High-degree node — often a well-studied gene |
+| Hub | High-degree node, often a well-studied gene |
 | Study bias | Degree reflecting research attention rather than biology |
 | Degree-matched null | Rewiring that preserves degrees, to test a network claim |
 | Module | A densely interconnected set of genes |
@@ -309,7 +309,7 @@ print("observed:", round(observed, 2), " null mean:", round(np.mean(null), 2))
 | CMap / LINCS | Databases of drug-induced expression profiles |
 | Tractability | Whether a target can be drugged at all |
 | LOEUF | gnomAD metric of intolerance to loss of function |
-| Human knockout | A natural homozygous LoF carrier — a lifetime safety preview |
+| Human knockout | A natural homozygous LoF carrier, giving a lifetime safety preview |
 
 ------------------------------------------------------------------------
 

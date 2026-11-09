@@ -37,7 +37,7 @@ execute:
 
 ![](../../../assets/img/w9/mrna_vs_protein.svg){fig-align="center"}
 
-한 sample 안에서 gene별 mRNA vs protein abundance 상관 = 보통 **r = 0.4–0.6** 정도. Gene 하나를 여러 sample에 걸쳐 본 상관은 gene마다 천차만별 — 강한 gene도 있고, 사실상 0인 gene도 있음
+한 sample 안에서 gene별 mRNA vs protein abundance 상관 = 보통 **r = 0.4–0.6** 정도. Gene 하나를 여러 sample에 걸쳐 본 상관은 gene마다 천차만별. 강한 gene도 있고, 사실상 0인 gene도 있음
 
 ::: {.callout-important collapse="true"}
 ## 동기 질문의 두 결과, 둘 다 틀리지 않음
@@ -100,18 +100,18 @@ DDA = 매 cycle마다 장비가 intensity 가장 높은 precursor를 고름. 뭐
 -   ⚠️ Cohort 전체로 보면, 어떤 protein이 측정됐는지가 총 protein 양, chromatography drift, run 순서와 상관됨
 -   ⚠️ 환자군과 대조군을 다른 batch에서 돌렸다면(🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3)) → missing 자체가 군 간 차이가 됨
 
-→ ✅ **DIA = 고정된 window 안의 모든 것을 fragment** → 모든 run에서 같은 protein이 정량됨. 임상 cohort라면 이게 기본값 — 남의 dataset을 볼 때도 제일 먼저 물어볼 것
+→ ✅ **DIA = 고정된 window 안의 모든 것을 fragment** → 모든 run에서 같은 protein이 정량됨. 임상 cohort라면 이게 기본값. 남의 dataset을 볼 때도 제일 먼저 물어볼 것
 :::
 
 ## 3) Label-free vs TMT {#w9-s2-3}
 
 ![TMT = sample 16–18개를 한 run으로. 그 한 run이 곧 batch 하나](../../../assets/img/w9/tmt_plex.svg){fig-align="center"}
 
--   **Label-free** — sample마다 LC-MS run 하나씩 (DDA든 DIA든). ✅ Sample 수 제한 x. ⚠️ Run 순서, 장비 drift가 batch
+-   **Label-free**: sample마다 LC-MS run 하나씩 (DDA든 DIA든). ✅ Sample 수 제한 x. ⚠️ Run 순서, 장비 drift가 batch
 -   **TMT** (tandem mass tag, isobaric labelling) — sample마다 peptide에 서로 다른 mass tag → 16–18개를 섞어 한 번에 run. Tag는 fragment된 뒤에야 갈라짐 (reporter ion)
-    -   ✅ 한 plex 안에선 모든 sample을 같은 peptide로 잼 → missing 문제가 "sample별"에서 "plex별"로 옮겨감
+    -   ✅ 한 plex 안에선 모든 sample을 같은 peptide로 측정 → missing 문제가 sample별에서 plex별로 옮겨감
     -   ⚠️ **Plex = batch.** Cohort 100명 = plex 6–7개. Plex 안에선 비교가 잘 되지만, plex 사이는 훨씬 덜
-    -   ⚠️ **Ratio compression** — 같이 분리된 다른 peptide가 모든 비율을 1 쪽으로 끌어당김 → fold change 과소추정 (MS3나 좁은 isolation window가 도움)
+    -   ⚠️ **Ratio compression**: 같이 분리된 다른 peptide가 모든 비율을 1 쪽으로 끌어당김 → fold change 과소추정 (MS3나 좁은 isolation window가 도움)
 -   ✅ TMT라면: **plex마다 군을 균형 있게 배치** + **모든 plex에 같은 pooled reference sample**을 넣어 plex끼리 연결
 
 💡 Label-free/TMT(sample을 따로 vs 묶어서)와 DDA/DIA(어떤 peptide를 깨뜨리나)는 다른 축. TMT는 보통 DDA로 돌림
@@ -129,15 +129,15 @@ DDA = 매 cycle마다 장비가 intensity 가장 높은 precursor를 고름. 뭐
 항체 2개가 같은 protein에 붙어야 DNA barcode가 생김 → NGS로 셈 (Olink). SomaScan은 aptamer 하나 → DNA array로 읽음
 
 ::: {.callout-important collapse="true"}
-## Epitope artifact — 그리고 W11에서 중요한 이유
+## Epitope artifact, 그리고 W11에서 중요한 이유
 
-항체나 aptamer가 보고하는 값 = **시약이 얼마나 결합했나**. 대개는 protein abundance를 따라가지만, 아닐 때도 있음
+항체나 aptamer가 보고하는 값 = **시약이 결합한 정도**. 대개는 protein abundance를 따라가지만, 아닐 때도 있음
 
-결합 epitope를 바꾸는 coding variant → protein 양은 그대로인데 signal ↓. 유전 분석에선 protein 수치를 "낮추는" variant로 보임 = **가짜 pQTL**. 그리고 *cis* variant에 특히 몰림 (gene 안에 있는 variant라서)
+결합 epitope를 바꾸는 coding variant → protein 양은 그대로인데 signal ↓. 유전 분석에선 protein 수치를 낮추는 variant로 보임 = **가짜 pQTL**. 그리고 *cis* variant에 특히 몰림 (gene 안에 있는 variant라서)
 
 ✅ 확인법: *cis*-pQTL마다 lead variant가 같은 gene의 protein-altering variant인지 보기. 그렇다면 → orthogonal evidence 필요. Peptide를 직접 재는 MS가 가장 좋음
 
-⚠️ pQTL이 drug-target Mendelian randomization에 점점 많이 쓰여서 중요(🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). 여기서 생긴 epitope artifact → target screening까지 영향
+⚠️ pQTL을 drug-target Mendelian randomization에 쓰는 일이 늘어서 문제가 됨(🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). 여기서 생긴 epitope artifact → target screening까지 영향
 :::
 
 ## 2) Platform 간 consistency {#w9-s3-2}
@@ -160,9 +160,9 @@ Affinity platform끼리, 또는 affinity vs MS를 비교한 연구 → 상당수
 W7–W8의 spatial 논리를 RNA 대신 protein으로:
 
 -   **Multiplex IF**(marker 4–8개) → **cyclic IF / CODEX(PhenoCycler)**(40–100개, 염색–촬영–제거를 반복) → **IMC / MIBI**(금속 표지 항체를 질량으로 읽음, ~40개)
--   ✅ **FFPE**에서 됨(🔗 [W7 §2.2](../part4/w7_spatial_basics.qmd#w7-s2-2)), 실제로 일하는 분자 자체를 잼, 병리의사는 이미 IHC를 읽음
+-   ✅ **FFPE**에서 됨(🔗 [W7 §2.2](../part4/w7_spatial_basics.qmd#w7-s2-2)), 실제로 기능하는 분자 자체를 측정, 병리의사는 이미 IHC를 읽음
 -   분석 = W7–W8 그대로: **segmentation → marker intensity로 cell phenotyping → neighbourhood** (🔗 [W8 §2](../part4/w8_spatial_integration.qmd#w8-s2)). 예) 대장암 CODEX 연구(Schürch 2020)
--   ⚠️ **여전히 affinity** — marker 하나하나가 항체: 내 조직, 내 고정 조건에서 항체마다 검증 (§3.1 문제의 slide 버전)
+-   ⚠️ **여전히 affinity**: marker 하나하나가 항체라서 내 조직, 내 고정 조건에서 항체마다 검증 (§3.1 문제의 slide 버전)
 -   ⚠️ **여전히 segmentation** — cell 경계가 어긋나면 membrane marker signal이 이웃 cell 값으로 들어감 = spillover. Transcript와 같은 문제 (🔗 [W7 §3.2](../part4/w7_spatial_basics.qmd#w7-s3-2))
 -   **Suspension에선:** CITE-seq = 항체–oligo tag를 RNA와 같은 cell barcode로 읽음 (🔗 [W5 §3.2](../part3/w5_scrna_qc.qmd#w5-s3-2)) → 한 cell에서 protein + RNA
 
@@ -176,7 +176,7 @@ Discovery proteomics(DIA, TMT) = sample 수십 개에서 protein 수천 개 → 
 -   **Heavy-isotope standard** — 같은 peptide를 무거운 동위원소로 만들어 정해진 양을 spike-in. Light / heavy 비율 × 넣은 양 = **절대 농도**
 -   ✅ 항체 대신 peptide 질량으로 잼 → 항체가 잘못 붙거나 못 붙는 문제가 없음 (§3.1 epitope 문제 포함)
     -   예) 갑상선암 추적 검사의 thyroglobulin(Tg). 환자에게 anti-Tg 자가항체가 있으면 면역측정(immunoassay) 수치가 실제보다 낮게 나옴 → 병원 검사실은 LC-MS/MS로 측정 (trypsin이 자가항체까지 다 잘라버려서 방해 x)
--   ⚠️ 단계마다 **새롭고, 더 크고, 독립적인 cohort**가 필요. Discovery 후보 대부분은 마지막 단계까지 못 감 (🔗 [W10 §3](w10_clinical_proteomics.qmd#w10-s3))
+-   ⚠️ 단계마다 **새롭고, 더 크고, 독립적인 cohort**가 필요. Discovery 후보 대부분은 마지막 단계까지 가지 못함 (🔗 [W10 §3](w10_clinical_proteomics.qmd#w10-s3))
 
 ------------------------------------------------------------------------
 
@@ -209,7 +209,7 @@ Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 pro
 
 -   **Serum vs plasma?** Serum은 응고를 거침 → 혈소판 내용물이 방출돼 섞임
 -   **어떤 항응고제?** EDTA, citrate, heparin → 결과가 다름. Heparin은 일부 assay를 방해
--   **처리까지 걸린 시간.** 불안정한 protein은 실온 몇 분도 영향
+-   **처리까지 걸린 시간.** 불안정한 protein은 실온에 몇 분만 두어도 영향을 받음
 -   **동결–해동 횟수.** 세고, 기록하기
 -   **용혈.** 분홍빛 sample = 적혈구 내용물이 너무 많음..
 
@@ -233,11 +233,11 @@ Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 pro
 
 내 분야의 plasma proteomics 논문 하나 골라서 답해보기:
 
--   ④ **Platform?** MS인가 affinity인가 — MS라면 **DDA인가 DIA인가**?
+-   ④ **Platform?** MS인가 affinity인가, MS라면 **DDA인가 DIA인가**?
 -   ⑤ **Depletion?** Protein 몇 개를 정량했고, 그 숫자가 검체 종류에 비춰 말이 되나?
--   ⑥ **Missing value** — 얼마나 많고, 어떻게 처리했나? (🔗 [W10 §1](w10_clinical_proteomics.qmd#w10-s1))
--   ⑦ **Pre-analytical** — 환자군과 대조군을 같은 방식, 같은 장소에서 채취했나?
--   ⑧ **Batch** — 군을 batch에 randomise했나, 언급이라도 했나?
+-   ⑥ **Missing value**: 얼마나 많고, 어떻게 처리했나? (🔗 [W10 §1](w10_clinical_proteomics.qmd#w10-s1))
+-   ⑦ **Pre-analytical**: 환자군과 대조군을 같은 방식, 같은 장소에서 채취했나?
+-   ⑧ **Batch**: 군을 batch에 randomise했나, 언급이라도 했나?
 
 💡 ⑦, ⑧은 보통 supplement에 있거나 아예 없음. 없다는 것 자체가 답
 
@@ -255,11 +255,11 @@ Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 pro
 -   Transcript와 protein의 불일치 = 오류 아님
 -   MS = peptide 질량을 재고 protein을 추론. 식별은 database 의존, 정량은 대개 상대적
 -   ⚠️ **DDA는 intensity 가장 높은 precursor를 고름** → run마다 missing이 달라지고 군 간 차이처럼 보일 수 있음
--   ✅ **임상 cohort의 기본값 = DIA** — 매번 같은 protein을 정량
+-   ✅ **임상 cohort의 기본값 = DIA**. 매번 같은 protein을 정량
 -   ⚠️ **TMT: plex = batch.** Plex마다 군을 균형 있게, 공통 reference로 plex끼리 연결. 비율은 1 쪽으로 압축됨
 -   ⚠️ Plasma dynamic range \>10자릿수. Albumin이 질량의 절반, depletion은 붙어 있던 protein까지 제거
 -   ✅ Affinity panel(Olink, SomaScan) = depletion 없이 pg/mL까지. 대신 panel이 고정
--   ⚠️ **Affinity assay는 결합을 잼.** Epitope를 바꾸는 variant → 가짜 *cis*-pQTL
+-   ⚠️ **Affinity assay가 재는 것은 결합.** Epitope를 바꾸는 variant → 가짜 *cis*-pQTL
 -   Discovery = 후보. **Targeted MS** = 항체와 무관한 절대 수치
 -   Multiplexed tissue imaging(mIF, CODEX, IMC) = spatial proteomics: FFPE 가능, 그래도 항체, 그래도 segmentation
 -   ⚠️ **Pre-analytical variation**(serum vs plasma, tube 종류, 원심분리까지 시간, 동결–해동, 용혈)이 통계 분석 아무리 잘 해도 이걸 못 하면 biomarker 연구는 망..
@@ -276,7 +276,7 @@ Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 pro
 | DIA | 고정된 질량 범위 안의 모든 물질을 빠짐없이 측정하는 방식 |
 | TMT (isobaric labelling) | 16–18개 검체를 함께 측정할 수 있게 하는 질량 표지. 한 plex가 하나의 batch가 됨 |
 | Ratio compression | 함께 분리된 펩타이드 때문에 TMT 비율이 1 쪽으로 당겨지는 현상 |
-| Spectral library | DIA 스펙트럼을 해석하는 데 사용하는 참조 자료 |
+| Spectral library | DIA 스펙트럼을 해석할 때 쓰는 참조 자료 |
 | Protein inference | 여러 단백질에 공통된 펩타이드를 원래 단백질에 배정하는 과정 |
 | Dynamic range | 검체에서 가장 많은 단백질과 가장 적은 단백질 사이의 범위 |
 | Depletion | 분석 전에 양이 많은 혈장 단백질을 제거하는 과정 |

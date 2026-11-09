@@ -17,12 +17,12 @@ knitr:
 
 이 장을 마치면 다음을 할 수 있어야 합니다.
 
--   조직 해리가 없애 버린 정보 가운데 공간 데이터가 무엇을 복원하는지 말할 수 있다
+-   조직 해리로 사라진 정보 가운데 공간 데이터가 무엇을 되살리는지 말할 수 있다
 -   주요 플랫폼을 해상도와 측정 범위의 상충관계 위에 놓고, 질문에 맞는 플랫폼을 선택할 수 있다
 -   ⚠️ **FFPE 호환성**이 이 장에서 실무적으로 가장 중요한 사실인 이유를 말할 수 있다
 -   ⚠️ Visium spot이 세포가 아닌 이유와 그로부터 무엇이 따라오는지 설명할 수 있다
 -   ⚠️ 단일세포 해상도 플랫폼에서 cell segmentation이 어떻게 없는 co-expression을 만들어 내는지 설명할 수 있다
--   ⚠️ 주름, 절편 가장자리, 괴사처럼 생물학적 신호로 가장하는 물리적 artifact를 알아볼 수 있다
+-   ⚠️ 주름, 절편 가장자리, 괴사처럼 생물학적 신호처럼 보이는 물리적 artifact를 알아볼 수 있다
 -   이웃한 spot이 서로 독립적인 관측치가 아닌 이유를 말할 수 있다
 -   Spatially aware clustering이 무엇을 더해 주고, 그 평활화가 무엇을 지울 수 있는지 말할 수 있다
 -   공간 실험에서 자신의 n이 무엇인지 명시할 수 있다
@@ -34,17 +34,17 @@ knitr:
 
 ------------------------------------------------------------------------
 
-# 1. Dissociation이 버린 것 🗺️ {#w7-s1}
+# 1. Dissociation에서 사라지는 것 🗺️ {#w7-s1}
 
 ## 1) 같은 cell type, 서로 다른 두 cell {#w7-s1-1}
 
 ![Single-cell object에서는 둘 다 똑같이 annotation됨](../../../assets/img/w7/what_spatial_adds.svg){fig-align="center"}
 
-W6까지는 전부 suspension 속 cell로 분석. 그런데 protocol의 첫 단계가 임상적 직관 대부분이 기대는 변수를 없애버림 = **cell이 어디에 있었나**
+W6까지는 전부 suspension 속 cell로 분석. 그런데 protocol의 첫 단계에서 임상적 직관 대부분이 기대는 변수가 사라짐 = **cell이 어디에 있었나**
 
 ## 2) Spatial만 답할 수 있는 질문 {#w7-s1-2}
 
--   **Architecture** — 면역세포 침윤이 종양 안에 있나, 경계에 막혀 있나? (immune-excluded vs inflamed vs desert)
+-   **Architecture** — 면역세포 침윤이 종양 안에 있나, 경계에서 멈춰 있나? (immune-excluded vs inflamed vs desert)
 -   **Neighbourhood** — 그냥 같이 있는 게 아니라 실제로 붙어 있는 cell type은?
 -   **Gradient** — 혈관, invasion front, germinal centre로부터의 거리에 따라 뭐가 달라지나?
 -   **Regional heterogeneity** — 종양 한쪽은 저항, 다른 쪽은 민감?
@@ -58,12 +58,12 @@ W6까지는 전부 suspension 속 cell로 분석. 그런데 protocol의 첫 단�
 
 ## 1) Trade-off 하나, 나머지는 디테일 {#w7-s2-1}
 
-![해상도와 측정 범위는 같은 예산을 나눠 씀](../../../assets/img/w7/platform_tradeoff.svg){fig-align="center"}
+![해상도와 측정 범위는 서로 맞바꾸는 관계](../../../assets/img/w7/platform_tradeoff.svg){fig-align="center"}
 
 -   **Sequencing-based** (Visium, Visium HD, GeoMx, Slide-seq) — 격자나 선택한 영역에서 transcript를 포획. ✅ Whole transcriptome. ⚠️ Capture area 하나에 cell 여러 개가 들어갈 수 있음
 -   **Imaging-based ST** (Xenium, MERFISH, CosMx) — 제자리에서 molecule 하나하나를 영상화. ✅ Single-cell, 때로는 subcellular. ⚠️ 미리 고른 수백~수천 개 gene의 targeted panel만
 
-## 2) ⚠️ 우리한테 제일 중요한 건 FFPE {#w7-s2-2}
+## 2) ⚠️ 실무에서 제일 중요한 건 FFPE {#w7-s2-2}
 
 지금 거의 모든 platform이 **FFPE**(formalin-fixed paraffin-embedded) 조직에서 작동
 
@@ -103,28 +103,28 @@ W6까지는 전부 suspension 속 cell로 분석. 그런데 protocol의 첫 단�
 ::: {.callout-warning collapse="true"}
 ## Spot 하나로는 할 수 없는 주장 세 가지
 
--   ❌ **"이 두 gene이 co-expression된다"** — 같은 spot 안의 다른 cell에서 나왔을 수도. Single-cell co-expression의 함정(🔗 [W6 §3](../part3/w6_scrna_dynamics.qmd#w6-s3))이 옷만 바꿔 입고 돌아온 것
+-   ❌ **"이 두 gene이 co-expression된다"** — 같은 spot 안의 다른 cell에서 나왔을 수도. Single-cell co-expression의 함정(🔗 [W6 §3](../part3/w6_scrna_dynamics.qmd#w6-s3))이 형태만 바뀌어 다시 나타난 것
 -   ❌ **"이 spot은 macrophage다"** — spot에는 cell type이 없음. 조성(composition)이 있을 뿐
 -   ⚠️ **"이 cell type들이 상호작용한다"** — 같은 55 µm spot 안에 있다 = 접촉의 약한 근거. Dissociation data보단 낫지만 인접(adjacency)은 아님
 
 → ✅ 말할 수 있는 것: *이 영역에 macrophage signal이 풍부하다.* 실제로 유용하고 방어 가능한 주장 — 여기서 비율까지 가는 게 W8
 :::
 
-## 2) ⚠️ Single-cell platform: cell = 그어 놓은 선 {#w7-s3-2}
+## 2) ⚠️ Single-cell platform: cell = 나중에 그은 경계선 {#w7-s3-2}
 
-![Imaging platform은 molecule을 잼. Cell은 나중에 그려 넣는 것](../../../assets/img/w7/segmentation.svg){fig-align="center"}
+![Imaging platform이 재는 것은 molecule. Cell은 나중에 그려 넣음](../../../assets/img/w7/segmentation.svg){fig-align="center"}
 
 Xenium, CosMx, MERFISH, 그리고 Visium HD도 cell을 측정하는 건 아님. 측정값 = **좌표 위의 molecule**(또는 2 µm bin). Cell은 **cell segmentation**이 molecule 하나하나를 경계선에 배정한 다음에야 생김
 
 -   **Nucleus만** (DAPI) — 깔끔하지만 cytoplasm을 버림 → count 낮음
--   **Nucleus + 고정 거리 확장** — 흔한 기본값. Count는 회복되지만 빽빽한 조직에선 경계선이 이웃 cell로 넘어가 **이웃의 transcript를 가져옴**
+-   **Nucleus + 고정 거리 확장** — 흔한 기본값. Count는 회복되지만 빽빽한 조직에선 경계선이 이웃 cell로 넘어가 **이웃의 transcript까지 포함함**
 -   **더 나은 경계선** — membrane 염색, 또는 transcript 자체를 쓰는 tool(`Baysor`). 낫지만 여전히 정답은 아님
 -   **Visium HD** — 2 µm bin을 cell 단위로 다시 묶음(`bin2cell`, 10x 자체 segmentation) → 입력만 다르고 같은 문제
 
 ::: {.callout-warning collapse="true"}
 ## Segmentation된 cell 하나로는 할 수 없는 주장 두 가지
 
--   ❌ **"종양 둥지 속 macrophage가 epithelial gene을 발현한다"** — 대표적인 transcript spillover artefact. 종양 cell 사이에 끼인 얇은 cell이 이웃의 transcript를 주워 담음 = 새 옷 입은 doublet(🔗 [W5 §3.3](../part3/w5_scrna_qc.qmd#w5-s3-3))
+-   ❌ **"종양 둥지 속 macrophage가 epithelial gene을 발현한다"** — 대표적인 transcript spillover artefact. 종양 cell 사이에 끼인 얇은 cell에 이웃의 transcript가 섞여 들어감 = 형태만 다른 doublet(🔗 [W5 §3.3](../part3/w5_scrna_qc.qmd#w5-s3-3))
 -   ❌ **"두 cell type이 맞닿아 있으니 signalling한다"** — 경계선이 가장 많이 틀리는 곳 = 바로 접촉면. Ligand–receptor 쌍이 segmentation에서 만들어질 수 있음
 
 → ✅ Cell 수준 결과를 믿기 전에: 배타적이어야 할 marker(예: `PTPRC` vs `EPCAM`)가 엉뚱한 cell type에서 얼마나 나오나, 접촉면에서 더 심한가? 그다음 영상 위에 경계선을 겹쳐 보기 — 🔗 [§5](#w7-s5)의 H&E와 같은 원칙
@@ -138,12 +138,12 @@ Xenium, CosMx, MERFISH, 그리고 Visium HD도 cell을 측정하는 건 아님. 
 
 ![우리 Visium HD (8 µm bin) pipeline: 단계별 input → tool → output](../../../assets/img/w7/visium_hd_pipeline.svg){fig-align="center"}
 
--   뼈대는 scRNA-seq(🔗 [W5 §3.1](../part3/w5_scrna_qc.qmd#w5-s3-1))과 같고 cell 자리에 bin. Cell calling, doublet 단계 x — bin은 격자 칸이지 포획된 cell이 아니라서
+-   구조는 scRNA-seq(🔗 [W5 §3.1](../part3/w5_scrna_qc.qmd#w5-s3-1))과 같고 cell 자리에 bin. Cell calling, doublet 단계 x — bin은 격자 칸이지 포획된 cell이 아니라서
 -   ✅ 표에는 없지만 꼭 넣어야 할 두 단계: **H&E 영상과 대조한 QC**, **domain을 histology와 연결** (🔗 [§5](#w7-s5))
--   ⚠️ Domain 간 DE를 "Wilcoxon"으로 → bin을 전부 독립으로 취급 → p-value 부풀려짐 (🔗 [§4.3](#w7-s4-3)). Sample × domain pseudobulk가 더 안전한 쪽
+-   ⚠️ Domain 간 DE를 "Wilcoxon"으로 → bin을 전부 독립으로 취급 → p-value 부풀려짐 (🔗 [§4.3](#w7-s4-3)). Sample × domain pseudobulk가 더 안전함
 -   Deconvolution, neighbourhood enrichment, cell–cell communication → 🔗 [W8](w8_spatial_integration.qmd)
 
-⚠️ 표준 clustering은 **좌표를 완전히 무시** — Seurat가 cell 묶듯 spot을 묶음. 그런데도 domain이 공간적으로 이어져 나오면 좋은 신호, 안 이어지면 그것도 정보. 좌표까지 쓰는 방법 → 🔗 [§4.4](#w7-s4-4)
+⚠️ 표준 clustering은 **좌표를 완전히 무시** — Seurat가 cell을 묶듯 spot을 묶음. 그런데도 domain이 공간적으로 이어져 나오면 좋은 신호, 안 이어지면 그것도 정보. 좌표까지 쓰는 방법 → 🔗 [§4.4](#w7-s4-4)
 
 ## 2) Spatially variable gene {#w7-s4-2}
 
@@ -168,18 +168,18 @@ DE와는 다른 질문: *"이 gene이 그룹 간에 다른가?"*가 아니라 *"
 
 ## 4) 좌표를 쓰는 domain, 그리고 niche {#w7-s4-4}
 
-![이웃 spot = 같은 조직을 한 번 더 잰 측정값](../../../assets/img/w7/spatial_domains.svg){fig-align="center"}
+![이웃 spot은 같은 조직을 한 번 더 잰 측정값](../../../assets/img/w7/spatial_domains.svg){fig-align="center"}
 
-§4.3에서 p-value를 부풀리던 spatial autocorrelation이 clustering에선 **signal**: 이웃 spot = 같은 조직을 한 번 더 잰 것
+§4.3에서 p-value를 부풀리던 spatial autocorrelation이 clustering에서는 **signal**: 이웃 spot은 같은 조직을 한 번 더 잰 것
 
 **① Spatially aware domain** — spot의 label을 자기 발현 **+** 이웃의 발현으로 결정
 
 -   `BayesSpace` — 이웃 spot을 같은 label 쪽으로 끌어당기는 prior
 -   `BANKSY` — 이웃 spot의 평균 발현을 feature로 덧붙이고 **λ**로 가중 → 평소처럼 clustering. λ = 0 → 일반 clustering. Seurat 안에서 돌아감 (🔗 [§6.5](#w7-s6-5))
 -   `GraphST` — spatial neighbour graph 위의 graph neural network
--   ✅ 소금-후추처럼 흩어진 label → 이어진 domain. Noisy한 spot이 cluster 사이를 오가지 않음
+-   ✅ 흩어져 섞인 label이 이어진 domain으로 정리됨. Noisy한 spot이 cluster 사이를 오가지 않음
 -   ⚠️ **이제 매끄러움 일부는 내가 넣은 가정.** §4.1에선 이어진 domain = 좋은 신호였지만, 여기선 내가 요구한 것
--   ⚠️ **너무 매끄럽게 하면 작은 구조가 지워짐** — tertiary lymphoid structure(TLS), micrometastasis, 얇은 층. Domain 지도 보고 전에 λ = 0과 비교
+-   ⚠️ **너무 매끄럽게 하면 작은 구조가 지워짐** — tertiary lymphoid structure(TLS), micrometastasis, 얇은 층. Domain 지도를 해석하기 전에 λ = 0과 비교
 
 **② Niche** — 자기 발현이 아니라 **주변에 뭐가 있는지**(국소 neighbourhood의 조성)로 묶기. 진짜 spatial biology는 여기 있고, 먼저 deconvolution이 필요 → 🔗 [W8](w8_spatial_integration.qmd)
 
@@ -187,7 +187,7 @@ DE와는 다른 질문: *"이 gene이 그룹 간에 다른가?"*가 아니라 *"
 
 # 5. ⚠️ 조직의 현실 🧪 {#w7-s5}
 
-![여기 있는 패널 전부, 한 번 이상은 biology로 출판된 적 있음](../../../assets/img/w7/tissue_reality.svg){fig-align="center"}
+![여기 있는 패널 모두 한 번 이상은 biology로 출판된 적 있음](../../../assets/img/w7/tissue_reality.svg){fig-align="center"}
 
 ::: {.callout-tip collapse="true"}
 ## 이런 문제 대부분을 잡아내는 리뷰어 질문
@@ -199,7 +199,7 @@ DE와는 다른 질문: *"이 gene이 그룹 간에 다른가?"*가 아니라 *"
 💡 내 연구에도 같은 조언: 데이터 받은 다음이 아니라 block을 고르기 **전에** 병리의사와 같이 보기
 :::
 
-⚠️ **여전히 n = 환자.** 종양 하나에서 얻은 절편 세 장 = n = 1 — 🔗 [W1 §3.2](../part1/w1_intro.qmd#w1-s3-2), 🔗 [W5 §5](../part3/w5_scrna_qc.qmd#w5-s5)와 같은 원칙. Spatial 실험은 검체당 비용이 비싸서 환자는 적고 spot은 많은 설계로 기울기 쉬움 → 일반화하려는 연구엔 잘못된 방향
+⚠️ **여전히 n = 환자.** 종양 하나에서 얻은 절편 세 장 = n = 1 — 🔗 [W1 §3.2](../part1/w1_intro.qmd#w1-s3-2), 🔗 [W5 §5](../part3/w5_scrna_qc.qmd#w5-s5)와 같은 원칙. Spatial 실험은 검체당 비용이 비싸서 환자는 적고 spot은 많은 설계로 기울기 쉬움. 일반화하려는 연구에는 맞지 않는 방향
 
 ------------------------------------------------------------------------
 
@@ -390,11 +390,11 @@ sq.pl.spatial_scatter(ad, color=["expr_cluster", "banksy_cluster"])
 
 -   Spatial data = **위치**를 복원. Dissociation이 없애고, 임상적 추론 대부분이 쓰는 바로 그 변수
 -   해상도 vs transcriptome 범위는 trade-off. Imaging = single cell + targeted panel. Sequencing = whole transcriptome + 여러 cell이 섞인 spot
--   ✅ **대부분의 platform이 FFPE에서 작동** → outcome이 연결된 후향적 cohort가 지금 바로 손에 닿음
+-   ✅ **대부분의 platform이 FFPE에서 작동** → outcome이 연결된 후향적 cohort를 지금 바로 쓸 수 있음
 -   ⚠️ **55 µm spot = cell 1–10개.** Cell type이 아니라 조성. Spot 안의 co-expression ≠ cell 안의 co-expression
--   ⚠️ **Single-cell platform에서 cell = segmentation 결과.** 사이에 끼인 얇은 cell이 이웃의 transcript를 주워 담음 → 가짜 co-expression, 가짜 접촉
+-   ⚠️ **Single-cell platform에서 cell = segmentation 결과.** 사이에 끼인 얇은 cell에 이웃의 transcript가 섞여 들어감 → 가짜 co-expression, 가짜 접촉
 -   ⚠️ 표준 clustering은 좌표를 무시. 공간적으로 이어진 domain은 좋은 신호일 뿐 보장은 아님
--   ✅ Spatially aware clustering(BayesSpace, BANKSY)은 이웃을 같이 봄 → 더 깔끔한 domain. ⚠️ 매끄러움 일부는 가정이고 작은 구조를 지울 수 있음 → λ = 0과 비교
+-   ✅ Spatially aware clustering(BayesSpace, BANKSY)은 이웃까지 함께 사용 → 더 깔끔한 domain. ⚠️ 매끄러움 일부는 가정이고 작은 구조를 지울 수 있음 → λ = 0과 비교
 -   ⚠️ **이웃 spot은 독립이 아님.** 아주 작은 p-value 수천 개 = 이걸 무시했다는 증상
 -   ⚠️ 주름, 절편 가장자리, 괴사 전부 그럴듯한 "domain"을 만듦. ✅ 항상 지도 옆에 H&E
 -   ⚠️ **n은 여전히 환자.** 종양 하나에서 절편 세 장 = n = 1

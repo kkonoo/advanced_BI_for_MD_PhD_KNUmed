@@ -37,7 +37,7 @@ By the end of this chapter you should be able to:
 
 ## 1) The problem integration solves {#w6-s1-1}
 
-In single-cell data the **donor** is usually the dominant source of variation. Cells cluster by patient before they cluster by cell type — which makes the data uninterpretable as biology.
+In single-cell data the **donor** is usually the dominant source of variation. Cells cluster by patient before they cluster by cell type. That makes the data uninterpretable as biology.
 
 **Integration methods** (Harmony, scVI, Seurat RPCA, scANVI) find a shared representation in which cells of the same type from different donors sit together.
 
@@ -63,14 +63,14 @@ The assumption: **the same cell types exist in every batch, and any batch-associ
 -   ✅ Confirm that a population unique to one condition **survived**
 -   ✅ Benchmarks such as **scIB** score exactly this batch-removal / biology-preservation trade-off
 
-⚠️ Most papers show only the batch colouring — because that is the one that demonstrates the method worked. It is also the one that cannot reveal the failure.
+⚠️ Most papers show only the batch colouring, because that is the one that demonstrates the method worked. It is also the one that cannot reveal the failure.
 
-💡 Back to the motivating question: a perfectly mixed UMAP and a disease-specific state are **in tension**. Not impossible — but the paper owes you the second colouring.
+💡 Back to the motivating question: a perfectly mixed UMAP and a disease-specific state are **in tension**. Not impossible, but the paper owes you the second colouring.
 :::
 
 ## 3) ⚠️ When integration cannot help at all {#w6-s1-3}
 
-If disease status is perfectly confounded with batch — all patients processed on one day, all controls on another — **no integration method can separate them.** Exactly the argument from 🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3), and just as unrecoverable here.
+If disease status is perfectly confounded with batch (all patients processed on one day, all controls on another), **no integration method can separate them.** Exactly the argument from 🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3), and just as unrecoverable here.
 
 ------------------------------------------------------------------------
 
@@ -78,7 +78,7 @@ If disease status is perfectly confounded with batch — all patients processed 
 
 ## 1) The idea {#w6-s2-1}
 
-Biology is dynamic; a single-cell experiment is a snapshot. If cells were caught mid-process, they can be **ordered** along an axis of transcriptional similarity — a **pseudotime**.
+Biology is dynamic; a single-cell experiment is a snapshot. If cells were caught mid-process, they can be **ordered** along an axis of transcriptional similarity, giving a **pseudotime**.
 
 -   Stem cell → progenitor → differentiated
 -   Naive T cell → activated → effector → exhausted
@@ -94,7 +94,7 @@ Tools: **Monocle3**, **Slingshot**, **PAGA**.
 ## Three caveats worth stating plainly
 
 -   ⚠️ **A trajectory inference algorithm returns a trajectory for any dataset**, including one with no underlying process. There is no "no trajectory found" output
--   ⚠️ **Pseudotime is not time.** It measures neither rate nor duration. Two cells far apart in pseudotime may be minutes or months apart in reality — or the ordering may be reversed
+-   ⚠️ **Pseudotime is not time.** It measures neither rate nor duration. Two cells far apart in pseudotime may be minutes or months apart in reality. The ordering may also be reversed
 -   ⚠️ **The root cell has to be chosen by you.** Reverse the root and the biology reverses with it. That choice is prior knowledge entering as if it were a result
 
 → ✅ Sanity check: shuffle your cell labels, or run the algorithm on a homogeneous population, and see what comes back. It is a sobering five minutes.
@@ -114,12 +114,12 @@ RNA velocity adds **direction** by comparing unspliced (new) to spliced (mature)
 
 # 3. Inferring Mechanism from Co-expression 📡 {#w6-s3}
 
-Same raw material — **co-expression** within one snapshot. Only where you look differs:
+Same raw material: **co-expression** within one snapshot. Only where you look differs:
 
--   **Within a cell** — gene ↔ gene → a **regulon** (TF-centred) or a **module** (gene program)
--   **Between cells** — ligand ↔ receptor → **cell–cell communication**
+-   **Within a cell**: gene ↔ gene → a **regulon** (TF-centred) or a **module** (gene program)
+-   **Between cells**: ligand ↔ receptor → **cell–cell communication**
 
-→ Same limit, too: co-expression is not regulation, and not interaction. All of them are hypothesis generators.
+The limit is the same, too: co-expression is not regulation, and not interaction. All of them are hypothesis generators.
 
 ## 1) Within a cell: regulons and gene modules {#w6-s3-1}
 
@@ -140,80 +140,80 @@ Co-expression inside a cell, but two different questions:
 
 **SCENIC — three steps**
 
-1.  **Co-expression (GRNBoost2)** — predict each gene's expression from TF expression (tree-based regression) → candidate TF–target pairs. Mostly indirect correlation
-2.  **Motif pruning (cisTarget)** — keep only targets whose promoter region is enriched for that TF's motif → a **regulon** (TF + motif-backed targets). This step is what lifts SCENIC above plain co-expression
-3.  **Activity per cell (AUCell)** — how strongly the regulon's genes sit at the top of each cell's expression ranking (AUC) → a cell × regulon matrix → cluster, colour the UMAP, compare groups
+1.  **Co-expression (GRNBoost2)**: predict each gene's expression from TF expression (tree-based regression) → candidate TF–target pairs. Mostly indirect correlation
+2.  **Motif pruning (cisTarget)**: keep only targets whose promoter region is enriched for that TF's motif → a **regulon** (TF + motif-backed targets). This step is what lifts SCENIC above plain co-expression
+3.  **Activity per cell (AUCell)**: how strongly the regulon's genes sit at the top of each cell's expression ranking (AUC) → a cell × regulon matrix → cluster, colour the UMAP, compare groups
 
 Tools: **pySCENIC** (Python, the one used in practice), SCENIC (R, the original, slow)
 
 ::: {.callout-warning collapse="true"}
 ## Reading regulons
 
--   ⚠️ **TF mRNA ≠ TF activity.** Phosphorylation, nuclear translocation (NF-κB) and ligand binding (nuclear receptors) are invisible in RNA — and TFs are lowly expressed, so dropout is common
+-   ⚠️ **TF mRNA ≠ TF activity.** Phosphorylation, nuclear translocation (NF-κB) and ligand binding (nuclear receptors) are invisible in RNA. TFs are also lowly expressed, so dropout is common
 -   ⚠️ **A motif ≠ binding.** Closed chromatin blocks it, and scRNA alone cannot tell (with multiome / scATAC: SCENIC+, beyond this course)
 -   ⚠️ **Different every run.** GRNBoost2 is stochastic → run it several times and keep the regulons that recur
 -   ⚠️ **Circularity.** Comparing regulon activity between clusters that were defined by expression → differences are guaranteed
 -   ⚠️ **Comparing conditions = the W5 per-cell trap again.** Aggregate per donor before testing (🔗 [W5 §5.2](w5_scrna_qc.qmd#w5-s5-2))
 
-💡 Lighter alternative: **decoupleR + CollecTRI** — no network inference; score TF activity from known TF–target sets. Fast, reproducible, runs directly on a Seurat object (§5.4). The price: answers only within known biology
+💡 Lighter alternative: **decoupleR + CollecTRI**, which does no network inference and scores TF activity from known TF–target sets. Fast, reproducible, runs directly on a Seurat object (§5.4). The price: answers only within known biology
 
 ✅ Validation: binding by ChIP-seq / CUT&RUN; function by TF knockout / CRISPR / Perturb-seq
 :::
 
 ### ② Modules: gene programs (the NMF family)
 
-> Without a TF list: find the groups of genes that move together, from the data alone
+> Without a TF list, find the groups of genes that move together from the data alone
 
 ![](/assets/img/w6/nmf_programs.svg){fig-align="center"}
 
 **NMF (non-negative matrix factorisation)**
 
--   cell × gene matrix ≈ (program usage per cell) × (gene weights per program). Every value is ≥ 0 → programs only add up and never cancel each other out → easy to read
+-   cell × gene matrix ≈ (program usage per cell) × (gene weights per program). Every value is ≥ 0, so programs only add up and never cancel each other out, which makes them easy to read
 -   Each cell is a **mixture** of programs: cell-type identity + activities (cell cycle, IFN response, hypoxia, stress…)
--   A cluster gives each cell one label → a state that cuts across clusters (e.g. cycling cells in two clusters) stays invisible. NMF pulls it out as its own program
--   **cNMF** (consensus NMF): run NMF many times and keep only the programs that recur — the same logic as rerunning SCENIC. It separates identity programs from activity programs
--   Applied: tumour **meta-programs** — NMF per tumour → programs that recur across a thousand tumours (cell cycle, stress, hypoxia, EMT-like, IFN…)
+-   A cluster gives each cell one label, so a state that cuts across clusters (e.g. cycling cells in two clusters) stays invisible. NMF pulls it out as its own program
+-   **cNMF** (consensus NMF): run NMF many times and keep only the programs that recur, the same logic as rerunning SCENIC. It separates identity programs from activity programs
+-   Applied: tumour **meta-programs**. Run NMF per tumour → programs that recur across a thousand tumours (cell cycle, stress, hypoxia, EMT-like, IFN…)
 
 ::: {.callout-note collapse="true"}
 ## Why WGCNA, standard in bulk, is used less in single cells
 
 WGCNA = gene × gene correlation network → soft threshold → modules (eigengenes) → module–trait correlation. The standard tool in bulk RNA-seq.
 
-1.  **Sparsity** — gene–gene correlations computed over individual cells are swamped by zeros and dropout → you first have to pool similar cells into **metacells** (hdWGCNA). Resolution goes down, and the number of choices goes up
-2.  **Composition confounding** — in a mixed tissue the strongest correlations come from cell-type differences → modules end up as cell-type marker sets. To be useful, it has to run within one cell type
-3.  **Hard assignment** — WGCNA puts each gene in exactly one module. NMF lets a gene sit in several programs and a cell mix programs → a better fit for single cells, where identity and activity overlap
+1.  **Sparsity** — gene–gene correlations computed over individual cells are swamped by zeros and dropout, so you first have to pool similar cells into **metacells** (hdWGCNA). Resolution goes down, and the number of choices goes up
+2.  **Composition confounding**: in a mixed tissue the strongest correlations come from cell-type differences, so modules end up as cell-type marker sets. To be useful, it has to run within one cell type
+3.  **Hard assignment**: WGCNA puts each gene in exactly one module. NMF lets a gene sit in several programs and a cell mix programs, which fits single cells better, where identity and activity overlap
 
-💡 hdWGCNA is still the tool when you want module–condition relationships within one cell type — and the direct bridge from the WGCNA you learned for bulk
+💡 hdWGCNA is still the tool when you want module–condition relationships within one cell type, and it is the direct bridge from the WGCNA you learned for bulk
 :::
 
 ::: {.callout-warning collapse="true"}
 ## Reading modules
 
--   ⚠️ **k (the number of programs) is your choice** — as arbitrary as clustering resolution. cNMF gives you a stability / error plot to choose it
--   ⚠️ **A program is not a pathway.** It needs gene set enrichment to get a name — and that name is still an interpretation
+-   ⚠️ **k (the number of programs) is your choice**, as arbitrary as clustering resolution. cNMF gives you a stability / error plot to choose it
+-   ⚠️ **A program is not a pathway.** It needs gene set enrichment to get a name, and that name is still an interpretation
 -   ⚠️ **The same co-expression limit.** Moving together ≠ sharing a regulator. Compare modules between conditions per donor (🔗 [W5 §5.2](w5_scrna_qc.qmd#w5-s5-2))
 :::
 
 ## 2) Between cells: cell–cell communication {#w6-s3-2}
 
-CellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster pairs based on **co-expression** — the ligand's mRNA is high in cluster A, its receptor's mRNA is high in cluster B.
+CellPhoneDB, CellChat and NicheNet score ligand–receptor pairs between cluster pairs based on **co-expression**: the ligand's mRNA is high in cluster A, its receptor's mRNA is high in cluster B.
 
 ![The arrow in the figure is doing far more work than the data supports.](/assets/img/w6/ccc_fallacy.svg){fig-align="center"}
 
-💡 NicheNet is different in kind — it links the two axes: it asks whether a ligand's (between cells) *downstream target genes* are induced inside the receiver cell (within a cell). Still correlative, but a stronger correlation than co-expression alone.
+💡 NicheNet is different in kind, because it links the two axes: it asks whether a ligand's (between cells) *downstream target genes* are induced inside the receiver cell (within a cell). Still correlative, but a stronger correlation than co-expression alone.
 
 ## 3) Using them honestly (both) {#w6-s3-3}
 
--   ✅ **As a hypothesis generator** — "which TF / which program / which axis is worth testing?" is exactly what these tools are for
--   ✅ **Validated spatially (CCC)** — if the two cell types are physically adjacent (🔗 [W7](../part4/w7_spatial_basics.qmd)), the prediction becomes plausible
--   ✅ **Validated functionally** — CCC: blocking antibody, receptor knockout, ligand stimulation / regulons and programs: TF knockout, Perturb-seq
--   ❌ **As a standalone result** — neither "macrophages signal to T cells via TNF" nor "TF X drives the fibrosis program" is shown by co-expression
+-   ✅ **As a hypothesis generator**: "which TF / which program / which axis is worth testing?" is exactly what these tools are for
+-   ✅ **Validated spatially (CCC)**: if the two cell types are physically adjacent (🔗 [W7](../part4/w7_spatial_basics.qmd)), the prediction becomes plausible
+-   ✅ **Validated functionally**. CCC: blocking antibody, receptor knockout, ligand stimulation / regulons and programs: TF knockout, Perturb-seq
+-   ❌ **As a standalone result**: neither "macrophages signal to T cells via TNF" nor "TF X drives the fibrosis program" is shown by co-expression
 
 ------------------------------------------------------------------------
 
 # 4. Putting the Week Together 🧩 {#w6-s4}
 
-Everything in this chapter produces a confident-looking output from data that cannot fully support it. That is not a reason to avoid these methods — it is a reason to be precise about what they are.
+Everything in this chapter produces a confident-looking output from data that cannot fully support it. That is not a reason to avoid these methods. It is a reason to be precise about what they are.
 
 | Result | Strength of evidence | Where it belongs |
 |----|----|----|
@@ -234,7 +234,7 @@ Nothing here was revealed or shown. Two algorithms produced two orderings from o
 
 ✅ The honest version: *"Pseudotime ordering is consistent with a fibroblast-to-myofibroblast transition, and ligand–receptor analysis nominates macrophage TGF-β as a candidate driver. We are testing this by \[spatial validation / receptor blockade\]."*
 
-→ The second version is also the one that reads like a fundable next step.
+The second version is also the one that reads like a fundable next step.
 :::
 
 ------------------------------------------------------------------------
@@ -477,15 +477,15 @@ Everything in W7–W8 depends on that answer.
 # 📝 Summary
 
 -   Integration assumes the same cell types exist in every batch and that batch variation is technical
--   ⚠️ **Over-correction erases exactly the disease-specific population you were looking for** — and the resulting UMAP looks perfect
+-   ⚠️ **Over-correction erases exactly the disease-specific population you were looking for**, and the resulting UMAP looks perfect
 -   ✅ Always colour by batch **and** cell type. Demand both panels when reviewing
 -   ⚠️ Confounded design (all cases one day, all controls another) cannot be rescued by any integration method
 -   ⚠️ **A trajectory algorithm returns a trajectory for random data.** There is no null output
--   ⚠️ **Pseudotime is not time** — no rate, no duration — and the root is your assumption, not a result
+-   ⚠️ **Pseudotime is not time**: it measures neither rate nor duration, and the root is your assumption, not a result
 -   RNA velocity's kinetic assumptions are contested, and its arrows sit on a distorted 2D embedding
 -   Regulons (within a cell) and cell–cell communication (between cells) use the same raw material: snapshot co-expression
 -   ⚠️ **TF–target co-expression is not regulation.** SCENIC filters by motif once, but TF mRNA ≠ activity and motif ≠ binding
--   Gene modules are genes that move together, no TF needed. In single cells the NMF family (cNMF) dominates — each cell mixes several programs. WGCNA needs metacells and one cell type at a time
+-   Gene modules are genes that move together, no TF needed. In single cells the NMF family (cNMF) dominates, because each cell mixes several programs. WGCNA needs metacells and one cell type at a time
 -   ⚠️ **Ligand–receptor co-expression is not interaction**: cells may never be adjacent, the protein may never be made, and the database is biased toward what is already known
 -   ✅ These are hypothesis generators. Phrase them as "consistent with" and name the experiment that would test them
 
@@ -499,14 +499,14 @@ Everything in W7–W8 depends on that answer.
 | Over-correction | Integration that removes real biological differences |
 | scIB | Benchmark scoring batch removal against biology preservation |
 | Pseudotime | Ordering of cells along an inferred process |
-| Root cell | The chosen starting point — reverses the whole ordering |
+| Root cell | The chosen starting point; reversing it reverses the whole ordering |
 | Trajectory inference | Fitting a path through cells in expression space |
 | RNA velocity | Direction inferred from unspliced vs spliced reads |
 | Spliced / unspliced | Mature mRNA vs intron-containing nascent transcript |
 | Regulon | A TF plus the target genes backed by its motif |
 | SCENIC | Three-step GRN inference: co-expression → motif pruning → per-cell regulon activity |
-| TF activity | A TF's activity inferred from its targets' expression — not the TF's own mRNA level |
-| Gene program / module | A group of genes that vary together — each cell uses it to a different degree |
+| TF activity | A TF's activity inferred from its targets' expression, not from the TF's own mRNA level |
+| Gene program / module | A group of genes that vary together; each cell uses it to a different degree |
 | NMF / cNMF | Factorising expression into non-negative program usage and gene weights; cNMF takes the consensus of many runs |
 | Ligand–receptor pair | A curated interaction used to score communication |
 | CellChat / CellPhoneDB / NicheNet | Communication inference tools, all correlative |
@@ -524,7 +524,7 @@ Lopez R, et al. [*Deep generative modeling for single-cell transcriptomics.*](ht
 
 ### Trajectory and velocity
 
-Saelens W, et al. [*A comparison of single-cell trajectory inference methods.*](https://doi.org/10.1038/s41587-019-0071-9) Nat Biotechnol. 2019. **← the benchmark that shows how much method choice matters**\
+Saelens W, et al. [*A comparison of single-cell trajectory inference methods.*](https://doi.org/10.1038/s41587-019-0071-9) Nat Biotechnol. 2019. **← the benchmark showing how much method choice matters**\
 Cao J, et al. [*The single-cell transcriptional landscape of mammalian organogenesis.*](https://doi.org/10.1038/s41586-019-0969-x) Nature. 2019. (Monocle3)\
 Bergen V, et al. [*Generalizing RNA velocity to transient cell states through dynamical modeling.*](https://doi.org/10.1038/s41587-020-0591-3) Nat Biotechnol. 2020. (scVelo)\
 Bergen V, Soldatov RA, Kharchenko PV, Theis FJ. [*RNA velocity — current challenges and future perspectives.*](https://doi.org/10.15252/msb.202110282) Mol Syst Biol. 2021. **← read this before using velocity in a figure**

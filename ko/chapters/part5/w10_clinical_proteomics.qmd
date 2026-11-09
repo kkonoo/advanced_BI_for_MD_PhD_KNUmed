@@ -57,7 +57,7 @@ knitr:
 
 **④ ✅ Missing을 명시적으로 modelling** — `MSstats`, 또는 intensity 검정과 함께 presence/absence 검정도 보고 → NA도 data라는 걸 숨기지 않으니 가장 방어 가능
 
-💡 **반사적으로 할 확인:** 다른 imputation으로 다시 돌려서 hit가 살아남는지 보기. 안 살아남으면 → reviewer보다 먼저 중요한 걸 알게 된 것
+💡 **반사적으로 할 확인:** 다른 imputation으로 다시 돌려서 hit가 살아남는지 보기. 안 살아남으면 reviewer보다 먼저 중요한 걸 알게 된 것
 
 ------------------------------------------------------------------------
 
@@ -65,7 +65,7 @@ knitr:
 
 ## 1) t-test 말고 `limma`인 이유 {#w10-s2-1}
 
-Proteomics dataset = 넓고 짧음: protein 수천 개, sample 수십 개. Protein별 t-test → 분산 추정이 아주 적은 관측치에 기대서 불안정
+Proteomics dataset = 넓고 짧음: protein 수천 개, sample 수십 개. Protein별 t-test를 하면 분산 추정이 아주 적은 관측치에 기대서 불안정
 
 ![](../../../assets/img/w10/variance_shrinkage.svg){fig-align="center"}
 
@@ -125,7 +125,7 @@ res.head(10)
 
 -   ✅ `trend = TRUE` → ①의 intensity–variance 관계를 반영: 하나의 전체 값이 아니라 intensity에 따른 추세 쪽으로 축소
 -   ⚠️ Design에 **batch, sex, age** 넣기. Model에서 뺀다고 사라지지 않음
--   ✅ Technical replicate나 fractionation이 있는 MS 설계 → **`MSstats`**가 계층 구조를 제대로 modelling
+-   ✅ Technical replicate나 fractionation이 있는 MS 설계라면 **`MSstats`**가 계층 구조를 제대로 modelling
 
 ## 2) 결과 처리 {#w10-s2-2}
 
@@ -147,22 +147,22 @@ Condition 간 유의하다(DEP; differentially expressed protein) = 이제 시�
 |--------------------|--------------------------|--------------------------|
 | **Diagnostic biomarker** | 이 환자가 *지금* 병이 있나? | 내원 시점의 환자군 + 제대로 된 감별진단군 |
 | **Prognostic biomarker** | 이 환자에게 앞으로 무슨 일이? | 추적관찰, outcome, 생존 model |
-| **Predictive biomarker** | 이 환자가 *이* 약에 반응할까? | ⚠️ 치료군 + 비치료군 — 없으면 예측과 예후를 못 가름 |
+| **Predictive biomarker** | 이 환자가 *이* 약에 반응할까? | ⚠️ 치료군 + 비치료군. 없으면 예측과 예후를 구분하지 못함 |
 
-⚠️ **Predictive biomarker가 가장 어려운데 가장 자주 주장됨.** "반응자가 비반응자보다 수치가 높았다" = 치료와 무관하게 그냥 예후 좋은 병을 표시하는 marker여도 똑같이 나옴
+⚠️ **Predictive biomarker가 가장 어려운데 가장 자주 주장됨.** "반응자가 비반응자보다 수치가 높았다" = 치료와 무관하게 그냥 예후 좋은 병을 가리키는 marker여도 똑같이 나옴
 
 ## 2) ⚠️ AUC 0.94 = useful biomarker? {#w10-s3-2}
 
 ![](../../../assets/img/w10/wrong_comparison.svg){fig-align="center"}
 
-동기 질문의 답: **처방 x** — 적어도 그 연구만으로는
+동기 질문의 답: **처방 x**. 적어도 그 연구만으로는
 
 -   **보통의 논문: patient vs. healthy control** (대개 진행성 암 vs 건강한 자원자). 눈앞의 환자는 둘 다 아님
 
 ::: {.callout-warning collapse="true"}
 ## 두 번째 문제: 어디서 채혈했나
 
-환자군은 종양 병동에서, 대조군은 건강검진센터에서 채혈 → 채혈 tube, 처리까지 시간, 공복 여부가 군 간에 전부 체계적으로 다름 (🔗 [W9 §6](w9_proteomics_tech.qmd#w9-s6)). AUC 일부 = **어디서 채혈했나**를 잰 것
+환자군은 종양 병동에서, 대조군은 건강검진센터에서 채혈 → 채혈 tube, 처리까지 시간, 공복 여부가 군 간에 전부 체계적으로 다름 (🔗 [W9 §6](w9_proteomics_tech.qmd#w9-s6)). AUC 일부 = **어디서 채혈했는지**를 잰 것
 :::
 
 → ✅ 물어볼 것: 환자군과 대조군을 진료 경로의 같은 시점, 같은 장소, 같은 tube로 채취했나?
@@ -171,7 +171,7 @@ Condition 간 유의하다(DEP; differentially expressed protein) = 이제 시�
 
 ## 3) 유병률 >>> AUC {#w10-s3-3}
 
-AUC는 유병률과 무관, **PPV(양성예측도)는 아님**
+AUC는 유병률과 무관하지만 **PPV(양성예측도)는 유병률에 좌우됨**
 
 ```
 민감도 90%, 특이도 90%:
@@ -182,7 +182,7 @@ AUC는 유병률과 무관, **PPV(양성예측도)는 아님**
 
 ⚠️ 같은 검사. 양성 100건 중 92건이 거짓양성 → 전원 CT
 
-💡 이 계산은 내가 할 수 있고 bioinformatician은 못 함 — **우리** 진료 현장의 유병률이 필요하니까
+💡 이 계산은 내가 할 수 있고 bioinformatician은 못 함. **우리** 진료 현장의 유병률이 필요하니까
 
 ------------------------------------------------------------------------
 
@@ -198,7 +198,7 @@ AUC는 유병률과 무관, **PPV(양성예측도)는 아님**
 
 **⑤ 아무것도 보기 전에 validation set 떼어두기.** 환자 단위로, 가능하면 모집 기관이나 기간으로 나누기
 
-**⑥ 성공 기준을 미리 정하기** — AUC 기준이 아니라 어떤 결정이 바뀌는지로
+**⑥ 성공 기준을 미리 정하기**: AUC 기준이 아니라 어떤 결정이 바뀌는지로
 
 ::: {.callout-tip collapse="true"}
 ## 전공의가 실제로 할 수 있는 버전
@@ -207,7 +207,7 @@ AUC는 유병률과 무관, **PPV(양성예측도)는 아님**
 
 -   ✅ 많은 병원이 잔여 serum/plasma를 보관 중. 뭐가 어떤 동의로 보관돼 있는지 확인
 -   ✅ **Outcome 기준으로 고른** 후향적 sample 세트(반응자 vs 비반응자, 재발 vs 비재발) > 연속 모집. 추적관찰 결과도 이미 붙어 있음
--   ⚠️ 함정: 보관 sample은 당시 조건대로 채취됨 → pre-analytical variation이 실제 위험. 채취가 protocol화돼 있었는지 확인
+-   ⚠️ 함정: 보관 sample은 당시 조건대로 채취돼서 pre-analytical variation이 실제 위험. 채취가 protocol화돼 있었는지 확인
 -   ✅ 보관 sample 300개를 affinity panel로 > 새 sample 30개를 MS로. 대개 더 싸고 훨씬 많은 걸 알려줌
 :::
 
@@ -337,20 +337,20 @@ int((res.adj_P < 0.05).sum())
 -   결과가 바꿀 **결정**
 -   검사를 쓸 진료 현장의 **유병률**
 
-W14에 가져오기 — 충분히 말이 되는 capstone project
+W14에 가져오기. 충분히 말이 되는 capstone project
 
 ------------------------------------------------------------------------
 
 # 📝 요약
 
--   ⚠️ **Proteomics missing value 대부분 = "너무 낮아서 검출 안 됨"** — MCAR가 아니라 MNAR
+-   ⚠️ **Proteomics missing value 대부분 = "너무 낮아서 검출 안 됨"**. MCAR가 아니라 MNAR
 -   ❌ NA 있는 protein 제외 → 많은 protein만 남음. ❌ 평균 imputation → 검정하려는 효과가 줄어듦
 -   ✅ 낮은 분포에서 imputation하거나 missing을 명시적으로 modelling(`MSstats`) — **어느 쪽인지 적기**
 -   ✅ 다른 imputation으로 재분석. Hit가 안 살아남으면 reviewer보다 먼저 아는 게 나음
--   Empirical Bayes를 쓰는 `limma` = protein별 t-test보다 안정적. ⚠️ Design에 batch, age, sex
+-   Empirical Bayes를 쓰는 `limma`는 protein별 t-test보다 안정적. ⚠️ Design에 batch, age, sex
 -   ⚠️ Discovery → verification → validation → clinical. **단계마다 ~90% 탈락**, 가장 자주 건너뛰는 건 두 번째 단계
 -   ⚠️ **Diagnostic, prognostic, predictive = 서로 다른 주장.** Predictive엔 비치료군 필요
--   ⚠️ **건강한 자원자 대비 AUC 0.94 = "많이 아픈 상태" 탐지기일 수도** — 일부는 채혈 장소 탐지기
+-   ⚠️ **건강한 자원자 대비 AUC 0.94 = "많이 아픈 상태" 탐지기일 수도**. 일부는 채혈 장소 탐지기
 -   ✅ 대조군 = 실제로 구분해야 할 사람들, 진료 경로의 같은 시점에 채취
 -   ⚠️ **유병률이 낮으면 PPV 붕괴.** 민감도·특이도 90% 검사를 유병률 1%에 쓰면 PPV ≈ 8%
 -   ✅ Outcome으로 고른 보관 sample + affinity panel = 전공의에게 현실적인 출발점
@@ -363,7 +363,7 @@ W14에 가져오기 — 충분히 말이 되는 capstone project
 |-------------------------|-----------------------------------------|
 | MNAR / MCAR | 무작위가 아닌 결측 / 완전 무작위 결측 |
 | Left-censoring | 검출한계보다 낮은 값을 결측으로 기록하는 것 |
-| Imputation | 결측값을 채우는 과정으로, 선택한 방법마다 가정이 따름 |
+| Imputation | 결측값을 채우는 과정. 방법마다 가정이 다름 |
 | `MSstats` | 결측과 연구 설계를 함께 모형화하는 단백체학 패키지 |
 | Empirical Bayes | 단백질별 분산을 전체 분산 추세 쪽으로 축소하는 방법(`limma`) |
 | Discovery / verification / validation | 바이오마커가 임상에 도달하기 전에 거치는 발견·확인·검증의 세 단계 |
@@ -371,7 +371,7 @@ W14에 가져오기 — 충분히 말이 되는 capstone project
 | Prognostic biomarker | 치료와 무관하게 앞으로 일어날 결과를 예측하는 지표 |
 | Predictive biomarker | 특정 환자가 특정 치료로 이득을 볼지 예측하는 지표 |
 | Comparator group | 검사가 환자군과 실제로 구분해야 하는 비교 집단 |
-| PPV | 검사 양성인 사람 중 실제 환자의 비율로, 유병률에 따라 달라짐 |
+| PPV | 검사 양성인 사람 중 실제 환자의 비율. 유병률에 따라 달라짐 |
 | Overfitting | 별도로 보관한 코호트에서는 유지되지 않는 과도하게 낙관적인 성능 |
 
 ------------------------------------------------------------------------
@@ -380,7 +380,7 @@ W14에 가져오기 — 충분히 말이 되는 capstone project
 
 ### 결측값과 통계
 
-Lazar C, et al. [*Accounting for the multiple natures of missing values in label-free quantitative proteomics data sets.*](https://doi.org/10.1021/acs.jproteome.5b00981) J Proteome Res. 2016. **← 단백체학의 MNAR와 MCAR를 다룬 핵심 문헌**\
+Lazar C, et al. [*Accounting for the multiple natures of missing values in label-free quantitative proteomics data sets.*](https://doi.org/10.1021/acs.jproteome.5b00981) J Proteome Res. 2016. **← 단백체학의 MNAR와 MCAR를 정리한 문헌**\
 Choi M, et al. [*MSstats: an R package for statistical analysis of quantitative mass spectrometry-based proteomic experiments.*](https://doi.org/10.1093/bioinformatics/btu305) Bioinformatics. 2014.\
 Ritchie ME, et al. [*limma powers differential expression analyses for RNA-sequencing and microarray studies.*](https://doi.org/10.1093/nar/gkv007) Nucleic Acids Res. 2015.
 

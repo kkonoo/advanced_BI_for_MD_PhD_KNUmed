@@ -22,7 +22,7 @@ knitr:
 -   Pseudotime이 무엇의 순서를 정하는지, 그리고 ⚠️ 왜 실제 시간이 아닌지 설명한다
 -   ⚠️ Trajectory algorithm이 항상 trajectory를 반환하는 이유를 설명한다
 -   RNA velocity의 방향이 어디에서 나오며 어떤 가정이 논쟁 중인지 설명한다
--   ⚠️ Co-expression으로 만든 regulon과 gene module이 말해주는 것과 말해주지 않는 것을 구분한다
+-   ⚠️ Co-expression으로 만든 regulon과 gene module이 뒷받침하는 것과 뒷받침하지 못하는 것을 구분한다
 -   ⚠️ Ligand–receptor co-expression이 interaction의 근거가 아닌 이유를 설명한다
 -   어떤 결과가 hypothesis로서 연구비 신청서에 들어가고, 어떤 결과가 finding으로서 논문에 들어가는지 판단한다
 :::
@@ -37,11 +37,11 @@ knitr:
 
 ## 1) Integration이 해결하는 문제 {#w6-s1-1}
 
-Single-cell data에서 가장 큰 variation source = 대개 **donor**. Cell type보다 환자별로 먼저 clustering됨 → 이대로는 biology로 해석 불가
+Single-cell data에서 가장 큰 variation source = 대개 **donor** 차이. Cell type보다 환자별로 먼저 clustering됨 → 이대로는 biology로 해석 불가
 
 **Integration method**(Harmony, scVI, Seurat RPCA, scANVI) = 서로 다른 donor에서 온 같은 cell type이 한곳에 모이는 shared representation 찾기
 
-## 2) ⚠️ Integration = 숨어 있는 가정 {#w6-s1-2}
+## 2) ⚠️ Integration에 숨어 있는 가정 {#w6-s1-2}
 
 ![](../../../assets/img/w6/integration_overcorrection.svg){fig-align="center"}
 
@@ -53,7 +53,7 @@ Single-cell data에서 가장 큰 variation source = 대개 **donor**. Cell type
 -   한 condition에만 있는 population
 -   Treatment-induced program
 
-→ Aggressive integration은 이걸 합쳐서 없애버림. 그런데 결과 UMAP은 아름답게 섞여 보임..
+→ Aggressive integration은 이런 차이를 합쳐서 없애버림. 그런데 결과 UMAP은 아름답게 섞여 보임..
 
 ::: {.callout-important collapse="true"}
 ## 진단 방법, 그리고 이걸 거의 안 보여주는 이유
@@ -61,11 +61,11 @@ Single-cell data에서 가장 큰 variation source = 대개 **donor**. Cell type
 -   ✅ Batch **와** cell type으로 각각 colouring. 둘 다 논문에 실을 것
 -   ✅ Integration 후에도 알려진 cell-type marker가 분리되는지 확인
 -   ✅ 한 condition에만 있는 population이 **살아남았는지** 확인
--   ✅ **scIB** 같은 benchmark = 바로 이 batch 제거 vs biology 보존 trade-off를 점수화
+-   ✅ **scIB** 같은 benchmark = batch 제거와 biology 보존 사이의 trade-off를 점수화
 
-⚠️ 대부분의 논문은 batch colouring만 보여줌. 방법이 작동했다는 걸 보여주는 그림이니까.. 동시에 실패는 절대 드러낼 수 없는 그림이기도 함
+⚠️ 대부분의 논문은 batch colouring만 보여줌. 방법이 작동했다는 걸 보여주는 그림이니까.. 동시에 실패는 드러나지 않는 그림이기도 함
 
-💡 동기 질문으로 돌아가면: 완벽하게 섞인 UMAP과 질환 특이적 state는 **서로 긴장 관계**. 불가능은 아니지만, 그렇다면 논문이 두 번째 colouring을 보여줘야 함
+💡 동기 질문으로 돌아가면: 완벽하게 섞인 UMAP과 질환 특이적 state는 **서로 어긋남**. 불가능은 아니지만, 그렇다면 논문이 두 번째 colouring을 보여줘야 함
 :::
 
 ## 3) ⚠️ Integration이 전혀 못 도와주는 경우 {#w6-s1-3}
@@ -94,8 +94,8 @@ Biology는 동적인데 single-cell experiment는 snapshot. 진행 중인 proces
 ## 분명히 짚고 갈 세 가지 주의점
 
 -   ⚠️ **Trajectory inference algorithm은 어떤 dataset에서든 trajectory를 반환함** — underlying process가 없는 데이터도 포함. "Trajectory 없음"이라는 출력은 없음!
--   ⚠️ **Pseudotime ≠ 시간.** Rate도 duration도 측정 x. Pseudotime상 멀리 떨어진 두 cell이 실제로는 몇 분 차이일 수도, 몇 달 차이일 수도 — 순서가 거꾸로일 수도
--   ⚠️ **Root cell은 내가 고르는 것.** Root를 뒤집으면 biology도 같이 뒤집힘. 결과처럼 보이지만 사실 prior knowledge가 끼어든 것
+-   ⚠️ **Pseudotime ≠ 시간.** Rate도 duration도 측정 x. Pseudotime상 멀리 떨어진 두 cell이 실제로는 몇 분 차이일 수도, 몇 달 차이일 수도 있고, 순서가 거꾸로일 수도 있음
+-   ⚠️ **Root cell은 내가 고르는 것.** Root를 뒤집으면 biology도 같이 뒤집힘. 결과처럼 보이지만 사실 prior knowledge가 들어간 것
 
 ✅ Sanity check: cell label을 섞거나 homogeneous population에 algorithm을 돌려서 뭐가 나오는지 보기
 :::
@@ -108,7 +108,7 @@ RNA velocity = gene별로 unspliced(new) vs spliced(mature) transcript를 비교
 
 ⚠️ Splicing·degradation kinetics에 대한 가정은 **논쟁 중**, 일부 gene·system에서는 안 맞는다고 알려져 있음. 게다가 화살표가 UMAP 위에 그려지므로 🔗 [W5 §4.3](w5_scrna_qc.qmd#w5-s4-3)의 왜곡도 전부 물려받음
 
-✅ Trajectory 이야기를 하려면 더 좋은 algorithm이 썼다고 하지 말고 **time course** 또는 **lineage tracing**
+✅ Trajectory 이야기를 하려면 더 좋은 algorithm을 썼다고 하지 말고 **time course** 또는 **lineage tracing**
 
 ------------------------------------------------------------------------
 
@@ -116,8 +116,8 @@ RNA velocity = gene별로 unspliced(new) vs spliced(mature) transcript를 비교
 
 재료는 똑같음 = 같은 snapshot 안의 **co-expression**. 어디를 보느냐만 다름:
 
--   **Cell 안 (within cell)** — gene ↔ gene → **regulon**(TF 중심) / **module**(gene program)
--   **Cell 사이 (between cells)** — ligand ↔ receptor → **cell–cell communication**
+-   **Cell 안 (within cell)** — gene ↔ gene 관계에서 **regulon**(TF 중심) / **module**(gene program)
+-   **Cell 사이 (between cells)** — ligand ↔ receptor 관계에서 **cell–cell communication**
 
 → 한계도 똑같음: co-expression ≠ 조절, co-expression ≠ 상호작용. 전부 hypothesis generator
 
@@ -128,7 +128,7 @@ RNA velocity = gene별로 unspliced(new) vs spliced(mature) transcript를 비교
 |   | ① Regulon | ② Module (gene program) |
 |------------------|--------------------------|--------------------------|
 | 묻는 것 | 어떤 TF가 이 state를 켜나? | 어떤 gene들이 같이 움직이나? |
-| 방향 | TF → target (방향 있음) | 없음, 묶음만 |
+| 방향 | TF에서 target으로 (방향 있음) | 없음, 묶음만 |
 | 사전지식 | TF 목록 + motif DB | 없음 (unsupervised) |
 | 대표 tool | SCENIC, decoupleR | cNMF, (hd)WGCNA |
 
@@ -138,10 +138,10 @@ RNA velocity = gene별로 unspliced(new) vs spliced(mature) transcript를 비교
 
 ![](../../../assets/img/w6/scenic_regulon.svg){fig-align="center"}
 
-**SCENIC — 3단계**
+**SCENIC의 3단계**
 
-1.  **Co-expression (GRNBoost2)** — TF 발현으로 각 gene의 발현을 예측 (tree-based regression) → TF–target 후보. 대부분 간접적인 상관
-2.  **Motif pruning (cisTarget)** — target의 promoter 주변에 그 TF의 motif가 농축된 것만 남김 → **regulon** (TF + motif로 뒷받침되는 target). 이 단계 덕분에 단순 co-expression 이상이 됨
+1.  **Co-expression (GRNBoost2)** — TF 발현으로 각 gene의 발현을 예측 (tree-based regression)해서 TF–target 후보를 뽑음. 대부분 간접적인 상관
+2.  **Motif pruning (cisTarget)** — target의 promoter 주변에 그 TF의 motif가 농축된 것만 남겨 **regulon**을 만듦 (TF + motif로 뒷받침되는 target). 이 단계 덕분에 단순 co-expression 이상이 됨
 3.  **Activity per cell (AUCell)** — cell마다 regulon gene들이 발현 순위 상위에 몰려 있는 정도(AUC) → cell × regulon matrix → clustering, UMAP 색칠, 그룹 비교
 
 Tool: **pySCENIC**(Python, 실제로 가장 많이 씀), SCENIC(R, 원조, 느림)
@@ -150,19 +150,19 @@ Tool: **pySCENIC**(Python, 실제로 가장 많이 씀), SCENIC(R, 원조, 느�
 ## Regulon 해석 시 주의
 
 -   ⚠️ **TF mRNA ≠ TF activity.** 인산화, 핵 이동(NF-κB), ligand 결합(nuclear receptor) 같은 번역 후 조절은 RNA에 안 보임. 게다가 TF는 발현이 낮아 dropout이 많음
--   ⚠️ **Motif가 있다 ≠ 실제로 붙는다.** Chromatin이 닫혀 있으면 못 붙음 — scRNA만으로는 확인 불가 (multiome/scATAC이 있으면 SCENIC+, 이 수업 범위 밖)
--   ⚠️ **돌릴 때마다 다름.** GRNBoost2는 stochastic → 여러 번 돌려서 반복해서 나오는 regulon만 쓰는 게 관행
--   ⚠️ **순환 논리.** Expression으로 나눈 cluster끼리 regulon activity를 비교 → 차이가 나오는 게 당연
--   ⚠️ **Condition 비교 = W5의 per-cell test 함정 그대로.** Donor 단위로 집계해서 비교 (🔗 [W5 §5.2](w5_scrna_qc.qmd#w5-s5-2))
+-   ⚠️ **Motif가 있다 ≠ 실제로 붙는다.** Chromatin이 닫혀 있으면 못 붙음. scRNA만으로는 확인 불가 (multiome/scATAC이 있으면 SCENIC+, 이 수업 범위 밖)
+-   ⚠️ **돌릴 때마다 다름.** GRNBoost2는 stochastic이어서, 여러 번 돌려 반복해서 나오는 regulon만 쓰는 게 관행
+-   ⚠️ **순환 논리.** Expression으로 나눈 cluster끼리 regulon activity를 비교하면 차이가 나오는 게 당연
+-   ⚠️ **Condition 비교에는 W5의 per-cell test 함정이 그대로 적용됨.** Donor 단위로 집계해서 비교 (🔗 [W5 §5.2](w5_scrna_qc.qmd#w5-s5-2))
 
-💡 가벼운 대안: **decoupleR + CollecTRI** — network를 새로 추론하지 않고, 이미 알려진 TF–target set으로 TF activity만 점수화. 빠르고 재현성 좋고 R/Seurat에서 바로 됨 (§5.4). 대신 알려진 biology 안에서만 답이 나옴
+💡 가벼운 대안: **decoupleR + CollecTRI**. network를 새로 추론하지 않고, 이미 알려진 TF–target set으로 TF activity만 점수화. 빠르고 재현성 좋고 R/Seurat에서 바로 됨 (§5.4). 대신 알려진 biology 안에서만 답이 나옴
 
 ✅ 검증: binding은 ChIP-seq / CUT&RUN, 기능은 TF knockout / CRISPR / Perturb-seq
 :::
 
 ### ② Module: gene program (NMF 계열)
 
-> TF 목록 없이, 같이 움직이는 gene 묶음을 데이터에서 찾기
+> TF 목록 없이, 같이 움직이는 gene 묶음을 데이터에서 찾는다
 
 ![](../../../assets/img/w6/nmf_programs.svg){fig-align="center"}
 
@@ -170,18 +170,18 @@ Tool: **pySCENIC**(Python, 실제로 가장 많이 씀), SCENIC(R, 원조, 느�
 
 -   cell × gene matrix ≈ (cell별 program 사용량) × (program별 gene 가중치). 모든 값 ≥ 0 → program은 더해지기만 하고 서로 상쇄 x → 해석하기 쉬움
 -   cell 하나 = program 여러 개의 혼합: cell-type identity + activity (cell cycle, IFN 반응, hypoxia, stress…)
--   Cluster는 cell마다 label 하나 → cluster를 가로지르는 state(예: 두 cluster에 다 있는 cycling cell)는 안 보임. NMF는 이걸 program으로 따로 뽑아냄
+-   Cluster는 cell마다 label 하나뿐이어서 cluster를 가로지르는 state(예: 두 cluster에 다 있는 cycling cell)는 안 보임. NMF는 이걸 program으로 따로 뽑아냄
 -   **cNMF**(consensus NMF): NMF를 여러 번 돌려 반복해서 나오는 program만 남김 (SCENIC의 "여러 번 돌리기"와 같은 논리). Identity program과 activity program을 나눠줌
--   응용: 종양 **meta-program** — 종양마다 NMF → 1,000개 종양에서 반복해서 나오는 program 모음 (cell cycle, stress, hypoxia, EMT-like, IFN 등)
+-   응용: 종양 **meta-program**. 종양마다 NMF를 돌려 1,000개 종양에서 반복해서 나오는 program 모음 (cell cycle, stress, hypoxia, EMT-like, IFN 등)
 
 ::: {.callout-note collapse="true"}
 ## Bulk에서 쓰던 WGCNA는 왜 single-cell에서 덜 쓰나?
 
-WGCNA = gene × gene 상관 network → soft threshold → module(eigengene) → module–trait 상관. Bulk RNA-seq에선 표준
+WGCNA = gene × gene 상관 network → soft threshold → module(eigengene) → module–trait 상관. Bulk RNA-seq에서는 표준
 
-1.  **Sparsity** — cell 하나하나로 계산한 gene 간 상관은 0과 dropout에 휘둘림 → 비슷한 cell 수십 개를 합친 **metacell**부터 만들어야 함(hdWGCNA). 그만큼 해상도 ↓, 정할 parameter ↑
-2.  **조성 confounding** — 여러 cell type이 섞인 조직에선 가장 강한 상관 = cell type 차이 → module이 결국 cell-type marker 묶음. 의미 있게 쓰려면 cell type 하나 안에서만
-3.  **Hard assignment** — WGCNA는 gene 하나를 module 하나에만. NMF는 gene이 여러 program에 걸치고 cell도 program을 섞어 씀 → identity와 activity가 겹치는 single cell엔 NMF가 더 맞음
+1.  **Sparsity** — cell 하나하나로 계산한 gene 간 상관은 0과 dropout에 좌우됨. 그래서 비슷한 cell 수십 개를 합친 **metacell**부터 만들어야 함(hdWGCNA). 그만큼 해상도 ↓, 정할 parameter ↑
+2.  **조성 confounding** — 여러 cell type이 섞인 조직에선 가장 강한 상관이 cell type 차이여서 module이 결국 cell-type marker 묶음이 됨. 의미 있게 쓰려면 cell type 하나 안에서만
+3.  **Hard assignment** — WGCNA는 gene 하나를 module 하나에만. NMF는 gene이 여러 program에 걸치고 cell도 program을 섞어 씀. 그래서 identity와 activity가 겹치는 single cell엔 NMF가 더 맞음
 
 💡 그래도 hdWGCNA = cell type 하나 안에서 module–condition 관계를 볼 때 씀. Bulk에서 배운 WGCNA를 그대로 이어서 쓸 수 있는 길
 :::
@@ -189,8 +189,8 @@ WGCNA = gene × gene 상관 network → soft threshold → module(eigengene) →
 ::: {.callout-warning collapse="true"}
 ## Module 해석 시 주의
 
--   ⚠️ **k(program 수)는 내 선택.** Clustering resolution처럼 임의 → cNMF는 stability / error plot으로 고르게 해줌
--   ⚠️ **Program ≠ pathway.** Gene set enrichment로 이름을 붙여야 의미가 생김 — 그래도 그 이름은 해석일 뿐
+-   ⚠️ **k(program 수)는 내 선택.** Clustering resolution처럼 임의로 정함. cNMF는 stability / error plot을 보고 고르게 해줌
+-   ⚠️ **Program ≠ pathway.** Gene set enrichment로 이름을 붙여야 의미가 생김. 그래도 그 이름은 해석일 뿐
 -   ⚠️ **같은 co-expression 한계.** 같이 움직인다 ≠ 같은 regulator. Module–condition 비교는 donor 단위로 (🔗 [W5 §5.2](w5_scrna_qc.qmd#w5-s5-2))
 :::
 
@@ -200,20 +200,20 @@ CellPhoneDB, CellChat, NicheNet = cluster 쌍 사이의 ligand–receptor pair�
 
 ![](../../../assets/img/w6/ccc_fallacy.svg){fig-align="center"}
 
-💡 NicheNet은 결이 좀 다름 = 두 축을 잇는 방법: ligand(cell 사이)의 *downstream target gene*이 receiver cell 안에서 실제로 유도되는지(cell 안)를 봄. 여전히 correlative지만, co-expression만 보는 것보단 강한 correlation
+💡 NicheNet은 결이 좀 다름. 두 축을 잇는 방법임: ligand(cell 사이)의 *downstream target gene*이 receiver cell 안에서 실제로 유도되는지(cell 안)를 봄. 여전히 correlative지만, co-expression만 보는 것보단 강한 correlation
 
 ## 3) 적절한 사용법 (둘 다) {#w6-s3-3}
 
--   ✅ **Hypothesis generator로** — "어떤 TF / 어떤 program / 어떤 axis를 검정해 볼 만한가?"가 딱 이 도구들용 질문
+-   ✅ **Hypothesis generator로 쓰기** — "어떤 TF / 어떤 program / 어떤 axis를 검정해 볼 만한가?"가 딱 이 도구들용 질문
 -   ✅ **공간적으로 검증 (CCC)** — 두 cell type이 물리적으로 붙어 있다면(🔗 [W7](../part4/w7_spatial_basics.qmd)) 예측이 그럴듯해짐
--   ✅ **기능적으로 검증** — CCC는 blocking antibody, receptor knockout, ligand stimulation / regulon·program은 TF knockout, Perturb-seq
+-   ✅ **기능적으로 검증** — CCC에는 blocking antibody, receptor knockout, ligand stimulation / regulon·program은 TF knockout, Perturb-seq
 -   ❌ **단독 결과로 x** — "Macrophage가 TNF로 T cell에 signal을 보낸다", "TF X가 fibrosis program을 구동한다" 둘 다 co-expression만으로는 입증 안 됨
 
 ------------------------------------------------------------------------
 
 # 4. 이번 주 정리 🧩 {#w6-s4}
 
-이 장의 방법들은 전부 데이터가 다 받쳐주지 못하는, 자신만만한 모양의 출력을 냄. 쓰지 말라는 게 아니라 → 결과가 정확히 뭔지 정확하게 표현하라는 것
+이 장의 방법들은 전부 데이터가 다 받쳐주지 못하는 출력을 자신만만한 모양으로 냄. 쓰지 말라는 게 아니라, 결과가 정확히 무엇인지 정확하게 표현하라는 것
 
 | 결과 | 근거의 강도 | 들어갈 위치 |
 |----------------------------------------|----------------------------------------|--------------------------------------|
@@ -230,11 +230,11 @@ CellPhoneDB, CellChat, NicheNet = cluster 쌍 사이의 ligand–receptor pair�
 
 *"Trajectory analysis revealed that fibroblasts differentiate into myofibroblasts, and cell–cell communication analysis showed that macrophage-derived TGF-β drives this transition."*
 
-이 문장은 아무것도 revealed하거나 showed하지 않음. Dissociated cell snapshot 하나에서 algorithm 두 개가 ordering 두 개를 만든 것뿐
+이 문장은 아무것도 revealed하거나 showed하지 않음. Dissociated cell snapshot 하나에서 algorithm 두 개가 ordering 두 개를 만들었을 뿐
 
 ✅ 정직한 버전: *"Pseudotime ordering은 fibroblast-to-myofibroblast transition과 일치하며, ligand–receptor analysis는 macrophage TGF-β를 candidate driver로 제시한다. 우리는 \[spatial validation / receptor blockade\]로 이를 검정하고 있다."*
 
-→ 두 번째 버전이 연구비 받을 만한 다음 단계처럼 읽히기도 함
+두 번째 버전이 연구비 받을 만한 다음 단계처럼 읽히기도 함
 :::
 
 ------------------------------------------------------------------------
@@ -323,7 +323,7 @@ plt.show()
 
 :::
 
-✅ **한 가지 바꾸기:** Harmony의 `theta`를 올려서 correction을 더 aggressive하게 → 오른쪽 panel에서 작은 population이 사라지는지 확인
+✅ **한 가지 바꾸기:** Harmony의 `theta`를 올려서 correction을 더 aggressive하게 만든 뒤, 오른쪽 panel에서 작은 population이 사라지는지 확인
 
 ## 2) Trajectory와 sanity check {#w6-s5-2}
 
@@ -351,7 +351,7 @@ sc.pl.umap(ad, color="dpt_pseudotime")
 
 :::
 
-⚠️ **그다음 아래 코드 실행** → 출력을 정직하게 보기
+⚠️ **그다음 아래 코드 실행**. 출력을 정직하게 보기
 
 ::: {.panel-tabset group="lang"}
 
@@ -378,7 +378,7 @@ sc.pl.umap(mono, color="dpt_pseudotime")
 
 :::
 
-💡 Trajectory가 나올 것.. 이게 앞의 그림에 대해 뭘 말해주는지 토론
+💡 Trajectory가 나올 것.. 이 결과가 앞의 그림에 대해 무엇을 뜻하는지 토론
 
 ## 3) Cell–cell communication {#w6-s5-3}
 
@@ -462,7 +462,7 @@ plt.show()
 
 :::
 
-✅ **한 가지 바꾸기:** SPI1(PU.1) 말고 관심 있는 TF 하나로 바꿔서 mRNA vs activity 비교 → 얼마나 다른가? Condition을 비교하고 싶다면 cell이 아니라 donor별 평균으로
+✅ **한 가지 바꾸기:** SPI1(PU.1) 말고 관심 있는 TF 하나로 바꿔서 mRNA와 activity를 비교. 얼마나 다른가? Condition을 비교하고 싶다면 cell이 아니라 donor별 평균으로
 
 ## 5) 다음 주 전까지 {#w6-s5-5}
 
@@ -477,17 +477,17 @@ W7–W8 내용 전부가 그 답에 달려 있음
 # 📝 요약
 
 -   Integration의 가정: 모든 batch에 같은 cell type, batch variation은 technical
--   ⚠️ **Over-correction은 찾던 질환 특이적 population을 지워버림** — 그래도 UMAP은 완벽해 보임
+-   ⚠️ **Over-correction은 찾던 질환 특이적 population을 지워버림.** 그래도 UMAP은 완벽해 보임
 -   ✅ 항상 batch **와** cell type으로 colouring. Review할 때도 두 panel 다 요구할 것
--   ⚠️ Case는 전부 하루에, control은 전부 다른 날에 처리한 confounded design → 어떤 integration method로도 구제 불가
+-   ⚠️ Case는 전부 하루에, control은 전부 다른 날에 처리한 confounded design은 어떤 integration method로도 구제 불가
 -   ⚠️ **Trajectory algorithm은 random data에서도 trajectory를 반환.** Null output은 없음
--   ⚠️ **Pseudotime ≠ 시간.** Rate도 duration도 없고, root는 결과가 아니라 내 가정
+-   ⚠️ **Pseudotime ≠ 시간.** Rate도 duration도 없고, root는 결과가 아니라 내가 정한 가정
 -   RNA velocity의 kinetic assumption은 논쟁 중, 화살표는 왜곡된 2D embedding 위에 그려짐
--   Regulon(cell 안)과 cell–cell communication(cell 사이)은 같은 재료 = snapshot의 co-expression
+-   Regulon(cell 안)과 cell–cell communication(cell 사이)은 재료가 같음: snapshot의 co-expression
 -   ⚠️ **TF–target co-expression ≠ regulation.** SCENIC은 motif로 한 번 거르지만, TF mRNA ≠ activity, motif ≠ binding
--   Gene module = TF 없이 같이 움직이는 gene 묶음. Single cell에선 NMF 계열(cNMF)이 주류 — cell 하나가 program 여러 개를 섞어 씀. WGCNA는 metacell + cell type 하나씩
+-   Gene module = TF 없이 같이 움직이는 gene 묶음. Single cell에선 NMF 계열(cNMF)이 주류. cell 하나가 program 여러 개를 섞어 씀. WGCNA는 metacell + cell type 하나씩
 -   ⚠️ **Ligand–receptor co-expression ≠ interaction.** Cell끼리 붙어 있지 않을 수도, protein이 안 만들어질 수도 있고, database는 이미 알려진 것 쪽으로 편향
--   ✅ 이 방법들 = hypothesis generator. "consistent with"로 표현하고, 검정할 실험을 명시
+-   ✅ 이 방법들은 hypothesis generator. "consistent with"로 표현하고, 검정할 실험을 명시
 
 ------------------------------------------------------------------------
 
@@ -499,14 +499,14 @@ W7–W8 내용 전부가 그 답에 달려 있음
 | Over-correction | 실제 생물학적 차이까지 제거해 버린 통합 |
 | scIB | 배치 제거와 생물학적 신호 보존을 함께 평가하는 비교 체계 |
 | Pseudotime | 추정된 생물학적 과정을 따라 세포의 순서를 정한 값 |
-| Root cell | 사용자가 선택한 시작 세포 — 전체 순서를 반대로 만들 수 있음 |
+| Root cell | 사용자가 선택한 시작 세포. 전체 순서를 반대로 만들 수 있음 |
 | Trajectory inference | 발현 공간에 놓인 세포들을 통과하는 경로를 추정하는 것 |
 | RNA velocity | 미접합 읽기값과 접합 읽기값의 차이로 추정한 변화 방향 |
 | Spliced / unspliced | 성숙한 mRNA / 인트론을 포함한 초기 전사체 |
 | Regulon | 전사인자와, 그 전사인자의 motif로 뒷받침되는 표적 유전자 집합 |
 | SCENIC | 공발현 → motif 가지치기 → 세포별 regulon 활성 점수의 3단계 유전자 조절 네트워크 추론 방법 |
-| TF activity | 표적 유전자들의 발현으로 추정한 전사인자 활성 — 전사인자 자체의 mRNA 양과 다름 |
-| Gene program / module | 함께 변하는 유전자 묶음 — 세포마다 사용하는 정도가 다름 |
+| TF activity | 표적 유전자들의 발현으로 추정한 전사인자 활성. 전사인자 자체의 mRNA 양과 다름 |
+| Gene program / module | 함께 변하는 유전자 묶음. 세포마다 사용하는 정도가 다름 |
 | NMF / cNMF | 발현 행렬을 음수가 아닌 program 사용량과 유전자 가중치로 분해하는 방법; cNMF는 반복 실행 결과의 합의 |
 | Ligand–receptor pair | 세포 간 소통 점수 계산에 사용하는 선별된 상호작용 쌍 |
 | CellChat / CellPhoneDB / NicheNet | 상관관계에 기반해 세포 간 소통을 추정하는 도구 |

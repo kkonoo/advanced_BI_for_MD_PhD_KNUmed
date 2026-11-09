@@ -33,10 +33,10 @@ By the end of this chapter you should be able to:
 
 A usable question names four things:
 
--   **The population** — which patients, at which point in their care
--   **The comparison** — what against what
--   **The measurement** — what you will actually quantify
--   **The data source** — where it comes from, and whether it already exists
+-   **The population**: which patients, at which point in their care
+-   **The comparison**: what against what
+-   **The measurement**: what you will actually quantify
+-   **The data source**: where it comes from, and whether it already exists
 
 ⚠️ If any of the four is missing, you have an interest, not a project.
 
@@ -45,7 +45,7 @@ A usable question names four things:
 
 > *"In \_\_\_\_ [population], is \_\_\_\_ [measurement] different between \_\_\_\_ and \_\_\_\_ [comparison], using \_\_\_\_ [data source]?"*
 
-If you cannot fill every blank, the missing blank is your next task — and it is usually not an analysis task. It is a phone call to pathology, or an hour in a public database.
+If you cannot fill every blank, the missing blank is your next task, and it is usually not an analysis task. It is a phone call to pathology, or an hour in a public database.
 :::
 
 ------------------------------------------------------------------------
@@ -58,11 +58,11 @@ If you cannot fill every blank, the missing blank is your next task — and it i
 
 Residents consistently underestimate this list:
 
--   ✅ **The pathology archive** — FFPE blocks with linked outcomes. Spatial and proteomics both work on FFPE (🔗 [W7 §2.2](../part4/w7_spatial_basics.qmd#w7-s2-2))
--   ✅ **Residual clinical samples** — banked serum or plasma, under existing consent in some institutions
--   ✅ **The EHR** — labs, imaging reports, medications, outcomes, already digital
--   ✅ **Public data collected for another purpose** — GEO, CELLxGENE, TCGA, the UK Biobank return files. A dataset generated to answer question A very often contains the answer to your question B
--   ✅ **Your department's own past studies** — data that was analysed once, for one aim
+-   ✅ **The pathology archive**: FFPE blocks with linked outcomes. Spatial and proteomics both work on FFPE (🔗 [W7 §2.2](../part4/w7_spatial_basics.qmd#w7-s2-2))
+-   ✅ **Residual clinical samples**: banked serum or plasma, under existing consent in some institutions
+-   ✅ **The EHR**: labs, imaging reports, medications, outcomes, already digital
+-   ✅ **Public data collected for another purpose**: GEO, CELLxGENE, TCGA, the UK Biobank return files. A dataset generated to answer question A very often contains the answer to your question B
+-   ✅ **Your department's own past studies**: data that was analysed once, for one aim
 
 💡 The best resident projects usually combine **one existing dataset** with **one clinical question nobody in the original study cared about**.
 
@@ -89,9 +89,9 @@ Residents consistently underestimate this list:
 
 From 🔗 [W8 §3](../part4/w8_spatial_integration.qmd#w8-s3): description → hypothesis → consistent with → supported → demonstrated.
 
-A resident project realistically reaches **③ consistent with**. That is publishable, fundable, and honest — provided you say so and name the experiment that would take it to ④ or ⑤.
+A resident project realistically reaches **③ consistent with**. That is publishable, fundable, and honest, provided you say so and name the experiment that would take it to ④ or ⑤.
 
-⚠️ What sinks projects at review is not stopping at ③. It is writing ⑤'s verb over ③'s evidence.
+⚠️ What fails at review is not stopping at ③. It is writing ⑤'s verb over ③'s evidence.
 
 ## 2) ✅ A negative result is a complete project {#w14-s3-2}
 
@@ -147,7 +147,7 @@ Decide now what result would make you stop.
 
 -   ① **State your question** in one sentence. Your partner repeats it back. Did they get it right?
 -   ② **Which quadrant** is it in (§2)? Be honest
--   ③ **Sketch Figure 2** — the answer figure — on paper. What are the axes?
+-   ③ **Sketch Figure 2**, the answer figure, on paper. What are the axes?
 -   ④ **What is your n**, and what is the unit of replication?
 -   ⑤ **Name one confounder** that could produce your expected result on its own
 -   ⑥ **Heading 10 (stopping rule)** — what would make you stop?
@@ -166,9 +166,9 @@ Decide now what result would make you stop.
 
 -   ✅ One-page protocol, all ten headings
 -   ✅ Figure 1 (cohort) drafted, even roughly
--   ✅ Figure 2 (the answer) drafted — or the caption with the number still blank
+-   ✅ Figure 2 (the answer) drafted, or the caption with the number still blank
 -   ✅ A Quarto document that renders, with no hand-typed numbers (🔗 [W2 §3](../part1/w2_scripts_ai.qmd#w2-s3))
--   ✅ Code in a git repository (🔗 [W2 §4](../part1/w2_scripts_ai.qmd#w2-s4)) — ⚠️ with `rawdata/` in `.gitignore`
+-   ✅ Code in a git repository (🔗 [W2 §4](../part1/w2_scripts_ai.qmd#w2-s4)). ⚠️ Keep `rawdata/` in `.gitignore`
 
 **Presentation:** 15 minutes + 5 minutes questions.
 
@@ -189,14 +189,14 @@ You started this course able to run bulk RNA-seq and produce a gene list.
 
 You can now read a GWAS and say what it does not show; judge whether a PRS applies to your patients; tell when a single-cell paper has confused cells with donors; ask where in the tissue something happened; know that the protein may never have been made; recognise a network hub as a publication artifact; and see the wrong control group before anyone runs a statistic.
 
-None of that is coding. All of it is judgment — and it is the part that could not be delegated.
+None of that is coding. All of it is judgment, and it is the part that could not be delegated.
 
 ::: {.callout-tip collapse="true"}
 ## The three habits worth keeping
 
 -   ✅ **Ask what the unit of replication is.** In every paper, every meeting, every design. It is the single highest-yield question in this field
 -   ✅ **Look up whether the answer already exists** before generating data. One hour in the browser, routinely, has saved entire grants
--   ✅ **Write the caption first.** For a figure, a paper, or a project — if the sentence is vague, the work will be
+-   ✅ **Write the caption first.** For a figure, a paper, or a project. If the sentence is vague, the work will be
 
 💡 And one more: when a result looks too clean, ask what the design would have produced if the hypothesis were false.
 :::
@@ -208,7 +208,7 @@ None of that is coding. All of it is judgment — and it is the part that could 
 -   A usable question names a **population, a comparison, a measurement and a data source**
 -   ⚠️ Missing one of the four means you have an interest, not a project
 -   ✅ Start in the high-value, high-feasibility quadrant: **archived samples with outcomes**, or **public data asked a new question**
--   ⚠️ Start the ethics application in week one — it is the step that cannot be compressed
+-   ⚠️ Start the ethics application in week one. It is the step that cannot be compressed
 -   ✅ **Plan four figures before analysing**: cohort · the answer · the mechanism · the implication
 -   ✅ Name the **rung of the evidence ladder** you can reach, and the experiment that moves it up
 -   ✅ **A negative result is complete** if the hypothesis was specific and the design could have detected the effect
@@ -222,7 +222,7 @@ None of that is coding. All of it is judgment — and it is the part that could 
 | Term | One-line meaning |
 |-------------------------|-----------------------------------------|
 | Scoping | Narrowing an interest into an answerable question |
-| Unit of replication | What you can independently repeat — usually the patient |
+| Unit of replication | What you can independently repeat, usually the patient |
 | Feasibility | Whether the data can exist within your timeline |
 | One-page protocol | The ten headings, written before touching data |
 | Stopping rule | The result that would make you abandon the project |

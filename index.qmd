@@ -18,9 +18,9 @@ This course is about the layer above it: **being able to tell when an omics resu
 ::: {.callout-note collapse="true"}
 ## Two kinds of depth, and which one this course teaches
 
-**Execution depth** — tuning a doublet detector, building an LD reference panel, implementing spot deconvolution. That is a full-time job, and it belongs to your bioinformatician.
+**Execution depth**: tuning a doublet detector, building an LD reference panel, implementing spot deconvolution. That is a full-time job, and it belongs to your bioinformatician.
 
-**Judgment depth** — is n = 3 patients or 30,000 cells the real n? Was this polygenic score built on people like my patients? Does this UMAP support the sentence next to it? Would this change what I do on Monday?
+**Judgment depth**: is n = 3 patients or 30,000 cells the real n? Was this polygenic score built on people like my patients? Does this UMAP support the sentence next to it? Would this change what I do on Monday?
 
 → This course lives on the second. Code appears so that you can **read it and doubt it**, not so that you maintain it.
 
@@ -30,7 +30,7 @@ This course is about the layer above it: **being able to tell when an omics resu
 
 ## What you should be able to do in December
 
--   ✅ Read a methods section and say **what was actually done**, including what was quietly not done
+-   ✅ Read a methods section and say **what was actually done**, including what was left out without saying so
 -   ✅ Check whether public data already answers your question, before writing a grant to generate it
 -   ✅ Sit in a study-design meeting and stop an unrecoverable mistake
 -   ✅ Say why a published finding might not hold in Korean patients
@@ -46,7 +46,7 @@ This course is about the layer above it: **being able to tell when an omics resu
 |  | [W4](chapters/part2/w4_prs.qmd) | Polygenic risk scores & clinical application | PGS Catalog, PRSice-2 |
 | **Single-cell** | [W5](chapters/part3/w5_scrna_qc.qmd) | scRNA-seq technology, QC, clustering | Seurat, scanpy |
 |  | [W6](chapters/part3/w6_scrna_dynamics.qmd) | Integration, trajectory, gene regulation, cell–cell communication | Harmony, Monocle3, SCENIC / decoupleR, CellChat |
-| **Spatial** | [W7](chapters/part4/w7_spatial_basics.qmd) | Spatial transcriptomics — the basics | Seurat, Squidpy |
+| **Spatial** | [W7](chapters/part4/w7_spatial_basics.qmd) | The basics of spatial transcriptomics | Seurat, Squidpy |
 |  | [W8](chapters/part4/w8_spatial_integration.qmd) | Deconvolution & spatial integration | RCTD, cell2location, CARD |
 | **Proteomics** | [W9](chapters/part5/w9_proteomics_tech.qmd) | How proteins are actually measured | MS, Olink, SomaScan |
 |  | [W10](chapters/part5/w10_clinical_proteomics.qmd) | Clinical proteomics & biomarkers | limma, MSstats |
@@ -59,17 +59,17 @@ This course is about the layer above it: **being able to tell when an omics resu
 
 Every week follows the same shape, so you know where to look:
 
--   🎯 **Learning objectives** — what you should be able to do afterwards
--   🤔 **Motivating question** — a clinical situation, answered by the end of the chapter
--   ⚠️ **Warnings** — the specific ways this method misleads people, marked throughout
--   💻 **Hands-on** — usually starting with a browser exercise that needs no code
+-   🎯 **Learning objectives**: what you should be able to do afterwards
+-   🤔 **Motivating question**: a clinical situation, answered by the end of the chapter
+-   ⚠️ **Warnings**: the specific ways this method misleads people, marked throughout
+-   💻 **Hands-on**: usually starts with a browser exercise that needs no code
 -   📝 **Summary** · 🔑 **Key terms** · ➕ **References**
 
-💡 Sections marked ⚠️ are the ones worth reading twice. They are where results go wrong quietly.
+💡 Sections marked ⚠️ are the ones worth reading twice. They are where results go wrong without any obvious sign.
 
 ## Practice data
 
-The hands-on code loads a handful of datasets. They are **not in this repository** —
+The hands-on code loads a handful of datasets. They are **not in this repository**, so
 download `rawdata.zip` from the course link and unzip it at the top level of your
 project, next to your `.Rproj` file.
 
@@ -77,12 +77,12 @@ project, next to your `.Rproj` file.
 |--------------------|-----------------------------|--------------|
 | Simulated | `prs_scores.tsv`, `plasma_proteomics.rds`, `plasma_meta.rds` | W4, W10 |
 | Real, public | `t2d_gwas_summary.tsv`, `pubmed_counts.rds` | W3, W12 |
-| Package data | `pbmc3k`, `stxBrain` — `SeuratData` fetches these for you | W5, W7 |
+| Package data | `pbmc3k`, `stxBrain` (`SeuratData` fetches these for you) | W5, W7 |
 | You make it | `analysis/5_pbmc_annotated.rds`, `analysis/7_visium.rds` | W5 → W6, W8 |
 
 ⚠️ The simulated files are simulated because individual genotypes and patient
-specimens cannot be shared. They are **not random noise** — each one has the
-phenomenon that week teaches deliberately built into it, and the figures in the
+specimens cannot be shared. They are **not random noise**. Each one was built to contain the
+phenomenon that week teaches, and the figures in the
 chapters were drawn from these exact files. The headers of
 `scripts/make_simulated_data.R` and `scripts/download_public_data.R` document
 what each file contains and how it was produced.

@@ -16,7 +16,7 @@ By the end of this chapter you should be able to:
 -   Write an analysis script that you (or a reviewer) can rerun in three years
 -   Split an analysis into numbered files with one job each
 -   Write a prompt that produces useful code instead of plausible code
--   ⚠️ Apply a verification gate to code you did not write — and know why "it ran" proves nothing
+-   ⚠️ Apply a verification gate to code you did not write, and know why "it ran" proves nothing
 -   ⚠️ Recognise the three ways generated code fails **silently**
 -   Produce a Quarto report where every number in the text is computed, not typed
 -   Use the five git commands that actually matter for a clinical project
@@ -36,7 +36,7 @@ Analysis code written under deadline has a predictable shape, and a predictable 
 
 ![The right-hand file costs about ten extra minutes to write.](/assets/img/w2/script_anatomy.svg){fig-align="center"}
 
-⚠️ Note which detail actually kills the left-hand script. Not the messy names — the **undocumented exclusion**. `df_final[-c(3,17,22), ]` is a scientific decision with no recorded reason, and it is the first thing a careful reviewer will ask about.
+⚠️ Note which detail actually makes the left-hand script unusable. It is not the messy names but the **undocumented exclusion**. `df_final[-c(3,17,22), ]` is a scientific decision with no recorded reason, and it is the first thing a careful reviewer will ask about.
 
 ## 2) One file, one job {#w2-s1-2}
 
@@ -101,7 +101,7 @@ get_markers <- function(obj, cell_type, min_pct = 0.25) {
 all_markers <- map_dfr(c("CD8 T", "CD4 T", "NK"), \(x) get_markers(seurat, x))
 ```
 
-⚠️ The point is not elegance. In the copy-pasted version, `min.pct = 0.5` on the third line is invisible — and it silently changes what "NK markers" means.
+⚠️ The point is not elegance. In the copy-pasted version, `min.pct = 0.5` on the third line is invisible, and it silently changes what "NK markers" means.
 
 ------------------------------------------------------------------------
 
@@ -109,7 +109,7 @@ all_markers <- map_dfr(c("CD8 T", "CD4 T", "NK"), \(x) get_markers(seurat, x))
 
 ## 1) What actually changed {#w2-s2-1}
 
-**Vibe coding** — describing what you want in natural language and iterating on what comes back — became a mainstream working style in 2025. For clinicians it removes a real barrier: syntax was never the interesting part of your question.
+**Vibe coding** means describing what you want in natural language and iterating on what comes back. It became a mainstream working style in 2025. For clinicians it removes a real barrier: syntax was never the interesting part of your question.
 
 | It genuinely removed | It did not remove |
 |--------------------------------|----------------------------------------|
@@ -135,7 +135,7 @@ Constraints: dplyr + DESeq2 + here. Return a tibble sorted by padj.
              Comment any step where a design choice is being made.
 ```
 
-❌ Compare: `"write code for my analysis"` — you will get code that runs and answers a different question.
+❌ Compare: `"write code for my analysis"`. You will get code that runs and answers a different question.
 
 💡 That last constraint line is worth adding every time. Forcing the model to mark its own design choices makes them visible to you.
 
@@ -146,14 +146,14 @@ Constraints: dplyr + DESeq2 + here. Return a tibble sorted by padj.
 ::: {.callout-important collapse="true"}
 ## Why "it ran" is worthless as evidence
 
-Traditional coding errors are **loud** — the script stops. That trained a whole generation to treat "no error" as "correct."
+Traditional coding errors are **loud**: the script stops. That trained a whole generation to treat "no error" as "correct."
 
 Generated code inverts this. It is fluent, idiomatic, and usually syntactically perfect. When it is wrong, it is wrong **semantically**: it does a coherent thing that is not the thing you asked for.
 
--   ❌ A crash is a gift. It tells you exactly where to look
+-   ❌ A crash is useful. It tells you exactly where to look
 -   ⚠️ A plausible data frame of the right dimensions is the dangerous outcome
 
-→ Your verification cannot be "did it run." It has to be **"is the output the shape and magnitude I expected?"** — which requires you to have formed an expectation first.
+→ Your verification cannot be "did it run." It has to be **"is the output the shape and magnitude I expected?"**, which requires you to have formed an expectation first.
 :::
 
 ## 4) ⚠️ Three silent failures {#w2-s2-4}
@@ -162,9 +162,9 @@ Generated code inverts this. It is fluent, idiomatic, and usually syntactically 
 
 ## 5) Where it is reliable, and where it is not {#w2-s2-5}
 
--   ✅ **Reliable** — plotting code, data reshaping, explaining an error message, translating between languages, writing the boilerplate around a well-known package
--   ⚠️ **Check carefully** — anything involving a statistical choice, a multiple-testing correction, a join key, or a package that changed API recently
--   ❌ **Do not delegate** — deciding what the comparison is, deciding what n means, deciding whether the result is biologically plausible
+-   ✅ **Reliable**: plotting code, data reshaping, explaining an error message, translating between languages, writing the boilerplate around a well-known package
+-   ⚠️ **Check carefully**: anything involving a statistical choice, a multiple-testing correction, a join key, or a package that changed API recently
+-   ❌ **Do not delegate**: deciding what the comparison is, deciding what n means, deciding whether the result is biologically plausible
 
 ------------------------------------------------------------------------
 
@@ -211,8 +211,8 @@ Written as a comment at the top of a chunk, prefixed with a hash and a pipe:
 
 | Chunk option | Effect |
 |------------------------|------------------------------------------------|
-| `echo: false` | run the code, hide it — for a clinical audience |
-| `eval: false` | show the code, don't run it — for teaching |
+| `echo: false` | run the code, hide it (for a clinical audience) |
+| `eval: false` | show the code, don't run it (for teaching) |
 | `warning: false` | suppress package chatter |
 | `fig-cap: "..."` | attach a caption, so the figure travels with its meaning |
 | `cache: true` | don't re-run a slow chunk every render |
@@ -228,8 +228,8 @@ Written as a comment at the top of a chunk, prefixed with a hash and a pipe:
 
 Not because you are a software developer. Because:
 
--   ✅ **"When did this number change, and why?"** — answerable in seconds instead of never
--   ✅ **`analysis_final_v3_REAL.R` stops existing** — there is one file, with a history
+-   ✅ **"When did this number change, and why?"** is answerable in seconds instead of never
+-   ✅ **`analysis_final_v3_REAL.R` stops existing**: there is one file, with a history
 -   ✅ **A reviewer or collaborator can run your code** without you emailing a zip file
 -   ✅ **GitHub Pages hosts your report at a URL** you can put in a paper
 
@@ -262,7 +262,7 @@ renv/library/
 ::: {.callout-warning collapse="true"}
 ## Once it is in the history, it is in the history
 
-Deleting a file in a later commit does **not** remove it from the repository — the earlier version is still recoverable, and on a public repo, still public.
+Deleting a file in a later commit does **not** remove it from the repository. The earlier version is still recoverable, and on a public repo, still public.
 
 ✅ Add `.gitignore` **first**, then `git init`, then commit. In that order.
 
@@ -283,7 +283,7 @@ Renders your `.qmd` files, pushes the HTML, and serves it at `https://<username>
 
 ## 1) Rescue a script of your own {#w2-s5-1}
 
-Bring a real script — the messier the better. In 20 minutes:
+Bring a real script, the messier the better. In 20 minutes:
 
 -   ① Add the header block: project, in, out
 -   ② Insert `# Section ----` markers and open the outline pane
@@ -321,7 +321,7 @@ Come with **one disease you actually treat**. We will look it up together in the
 
 # 📝 Summary
 
--   A script's fatal flaw is usually not messiness — it is an **undocumented exclusion**
+-   A script's fatal flaw is usually not messiness but an **undocumented exclusion**
 -   One file, one job, numbered in run order, with an in/out header
 -   Put the *reason* for a decision in the section title, where it cannot detach from the code
 -   Prompts need **context + task + constraints**; ask the model to flag its own design choices
@@ -345,7 +345,7 @@ Come with **one disease you actually treat**. We will look it up together in the
 | Inline code | `r knitr::inline_expr("expr")` — a value computed into a sentence at render time |
 | Chunk option | Per-block setting: `echo`, `eval`, `cache`, `fig-cap` |
 | Commit | A saved snapshot of the project with a message explaining why |
-| `.gitignore` | List of files git must never track — put raw data here |
+| `.gitignore` | List of files git must never track; put raw data here |
 | GitHub Pages | Free static hosting; `quarto publish gh-pages` deploys to it |
 | `here::here()` | Project-root-relative paths that work on any machine |
 
@@ -357,7 +357,7 @@ Come with **one disease you actually treat**. We will look it up together in the
 
 Wilson G, et al. [*Good enough practices in scientific computing.*](https://doi.org/10.1371/journal.pcbi.1005510) PLoS Comput Biol. 2017.\
 Sandve GK, Nekrutenko A, Taylor J, Hovig E. [*Ten simple rules for reproducible computational research.*](https://doi.org/10.1371/journal.pcbi.1003285) PLoS Comput Biol. 2013.\
-[R for Data Science (2nd ed.)](https://r4ds.hadley.nz) — the standard reference for modern R style
+[R for Data Science (2nd ed.)](https://r4ds.hadley.nz): the standard reference for modern R style
 
 ### Reproducible reporting
 
@@ -366,9 +366,9 @@ Rule A, et al. [*Ten simple rules for writing and sharing computational analyses
 
 ### Version control without pain
 
-Bryan J. [*Happy Git and GitHub for the useR.*](https://happygitwithr.com) — written for R users, not developers\
+Bryan J. [*Happy Git and GitHub for the useR.*](https://happygitwithr.com), written for R users, not developers\
 Perez-Riverol Y, et al. [*Ten simple rules for taking advantage of Git and GitHub.*](https://doi.org/10.1371/journal.pcbi.1004947) PLoS Comput Biol. 2016.
 
 ### On working with generated code
 
-Karpathy A. *"Vibe coding"* (2025) — the coinage, and worth reading in the original for how explicitly it describes **not** reading the code. This chapter is the argument for why a clinical researcher cannot work that way.
+Karpathy A. *"Vibe coding"* (2025) is the coinage, and worth reading in the original for how explicitly it describes **not** reading the code. This chapter is the argument for why a clinical researcher cannot work that way.

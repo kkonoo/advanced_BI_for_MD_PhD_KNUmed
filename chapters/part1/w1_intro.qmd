@@ -24,7 +24,7 @@ By the end of this chapter you should be able to:
 
 > 🤔 **Motivating question**
 >
-> A colleague asks you to co-author. They have RNA-seq on 6 patients and 6 controls, and a list of 847 differentially expressed genes. What is the first question you ask — about the genes, or about something else?
+> A colleague asks you to co-author. They have RNA-seq on 6 patients and 6 controls, and a list of 847 differentially expressed genes. What is the first question you ask: about the genes, or about something else?
 
 ------------------------------------------------------------------------
 
@@ -36,13 +36,13 @@ You can take a tissue, get counts, and produce a ranked gene list. That is a rea
 
 It is also a **single measurement of a mixture**, and it answers exactly one question: *which genes differ on average between these two groups of tissue?*
 
-![Every remaining week of this course attacks that same gene list from a different side.](/assets/img/w1/where_you_are.svg){fig-align="center"}
+![Every remaining week of this course approaches that same gene list from a different side.](/assets/img/w1/where_you_are.svg){fig-align="center"}
 
 💡 Notice that none of the six questions on the right is answered by better statistics on the left. They need **different data**.
 
 ## 2) The five stages have not changed {#w1-s1-2}
 
-Whatever the technology — genotypes, chromatin, single cells, peptides — the pipeline shape is the same one you already know:
+Whatever the technology (genotypes, chromatin, single cells, peptides), the pipeline shape is the same one you already know:
 
 ```         
 ① Quality control     → is this data usable at all?
@@ -56,8 +56,8 @@ Whatever the technology — genotypes, chromatin, single cells, peptides — the
 ::: {.callout-important collapse="true"}
 ## The stages are not equally dangerous
 
--   Stages ① ② fail **loudly** — the pipeline crashes, or the numbers are absurd
--   Stages ③ ④ fail **quietly** — you get a tidy table of 847 genes, sorted by adjusted p, and nothing about its appearance tells you it is wrong
+-   Stages ① ② fail **loudly**: the pipeline crashes, or the numbers are absurd
+-   Stages ③ ④ fail **quietly**: you get a tidy table of 847 genes, sorted by adjusted p, and nothing about its appearance shows that it is wrong
 
 ⚠️ The failure mode unique to computation: **the analysis always returns an answer.** A failed PCR gives you an empty gel. A failed analysis gives you a figure.
 :::
@@ -71,13 +71,13 @@ Whatever the technology — genotypes, chromatin, single cells, peptides — the
 ::: {.callout-tip collapse="true"}
 ## Why the right column is yours and not the analyst's
 
-Your analyst can tell you the pseudobulk model converged. They cannot tell you that the "depleted" cell type is the one that never survives dissociation from inflamed tissue — because they have never held the tissue.
+Your analyst can tell you the pseudobulk model converged. They cannot tell you that the "depleted" cell type is the one that never survives dissociation from inflamed tissue, because they have never held the tissue.
 
 -   ✅ **You** know what the specimen went through, what the patients were on, and what the diagnosis actually means
 -   ✅ **You** know whether a 2% absolute risk difference changes management
 -   ❌ Nobody can supply that for you, and no method compensates for its absence
 
-→ The gap this course closes is not a coding gap. It is a **vocabulary gap** — enough to ask the right question and recognise a wrong answer.
+→ The gap this course closes is not a coding gap. It is a **vocabulary gap**: enough to ask the right question and recognise a wrong answer.
 :::
 
 ------------------------------------------------------------------------
@@ -90,7 +90,7 @@ The semester is not a tour of techniques. It is one question, pursued downward u
 
 ![Each layer answers something the layer above it could not.](/assets/img/w1/roadmap.svg){fig-align="center"}
 
-💡 Read the right-hand column downward. Notice that **the answer gets narrower and more actionable** at every step — from 40 loci to one gene in one cell type at one tissue location with one candidate drug.
+💡 Read the right-hand column downward. Notice that **the answer gets narrower and more actionable** at every step, from 40 loci to one gene in one cell type at one tissue location with one candidate drug.
 
 ⚠️ Notice also the W9–W10 row: *protein up, mRNA flat*. Layers disagree more often than papers admit, and disagreement is usually the informative part.
 
@@ -105,7 +105,7 @@ The semester is not a tour of techniques. It is one question, pursued downward u
 |  | W4 | PRS & clinical application | PGS Catalog, PRSice-2 |
 | **Single-cell** | W5 | scRNA-seq technology, QC, clustering | Seurat, scanpy |
 |  | W6 | Trajectory & cell–cell communication | Monocle3, CellChat |
-| **Spatial** | W7 | Spatial transcriptomics — the basics | Seurat, Squidpy |
+| **Spatial** | W7 | Spatial transcriptomics: the basics | Seurat, Squidpy |
 |  | W8 | Spatial + scRNA integration, deconvolution | CARD, SPOTlight |
 | **Proteomics** | W9 | MS- and NGS-based proteomics | theory |
 |  | W10 | Clinical proteomics & biomarkers | limma, MSstats |
@@ -148,9 +148,9 @@ This section is the most immediately useful thing in the semester, and it involv
 
 Three real patterns:
 
--   ① **"We have n = 3 per group, is that enough?"** — asked after collection. For a well-powered bulk comparison in a homogeneous system, sometimes. For single-cell across conditions, ⚠️ your n is the number of **donors**, not cells (W5), so the answer is usually no
--   ② **"The tissue was flash-frozen."** — then scRNA-seq is off the table and it is snRNA-seq or nothing (W5). Not a disaster, but it changes what you can claim
--   ③ **"Cases were collected at hospital A, controls at hospital B."** — see §3.3. There is no fix
+-   ① **"We have n = 3 per group, is that enough?"** This is asked after collection. For a well-powered bulk comparison in a homogeneous system, sometimes. For single-cell across conditions, ⚠️ your n is the number of **donors**, not cells (W5), so the answer is usually no
+-   ② **"The tissue was flash-frozen."** Then scRNA-seq is off the table and it is snRNA-seq or nothing (W5). Not a disaster, but it changes what you can claim
+-   ③ **"Cases were collected at hospital A, controls at hospital B."** See §3.3. There is no fix
 
 → Each of these takes 30 seconds to prevent and 18 months to regret.
 :::
@@ -161,7 +161,7 @@ Ask these before a single specimen is collected.
 
 **① What is my unit of replication?**
 
-The thing you can independently repeat. Usually **the patient** — not the cell, not the well, not the technical replicate.
+The thing you can independently repeat. Usually **the patient**, not the cell, not the well, not the technical replicate.
 
 -   ⚠️ 30,000 cells from 3 patients is **n = 3**
 -   ⚠️ Two aliquots of the same tumour is **n = 1**
@@ -170,7 +170,7 @@ The thing you can independently repeat. Usually **the patient** — not the cell
 
 Write the sentence before collecting: *"I will compare \_\_\_ to \_\_\_, and I expect \_\_\_ to differ in direction \_\_\_."*
 
--   ❌ "I want to profile my patients" — not a comparison
+-   ❌ "I want to profile my patients" is not a comparison
 -   ✅ "I will compare treatment-resistant to treatment-naive, matched on age and stage" — now the design follows
 
 **③ What else differs between my groups?**
@@ -186,7 +186,7 @@ Everything that tracks with your grouping is a rival explanation: collection sit
 
 Batch correction estimates the batch effect from samples that share a batch but differ in group. If **no batch contains both groups**, there is nothing to estimate from.
 
-The mathematics is not being difficult — the information genuinely is not in the data. `ComBat`, `limma::removeBatchEffect`, Harmony and every successor have the same limitation.
+The mathematics is not the obstacle. The information genuinely is not in the data. `ComBat`, `limma::removeBatchEffect`, Harmony and every successor have the same limitation.
 
 ✅ The fix is free, and it is scheduling: **make sure every run, every extraction day, and every site contains both groups.**
 
@@ -211,7 +211,7 @@ The mathematics is not being difficult — the information genuinely is not in t
 | **FFPE block** | ❌ | ⚠️ limited | ⚠️ degraded | ✅ probe-based | ⚠️ fragmented |
 | **Whole blood / buffy coat** | ✅ (PBMC) | — | ✅ | — | ✅ |
 
-💡 **The archive question worth asking your department:** how many FFPE blocks with linked outcome data are sitting in pathology? Probe-based spatial and proteomics both work on FFPE (W7, W9) — a retrospective cohort you already own often beats a prospective one you have to fund.
+💡 **The archive question worth asking your department:** how many FFPE blocks with linked outcome data are sitting in pathology? Probe-based spatial and proteomics both work on FFPE (W7, W9), so a retrospective cohort you already own is often better than a prospective one you have to fund.
 
 ------------------------------------------------------------------------
 
@@ -223,8 +223,8 @@ The gap between analysis and publication is typically 1–3 years. Reviewers ask
 
 Start with two habits:
 
-1.  **Project-based working** — never `setwd()` again
-2.  **A consistent directory structure** — you know where everything lives, and so does a collaborator
+1.  **Project-based working**: never `setwd()` again
+2.  **A consistent directory structure**: you know where everything lives, and so does a collaborator
 
 ## 2) R Project (.Rproj) {#w1-s4-2}
 
@@ -270,7 +270,7 @@ Before generating anything, spend twenty minutes in the browser. Pick a gene or 
 | [**CELLxGENE**](https://cellxgene.cziscience.com) | Which cell types express it? *(often answers the whole question)* |
 | [**GEO**](https://www.ncbi.nlm.nih.gov/geo/) | Has someone already run this experiment and deposited it? |
 
-✅ Write down, in one sentence each, what you found — and whether your planned experiment still adds something.
+✅ Write down, in one sentence each, what you found, and whether your planned experiment still adds something.
 
 💡 This is not a warm-up exercise. It is the single highest-yield hour in translational research, and almost nobody spends it.
 
@@ -300,24 +300,24 @@ BiocManager::install(c("DESeq2", "SingleR", "celldex"))
 ::: {.callout-note collapse="true"}
 ## If installation fails
 
--   Bioconductor installs are slow — several minutes is normal, not an error
--   ⚠️ Version mismatch is the usual culprit. `BiocManager::valid()` tells you what is out of step
+-   Bioconductor installs are slow: several minutes is normal, not an error
+-   ⚠️ Version mismatch is the usual culprit. `BiocManager::valid()` reports what is out of step
 -   Heavier packages (Seurat, ArchR) are installed in the week we need them, not now
 :::
 
 ## 4) Before next week {#w1-s5-4}
 
-**W2 — R scripts, AI-assisted coding, and work that survives review.** Bring a script you have actually written, however messy. We will make it reproducible together.
+**W2: R scripts, AI-assisted coding, and work that survives review.** Bring a script you have actually written, however messy. We will make it reproducible together.
 
 ------------------------------------------------------------------------
 
 # 📝 Summary
 
 -   Bulk RNA-seq answers one question about a **mixture**. Six questions it cannot answer define the rest of the semester
--   The five pipeline stages do not change across technologies — ⚠️ and stages ③ ④ fail **silently**
+-   The five pipeline stages do not change across technologies. ⚠️ Stages ③ ④ fail **silently**
 -   ⚠️ **Execution depth** belongs to your analyst. **Judgment depth** belongs to you, and cannot be delegated
 -   The semester is one clinical question pursued through eight layers until it becomes testable
--   ⚠️ Almost every irreversible decision — n, sample type, batching — happens **before anyone opens R**
+-   ⚠️ Almost every irreversible decision (n, sample type, batching) happens **before anyone opens R**
 -   Your unit of replication is usually the **patient**. 30,000 cells from 3 people is n = 3
 -   ⚠️ **Perfect confounding of group with batch cannot be corrected.** Not by ComBat, not by Harmony, not by anything
 -   Fresh vs frozen vs FFPE decides which assays remain possible, permanently
@@ -330,14 +330,14 @@ BiocManager::install(c("DESeq2", "SingleR", "celldex"))
 
 | Term | One-line meaning |
 |----------------------------|--------------------------------------------|
-| Unit of replication | The thing you can independently repeat — usually the patient |
+| Unit of replication | The thing you can independently repeat, usually the patient |
 | Technical replicate | Same sample measured twice; does not increase n |
 | Biological replicate | A different individual; this is your n |
 | Batch effect | Systematic difference caused by processing, not biology |
 | Confounding | Two explanations that the data cannot separate |
 | Judgment depth | Being able to tell when an analysis is wrong |
-| snRNA-seq | Profiling nuclei — the option for frozen tissue (W5) |
-| FFPE | Formalin-fixed paraffin-embedded — the pathology archive format |
+| snRNA-seq | Profiling nuclei; the option for frozen tissue (W5) |
+| FFPE | Formalin-fixed paraffin-embedded; the pathology archive format |
 | `.Rproj` | RStudio project file; anchors the working directory |
 | Quarto | Literate document format; code and prose in one file (W2) |
 

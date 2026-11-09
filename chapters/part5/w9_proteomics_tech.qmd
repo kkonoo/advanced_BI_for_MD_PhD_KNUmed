@@ -37,7 +37,7 @@ By the end of this chapter you should be able to:
 
 ![](/assets/img/w9/mrna_vs_protein.svg){fig-align="center"}
 
-Across genes within a sample, mRNA and protein abundance typically correlate at roughly **r = 0.4–0.6**. Correlation across samples for a single gene varies enormously — strong for some genes, effectively zero for others.
+Across genes within a sample, mRNA and protein abundance typically correlate at roughly **r = 0.4–0.6**. Correlation across samples for a single gene varies enormously: strong for some genes, effectively zero for others.
 
 ::: {.callout-important collapse="true"}
 ## Neither result in the motivating question is wrong
@@ -55,7 +55,7 @@ A 3-fold mRNA increase with no protein change = translation, or something else, 
 ## 2) Why protein matters clinically {#w9-s1-2}
 
 -   **Drugs act on proteins.** A target chosen from transcripts alone may not act at all
--   **Every biomarker you order** — troponin, PSA, CRP, HbA1c — is a protein or a protein modification
+-   **Every biomarker you order** (troponin, PSA, CRP, HbA1c) is a protein or a protein modification
 -   **PTM**: phosphorylation, cleavage, glycosylation → same amount of protein, but what it *does* changes
 -   **Secretion.** A cell can transcribe a cytokine and never release it (🔗 [W6 §3.2](../part3/w6_scrna_dynamics.qmd#w6-s3-2))
 
@@ -100,18 +100,18 @@ In DDA the instrument selects the most intense precursors in each cycle. What is
 -   ⚠️ Across a cohort, whether a protein was sampled correlates with total protein load, chromatography drift, and run order
 -   ⚠️ If cases and controls were run in different batches (🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3)), missingness itself becomes a group difference
 
-→ ✅ **DIA fragments everything in fixed windows**, so the same proteins are quantified in every run. For any clinical cohort, this is the right default — and it is the first thing to ask about someone else's dataset.
+→ ✅ **DIA fragments everything in fixed windows**, so the same proteins are quantified in every run. For any clinical cohort, this is the right default, and it is the first thing to ask about someone else's dataset.
 :::
 
 ## 3) Label-free vs TMT {#w9-s2-3}
 
 ![TMT runs 16–18 samples as one. That one run is also one batch.](/assets/img/w9/tmt_plex.svg){fig-align="center"}
 
--   **Label-free** — every sample is its own LC-MS run (DDA or DIA). ✅ No limit on the number of samples. ⚠️ Run order and instrument drift become the batch
+-   **Label-free**: every sample is its own LC-MS run (DDA or DIA). ✅ No limit on the number of samples. ⚠️ Run order and instrument drift become the batch
 -   **TMT** (tandem mass tag, isobaric labelling) — tag each sample's peptides with a different mass tag, pool 16–18 samples, run once. The tags separate only after fragmentation (reporter ions)
     -   ✅ Within a plex, every sample is measured on the same peptides → the missing-value problem moves from "per sample" to "per plex"
     -   ⚠️ **The plex is the batch.** A cohort of 100 = 6–7 plexes; values compare well within a plex, much less across
-    -   ⚠️ **Ratio compression** — co-isolated peptides pull every ratio towards 1 → fold changes are underestimated (MS3 or a narrower isolation window helps)
+    -   ⚠️ **Ratio compression**: co-isolated peptides pull every ratio towards 1, so fold changes are underestimated (MS3 or a narrower isolation window helps)
 -   ✅ For TMT: **balance groups within every plex**, and put the **same pooled reference sample in every plex** to bridge them
 
 💡 Label-free vs TMT (separate runs vs pooled) and DDA vs DIA (which peptides get fragmented) are different axes. TMT is usually run with DDA
@@ -133,7 +133,7 @@ Two antibodies must bind the same protein before a DNA barcode is made → count
 
 An antibody or aptamer reports **how much reagent bound**. Usually that tracks protein abundance. Sometimes it does not.
 
-A coding variant that alters the binding epitope reduces the signal without changing the amount of protein present. In a genetic analysis this appears as a variant that "lowers protein levels" — a **false pQTL**, and one that is strongly enriched for *cis* variants because those are the ones inside the gene.
+A coding variant that alters the binding epitope reduces the signal without changing the amount of protein present. In a genetic analysis this appears as a variant that "lowers protein levels": a **false pQTL**, and one that is strongly enriched for *cis* variants because those are the ones inside the gene.
 
 ✅ The check: for any *cis*-pQTL, ask whether the lead variant is a protein-altering variant in that same gene. If it is, the finding needs orthogonal evidence — ideally MS, which measures peptides directly.
 
@@ -162,7 +162,7 @@ The spatial logic of W7–W8, with proteins instead of RNA:
 -   **Multiplex IF** (4–8 markers) → **cyclic IF / CODEX (PhenoCycler)** (40–100 markers; stain, image, strip, repeat) → **IMC / MIBI** (metal-tagged antibodies read by mass, ~40 markers)
 -   ✅ Works on **FFPE** (🔗 [W7 §2.2](../part4/w7_spatial_basics.qmd#w7-s2-2)), measures the effector molecule itself, and pathologists already read IHC
 -   Analysis = W7–W8 again: **segment → phenotype cells by marker intensity → neighbourhoods** (🔗 [W8 §2](../part4/w8_spatial_integration.qmd#w8-s2)). E.g. the colorectal-cancer CODEX study (Schürch 2020)
--   ⚠️ **Still affinity** — every marker is an antibody: validate each one in your tissue and fixation (the §3.1 problem on a slide)
+-   ⚠️ **Still affinity**: every marker is an antibody, so validate each one in your tissue and fixation (the §3.1 problem on a slide)
 -   ⚠️ **Still segmentation** — if a cell boundary is off, membrane-marker signal is counted in the neighbouring cell = spillover. Same problem as with transcripts (🔗 [W7 §3.2](../part4/w7_spatial_basics.qmd#w7-s3-2))
 -   **In suspension:** CITE-seq reads antibody–oligo tags with the same cell barcode as the RNA (🔗 [W5 §3.2](../part3/w5_scrna_qc.qmd#w5-s3-2)) → protein and RNA from one cell
 
@@ -170,13 +170,13 @@ The spatial logic of W7–W8, with proteins instead of RNA:
 
 ![](/assets/img/w9/discovery_to_assay.svg){fig-align="center"}
 
-Discovery proteomics (DIA, TMT) measures thousands of proteins in tens of samples — and its output is a **candidate list**, not a test.
+Discovery proteomics (DIA, TMT) measures thousands of proteins in tens of samples. Its output is a **candidate list**, not a test.
 
 -   **Targeted MS** (PRM = parallel reaction monitoring, MRM = multiple reaction monitoring) — measures only pre-chosen peptides → precision ↑, samples ↑, proteins ↓
--   **Heavy-isotope standards** — spike in a known amount of the same peptide made with heavy isotopes. Light / heavy ratio × spiked amount = **absolute concentration**
+-   **Heavy-isotope standards**: spike in a known amount of the same peptide made with heavy isotopes. Light / heavy ratio × spiked amount = **absolute concentration**
 -   ✅ Weighs peptides instead of relying on an antibody → no trouble from an antibody binding the wrong thing or failing to bind (the §3.1 epitope problem included)
     -   E.g. thyroglobulin (Tg) in thyroid-cancer follow-up. If the patient has anti-Tg autoantibodies, the immunoassay reads lower than the true value → hospital labs measure it by LC-MS/MS instead (trypsin cuts up the autoantibodies too, so they cannot interfere)
--   ⚠️ Each stage needs a **new, larger, independent cohort**. Most discovery candidates never reach the last one (🔗 [W10 §3](w10_clinical_proteomics.qmd#w10-s3))
+-   ⚠️ Each stage needs its own **new, larger, independent cohort**. Most discovery candidates never reach the last one (🔗 [W10 §3](w10_clinical_proteomics.qmd#w10-s3))
 
 ------------------------------------------------------------------------
 
@@ -207,7 +207,7 @@ Plasma spans **more than ten orders of magnitude** in protein concentration. Alb
 
 **③ Input**: plasma vs. tissue, sample volume, pre-analytical conditions (storage etc.)
 
--   **Serum or plasma?** Serum has been through clotting — platelets release their contents into it
+-   **Serum or plasma?** Serum has been through clotting, and platelets release their contents into it
 -   **Which anticoagulant?** EDTA, citrate and heparin give different results, and heparin interferes with some assays
 -   **Time to processing.** Minutes at room temperature matter for labile proteins
 -   **Freeze–thaw cycles.** Count them. Record them
@@ -255,10 +255,10 @@ Design a proteomics study you could realistically run: sample type, platform, n,
 -   A transcript–protein discrepancy is not an error
 -   MS weighs peptides and infers proteins; identification depends on a database, quantification is usually relative
 -   ⚠️ **DDA selects the most intense precursors**, so missingness varies run to run and can mimic a group difference
--   ✅ **DIA is the default for clinical cohorts** — the same proteins are quantified every time
+-   ✅ **DIA is the default for clinical cohorts**: the same proteins are quantified every time
 -   ⚠️ **TMT: the plex is the batch.** Balance groups within plexes and bridge them with a shared reference; ratios are compressed towards 1
 -   ⚠️ Plasma dynamic range \>10 orders of magnitude; albumin is half the mass, and depletion removes bound proteins too
--   ✅ Affinity panels (Olink, SomaScan) reach pg/mL without depletion — at the cost of a fixed panel
+-   ✅ Affinity panels (Olink, SomaScan) reach pg/mL without depletion, at the cost of a fixed panel
 -   ⚠️ **Affinity assays measure binding.** An epitope-altering variant produces a false *cis*-pQTL
 -   Discovery = candidates. **Targeted MS** = an absolute, antibody-independent number
 -   Multiplexed tissue imaging (mIF, CODEX, IMC) = spatial proteomics: FFPE-friendly, still antibodies, still segmentation
@@ -272,15 +272,15 @@ Design a proteomics study you could realistically run: sample type, platform, n,
 |-------------------------|-----------------------------------------|
 | Tryptic digest | Cutting proteins into peptides so they can be measured |
 | MS1 / MS2 | Survey scan of intact peptides / fragmentation spectrum |
-| DDA | Data-dependent acquisition — instrument picks the top N precursors |
-| DIA | Data-independent acquisition — everything in fixed windows |
+| DDA | Data-dependent acquisition: instrument picks the top N precursors |
+| DIA | Data-independent acquisition: everything in fixed windows |
 | TMT (isobaric labelling) | Mass tags that let 16–18 samples run together; the plex becomes the batch |
 | Ratio compression | Co-isolated peptides pulling TMT ratios towards 1 |
 | Spectral library | Reference used to interpret DIA spectra |
 | Protein inference | Assigning shared peptides to proteins |
 | Dynamic range | Span between the most and least abundant protein in a sample |
 | Depletion | Removing abundant plasma proteins before analysis |
-| PEA (Olink) | Proximity extension assay — antibody pairs with NGS readout |
+| PEA (Olink) | Proximity extension assay: antibody pairs with NGS readout |
 | Aptamer (SomaScan) | Nucleic-acid binder used in place of an antibody |
 | pQTL | Genetic variant associated with a protein level |
 | Epitope artifact | Variant altering reagent binding, mimicking a change in abundance |
@@ -288,7 +288,7 @@ Design a proteomics study you could realistically run: sample type, platform, n,
 | Heavy-isotope standard | Spiked-in labelled peptide that turns a ratio into an absolute amount |
 | Multiplexed tissue imaging | Many antibodies imaged on one section (mIF, CODEX, IMC) |
 | Pre-analytical variation | Everything between the patient and the freezer |
-| PTM | Post-translational modification — invisible to RNA-seq |
+| PTM | Post-translational modification: invisible to RNA-seq |
 
 ------------------------------------------------------------------------
 

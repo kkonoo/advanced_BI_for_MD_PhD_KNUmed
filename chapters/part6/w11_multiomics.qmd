@@ -33,21 +33,21 @@ By the end of this chapter you should be able to:
 
 # 1. Two Ways to Integrate 🧭 {#w11-s1}
 
-## 1) Sequential — each layer filters the last {#w11-s1-1}
+## 1) Sequential: each layer filters the last {#w11-s1-1}
 
 You already did this without calling it integration. W3 narrowed a locus; W5 named a cell type; W9 asked whether the protein exists. Each layer removes candidates.
 
 -   ✅ Keeps your **full n** at every step, because each analysis uses only the samples that have that layer
 -   ✅ Every step is interpretable on its own and defensible in a methods section
--   ✅ Layers can come from **different cohorts** — public eQTL data, a published atlas, your own samples
+-   ✅ Layers can come from **different cohorts**: public eQTL data, a published atlas, your own samples
 -   ⚠️ Cannot discover a pattern that only exists *across* layers
 
-## 2) Joint — model the layers together {#w11-s1-2}
+## 2) Joint: model the layers together {#w11-s1-2}
 
 **MOFA+**, **mixOmics/DIABLO**, **iCluster** and similar methods find latent factors that explain variance across several layers at once.
 
 -   ✅ Can reveal coordinated programmes no single layer shows
--   ✅ Unsupervised — can find structure you did not ask about (patient subtypes)
+-   ✅ Unsupervised, so it can find structure you did not ask about (patient subtypes)
 -   ⚠️ Needs the **same samples** measured on every layer
 -   ⚠️ Output is a factor, not a mechanism
 
@@ -70,19 +70,19 @@ Each layer has its own false positives, and they are largely **independent**: an
 
 A ✕ in one column almost always means **"not measured in the right context"**, not "measured and absent".
 
--   ⚠️ eQTL panels come from bulk tissue — effects confined to a rare cell type are invisible
+-   ⚠️ eQTL panels come from bulk tissue, so effects confined to a rare cell type are invisible
 -   ⚠️ Plasma proteomics misses low-abundance proteins entirely (🔗 [W9 §5](../part5/w9_proteomics_tech.qmd#w9-s5))
 -   ⚠️ Some genes have no protein product to measure
 -   ⚠️ MR needs a strong instrument; a gene without one cannot be tested, which is not the same as being tested and failing
 
 → ✅ Report convergence as positive evidence. Report gaps as **coverage limitations**, in a sentence, in the results.
 
-⚠️ And the failure mode this creates: prioritisation pipelines systematically favour **well-measured, well-studied genes**. The same bias returns in [W12](w12_network_drug.qmd) as network hubs.
+⚠️ This creates a failure mode: prioritisation pipelines systematically favour **well-measured, well-studied genes**. The same bias returns in [W12](w12_network_drug.qmd) as network hubs.
 :::
 
 ------------------------------------------------------------------------
 
-# 3. Joint Models — Reading the Output 📐 {#w11-s3}
+# 3. Joint Models: Reading the Output 📐 {#w11-s3}
 
 ![Read the columns to find the technical factors, then the rows to find the biology.](/assets/img/w11/mofa_factors.svg){fig-align="center"}
 
@@ -99,14 +99,14 @@ The strongest shared source of variation in a real cohort is rarely disease. It 
 
 ✅ The annotation routine, in order:
 
-1.  **Technical** — batch, run date, RIN/DV200, operator, storage time
-2.  **Demographic** — age, sex, BMI, ancestry
-3.  **Clinical confounders** — medication, comorbidity, disease duration
-4.  **Only then** — disease status or outcome
+1.  **Technical**: batch, run date, RIN/DV200, operator, storage time
+2.  **Demographic**: age, sex, BMI, ancestry
+3.  **Clinical confounders**: medication, comorbidity, disease duration
+4.  **Only then**: disease status or outcome
 
 ⚠️ If a factor correlates with batch at r = 0.8 and with disease at r = 0.3, it is a batch factor that happens to be slightly confounded with disease. Reporting it as a "disease signature" is a real and common error.
 
-💡 A factor that loads across **several** layers is more likely to be biological than one confined to a single layer — but only after steps 1–3 come back empty.
+💡 A factor that loads across **several** layers is more likely to be biological than one confined to a single layer, but only after steps 1–3 come back empty.
 :::
 
 ------------------------------------------------------------------------
@@ -115,7 +115,7 @@ The strongest shared source of variation in a real cohort is rarely disease. It 
 
 ![None of these is a modelling problem, and all of them are decided at design time.](/assets/img/w11/integration_traps.svg){fig-align="center"}
 
-**① Your n collapses.** Joint models use complete cases. A cohort of 300 with four layers may have 41 patients measured on all four — and that is your real sample size.
+**① Your n collapses.** Joint models use complete cases. A cohort of 300 with four layers may have 41 patients measured on all four. That is your real sample size.
 
 -   ✅ Check the intersection **before** planning the analysis
 -   ✅ Some methods handle missing views; using one is a decision to state, not a default
@@ -142,11 +142,11 @@ The strongest shared source of variation in a real cohort is rarely disease. It 
 
 Take one locus for a disease you treat, and fill in the table from §2 by hand, in the browser:
 
--   **eQTL / locus-to-gene** — [Open Targets Platform](https://platform.opentargets.org) (formerly Open Targets Genetics) or [GTEx](https://gtexportal.org)
--   **Cell type** — [CELLxGENE](https://cellxgene.cziscience.com)
--   **Protein** — [Human Protein Atlas](https://www.proteinatlas.org)
--   **Direction** — [IEU OpenGWAS](https://opengwas.io) for MR results
--   **Tractability** — [Open Targets](https://platform.opentargets.org) target profile
+-   **eQTL / locus-to-gene**: [Open Targets Platform](https://platform.opentargets.org) (formerly Open Targets Genetics) or [GTEx](https://gtexportal.org)
+-   **Cell type**: [CELLxGENE](https://cellxgene.cziscience.com)
+-   **Protein**: [Human Protein Atlas](https://www.proteinatlas.org)
+-   **Direction**: [IEU OpenGWAS](https://opengwas.io) for MR results
+-   **Tractability**: [Open Targets](https://platform.opentargets.org) target profile
 
 ✅ One row per candidate gene, one column per layer. This is an afternoon, and it is a real figure.
 
@@ -202,7 +202,7 @@ print("complete cases:", have.all(axis=1).sum())   # ⚠️ this is your n
 
 :::
 
-## 3) MOFA, and annotating its factors {#w11-s5-3}
+## 3) MOFA, and how to annotate its factors {#w11-s5-3}
 
 ::: {.panel-tabset group="lang"}
 
@@ -310,11 +310,11 @@ cors.round(2)     # look here before you look at biology
 
 :::
 
-💡 If removing batch reshuffles your factors, that tells you how much of the original result was batch — a number worth knowing before it appears in review.
+💡 If removing batch reshuffles your factors, that tells you how much of the original result was batch. That number is worth knowing before it appears in review.
 
 ## 5) Before next week {#w11-s5-5}
 
-**[W12 — networks and drug targets](w12_network_drug.qmd).** Bring the prioritisation table from §5.1. We will ask whether the surviving gene is druggable.
+**[W12: networks and drug targets](w12_network_drug.qmd).** Bring the prioritisation table from §5.1. We will ask whether the surviving gene is druggable.
 
 ------------------------------------------------------------------------
 
@@ -323,9 +323,9 @@ cors.round(2)     # look here before you look at biology
 -   **Sequential** integration filters candidates layer by layer; **joint** integration models layers together
 -   ✅ Sequential keeps your full n, works across cohorts, and answers most clinical questions
 -   ✅ Convergent evidence across layers is strong because each layer's false positives are **independent**
--   ⚠️ **An absent signal is a coverage gap, not a negative result** — and it biases prioritisation toward well-studied genes
+-   ⚠️ **An absent signal is a coverage gap, not a negative result.** It also biases prioritisation toward well-studied genes
 -   ⚠️ **Factor 1 is almost always technical.** Annotate against batch, RIN, age and sex *before* disease
--   ⚠️ Joint models use complete cases — **your n is the intersection**, not the cohort
+-   ⚠️ Joint models use complete cases, so **your n is the intersection**, not the cohort
 -   ⚠️ Without per-layer scaling, the layer with most features dominates every factor
 -   ❌ Integration cannot create power, fix confounding, or rescue an underpowered study
 
