@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
 <rect width="880" height="450" fill="#fcfcfb"/>
-<text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">A MOFA factor is a pattern shared across layers. Your first job is to find out what it is a pattern of.</text>
+<text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">A MOFA factor is a pattern shared across layers. The first job is to find out what causes it.</text>
 <text x="196" y="119" font-size="12.5" font-weight="700" fill="#4A3D6B" text-anchor="end">Genotype (PRS)</text>
 <text x="196" y="163" font-size="12.5" font-weight="700" fill="#4A3D6B" text-anchor="end">Methylation</text>
 <text x="196" y="207" font-size="12.5" font-weight="700" fill="#4A3D6B" text-anchor="end">RNA-seq</text>
@@ -70,9 +70,9 @@
 <rect x="24" y="360" width="410" height="76" rx="9" fill="#fbeee8" stroke="#D85A30" stroke-width="1.8"/>
 <text x="48" y="384" font-size="12.5" font-weight="700" fill="#a8401d">⚠️ Factor 1 is almost always technical</text>
 <text x="48" y="406" font-size="12" fill="#a05a3f">The strongest shared pattern is usually batch, RNA quality</text>
-<text x="48" y="424" font-size="12" fill="#a05a3f">or sex — not disease. Always annotate factors first.</text>
+<text x="48" y="424" font-size="12" fill="#a05a3f">or sex, not disease. Always annotate factors first.</text>
 <rect x="446" y="360" width="410" height="76" rx="9" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.8"/>
 <text x="470" y="384" font-size="12.5" font-weight="700" fill="#0F6E56">✅ The useful reading is the row pattern</text>
-<text x="470" y="406" font-size="12" fill="#3d7a68">Factor 2 is shared across three omics layers — that is a</text>
-<text x="470" y="424" font-size="12" fill="#3d7a68">coordinated programme. Factor 3 is RNA-only: suspect first.</text>
+<text x="470" y="406" font-size="12" fill="#3d7a68">Factor 2 is shared across three omics layers, which points</text>
+<text x="470" y="424" font-size="12" fill="#3d7a68">to a coordinated programme. Factor 3 is RNA-only: check it first.</text>
 </svg>

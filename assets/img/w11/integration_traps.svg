@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
   <rect width="880" height="430" fill="#fcfcfb"/>
-  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Three things that go wrong before the model is even fitted.</text>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Three things that go wrong before you run the model.</text>
 
   <!-- ① sample collapse -->
   <rect x="24" y="46" width="272" height="300" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="1.8"/>
-  <text x="46" y="72" font-size="13" font-weight="700" fill="#a8401d">① Your n collapses</text>
+  <text x="46" y="72" font-size="13" font-weight="700" fill="#a8401d">① Your n shrinks</text>
   <g>
     <text x="46" y="102" font-size="11.5" fill="#8A7FA3">patients with each layer</text>
     <rect x="46" y="112" width="228" height="20" rx="3" fill="#f1eef7"/><rect x="46" y="112" width="228" height="20" rx="3" fill="#185FA5"/>
@@ -27,7 +27,7 @@
 
   <!-- ② scale imbalance -->
   <rect x="308" y="46" width="272" height="300" rx="10" fill="#ffffff" stroke="#BA7517" stroke-width="1.8"/>
-  <text x="330" y="72" font-size="13" font-weight="700" fill="#8a6a1f">② One layer drowns the rest</text>
+  <text x="330" y="72" font-size="13" font-weight="700" fill="#8a6a1f">② One layer dominates the rest</text>
   <text x="330" y="102" font-size="11.5" fill="#8A7FA3">features per layer (bar &#8733; &#8730;features)</text>
   <g font-size="11.5">
     <text x="330" y="128" fill="#555">RNA-seq</text><text x="558" y="128" text-anchor="end" font-weight="700" fill="#4A3D6B">20,000</text>
@@ -47,18 +47,18 @@
   <!-- ③ what does it mean -->
   <rect x="592" y="46" width="264" height="300" rx="10" fill="#ffffff" stroke="#534AB7" stroke-width="1.8"/>
   <text x="614" y="72" font-size="13" font-weight="700" fill="#4a4189">③ A factor is not a mechanism</text>
-  <text x="614" y="102" font-size="12" fill="#666">MOFA hands you an axis. It does</text>
-  <text x="614" y="120" font-size="12" fill="#666">not tell you what it is.</text>
+  <text x="614" y="102" font-size="12" fill="#666">MOFA gives you an axis, but it</text>
+  <text x="614" y="120" font-size="12" fill="#666">does not tell you what it means.</text>
   <rect x="614" y="136" width="220" height="86" rx="7" fill="#f3f0f7"/>
   <text x="632" y="158" font-size="11.5" font-weight="700" fill="#4A3D6B">Annotate every factor against:</text>
   <text x="632" y="178" font-size="11.5" fill="#666">batch, run date, RIN, DV200</text>
   <text x="632" y="196" font-size="11.5" fill="#666">age, sex, BMI, medication</text>
-  <text x="632" y="214" font-size="11.5" fill="#666">then, last, disease status</text>
-  <text x="614" y="252" font-size="12" fill="#666">Only after the first two lines</text>
-  <text x="614" y="270" font-size="12" fill="#666">come back empty is a factor</text>
+  <text x="632" y="214" font-size="11.5" fill="#666">and only then disease status</text>
+  <text x="614" y="252" font-size="12" fill="#666">If the first two lines explain</text>
+  <text x="614" y="270" font-size="12" fill="#666">nothing, the factor becomes</text>
   <text x="614" y="288" font-size="12" font-weight="700" fill="#4a4189">a candidate for biology.</text>
-  <text x="614" y="320" font-size="11.5" fill="#8A7FA3">💡 This is one plot per covariate</text>
-  <text x="614" y="336" font-size="11.5" fill="#8A7FA3">and an afternoon of work.</text>
+  <text x="614" y="320" font-size="11.5" fill="#8A7FA3">💡 One plot per covariate,</text>
+  <text x="614" y="336" font-size="11.5" fill="#8A7FA3">about an afternoon of work.</text>
 
   <!-- footer -->
   <rect x="24" y="362" width="832" height="52" rx="9" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>

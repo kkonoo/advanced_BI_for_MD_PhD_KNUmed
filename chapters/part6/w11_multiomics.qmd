@@ -17,7 +17,7 @@ knitr:
 
 By the end of this chapter you should be able to:
 
--   Explain why one omics layer shows only one link in the chain from risk variant to disease
+-   Explain why a single omics layer shows only part of the path from a risk variant to disease
 -   Distinguish **sequential** from **joint** integration, and say which your question needs
 -   Use convergent evidence across layers to narrow a locus to a single candidate gene
 -   ⚠️ Say why an absent signal in one layer is not a negative result
@@ -36,24 +36,24 @@ By the end of this chapter you should be able to:
 
 ![](/assets/img/w11/why_multiomics.svg){fig-align="center"}
 
-One fact from W3: **about 90% of GWAS hits are non-coding** (🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). The variant changes how a gene is **regulated**, not the protein sequence. Follow the risk allele in the figure:
+As W3 showed, **about 90% of GWAS hits are non-coding** (🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). Most of them leave the protein sequence alone and change how a gene is **regulated**. In the figure, the risk allele leads to disease like this:
 
-1.  **Genomics** — the risk variant sits inside a regulatory element
-2.  **Epigenomics** — an extra TF binds there → the switch turns on harder (not a week of this course — checked with public chromatin data)
-3.  **Transcriptomics** — the nearby causal gene makes more mRNA
-4.  **Proteomics** — more protein
-5.  **Phenotype** — disease
+1.  **Genomics**: the risk variant sits inside a regulatory element
+2.  **Epigenomics**: an extra TF binds there, so the gene is switched on more strongly. This course does not cover epigenomics; public chromatin data can show it
+3.  **Transcriptomics**: the nearby causal gene makes more mRNA
+4.  **Proteomics**: more protein is made
+5.  **Phenotype**: disease appears
 
-Measure one layer and you see one link of this chain.
+Measure one layer and you see only one of these steps.
 
--   GWAS → **where** the risk is. Not which gene, not how
--   RNA → **which gene** changes, and by how much. Not whether that is cause or consequence
--   Protein → whether **the working molecule** changes. Not why
--   ⚠️ And the layers do not carry over one-to-one: mRNA can go up while the protein stays flat (🔗 [W9 §1](../part5/w9_proteomics_tech.qmd#w9-s1))
+-   **GWAS** shows **where** in the genome the risk is, but not which gene or how
+-   **RNA** shows **which gene** changes and by how much, but not whether the change is a cause or a consequence of disease
+-   **Protein** shows whether **the molecule that does the work** has changed, but not why
+-   ⚠️ A change in one layer does not always carry over to the next: mRNA can go up while the protein stays flat (🔗 [W9 §1](../part5/w9_proteomics_tech.qmd#w9-s1))
 
-→ A mechanism needs the links **connected**. W3–W10 looked at the layers one at a time; this week is about connecting them.
+So explaining a mechanism means **connecting** the results from several layers. W3–W10 looked at the layers one at a time; this week is about connecting them.
 
-💡 The chain has an order → the most natural integration follows that order and filters candidates step by step: **sequential** (§2.1). The columns of the table in §3 follow roughly the same chain.
+💡 These steps happen in order. The most natural integration therefore follows the same order and filters candidates step by step: **sequential integration** (§2.1). The columns of the table in §3 follow roughly the same order.
 
 ------------------------------------------------------------------------
 
@@ -66,35 +66,35 @@ Measure one layer and you see one link of this chain.
 You already did this without calling it integration. W3 narrowed a locus; W5 named a cell type; W9 asked whether the protein exists. Each layer removes candidates.
 
 -   ✅ Keeps your **full n** at every step, because each analysis uses only the samples that have that layer
--   ✅ Every step is interpretable on its own and defensible in a methods section
+-   ✅ Every step can be interpreted on its own and is easy to justify in the Methods
 -   ✅ Layers can come from **different cohorts**: public eQTL data, a published atlas, your own samples
--   ⚠️ Cannot discover a pattern that only exists *across* layers
+-   ⚠️ Cannot find a pattern that shows up only when the layers are looked at *together*
 
 ## 2) Joint: model the layers together {#w11-s2-2}
 
 **MOFA+**, **mixOmics/DIABLO**, **iCluster** and similar methods find latent factors that explain variance across several layers at once.
 
--   ✅ Can reveal coordinated programmes no single layer shows
+-   ✅ Can find programmes that move together across layers, which no single layer shows
 -   ✅ Unsupervised, so it can find structure you did not ask about (patient subtypes)
 -   ⚠️ Needs the **same samples** measured on every layer
 -   ⚠️ Output is a factor, not a mechanism
 
-💡 **Answer to the motivating question:** usually **no, not first**. Sequential prioritisation answers most clinical questions, keeps your n, and produces a figure a reviewer can follow. Reach for joint modelling when you specifically suspect a cross-layer programme, or when you want unsupervised patient subtypes.
+💡 **Answer to the motivating question:** usually **no, not first**. Sequential prioritisation answers most clinical questions, keeps your n, and produces a figure a reviewer can follow. Use joint modelling when you have a reason to suspect a programme that spans layers, or when you want unsupervised patient subtypes.
 
 ------------------------------------------------------------------------
 
 # 3. Sequential Integration in Practice 🎯 {#w11-s3}
 
-![The most useful form of integration for a clinician, and the least glamorous.](/assets/img/w11/prioritization.svg){fig-align="center"}
+![The most useful integration for a clinician, and one you can do yourself.](/assets/img/w11/prioritization.svg){fig-align="center"}
 
 ## 1) Why convergence is strong evidence {#w11-s3-1}
 
-Each layer has its own false positives, and they are largely **independent**: an eQTL colocalisation artifact has nothing to do with a proteomics artifact. A gene surviving five independent filters is unlikely to be five separate coincidences.
+Each layer has its own false positives, and they are largely **independent**: an eQTL colocalisation artifact has nothing to do with a proteomics artifact. So a gene that passes five independent filters is unlikely to have passed all five by chance.
 
-## 2) ⚠️ Why an absence is not evidence {#w11-s3-2}
+## 2) ⚠️ No signal is not a negative result {#w11-s3-2}
 
 ::: {.callout-important collapse="true"}
-## The asymmetry that gets misread constantly
+## A ✓ and a ✕ do not carry the same weight
 
 A ✕ in one column almost always means **"not measured in the right context"**, not "measured and absent".
 
@@ -103,9 +103,9 @@ A ✕ in one column almost always means **"not measured in the right context"**,
 -   ⚠️ Some genes have no protein product to measure
 -   ⚠️ MR needs a strong instrument; a gene without one cannot be tested, which is not the same as being tested and failing
 
-→ ✅ Report convergence as positive evidence. Report gaps as **coverage limitations**, in a sentence, in the results.
+✅ Report convergence as positive evidence, and report each gap as a **coverage limitation** in one sentence of the results.
 
-⚠️ This creates a failure mode: prioritisation pipelines systematically favour **well-measured, well-studied genes**. The same bias returns in [W12](w12_network_drug.qmd) as network hubs.
+⚠️ This also creates a bias: prioritisation pipelines tend to pick **genes that are already well measured and well studied**. The same bias returns in [W12](w12_network_drug.qmd) as network hubs.
 :::
 
 ------------------------------------------------------------------------
@@ -116,9 +116,9 @@ A ✕ in one column almost always means **"not measured in the right context"**,
 
 ![](/assets/img/w11/mofa_core.svg){fig-align="center"}
 
-A latent axis along which samples vary, together with **loadings** saying which features in which layers drive it. The variance explained plot says how much of each layer each factor accounts for.
+A factor is a latent axis along which samples vary. Its **loadings** say which features, in which layers, build that axis. The variance explained plot shows how much of each layer each factor accounts for.
 
-💡 It is close to running PCA (🔗 [W5 §3.4](../part3/w5_scrna_qc.qmd#w5-s3-4)) on several layers at once: factor score ≈ PC score, loadings ≈ PC loadings. The difference: every layer shares the same scores, and each layer gets its own loadings.
+💡 It is close to running PCA (🔗 [W5 §3.4](../part3/w5_scrna_qc.qmd#w5-s3-4)) on several layers at once. The factor score corresponds to the PC score, and the loadings to the PC loadings. The difference is that every layer shares the same scores, while each layer has its own loadings.
 
 ## 2) ⚠️ Annotate factors before interpreting them {#w11-s4-2}
 
@@ -143,27 +143,27 @@ The strongest shared source of variation in a real cohort is rarely disease. It 
 
 ------------------------------------------------------------------------
 
-# 5. ⚠️ Three Failures Before the Model 🕳️ {#w11-s5}
+# 5. ⚠️ Three Failures Before You Run the Model 🕳️ {#w11-s5}
 
-![None of these is a modelling problem, and all of them are decided at design time.](/assets/img/w11/integration_traps.svg){fig-align="center"}
+![None of these is a modelling problem. All three are decided when you design the study.](/assets/img/w11/integration_traps.svg){fig-align="center"}
 
-**① Your n collapses.** Joint models use complete cases. A cohort of 300 with four layers may have 41 patients measured on all four. That is your real sample size.
+**① Your n shrinks.** Joint models use only complete cases, the patients measured on every layer. A cohort of 300 with four layers may have 41 patients measured on all four, and 41 is then your real sample size.
 
 -   ✅ Check the intersection **before** planning the analysis
 -   ✅ Some methods handle missing views; using one is a decision to state, not a default
 
-**② Scale imbalance.** Methylation contributes 450,000 features and your clinical variables contribute 12. Without per-layer scaling, the factors describe methylation.
+**② Scale imbalance.** Methylation contributes 450,000 features and your clinical variables contribute 12. Without per-layer scaling, the factors end up describing methylation.
 
 **③ The factor is not a mechanism.** See §4.2.
 
 ::: {.callout-tip collapse="true"}
 ## What integration cannot do
 
--   ❌ It cannot create power. Four noisy layers on 41 patients is not stronger than one good layer on 300
--   ❌ It cannot fix confounding. If batch tracks disease, every layer inherits it and the joint model concentrates it into a factor
--   ❌ It cannot make an underpowered study publishable. Reviewers have become good at spotting integration used as a substitute for n
+-   ❌ It cannot create power. Four noisy layers on 41 patients are weaker than one good layer on 300
+-   ❌ It cannot fix confounding. If batch overlaps with disease, every layer carries that confounding, and the joint model only gathers it into one factor
+-   ❌ It cannot make an underpowered study publishable. Reviewers quickly notice when integration is used to make up for a small n
 
-→ ✅ What it genuinely buys: **cross-layer coordination you could not otherwise see**, and **unsupervised subtypes** you did not know to look for.
+✅ What integration does give you is two things: **coordination across layers** that no other method shows, and **unsupervised subtypes** you did not know to look for.
 :::
 
 ------------------------------------------------------------------------
@@ -180,7 +180,7 @@ Take one locus for a disease you treat, and fill in the table from §3 by hand, 
 -   **Direction**: [IEU OpenGWAS](https://opengwas.io) for MR results
 -   **Tractability**: [Open Targets](https://platform.opentargets.org) target profile
 
-✅ One row per candidate gene, one column per layer. This is an afternoon, and it is a real figure.
+✅ One row per candidate gene, one column per layer. It takes about an afternoon, and the table can go into a paper as a figure.
 
 ## 2) Check the intersection first {#w11-s6-2}
 
@@ -352,7 +352,7 @@ cors.round(2)     # look here before you look at biology
 
 # 📝 Summary
 
--   Most GWAS hits are non-coding → risk travels as a **chain**: regulation → RNA → protein → phenotype. One layer = one link
+-   Most GWAS hits are non-coding, so risk is passed on **in order**: regulation → RNA → protein → phenotype. One layer shows only one of these steps
 -   **Sequential** integration filters candidates layer by layer; **joint** integration models layers together
 -   ✅ Sequential keeps your full n, works across cohorts, and answers most clinical questions
 -   ✅ Convergent evidence across layers is strong because each layer's false positives are **independent**
