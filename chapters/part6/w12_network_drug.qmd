@@ -121,7 +121,7 @@ People carrying natural loss-of-function variants in your target are a preview o
 
 # 4. Hands-On 💻 {#w12-s4}
 
-Bring the prioritisation table from 🔗 [W11 §5.1](w11_multiomics.qmd#w11-s5-1).
+Bring the prioritisation table from 🔗 [W11 §6.1](w11_multiomics.qmd#w11-s6-1).
 
 ## 1) No code: profile your surviving gene {#w12-s4-1}
 

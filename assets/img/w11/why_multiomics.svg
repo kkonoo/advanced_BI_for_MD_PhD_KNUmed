@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 432" width="880" height="432" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8A7FA3"/></marker></defs>
+<rect x="0" y="0" width="880" height="432" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" fill="#4A3D6B" font-weight="700">A risk variant reaches the patient through a chain of layers</text>
+<rect x="24" y="46" width="146" height="338" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="97" y="70" font-size="13.5" fill="#185FA5" font-weight="700" text-anchor="middle">Genomics</text>
+<rect x="71.5" y="78" width="51" height="18" rx="9" fill="#e7eff8"/>
+<text x="97" y="91" font-size="10.5" fill="#185FA5" font-weight="700" text-anchor="middle">W3–W4</text>
+<line x1="38" y1="336" x2="156" y2="336" stroke="#eee9f3" stroke-width="1.2"/>
+<text x="97" y="356" font-size="11.5" fill="#5B4D80" text-anchor="middle">Where is</text>
+<text x="97" y="372" font-size="11.5" fill="#5B4D80" text-anchor="middle">the risk?</text>
+<rect x="190" y="46" width="186" height="338" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="283" y="70" font-size="13.5" fill="#534AB7" font-weight="700" text-anchor="middle">Epigenomics</text>
+<rect x="236.5" y="78" width="93" height="18" rx="9" fill="#efedf9"/>
+<text x="283" y="91" font-size="10.5" fill="#534AB7" font-weight="700" text-anchor="middle">public data</text>
+<line x1="204" y1="336" x2="362" y2="336" stroke="#eee9f3" stroke-width="1.2"/>
+<text x="283" y="356" font-size="11.5" fill="#5B4D80" text-anchor="middle">Which switch</text>
+<text x="283" y="372" font-size="11.5" fill="#5B4D80" text-anchor="middle">does it flip?</text>
+<rect x="396" y="46" width="180" height="338" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="486" y="70" font-size="13.5" fill="#BA7517" font-weight="700" text-anchor="middle">Transcriptomics</text>
+<rect x="460.5" y="78" width="51" height="18" rx="9" fill="#f8f0e2"/>
+<text x="486" y="91" font-size="10.5" fill="#BA7517" font-weight="700" text-anchor="middle">W5–W8</text>
+<line x1="410" y1="336" x2="562" y2="336" stroke="#eee9f3" stroke-width="1.2"/>
+<text x="486" y="356" font-size="11.5" fill="#5B4D80" text-anchor="middle">Which gene,</text>
+<text x="486" y="372" font-size="11.5" fill="#5B4D80" text-anchor="middle">how much?</text>
+<rect x="596" y="46" width="140" height="338" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="666" y="70" font-size="13.5" fill="#1D9E75" font-weight="700" text-anchor="middle">Proteomics</text>
+<rect x="637" y="78" width="58" height="18" rx="9" fill="#e6f4ee"/>
+<text x="666" y="91" font-size="10.5" fill="#1D9E75" font-weight="700" text-anchor="middle">W9–W10</text>
+<line x1="610" y1="336" x2="722" y2="336" stroke="#eee9f3" stroke-width="1.2"/>
+<text x="666" y="356" font-size="11.5" fill="#5B4D80" text-anchor="middle">Is the protein</text>
+<text x="666" y="372" font-size="11.5" fill="#5B4D80" text-anchor="middle">changed?</text>
+<rect x="756" y="46" width="100" height="338" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="806" y="70" font-size="13.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">Phenotype</text>
+<rect x="777" y="78" width="58" height="18" rx="9" fill="#efecf4"/>
+<text x="806" y="91" font-size="10.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">clinic</text>
+<line x1="770" y1="336" x2="842" y2="336" stroke="#eee9f3" stroke-width="1.2"/>
+<text x="806" y="356" font-size="11.5" fill="#5B4D80" text-anchor="middle">Does it reach</text>
+<text x="806" y="372" font-size="11.5" fill="#5B4D80" text-anchor="middle">the patient?</text>
+<line x1="38" y1="162" x2="566" y2="162" stroke="#4A3D6B" stroke-width="2.4"/>
+<text x="49" y="152" font-size="13" fill="#8A7FA3" font-weight="600" text-anchor="middle">G</text>
+<text x="65" y="152" font-size="13" fill="#8A7FA3" font-weight="600" text-anchor="middle">A</text>
+<text x="81" y="152" font-size="13" fill="#8A7FA3" font-weight="600" text-anchor="middle">C</text>
+<rect x="89.5" y="138" width="15" height="19" rx="3" fill="#ffffff" stroke="#8A7FA3" stroke-width="1.2"/>
+<text x="97" y="152" font-size="13" fill="#4A3D6B" font-weight="700" text-anchor="middle">C</text>
+<text x="113" y="152" font-size="13" fill="#8A7FA3" font-weight="600" text-anchor="middle">T</text>
+<text x="129" y="152" font-size="13" fill="#8A7FA3" font-weight="600" text-anchor="middle">A</text>
+<text x="145" y="152" font-size="13" fill="#8A7FA3" font-weight="600" text-anchor="middle">G</text>
+<text x="97" y="186" font-size="12" fill="#666" font-weight="600" text-anchor="middle">normal allele</text>
+<rect x="214" y="149" width="138" height="26" rx="4" fill="#efedf9" stroke="#534AB7" stroke-width="1.2"/>
+<text x="283" y="166" font-size="10.5" fill="#534AB7" font-weight="600" text-anchor="middle">regulatory element</text>
+<circle cx="228" cy="175" r="4.5" fill="#ffffff" stroke="#8A7FA3" stroke-width="1.3"/>
+<rect x="292" y="120" width="46" height="25" rx="11" fill="#534AB7"/>
+<text x="315" y="137" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">TF</text>
+<text x="283" y="194" font-size="11.5" fill="#666" text-anchor="middle">one TF binds</text>
+<path d="M410 162 L410 138 L426 138" fill="none" stroke="#4A3D6B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="416" y="153" width="12" height="18" rx="2" fill="#BA7517"/>
+<rect x="436" y="153" width="26" height="18" rx="2" fill="#BA7517"/>
+<rect x="470" y="153" width="10" height="18" rx="2" fill="#BA7517"/>
+<rect x="488" y="153" width="30" height="18" rx="2" fill="#BA7517"/>
+<rect x="526" y="153" width="20" height="18" rx="2" fill="#BA7517"/>
+<text x="470" y="134" font-size="10.5" fill="#8A7FA3" text-anchor="middle">causal gene</text>
+<path d="M430 188 Q436 181.6 442 188 Q448 194.4 454 188 Q460 181.6 466 188 Q472 194.4 478 188 Q484 181.6 490 188 Q496 194.4 502 188 Q508 181.6 514 188 Q520 194.4 526 188" fill="none" stroke="#BA7517" stroke-width="2.6" stroke-linecap="round"/>
+<text x="548" y="192" font-size="13" fill="#BA7517" font-weight="700">×1</text>
+<line x1="579" y1="170" x2="594" y2="170" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<line x1="739" y1="170" x2="754" y2="170" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<circle cx="650" cy="162" r="8.5" fill="#1D9E75" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="670" cy="170" r="8.5" fill="#6cc3a3" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="658" cy="184" r="8.5" fill="#a8dcc8" stroke="#ffffff" stroke-width="1.2"/>
+<text x="666" y="210" font-size="11.5" fill="#666" text-anchor="middle">protein: baseline</text>
+<rect x="766" y="157" width="80" height="26" rx="13" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.3"/>
+<text x="806" y="174.5" font-size="12" fill="#0F6E56" font-weight="700" text-anchor="middle">healthy</text>
+<line x1="38" y1="276" x2="566" y2="276" stroke="#4A3D6B" stroke-width="2.4"/>
+<text x="49" y="266" font-size="13" fill="#8A7FA3" font-weight="600" text-anchor="middle">G</text>
+<text x="65" y="266" font-size="13" fill="#8A7FA3" font-weight="600" text-anchor="middle">A</text>
+<text x="81" y="266" font-size="13" fill="#8A7FA3" font-weight="600" text-anchor="middle">C</text>
+<rect x="89.5" y="252" width="15" height="19" rx="3" fill="#D85A30"/>
+<text x="97" y="266" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">T</text>
+<text x="113" y="266" font-size="13" fill="#8A7FA3" font-weight="600" text-anchor="middle">T</text>
+<text x="129" y="266" font-size="13" fill="#8A7FA3" font-weight="600" text-anchor="middle">A</text>
+<text x="145" y="266" font-size="13" fill="#8A7FA3" font-weight="600" text-anchor="middle">G</text>
+<text x="97" y="300" font-size="12" fill="#a8401d" font-weight="700" text-anchor="middle">risk allele</text>
+<rect x="214" y="263" width="138" height="26" rx="4" fill="#efedf9" stroke="#534AB7" stroke-width="1.2"/>
+<text x="283" y="280" font-size="10.5" fill="#534AB7" font-weight="600" text-anchor="middle">regulatory element</text>
+<circle cx="228" cy="289" r="4.5" fill="#D85A30" stroke="#D85A30" stroke-width="1.3"/>
+<rect x="292" y="234" width="46" height="25" rx="11" fill="#534AB7"/>
+<text x="315" y="251" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">TF</text>
+<ellipse cx="248" cy="246" rx="25" ry="13" fill="#fbeee8" stroke="#D85A30" stroke-width="1.4"/>
+<text x="248" y="250" font-size="12" fill="#a8401d" font-weight="700" text-anchor="middle">TF</text>
+<text x="283" y="308" font-size="11.5" fill="#a8401d" font-weight="700" text-anchor="middle">an extra TF binds</text>
+<path d="M410 276 L410 252 L426 252" fill="none" stroke="#4A3D6B" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="416" y="267" width="12" height="18" rx="2" fill="#BA7517"/>
+<rect x="436" y="267" width="26" height="18" rx="2" fill="#BA7517"/>
+<rect x="470" y="267" width="10" height="18" rx="2" fill="#BA7517"/>
+<rect x="488" y="267" width="30" height="18" rx="2" fill="#BA7517"/>
+<rect x="526" y="267" width="20" height="18" rx="2" fill="#BA7517"/>
+<text x="470" y="248" font-size="10.5" fill="#8A7FA3" text-anchor="middle">causal gene</text>
+<path d="M430 302 Q436 295.6 442 302 Q448 308.4 454 302 Q460 295.6 466 302 Q472 308.4 478 302 Q484 295.6 490 302 Q496 308.4 502 302 Q508 295.6 514 302 Q520 308.4 526 302" fill="none" stroke="#BA7517" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M430 315 Q436 308.6 442 315 Q448 321.4 454 315 Q460 308.6 466 315 Q472 321.4 478 315 Q484 308.6 490 315 Q496 321.4 502 315 Q508 308.6 514 315 Q520 321.4 526 315" fill="none" stroke="#BA7517" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M430 328 Q436 321.6 442 328 Q448 334.4 454 328 Q460 321.6 466 328 Q472 334.4 478 328 Q484 321.6 490 328 Q496 334.4 502 328 Q508 321.6 514 328 Q520 334.4 526 328" fill="none" stroke="#BA7517" stroke-width="2.6" stroke-linecap="round"/>
+<text x="548" y="306" font-size="13" fill="#BA7517" font-weight="700">×3</text>
+<line x1="579" y1="284" x2="594" y2="284" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<line x1="739" y1="284" x2="754" y2="284" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<circle cx="636" cy="268" r="8.5" fill="#1D9E75" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="654" cy="265" r="8.5" fill="#6cc3a3" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="672" cy="270" r="8.5" fill="#a8dcc8" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="690" cy="266" r="8.5" fill="#1D9E75" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="630" cy="285" r="8.5" fill="#6cc3a3" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="648" cy="283" r="8.5" fill="#a8dcc8" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="666" cy="287" r="8.5" fill="#1D9E75" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="684" cy="283" r="8.5" fill="#6cc3a3" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="702" cy="285" r="8.5" fill="#a8dcc8" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="645" cy="301" r="8.5" fill="#1D9E75" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="663" cy="304" r="8.5" fill="#6cc3a3" stroke="#ffffff" stroke-width="1.2"/>
+<circle cx="681" cy="300" r="8.5" fill="#a8dcc8" stroke="#ffffff" stroke-width="1.2"/>
+<text x="666" y="328" font-size="11.5" fill="#1D9E75" font-weight="700" text-anchor="middle">protein ↑</text>
+<rect x="766" y="271" width="80" height="26" rx="13" fill="#D85A30"/>
+<text x="806" y="288.5" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">disease</text>
+<text x="24" y="414" font-size="13" fill="#4A3D6B" font-weight="700">Measure one layer and you see one link. The mechanism is the whole chain — integration connects the links.</text>
+</svg>

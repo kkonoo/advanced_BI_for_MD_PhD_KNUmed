@@ -17,6 +17,7 @@ knitr:
 
 이 장을 마치면 다음을 할 수 있어야 합니다.
 
+-   Risk variant에서 질병까지 이어지는 사슬에서, 오믹스 층 하나로는 고리 하나만 보이는 이유를 설명할 수 있다
 -   **Sequential integration**과 **joint integration**을 구분하고 연구 질문에 어느 방식이 필요한지 말할 수 있다
 -   여러 층의 convergent evidence를 이용해 하나의 locus를 단일 후보 유전자로 좁힐 수 있다
 -   ⚠️ 한 층에서 신호가 없다는 것이 음성 결과가 아닌 이유를 말할 수 있다
@@ -31,9 +32,36 @@ knitr:
 
 ------------------------------------------------------------------------
 
-# 1. 통합하는 두 가지 방법 🧭 {#w11-s1}
+# 1. 왜 multi-omics? 🧬 {#w11-s1}
 
-## 1) Sequential: 층마다 앞 결과를 걸러냄 {#w11-s1-1}
+![](../../../assets/img/w11/why_multiomics.svg){fig-align="center"}
+
+W3에서 본 사실 하나: **GWAS hit의 약 90%는 non-coding** (🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). Variant가 protein 서열이 아니라 gene **발현 조절**을 바꾼다는 뜻. 위 그림의 risk allele를 따라가 보면:
+
+1.  **Genomics** — risk variant가 regulatory element 안에 있음
+2.  **Epigenomics** — 그 자리에 TF가 하나 더 붙음 → 스위치가 더 세게 켜짐 (이 수업에서 따로 다루진 않음 — 공개 chromatin data로 확인)
+3.  **Transcriptomics** — 근처 causal gene의 mRNA ↑
+4.  **Proteomics** — protein 양 ↑
+5.  **Phenotype** — 질병
+
+층 하나만 재면 이 사슬의 고리 하나만 보임
+
+-   GWAS → 위험이 **어디** 있는지. 어느 gene인지, 어떻게인지는 모름
+-   RNA → **어느 gene**이 얼마나 변하는지. 그게 원인인지 결과인지는 모름
+-   Protein → **실제로 일하는 분자**가 변했는지. 왜 변했는지는 모름
+-   ⚠️ 층끼리 그대로 옮겨지지도 않음: mRNA ↑인데 protein은 그대로일 수 있음 (🔗 [W9 §1](../part5/w9_proteomics_tech.qmd#w9-s1))
+
+→ 고리를 **이어야** 기전이 됨. W3–W10에서 층을 하나씩 봤고, 이번 주는 그 층들을 잇는 방법
+
+💡 이 사슬에는 순서가 있음 → 가장 자연스러운 통합은 그 순서를 따라가며 후보를 걸러내는 **sequential** (§2.1). §3 우선순위화 표의 열도 대체로 이 사슬 순서
+
+------------------------------------------------------------------------
+
+# 2. 통합하는 두 가지 방법 🧭 {#w11-s2}
+
+![](../../../assets/img/w11/two_ways.svg){fig-align="center"}
+
+## 1) Sequential: 층마다 앞 결과를 걸러냄 {#w11-s2-1}
 
 이미 해봤음, 통합이라고 안 불렀을 뿐: W3에서 locus를 좁히고, W5에서 cell type을 특정하고, W9에서 protein이 실제로 있는지 물음. 층마다 후보가 줄어듦
 
@@ -42,7 +70,7 @@ knitr:
 -   ✅ 층이 **서로 다른 cohort**에서 와도 됨(공개 eQTL data, 출판된 atlas, 내 sample)
 -   ⚠️ 층을 *가로질러서만* 보이는 pattern은 못 찾음
 
-## 2) Joint: 층을 한꺼번에 modelling {#w11-s1-2}
+## 2) Joint: 층을 한꺼번에 modelling {#w11-s2-2}
 
 **MOFA+**, **mixOmics/DIABLO**, **iCluster** 같은 방법 = 여러 층의 변이를 동시에 설명하는 latent factor를 찾음
 
@@ -55,15 +83,15 @@ knitr:
 
 ------------------------------------------------------------------------
 
-# 2. Sequential integration 실전 🎯 {#w11-s2}
+# 3. Sequential integration 실전 🎯 {#w11-s3}
 
 ![임상의에게 가장 쓸모 있고, 가장 안 화려한 통합](../../../assets/img/w11/prioritization.svg){fig-align="center"}
 
-## 1) 수렴이 강한 근거인 이유 {#w11-s2-1}
+## 1) 수렴이 강한 근거인 이유 {#w11-s3-1}
 
 층마다 거짓양성이 따로 있고, 이들은 대체로 **독립적**: eQTL colocalisation artifact ≠ proteomics artifact. 독립적인 filter 5개를 다 통과한 gene = 우연이 다섯 번 겹쳤을 가능성 낮음
 
-## 2) ⚠️ 없다 ≠ 근거 {#w11-s2-2}
+## 2) ⚠️ 없다 ≠ 근거 {#w11-s3-2}
 
 ::: {.callout-important collapse="true"}
 ## 끊임없이 잘못 읽히는 비대칭
@@ -82,15 +110,19 @@ knitr:
 
 ------------------------------------------------------------------------
 
-# 3. Joint model — 결과 읽기 📐 {#w11-s3}
+# 4. Joint model — 결과 읽기 📐 {#w11-s4}
 
-![열을 읽어 기술 factor부터 찾고, 그다음 행을 읽어 biology를 찾기](../../../assets/img/w11/mofa_factors.svg){fig-align="center"}
+## 1) Factor란? {#w11-s4-1}
 
-## 1) Factor란? {#w11-s3-1}
+![](../../../assets/img/w11/mofa_core.svg){fig-align="center"}
 
 Sample들이 달라지는 잠재 축 + 어느 층의 어느 feature가 그 축을 만드는지 알려주는 **loadings**. Variance explained plot = factor마다 각 층의 변이를 얼마나 설명하나
 
-## 2) ⚠️ 해석 전에 factor부터 annotate {#w11-s3-2}
+💡 PCA(🔗 [W5 §3.4](../part3/w5_scrna_qc.qmd#w5-s3-4))를 여러 층에 한꺼번에 하는 것과 비슷: factor score ≈ PC score, loadings ≈ PC loading. 다른 점 = score는 모든 층이 공유, loadings는 층마다 따로
+
+## 2) ⚠️ 해석 전에 factor부터 annotate {#w11-s4-2}
+
+![열을 읽어 기술 factor부터 찾고, 그다음 행을 읽어 biology를 찾기](../../../assets/img/w11/mofa_factors.svg){fig-align="center"}
 
 ::: {.callout-warning collapse="true"}
 ## Factor 1은 거의 항상 기술적
@@ -111,7 +143,7 @@ Sample들이 달라지는 잠재 축 + 어느 층의 어느 feature가 그 축�
 
 ------------------------------------------------------------------------
 
-# 4. ⚠️ Model 전에 일어나는 세 가지 실패 🕳️ {#w11-s4}
+# 5. ⚠️ Model 전에 일어나는 세 가지 실패 🕳️ {#w11-s5}
 
 ![전부 modelling 문제가 아니고, 전부 설계 시점에 결정됨](../../../assets/img/w11/integration_traps.svg){fig-align="center"}
 
@@ -122,7 +154,7 @@ Sample들이 달라지는 잠재 축 + 어느 층의 어느 feature가 그 축�
 
 **② Scale 불균형.** Methylation feature 450,000개 vs 임상 변수 12개. Per-layer scaling 없으면 → factor = methylation 설명
 
-**③ Factor ≠ 기전.** §3.2 참고
+**③ Factor ≠ 기전.** §4.2 참고
 
 ::: {.callout-tip collapse="true"}
 ## 통합으로 할 수 없는 것
@@ -136,11 +168,11 @@ Sample들이 달라지는 잠재 축 + 어느 층의 어느 feature가 그 축�
 
 ------------------------------------------------------------------------
 
-# 5. 실습 💻 {#w11-s5}
+# 6. 실습 💻 {#w11-s6}
 
-## 1) 우선순위화 표 만들기 {#w11-s5-1}
+## 1) 우선순위화 표 만들기 {#w11-s6-1}
 
-진료하는 질환의 locus 하나 골라서, §2의 표를 브라우저로 직접 채우기:
+진료하는 질환의 locus 하나 골라서, §3의 표를 브라우저로 직접 채우기:
 
 -   **eQTL / locus-to-gene**: [Open Targets Platform](https://platform.opentargets.org) (구 Open Targets Genetics) 또는 [GTEx](https://gtexportal.org)
 -   **Cell type**: [CELLxGENE](https://cellxgene.cziscience.com)
@@ -150,7 +182,7 @@ Sample들이 달라지는 잠재 축 + 어느 층의 어느 feature가 그 축�
 
 ✅ 후보 gene 하나 = 한 행, 층 하나 = 한 열. 오후 한나절이면 되고, 진짜 논문 figure가 됨
 
-## 2) 교집합부터 확인 {#w11-s5-2}
+## 2) 교집합부터 확인 {#w11-s6-2}
 
 ::: {.panel-tabset group="lang"}
 
@@ -202,7 +234,7 @@ print("complete cases:", have.all(axis=1).sum())   # ⚠️ this is your n
 
 :::
 
-## 3) MOFA, 그리고 factor annotation {#w11-s5-3}
+## 3) MOFA, 그리고 factor annotation {#w11-s6-3}
 
 ::: {.panel-tabset group="lang"}
 
@@ -290,7 +322,7 @@ cors.round(2)     # look here before you look at biology
 
 :::
 
-## 4) ✅ 한 가지 바꾸기 {#w11-s5-4}
+## 4) ✅ 한 가지 바꾸기 {#w11-s6-4}
 
 ::: {.panel-tabset group="lang"}
 
@@ -312,14 +344,15 @@ cors.round(2)     # look here before you look at biology
 
 💡 Batch를 빼고 돌렸을 때 factor 순위가 뒤섞인다면, 원래 결과 중 batch가 얼마였는지 가늠할 수 있음. Review에서 지적받기 전에 알아둘 만한 숫자
 
-## 5) 다음 주 전까지 {#w11-s5-5}
+## 5) 다음 주 전까지 {#w11-s6-5}
 
-**[W12: network와 약물 표적](w12_network_drug.qmd).** §5.1의 우선순위화 표 가져오기. 살아남은 gene이 약물 표적이 될 수 있는지 봄
+**[W12: network와 약물 표적](w12_network_drug.qmd).** §6.1의 우선순위화 표 가져오기. 살아남은 gene이 약물 표적이 될 수 있는지 봄
 
 ------------------------------------------------------------------------
 
 # 📝 요약
 
+-   GWAS hit 대부분은 non-coding → 위험은 조절 → RNA → protein → 표현형의 **사슬**로 전달됨. 층 하나 = 고리 하나
 -   **Sequential integration** = 층마다 후보를 걸러냄. **Joint integration** = 층을 함께 modelling
 -   ✅ Sequential은 전체 n 유지, cohort가 달라도 OK, 대부분의 임상 질문에 답함
 -   ✅ 층마다 거짓양성이 **독립적**이어서 여러 층의 수렴은 강한 근거
@@ -335,6 +368,7 @@ cors.round(2)     # look here before you look at biology
 
 | 용어 | 한 줄 정의 |
 |-------------------------|-----------------------------------------|
+| Regulatory element | gene 발현을 조절하는 DNA 구간(promoter, enhancer). TF가 결합하는 자리 |
 | Sequential integration | 각 층이 이전 층에서 나온 후보를 차례로 걸러 내는 방식 |
 | Joint integration | 여러 오믹스 층을 동시에 모형화하는 방식 |
 | Latent factor | 여러 오믹스 층에서 공유되는 변이의 축 |

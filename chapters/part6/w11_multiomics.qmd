@@ -17,6 +17,7 @@ knitr:
 
 By the end of this chapter you should be able to:
 
+-   Explain why one omics layer shows only one link in the chain from risk variant to disease
 -   Distinguish **sequential** from **joint** integration, and say which your question needs
 -   Use convergent evidence across layers to narrow a locus to a single candidate gene
 -   ⚠️ Say why an absent signal in one layer is not a negative result
@@ -31,9 +32,36 @@ By the end of this chapter you should be able to:
 
 ------------------------------------------------------------------------
 
-# 1. Two Ways to Integrate 🧭 {#w11-s1}
+# 1. Why Multi-omics? 🧬 {#w11-s1}
 
-## 1) Sequential: each layer filters the last {#w11-s1-1}
+![](/assets/img/w11/why_multiomics.svg){fig-align="center"}
+
+One fact from W3: **about 90% of GWAS hits are non-coding** (🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)). The variant changes how a gene is **regulated**, not the protein sequence. Follow the risk allele in the figure:
+
+1.  **Genomics** — the risk variant sits inside a regulatory element
+2.  **Epigenomics** — an extra TF binds there → the switch turns on harder (not a week of this course — checked with public chromatin data)
+3.  **Transcriptomics** — the nearby causal gene makes more mRNA
+4.  **Proteomics** — more protein
+5.  **Phenotype** — disease
+
+Measure one layer and you see one link of this chain.
+
+-   GWAS → **where** the risk is. Not which gene, not how
+-   RNA → **which gene** changes, and by how much. Not whether that is cause or consequence
+-   Protein → whether **the working molecule** changes. Not why
+-   ⚠️ And the layers do not carry over one-to-one: mRNA can go up while the protein stays flat (🔗 [W9 §1](../part5/w9_proteomics_tech.qmd#w9-s1))
+
+→ A mechanism needs the links **connected**. W3–W10 looked at the layers one at a time; this week is about connecting them.
+
+💡 The chain has an order → the most natural integration follows that order and filters candidates step by step: **sequential** (§2.1). The columns of the table in §3 follow roughly the same chain.
+
+------------------------------------------------------------------------
+
+# 2. Two Ways to Integrate 🧭 {#w11-s2}
+
+![](/assets/img/w11/two_ways.svg){fig-align="center"}
+
+## 1) Sequential: each layer filters the last {#w11-s2-1}
 
 You already did this without calling it integration. W3 narrowed a locus; W5 named a cell type; W9 asked whether the protein exists. Each layer removes candidates.
 
@@ -42,7 +70,7 @@ You already did this without calling it integration. W3 narrowed a locus; W5 nam
 -   ✅ Layers can come from **different cohorts**: public eQTL data, a published atlas, your own samples
 -   ⚠️ Cannot discover a pattern that only exists *across* layers
 
-## 2) Joint: model the layers together {#w11-s1-2}
+## 2) Joint: model the layers together {#w11-s2-2}
 
 **MOFA+**, **mixOmics/DIABLO**, **iCluster** and similar methods find latent factors that explain variance across several layers at once.
 
@@ -55,15 +83,15 @@ You already did this without calling it integration. W3 narrowed a locus; W5 nam
 
 ------------------------------------------------------------------------
 
-# 2. Sequential Integration in Practice 🎯 {#w11-s2}
+# 3. Sequential Integration in Practice 🎯 {#w11-s3}
 
 ![The most useful form of integration for a clinician, and the least glamorous.](/assets/img/w11/prioritization.svg){fig-align="center"}
 
-## 1) Why convergence is strong evidence {#w11-s2-1}
+## 1) Why convergence is strong evidence {#w11-s3-1}
 
 Each layer has its own false positives, and they are largely **independent**: an eQTL colocalisation artifact has nothing to do with a proteomics artifact. A gene surviving five independent filters is unlikely to be five separate coincidences.
 
-## 2) ⚠️ Why an absence is not evidence {#w11-s2-2}
+## 2) ⚠️ Why an absence is not evidence {#w11-s3-2}
 
 ::: {.callout-important collapse="true"}
 ## The asymmetry that gets misread constantly
@@ -82,15 +110,19 @@ A ✕ in one column almost always means **"not measured in the right context"**,
 
 ------------------------------------------------------------------------
 
-# 3. Joint Models: Reading the Output 📐 {#w11-s3}
+# 4. Joint Models: Reading the Output 📐 {#w11-s4}
 
-![Read the columns to find the technical factors, then the rows to find the biology.](/assets/img/w11/mofa_factors.svg){fig-align="center"}
+## 1) What a factor is {#w11-s4-1}
 
-## 1) What a factor is {#w11-s3-1}
+![](/assets/img/w11/mofa_core.svg){fig-align="center"}
 
 A latent axis along which samples vary, together with **loadings** saying which features in which layers drive it. The variance explained plot says how much of each layer each factor accounts for.
 
-## 2) ⚠️ Annotate factors before interpreting them {#w11-s3-2}
+💡 It is close to running PCA (🔗 [W5 §3.4](../part3/w5_scrna_qc.qmd#w5-s3-4)) on several layers at once: factor score ≈ PC score, loadings ≈ PC loadings. The difference: every layer shares the same scores, and each layer gets its own loadings.
+
+## 2) ⚠️ Annotate factors before interpreting them {#w11-s4-2}
+
+![Read the columns to find the technical factors, then the rows to find the biology.](/assets/img/w11/mofa_factors.svg){fig-align="center"}
 
 ::: {.callout-warning collapse="true"}
 ## Factor 1 is almost always technical
@@ -111,7 +143,7 @@ The strongest shared source of variation in a real cohort is rarely disease. It 
 
 ------------------------------------------------------------------------
 
-# 4. ⚠️ Three Failures Before the Model 🕳️ {#w11-s4}
+# 5. ⚠️ Three Failures Before the Model 🕳️ {#w11-s5}
 
 ![None of these is a modelling problem, and all of them are decided at design time.](/assets/img/w11/integration_traps.svg){fig-align="center"}
 
@@ -122,7 +154,7 @@ The strongest shared source of variation in a real cohort is rarely disease. It 
 
 **② Scale imbalance.** Methylation contributes 450,000 features and your clinical variables contribute 12. Without per-layer scaling, the factors describe methylation.
 
-**③ The factor is not a mechanism.** See §3.2.
+**③ The factor is not a mechanism.** See §4.2.
 
 ::: {.callout-tip collapse="true"}
 ## What integration cannot do
@@ -136,11 +168,11 @@ The strongest shared source of variation in a real cohort is rarely disease. It 
 
 ------------------------------------------------------------------------
 
-# 5. Hands-On 💻 {#w11-s5}
+# 6. Hands-On 💻 {#w11-s6}
 
-## 1) Build a prioritisation table {#w11-s5-1}
+## 1) Build a prioritisation table {#w11-s6-1}
 
-Take one locus for a disease you treat, and fill in the table from §2 by hand, in the browser:
+Take one locus for a disease you treat, and fill in the table from §3 by hand, in the browser:
 
 -   **eQTL / locus-to-gene**: [Open Targets Platform](https://platform.opentargets.org) (formerly Open Targets Genetics) or [GTEx](https://gtexportal.org)
 -   **Cell type**: [CELLxGENE](https://cellxgene.cziscience.com)
@@ -150,7 +182,7 @@ Take one locus for a disease you treat, and fill in the table from §2 by hand, 
 
 ✅ One row per candidate gene, one column per layer. This is an afternoon, and it is a real figure.
 
-## 2) Check the intersection first {#w11-s5-2}
+## 2) Check the intersection first {#w11-s6-2}
 
 ::: {.panel-tabset group="lang"}
 
@@ -202,7 +234,7 @@ print("complete cases:", have.all(axis=1).sum())   # ⚠️ this is your n
 
 :::
 
-## 3) MOFA, and how to annotate its factors {#w11-s5-3}
+## 3) MOFA, and how to annotate its factors {#w11-s6-3}
 
 ::: {.panel-tabset group="lang"}
 
@@ -290,7 +322,7 @@ cors.round(2)     # look here before you look at biology
 
 :::
 
-## 4) ✅ Change one thing {#w11-s5-4}
+## 4) ✅ Change one thing {#w11-s6-4}
 
 ::: {.panel-tabset group="lang"}
 
@@ -312,14 +344,15 @@ cors.round(2)     # look here before you look at biology
 
 💡 If removing batch reshuffles your factors, that tells you how much of the original result was batch. That number is worth knowing before it appears in review.
 
-## 5) Before next week {#w11-s5-5}
+## 5) Before next week {#w11-s6-5}
 
-**[W12: networks and drug targets](w12_network_drug.qmd).** Bring the prioritisation table from §5.1. We will ask whether the surviving gene is druggable.
+**[W12: networks and drug targets](w12_network_drug.qmd).** Bring the prioritisation table from §6.1. We will ask whether the surviving gene is druggable.
 
 ------------------------------------------------------------------------
 
 # 📝 Summary
 
+-   Most GWAS hits are non-coding → risk travels as a **chain**: regulation → RNA → protein → phenotype. One layer = one link
 -   **Sequential** integration filters candidates layer by layer; **joint** integration models layers together
 -   ✅ Sequential keeps your full n, works across cohorts, and answers most clinical questions
 -   ✅ Convergent evidence across layers is strong because each layer's false positives are **independent**
@@ -335,6 +368,7 @@ cors.round(2)     # look here before you look at biology
 
 | Term | One-line meaning |
 |-------------------------|-----------------------------------------|
+| Regulatory element | A stretch of DNA (promoter, enhancer) that controls a gene's expression; where TFs bind |
 | Sequential integration | Each layer filters candidates from the previous one |
 | Joint integration | Modelling several layers simultaneously |
 | Latent factor | An axis of variation shared across layers |

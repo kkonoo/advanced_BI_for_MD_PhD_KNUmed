@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 448" width="880" height="448" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8A7FA3"/></marker></defs>
+<rect x="0" y="0" width="880" height="448" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" fill="#4A3D6B" font-weight="700">MOFA splits every layer into the same factor scores × that layer's own loadings</text>
+<rect x="24" y="46" width="832" height="210" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<rect x="156" y="96" width="80" height="112" rx="3" fill="#f8f0e2" stroke="#BA7517" stroke-width="1.3"/>
+<line x1="166" y1="96" x2="166" y2="208" stroke="#BA7517" stroke-width="0.4"/>
+<line x1="176" y1="96" x2="176" y2="208" stroke="#BA7517" stroke-width="0.4"/>
+<line x1="186" y1="96" x2="186" y2="208" stroke="#BA7517" stroke-width="0.4"/>
+<line x1="196" y1="96" x2="196" y2="208" stroke="#BA7517" stroke-width="0.4"/>
+<line x1="206" y1="96" x2="206" y2="208" stroke="#BA7517" stroke-width="0.4"/>
+<line x1="216" y1="96" x2="216" y2="208" stroke="#BA7517" stroke-width="0.4"/>
+<line x1="226" y1="96" x2="226" y2="208" stroke="#BA7517" stroke-width="0.4"/>
+<line x1="156" y1="110" x2="236" y2="110" stroke="#BA7517" stroke-width="0.4"/>
+<line x1="156" y1="124" x2="236" y2="124" stroke="#BA7517" stroke-width="0.4"/>
+<line x1="156" y1="138" x2="236" y2="138" stroke="#BA7517" stroke-width="0.4"/>
+<line x1="156" y1="152" x2="236" y2="152" stroke="#BA7517" stroke-width="0.4"/>
+<line x1="156" y1="166" x2="236" y2="166" stroke="#BA7517" stroke-width="0.4"/>
+<line x1="156" y1="180" x2="236" y2="180" stroke="#BA7517" stroke-width="0.4"/>
+<line x1="156" y1="194" x2="236" y2="194" stroke="#BA7517" stroke-width="0.4"/>
+<text x="196" y="88" font-size="11.5" fill="#BA7517" font-weight="700" text-anchor="middle">RNA</text>
+<rect x="242" y="96" width="54" height="112" rx="3" fill="#e6f4ee" stroke="#1D9E75" stroke-width="1.3"/>
+<line x1="251" y1="96" x2="251" y2="208" stroke="#1D9E75" stroke-width="0.4"/>
+<line x1="260" y1="96" x2="260" y2="208" stroke="#1D9E75" stroke-width="0.4"/>
+<line x1="269" y1="96" x2="269" y2="208" stroke="#1D9E75" stroke-width="0.4"/>
+<line x1="278" y1="96" x2="278" y2="208" stroke="#1D9E75" stroke-width="0.4"/>
+<line x1="287" y1="96" x2="287" y2="208" stroke="#1D9E75" stroke-width="0.4"/>
+<line x1="242" y1="110" x2="296" y2="110" stroke="#1D9E75" stroke-width="0.4"/>
+<line x1="242" y1="124" x2="296" y2="124" stroke="#1D9E75" stroke-width="0.4"/>
+<line x1="242" y1="138" x2="296" y2="138" stroke="#1D9E75" stroke-width="0.4"/>
+<line x1="242" y1="152" x2="296" y2="152" stroke="#1D9E75" stroke-width="0.4"/>
+<line x1="242" y1="166" x2="296" y2="166" stroke="#1D9E75" stroke-width="0.4"/>
+<line x1="242" y1="180" x2="296" y2="180" stroke="#1D9E75" stroke-width="0.4"/>
+<line x1="242" y1="194" x2="296" y2="194" stroke="#1D9E75" stroke-width="0.4"/>
+<text x="269" y="88" font-size="11.5" fill="#1D9E75" font-weight="700" text-anchor="middle">protein</text>
+<rect x="302" y="96" width="72" height="112" rx="3" fill="#efedf9" stroke="#534AB7" stroke-width="1.3"/>
+<line x1="311" y1="96" x2="311" y2="208" stroke="#534AB7" stroke-width="0.4"/>
+<line x1="320" y1="96" x2="320" y2="208" stroke="#534AB7" stroke-width="0.4"/>
+<line x1="329" y1="96" x2="329" y2="208" stroke="#534AB7" stroke-width="0.4"/>
+<line x1="338" y1="96" x2="338" y2="208" stroke="#534AB7" stroke-width="0.4"/>
+<line x1="347" y1="96" x2="347" y2="208" stroke="#534AB7" stroke-width="0.4"/>
+<line x1="356" y1="96" x2="356" y2="208" stroke="#534AB7" stroke-width="0.4"/>
+<line x1="365" y1="96" x2="365" y2="208" stroke="#534AB7" stroke-width="0.4"/>
+<line x1="302" y1="110" x2="374" y2="110" stroke="#534AB7" stroke-width="0.4"/>
+<line x1="302" y1="124" x2="374" y2="124" stroke="#534AB7" stroke-width="0.4"/>
+<line x1="302" y1="138" x2="374" y2="138" stroke="#534AB7" stroke-width="0.4"/>
+<line x1="302" y1="152" x2="374" y2="152" stroke="#534AB7" stroke-width="0.4"/>
+<line x1="302" y1="166" x2="374" y2="166" stroke="#534AB7" stroke-width="0.4"/>
+<line x1="302" y1="180" x2="374" y2="180" stroke="#534AB7" stroke-width="0.4"/>
+<line x1="302" y1="194" x2="374" y2="194" stroke="#534AB7" stroke-width="0.4"/>
+<text x="338" y="88" font-size="11.5" fill="#534AB7" font-weight="700" text-anchor="middle">methyl.</text>
+<text x="265" y="228" font-size="11.5" fill="#5B4D80" font-weight="600" text-anchor="middle">data: patients × features</text>
+<text x="265" y="243" font-size="10.5" fill="#8A7FA3" text-anchor="middle">one table per layer, same patients</text>
+<text x="394" y="161" font-size="26" fill="#4A3D6B" font-weight="700" text-anchor="middle">≈</text>
+<rect x="414" y="96" width="13" height="112" rx="2" fill="#4A3D6B"/>
+<rect x="429" y="96" width="13" height="112" rx="2" fill="#7d6fa3"/>
+<rect x="444" y="96" width="13" height="112" rx="2" fill="#b3a9cc"/>
+<rect x="411" y="93" width="19" height="118" rx="3" fill="none" stroke="#D85A30" stroke-width="1.8"/>
+<text x="435" y="88" font-size="12.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">Z</text>
+<text x="435" y="228" font-size="11.5" fill="#5B4D80" font-weight="600" text-anchor="middle">factor scores</text>
+<text x="435" y="243" font-size="10.5" fill="#8A7FA3" text-anchor="middle">shared by all layers</text>
+<text x="484" y="159" font-size="20" fill="#4A3D6B" font-weight="700" text-anchor="middle">×</text>
+<rect x="506" y="130" width="80" height="13" rx="2" fill="#BA7517" opacity="0.95"/>
+<rect x="506" y="145" width="80" height="13" rx="2" fill="#BA7517" opacity="0.6"/>
+<rect x="506" y="160" width="80" height="13" rx="2" fill="#BA7517" opacity="0.3"/>
+<text x="546" y="122" font-size="11.5" fill="#BA7517" font-weight="700" text-anchor="middle">RNA</text>
+<rect x="592" y="130" width="54" height="13" rx="2" fill="#1D9E75" opacity="0.95"/>
+<rect x="592" y="145" width="54" height="13" rx="2" fill="#1D9E75" opacity="0.6"/>
+<rect x="592" y="160" width="54" height="13" rx="2" fill="#1D9E75" opacity="0.3"/>
+<text x="619" y="122" font-size="11.5" fill="#1D9E75" font-weight="700" text-anchor="middle">protein</text>
+<rect x="652" y="130" width="72" height="13" rx="2" fill="#534AB7" opacity="0.95"/>
+<rect x="652" y="145" width="72" height="13" rx="2" fill="#534AB7" opacity="0.6"/>
+<rect x="652" y="160" width="72" height="13" rx="2" fill="#534AB7" opacity="0.3"/>
+<text x="688" y="122" font-size="11.5" fill="#534AB7" font-weight="700" text-anchor="middle">methyl.</text>
+<rect x="503" y="127" width="224" height="19" rx="3" fill="none" stroke="#D85A30" stroke-width="1.8"/>
+<text x="615" y="228" font-size="11.5" fill="#5B4D80" font-weight="600" text-anchor="middle">W  loadings</text>
+<text x="615" y="243" font-size="10.5" fill="#8A7FA3" text-anchor="middle">one set per layer</text>
+<text x="420" y="72" font-size="10.5" fill="#a8401d" font-weight="700" text-anchor="middle">Factor 1</text>
+<rect x="24" y="268" width="269" height="130" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="42" y="292" font-size="13" fill="#4A3D6B" font-weight="700">① Score</text>
+<text x="42" y="309" font-size="11" fill="#8A7FA3">where each patient sits</text>
+<rect x="305" y="268" width="270" height="130" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="323" y="292" font-size="13" fill="#4A3D6B" font-weight="700">② Loadings</text>
+<text x="323" y="309" font-size="11" fill="#8A7FA3">which features build it</text>
+<rect x="587" y="268" width="269" height="130" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="605" y="292" font-size="13" fill="#4A3D6B" font-weight="700">③ Variance explained</text>
+<text x="605" y="309" font-size="11" fill="#8A7FA3">how much of each layer</text>
+<line x1="46" y1="344" x2="274" y2="344" stroke="#cfc9dd" stroke-width="1.3" marker-end="url(#arr)"/>
+<circle cx="62.84" cy="335" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<circle cx="75.68" cy="328" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<circle cx="86.38" cy="335" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<circle cx="94.94" cy="328" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<circle cx="105.64" cy="328" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<circle cx="114.2" cy="335" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<circle cx="127.04" cy="335" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<circle cx="167.7" cy="335" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<circle cx="182.68" cy="335" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<circle cx="193.38" cy="328" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<circle cx="201.94" cy="328" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<circle cx="214.78" cy="335" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<circle cx="225.48" cy="335" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<circle cx="238.32" cy="328" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<circle cx="249.02" cy="328" r="4.5" fill="#7d6fa3" stroke="#ffffff" stroke-width="1"/>
+<text x="46" y="362" font-size="10.5" fill="#8A7FA3">low</text>
+<text x="272" y="362" font-size="10.5" fill="#8A7FA3" text-anchor="end">high</text>
+<text x="42" y="384" font-size="11" fill="#5B4D80" font-weight="600">What separates the two ends? → §4.2</text>
+<text x="391" y="321" font-size="10.5" fill="#BA7517" font-weight="600" text-anchor="end">gene A</text>
+<rect x="399" y="312" width="150" height="11" rx="2" fill="#BA7517" opacity="0.85"/>
+<text x="391" y="335" font-size="10.5" fill="#1D9E75" font-weight="600" text-anchor="end">protein B</text>
+<rect x="399" y="326" width="129" height="11" rx="2" fill="#1D9E75" opacity="0.85"/>
+<text x="391" y="349" font-size="10.5" fill="#534AB7" font-weight="600" text-anchor="end">CpG C</text>
+<rect x="399" y="340" width="105" height="11" rx="2" fill="#534AB7" opacity="0.85"/>
+<text x="391" y="363" font-size="10.5" fill="#BA7517" font-weight="600" text-anchor="end">gene D</text>
+<rect x="399" y="354" width="82.5" height="11" rx="2" fill="#BA7517" opacity="0.85"/>
+<text x="323" y="386" font-size="11" fill="#5B4D80" font-weight="600">Mixed colours → a cross-layer programme</text>
+<text x="661" y="330" font-size="10.5" fill="#BA7517" font-weight="600" text-anchor="end">RNA</text>
+<rect x="669" y="320" width="138.6" height="13" rx="2" fill="#BA7517" opacity="0.85"/>
+<text x="813.6" y="330.5" font-size="10.5" fill="#4A3D6B" font-weight="700">33%</text>
+<text x="661" y="348" font-size="10.5" fill="#1D9E75" font-weight="600" text-anchor="end">protein</text>
+<rect x="669" y="338" width="100.8" height="13" rx="2" fill="#1D9E75" opacity="0.85"/>
+<text x="775.8" y="348.5" font-size="10.5" fill="#4A3D6B" font-weight="700">24%</text>
+<text x="661" y="366" font-size="10.5" fill="#534AB7" font-weight="600" text-anchor="end">methyl.</text>
+<rect x="669" y="356" width="109.2" height="13" rx="2" fill="#534AB7" opacity="0.85"/>
+<text x="784.2" y="366.5" font-size="10.5" fill="#4A3D6B" font-weight="700">26%</text>
+<text x="605" y="386" font-size="11" fill="#5B4D80" font-weight="600">The heatmap in §4.2, for one factor</text>
+<text x="24" y="430" font-size="13" fill="#4A3D6B" font-weight="700">💡 Like PCA (W5), but over several layers at once: Z ≈ PC scores, W ≈ PC loadings.</text>
+</svg>

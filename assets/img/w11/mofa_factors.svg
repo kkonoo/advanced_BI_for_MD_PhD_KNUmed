@@ -65,7 +65,7 @@
 <text x="354" y="334" font-size="11" font-weight="700" fill="#8A7FA3" text-anchor="middle">disease activity</text>
 <text x="450" y="334" font-size="11" font-weight="700" fill="#8A7FA3" text-anchor="middle">immune infiltration</text>
 <text x="546" y="334" font-size="11" font-weight="700" fill="#8A7FA3" text-anchor="middle">sex</text>
-<text x="642" y="334" font-size="11" font-weight="700" fill="#8A7FA3" text-anchor="middle">age & BMI</text>
+<text x="642" y="334" font-size="11" font-weight="700" fill="#8A7FA3" text-anchor="middle">age &amp; BMI</text>
 <text x="196" y="334" font-size="11" fill="#8A7FA3" text-anchor="end">turned out to be:</text>
 <rect x="24" y="360" width="410" height="76" rx="9" fill="#fbeee8" stroke="#D85A30" stroke-width="1.8"/>
 <text x="48" y="384" font-size="12.5" font-weight="700" fill="#a8401d">⚠️ Factor 1 is almost always technical</text>
