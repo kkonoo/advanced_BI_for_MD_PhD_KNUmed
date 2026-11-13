@@ -162,7 +162,6 @@ smf.logit("disease ~ SNP"
 
 ⚠️ 누구도 말하지 않는 trade-off가 있습니다. 하나의 ancestry로 제한하면 통계는 더 깨끗해지지만 **generalisability는 나빠집니다**(§7).
 :::
-:::
 
 **직접 해 보기** — [다중검정과 FDR ↗](https://kkonoo.github.io/edu_sims/sims/multiple-testing/?lang=ko){target="_blank"}
 
