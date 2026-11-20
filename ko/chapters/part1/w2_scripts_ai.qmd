@@ -14,7 +14,7 @@ execute:
 이 장을 마치면 다음을 할 수 있어야 합니다.
 
 -   3년 뒤에도 자신이나 reviewer가 다시 실행할 수 있는 분석 스크립트를 작성한다
--   분석을 각각 하나의 역할만 맡는, 번호가 붙은 파일로 나눈다
+-   분석을 여러 파일로 나누어 번호를 붙이고, 파일마다 역할을 하나씩만 맡긴다
 -   그럴듯하기만 한 코드가 아니라 유용한 코드를 만드는 prompt를 작성한다
 -   ⚠️ 자신이 작성하지 않은 코드에 verification gate를 적용하고, “실행되었다”는 사실이 아무것도 증명하지 못하는 이유를 설명한다
 -   ⚠️ 생성된 코드가 **조용히** 실패하는 세 가지 방식을 알아본다
@@ -28,7 +28,7 @@ execute:
 
 ------------------------------------------------------------------------
 
-# 1. 분석보다 오래 살아남는 코드 📜 {#w2-s1}
+# 1. 분석이 끝난 뒤에도 다시 쓸 수 있는 코드 📜 {#w2-s1}
 
 ## 1) 14개월 뒤 reviewer가 찾아온다 {#w2-s1-1}
 
@@ -63,7 +63,7 @@ scripts/
 
 ## 3) 이름이 있는 section {#w2-s1-3}
 
-Comment 끝에 dash 네 개를 붙이면 이동 가능한 section이 됩니다(⌘/Ctrl + Shift + R로 삽입).
+Comment 끝에 dash 네 개를 붙이면 outline에서 바로 찾아갈 수 있는 section이 됩니다(⌘/Ctrl + Shift + R로 삽입).
 
 ```{r}
 # Libraries ----
@@ -81,7 +81,7 @@ dds <- DESeq(dds)
 
 ✅ Section은 RStudio의 outline pane에 나타납니다. ✅ 세 번째 section에 주목하세요. 결정의 **이유가 section 제목 안에** 있으므로 코드와 떨어질 수 없습니다.
 
-## 4) 함수 — 언제 만들 것인가 {#w2-s1-4}
+## 4) 함수: 언제 만들 것인가 {#w2-s1-4}
 
 규칙은 “항상 함수를 작성하라”가 아닙니다. **세 번째로 copy-paste할 때 멈추라**는 것입니다.
 
@@ -101,7 +101,7 @@ get_markers <- function(obj, cell_type, min_pct = 0.25) {
 all_markers <- map_dfr(c("CD8 T", "CD4 T", "NK"), \(x) get_markers(seurat, x))
 ```
 
-⚠️ 목적은 코드의 우아함이 아닙니다. Copy-paste한 버전에서는 세 번째 줄의 `min.pct = 0.5`가 눈에 띄지 않지만, “NK marker”의 의미를 조용히 바꿉니다.
+⚠️ 코드를 보기 좋게 만들자는 것이 아닙니다. Copy-paste한 버전에서는 세 번째 줄의 `min.pct = 0.5`가 눈에 띄지 않지만, “NK marker”의 의미를 조용히 바꿉니다.
 
 ------------------------------------------------------------------------
 
@@ -145,9 +145,9 @@ Constraints: dplyr + DESeq2 + here를 사용하라. padj 순으로 정렬한
 ![이 수업의 모든 내용은 ③ 단계가 실제로 수행되는지에 달려 있습니다.](../../../assets/img/w2/ai_verification.svg){fig-align="center"}
 
 ::: {.callout-important collapse="true"}
-## “실행되었다”는 사실이 근거로서 무가치한 이유
+## “실행되었다”는 사실이 근거가 되지 못하는 이유
 
-전통적인 coding error는 **요란합니다**. 스크립트가 멈춥니다. 그래서 한 세대 전체가 “error가 없음”을 “정답”으로 여기도록 학습되었습니다.
+전통적인 coding error는 **요란합니다**. 스크립트가 멈춥니다. 그래서 한 세대 전체가 “error가 없음”을 “정답”으로 여기게 되었습니다.
 
 생성된 코드는 반대입니다. 읽기에 자연스럽고 대개 문법적으로 완벽합니다. 틀렸을 때는 **의미가** 틀립니다. 즉, 일관된 어떤 작업을 하기는 하지만 여러분이 요청한 작업은 아닙니다.
 
@@ -163,9 +163,9 @@ Constraints: dplyr + DESeq2 + here를 사용하라. padj 순으로 정렬한
 
 ## 5) 신뢰할 수 있는 영역과 그렇지 않은 영역 {#w2-s2-5}
 
--   ✅ **신뢰할 만함** — plotting code, data reshaping, error message 설명, 언어 간 번역, 잘 알려진 package 주변의 boilerplate 작성
--   ⚠️ **주의 깊게 확인** — 통계적 선택, multiple-testing correction, join key, 최근 API가 바뀐 package가 포함된 모든 작업
--   ❌ **위임하지 말 것** — 무엇을 비교할지, n이 무엇을 뜻하는지, 결과가 생물학적으로 그럴듯한지 결정하는 일
+-   ✅ **신뢰할 만함**: plotting code, data reshaping, error message 설명, 언어 간 번역, 잘 알려진 package를 쓸 때 필요한 boilerplate 작성
+-   ⚠️ **주의 깊게 확인**: 통계적 선택, multiple-testing correction, join key, 최근 API가 바뀐 package가 포함된 모든 작업
+-   ❌ **위임하지 말 것**: 무엇을 비교할지, n이 무엇을 뜻하는지, 결과가 생물학적으로 그럴듯한지 결정하는 일
 
 ------------------------------------------------------------------------
 
@@ -173,7 +173,7 @@ Constraints: dplyr + DESeq2 + here를 사용하라. padj 순으로 정렬한
 
 ## 1) Copy-paste의 문제 {#w2-s3-1}
 
-![Filter 한 줄과 수동 수정 다섯 번, 그리고 틀린 초록의 차이입니다.](../../../assets/img/w2/copy_paste_vs_quarto.svg){fig-align="center"}
+![Filter 한 줄만 추가하면 끝나는 쪽과, 다섯 군데를 손으로 고치다 초록이 틀리는 쪽의 차이입니다.](../../../assets/img/w2/copy_paste_vs_quarto.svg){fig-align="center"}
 
 ## 2) 최소한으로 배우는 Quarto {#w2-s3-2}
 
@@ -212,10 +212,10 @@ Chunk 맨 위에 hash와 pipe가 붙은 comment로 작성합니다.
 
 | Chunk option | 효과 |
 |------------------------|------------------------------------------------|
-| `echo: false` | 코드는 실행하지만 숨김 — 임상 독자를 위한 보고서에 사용 |
-| `eval: false` | 코드는 보여주지만 실행하지 않음 — 교육 자료에 사용 |
+| `echo: false` | 코드는 실행하지만 숨김(임상 독자를 위한 보고서에 사용) |
+| `eval: false` | 코드는 보여주지만 실행하지 않음(교육 자료에 사용) |
 | `warning: false` | Package message를 숨김 |
-| `fig-cap: "..."` | Caption을 붙여 그림이 의미와 함께 이동하게 함 |
+| `fig-cap: "..."` | Caption을 붙여 그림을 어디로 옮기든 설명이 함께 가게 함 |
 | `cache: true` | Render할 때 느린 chunk를 다시 실행하지 않음 |
 
 💡 이 수업 사이트는 Quarto project입니다. 지금 읽고 있는 모든 페이지가 `.qmd` 파일입니다.
@@ -230,9 +230,9 @@ Chunk 맨 위에 hash와 pipe가 붙은 comment로 작성합니다.
 Software developer가 되기 위해서가 아닙니다. 다음이 가능해지기 때문입니다.
 
 -   ✅ **“이 숫자는 언제, 왜 바뀌었는가?”**에 몇 초 만에 답할 수 있음
--   ✅ **`analysis_final_v3_REAL.R`이 사라짐** — 파일은 하나이며 변경 이력이 남음
--   ✅ **Reviewer나 공동연구자가 코드를 실행할 수 있음** — zip 파일을 이메일로 보낼 필요가 없음
--   ✅ **GitHub Pages로 보고서를 URL로 공개함** — 논문에 주소를 넣을 수 있음
+-   ✅ **`analysis_final_v3_REAL.R`이 사라짐**: 파일은 하나이며 변경 이력이 남음
+-   ✅ **Reviewer나 공동연구자가 코드를 실행할 수 있음**: zip 파일을 이메일로 보낼 필요가 없음
+-   ✅ **GitHub Pages로 보고서를 URL로 공개함**: 논문에 주소를 넣을 수 있음
 
 ## 2) 다섯 가지 명령 {#w2-s4-2}
 
@@ -267,7 +267,7 @@ renv/library/
 
 ✅ **먼저** `.gitignore`에 추가하고, 그다음 `git init`, 그다음 commit합니다. 이 순서를 지키세요.
 
-⚠️ 식별 가능한 데이터를 public repository에 이미 push했다면 정보 공개 사고로 취급하고 IRB와 상의하세요. History rewrite만으로는 충분하지 않습니다.
+⚠️ 식별 가능한 데이터를 public repository에 이미 push했다면 개인정보 유출 사고로 보고 IRB와 상의하세요. History rewrite만으로는 충분하지 않습니다.
 :::
 
 ## 3) 게시 {#w2-s4-3}
@@ -276,13 +276,13 @@ renv/library/
 quarto publish gh-pages
 ```
 
-`.qmd` 파일을 render하고 HTML을 push한 뒤 `https://<username>.github.io/<repo>/`에서 서비스합니다.
+`.qmd` 파일을 render하고 HTML을 push한 뒤 `https://<username>.github.io/<repo>/`에 공개합니다.
 
 ------------------------------------------------------------------------
 
 # 5. 실습 💻 {#w2-s5}
 
-## 1) 자신의 스크립트 구조하기 {#w2-s5-1}
+## 1) 내 스크립트 손보기 {#w2-s5-1}
 
 실제 스크립트를 가져오세요. 정리되지 않았을수록 좋습니다. 20분 동안 다음을 수행합니다.
 
@@ -314,7 +314,7 @@ cat("unmatched       :", sum(is.na(merged$gene_1)), "\n")
 
 ## 4) 다음 주 전까지 {#w2-s5-4}
 
-**W3 — GWAS와 post-GWAS.** 설치할 것은 없습니다. 브라우저에서 시작합니다.
+**W3: GWAS와 post-GWAS.** 설치할 것은 없습니다. 브라우저에서 시작합니다.
 
 **실제로 진료하는 질환 하나**를 생각해 오세요. GWAS Catalog와 Open Targets에서 함께 찾아봅니다.
 
@@ -327,7 +327,7 @@ cat("unmatched       :", sum(is.na(merged$gene_1)), "\n")
 -   결정의 *이유*를 section 제목에 넣으면 코드와 떨어지지 않습니다
 -   Prompt에는 **context + task + constraints**가 필요합니다. Model이 design choice를 밝히게 하세요
 -   ⚠️ **“오류 없이 실행되었다”는 것은 근거가 아닙니다.** 생성된 코드는 문법이 아니라 의미에서 실패합니다
--   ⚠️ 세 가지 silent failure: 맞지 않는 join, 미리 filtering한 목록에 대한 보정, level을 없애는 relabel
+-   ⚠️ 세 가지 silent failure: 맞지 않는 join, 미리 filtering한 목록으로 한 다중검정 보정, level을 없애는 relabel
 -   ✅ 모든 join, filter, relabel 뒤에 `nrow()`, `sum(is.na())`, `table()`을 출력하세요
 -   AI는 plotting과 reshaping에는 신뢰할 만하지만, ❌ 비교 대상·n·생물학적 개연성을 결정하게 해서는 안 됩니다
 -   Quarto는 본문의 모든 숫자를 **계산**하므로 재실행 뒤 초록에 오래된 숫자가 남지 않습니다
@@ -343,10 +343,10 @@ cat("unmatched       :", sum(is.na(merged$gene_1)), "\n")
 | Silent failure | 오류 없이 실행되고 예상한 자료형을 반환하지만 잘못된 값을 계산하는 코드 |
 | Shape check | 연산 결과가 의도대로인지 확인하려고 행 수와 결측값 수를 출력하는 것 |
 | Literate document | 글과 실행 가능한 코드를 한 파일에 담은 문서(Quarto, R Markdown) |
-| Inline code | `r knitr::inline_expr("expr")` — 렌더링할 때 문장 안에서 계산되는 값 |
+| Inline code | `r knitr::inline_expr("expr")`: 렌더링할 때 문장 안에서 계산되는 값 |
 | Chunk option | 코드 블록별 설정: `echo`, `eval`, `cache`, `fig-cap` |
 | Commit | 변경 이유를 설명하는 메시지와 함께 저장한 프로젝트 상태 |
-| `.gitignore` | Git이 추적하지 않아야 하는 파일 목록 — 원자료를 여기에 포함 |
+| `.gitignore` | Git이 추적하지 않아야 하는 파일 목록. 원자료는 여기에 넣음 |
 | GitHub Pages | 무료 정적 호스팅 서비스; `quarto publish gh-pages`로 배포 |
 | `here::here()` | 어느 컴퓨터에서도 작동하는 프로젝트 최상위 폴더 기준 경로 |
 
@@ -354,7 +354,7 @@ cat("unmatched       :", sum(is.na(merged$gene_1)), "\n")
 
 # ➕ 참고문헌
 
-### 오래 살아남는 코드 작성
+### 오래 쓸 수 있는 코드 작성
 
 Wilson G, et al. [*Good enough practices in scientific computing.*](https://doi.org/10.1371/journal.pcbi.1005510) PLoS Comput Biol. 2017.  
 Sandve GK, Nekrutenko A, Taylor J, Hovig E. [*Ten simple rules for reproducible computational research.*](https://doi.org/10.1371/journal.pcbi.1003285) PLoS Comput Biol. 2013.  

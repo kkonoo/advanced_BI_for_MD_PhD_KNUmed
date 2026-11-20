@@ -53,8 +53,8 @@
 
   <!-- decision row -->
   <rect x="24" y="284" width="832" height="78" rx="9" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.5"/>
-  <text x="48" y="308" font-size="13" font-weight="700" fill="#0F6E56">✅ snRNA-seq avoids all of this — nuclei do not respond, and they survive freezing</text>
-  <text x="48" y="330" font-size="12.5" fill="#3d7a68">Frozen tissue · neurons, adipocytes, cardiomyocytes, myofibres → snRNA-seq is not a compromise, it is the correct choice.</text>
+  <text x="48" y="308" font-size="13" font-weight="700" fill="#0F6E56">✅ snRNA-seq avoids all of this: nuclei do not respond, and they survive freezing</text>
+  <text x="48" y="330" font-size="12.5" fill="#3d7a68">For frozen tissue, and for neurons, adipocytes, cardiomyocytes and myofibres, snRNA-seq is the correct choice, not a compromise.</text>
   <text x="48" y="352" font-size="12.5" fill="#7fa89a">⚠️ The cost you accept in return: cytoplasmic transcripts are missed, and intronic reads dominate.</text>
 
   <!-- footer -->

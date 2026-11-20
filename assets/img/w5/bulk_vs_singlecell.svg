@@ -23,13 +23,13 @@
   </g>
   <line x1="46" y1="252" x2="270" y2="252" stroke="#e6e1ee" stroke-width="1.5"/>
   <text x="46" y="276" font-size="12" fill="#666">Every cell responds modestly.</text>
-  <text x="46" y="298" font-size="12" fill="#8A7FA3">The case everyone silently assumes —</text>
+  <text x="46" y="298" font-size="12" fill="#8A7FA3">The case everyone silently assumes,</text>
   <text x="46" y="316" font-size="12" font-weight="700" fill="#5B4D80">and the least interesting one.</text>
   <text x="46" y="344" font-size="11.5" fill="#8A7FA3">bulk ✅ · single cell adds little</text>
 
   <!-- ② rare subpopulation -->
   <rect x="306" y="106" width="268" height="252" rx="10" fill="#ffffff" stroke="#BA7517" stroke-width="2"/>
-  <text x="328" y="132" font-size="13" font-weight="700" fill="#4A3D6B">② A rare population goes wild</text>
+  <text x="328" y="132" font-size="13" font-weight="700" fill="#4A3D6B">② A rare population responds</text>
   <text x="328" y="150" font-size="11.5" fill="#8A7FA3">control</text>
   <g>
     <rect x="328" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="352" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="376" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="400" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/><rect x="424" y="158" width="20" height="20" rx="3" fill="#bcd0e4"/>
@@ -44,7 +44,7 @@
   <line x1="328" y1="252" x2="552" y2="252" stroke="#f3e6d2" stroke-width="1.5"/>
   <text x="328" y="276" font-size="12" fill="#666">2 cells in 9 change enormously.</text>
   <text x="328" y="298" font-size="12" fill="#8A7FA3">In bulk they are diluted by the 78%</text>
-  <text x="328" y="316" font-size="12" font-weight="700" fill="#8a6a1f">doing nothing — and often vanish.</text>
+  <text x="328" y="316" font-size="12" font-weight="700" fill="#8a6a1f">doing nothing, and often vanish.</text>
   <text x="328" y="344" font-size="11.5" font-weight="700" fill="#8a6a1f">💡 usually the interesting case</text>
 
   <!-- ③ composition -->
@@ -70,5 +70,5 @@
   <!-- footer -->
   <rect x="24" y="372" width="832" height="48" rx="8" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
   <text x="48" y="392" font-size="13" fill="#555">Bulk cannot distinguish these, and the three imply completely different follow-up experiments.</text>
-  <text x="48" y="412" font-size="13" fill="#555">💡 ③ is more common than people expect in inflamed or infiltrated tissue — and it is often reported as if it were ①.</text>
+  <text x="48" y="412" font-size="13" fill="#555">💡 ③ is more common than people expect in inflamed or infiltrated tissue, and it is often reported as if it were ①.</text>
 </svg>

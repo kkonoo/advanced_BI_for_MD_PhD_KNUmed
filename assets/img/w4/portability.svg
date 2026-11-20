@@ -19,5 +19,5 @@
 <text x="332" y="250.5" font-size="13" font-weight="700" fill="#4A3D6B">22%</text>
 <text x="460" y="302" font-size="11.5" fill="#8A7FA3" text-anchor="middle">predictive performance, relative to the European cohort the score was built in</text>
 <rect x="24" y="292" width="832" height="36" rx="8" fill="#fbeee8" stroke="#D85A30" stroke-width="1.5"/>
-<text x="48" y="315" font-size="13" fill="#a05a3f">⚠️ The patients it misses are not a random sample. Deploying this unchanged does not fail neutrally — it fails <tspan font-weight="700" fill="#a8401d">by ancestry</tspan>.</text>
+<text x="48" y="315" font-size="13" fill="#a05a3f">⚠️ The patients it misses are not a random sample. Used unchanged, the score does not fail evenly. It fails <tspan font-weight="700" fill="#a8401d">by ancestry</tspan>.</text>
 </svg>

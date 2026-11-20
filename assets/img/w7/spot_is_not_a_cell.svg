@@ -312,5 +312,5 @@
 <text x="280" y="378" font-size="12" fill="#555">fibroblast</text>
 <circle cx="378" cy="374" r="5" fill="#D85A30"/>
 <text x="390" y="378" font-size="12" fill="#555">macrophage</text>
-<text x="48" y="396" font-size="12.5" fill="#555">Imaging platforms (Xenium, MERFISH, CosMx) do resolve single cells — at the cost of a targeted panel instead of the whole transcriptome.</text>
+<text x="48" y="396" font-size="12.5" fill="#555">Imaging platforms (Xenium, MERFISH, CosMx) do resolve single cells, at the cost of a targeted panel instead of the whole transcriptome.</text>
 </svg>

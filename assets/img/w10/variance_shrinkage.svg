@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
 <defs><marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8A7FA3"/></marker><marker id="arrO" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#D85A30"/></marker></defs>
 <rect width="880" height="440" fill="#fcfcfb"/>
-<text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Low-intensity proteins are noisier — limma borrows that trend to steady each protein’s variance.</text>
+<text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Low-intensity proteins are noisier, and limma uses that trend to stabilise each protein’s variance.</text>
 <rect x="24" y="46" width="410" height="300" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
 <text x="44" y="72" font-size="13" font-weight="700" fill="#4A3D6B">① Intensity–variance relationship</text>
 <rect x="74" y="92" width="75.2" height="194" fill="#D85A30" fill-opacity="0.08"/>
@@ -243,6 +243,6 @@
 <circle cx="752.0" cy="78.0" r="4" fill="#8A7FA3"/>
 <text x="761.0" y="81.5" font-size="10.5" fill="#666">moderated SD</text>
 <text x="466" y="334" font-size="11.5" fill="#666">Every protein is pulled toward the trend; the extremes move most.</text>
-<text x="24" y="378" font-size="12.5" fill="#666">⚠️ With few samples, some proteins look very consistent by chance → tiny SE → huge t → a hit that is not real.</text>
-<text x="24" y="402" font-size="12.5" font-weight="700" fill="#4A3D6B">💡 trend = TRUE shrinks toward the curve in ①, not toward one global value — the same idea as DESeq2’s dispersion shrinkage.</text>
+<text x="24" y="378" font-size="12.5" fill="#666">⚠️ With few samples, some proteins look very consistent by chance, so the SE is tiny, t is huge, and the hit is not real.</text>
+<text x="24" y="402" font-size="12.5" font-weight="700" fill="#4A3D6B">💡 trend = TRUE shrinks toward the curve in ①, not toward one global value. It is the same idea as DESeq2’s dispersion shrinkage.</text>
 </svg>

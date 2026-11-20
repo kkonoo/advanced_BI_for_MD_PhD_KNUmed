@@ -19,10 +19,10 @@ knitr:
 
 -   GWAS가 무엇을 묻고 구조적으로 무엇에는 답할 수 없는지 설명한다
 -   형질의 유전적 구조(genetic architecture)를 알아보고, 그것이 연구 설계를 결정하는 이유를 설명한다
--   ⚠️ Manhattan plot보다 QQ plot을 먼저 읽고 λ가 무엇을 말하는지 설명한다
+-   ⚠️ Manhattan plot보다 QQ plot을 먼저 읽고 λ가 무엇을 뜻하는지 설명한다
 -   기준값이 5×10⁻⁸인 이유와 “suggestive” 결과의 가치를 설명한다
 -   ⚠️ 보고된 lead SNP가 대개 causal variant가 아닌 이유를 설명한다
--   하나의 hit가 기전 주장에 이르는 네 단계의 post-GWAS 과정을 추적한다
+-   Hit 하나가 post-GWAS 네 단계를 거쳐 기전 주장에 이르는 과정을 따라간다
 -   유럽인 GWAS 결과가 한국 환자에게 적용되지 않을 수 있는 이유를 설명한다
 -   10분 안에 자신이 진료하는 질환을 GWAS Catalog와 Open Targets에서 찾아본다
 :::
@@ -37,10 +37,10 @@ knitr:
 
 ## 1) 이미 진료에 영향을 주는 다섯 가지 방식 {#w3-s1-1}
 
--   **Drug target validation**: 사람의 유전적 근거가 있는 target은 승인까지 살아남을 가능성이 약 **두 배** 높습니다
+-   **Drug target validation**: 사람의 유전적 근거가 있는 target은 승인까지 갈 가능성이 약 **두 배** 높습니다
 -   **Disease subtyping**: 같은 ICD code라도 유전적 구조와 생물학이 다를 수 있습니다
--   **Risk stratification**: 예방의학에서의 polygenic score(🔗 [W4](w4_prs.qmd))
--   **Shared aetiology**: genetic correlation은 두 진단이 함께 나타나는 이유를 정량화합니다
+-   **Risk stratification**: 예방의학에서 쓰는 polygenic score(🔗 [W4](w4_prs.qmd))
+-   **Shared aetiology**: genetic correlation은 두 진단이 자주 함께 나타나는 이유를 수치로 보여 줍니다
 -   **Causal inference**: Mendelian randomization은 RCT를 수행하지 않고 인과성을 검정합니다
 
 💡 최근 *Nature Medicine* 호를 아무거나 펼쳐보세요. 임상적 주장 아래로 인용을 세 개쯤 따라가면 GWAS 데이터가 나올 가능성이 높습니다.
@@ -50,7 +50,7 @@ knitr:
 > **“질환 X가 없는 matched control보다 질환 X가 있는 사람에게 더 흔한 genetic variant는 무엇인가?”**
 
 -   **수백만 개 variant**의 allele frequency를 동시에 비교합니다
--   **Hypothesis-free** — 연구자가 어떤 유전자를 중요하게 생각하는지는 분석에 반영되지 않습니다
+-   **Hypothesis-free**: 연구자가 어떤 유전자를 중요하게 생각하는지는 분석에 반영되지 않습니다
 -   출력은 연관된 **locus**의 목록입니다. ⚠️ Gene도, mechanism도 아닙니다
 
 SNP (single-nucleotide polymorphism)
@@ -67,15 +67,15 @@ SNP (single-nucleotide polymorphism)
 | **Omnigenic** | 발현되는 거의 모든 유전자 | 대부분의 complex trait | 초대형 GWAS + network |
 
 ::: {.callout-important collapse="true"}
-## Sample size가 운명을 결정하지만, 이것은 비판이 아니다
+## Sample size가 결과를 좌우하지만, 연구를 비판하는 말은 아니다
 
 Schizophrenia GWAS는 n이 수백일 때 사실상 **아무것도** 찾지 못했지만, n이 수만으로 늘자 **108개 locus**를 찾았습니다. 생물학은 바뀌지 않았습니다.
 
 -   ⚠️ 초기 GWAS의 “실패” 대부분은 틀린 연구가 아니라 **polygenic architecture에 비해 검정력이 부족한 연구**였습니다
 
--   💡 그래서 환자 200명의 single-centre GWAS는 실행 가능한 project가 아니며, consortium 참여가 이 분야의 실질적인 자산입니다
+-   💡 그래서 환자 200명으로 하는 single-centre GWAS는 현실적인 project가 아닙니다. 이 분야에서 실제로 힘이 되는 것은 consortium 참여입니다
 
-→ Effect size와 druggability도 서로 무관합니다. Common *HMGCR* variant가 설명하는 LDL 분산은 약 0.26%에 불과합니다. Statin은 의학에 가장 큰 영향을 준 약물 중 하나입니다.
+Effect size와 druggability도 서로 무관합니다. Common *HMGCR* variant가 설명하는 LDL 분산은 약 0.26%에 불과하지만, statin은 의학에 가장 큰 영향을 준 약물 중 하나입니다.
 :::
 
 ------------------------------------------------------------------------
@@ -84,7 +84,7 @@ Schizophrenia GWAS는 n이 수백일 때 사실상 **아무것도** 찾지 못�
 
 ## 1) QQ plot을 먼저 본다 {#w3-s2-1}
 
-모든 GWAS 논문은 Manhattan plot을 보여줍니다. 정직성은 QQ plot에 있으며, 흔히 supplement에 숨어 있습니다.
+모든 GWAS 논문은 Manhattan plot을 보여줍니다. 하지만 더 많은 정보를 주는 것은 QQ plot이며, 흔히 supplement에 들어 있습니다.
 
 ![왼쪽에서 오른쪽으로 읽으세요. 전체 분포가 이동했습니까, 아니면 꼬리만 들렸습니까?](../../../assets/img/w3/qq_lambda.svg){fig-align="center"}
 
@@ -95,11 +95,11 @@ Schizophrenia GWAS는 n이 수백일 때 사실상 **아무것도** 찾지 못�
 -   ⚠️ **λ \< 0.95**: 지나치게 보수적인 QC로 power를 버렸습니다
 
 ::: {.callout-note collapse="true"}
-## 알아둘 가치가 있는 예외
+## 알아 둘 만한 예외
 
 n이 매우 크면 약한 inflation이 **실제 polygenicity**일 수 있습니다. 수천 개 variant가 정말로 작은 효과를 가진다면 null이 적절한 비교 대상이 아니기 때문입니다.
 
-✅ **LD-score regression**은 inflation이 LD score에 따라 증가하는지(polygenicity), 균일한지(confounding)를 확인해 둘을 구분합니다. 현대적인 논문은 λ와 함께 LDSC intercept를 보고합니다. Review에서 이것이 없는 이유를 물어도 좋습니다.
+✅ **LD-score regression**은 inflation이 LD score에 따라 증가하는지(polygenicity), 균일한지(confounding)를 확인해 둘을 구분합니다. 최근 논문은 λ와 함께 LDSC intercept를 보고합니다. Review에서 이것이 없는 이유를 물어도 좋습니다.
 :::
 
 ## 2) 그다음 Manhattan plot {#w3-s2-2}
@@ -108,7 +108,7 @@ n이 매우 크면 약한 inflation이 **실제 polygenicity**일 수 있습니�
 
 **5×10⁻⁸인 이유:** LD pruning 뒤에는 독립적인 common-variant test가 약 100만 개 남습니다. Bonferroni를 적용하면 0.05 / 10⁶ = **5×10⁻⁸**입니다.
 
--   ⚠️ 이 threshold는 **common SNP**에 맞춰져 있습니다. Rare-variant test와 structural-variant test에는 각자의 기준이 필요합니다
+-   ⚠️ 이 threshold는 **common SNP**에 맞춰져 있습니다. Rare-variant test와 structural-variant test에는 따로 기준이 필요합니다
 -   ⚠️ “Suggestive”(*p* \< 1×10⁻⁵)는 관례일 뿐 발견이 아닙니다. Suggestive-only 결과는 hypothesis로 취급하세요
 
 ::: {.callout-warning collapse="true"}
@@ -160,7 +160,7 @@ smf.logit("disease ~ SNP"
 
 :::
 
-⚠️ 누구도 말하지 않는 trade-off가 있습니다. 하나의 ancestry로 제한하면 통계는 더 깨끗해지지만 **generalisability는 나빠집니다**(§7).
+⚠️ 잘 언급되지 않는 trade-off도 있습니다. 하나의 ancestry로 제한하면 통계는 더 깨끗해지지만 **generalisability는 나빠집니다**(§6).
 :::
 
 **직접 해 보기** — [다중검정과 FDR ↗](https://kkonoo.github.io/edu_sims/sims/multiple-testing/?lang=ko){target="_blank"}
@@ -185,7 +185,7 @@ smf.logit("disease ~ SNP"
 | Imputation INFO / R² | \> 0.8 | 신뢰할 수 없는 imputed dosage |
 | **Stratification** | PCA | **가장 큰 confounder** |
 
-💡 여러분이 이 과정을 직접 실행하지는 않습니다. 다만 “어떤 QC threshold를 사용했습니까?”라고 질문할 수 있도록 존재를 알아야 합니다.
+💡 이 과정을 직접 실행할 일은 없습니다. 다만 “어떤 QC threshold를 사용했습니까?”라고 물을 수 있도록 이런 단계가 있다는 것은 알아 두세요.
 
 ------------------------------------------------------------------------
 
@@ -193,7 +193,7 @@ smf.logit("disease ~ SNP"
 
 ## 1) Linkage disequilibrium이 만드는 문제 {#w3-s3-1}
 
-LD는 측정된 variant 하나로 측정하지 않은 수십 개를 tag하게 하므로 GWAS를 **가능하게** 합니다. 동시에 tag와 원인이 통계적으로 동일하게 보이게 하므로 해석을 **망가뜨립니다**.
+LD 덕분에 측정한 variant 하나로 측정하지 않은 variant 수십 개를 tag할 수 있어서 GWAS가 **가능합니다**. 그러나 같은 LD 때문에 tag와 원인이 통계적으로 똑같아 보여서 해석은 **매우 어려워집니다**.
 
 ![같은 locus와 같은 생물학이지만 population은 다릅니다.](../../../assets/img/w3/tag_vs_causal.svg){fig-align="center"}
 
@@ -204,20 +204,20 @@ LD는 측정된 variant 하나로 측정하지 않은 수십 개를 tag하게 �
 
 → *“rs1234567과 약 40개의 다른 variant를 포함하는 haplotype block 어딘가에서 무언가가 어떤 작용을 하고 있다.”*
 
--   ❌ Lead SNP는 **이 sample**에서 p-value가 가장 작은 variant입니다. 다른 cohort에서 다시 분석하면 이웃 variant가 이기는 경우가 흔합니다
--   ⚠️ Fine-mapping 없이 lead SNP 자체의 생물학을 논하는 논문은 자신의 데이터를 과도하게 해석하는 것입니다
--   ✅ 올바른 표현은 “locus”이며 현대적인 논문은 이 용어를 사용합니다
+-   ❌ Lead SNP는 **이 sample**에서 p-value가 가장 작은 variant입니다. 다른 cohort에서 다시 분석하면 이웃한 다른 variant의 p-value가 더 작게 나오는 경우가 흔합니다
+-   ⚠️ Fine-mapping 없이 lead SNP 자체의 생물학을 논하는 논문은 데이터를 지나치게 해석한 것입니다
+-   ✅ 올바른 표현은 “locus”이며 최근 논문은 이 용어를 사용합니다
 :::
 
 ## 2) 위치에서 기전까지의 네 단계 {#w3-s3-2}
 
 ![각 단계는 주장의 범위를 좁힙니다. 하나를 건너뛰면 reviewer가 지적할 틈이 남습니다.](../../../assets/img/w3/postgwas_pipeline.svg){fig-align="center"}
 
-**① Fine-mapping.** Bayesian method(SuSiE, FINEMAP)는 각 variant에 **posterior inclusion probability**를 부여하고, 예를 들어 causal variant를 95% 확률로 포함하는 가장 작은 집합인 **credible set**을 반환합니다.
+**① Fine-mapping.** Bayesian method(SuSiE, FINEMAP)는 각 variant에 **posterior inclusion probability**를 부여하고 **credible set**을 반환합니다. Credible set은 causal variant를 일정 확률(예: 95%)로 포함하는 가장 작은 variant 집합입니다.
 
--   💡 Credible set이 3개라는 것은 결과입니다. 40개라는 것은 해소하지 못했다는 고백입니다
+-   💡 Credible set에 variant가 3개라면 결과라고 할 수 있습니다. 40개라면 locus를 좁히지 못했다는 뜻입니다
 -   ⚠️ **Ancestry-matched LD reference**가 필요합니다. 유럽인 panel을 한국인 cohort에 적용하면 경고 없이 잘못된 결과가 나옵니다
--   ⚠️ PIP가 많은 variant에 얇게 분산된다면 정직한 결론은 *“이 sample에서는 이 locus를 해소할 수 없다”*입니다
+-   ⚠️ PIP가 많은 variant에 조금씩 흩어져 있다면 정직한 결론은 *“이 sample에서는 이 locus를 더 좁힐 수 없다”*입니다
 
 **② Functional annotation.** Variant가 어디에 위치합니까?
 
@@ -227,9 +227,9 @@ LD는 측정된 variant 하나로 측정하지 않은 수십 개를 tag하게 �
 | Splice site | 달라진 mRNA 또는 isoform |
 | Promoter / 5′UTR | transcription 조절 |
 | Enhancer | 멀리 떨어진 gene의 조절일 수 있음 |
-| **Intergenic / intronic** | ⚠️ **알 수 없음 — eQTL과 chromatin data 필요** |
+| **Intergenic / intronic** | ⚠️ **알 수 없음: eQTL과 chromatin data 필요** |
 
-⚠️ **GWAS hit의 약 90%는 non-coding입니다.** 이 사실 하나가 이 수업의 나머지 부분이 필요한 이유입니다.
+⚠️ **GWAS hit의 약 90%는 non-coding입니다.** 이 수업의 나머지 주차가 필요한 것도 이 때문입니다.
 
 **③ Variant → gene.** **eQTL**은 gene expression에 영향을 주는 variant입니다. **Colocalisation**은 GWAS와 eQTL signal이 *동일한* causal variant를 공유하는지 묻습니다.
 
@@ -295,47 +295,47 @@ print("PP.H4.abf =", round(pp[4], 3))   # > 0.8 → they share a causal variant
 
 :::
 
--   ❌ **가장 가까운 gene은 약 절반의 경우 틀립니다.** Enhancer는 가까운 이웃을 건너뛰는 일이 흔합니다
--   ⚠️ **방향**을 확인하세요. Risk allele이 환자에서 *증가*해 보이는 gene을 오히려 *down-regulation*할 수 있습니다. 이런 불일치는 손상된 보호 반응을 반영하는 경우가 많고 agonist와 antagonist 중 무엇을 선택할지 결정합니다
+-   ❌ **가장 가까운 gene이 틀린 경우가 약 절반입니다.** Enhancer가 바로 옆 gene을 건너뛰는 일은 흔합니다
+-   ⚠️ **방향**을 확인하세요. Risk allele이 환자에서 *증가*해 보이는 gene을 오히려 *down-regulation*할 수 있습니다. 이런 불일치는 보호 반응이 손상되었다는 뜻인 경우가 많고, agonist와 antagonist 중 무엇을 쓸지도 이 방향에 따라 정해집니다
 
-**④ Gene → cell type.** Colocalisation은 gene을 알려줄 뿐 위치를 알려주지 않습니다. **sc-linker** 같은 framework는 stratified LD-score regression을 통해 single-cell data와 GWAS를 결합하여 Alzheimer disease에서는 microglia, eczema에서는 T cell을 찾아냅니다. 🔗 [W5](../part3/w5_scrna_qc.qmd)에서 다시 다룹니다.
+**④ Gene → cell type.** Colocalisation으로 gene은 알 수 있지만, 그 gene이 어디에서 작용하는지는 알 수 없습니다. **sc-linker** 같은 framework는 stratified LD-score regression으로 single-cell data와 GWAS를 결합합니다. 이 방법으로 Alzheimer disease에서는 microglia, eczema에서는 T cell을 찾았습니다. 🔗 [W5](../part3/w5_scrna_qc.qmd)에서 다시 다룹니다.
 
-**⑤ Causality.** Mendelian randomization은 variant를 **instrument**로 사용합니다. Variant는 수정 시점에 무작위로 배정되므로 lifestyle confounding에 영향을 받지 않는 평생의 RCT를 모방합니다.
+**⑤ Causality.** Mendelian randomization은 variant를 **instrument**로 사용합니다. Variant는 수정 시점에 무작위로 배정되므로, lifestyle confounding의 영향을 받지 않는 평생에 걸친 RCT와 비슷한 비교가 가능합니다.
 
 ```
 Genetic variants  →  LDL level  →  CAD
    (instrument)      (exposure)   (outcome)
 ```
 
-⚠️ 세 가지 IV assumption은 relevance, instrument에 대한 confounding 부재, **exclusion restriction**입니다. 세 번째는 pleiotropy 때문에 깨집니다. MR-Egger와 weighted median은 바로 이것을 확인하기 위해 존재합니다. 단일 방법만 사용한 MR 결과는 불완전합니다.
+⚠️ IV assumption은 relevance, instrument에 confounding이 없을 것, **exclusion restriction**의 세 가지입니다. 이 중 세 번째 가정은 pleiotropy가 있으면 깨집니다. MR-Egger와 weighted median이 바로 이 문제를 확인하는 방법입니다. 방법 하나만 쓴 MR 결과는 불완전합니다.
 
 ------------------------------------------------------------------------
 
 # 4. SNP 너머 🧬 {#w3-s4}
 
-일부 trait에서는 common-SNP GWAS가 포화 상태에 가까워지고 있습니다. Array가 제대로 포착하지 못하는 대상이 다음 frontier이며, 그중 많은 것은 임상적으로 더 활용 가능합니다.
+일부 trait에서는 common-SNP GWAS가 포화 상태에 가까워지고 있습니다. Array로 잘 잡히지 않는 variant가 다음 연구 대상이며, 그중 상당수는 임상에서 더 바로 활용할 수 있습니다.
 
 | Variant class | 의미 | 중요한 이유 |
 |------------------------|------------------------|------------------------|
 | **CNV** | kb–Mb 크기의 deletion / duplication | gene dosage; 충분히 연구되지 않음 |
 | **Structural** | inversion, translocation | gene 또는 distal regulation을 방해함 |
 | **Tandem repeats** | 다양한 반복 횟수 | expansion이 신경계 질환을 일으킴 |
-| **HLA / MHC** | 매우 polymorphic한 영역 | 모든 autoimmune signal을 지배함 |
+| **HLA / MHC** | 매우 polymorphic한 영역 | 모든 autoimmune signal에 관여함 |
 
 ::: {.callout-tip collapse="true"}
 ## 진료 현장에서 기억할 만한 두 가지 예
 
 -   **UGT2B17 deletion → prostate cancer.** Testosterone metabolism을 바꿉니다. Deletion frequency는 population에 따라 크게 다릅니다. ⚠️ 따라서 이것은 **SNP-only 분석에서는 보이지 않는 population-specific risk**입니다
--   **CYP2D6 copy number → drug dosing.** Deletion과 duplication은 codeine에서 morphine으로의 전환을 poor metabolizer와 ultra-rapid metabolizer 사이에서 바꿉니다. 💡 이것이 가장 순수한 형태의 pharmacogenetics입니다. Variant는 치료 *여부*가 아니라 **용량**을 바꿉니다
+-   **CYP2D6 copy number → drug dosing.** Deletion과 duplication에 따라 codeine이 morphine으로 바뀌는 정도가 달라져 poor metabolizer와 ultra-rapid metabolizer로 나뉩니다. 💡 가장 전형적인 pharmacogenetics 사례입니다. Variant가 바꾸는 것은 치료 *여부*가 아니라 **용량**입니다
 
-→ Biobank 전반에서 loss-of-function variant를 모아 계산한 gnomAD **LOEUF**는 dosage-sensitivity map을 만듭니다. 눈앞의 variant of uncertain significance를 해석할 때 직접 도움이 됩니다.
+Biobank 전반에서 loss-of-function variant를 모아 계산한 gnomAD **LOEUF**로 dosage-sensitivity map을 만들 수 있습니다. 눈앞의 variant of uncertain significance를 해석할 때 바로 도움이 됩니다.
 :::
 
 ------------------------------------------------------------------------
 
 # 5. Locus에서 약물까지 💊 {#w3-s5}
 
-사람의 유전적 근거가 임상 성공률을 약 두 배 높이므로 locus는 체계적으로 탐색됩니다.
+사람의 유전적 근거가 있으면 임상 성공률이 약 두 배 높아지므로, locus를 체계적으로 살펴 약물 target을 찾습니다.
 
 | Trait | Gene | Drug / class |
 |----------------------|-------------|--------------------------|
@@ -348,7 +348,7 @@ Genetic variants  →  LDL level  →  CAD
 | LDL cholesterol | *HMGCR* | statins |
 | LDL cholesterol | *PCSK9* | evolocumab, alirocumab |
 
-💡 이 표를 반대 방향으로 읽어보세요. 여러 약물은 유전적 근거보다 **먼저** 존재했습니다. GWAS는 우연히 찾아낸 target을 확인해 주었습니다. 흥미로운 사례는 유전적 근거가 먼저 나온 경우이며, W12에서 다룹니다.
+💡 이 표를 반대 방향으로 읽어보세요. 여러 약물은 유전적 근거보다 **먼저** 나왔고, GWAS는 우연히 찾아낸 target을 나중에 확인해 주었습니다. 흥미로운 사례는 유전적 근거가 먼저 나온 경우이며, W12에서 다룹니다.
 
 ::: {.callout-note collapse="true"}
 ## PheWAS: 같은 데이터에서 질문을 뒤집기
@@ -369,16 +369,16 @@ ICD code를 phenotype으로 삼아 electronic health record 전체에서 실행�
 
 # 6. ⚠️ 하나의 Ancestry로는 충분하지 않다 🌏 {#w3-s6}
 
-대부분의 GWAS, 따라서 대부분의 fine-mapping과 polygenic score는 유럽 ancestry를 대상으로 합니다. 이것은 형평성 문제이기 전에 과학적 문제입니다.
+대부분의 GWAS는 유럽 ancestry를 대상으로 하므로, 이를 바탕으로 한 fine-mapping과 polygenic score도 대부분 유럽 ancestry 기반입니다. 이것은 형평성 문제이기 전에 과학적 문제입니다.
 
 -   ⚠️ **놓치는 발견**: 유럽인에서 드물거나 없는 variant는 보이지 않습니다. Multi-ethnic cohort는 대규모 유럽 연구가 놓친 association을 계속 찾아내고 있습니다
--   ✅ **더 나은 해상도**: 서로 다른 LD pattern이 haplotype block을 깨뜨려 **더 작은 credible set**을 만듭니다(§3.1)
--   ❌ **낮은 portability**: effect size와 risk score는 그대로 이전되지 않습니다. 무리하게 적용하면 격차가 커집니다(🔗 [W4 §5](w4_prs.qmd#w4-s5))
+-   ✅ **더 나은 해상도**: LD pattern이 다르면 haplotype block이 다르게 끊기므로 **credible set이 더 작아집니다**(§3.1)
+-   ❌ **낮은 portability**: effect size와 risk score는 다른 집단에 그대로 옮겨 쓸 수 없습니다. 그런데도 무리하게 적용하면 격차가 커집니다(🔗 [W4 §5](w4_prs.qmd#w4-s5))
 
 ::: {.callout-important collapse="true"}
 ## 한국인 cohort에서 구체적으로 할 일
 
--   한국 및 동아시아 resource를 사용하세요. **KoGES**, Korea Biobank Array(**KCHIP**), **National Biobank of Korea**, 그리고 지역 resource인 Biobank Japan과 China Kadoorie가 있습니다
+-   한국 및 동아시아 resource를 사용하세요. **KoGES**, Korea Biobank Array(**KCHIP**), **National Biobank of Korea**가 있고, 동아시아에는 Biobank Japan과 China Kadoorie가 있습니다
 -   ✅ Association, credible set, PRS를 신뢰하기 전에 **base GWAS의 ancestry가 환자와 일치하는지 확인하세요**
 -   💡 동아시아 연구에서 유럽 연구가 찾지 못한 것을 발견했다면 red flag가 아닙니다. 그것이 연구의 핵심일 수 있습니다
 :::
@@ -389,7 +389,7 @@ ICD code를 phenotype으로 삼아 electronic health record 전체에서 실행�
 
 설치할 것은 없습니다. 실제로 진료하는 질환 하나를 생각해 오세요.
 
-## 1) GWAS Catalog — 무엇이 알려져 있는가? {#w3-s7-1}
+## 1) GWAS Catalog: 무엇이 알려져 있는가? {#w3-s7-1}
 
 [**ebi.ac.uk/gwas**](https://www.ebi.ac.uk/gwas) → 질환을 검색합니다.
 
@@ -398,13 +398,13 @@ ICD code를 phenotype으로 삼아 electronic health record 전체에서 실행�
 -   ③ 보고된 variant를 보세요. Gene label이 붙은 것은 몇 개이며 intergenic은 몇 개입니까?
 -   ④ ⚠️ 이 질환을 대상으로 한 **동아시아 연구**가 하나라도 있습니까? 유럽 연구와 비교해 n은 얼마입니까?
 
-## 2) Open Targets — 약물이 있는가? {#w3-s7-2}
+## 2) Open Targets: 약물이 있는가? {#w3-s7-2}
 
 [**platform.opentargets.org**](https://platform.opentargets.org) → 질환 → target list로 이동합니다.
 
 -   ⑤ 가장 점수가 높은 target은 무엇이며, **어떤 evidence type**이 뒷받침합니까? (genetic, expression, literature, animal model)
 -   ⑥ 이 target을 대상으로 승인되었거나 임상시험 중인 약물이 있습니까? 어떤 indication입니까?
--   ⑦ 💡 강한 genetic evidence가 있지만 약물이 **없는** target을 찾으세요. 이미 justification paragraph가 갖춰진 연구 질문입니다
+-   ⑦ 💡 강한 genetic evidence가 있지만 약물이 **없는** target을 찾으세요. 연구 필요성을 쓸 근거가 이미 갖춰진 연구 질문입니다
 
 ## 3) 모든 locus를 조사하는 checklist {#w3-s7-3}
 
@@ -413,7 +413,7 @@ Journal club에서 사용할 수 있도록 보관하세요.
 -   ① 독립된 cohort에서 **replication**되었습니까?
 -   ② **Credible set이 얼마나 큽니까?** 아니면 fine-mapping을 건너뛰었습니까?
 -   ③ **Coding, regulatory, unknown 중 무엇입니까?** eQTL이 있습니까?
--   ④ **어떤 gene, 어떤 cell type입니까?** Nearest ≠ causal임을 기억하세요
+-   ④ **어떤 gene, 어떤 cell type입니까?** 가장 가까운 gene이 곧 causal gene은 아니라는 점을 기억하세요
 -   ⑤ **Effect size와 방향**: 방향이 drug strategy를 결정합니다
 -   ⑥ **어떤 ancestry**이며 실제 적용할 환자와 일치합니까?
 
@@ -527,7 +527,7 @@ print("lambda_1000 :", round(1 + (lam(clean.P) - 1) * 1000 / n_eff, 4))
 
 :::
 
-💡 ③을 기억할 가치가 있습니다. 대규모 biobank GWAS는 실제 polygenicity 때문에 λ가 n과 함께 커져 λ = 1.15여도 calibration이 완벽할 수 있습니다. **λ₁₀₀₀을 사용해야 두 연구를 비교할 수 있습니다.** 논문에 이 값이 없다면 이유를 물어도 좋습니다.
+💡 ③은 꼭 기억해 두세요. 대규모 biobank GWAS에서는 실제 polygenicity 때문에 λ가 n과 함께 커지므로, λ = 1.15여도 calibration이 잘 되어 있을 수 있습니다. **λ₁₀₀₀을 사용해야 두 연구를 비교할 수 있습니다.** 논문에 이 값이 없다면 이유를 물어도 좋습니다.
 
 ## 5) 다음 주 전까지 {#w3-s7-5}
 
@@ -538,15 +538,15 @@ print("lambda_1000 :", round(1 + (lam(clean.P) - 1) * 1000 / n_eff, 4))
 # 📝 요약
 
 -   GWAS는 어떤 variant가 다른지 하나만 묻고, gene이나 mechanism이 아닌 **locus**를 반환합니다
--   Architecture가 연구 설계를 결정합니다. ⚠️ Null GWAS는 생물학의 부재보다 검정력 부족으로 설명되는 경우가 많습니다
+-   Architecture가 연구 설계를 결정합니다. ⚠️ Null GWAS는 관련 생물학이 없어서라기보다 검정력이 부족해서인 경우가 많습니다
 -   ⚠️ **Manhattan보다 QQ plot을 먼저 읽으세요.** 전체 선에서 λ \> 1.05이면 hit를 의심해야 합니다
 -   5×10⁻⁸은 약 100만 개의 독립적인 test에서 나옵니다. “Suggestive”는 관례이지 발견이 아닙니다
 -   ⚠️ **Lead SNP는 tag입니다.** 통계만으로는 haplotype block 안의 causal variant와 구분할 수 없습니다
--   💡 Ancestry가 다르면 block이 다르게 끊깁니다. Diversity는 형평성뿐 아니라 **해상도**를 높입니다
+-   💡 Ancestry가 다르면 block이 다르게 끊깁니다. Diversity는 형평성뿐 아니라 **해상도**에도 도움이 됩니다
 -   Post-GWAS의 네 단계는 fine-map → annotate → variant-to-gene → cell type이며, 이후 MR로 causality를 평가합니다
--   ❌ 가장 가까운 gene은 약 절반의 경우 틀립니다. ⚠️ Effect direction이 agonist와 antagonist를 결정합니다
--   Hit의 약 90%가 non-coding이라는 사실이 이 수업의 나머지 부분이 필요한 이유입니다
--   CNV와 repeat는 충분히 연구되지 않았고 흔히 더 활용 가능합니다(CYP2D6는 **용량**을 바꿉니다)
+-   ❌ 가장 가까운 gene이 틀린 경우가 약 절반입니다. ⚠️ Effect direction에 따라 agonist와 antagonist 중 무엇을 쓸지가 정해집니다
+-   Hit의 약 90%가 non-coding이고, 이 수업의 나머지 주차가 필요한 이유도 여기에 있습니다
+-   CNV와 repeat는 충분히 연구되지 않았고, 임상에서 더 바로 활용할 수 있는 경우가 많습니다(CYP2D6는 **용량**을 바꿉니다)
 -   ⚠️ Downstream 결과를 믿기 전에 base GWAS ancestry가 환자와 일치하는지 확인하세요
 
 ------------------------------------------------------------------------

@@ -3,7 +3,7 @@
     <path id="mrna" d="M0 0 q2.5 -4 5 0 t5 0 t5 0" fill="none" stroke="#D85A30" stroke-width="1.6" stroke-linecap="round"/>
   </defs>
   <rect width="880" height="460" fill="#fcfcfb"/>
-  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Ambient RNA: the soup gets into every droplet — including the empty ones.</text>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Ambient RNA: the soup gets into every droplet, including the empty ones.</text>
 
   <!-- ① suspension -->
   <rect x="24" y="46" width="256" height="290" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
@@ -25,7 +25,7 @@
   <use href="#mrna" x="106" y="244"/><use href="#mrna" x="196" y="246"/><use href="#mrna" x="240" y="174"/>
   <use href="#mrna" x="110" y="96"/><use href="#mrna" x="206" y="200"/>
   <text x="40" y="290" font-size="11.5" fill="#666">Damaged cells burst; their mRNA floats</text>
-  <text x="40" y="307" font-size="11.5" fill="#666">free in the buffer — mostly from the most</text>
+  <text x="40" y="307" font-size="11.5" fill="#666">free in the buffer, mostly from the most</text>
   <text x="40" y="324" font-size="11.5" fill="#666">abundant or most fragile cell type.</text>
 
   <path d="M286 190 L298 190" stroke="#b9b0cc" stroke-width="2"/>
@@ -96,6 +96,6 @@
   <rect x="446" y="350" width="410" height="98" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
   <text x="466" y="376" font-size="13" font-weight="700" fill="#7a5f2a">💡 Well-based: BD Rhapsody, plate-based</text>
   <text x="466" y="398" font-size="12" fill="#7a5f2a">Cells settle or are sorted into separate wells with little</text>
-  <text x="466" y="416" font-size="12" fill="#7a5f2a">of the surrounding buffer → far less soup.</text>
+  <text x="466" y="416" font-size="12" fill="#7a5f2a">of the surrounding buffer, so far less soup.</text>
   <text x="466" y="437" font-size="12" font-weight="700" fill="#7a5f2a">Usually skipped. Less is not zero.</text>
 </svg>

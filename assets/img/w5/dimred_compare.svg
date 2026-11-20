@@ -1709,8 +1709,8 @@
   <circle cx="426.7" cy="349.3" r="1.9" fill="#9B92DE" fill-opacity="0.85"/>
   <text x="440.0" y="472.0" font-size="10.5" fill="#8A7FA3" text-anchor="middle">random start, perplexity 30</text>
   <text x="325.0" y="496.0" font-size="11.5" fill="#0F6E56" font-weight="700">✅ local neighbours kept; groups separate</text>
-  <text x="325.0" y="516.0" font-size="11.5" fill="#a8401d" font-weight="700">⚠️ random start → where each island</text>
-  <text x="325.0" y="532.0" font-size="11.5" fill="#a8401d" font-weight="700">lands is arbitrary; weak pull → one</text>
+  <text x="325.0" y="516.0" font-size="11.5" fill="#a8401d" font-weight="700">⚠️ random start, so where each island</text>
+  <text x="325.0" y="532.0" font-size="11.5" fill="#a8401d" font-weight="700">lands is arbitrary; weak pull, so one</text>
   <text x="325.0" y="548.0" font-size="11.5" fill="#a8401d" font-weight="700">round cloud, narrow gaps; slow</text>
   <rect x="590" y="78" width="266" height="486" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
   <text x="608.0" y="104.0" font-size="15" fill="#4A3D6B" font-weight="700">UMAP</text>
@@ -2556,7 +2556,7 @@
   <text x="608.0" y="528.0" font-size="11.5" fill="#0F6E56" font-weight="700">the path stays a strand; fast</text>
   <text x="608.0" y="548.0" font-size="11.5" fill="#a8401d" font-weight="700">⚠️ still a picture, not a measurement</text>
   <rect x="24" y="576" width="832" height="72" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
-  <text x="48.0" y="600.0" font-size="12.5" fill="#7a5f2a" font-weight="700">💡 Much of the t-SNE / UMAP difference is settings, not magic: t-SNE started from PCA, with a stronger pull</text>
-  <text x="48.0" y="619.0" font-size="12.5" fill="#7a5f2a" font-weight="700">between neighbours, looks UMAP-like (Kobak &amp; Linderman 2021; Böhm et al. 2022).</text>
+  <text x="48.0" y="600.0" font-size="12.5" fill="#7a5f2a" font-weight="700">💡 Much of the t-SNE / UMAP difference comes from settings, not the algorithm: t-SNE started from PCA,</text>
+  <text x="48.0" y="619.0" font-size="12.5" fill="#7a5f2a" font-weight="700">with a stronger pull between neighbours, looks UMAP-like (Kobak &amp; Linderman 2021; Böhm et al. 2022).</text>
   <text x="48.0" y="638.0" font-size="12.5" fill="#7a5f2a">⚠️ In all three, island distances, island sizes and thin bridges are not measurements (see the callout above).</text>
 </svg>

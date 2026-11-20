@@ -51,6 +51,6 @@
 
   <!-- footer -->
   <rect x="24" y="370" width="832" height="62" rx="8" fill="#f3f0f7" stroke="#5B4D80" stroke-width="1.5"/>
-  <text x="48" y="394" font-size="13.5" font-weight="700" fill="#4A3D6B">⚠️ Three patients vs three controls is n = 3 — whether you sequenced 3,000 cells or 300,000.</text>
+  <text x="48" y="394" font-size="13.5" font-weight="700" fill="#4A3D6B">⚠️ Three patients vs three controls is n = 3, whether you sequenced 3,000 cells or 300,000.</text>
   <text x="48" y="416" font-size="13" fill="#5B4D80">Cell number buys <tspan font-weight="700">resolution</tspan>. It never buys <tspan font-weight="700">power</tspan>. That distinction decides what a single-cell study should cost.</text>
 </svg>

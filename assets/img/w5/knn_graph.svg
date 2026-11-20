@@ -454,7 +454,7 @@
   <circle cx="668.1" cy="202.3" r="9" fill="none" stroke="#5B4D80" stroke-width="1.3"/>
   <circle cx="776.9" cy="165.9" r="9" fill="none" stroke="#D85A30" stroke-width="1.3"/>
   <rect x="24" y="350" width="832" height="84" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
-  <text x="48.0" y="374.0" font-size="12.5" fill="#7a5f2a" font-weight="700">⚠️ k sets the scale. Small k → fine structure, more fragments. Large k → a smoother graph, and a group of</text>
+  <text x="48.0" y="374.0" font-size="12.5" fill="#7a5f2a" font-weight="700">⚠️ k sets the scale. Small k gives fine structure, more fragments. Large k gives a smoother graph, and a group of</text>
   <text x="48.0" y="393.0" font-size="12.5" fill="#7a5f2a" font-weight="700">fewer than k cells cannot be its own neighbourhood: its members must link outside it, and it gets absorbed.</text>
-  <text x="48.0" y="418.0" font-size="12.5" fill="#7a5f2a">💡 Clustering (§4.2) and UMAP (§4.3) both start from this graph — not from the genes.</text>
+  <text x="48.0" y="418.0" font-size="12.5" fill="#7a5f2a">💡 Clustering (§4.2) and UMAP (§4.3) both start from this graph, not from the genes.</text>
 </svg>

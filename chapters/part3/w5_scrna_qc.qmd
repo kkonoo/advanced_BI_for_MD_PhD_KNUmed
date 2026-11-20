@@ -53,7 +53,7 @@ Single cell is expensive –\> Be specific! Bulk can be enough in many cases
 **✅ Single cell is right for:**
 
 -   **Discovering or characterising populations**, including rare ones
--   **Composition** — which cell types shifted in disease
+-   **Composition**: which cell types shifted in disease
 -   **Cell-type-specific effects**: a gene up in one cell type and down in another, invisible in bulk
 -   **Continuous states**: activation, exhaustion, differentiation, where discrete labels fail
 
@@ -68,7 +68,7 @@ Single cell is expensive –\> Be specific! Bulk can be enough in many cases
 
 Already know which cell type you care about?
 
-→ FACS-sort it and run deep bulk RNA-seq. Often **cheaper, deeper, and statistically cleaner** than a whole-tissue single-cell experiment. You can also afford far more patients, which (§5) is where your power actually comes from.
+Then FACS-sort it and run deep bulk RNA-seq. This is often **cheaper, deeper, and statistically cleaner** than a whole-tissue single-cell experiment. You can also afford far more patients, and your power actually comes from the number of patients (§5).
 
 💡 "We did single cell" is not by itself a stronger design. Sometimes it is a more expensive way to be underpowered.
 :::
@@ -79,7 +79,7 @@ Already know which cell type you care about?
 
 ## 1) The platform trade-off {#w5-s2-1}
 
-Every platform buys cells with depth, or depth with cells.
+Every platform trades depth for cells, or cells for depth.
 
 +-------------------------------------+--------------+----------------------------------------------+------------------------------------+
 | Platform                            | Cells        | Depth                                        | When                               |
@@ -123,7 +123,7 @@ scRNA-seq needs **fresh**, viable tissue dissociated into intact cells
 -   ⚠️ **Immediate-early genes are the classic false positive.** A cluster defined by *FOS*, *JUN* and *EGR1* is very often a dissociation artifact, not an "activated" state. If one condition sat on the bench longer, it will look more activated
 -   ⚠️ **Depletion claims need scrutiny.** "Cell type X is depleted in disease" and "cell type X is harder to release from diseased tissue" produce identical data
 
-→ ✅ Mitigations: dissociate at low temperature with cold-active protease, keep the protocol identical across conditions, and best of all use nuclei when the tissue allows it.
+✅ Mitigations: dissociate at low temperature with cold-active protease, keep the protocol identical across conditions, and best of all use nuclei when the tissue allows it.
 :::
 
 ## 4) considerations for a study design {#w5-s2-3}
@@ -148,8 +148,8 @@ so many steps😟? –\> the more steps, the more errors propagate ...😵‍�
 
 ![One gel bead per droplet (a 5′ bead; see §2.2). Every oligo on the bead carries the same cell barcode and a different UMI. (Lower: an antibody-conjugated oligo, which reads out surface protein with the same barcode, as in CITE-seq.)](images/clipboard-150401913.png)
 
--   **Cell barcode**: identical on every oligo of one bead → every molecule captured in that droplet is tagged *"from this cell"*
--   **UMI** (unique molecular identifier): random, different on every oligo → tags each original mRNA molecule **before** amplification
+-   **Cell barcode**: identical on every oligo of one bead, so every molecule captured in that droplet is tagged *"from this cell"*
+-   **UMI** (unique molecular identifier): random and different on every oligo. It tags each original mRNA molecule **before** amplification
 
 ✅ The matrix counts **molecules, not reads**, so PCR duplicates and amplification bias are removed\
 ⚠️ What UMIs cannot fix: a molecule that was never captured gets no UMI at all. Hence the zeros below
@@ -181,15 +181,15 @@ Zero count means:
 
 ✅ **EmptyDrops** (Cell Ranger ≥ 3 uses a version of it) asks a better question: not "is the total high?" but "is this barcode's **profile** different from the ambient profile?" A small cell with a distinct profile is kept even though its total is low.
 
-💡 Cell Ranger writes two matrices: `filtered_feature_bc_matrix` (called cells) and `raw_feature_bc_matrix` (every barcode). **Keep the raw one** — ambient RNA correction needs the empty droplets.
+💡 Cell Ranger writes two matrices: `filtered_feature_bc_matrix` (called cells) and `raw_feature_bc_matrix` (every barcode). **Keep the raw one**: ambient RNA correction needs the empty droplets.
 
 ### ③ removal of ambient RNA
 
-Cells that burst during dissociation and loading release their mRNA into the suspension. This **"soup"** is captured in every droplet, so every cell's profile = its own RNA + a little soup.
+Cells that burst during dissociation and loading release their mRNA into the suspension. This **"soup"** is captured in every droplet, so every cell's profile is its own RNA plus a little soup.
 
 ![](/assets/img/w5/ambient_rna.svg){fig-align="center"}
 
--   **What it looks like**: markers of the most abundant or most fragile cell type at low level in **every** cluster: haemoglobin genes in every cell of a bloody sample, *ALB* in the immune cells of a liver
+-   **What it looks like**: markers of the most abundant or most fragile cell type at low level in **every** cluster (haemoglobin genes in every cell of a bloody sample, *ALB* in the immune cells of a liver)
 -   **Why it matters**: false co-expression, blurred cluster boundaries, and ⚠️ false DE when one condition releases more soup (diseased, necrotic tissue usually does)
 
 ⚠️ **every droplet-based protocol** has it, and **snRNA-seq the most** (isolating nuclei lyses every cell)
@@ -226,8 +226,8 @@ Three numbers per cell:
 
 **Why a high mito fraction means a dying cell**: when the membrane breaks, cytoplasmic mRNA leaks out, but transcripts inside mitochondria are protected by the mitochondrial membrane and stay. The **fraction** rises, not because the cell made more.
 
-⚠️ **Read them jointly.** High mito **and** few genes = broken cell. High mito with a normal gene count may be a genuinely mitochondria-rich cell (cardiomyocyte, hepatocyte, renal tubule)\
-⚠️ **snRNA-seq**: nuclei contain no mitochondria, so mito reads should be near zero. Any real fraction is cytoplasmic or ambient contamination → a much stricter cut
+⚠️ **Read them jointly.** High mito **and** few genes means a broken cell. High mito with a normal gene count may be a genuinely mitochondria-rich cell (cardiomyocyte, hepatocyte, renal tubule)\
+⚠️ **snRNA-seq**: nuclei contain no mitochondria, so mito reads should be near zero. Any real fraction is cytoplasmic or ambient contamination, so use a much stricter cut
 
 ✅ **Data-driven cutoffs**: flag cells more than *k* **median absolute deviations (MADs)** from the median (`scater::isOutlier`; *k* = 3 strict … 5 permissive); the threshold adapts to each sample\
 ✅ **Per sample, always.** A more deeply sequenced sample shifts all three distributions
@@ -238,8 +238,8 @@ Three numbers per cell:
 ## Every threshold needs its rationale
 
 -   A mito cutoff of 5% is conventional, and **wrong for cardiomyocytes**, which are genuinely mitochondria-rich. need to set your **data-specific cutoffs**
--   `min.features = 500` removes debris — **and also** platelets, some granulocytes, and any small low-RNA cell
--   An upper `nFeature` cutoff removes doublets — **and also** genuinely large, transcriptionally active cells
+-   `min.features = 500` removes debris, **and also** platelets, some granulocytes, and any small low-RNA cell
+-   An upper `nFeature` cutoff removes doublets, **and also** genuinely large, transcriptionally active cells
 
 ✅ **Plot** the distribution, look at what sits outside your proposed cut → **decide** your **own** thresholds
 :::
@@ -259,14 +259,14 @@ Two cells in one droplet share a barcode and look like **one cell with a hybrid 
 
 ![A real cell surrounded by artificial doublets in PC space is probably a doublet itself.](/assets/img/w5/doublet_detection.svg){fig-align="center"}
 
-**DoubletFinder — the logic in four steps**
+**DoubletFinder: the logic in four steps**
 
 1.  **Simulate**: make artificial doublets by averaging the profiles of random pairs of real cells (`pN`, default 25% of the merged data)
 2.  **Embed together**: real + artificial cells → normalise, HVGs, PCA
-3.  **Count fake neighbours**: for each real cell, **pANN** = the **p**roportion of **a**rtificial doublets among its **n**earest **n**eighbours. A real doublet sits among the fakes → high pANN
+3.  **Count fake neighbours**: for each real cell, **pANN** = the **p**roportion of **a**rtificial doublets among its **n**earest **n**eighbours. A real doublet sits among the fakes, so its pANN is high
 4.  **Threshold**: rank by pANN and call the top *n* as doublets, where *n* = expected rate × cells, reduced by the homotypic fraction it cannot see (`modelHomotypic()`)
 
-The one parameter that matters is **pK**, the neighbourhood size. DoubletFinder sweeps it and keeps the value at which pANN is most **bimodal**, singlets low and doublets high, scored by BCmvn (mean–variance-normalised bimodality coefficient).
+The one parameter that matters is **pK**, the neighbourhood size. DoubletFinder sweeps it and keeps the value at which pANN is most **bimodal** (singlets low, doublets high), as scored by BCmvn (mean–variance-normalised bimodality coefficient).
 
 💡 A clearly bimodal pANN distribution is your evidence that the call works. A unimodal one means doublets are not separable at that neighbourhood size.
 
@@ -316,7 +316,7 @@ ad.obs.predicted_doublet.value_counts()
 
 :::
 
-**scDblFinder — what is different?**
+**scDblFinder: what is different?**
 
 Same core idea (artificial doublets, and where real cells sit among them), different machinery:
 
@@ -364,7 +364,7 @@ ad.obs.doublet.value_counts()
 ⚠️ **One sample (capture) at a time.** Doublets form only within a capture; artificial doublets between two patients describe cells that cannot exist\
 ⚠️ **Homotypic doublets survive every expression-based method.** Accept a residual\
 ⚠️ **Do it before you interpret clusters.** A doublet cluster sits between its two parents and is easily named a transitional state\
-💡 **Design beats algorithms.** Pool donors in one lane and demultiplex by genotype (`demuxlet`, `souporcell`, `vireo`) or by hashtag antibodies → every between-donor doublet is identified directly, and you can load more cells per lane
+💡 **Design beats algorithms.** Pool donors in one lane and demultiplex by genotype (`demuxlet`, `souporcell`, `vireo`) or by hashtag antibodies. Every between-donor doublet is then identified directly, and you can load more cells per lane
 :::
 
 ### ③ Recap
@@ -382,12 +382,12 @@ ad.obs.doublet.value_counts()
 +--------------------+----------------------------------------------------------------+------------------------------------------------------------------+
 
 ::: {.callout-tip collapse="true"}
-## Which comes first — doublets or QC?
+## Which comes first: doublets or QC?
 
 The two tools' own documentation points in opposite directions:
 
--   **DoubletFinder**: remove low-quality clusters **first** — they distort the artificial doublets and the PCA
--   **scDblFinder**: find doublets **before** stringent QC — the expected rate is computed from the cells you hand it, and a doublet of one good and one bad cell is recognisable only while the bad one is still in the data
+-   **DoubletFinder**: remove low-quality clusters **first**, because they distort the artificial doublets and the PCA
+-   **scDblFinder**: find doublets **before** stringent QC, because the expected rate is computed from the cells you hand it, and a doublet of one good and one bad cell is recognisable only while the bad one is still in the data
 
 ✅ The order that reconciles them, ① then ② above, as in the pipeline figure:
 
@@ -396,7 +396,7 @@ The two tools' own documentation points in opposite directions:
 3.  **Final thresholds**, data-driven (MADs)
 4.  **Secondary QC after clustering**: drop whole clusters defined by mito or stress genes, or by two incompatible marker sets (§4.4)
 
-💡 Either order is defensible if you state it. What is not: an upper `nFeature` cutoff as your **only** doublet filter.
+💡 Either order is acceptable if you state it. What is not acceptable: an upper `nFeature` cutoff as your **only** doublet filter.
 :::
 
 ## 4) dimension reduction {#w5-s3-4}
@@ -417,7 +417,7 @@ After QC: **thousands of cells** × \~20,000 genes, mostly zeros
 
 ::: {.callout-note collapse="true"}
 💡 Alternatives: **SCTransform** (Pearson residuals from a regularised negative binomial model, all three steps in one) and **scran** pooled size factors. A large benchmark found the plain shifted log + [**PCA does**]{.underline} as well as or better than the sophisticated options (Ahlmann-Eltze & Huber 2023)\
-⚠️ `ScaleData(vars.to.regress = ...)` can regress out mito %, depth or cell-cycle score. Use sparingly: if the "nuisance" is correlated with biology — cycling cells in a proliferative disease — you regress out the biology too\
+⚠️ `ScaleData(vars.to.regress = ...)` can regress out mito %, depth or cell-cycle score. Use sparingly: if the "nuisance" is correlated with biology (cycling cells in a proliferative disease), you regress out the biology too\
 ⚠️ Three versions of the same matrix now sit side by side. §5.1 depends on knowing which is which:
 
 -   `counts`: raw UMIs
@@ -444,11 +444,11 @@ With several samples, cells often group by **donor or batch** before cell type. 
 -   **scVI**: learns a new latent space [from raw counts]{.underline}, with batch as a covariate
 -   **Seurat CCA / RPCA**: anchors matched cells between datasets
 
-→ for neighbours, clustering and UMAP
+The corrected embedding is then used for neighbours, clustering and UMAP.
 
 ✅ **Check first whether you need it.** Colour the uncorrected UMAP by sample. If cell types already mix across samples, skip it\
 ⚠️ **Corrected values are for grouping cells, not for testing genes.** DE goes back to raw counts, with donor in the model (§5.1)\
-⚠️ Over-correction can erase a disease-specific state → 🔗 [W6 §1](w6_scrna_dynamics.qmd#w6-s1)
+⚠️ Over-correction can erase a disease-specific state (🔗 [W6 §1](w6_scrna_dynamics.qmd#w6-s1))
 
 ::: {.callout-note collapse="true"}
 ## The VI universe: one engine, many models
@@ -526,7 +526,7 @@ Concept only: recognise the names and know what they optimise; no need to implem
 -   **Louvain** (2008): greedily move each cell into the neighbouring community that most improves modularity; collapse each community into one node; repeat
 -   ⚠️ Known flaw: it can return **badly connected or even disconnected** communities, that is, a ‘cluster’ whose pieces are not linked in the graph
 -   **Leiden** (2019): adds a refinement step that guarantees every community is internally connected; also faster
--   Defaults: scanpy → Leiden. Seurat `FindClusters()` → Louvain (`algorithm = 1`); Leiden is `algorithm = 4`
+-   Defaults: scanpy uses Leiden. Seurat `FindClusters()` uses Louvain (`algorithm = 1`); Leiden is `algorithm = 4`
 
 💡 For the biology, the choice rarely changes the conclusion. **Resolution** does, so report both.
 
@@ -571,7 +571,7 @@ Why UMAP became the default for complex tissue:
 -   **It starts from the graph's own (spectral) layout**, not random positions, so related populations tend to land near each other and reruns look alike
 -   **Fast**: millions of cells, where t-SNE is slow
 
-⚠️ The t-distribution is not what makes t-SNE look round — its heavy tail is what lets t-SNE separate groups at all. The rounder, looser look comes from a **weaker pull between neighbours**, and the arbitrary arrangement from the **random start**. Start t-SNE from PCA and strengthen the pull, and it looks UMAP-like.
+⚠️ The t-distribution is not what makes t-SNE look round. Its heavy tail is in fact what lets t-SNE separate groups at all. The rounder, looser look comes from a **weaker pull between neighbours**, and the arbitrary arrangement from the **random start**. Start t-SNE from PCA and strengthen the pull, and it looks UMAP-like.
 
 ::: {.callout-note collapse="true"}
 ## What a UMAP does *not* tell you
@@ -644,13 +644,13 @@ By now each cell carries several versions of its expression (§3.4). Testing on 
 +-------------------------------------------+-------------------------------------------------------------------------------------------+----------------------------------------------------------+----------------------------------------------------------+
 
 ::: {.callout-tip collapse="true"}
-⚠️ scanpy gotcha: `normalize_total`, `log1p` and `scale` **overwrite `.X` in place**. Copy the raw counts into `.layers["counts"]` *before* normalising — otherwise they are gone, and pseudobulk has nothing to sum.
+⚠️ scanpy gotcha: `normalize_total`, `log1p` and `scale` **overwrite `.X` in place**. Copy the raw counts into `.layers["counts"]` *before* normalising. Otherwise they are gone, and pseudobulk has nothing to sum.
 
 **Re-normalise after subsetting one cell type?**
 
--   **For sub-clustering — partly, yes.** Re-run HVG selection, scaling and PCA on the subset: the HVGs of the whole tissue mostly separate cell types from each other, not states within one type
--   **Log-normalisation itself — no.** It is computed per cell, so subsetting does not change it
--   **For DE — not relevant.** Pseudobulk starts from raw counts, and DESeq2/edgeR normalise across pseudo-samples themselves
+-   **For sub-clustering: partly, yes.** Re-run HVG selection, scaling and PCA on the subset: the HVGs of the whole tissue mostly separate cell types from each other, not states within one type
+-   **Log-normalisation itself: no.** It is computed per cell, so subsetting does not change it
+-   **For DE: not relevant.** Pseudobulk starts from raw counts, and DESeq2/edgeR normalise across pseudo-samples themselves
 
 ⚠️ Exception: SCTransform residuals depend on the data they were fitted on. With several SCT models (merged samples), run `PrepSCTFindMarkers()` before testing
 :::
@@ -731,7 +731,7 @@ pb.shape   # (cell type, donor) pseudo-samples × genes
 
 Often the interesting result is not that a cell type changed its expression, but that **there is more or less of it**.
 
-⚠️ Proportions are **compositional data** — one cell type expands and every other proportion falls by arithmetic alone, with no biology behind it (multivariate).
+⚠️ Proportions are **compositional data**: when one cell type expands, every other proportion falls by arithmetic alone, with no biology behind it (multivariate).
 
 -   ✅ Methods that handle this: `scCODA`, `miloR`, `propeller`, Dirichlet-multinomial models
 -   ❌ A χ² test on cell counts is **not valid**

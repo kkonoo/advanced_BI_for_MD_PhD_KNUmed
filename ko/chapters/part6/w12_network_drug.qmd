@@ -35,34 +35,34 @@ knitr:
 
 ## 1) 만드는 방식, 그리고 거기서 생기는 편향 {#w12-s1-1}
 
-Protein–protein interaction network(PPI network) = **출판된 실험**의 누적. STRING, BioGRID, IntAct = 정리된 문헌 + 그 문헌으로 학습한 예측
+Protein–protein interaction network(PPI network)는 **출판된 실험**을 모아 놓은 것. STRING, BioGRID, IntAct는 정리된 문헌과 그 문헌으로 학습한 예측으로 이루어짐
 
-실험은 이미 많이 연구되는 gene에 몰림 → node degree = 사실상 **논문 수**를 따라감
+실험은 이미 많이 연구되는 gene에 몰림. 그래서 node degree는 사실상 **논문 수**를 따라감
 
-![상관이 미묘한 수준이 아님](../../../assets/img/w12/network_bias.svg){fig-align="center"}
+![상관관계가 아주 뚜렷함](../../../assets/img/w12/network_bias.svg){fig-align="center"}
 
 ::: {.callout-important collapse="true"}
 ## 동기 질문의 답: 하나도 안 놀라움
 
-TP53, EGFR, AKT1은 network 분석을 해본 거의 모든 질병에서 hub로 나옴. 각각 논문이 수만 편 → 모든 것과 연결돼 있음
+TP53, EGFR, AKT1은 network 분석을 해본 거의 모든 질병에서 hub로 나옴. 각각 논문이 수만 편이라서 모든 것과 연결돼 있음
 
 ⚠️ 구체적으로는:
 
--   "Hub" 분석 = 내 data와 상관없이 같은 gene을 다시 발견
--   **Network proximity** 점수 = 많이 연구된 약물·표적에 유리
--   논문이 없는 gene = **degree ≈ 0** → 아무리 중요해도 우선순위에 못 오름
+-   "Hub" 분석은 내 data와 상관없이 같은 gene을 다시 찾아냄
+-   **Network proximity** 점수는 많이 연구된 약물·표적에 유리함
+-   논문이 없는 gene은 **degree ≈ 0**이라서 아무리 중요해도 우선순위에 못 오름
 
 ✅ 대처:
 
--   **Degree-matched null**과 비교 — node별 degree를 유지한 채 permutation → "연결이 많다"가 자동 승리가 되지 않게
+-   **Degree-matched null**과 비교: node별 degree를 유지한 채 permutation해서 연결이 많다는 이유만으로 유리해지지 않게 함
 -   가능하면 문헌을 모은 network 대신 **체계적 실험 하나**로 만든 network (proteomics interactome, CRISPR screen)
--   ✅ Hub 주장엔 항상 degree도 같이 보고 → 독자가 직접 보게
+-   ✅ Hub 주장엔 항상 degree도 같이 보고해서 독자가 직접 확인할 수 있게 하기
 :::
 
 ## 2) 그래도 network가 쓸모 있는 곳 {#w12-s1-2}
 
--   ✅ **Module** — 기대보다 더 많이 상호작용하는 gene 집합 → gene 하나가 아니라 과정 수준의 결과
--   ✅ **흩어진 hit 연결** — GWAS locus 40개가 pathway 하나로 모이나?
+-   ✅ **Module**: 기대보다 더 많이 상호작용하는 gene 집합. Gene 하나가 아니라 과정 수준의 결과를 얻음
+-   ✅ **흩어진 hit 연결**: GWAS locus 40개가 pathway 하나로 모이나?
 -   ✅ 기능 모르는 gene의 이웃을 보고 **기전 제안**
 -   ⚠️ 언제나 가설로만. Edge는 내 실험이 아니라 남의 실험 결과
 
@@ -74,30 +74,30 @@ TP53, EGFR, AKT1은 network 분석을 해본 거의 모든 질병에서 hub로 �
 
 ## 1) 유전적 근거가 가장 강한 경로 {#w12-s2-1}
 
-사람의 유전적 근거가 있는 표적 → 임상 개발 성공 확률 약 **2배**. 원리는 단순: 표적을 바꾸는 variant = 사람에게서 평생 진행된 자연 무작위 실험(🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)의 논리)
+사람의 유전적 근거가 있는 표적은 임상 개발에 성공할 확률이 약 **2배**. 원리는 단순함: 표적을 바꾸는 variant는 사람에게서 평생 진행된 자연 무작위 실험임(🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2)의 논리)
 
--   **PCSK9** — loss-of-function 보인자는 LDL ↓, 심혈관 위험 ↓ → inhibitor가 효과적
--   **IL6R** — IL-6 차단과 같은 효과를 내는 variant가 관상동맥질환 위험 ↓와 연관 → tocilizumab의 심혈관 signal
+-   **PCSK9**: loss-of-function 보인자는 LDL과 심혈관 위험이 낮음. 그래서 inhibitor가 효과적
+-   **IL6R**: IL-6 차단과 같은 효과를 내는 variant가 관상동맥질환 위험 감소와 연관됨. tocilizumab의 심혈관 signal을 뒷받침하는 근거
 
 ## 2) ⚠️ 효과 방향 {#w12-s2-2}
 
 ::: {.callout-warning collapse="true"}
 ## 이 수업에서 결과가 가장 나쁜 실수
 
-위험 allele이 표적 활성을 **올리면** → inhibitor. **낮추면** → 표적이 보호 역할일 수 있음 → 억제하면 환자가 더 나빠짐
+위험 allele이 표적 활성을 **올리면** inhibitor를 써야 함. **낮추면** 표적이 보호 역할일 수 있어서, 억제하면 환자가 더 나빠짐
 
 두 가지 복병:
 
--   ⚠️ **비일관성.** 위험 allele이 gene 발현을 낮추는데, 환자 조직에선 그 gene이 높게 나올 수 있음. 대개 손상된 보호 반응 → 치료 방향은 발현 data가 시사하는 것과 반대
--   ⚠️ **조직 특이성.** 방향이 조직마다 다를 수 있음. 봐야 할 조직 = 질병 과정이 실제로 일어나는 조직 (🔗 [W5](../part3/w5_scrna_qc.qmd), 🔗 [W7](../part4/w7_spatial_basics.qmd))
+-   ⚠️ **비일관성.** 위험 allele이 gene 발현을 낮추는데, 환자 조직에선 그 gene이 높게 나올 수 있음. 대개 보호 반응이 손상된 경우이고, 이때 치료 방향은 발현 data가 시사하는 것과 반대
+-   ⚠️ **조직 특이성.** 방향이 조직마다 다를 수 있음. 봐야 할 조직은 질병 과정이 실제로 일어나는 조직 (🔗 [W5](../part3/w5_scrna_qc.qmd), 🔗 [W7](../part4/w7_spatial_basics.qmd))
 
-→ ✅ 방향은 환자 조직의 fold change가 아니라 **유전학 + MR**로 정하기
+✅ 방향은 환자 조직의 fold change가 아니라 **유전학 + MR**로 정하기
 :::
 
 ## 3) Signature reversal과 network proximity {#w12-s2-3}
 
--   **Signature reversal** (CMap, LINCS) — 질병 signature와 반대(음의 상관)인 발현 signature를 가진 약물 찾기. ⚠️ 참조 profile = 고농도로 처리한 cell line. 후보 만들기엔 유용, 근거는 아님
--   **Network proximity** — 약물 표적이 질병 module과 가까운가? ⚠️ §1의 study bias를 전부 물려받음 → degree-matched null과 비교해야만 의미 있음
+-   **Signature reversal** (CMap, LINCS): 질병 signature와 반대(음의 상관)인 발현 signature를 가진 약물 찾기. ⚠️ 참조 profile은 고농도로 처리한 cell line에서 나옴. 후보를 만드는 데는 유용하지만 근거는 아님
+-   **Network proximity**: 약물 표적이 질병 module과 가까운가? ⚠️ §1의 study bias가 그대로 들어감. 그래서 degree-matched null과 비교해야만 의미 있음
 
 ------------------------------------------------------------------------
 
@@ -108,11 +108,11 @@ TP53, EGFR, AKT1은 network 분석을 해본 거의 모든 질병에서 hub로 �
 ::: {.callout-tip collapse="true"}
 ## 5번 질문 자세히: 안전성 연구는 사람이 이미 해둠
 
-표적에 자연적인 loss-of-function variant를 가진 사람 = 그 표적을 평생 억제하면 무슨 일이 생기는지 미리 보여 주는 사례
+표적에 자연적인 loss-of-function variant를 가진 사람은 그 표적을 평생 억제하면 무슨 일이 생기는지 미리 보여 주는 사례
 
--   ✅ **gnomAD** — LoF 보인자가 몇 명? 그 gene에 LoF가 유독 적나? (**LOEUF**가 0에 가까움 = LoF를 못 견딤 → 좋은 표적이 아닐 가능성 높음)
--   ✅ 그 variant의 **PheWAS** — 그 밖에 뭐가 달라지나? 그게 예측 가능한 부작용
--   ✅ Human knockout(동형접합 보인자)이 있다면 → 임상시험 전 단계에서 얻을 수 있는 가장 강한 signal
+-   ✅ **gnomAD**: LoF 보인자가 몇 명? 그 gene에 LoF가 유독 적나? (**LOEUF**가 0에 가까우면 LoF를 못 견딘다는 뜻이고, 좋은 표적이 아닐 가능성이 높음)
+-   ✅ 그 variant의 **PheWAS**: 그 밖에 뭐가 달라지나? 그게 예측 가능한 부작용
+-   ✅ Human knockout(동형접합 보인자)이 있다면 임상시험 전 단계에서 얻을 수 있는 가장 강한 signal
 
 ⚠️ LoF를 아주 못 견디는 gene은 그 자체가 경고 신호. 억제하면 질병 말고 다른 데도 영향이 갈 가능성 높음
 :::
@@ -127,9 +127,9 @@ TP53, EGFR, AKT1은 network 분석을 해본 거의 모든 질병에서 hub로 �
 
 [**Open Targets**](https://platform.opentargets.org) → 내 gene → target profile
 
--   ① **Tractability** — small molecule? 항체? 적응증 상관없이 어느 임상 단계까지 갔나?
--   ② **안전성** — 특정 장기 독성 경고가 있나?
--   ③ **알려진 약물** — 어떤 질환이든 이미 승인된 약이 있나?
+-   ① **Tractability**: small molecule? 항체? 적응증 상관없이 어느 임상 단계까지 갔나?
+-   ② **안전성**: 특정 장기 독성 경고가 있나?
+-   ③ **알려진 약물**: 어떤 질환이든 이미 승인된 약이 있나?
 -   ④ [**gnomAD**](https://gnomad.broadinstitute.org) → **LOEUF**. LoF를 견디는 gene인가?
 -   ⑤ [**Open Targets**](https://platform.opentargets.org) → lead variant 페이지 → 그 variant가 연관된 다른 형질(= PheWAS). 또 뭐에 영향을 주나?
 
@@ -217,7 +217,7 @@ round(float(spearmanr(np.log10(pubs + 1), deg).statistic), 3)
 
 :::
 
-💡 문헌 기반 network 대부분에서 이 상관이 강하게 나옴. 같이 보고하면 → hub 주장이 "당연한 결과"가 아니라 믿을 만한 주장이 됨
+💡 문헌 기반 network 대부분에서 이 상관이 강하게 나옴. 같이 보고하면 hub 주장이 "당연한 결과"가 아니라 믿을 만한 주장이 됨
 
 ## 3) Degree-matched null {#w12-s4-3}
 
@@ -263,7 +263,7 @@ print("observed:", round(observed, 2), " null mean:", round(np.mean(null), 2))
 
 :::
 
-✅ 관측된 proximity가 degree-matched null보다 확실히 낫지 않다면 → 잰 건 중요도가 아니라 인기도
+✅ 관측된 proximity가 degree-matched null보다 확실히 낫지 않다면 잰 것은 중요도가 아니라 인기도
 
 **직접 해 보기** — [네트워크 null model: 차수 보존 재배선 ↗](https://kkonoo.github.io/edu_sims/sims/network-null/?lang=ko){target="_blank"}
 
@@ -282,15 +282,15 @@ print("observed:", round(observed, 2), " null mean:", round(np.mean(null), 2))
 
 # 📝 요약
 
--   생물학적 network = 출판된 실험의 집합 → ⚠️ **node degree는 논문 수를 따라감**
+-   생물학적 network는 출판된 실험을 모은 것이라서 ⚠️ **node degree는 논문 수를 따라감**
 -   ⚠️ Hub 분석은 거의 모든 질병에서 TP53, EGFR, AKT1을 다시 찾아냄. ✅ Degree-matched null 쓰기
--   ⚠️ 문헌 없는 gene = degree ≈ 0 → 아무리 중요해도 우선순위에 못 오름
+-   ⚠️ 문헌 없는 gene은 degree ≈ 0이라서 아무리 중요해도 우선순위에 못 오름
 -   ✅ Network는 **module** 찾기, 흩어진 hit 연결, 기전 제안에 유용. 단, 가설로서
--   ✅ **유전적 근거 = 표적이 승인까지 갈 확률을 약 2배로**. 쓸 수 있는 가장 강한 근거
+-   ✅ **유전적 근거가 있으면 표적이 승인까지 갈 확률이 약 2배**. 쓸 수 있는 가장 강한 근거
 -   ⚠️ **효과 방향이 agonist vs antagonist를 결정.** 거꾸로 판단하면 환자에게 해
--   ⚠️ Signature reversal = 고농도 cell line 기반. 근거가 아니라 후보 목록
+-   ⚠️ Signature reversal은 고농도 cell line 기반. 근거가 아니라 후보 목록
 -   ✅ 여섯 질문: 유전학 · 방향 · 발현 · tractability · 안전성 · **진료를 바꾸나**
--   ✅ LoF 보인자와 PheWAS = 공짜로 얻는 사람의 평생 안전성 readout. 표적 제안 전에 꼭 확인
+-   ✅ LoF 보인자와 PheWAS는 공짜로 얻는 사람의 평생 안전성 readout. 표적 제안 전에 꼭 확인
 
 ------------------------------------------------------------------------
 

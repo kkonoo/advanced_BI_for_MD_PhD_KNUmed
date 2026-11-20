@@ -1412,6 +1412,6 @@
 <text x="82" y="66" font-size="11.5" font-weight="700" fill="#a8401d">⚠️ Every skyscraper is a locus, not a gene.</text>
 <text x="82" y="80" font-size="11.5" fill="#a05a3f">~90% of them are non-coding.</text>
 <rect x="414" y="52" width="356" height="34" rx="6" fill="#f7f5fa"/>
-<text x="426" y="66" font-size="11.5" font-weight="700" fill="#5B4D80">⚠️ Peak height = evidence, not importance.</text>
+<text x="426" y="66" font-size="11.5" font-weight="700" fill="#5B4D80">⚠️ Peak height shows evidence, not importance.</text>
 <text x="426" y="80" font-size="11.5" fill="#6d6088">A taller peak often just means a larger n.</text>
 </svg>

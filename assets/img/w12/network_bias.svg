@@ -240,6 +240,6 @@
 <text x="480" y="326" font-size="12" font-weight="700" fill="#a8401d">Degree tracks attention, not importance.</text>
 <rect x="24" y="358" width="832" height="72" rx="9" fill="#fbeee8" stroke="#D85A30" stroke-width="1.8"/>
 <text x="48" y="382" font-size="12.5" fill="#a05a3f">Interaction databases are built from published experiments, and experiments concentrate on genes people already study.</text>
-<text x="48" y="402" font-size="12.5" fill="#a05a3f">So a "hub" analysis re-discovers TP53, EGFR and AKT1 &#8212; for almost every disease that has ever been networked.</text>
+<text x="48" y="402" font-size="12.5" fill="#a05a3f">So a "hub" analysis re-discovers TP53, EGFR and AKT1 for almost every disease ever studied with network analysis.</text>
 <text x="48" y="422" font-size="12.5" font-weight="700" fill="#a8401d">&#9989; Compare against a degree-matched null, or use a method that corrects for study bias.</text>
 </svg>

@@ -41,6 +41,6 @@
 
   <!-- footer -->
   <rect x="24" y="362" width="832" height="62" rx="9" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
-  <text x="48" y="386" font-size="12.5" fill="#555">💡 The QC panels are not wasted — they belong in the supplement, where a careful reader will check them and nobody else has to.</text>
+  <text x="48" y="386" font-size="12.5" fill="#555">💡 The QC panels are not wasted. They belong in the supplement, where a careful reader will check them and nobody else has to.</text>
   <text x="48" y="408" font-size="12.5" fill="#555">✅ Write every caption <tspan font-weight="700" fill="#4A3D6B">before</tspan> you draw the figure. If the sentence is vague, the figure will be too.</text>
 </svg>

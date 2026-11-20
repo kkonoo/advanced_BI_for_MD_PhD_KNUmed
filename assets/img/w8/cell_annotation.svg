@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
   <rect width="880" height="420" fill="#fcfcfb"/>
-  <text x="24.0" y="28.0" font-size="15" fill="#4A3D6B" font-weight="700">Spots are deconvolved. Cells get one label each — and the label inherits the segmentation.</text>
+  <text x="24.0" y="28.0" font-size="15" fill="#4A3D6B" font-weight="700">Spots are deconvolved. Cells get one label each, and the label depends on the segmentation.</text>
   <rect x="24" y="46" width="266" height="280" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
   <text x="42.0" y="72.0" font-size="13" fill="#4A3D6B" font-weight="700">① Spot → proportions</text>
   <text x="42.0" y="90.0" font-size="10.5" fill="#8A7FA3">Visium: deconvolution</text>
@@ -58,7 +58,7 @@
   <rect x="420" y="176" width="140" height="24" rx="12" fill="#185FA5" fill-opacity="0.12"/>
   <text x="490.0" y="192.0" font-size="11" fill="#185FA5" font-weight="700" text-anchor="middle">macrophage · score 0.91</text>
   <text x="325.0" y="270.0" font-size="11.5" fill="#666">One label per cell, plus a confidence</text>
-  <text x="325.0" y="296.0" font-size="11.5" fill="#666">Only panel genes are used —</text>
+  <text x="325.0" y="296.0" font-size="11.5" fill="#666">Only panel genes are used:</text>
   <text x="325.0" y="312.0" font-size="11.5" fill="#a8401d" font-weight="700">no marker on the panel → no call</text>
   <path d="M575 186 L580 186" stroke="#b9b0cc" stroke-width="2"/>
   <path d="M588 186 l-9 -5 v10 z" fill="#b9b0cc"/>
@@ -467,6 +467,6 @@
   <text x="608.0" y="296.0" font-size="11.5" fill="#a8401d" font-weight="700">Uncertain calls pile up at contacts</text>
   <text x="608.0" y="312.0" font-size="11.5" fill="#666">→ spillover (W7 §3.2), not a new state</text>
   <rect x="24" y="338" width="832" height="70" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
-  <text x="48.0" y="362.0" font-size="12.5" fill="#7a5f2a" font-weight="700">⚠️ Reference bias again (§1.2): a type missing from the reference — or from the panel — is forced into its nearest neighbour.</text>
-  <text x="48.0" y="388.0" font-size="12.5" fill="#7a5f2a">💡 Visium HD: an 8 µm bin can hold parts of two cells → RCTD 'doublet' mode, or rebuild cells first (bin2cell).</text>
+  <text x="48.0" y="362.0" font-size="12.5" fill="#7a5f2a" font-weight="700">⚠️ Reference bias again (§1.2): a type missing from the reference (or from the panel) is forced into its nearest neighbour.</text>
+  <text x="48.0" y="388.0" font-size="12.5" fill="#7a5f2a">💡 Visium HD: an 8 µm bin can hold parts of two cells. Use RCTD 'doublet' mode, or rebuild cells first (bin2cell).</text>
 </svg>

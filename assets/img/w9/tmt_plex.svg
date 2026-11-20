@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
   <rect width="880" height="420" fill="#fcfcfb"/>
   <defs><linearGradient id="pool" x1="0" y1="0" x2="0" y2="1"><stop offset="0.0" stop-color="#534AB7"/><stop offset="0.5" stop-color="#1D9E75"/><stop offset="1.0" stop-color="#BA7517"/></linearGradient></defs>
-  <text x="24.0" y="28.0" font-size="15" fill="#4A3D6B" font-weight="700">Label-free runs each sample alone. TMT pools 16–18 samples into one run — and that run is a batch.</text>
+  <text x="24.0" y="28.0" font-size="15" fill="#4A3D6B" font-weight="700">Label-free runs each sample alone. TMT pools 16–18 samples into one run, and that run is a batch.</text>
   <rect x="24" y="46" width="266" height="280" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
   <text x="42.0" y="72.0" font-size="13" fill="#4A3D6B" font-weight="700">① Label-free</text>
   <text x="42.0" y="90.0" font-size="10.5" fill="#8A7FA3">one sample = one LC-MS run</text>

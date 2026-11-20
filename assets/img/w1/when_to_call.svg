@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
   <rect width="880" height="400" fill="#fcfcfb"/>
 
-  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">When you involve an analyst decides what is still fixable.</text>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">What you can still fix depends on when you call an analyst.</text>
 
   <!-- GOOD box (top left) -->
   <rect x="40" y="48" width="368" height="66" rx="8" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.5"/>
@@ -13,7 +13,7 @@
   <!-- BAD box (top right) -->
   <rect x="472" y="48" width="368" height="66" rx="8" fill="#fbeee8" stroke="#D85A30" stroke-width="1.5"/>
   <text x="494" y="72" font-size="13.5" font-weight="700" fill="#a8401d">❌ Most people call here instead</text>
-  <text x="494" y="94" font-size="12.5" fill="#a05a3f">Nothing above is a choice any more — only a post-mortem.</text>
+  <text x="494" y="94" font-size="12.5" fill="#a05a3f">Nothing above is a choice any more, only a post-mortem.</text>
   <path d="M750 114 L750 178" stroke="#D85A30" stroke-width="2" stroke-dasharray="5 4"/>
   <path d="M750 184 l-5 -8 h10 z" fill="#D85A30"/>
 

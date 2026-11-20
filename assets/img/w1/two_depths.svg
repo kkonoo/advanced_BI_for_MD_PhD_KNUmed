@@ -43,5 +43,5 @@
 
   <!-- ── bottom callout ────────────────────────────────── -->
   <rect x="24" y="356" width="832" height="46" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
-  <text x="48" y="384" font-size="13.5" fill="#7a5f2a">This course lives on the right. Code appears so that you can read it and doubt it — not so that you maintain it.</text>
+  <text x="48" y="384" font-size="13.5" fill="#7a5f2a">This course focuses on the right column. Code appears so that you can read it and doubt it, not so that you maintain it.</text>
 </svg>

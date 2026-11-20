@@ -37,13 +37,13 @@
 <rect x="540" y="56" width="316" height="94" rx="9" fill="#ffffff" stroke="#D85A30" stroke-width="1.8"/>
 <text x="562" y="82" font-size="12" font-weight="700" fill="#8A7FA3">top vs bottom decile</text>
 <text x="562" y="118" font-size="27" font-weight="700" fill="#D85A30">6.2×</text>
-<text x="562" y="138" font-size="11" fill="#777">6.9% vs 1.1% — both tails, the number papers quote</text>
+<text x="562" y="138" font-size="11" fill="#777">6.9% vs 1.1%: both tails, the number papers quote</text>
 <rect x="540" y="162" width="316" height="94" rx="9" fill="#ffffff" stroke="#534AB7" stroke-width="1.8"/>
 <text x="562" y="188" font-size="12" font-weight="700" fill="#8A7FA3">top vs middle decile</text>
 <text x="562" y="224" font-size="27" font-weight="700" fill="#534AB7">2.4×</text>
-<text x="562" y="244" font-size="11" fill="#777">6.9% vs 2.8% — the statistically honest one</text>
+<text x="562" y="244" font-size="11" fill="#777">6.9% vs 2.8%: the statistically honest one</text>
 <rect x="540" y="268" width="316" height="94" rx="9" fill="#ffffff" stroke="#185FA5" stroke-width="1.8"/>
 <text x="562" y="294" font-size="12" font-weight="700" fill="#8A7FA3">top decile vs everyone else</text>
 <text x="562" y="330" font-size="27" font-weight="700" fill="#185FA5">2.3×</text>
-<text x="562" y="350" font-size="11" fill="#777">6.9% vs 2.9% — the one that matches clinical use</text>
+<text x="562" y="350" font-size="11" fill="#777">6.9% vs 2.9%: the one that matches clinical use</text>
 </svg>

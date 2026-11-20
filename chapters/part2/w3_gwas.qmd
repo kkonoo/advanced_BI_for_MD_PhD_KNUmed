@@ -35,13 +35,13 @@ By the end of this chapter you should be able to:
 
 # 1. Why GWAS Belongs in a Clinical Course 🩺 {#w3-s1}
 
-## 1) Five things it is already doing to your practice {#w3-s1-1}
+## 1) Five ways it already affects your practice {#w3-s1-1}
 
 -   **Drug target validation**: targets with human genetic support are roughly **twice** as likely to survive to approval
 -   **Disease subtyping**: the same ICD code can cover different genetic architectures and different biology
--   **Risk stratification** — polygenic scores in preventive medicine (🔗 [W4](w4_prs.qmd))
+-   **Risk stratification**: polygenic scores in preventive medicine (🔗 [W4](w4_prs.qmd))
 -   **Shared aetiology**: genetic correlation quantifies why two of your diagnoses keep co-occurring
--   **Causal inference** — Mendelian randomization tests causality without running an RCT
+-   **Causal inference**: Mendelian randomization tests causality without running an RCT
 
 💡 Open any recent *Nature Medicine* issue. There is a good chance GWAS data supports the clinical claim, three citations down.
 
@@ -74,7 +74,7 @@ Schizophrenia GWAS found essentially **nothing** at n in the hundreds, and **108
 -   ⚠️ Most "failed" early GWAS were not wrong. They were **underpowered for a polygenic architecture**
 -   💡 This is why a 200-patient single-centre GWAS is not a viable project, and why consortium membership is the actual currency in this field
 
-→ Effect size and druggability are also unrelated. The common *HMGCR* variant explains \~0.26% of LDL variance. Statins are among the most consequential drugs ever made.
+Effect size and druggability are also unrelated. The common *HMGCR* variant explains only \~0.26% of LDL variance, yet statins are among the most consequential drugs ever made.
 :::
 
 ------------------------------------------------------------------------
@@ -159,7 +159,7 @@ smf.logit("disease ~ SNP"
 
 :::
 
-⚠️ And the trade-off nobody states: restricting to one ancestry gives cleaner statistics but **worse generalisability** (§7).
+⚠️ And the trade-off nobody states: restricting to one ancestry gives cleaner statistics but **worse generalisability** (§6).
 :::
 
 **Try it** — [Multiple testing and FDR ↗](https://kkonoo.github.io/edu_sims/sims/multiple-testing/?lang=en){target="_blank"}
@@ -214,7 +214,7 @@ LD both **enables** GWAS, because one measured variant tags dozens of unmeasured
 
 **① Fine-mapping.** Bayesian methods (SuSiE, FINEMAP) give each variant a **posterior inclusion probability** and return a **credible set**: the smallest set containing the causal variant with, say, 95% probability.
 
--   💡 A credible set of 3 is a result. A credible set of 40 is an admission
+-   💡 A credible set of 3 is a result. A credible set of 40 means the locus was not narrowed down
 -   ⚠️ Requires an **ancestry-matched LD reference**. A European panel applied to a Korean cohort corrupts the output without any warning
 -   ⚠️ If PIPs are spread thinly across many variants, the honest conclusion is *"this locus cannot be resolved in this sample"*
 
@@ -325,9 +325,9 @@ For some traits common-SNP GWAS is nearing saturation. What arrays capture poorl
 ## Two examples worth remembering at the bedside
 
 -   **UGT2B17 deletion → prostate cancer.** Alters testosterone metabolism. Deletion frequency varies enormously by population, ⚠️ so this is **population-specific risk that is invisible to SNP-only analysis**
--   **CYP2D6 copy number → drug dosing.** Deletions and duplications shift codeine → morphine conversion between poor and ultra-rapid metabolizers. 💡 This is pharmacogenetics in its purest form: the variant does not change *whether* you treat, it changes the **dose**
+-   **CYP2D6 copy number → drug dosing.** Deletions and duplications shift how much codeine is converted to morphine, from poor to ultra-rapid metabolizers. 💡 This is pharmacogenetics in its purest form: the variant does not change *whether* you treat, it changes the **dose**
 
-→ Aggregating loss-of-function variants across biobanks (gnomAD **LOEUF**) produces dosage-sensitivity maps, which are directly useful when you have a variant of uncertain significance in front of you.
+Aggregating loss-of-function variants across biobanks (gnomAD **LOEUF**) produces dosage-sensitivity maps, which are directly useful when you have a variant of uncertain significance in front of you.
 :::
 
 ------------------------------------------------------------------------
@@ -388,7 +388,7 @@ Most GWAS, and therefore most fine-mapping and most polygenic scores, are Europe
 
 No installation. Bring one disease you actually treat.
 
-## 1) GWAS Catalog — what is known? {#w3-s7-1}
+## 1) GWAS Catalog: what is known? {#w3-s7-1}
 
 [**ebi.ac.uk/gwas**](https://www.ebi.ac.uk/gwas) → search your disease.
 
@@ -397,7 +397,7 @@ No installation. Bring one disease you actually treat.
 -   ③ Look at the reported variants. How many are labelled with a gene, and how many are intergenic?
 -   ④ ⚠️ Is there **any** East Asian study for your disease? What was its n compared with the European one?
 
-## 2) Open Targets — is there a drug? {#w3-s7-2}
+## 2) Open Targets: is there a drug? {#w3-s7-2}
 
 [**platform.opentargets.org**](https://platform.opentargets.org) → your disease → the target list.
 
@@ -405,20 +405,20 @@ No installation. Bring one disease you actually treat.
 -   ⑥ Is there an approved or trial drug against it? For which indication?
 -   ⑦ 💡 Find a target with strong genetic evidence and **no** drug. That is a research question with a built-in justification paragraph.
 
-## 3) Interrogating any locus — the checklist {#w3-s7-3}
+## 3) Interrogating any locus: the checklist {#w3-s7-3}
 
 Keep this for journal club:
 
 -   ① **Replicated** in an independent cohort?
--   ② **How big is the credible set** — or was fine-mapping skipped?
+-   ② **How big is the credible set**, or was fine-mapping skipped?
 -   ③ **Coding, regulatory, or unknown?** Is there an eQTL?
--   ④ **Which gene, and which cell type?** Remember: nearest ≠ causal
+-   ④ **Which gene, and which cell type?** Remember that the nearest gene is not necessarily the causal one
 -   ⑤ **Effect size and direction**: direction determines the drug strategy
 -   ⑥ **Which ancestry**, and does it match the patients you would apply it to?
 
 ## 4) If you want to touch summary statistics {#w3-s7-4}
 
-Public summary statistics have one row per variant and no individual genotypes, so they are freely shareable. Download the study you chose in §7.1 — `scripts/download_public_data.R` handles the column-name mess for you.
+Public summary statistics have one row per variant and no individual genotypes, so they are freely shareable. Download the study you chose in §7.1. The script `scripts/download_public_data.R` handles the column-name mess for you.
 
 ::: {.panel-tabset group="lang"}
 
@@ -526,11 +526,11 @@ print("lambda_1000 :", round(1 + (lam(clean.P) - 1) * 1000 / n_eff, 4))
 
 :::
 
-💡 ③ is the one worth remembering. A large biobank GWAS can show λ = 1.15 and be perfectly well calibrated, because λ grows with n under genuine polygenicity. **λ₁₀₀₀ is what makes two studies comparable** — and its absence from a paper is a fair question.
+💡 ③ is the one worth remembering. A large biobank GWAS can show λ = 1.15 and be perfectly well calibrated, because λ grows with n under genuine polygenicity. **λ₁₀₀₀ is what makes two studies comparable.** If a paper does not report it, it is fair to ask why.
 
 ## 5) Before next week {#w3-s7-5}
 
-**W4 — Polygenic Risk Scores.** Browse [**pgscatalog.org**](https://www.pgscatalog.org) for one disease and note the development-cohort ancestry. We start there.
+**W4: Polygenic Risk Scores.** Browse [**pgscatalog.org**](https://www.pgscatalog.org) for one disease and note the development-cohort ancestry. We start there.
 
 ------------------------------------------------------------------------
 

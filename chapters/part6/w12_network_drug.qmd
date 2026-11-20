@@ -44,7 +44,7 @@ Experiments concentrate on genes people already study. So node degree tracks **p
 ::: {.callout-important collapse="true"}
 ## The answer to the motivating question is: not at all surprised
 
-TP53, EGFR and AKT1 come out as hubs for nearly every disease that has ever been networked. They have tens of thousands of papers each, so they have edges to everything.
+TP53, EGFR and AKT1 come out as hubs for nearly every disease that has ever been studied with network analysis. They have tens of thousands of papers each, so they have edges to everything.
 
 ⚠️ Concretely, this means:
 
@@ -76,8 +76,8 @@ TP53, EGFR and AKT1 come out as hubs for nearly every disease that has ever been
 
 Targets with human genetic support are roughly **twice as likely** to succeed through clinical development. The mechanism is simple: a variant that alters the target is a natural, lifelong, randomised experiment in humans. This is the argument from 🔗 [W3 §3.2](../part2/w3_gwas.qmd#w3-s3-2).
 
--   **PCSK9**: loss-of-function carriers have low LDL and low cardiovascular risk → inhibitors work
--   **IL6R**: a variant mimicking IL-6 blockade associates with lower CHD risk → tocilizumab's cardiovascular signal
+-   **PCSK9**: loss-of-function carriers have low LDL and low cardiovascular risk, so inhibitors work
+-   **IL6R**: a variant mimicking IL-6 blockade associates with lower CHD risk, which supports tocilizumab's cardiovascular signal
 
 ## 2) ⚠️ Direction of effect {#w12-s2-2}
 
@@ -91,13 +91,13 @@ Two complications:
 -   ⚠️ **Incoherence.** A risk allele can down-regulate a gene that appears up-regulated in patients. Often that is an impaired protective response, and the therapeutic direction is the opposite of what the expression data suggests
 -   ⚠️ **Tissue-specificity.** Direction can differ between tissues. The relevant tissue is the one where the disease process happens (🔗 [W5](../part3/w5_scrna_qc.qmd), 🔗 [W7](../part4/w7_spatial_basics.qmd))
 
-→ ✅ Establish direction from **genetics plus MR**, not from a fold change in patient tissue.
+✅ Establish direction from **genetics plus MR**, not from a fold change in patient tissue.
 :::
 
 ## 3) Signature reversal and network proximity {#w12-s2-3}
 
 -   **Signature reversal** (CMap, LINCS): find a drug whose expression signature is anti-correlated with the disease signature. ⚠️ Reference profiles come from cell lines at high doses. Useful for generating candidates; not evidence
--   **Network proximity**: is a drug's target close to the disease module? ⚠️ Inherits the study bias in §1, so it needs a degree-matched null to mean anything
+-   **Network proximity**: is a drug's target close to the disease module? ⚠️ Carries over the study bias from §1, so it needs a degree-matched null to mean anything
 
 ------------------------------------------------------------------------
 
@@ -217,7 +217,7 @@ round(float(spearmanr(np.log10(pubs + 1), deg).statistic), 3)
 
 :::
 
-💡 In most literature-derived networks this correlation is strong. Report it, and your hub claim becomes credible instead of automatic.
+💡 In most literature-derived networks this correlation is strong. Report it, and your hub claim becomes credible rather than an obvious result.
 
 ## 3) A degree-matched null {#w12-s4-3}
 

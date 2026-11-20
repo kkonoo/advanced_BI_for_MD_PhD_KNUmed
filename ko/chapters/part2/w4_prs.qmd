@@ -17,12 +17,12 @@ knitr:
 
 이 장을 마치면 다음을 할 수 있어야 합니다.
 
--   다유전자 위험 점수(polygenic risk score, PRS)가 무엇이며 눈앞의 환자에게 어떤 변화를 만드는지 설명한다
+-   다유전자 위험 점수(polygenic risk score, PRS)가 무엇이며 눈앞의 환자에게 무엇이 달라지는지 설명한다
 -   직접 구현하지 않더라도 methods section에 나오는 네 가지 방법의 이름을 알아본다
 -   ⚠️ **Base GWAS**와 **target cohort**를 구분하고, 이 차이가 모든 것을 결정하는 이유를 설명한다
--   PRS 성능 주장에 등장하는 incremental R², ΔAUC, calibration과 decile trick을 읽는다
+-   PRS 논문이 성능을 주장할 때 쓰는 incremental R², ΔAUC, calibration, decile trick을 해석한다
 -   ⚠️ 유럽인에서 만든 PRS를 한국 환자에게 그대로 적용해서는 안 되는 이유를 설명한다
--   AUC가 아니라 ACCE를 이용해 임상 적용 준비도를 판단한다
+-   임상에 쓸 준비가 되었는지를 AUC가 아니라 ACCE로 판단한다
 -   환자가 행동으로 옮길 수 있는 framing으로 유전적 위험 결과를 전달한다
 :::
 
@@ -36,7 +36,7 @@ knitr:
 
 ## 1) Variant 하나는 쓸모없지만, 백만 개는 그렇지 않다 {#w4-s1-1}
 
-🔗 [W3](w3_gwas.qmd)에서 보았듯 GWAS는 *p* \< 5×10⁻⁸인 variant를 보고하며 각각의 odds ratio는 대략 **1.02–1.15**입니다. 하나만으로 임상적 행동을 결정할 가치는 없습니다.
+🔗 [W3](w3_gwas.qmd)에서 보았듯 GWAS는 *p* \< 5×10⁻⁸인 variant를 보고하며 각각의 odds ratio는 대략 **1.02–1.15**입니다. 하나만 보고 임상 결정을 내릴 만한 variant는 없습니다.
 
 PRS는 이를 모두 합산합니다. 각 GWAS effect size $\hat\beta_j$에 개인의 allele dosage $G_{ij}$를 곱합니다.
 
@@ -90,10 +90,10 @@ GWAS에 사용된 sample의 PRS를 계산하는 건 아무 의미가 없음..
 ::: {.callout-note collapse="true"}
 ## 방법 선택이 논문 읽기에 영향을 주는가?
 
-대체로 x. 방법 간 차이 \<\< ancestry와 cohort에서 생기는 차이
+대체로 x. 방법 간 차이는 ancestry와 cohort에서 생기는 차이보다 훨씬 작음
 
--   ⚠️ **Threshold 기반** 방법(C+T, PRSice-2): check the parameters for tuning
--   ✅ **multi-ancestry** 방법: for non European samples (including Koreans)
+-   ⚠️ **Threshold 기반** 방법(C+T, PRSice-2): tuning에 쓴 parameter 확인
+-   ✅ **multi-ancestry** 방법: 비유럽 sample(한국인 포함)에 적합
 :::
 
 ------------------------------------------------------------------------
@@ -104,7 +104,7 @@ GWAS에 사용된 sample의 PRS를 계산하는 건 아무 의미가 없음..
 
 ## 1) PRS 단독이 아니라 추가 가치 {#w4-s3-1}
 
-PRS **단독**으로 AUC 0.64 –\> good? ... 사실 많은 질환에서 나이와 성별만으로 그 정도는 가능
+PRS **단독**으로 AUC 0.64면 좋은 걸까? ... 사실 많은 질환에서 나이와 성별만으로도 그 정도는 나옴
 
 ```         
 Model A (clinical) : age + sex + BMI + family history + labs
@@ -114,12 +114,12 @@ Model B (clinical + PRS)
   incremental R²  =  R²(B)  − R²(A)      (Nagelkerke, for binary outcomes)
 ```
 
--   ❌ “PRS AUC = 0.64” — 이것만으로는 해석 불가
--   ✅ “PRS를 추가하자 AUC가 0.72에서 0.74로 증가했다(*p* = 0.003)” — 이제 판단 가능
+-   ❌ “PRS AUC = 0.64”: 이것만으로는 해석 불가
+-   ✅ “PRS를 추가하자 AUC가 0.72에서 0.74로 증가했다(*p* = 0.003)”: 이제 판단 가능
 
 💡 좋은 PRS에서 일반적인 ΔAUC는 0.01–0.03 정도. 40만 명의 biobank에서는 충분히 유의하지만 환자 한 명에게는 흔히 무시할 정도..
 
-## 2) Calibration — 아무도 보여주지 않는 metric {#w4-s3-2}
+## 2) Calibration: 아무도 보여주지 않는 metric {#w4-s3-2}
 
 **Discrimination**: model이 사람들의 순서를 올바르게 매기는가?\
 **Calibration**: 예측한 probability가 *맞는가*? (prob = PRS + clinical data...)
@@ -127,15 +127,15 @@ Model B (clinical + PRS)
 “10년 동안 위험 10%”라고 들은 사람 중 실제로 약 10%가 질환에 걸립니까?
 
 ::: {.callout-warning collapse="true"}
-## Discrimination은 좋지만 calibration은 형편없는 결과를 만들기 쉽다
+## Discrimination은 좋은데 calibration은 형편없는 결과가 쉽게 나온다
 
-위 그림의 오른쪽 panel을 보세요. 두 선 모두 환자의 순위를 똑같이 매깁니다. 그중 하나는 환자에게 실제의 두 배인 숫자를 제시합니다.
+위 그림의 오른쪽 panel을 보세요. 두 선 모두 환자의 순위를 똑같이 매깁니다. 그런데 그중 하나는 환자에게 실제보다 두 배 높은 위험을 알려 줍니다.
 
--   ⚠️ UK Biobank에서 calibration한 PRS는 한국 병원 population에서 calibration (x) ... Baseline incidence, age structure, competing risk가 다름
--   ✅ Recalibration(intercept 또는 baseline hazard 업데이트)으로 해결. 다만 population을 대표하는 cohort에서 실제로 *수행...*
--   ⚠️ Biobank volunteer는 일반 population보다 건강하므로 여기에서 계산한 absolute risk는 그냥 낮음
+-   ⚠️ UK Biobank에서 calibration한 PRS는 한국 병원 population에서 calibration (x). Baseline incidence, age structure, competing risk가 다르기 때문
+-   ✅ Recalibration(intercept 또는 baseline hazard 업데이트)으로 해결. 다만 population을 대표하는 cohort에서 실제로 *해야* 함
+-   ⚠️ Biobank volunteer는 일반 population보다 건강하므로 여기에서 계산한 absolute risk는 체계적으로 낮게 나옴
 
-→ 논문이 AUC만 보고하고 calibration plot을 보여주지 않는다면 제시된 absolute risk를 신뢰할 수 없음!
+논문이 AUC만 보고하고 calibration plot을 보여주지 않는다면 제시된 absolute risk를 신뢰할 수 없음!
 :::
 
 ## 3) PRS 표현은 조심스럽게 {#w4-s3-3}
@@ -156,7 +156,7 @@ Model B (clinical + PRS)
 
 ## 5) 누구의 genome으로 만들었는가? {#w4-s3-5}
 
-다른 무엇보다 먼저 **base** GWAS의 ancestry 확인!! §5 전체가 그 이유를 설명합니다.
+다른 무엇보다 먼저 **base** GWAS의 ancestry 확인!! 그 이유는 §5 전체에서 다룹니다.
 
 ------------------------------------------------------------------------
 
@@ -166,12 +166,12 @@ Model B (clinical + PRS)
 
 Genomic test를 판단하는 표준 framework
 
--   **A**nalytical validity — pipeline이 score를 정확하고 재현 가능하게 계산하는가?
--   **C**linical validity — score가 **target population**의 질환과 연관되는가?
--   **C**linical utility — 이를 *사용하면* outcome이 개선되는가?
--   **E**LSI — 형평성, consent, insurance, communication 같은 ethical, legal and social implication
+-   **A**nalytical validity: pipeline이 score를 정확하고 재현 가능하게 계산하는가?
+-   **C**linical validity: score가 **target population**의 질환과 연관되는가?
+-   **C**linical utility: 이를 *사용하면* outcome이 개선되는가?
+-   **E**LSI: 형평성, consent, insurance, communication 같은 ethical, legal and social implication
 
-💡 PRS 논문 대부분은 앞의 두 기준은 통과함. **utility**와 **ELSI**가 문제임. GWAS가 20년이 됐지만 PRS가 아직 routine care가 아닌 이유..
+💡 PRS 논문 대부분은 앞의 두 기준은 통과함. **utility**와 **ELSI**가 문제임. GWAS가 나온 지 20년이 지났는데도 PRS가 아직 routine care가 아닌 이유..
 
 ## 2) 임상시험에서 효용성을 보인 경우? {#w4-s4-2}
 
@@ -192,14 +192,14 @@ Genomic test를 판단하는 표준 framework
 
 ## 3) PRS가 이미 임상 equation에 포함된 영역 {#w4-s4-3}
 
--   ✅ **유방암 — BOADICEA / CanRisk**: PRS를 가족력, rare variant(BRCA1/2), clinical factor와 **함께** 쓰는 사례 중 널리 보급된 유일한 경우. ER-positive disease의 lifetime risk는 bottom centile과 top centile 사이에서 대략 **2%에서 31%**까지 차이 남
--   ✅ **CHD — Pooled Cohort Equations**: PRS는 clinical factor와 거의 orthogonal하므로 log-additive하게 추가 가능
+-   ✅ **유방암(BOADICEA / CanRisk)**: PRS를 가족력, rare variant(BRCA1/2), clinical factor와 **함께** 쓰는 사례 중 널리 보급된 유일한 경우. ER-positive disease의 lifetime risk는 bottom centile과 top centile 사이에서 대략 **2%에서 31%**까지 차이 남
+-   ✅ **CHD(Pooled Cohort Equations)**: PRS는 clinical factor와 거의 orthogonal하므로 log-additive하게 추가 가능
 -   ⚠️ **그 밖의 모든 영역**: 검증된 absolute-risk equation (x). Population incidence로 absolute risk를 다시 계산해야 하고, 여기에서 calibration 문제가 생김
 
 ## 4) The human barriers {#w4-s4-4}
 
 ::: {.callout-warning collapse="true"}
--   ⚠️ **환자는 유전 정보를 운명으로 받아들입니다.** 위험은 probabilistic하고 수정 가능함. MI-GENES가 성공한 이유 중 하나는 이를 명확히 framing했음
+-   ⚠️ **환자는 유전 정보를 운명으로 받아들입니다.** 위험은 probabilistic하고 수정 가능함. MI-GENES가 성공한 이유 중 하나도 위험을 이렇게 명확히 framing했기 때문임
 -   ⚠️ **PRS를 20개 실행하면 거의 모두가 무언가의 top decile에 속합니다.** Alarm fatigue가 생기므로 목적 없는 panel 검사는 피해야 함!
 -   ⚠️ **대부분의 의사는 genomics training을 받지 않았습니다.** 적용하려면 PDF report가 아니라 EHR의 decision support와 진료과 안의 숙련된 의사가 필요함
 :::
@@ -214,9 +214,9 @@ Genomic test를 판단하는 표준 framework
 
 이유는 여러 가지이고 서로 얽혀 있어서 같은 population의 사람을 더 모아도 해결되지 않음
 
--   **Allele frequency가 다름** — 유럽인에서 흔한 variant가 드물거나 없을 수 있음
--   **LD pattern이 다름** — tag SNP가 더는 causal variant를 tag하지 않음(🔗 [W3 §3.1](w3_gwas.qmd#w3-s3-1))
--   **Effect size가 다름** — gene–environment 및 genetic-background interaction
+-   **Allele frequency가 다름**: 유럽인에서 흔한 variant가 드물거나 없을 수 있음
+-   **LD pattern이 다름**: tag SNP가 더는 causal variant를 tag하지 않음(🔗 [W3 §3.1](w3_gwas.qmd#w3-s3-1))
+-   **Effect size가 다름**: gene–environment 및 genetic-background interaction
 
 ## 2) 대신 무엇을 해야 하는가 {#w4-s5-2}
 
@@ -230,11 +230,11 @@ Genomic test를 판단하는 표준 framework
 
 # 6. PRS의 한계 🚫 {#w4-s6}
 
--   ❌ **진단 아님** — 높은 PRS != 발병
--   ❌ **Rare high-penetrance variant를 놓침** — BRCA1/2, Lynch syndrome에는 별도 검사 필요
--   ❌ **Non-SNP variation을 놓침** — CNV, structural variant, repeat expansion(🔗 [W3 §4](w3_gwas.qmd#w3-s4))
--   ❌ **Gene × environment를 무시함** — 같은 score여도 흡연자와 비흡연자의 probability가 다름
--   ⚠️ **계속 바뀔 수 있음** — Score를 다시 계산할 수 있도록 raw genotype 확보
+-   ❌ **진단 아님**: PRS가 높다고 발병하는 것은 아님
+-   ❌ **Rare high-penetrance variant를 놓침**: BRCA1/2, Lynch syndrome에는 별도 검사 필요
+-   ❌ **Non-SNP variation을 놓침**: CNV, structural variant, repeat expansion(🔗 [W3 §4](w3_gwas.qmd#w3-s4))
+-   ❌ **Gene × environment를 무시함**: 같은 score여도 흡연자와 비흡연자의 probability가 다름
+-   ⚠️ **계속 바뀔 수 있음**: score를 다시 계산할 수 있도록 raw genotype 확보
 
 ::: {.callout-tip collapse="true"}
 ## 동기 질문으로 돌아가기
@@ -244,11 +244,11 @@ Genomic test를 판단하는 표준 framework
 답하기 전에 알고 싶은 내용은 다음과 같습니다.
 
 -   ① **어떤 base GWAS인가?** 유럽인 대상이고 환자가 한국인이라면 제시된 percentile은 해석 불가
--   ② **92 percentile은 어떤 absolute risk인가?** 42세 남성은 낮은 baseline의 세 배여도 treatment 정도는 아닐 수 있음
+-   ② **92 percentile은 어떤 absolute risk인가?** 42세 남성은 낮은 baseline의 세 배여도 treatment threshold 아래일 수 있음
 -   ③ **Guideline 기준을 넘는가?** 10-year risk가 4%에서 7%로 바뀌면 생각해 봐야 함. 1.2%에서 2.1%로 바뀌는 정도면 그닥..
 -   ④ **무엇이 달라지는가?** 답이 “statin과 생활 습관을 논의한다”라면 검사 없이도 할 수 있는 일임
 
-→ PRS 그 자체만으로 충분하지 않다. 해석이 중요하다
+따라서 PRS 그 자체만으로는 충분하지 않다. 해석이 중요하다
 :::
 
 ------------------------------------------------------------------------
@@ -396,16 +396,16 @@ plt.show()
 
 이 수업의 필수 내용은 아니지만 참고.
 
--   `bigsnpr`(R) — C+T와 LDpred2 구현; [privefl.github.io/bigsnpr](https://privefl.github.io/bigsnpr)
--   `PRSice-2` — command-line에서 threshold 자동 tuning; [choishingwan.github.io/PRSice](https://choishingwan.github.io/PRSice/)
--   `PRS-CSx` — Python 기반 multi-ancestry 방법; [github.com/getian107/PRScsx](https://github.com/getian107/PRScsx)
+-   `bigsnpr`(R): C+T와 LDpred2 구현; [privefl.github.io/bigsnpr](https://privefl.github.io/bigsnpr)
+-   `PRSice-2`: command-line에서 threshold 자동 tuning; [choishingwan.github.io/PRSice](https://choishingwan.github.io/PRSice/)
+-   `PRS-CSx`: Python 기반 multi-ancestry 방법; [github.com/getian107/PRScsx](https://github.com/getian107/PRScsx)
 
 ⚠️ 각 방법마다 target ancestry와 일치하는 LD reference panel이 필요함. 임상 project가 어려운 이유...
 :::
 
 ## 3) 다음 주 전까지 {#w4-s7-3}
 
-**W5 — single-cell RNA-seq: technology, QC, clustering.** 미리 설치하기!
+**W5. single-cell RNA-seq: technology, QC, clustering.** 미리 설치하기!
 
 ::: {.panel-tabset group="lang"}
 
@@ -436,11 +436,11 @@ renv::snapshot()
 -   PRS는 수천에서 수백만 개의 작은 effect를 하나의 숫자로 합칩니다. **Risk indicator**일 뿐 진단은 아닙니다
 -   ⚠️ **Base GWAS와 target cohort는 독립적이어야 합니다.** 같은 데이터에서 tuning하고 평가하면 보고되는 모든 숫자가 부풀려집니다
 -   방법 이름(C+T, PRSice-2, LDpred2, PRS-CSx)은 ancestry와 cohort보다 덜 중요합니다. 직접 구현할 필요 없이 알아보기만 하면 됩니다
--   ❌ PRS AUC 단독은 의미가 없습니다. ✅ 주장은 clinical model을 넘어선 **ΔAUC와 incremental R²**입니다
+-   ❌ PRS AUC 단독은 의미가 없습니다. ✅ 봐야 할 것은 clinical model 대비 **ΔAUC와 incremental R²**입니다
 -   ⚠️ **Calibration은 대개 누락**되지만 absolute risk를 신뢰할 수 있게 해 주는 조건입니다
 -   ⚠️ “위험 5배”는 거의 언제나 top-vs-bottom decile입니다. Middle 또는 나머지 전체와 비교한 값을 요구하세요
 -   Percentile → relative risk → **guideline action과 연결된 absolute risk**: 진료 현장에서 사용할 수 있는 것은 마지막뿐입니다
--   임상 적용 준비도는 AUC가 아니라 **ACCE**로 판단합니다. Utility evidence는 부족하며 상당 부분 adherence를 통해 작동합니다
+-   임상에 쓸 준비가 되었는지는 AUC가 아니라 **ACCE**로 판단합니다. Utility evidence는 부족하며, 보고된 효과도 상당 부분 adherence를 통해 나타납니다
 -   ⚠️ **유럽인에서 만든 PRS는 수정 없이 한국 환자에게 유효하지 않습니다.** Matching 또는 multi-ancestry score를 사용하고 recalibration하세요
 -   어려운 부분은 수학이 아니라 portability, communication, EHR integration입니다
 

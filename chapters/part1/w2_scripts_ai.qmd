@@ -81,7 +81,7 @@ dds <- DESeq(dds)
 
 ✅ Sections appear in RStudio's outline pane. ✅ And note the third one: the **reason lives in the section title**, where it cannot be separated from the code.
 
-## 4) Functions — when to bother {#w2-s1-4}
+## 4) Functions: when to bother {#w2-s1-4}
 
 The rule is not "always write functions." It is: **the third time you copy-paste, stop.**
 
@@ -153,7 +153,7 @@ Generated code inverts this. It is fluent, idiomatic, and usually syntactically 
 -   ❌ A crash is useful. It tells you exactly where to look
 -   ⚠️ A plausible data frame of the right dimensions is the dangerous outcome
 
-→ Your verification cannot be "did it run." It has to be **"is the output the shape and magnitude I expected?"**, which requires you to have formed an expectation first.
+So your verification cannot be "did it run." It has to be **"is the output the shape and magnitude I expected?"**, which requires you to have formed an expectation first.
 :::
 
 ## 4) ⚠️ Three silent failures {#w2-s2-4}
@@ -214,7 +214,7 @@ Written as a comment at the top of a chunk, prefixed with a hash and a pipe:
 | `echo: false` | run the code, hide it (for a clinical audience) |
 | `eval: false` | show the code, don't run it (for teaching) |
 | `warning: false` | suppress package chatter |
-| `fig-cap: "..."` | attach a caption, so the figure travels with its meaning |
+| `fig-cap: "..."` | attach a caption, so the explanation stays with the figure |
 | `cache: true` | don't re-run a slow chunk every render |
 
 💡 This course website is a Quarto project. Every page you are reading is a `.qmd`.
@@ -313,7 +313,7 @@ Take any result you already have and write a one-page `.qmd` in which **no numbe
 
 ## 4) Before next week {#w2-s5-4}
 
-**W3 — GWAS & post-GWAS.** No installation needed; we start in the browser.
+**W3: GWAS & post-GWAS.** No installation needed; we start in the browser.
 
 Come with **one disease you actually treat**. We will look it up together in the GWAS Catalog and Open Targets.
 
@@ -342,7 +342,7 @@ Come with **one disease you actually treat**. We will look it up together in the
 | Silent failure | Code that runs, returns the right type, and computes the wrong thing |
 | Shape check | Printing row counts / NA counts to confirm an operation did what you meant |
 | Literate document | Prose and executable code in one file (Quarto, R Markdown) |
-| Inline code | `r knitr::inline_expr("expr")` — a value computed into a sentence at render time |
+| Inline code | `r knitr::inline_expr("expr")`: a value computed into a sentence at render time |
 | Chunk option | Per-block setting: `echo`, `eval`, `cache`, `fig-cap` |
 | Commit | A saved snapshot of the project with a message explaining why |
 | `.gitignore` | List of files git must never track; put raw data here |

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
   <rect width="880" height="480" fill="#fcfcfb"/>
-  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Plan the four figures first. The analysis is whatever produces them.</text>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Plan the four figures first, then do the analysis that produces them.</text>
 
   <g>
     <rect x="24" y="46" width="832" height="76" rx="9" fill="#ffffff" stroke="#185FA5" stroke-width="1.8"/>
@@ -20,14 +20,14 @@
     <rect x="24" y="218" width="832" height="76" rx="9" fill="#ffffff" stroke="#1D9E75" stroke-width="1.8"/>
     <rect x="24" y="218" width="6" height="76" rx="3" fill="#1D9E75"/>
     <circle cx="66" cy="256" r="15" fill="#1D9E75"/><text x="66" y="261" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">3</text>
-    <text x="96" y="248" font-size="13.5" font-weight="700" fill="#4A3D6B">Why — the supporting mechanism</text>
+    <text x="96" y="248" font-size="13.5" font-weight="700" fill="#4A3D6B">Why: the supporting mechanism</text>
     <text x="96" y="270" font-size="12" fill="#666">Which cell type, which pathway, which direction. The layer that explains Figure 2.</text>
-    <text x="832" y="270" font-size="11.5" fill="#8A7FA3" text-anchor="end">this is where W5–W12 earn their place</text>
+    <text x="832" y="270" font-size="11.5" fill="#8A7FA3" text-anchor="end">this is where W5–W12 come in</text>
 
     <rect x="24" y="304" width="832" height="76" rx="9" fill="#ffffff" stroke="#5B4D80" stroke-width="1.8"/>
     <rect x="24" y="304" width="6" height="76" rx="3" fill="#5B4D80"/>
     <circle cx="66" cy="342" r="15" fill="#5B4D80"/><text x="66" y="347" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">4</text>
-    <text x="96" y="334" font-size="13.5" font-weight="700" fill="#4A3D6B">So what — the clinical implication</text>
+    <text x="96" y="334" font-size="13.5" font-weight="700" fill="#4A3D6B">So what: the clinical implication</text>
     <text x="96" y="356" font-size="12" fill="#666">If this is true, what changes? Which patients, which decision, what would test it next.</text>
     <text x="832" y="356" font-size="11.5" fill="#8A7FA3" text-anchor="end">and which rung of the evidence ladder (W8)</text>
   </g>

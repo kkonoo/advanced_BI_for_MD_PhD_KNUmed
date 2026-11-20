@@ -40,22 +40,22 @@ Before the real analysis starts, you have to deal with missing values first! (un
 
 ## 1) Missing values in proteomics {#w10-s1-1}
 
-Most default methods assume that why a value is missing has nothing to do with the value itself (MCAR; missing completely at random). In proteomics, a missing value means **below the limit of detection** — that is, the protein was low (**MNAR**; missing not at random).
+Most default methods assume that why a value is missing has nothing to do with the value itself (MCAR; missing completely at random). In proteomics, a missing value means the protein was **below the limit of detection**, that is, it was low (**MNAR**; missing not at random).
 
 -   ⚠️ **Missing in DDA** = not detected (below the detection limit) + not selected (present in MS1, but not picked as a precursor to fragment for MS2 in that run) (🔗 [W9 §2.2](w9_proteomics_tech.qmd#w9-s2-2))
--   ✅ **DIA > DDA** — every precursor in the window is fragmented, so there is no "not selected". That is most of why DIA is now the default
+-   ✅ **DIA is better than DDA here**: every precursor in the window is fragmented, so there is no "not selected". That is most of why DIA is now the default
 
 ## 2) How to handle missing values {#w10-s1-2}
 
 All four are **assumptions**, not cleaning steps.
 
-**① ❌ Drop any protein with a missing value.** You keep only the abundant, ubiquitously detected proteins — exactly the opposite of the set a novel biomarker would come from.
+**① ❌ Drop any protein with a missing value.** You keep only the abundant, ubiquitously detected proteins. That is exactly the opposite of the set a novel biomarker would come from.
 
 **② ❌ Impute with the row mean.** Low values get pulled up toward the middle, shrinking precisely the difference you are testing.
 
 **③ ⚠️ Impute from a low distribution** (e.g. a shifted, narrowed normal, as in Perseus). Usually a reasonable match to the MNAR mechanism, and still an assumption that belongs in the methods section.
 
-**④ ✅ Model missingness explicitly** — `MSstats`, or report a presence/absence test alongside the intensity test. Most defensible, because it stops pretending the NAs are not data.
+**④ ✅ Model missingness explicitly**: use `MSstats`, or report a presence/absence test alongside the intensity test. Most defensible, because it stops pretending the NAs are not data.
 
 💡 **The reflexive check:** rerun with a different imputation and see whether your hit survives. If it does not, you have learned something important before a reviewer does.
 
@@ -69,8 +69,8 @@ Proteomics datasets are wide and short: thousands of proteins, tens of samples. 
 
 ![](/assets/img/w10/variance_shrinkage.svg){fig-align="center"}
 
--   **① The intensity–variance relationship** — the lower a protein's intensity, the larger its variance (near the detection limit, noise is large relative to signal). It is the same thing as low-count genes having the larger variance in RNA-seq (🔗 [last semester: the DESeq2 statistical model](https://kkonoo.github.io/BI_for_MD_PhD_KNUmed/chapters/part2/W7_DEG%20Analysis.html#statistical-model-of-deseq2))
--   **② Empirical Bayes shrinkage** — `limma` shrinks each protein's variance toward the trend in ①, so a protein that happens to look very consistent by chance is not automatically declared significant
+-   **① The intensity–variance relationship**: the lower a protein's intensity, the larger its variance (near the detection limit, noise is large relative to signal). It is the same thing as low-count genes having the larger variance in RNA-seq (🔗 [last semester: the DESeq2 statistical model](https://kkonoo.github.io/BI_for_MD_PhD_KNUmed/chapters/part2/W7_DEG%20Analysis.html#statistical-model-of-deseq2))
+-   **② Empirical Bayes shrinkage**: `limma` shrinks each protein's variance toward the trend in ①, so a protein that happens to look very consistent by chance is not automatically declared significant
 -   💡 The same idea as the DESeq2 dispersion plot: DESeq2 shrinks the dispersion of its NB model, `limma` shrinks the variance of the log-intensities, both toward a trend. To see the real version for your own data, run `plotSA(fit)`
 
 ::: {.panel-tabset group="lang"}
@@ -129,15 +129,15 @@ res.head(10)
 
 ## 2) Handling the results {#w10-s2-2}
 
--   Effect size (log2 fold change) **and** adjusted p-value — same as DESeq2 last semester
+-   Effect size (log2 fold change) **and** adjusted p-value (same as DESeq2 last semester)
 -   How many proteins were tested, and how many were dropped for missingness. ⚠️ Multiple testing is over the proteins you tested, not the ones that survived (🔗 [W2 §2.4](../part1/w2_scripts_ai.qmd#w2-s2-4))
--   Rerun the analysis with several imputation methods → a robustness check on your finding
+-   Rerun the analysis with several imputation methods to check that your finding is robust
 
 ------------------------------------------------------------------------
 
 # 3. ⚠️ From DEP towards a Biomarker 🪜 {#w10-s3}
 
-Significant between conditions (a DEP; differentially expressed protein) = only the start (how the measurement changes along the way: 🔗 [W9 §4.2](w9_proteomics_tech.qmd#w9-s4-2)).
+A protein that is significant between conditions (a DEP; differentially expressed protein) is only the start (how the measurement changes along the way: 🔗 [W9 §4.2](w9_proteomics_tech.qmd#w9-s4-2)).
 
 ![](/assets/img/w10/biomarker_funnel.svg){fig-align="center"}
 
@@ -155,19 +155,19 @@ Significant between conditions (a DEP; differentially expressed protein) = only 
 
 ![](/assets/img/w10/wrong_comparison.svg){fig-align="center"}
 
-The answer to the motivating question: **no** — not from that study.
+The answer to the motivating question: **no**, not from that study.
 
 -   **The typical paper: patients vs. healthy controls** (usually advanced cancer vs healthy volunteers). Your patient is neither
 
 ::: {.callout-warning collapse="true"}
 ## The second problem: where the blood was drawn
 
-Cases were bled in an oncology ward and controls at a screening centre → collection tube, time to processing and fasting state all differ systematically between groups (🔗 [W9 §6](w9_proteomics_tech.qmd#w9-s6)). Some of that AUC reflects **where the blood was drawn**.
+Cases were bled in an oncology ward and controls at a screening centre, so collection tube, time to processing and fasting state all differ systematically between groups (🔗 [W9 §6](w9_proteomics_tech.qmd#w9-s6)). Some of that AUC reflects **where the blood was drawn**.
 :::
 
-→ ✅ Ask: were cases and controls sampled at the same point in the care pathway, in the same place, into the same tubes?
+✅ Ask: were cases and controls sampled at the same point in the care pathway, in the same place, into the same tubes?
 
--   **A useful biomarker = earlier diagnosis, or an accurate diagnosis among conditions with similar symptoms** → it must separate early cancer from the conditions that mimic it, sampled at presentation
+-   **A useful biomarker is one you can use for earlier diagnosis, or for an accurate diagnosis among conditions with similar symptoms**. To do that, it must separate early cancer from the conditions that mimic it, sampled at presentation
 
 ## 3) Prevalence >>> AUC {#w10-s3-3}
 
@@ -194,7 +194,7 @@ Sensitivity 90%, specificity 90%:
 
 **③ Fix the collection protocol before the first sample.** Same tubes, same time-to-spin, same aliquot volume, freeze–thaw logged. Written down, one page.
 
-**④ Randomise across batches.** 🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3) — in a real analysis, this is the part that matters most!
+**④ Randomise across batches.** 🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3). In a real analysis, this is the part that matters most!
 
 **⑤ Reserve a validation set before you look at anything.** Split by patient, ideally by recruitment site or time period.
 
@@ -206,7 +206,7 @@ Sensitivity 90%, specificity 90%:
 You do not need a new prospective cohort to start.
 
 -   ✅ Many hospitals bank residual serum or plasma. Ask what exists and under what consent
--   ✅ A retrospective set selected **by outcome** (responders vs non-responders, relapsed vs not — is a stronger design than consecutive recruitment, and it already has follow-up attached
+-   ✅ A retrospective set selected **by outcome** (responders vs non-responders, relapsed vs not) is a stronger design than consecutive recruitment, and it already has follow-up attached
 -   ⚠️ The catch: banked samples were collected under whatever conditions prevailed at the time, so pre-analytical variation is a real risk. Check whether collection was protocolised
 -   ✅ An affinity panel on 300 banked samples is often cheaper and far more informative than MS on 30 fresh ones
 :::
@@ -221,7 +221,7 @@ You do not need a new prospective cohort to start.
 
 -   B1 = 28 controls + 12 cases
 -   B2 = the reverse (28 cases + 12 controls)
--   Deliberate — it mimics a banked cohort in which cases and controls were collected at different times
+-   Deliberate: it mimics a banked cohort in which cases and controls were collected at different times
 
 ::: {.panel-tabset group="lang"}
 
@@ -268,7 +268,7 @@ plt.show()
 
 :::
 
-💡 A clear negative trend in the second plot = MNAR. Put it in your supplement.
+💡 A clear negative trend in the second plot means MNAR. Put it in your supplement.
 
 ## 2) Adjust for confounders {#w10-s5-2}
 
@@ -301,7 +301,7 @@ int((res.adj_P < 0.05).sum())
 
 :::
 
-## 3) ✅ Change one thing — three times {#w10-s5-3}
+## 3) ✅ Change one thing, three times {#w10-s5-3}
 
 ::: {.panel-tabset group="lang"}
 
@@ -346,14 +346,14 @@ Bring it to W14. This is a legitimate capstone project.
 -   ⚠️ **Proteomics missing values are mostly "too low to detect"**: MNAR, not MCAR
 -   ❌ Dropping proteins with NAs keeps only abundant ones; ❌ mean imputation shrinks the effect you are testing
 -   ✅ Impute from a low distribution, or model missingness explicitly (`MSstats`), and **state which**
--   ✅ Rerun with a different imputation. If the hit does not survive, better you find out than a reviewer
+-   ✅ Rerun with a different imputation. If the hit does not survive, it is better to find out before a reviewer does
 -   `limma` with empirical Bayes is more stable than per-protein t-tests; ⚠️ put batch, age and sex in the design
 -   ⚠️ Discovery → verification → validation → clinical. **Each step loses ~90%**, and people most often skip the second step
 -   ⚠️ **Diagnostic, prognostic and predictive are different claims.** Predictive needs an untreated arm
 -   ⚠️ **AUC 0.94 against healthy volunteers may be a detector for being very ill**, and partly for where the blood was drawn
 -   ✅ The control group is whoever you would actually have to tell apart, sampled at the same point in the pathway
--   ⚠️ **PPV collapses at low prevalence.** 90/90 at 1% prevalence gives a PPV near 8%
--   ✅ Banked, outcome-selected samples plus an affinity panel is the realistic entry point for a resident
+-   ⚠️ **PPV falls sharply at low prevalence.** A test with 90% sensitivity and 90% specificity, used at 1% prevalence, gives a PPV near 8%
+-   ✅ An affinity panel on banked, outcome-selected samples is the realistic entry point for a resident
 
 ------------------------------------------------------------------------
 

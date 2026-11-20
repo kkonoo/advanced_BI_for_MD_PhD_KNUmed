@@ -77,7 +77,7 @@ Your analyst can tell you the pseudobulk model converged. They cannot tell you t
 -   ✅ **You** know whether a 2% absolute risk difference changes management
 -   ❌ Nobody can supply that for you, and no method compensates for its absence
 
-→ The gap this course closes is not a coding gap. It is a **vocabulary gap**: enough to ask the right question and recognise a wrong answer.
+The gap this course closes is not a coding gap but a **vocabulary gap**. The aim is enough vocabulary to ask the right question and recognise a wrong answer.
 :::
 
 ------------------------------------------------------------------------
@@ -130,7 +130,7 @@ The semester is not a tour of techniques. It is one question, pursued downward u
 
 That is a reasonable thing to want, and it is not achievable in fourteen 2-hour sessions alongside clinical duties. Anyone promising it is selling something.
 
-→ What is achievable: never again being the person in the room who cannot evaluate the analysis their own name will appear on.
+What is achievable is never again being the person in the room who cannot evaluate the analysis their own name will appear on.
 :::
 
 ------------------------------------------------------------------------
@@ -152,7 +152,7 @@ Three real patterns:
 -   ② **"The tissue was flash-frozen."** Then scRNA-seq is off the table and it is snRNA-seq or nothing (W5). Not a disaster, but it changes what you can claim
 -   ③ **"Cases were collected at hospital A, controls at hospital B."** See §3.3. There is no fix
 
-→ Each of these takes 30 seconds to prevent and 18 months to regret.
+Each of these takes 30 seconds to prevent and 18 months to regret.
 :::
 
 ## 2) Three questions that decide everything {#w1-s3-2}
@@ -171,7 +171,7 @@ The thing you can independently repeat. Usually **the patient**, not the cell, n
 Write the sentence before collecting: *"I will compare \_\_\_ to \_\_\_, and I expect \_\_\_ to differ in direction \_\_\_."*
 
 -   ❌ "I want to profile my patients" is not a comparison
--   ✅ "I will compare treatment-resistant to treatment-naive, matched on age and stage" — now the design follows
+-   ✅ "I will compare treatment-resistant to treatment-naive, matched on age and stage" is a comparison, and the design follows from it
 
 **③ What else differs between my groups?**
 
@@ -219,7 +219,7 @@ The mathematics is not the obstacle. The information genuinely is not in the dat
 
 ## 1) Reproducibility is a clinical problem {#w1-s4-1}
 
-The gap between analysis and publication is typically 1–3 years. Reviewers ask for a reanalysis. A package updated. Your laptop was replaced.
+The gap between analysis and publication is typically 1–3 years. Reviewers ask for a reanalysis, packages get updated, and your laptop gets replaced.
 
 Start with two habits:
 

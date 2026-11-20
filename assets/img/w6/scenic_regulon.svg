@@ -130,5 +130,5 @@
   <text x="608.0" y="316.0" font-size="11.5" fill="#666">colour the UMAP, compare groups</text>
   <rect x="24" y="338" width="832" height="70" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
   <text x="48.0" y="362.0" font-size="12.5" fill="#7a5f2a" font-weight="700">⚠️ Still co-expression underneath: TF mRNA ≠ TF activity; motif ≠ binding (scRNA cannot see chromatin).</text>
-  <text x="48.0" y="388.0" font-size="12.5" fill="#7a5f2a">💡 GRNBoost2 is stochastic — rerun it and keep the regulons that recur. Validate with ChIP / CUT&amp;RUN or a TF knockout.</text>
+  <text x="48.0" y="388.0" font-size="12.5" fill="#7a5f2a">💡 GRNBoost2 is stochastic, so rerun it and keep the regulons that recur. Validate with ChIP / CUT&amp;RUN or a TF knockout.</text>
 </svg>

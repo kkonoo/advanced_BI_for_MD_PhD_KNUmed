@@ -89,6 +89,6 @@
 <rect x="725" y="200" width="92" height="14" rx="2" fill="#8A7FA3"/>
 <text x="673.0" y="250.0" font-size="11.5" fill="#666">Amplify, sequence, count →</text>
 <text x="673.0" y="267.0" font-size="11.5" fill="#666">relative amount (NPX)</text>
-<text x="24.0" y="304.0" font-size="12.5" fill="#4A3D6B" font-weight="700">SomaScan: one aptamer per protein — the aptamer is itself DNA, so it is read as DNA too (on an array).</text>
+<text x="24.0" y="304.0" font-size="12.5" fill="#4A3D6B" font-weight="700">SomaScan: one aptamer per protein. The aptamer is itself DNA, so it is read as DNA too (on an array).</text>
 <text x="24.0" y="324.0" font-size="12.5" fill="#a8401d">⚠️ Either way the number is how much reagent bound, which usually (not always) tracks how much protein was there.</text>
 </svg>

@@ -14,7 +14,7 @@ execute:
 By the end of this chapter you should be able to:
 
 -   Narrow a broad interest into a question with a comparison, a measurement and a data source
--   ⚠️ Judge feasibility honestly, and recognise the quadrant where most first projects die
+-   ⚠️ Judge feasibility honestly, and recognise the quadrant where most first projects fail
 -   Plan four figures before running any analysis
 -   State which rung of the evidence ladder your project can reach, and name the next one
 -   ⚠️ Say why a negative result is a complete project
@@ -29,7 +29,7 @@ By the end of this chapter you should be able to:
 
 # 1. Narrowing the Question 🎯 {#w14-s1}
 
-![Each step removes something, and the last version is the only one you can act on.](/assets/img/w14/scoping.svg){fig-align="center"}
+![Each step narrows the scope, and the last version is the only one you can act on.](/assets/img/w14/scoping.svg){fig-align="center"}
 
 A usable question names four things:
 
@@ -91,7 +91,7 @@ From 🔗 [W8 §3](../part4/w8_spatial_integration.qmd#w8-s3): description → h
 
 A resident project realistically reaches **③ consistent with**. That is publishable, fundable, and honest, provided you say so and name the experiment that would take it to ④ or ⑤.
 
-⚠️ What fails at review is not stopping at ③. It is writing ⑤'s verb over ③'s evidence.
+⚠️ What fails at review is not stopping at ③. It is using ⑤'s verb with ③'s evidence.
 
 ## 2) ✅ A negative result is a complete project {#w14-s3-2}
 
@@ -101,11 +101,11 @@ A resident project realistically reaches **③ consistent with**. That is publis
 Not "we found nothing". Rather:
 
 -   ✅ The hypothesis was **specific** enough to be wrong
--   ✅ The design **could have detected** the effect — say how large an effect you had power for
--   ✅ The measurement worked — positive controls behaved as expected
+-   ✅ The design **could have detected** the effect: say how large an effect you had power for
+-   ✅ The measurement worked: positive controls behaved as expected
 -   ✅ You can say what you would do differently
 
-→ That is a better contribution than a fishing expedition that found a p-value. And in a fourteen-week course, it is a much more achievable target.
+That is a better contribution than a fishing expedition that found a p-value. And in a fourteen-week course, it is a much more achievable target.
 :::
 
 ------------------------------------------------------------------------
@@ -150,14 +150,14 @@ Decide now what result would make you stop.
 -   ③ **Sketch Figure 2**, the answer figure, on paper. What are the axes?
 -   ④ **What is your n**, and what is the unit of replication?
 -   ⑤ **Name one confounder** that could produce your expected result on its own
--   ⑥ **Heading 10 (stopping rule)** — what would make you stop?
+-   ⑥ **Heading 10 (stopping rule)**: what would make you stop?
 
 ::: {.callout-warning collapse="true"}
 ## The three failure modes you will hear most often today
 
--   ❌ **Too broad.** "I want to look at the immune microenvironment." → apply §1 until a comparison appears
--   ❌ **n is wrong.** "I have 40,000 cells." → from how many patients? (🔗 [W5 §5](../part3/w5_scrna_qc.qmd#w5-s5))
--   ❌ **Data does not exist yet.** "I'll collect fresh samples." → how many will you have in six months? Usually the honest number is under ten
+-   ❌ **Too broad.** "I want to look at the immune microenvironment." Apply §1 until a comparison appears
+-   ❌ **n is wrong.** "I have 40,000 cells." From how many patients? (🔗 [W5 §5](../part3/w5_scrna_qc.qmd#w5-s5))
+-   ❌ **Data does not exist yet.** "I'll collect fresh samples." How many will you have in six months? Usually the honest number is under ten
 :::
 
 ## 2) Before the final session {#w14-s5-2}

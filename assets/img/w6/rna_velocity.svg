@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
   <rect width="880" height="400" fill="#fcfcfb"/>
-  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">RNA velocity — where the direction comes from, and why it is contested.</text>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">RNA velocity: where the direction comes from, and why it is contested.</text>
 
   <!-- the idea -->
   <rect x="24" y="46" width="400" height="222" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
@@ -37,12 +37,12 @@
   <circle cx="520" cy="200" r="3" fill="#b9b0cc"/><circle cx="556" cy="176" r="3" fill="#b9b0cc"/>
   <circle cx="592" cy="152" r="3" fill="#b9b0cc"/><circle cx="540" cy="226" r="3" fill="#b9b0cc"/>
   <circle cx="576" cy="204" r="3" fill="#b9b0cc"/><circle cx="612" cy="180" r="3" fill="#b9b0cc"/>
-  <text x="480" y="252" font-size="12" fill="#8A7FA3">Superimposed on the UMAP — which is why it reads as motion.</text>
+  <text x="480" y="252" font-size="12" fill="#8A7FA3">Superimposed on the UMAP, which is why it reads as motion.</text>
 
   <!-- caveats -->
   <rect x="24" y="286" width="832" height="98" rx="10" fill="#fbeee8" stroke="#D85A30" stroke-width="2"/>
   <text x="48" y="312" font-size="13.5" font-weight="700" fill="#a8401d">⚠️ Three things to hold in mind before believing the arrows</text>
   <text x="48" y="336" font-size="12.5" fill="#a05a3f">① The model assumes constant splicing and degradation rates per gene. <tspan font-weight="700" fill="#a8401d">Both assumptions are known to fail</tspan> for some genes and systems.</text>
-  <text x="48" y="356" font-size="12.5" fill="#a05a3f">② The arrows are drawn on a UMAP, so they inherit every distortion of the embedding (W5 §4.2). Direction in 2D is not direction in the data.</text>
-  <text x="48" y="376" font-size="12.5" fill="#a05a3f">③ snRNA-seq is intron-rich by construction — velocity on nuclei needs a different model, not the default one.</text>
+  <text x="48" y="356" font-size="12.5" fill="#a05a3f">② The arrows are drawn on a UMAP, so they inherit every distortion of the embedding (W5 §4.3). Direction in 2D is not direction in the data.</text>
+  <text x="48" y="376" font-size="12.5" fill="#a05a3f">③ snRNA-seq is intron-rich by construction, so velocity on nuclei needs a different model, not the default one.</text>
 </svg>

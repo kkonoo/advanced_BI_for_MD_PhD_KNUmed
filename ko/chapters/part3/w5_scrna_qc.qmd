@@ -23,7 +23,7 @@ knitr:
 -   UMI가 무엇이며 count matrix의 대부분이 0인 이유를 설명한다
 -   ⚠️ Knee plot과 QC scatter를 읽고 각 threshold가 어떤 population을 삭제하는지 말한다
 -   Doublet detector의 작동 원리, 그리고 어떤 detector도 못 잡는 doublet을 설명한다
--   ⚠️ UMAP을 책임 있게 읽고, UMAP 거리의 의미와 한계를 설명한다
+-   ⚠️ UMAP을 신중하게 읽고, UMAP 거리의 의미와 한계를 설명한다
 -   ⚠️ 각 단계에서 어떤 버전의 matrix(raw, normalised, scaled, batch-corrected)를 써야 하는지 말한다
 -   ⚠️ 조건 간 per-cell differential expression이 잘못된 이유와 pseudobulk가 이를 해결하는 방법을 설명한다
 :::
@@ -44,7 +44,7 @@ knitr:
 **② 반응하는 rare subpopulation**: interesting.. Bulk에서 유의하지 않을 수도\
 **③ 조성 변화**: celltype 구성은 같음. 특정 cell type이 많아지거나 적어지거나
 
-⚠️ ③은 염증·섬유화·침윤 조직처럼 임상의가 연구하는 바로 그 조직에서 흔하고, 일상적으로 ①인 것처럼 논문에 기술되므로 주의
+⚠️ ③은 염증·섬유화·침윤 조직처럼 임상의가 연구하는 바로 그 조직에서 흔하고, 논문에서는 ①인 것처럼 기술되는 경우가 많으므로 주의
 
 ## 2) Single cell이 가치 있는 경우 {#w5-s1-2}
 
@@ -53,24 +53,24 @@ Single cell은 비싸기 때문에 bulk로 충분한 경우는 굳이x
 **✅ Single cell이 적합한 질문:**
 
 -   드문 population을 포함한 **population 발견 또는 특성화**
--   **조성** — 질환에서 어떤 cell type이 달라졌는가
--   **Cell-type-specific effect** — 한 cell type에서는 증가하고 다른 cell type에서는 감소해 bulk에서 보이지 않는 gene
--   **연속적인 state** — activation, exhaustion, differentiation처럼 discrete label이 실패하는 경우
+-   **조성**: 질환에서 어떤 cell type이 달라졌는가
+-   **Cell-type-specific effect**: 한 cell type에서는 증가하고 다른 cell type에서는 감소해 bulk에서 보이지 않는 gene
+-   **연속적인 state**: activation, exhaustion, differentiation처럼 discrete label로 나누기 어려운 경우
 
 **✅ Bulk가 여전히 적합한 질문:**
 
 -   균질한 system(cell line, sorted population)의 명확한 비교
 -   Isoform, splicing, low-expression gene 같은 깊은 transcript-level 분석
--   **대규모 cohort** — 환자 n = 200이며 200회의 single-cell run을 감당할 수 없는 경우
+-   **대규모 cohort**: 환자 n = 200이라 single-cell run 200회를 감당할 수 없는 경우
 
 ::: {.callout-tip collapse="true"}
 ## 먼저 sorting하는 전략의 장점
 
 관심 있는 cell type을 이미 안다면?
 
-→ FACS로 sorting한 뒤 deep bulk RNA-seq. 전체 조직 single-cell experiment보다 흔히 **더 싸고, 더 깊고, 통계적으로 더 깨끗함.** 환자를 훨씬 많이 넣을 수 있고, 실제 power는 바로 거기서 나옴(§5)
+그렇다면 FACS로 sorting한 뒤 deep bulk RNA-seq를 하면 됨. 전체 조직 single-cell experiment보다 흔히 **더 싸고, 더 깊고, 통계적으로도 더 깔끔함.** 환자를 훨씬 많이 넣을 수 있고, 실제 power는 환자 수에서 나옴(§5)
 
-💡 "Single cell을 했다" ≠ 더 강한 설계. 때로는 power 부족한 연구를 더 비싸게 한 것뿐
+💡 "Single cell을 했다"고 해서 더 강한 설계인 것은 아님. 때로는 power가 부족한 연구를 더 비싸게 한 것일 뿐
 :::
 
 ------------------------------------------------------------------------
@@ -89,19 +89,19 @@ Single cell은 비싸기 때문에 bulk로 충분한 경우는 굳이x
 
 ## 2) 3′ vs. 5′ (droplet kit)
 
-Transcript 전체가 아니라 **한쪽 끝**만 읽음 → gene 세기엔 충분, isoform은 x
+Transcript 전체가 아니라 **한쪽 끝**만 읽음. Gene을 세기엔 충분하지만 isoform은 x
 
 ![](../../../assets/img/w5/three_vs_five_prime.svg){fig-align="center"}
 
--   ✅ **대부분의 single-cell data = 3′** (공개 atlas 대부분 포함). Clonotype이 필요하면 5′: T/B cell, 종양면역, 자가면역, 백신 반응
--   ⚠️ Gene count만 보면 둘은 대체로 비슷. 하지만 **한 비교 안에서 섞어 쓰기 x** — 3′/5′ sample이 섞인 study = 설계부터 batch effect
--   💡 Fixed / FFPE sample이면 세 번째 길: probe 기반 kit(10x Flex). poly(A) tail을 잡는 대신 probe를 hybridise
--   §3.2의 bead 그림 = 5′ bead (끝에 TSO가 달림)
+-   ✅ **대부분의 single-cell data는 3′** (공개 atlas 대부분 포함). Clonotype이 필요하면 5′: T/B cell, 종양면역, 자가면역, 백신 반응
+-   ⚠️ Gene count만 보면 둘은 대체로 비슷. 하지만 **한 비교 안에서 섞어 쓰기 x**. 3′/5′ sample이 섞인 study는 설계 단계부터 batch effect가 생김
+-   💡 Fixed / FFPE sample이면 세 번째 방법이 있음: probe 기반 kit(10x Flex). poly(A) tail을 잡는 대신 probe를 hybridise
+-   §3.2의 bead 그림은 5′ bead (끝에 TSO가 달림)
 
 ## 3) Cell vs nucleus {#w5-s2-2}
 
 ⚠️ 분석이 아니라 시료 수집 시점에 결정됨\
-scRNA-seq = **fresh**한 살아 있는 조직을 온전한 cell로 dissociation해야 가능
+scRNA-seq는 **fresh**한 살아 있는 조직을 온전한 cell로 dissociation해야 가능
 
 ![](../../../assets/img/w5/dissociation_bias.svg){fig-align="center"}
 
@@ -109,17 +109,17 @@ scRNA-seq = **fresh**한 살아 있는 조직을 온전한 cell로 dissociation�
 |--------------------------|:---------------------:|:---------------------:|
 | Frozen / archived tissue | ❌ fresh tissue 필요 | ✅ |
 | 크거나 약한 세포(neuron, adipocyte, myofibre, cardiomyocyte) | ❌ dissociation에서 소실 | ✅ |
-| Dissociation stress response | ⚠️ 있음 — protocol이 *FOS*, *JUN*, heat-shock gene을 유도 | ✅ 최소 |
+| Dissociation stress response | ⚠️ 있음: protocol이 *FOS*, *JUN*, heat-shock gene을 유도 | ✅ 최소 |
 | Cytoplasmic transcript | ✅ 포착 | ❌ 놓침 |
-| Intronic read | 낮음 | 높음 — nucleus에는 unspliced pre-mRNA가 많음 |
+| Intronic read | 낮음 | 높음. nucleus에는 unspliced pre-mRNA가 많음 |
 
 ::: {.callout-warning collapse="true"}
-## 연구 설계 회의에 가져갈 두 가지 결과
+## 연구를 설계할 때 기억할 두 가지
 
 -   ⚠️ **Immediate-early gene은 대표적인 false positive.** *FOS*, *JUN*, *EGR1*로 정의된 cluster는 "activated" state가 아니라 dissociation artifact인 경우가 매우 많음! 한 condition이 bench에 더 오래 있었다면 더 활성화된 것처럼 보이는..
--   ⚠️ **Depletion 주장은 자세히 볼 것.** 데이터로 보면 "질환에서 cell type X가 감소했다" = "질환 조직에서 cell type X를 분리하기 더 어렵다" (구분 안 됨)
+-   ⚠️ **Depletion 주장은 자세히 볼 것.** 데이터만으로는 "질환에서 cell type X가 감소했다"와 "질환 조직에서 cell type X를 분리하기 더 어렵다"를 구분할 수 없음
 
-→ ✅ 완화 방법: cold-active protease로 낮은 온도에서 dissociation하고, condition 간 protocol을 동일하게 유지하며, 가능하다면 nucleus를 사용
+✅ 완화 방법: cold-active protease로 낮은 온도에서 dissociation하고, condition 간 protocol을 동일하게 유지하며, 가능하다면 nucleus를 사용
 :::
 
 ## 4) study design 시 고려하면 좋을 것 {#w5-s2-3}
@@ -142,13 +142,13 @@ scRNA-seq = **fresh**한 살아 있는 조직을 온전한 cell로 dissociation�
 
 ### ① 두 개의 tag: Barcode와 UMI
 
-![Droplet 하나에 gel bead 하나 (5′ bead, §2.2 참고). Bead의 모든 oligo는 같은 cell barcode + 서로 다른 UMI. (아래: antibody에 붙은 oligo → 같은 barcode로 surface protein까지 읽음, CITE-seq)](images/clipboard-150401913.png)
+![Droplet 하나에 gel bead 하나 (5′ bead, §2.2 참고). Bead의 모든 oligo는 cell barcode가 같고 UMI는 서로 다름. (아래: antibody에 붙은 oligo. CITE-seq처럼 같은 barcode로 surface protein까지 읽음)](images/clipboard-150401913.png)
 
--   **Cell barcode** — bead 하나의 모든 oligo에 똑같이 붙어 있음 → 그 droplet에서 잡힌 모든 molecule에 *"이 cell에서 왔음"* 표시
--   **UMI**(unique molecular identifier) — 무작위, oligo마다 다름 → 증폭 **전**의 원래 mRNA molecule 하나하나에 표시
+-   **Cell barcode**: bead 하나의 모든 oligo에 똑같이 붙어 있음. 그래서 그 droplet에서 잡힌 모든 molecule에 *"이 cell에서 왔음"* 표시가 붙음
+-   **UMI**(unique molecular identifier): 무작위이고 oligo마다 다름. 증폭 **전**의 원래 mRNA molecule 하나하나를 표시함
 
-✅ Matrix가 세는 건 **read가 아니라 molecule** — PCR duplicate, amplification bias 제거\
-⚠️ UMI로도 못 고치는 것: 애초에 포착 안 된 molecule은 UMI도 없음. 그래서 아래의 0들
+✅ Matrix가 세는 건 **read가 아니라 molecule**. 그래서 PCR duplicate와 amplification bias가 제거됨\
+⚠️ UMI로도 못 고치는 것: 애초에 포착 안 된 molecule은 UMI도 없음. 그래서 아래처럼 0이 많음
 
 ::: {.callout-warning collapse="true"}
 ### sparsity: matrix의 90% 이상이 0인 이유
@@ -156,41 +156,41 @@ scRNA-seq = **fresh**한 살아 있는 조직을 온전한 cell로 dissociation�
 Droplet experiment는 약 20,000개 gene 중 cell 하나에서 대략 1,000–5,000개를 검출.\
 Count 0의 의미:
 
--   **Biological zero** — 해당 cell에서 gene이 실제로 발현되지 않음
--   **Technical zero(dropout)** — transcript (o), detection (x). Droplet capture efficiency는 약 10–30%
+-   **Biological zero**: 해당 cell에서 gene이 실제로 발현되지 않음
+-   **Technical zero(dropout)**: transcript (o), detection (x). Droplet capture efficiency는 약 10–30%
 :::
 
 ### ② cell calling
 
 > 어떤 barcode가 cell이고, 어떤 게 빈 droplet?
 
--   **Droplet** — cell을 일부러 묽게 loading
--   **Barcode rank plot (knee plot)** — 모든 barcode를 total UMI 순으로 줄 세워 log–log로 그림:
+-   **Droplet**: cell을 일부러 묽게 loading
+-   **Barcode rank plot (knee plot)**: 모든 barcode를 total UMI 순으로 줄 세워 log–log 축에 그린 것
 
 ![](../../../assets/img/w5/knee_plot.svg){fig-align="center"}
 
--   ① **높고 평평한 plateau** — 진짜 cell
--   ② **급경사 (the knee)** — 전이 구간
--   ③ **길고 낮은 꼬리** — ambient RNA만 든 빈 droplet
+-   ① **높고 평평한 plateau**: 진짜 cell
+-   ② **급경사 (the knee)**: 전이 구간
+-   ③ **길고 낮은 꼬리**: ambient RNA만 든 빈 droplet
 
-⚠️ Knee에서 hard cut → RNA가 적을 뿐인 진짜 cell까지 삭제 (작거나 quiescent한 cell, neutrophil). 딱 전이 구간에 몰려 있음
+⚠️ Knee에서 hard cut을 하면 RNA가 적을 뿐인 진짜 cell까지 삭제됨 (작거나 quiescent한 cell, neutrophil). 이런 cell은 딱 전이 구간에 몰려 있음
 
-✅ **EmptyDrops** (Cell Ranger ≥ 3도 이 방식의 변형 사용): "total이 높은가?"가 아니라 "이 barcode의 **profile**이 ambient profile과 다른가?"를 물음 → total이 낮아도 profile이 뚜렷한 작은 cell은 살아남음
+✅ **EmptyDrops** (Cell Ranger ≥ 3도 이 방식의 변형 사용): "total이 높은가?"가 아니라 "이 barcode의 **profile**이 ambient profile과 다른가?"를 물음. 그래서 total이 낮아도 profile이 뚜렷한 작은 cell은 걸러지지 않음
 
-💡 Cell Ranger가 내놓는 matrix 2개: `filtered_feature_bc_matrix`(called cell), `raw_feature_bc_matrix`(모든 barcode). **raw는 꼭 보관** — ambient RNA 보정에 빈 droplet이 필요함
+💡 Cell Ranger가 내놓는 matrix 2개: `filtered_feature_bc_matrix`(called cell), `raw_feature_bc_matrix`(모든 barcode). **raw는 꼭 보관**. Ambient RNA 보정에 빈 droplet이 필요함
 
 ### ③ ambient RNA 제거
 
-Dissociation·loading 중에 터진 cell → mRNA가 suspension으로 흘러나옴. 이 **"soup"**이 모든 droplet에 들어감. 그 결과 모든 cell의 profile = 자기 RNA + soup 약간
+Dissociation·loading 중에 cell이 터지면 mRNA가 suspension으로 흘러나옴. 이 **"soup"**이 모든 droplet에 들어감. 그 결과 모든 cell의 profile은 자기 RNA에 soup이 약간 섞인 것이 됨
 
 ![](../../../assets/img/w5/ambient_rna.svg){fig-align="center"}
 
--   **어떻게 보이나** — 가장 많거나 가장 약한 cell type의 marker가 **모든** cluster에서 낮게 검출: 피가 많은 sample이면 모든 cell에 hemoglobin gene, 간이면 immune cell에 *ALB*
--   **왜 문제** — 가짜 co-expression, 흐려진 cluster 경계, ⚠️ 한쪽 condition에서 soup이 더 많으면 가짜 DE (질환·괴사 조직이 보통 더 많음)
+-   **어떻게 보이나**: 가장 많거나 가장 잘 깨지는 cell type의 marker가 **모든** cluster에서 낮게 검출됨(피가 많은 sample이면 모든 cell에 hemoglobin gene, 간이면 immune cell에 *ALB*)
+-   **왜 문제인가**: 가짜 co-expression, 흐려진 cluster 경계, ⚠️ 한쪽 condition에서 soup이 더 많으면 가짜 DE (질환·괴사 조직이 보통 더 많음)
 
 ⚠️ **모든 droplet 기반 protocol**에 있음. **snRNA-seq이 제일 심함** (nucleus를 분리하면서 모든 cell이 터지니까)
 
-💡 **Well 기반 platform(BD Rhapsody, plate 기반 Smart-seq)은 보통 이 단계 생략.** Cell이 주변 buffer를 거의 가져오지 않고 각 well로 가라앉거나 sorting됨. buffer를 cell과 같이 가두는 droplet보다 soup이 훨씬 적음. ⚠️ 적다 ≠ 0. 같은 증상(한 cell type의 marker가 모든 곳에)이 보이면 여전히 오염
+💡 **Well 기반 platform(BD Rhapsody, plate 기반 Smart-seq)은 보통 이 단계 생략.** Cell이 주변 buffer를 거의 가져오지 않고 각 well로 가라앉거나 sorting됨. 그래서 buffer를 cell과 같이 가두는 droplet보다 soup이 훨씬 적음. ⚠️ 적다고 0은 아님. 같은 증상(한 cell type의 marker가 모든 곳에)이 보이면 여전히 오염
 
 | Tool | Input | 아이디어 |
 |------------------|------------------|------------------------------------|
@@ -198,7 +198,7 @@ Dissociation·loading 중에 터진 cell → mRNA가 suspension으로 흘러나�
 | **CellBender** | raw matrix | Generative model. Cell calling과 ambient RNA 제거를 한 번에; GPU 권장 |
 | **DecontX** | filtered matrix (raw는 선택) | Bayesian; 빈 droplet을 안 남겨뒀을 때도 사용 가능 |
 
-✅ QC·clustering **전에**, sample마다 따로 → 보정된 count가 이후 모든 단계의 input
+✅ QC·clustering **전에** sample마다 따로 실행. 보정된 count가 이후 모든 단계의 input이 됨
 
 ## 3) data QC: cutoff는 직접 정하기 {#w5-s3-3}
 
@@ -208,16 +208,16 @@ Cell마다 숫자 3개:
 
 | Metric | Seurat / scanpy | 너무 낮으면 → | 너무 높으면 → |
 |------------------|------------------|------------------|------------------|
-| Total UMI | `nCount_RNA` / `total_counts` | 빈 droplet, debris, 깨진 cell | doublet — 또는 크고 활발한 cell |
+| Total UMI | `nCount_RNA` / `total_counts` | 빈 droplet, debris, 깨진 cell | doublet, 또는 크고 활발한 cell |
 | 검출된 gene 수 | `nFeature_RNA` / `n_genes_by_counts` | 위와 같음 | 위와 같음 |
-| Mitochondrial % | `percent.mt` / `pct_counts_mt` | — | 죽어가는 cell — 또는 원래 mitochondria가 많은 cell |
+| Mitochondrial % | `percent.mt` / `pct_counts_mt` | — | 죽어가는 cell, 또는 원래 mitochondria가 많은 cell |
 
-**Mito 비율이 높으면 왜 죽어가는 cell?** Membrane이 깨지면 cytoplasmic mRNA는 새어 나가지만, mitochondria 안의 transcript는 mitochondrial membrane에 보호돼 남음 → **비율**이 올라감 (더 많이 만든 게 아님)
+**Mito 비율이 높으면 왜 죽어가는 cell?** Membrane이 깨지면 cytoplasmic mRNA는 새어 나가지만, mitochondria 안의 transcript는 mitochondrial membrane에 보호돼 남음. 그래서 **비율**이 올라감 (더 많이 만든 게 아님)
 
-⚠️ **같이 볼 것.** Mito 높음 **+** gene 적음 = 깨진 cell. Mito가 높아도 gene 수가 정상이면 진짜 mitochondria-rich cell일 수도 (cardiomyocyte, hepatocyte, renal tubule)\
-⚠️ **snRNA-seq**: nucleus엔 mitochondria가 없음 → mito read ≈ 0이 정상. 의미 있는 비율 = cytoplasmic / ambient 오염 → 훨씬 엄격한 cut
+⚠️ **같이 볼 것.** Mito가 높고 **동시에** gene이 적으면 깨진 cell. Mito가 높아도 gene 수가 정상이면 진짜 mitochondria-rich cell일 수도 (cardiomyocyte, hepatocyte, renal tubule)\
+⚠️ **snRNA-seq**: nucleus엔 mitochondria가 없으므로 mito read가 0에 가까워야 정상. 눈에 띄는 비율이 나오면 cytoplasmic / ambient 오염이므로 훨씬 엄격하게 cut
 
-✅ **Data-driven cutoff**: median에서 *k* **MAD**(median absolute deviation) 이상 벗어난 cell을 표시 (`scater::isOutlier`; *k* = 3 엄격 … 5 느슨) — threshold가 sample마다 알아서 맞춰짐\
+✅ **Data-driven cutoff**: median에서 *k* **MAD**(median absolute deviation) 이상 벗어난 cell을 표시 (`scater::isOutlier`; *k* = 3 엄격 … 5 느슨). Threshold가 sample마다 알아서 맞춰짐\
 ✅ **항상 sample별로.** 더 깊게 sequencing된 sample은 세 분포가 다 같이 이동함
 
 ![](../../../assets/img/w5/qc_thresholds.svg){fig-align="center"}
@@ -234,7 +234,7 @@ Cell마다 숫자 3개:
 
 ### ② doublets
 
-Droplet 하나에 cell 둘 → barcode를 공유 → **hybrid profile을 가진 cell 하나**처럼 보임. Loading을 많이 할수록 ↑: 표준 10x에서 회수 cell 1,000개당 \~0.8% — **10,000 cells → doublet \~8%**
+Droplet 하나에 cell이 둘 들어가면 barcode를 공유해서 **hybrid profile을 가진 cell 하나**처럼 보임. Loading을 많이 할수록 비율이 높아짐: 표준 10x에서 회수 cell 1,000개당 \~0.8% (**10,000 cells → doublet \~8%**)
 
 |   | **Heterotypic** | **Homotypic** |
 |---------------------|--------------------------|--------------------------|
@@ -243,18 +243,18 @@ Droplet 하나에 cell 둘 → barcode를 공유 → **hybrid profile을 가진 
 | Expression으로 검출 | ✅ 가능 | ❌ 거의 불가 |
 | 피해 | ⚠️ 없는 cell type과 transition을 만들어냄 | 경미 |
 
-**방법**: 어떤 barcode가 doublet인지 직접 볼 방법은 없음 — 대신 doublet을 **만들어 놓고**, 진짜 cell 중 누가 그걸 닮았는지 확인
+**방법**: 어떤 barcode가 doublet인지 직접 볼 방법은 없음. 대신 doublet을 **만들어 놓고**, 진짜 cell 중 누가 그걸 닮았는지 확인
 
-![PC space에서 가짜 doublet에 둘러싸인 진짜 cell = 아마 doublet](../../../assets/img/w5/doublet_detection.svg){fig-align="center"}
+![PC space에서 가짜 doublet에 둘러싸인 진짜 cell은 아마 doublet](../../../assets/img/w5/doublet_detection.svg){fig-align="center"}
 
-**DoubletFinder — 4단계 로직**
+**DoubletFinder: 4단계 로직**
 
-1.  **Simulate** — 진짜 cell 쌍을 무작위로 골라 profile을 평균 → 가짜 doublet (`pN`, 기본값 merged data의 25%)
-2.  **같이 embedding** — 진짜 + 가짜 cell → normalise, HVG, PCA
-3.  **가짜 이웃 세기** — 진짜 cell마다 **pANN** = nearest neighbour 중 가짜 doublet 비율 (**p**roportion of **a**rtificial **n**earest **n**eighbours). 진짜 doublet은 가짜들 사이에 있음 → pANN 높음
-4.  **Threshold** — pANN 순으로 상위 *n*개를 doublet으로. *n* = 예상 비율 × cell 수, 못 보는 homotypic 비율만큼 차감 (`modelHomotypic()`)
+1.  **Simulate**: 진짜 cell 쌍을 무작위로 골라 profile을 평균해서 가짜 doublet을 만듦 (`pN`, 기본값 merged data의 25%)
+2.  **같이 embedding**: 진짜 + 가짜 cell → normalise, HVG, PCA
+3.  **가짜 이웃 세기**: 진짜 cell마다 **pANN** = nearest neighbour 중 가짜 doublet 비율 (**p**roportion of **a**rtificial **n**earest **n**eighbours). 진짜 doublet은 가짜들 사이에 있어서 pANN이 높음
+4.  **Threshold**: pANN 순으로 상위 *n*개를 doublet으로 판정. *n* = 예상 비율 × cell 수에서 못 보는 homotypic 비율만큼 뺀 값 (`modelHomotypic()`)
 
-중요한 parameter는 **pK**(neighbourhood 크기) 하나. pK를 sweep해서 pANN이 가장 **bimodal**해지는 값(singlet은 낮게, doublet은 높게)을 고름 — BCmvn(mean–variance-normalised bimodality coefficient)으로 점수화
+중요한 parameter는 **pK**(neighbourhood 크기) 하나. pK를 sweep해서 pANN이 가장 **bimodal**해지는 값(singlet은 낮게, doublet은 높게)을 고름. 이때 BCmvn(mean–variance-normalised bimodality coefficient)으로 점수를 매김
 
 💡 pANN 분포가 뚜렷하게 bimodal하면 제대로 작동한 것. Unimodal이면 그 neighbourhood 크기에서는 doublet이 분리 안 됨
 
@@ -304,19 +304,19 @@ ad.obs.predicted_doublet.value_counts()
 
 :::
 
-**scDblFinder — 뭐가 다른가?**
+**scDblFinder: 뭐가 다른가?**
 
-기본 발상은 같음 (가짜 doublet + 진짜 cell이 그 사이 어디에 있는지). 방법이 다름:
+기본 발상은 같음 (가짜 doublet을 만들고, 진짜 cell이 그 사이 어디에 있는지 봄). 방법이 다름:
 
 |   | DoubletFinder | scDblFinder |
 |---------------------|--------------------------|--------------------------|
-| 가짜 doublet | 무작위 쌍 | 무작위, **또는 cluster 간** — 중요한 heterotypic에 집중 |
+| 가짜 doublet | 무작위 쌍 | 무작위, **또는 cluster 간**. 중요한 heterotypic에 집중 |
 | Score | neighbourhood 크기 하나에서 통계량 하나 (pANN) | 여러 크기의 kNN feature + library size, 검출 gene 수, co-expression으로 gradient-boosted classifier; 반복 재학습 |
 | Parameter | pK sweep; 예상 *n*은 직접 설정 | 예상 비율과 misclassification으로 threshold 자동 설정 |
 | 여러 sample | sample마다 직접 실행 | `samples =` argument |
 | 속도 | 느림 (pK sweep) | 빠름 |
 
-첫 대규모 독립 benchmark에서는 DoubletFinder가 가장 정확 (Xi & Li 2021). 이후 나온 scDblFinder가 같은 dataset에서 동등하거나 더 좋음 (Germain et al. 2021) → 지금은 흔한 기본값. Pipeline 그림에 있는 tool도 이것
+처음 나온 대규모 독립 benchmark에서는 DoubletFinder가 가장 정확했음 (Xi & Li 2021). 이후 나온 scDblFinder는 같은 dataset에서 동등하거나 더 좋은 성능을 보였고 (Germain et al. 2021), 지금은 흔히 쓰는 기본값. Pipeline 그림에 있는 tool도 이것
 
 ::: {.panel-tabset group="lang"}
 
@@ -343,10 +343,10 @@ ad.obs.doublet.value_counts()
 ::: {.callout-warning collapse="true"}
 ## Doublet detector 공통 규칙
 
-⚠️ **Sample (capture) 하나씩.** Doublet은 capture 안에서만 생김; 서로 다른 환자의 cell로 만든 가짜 doublet = 존재할 수 없는 cell\
+⚠️ **Sample (capture) 하나씩.** Doublet은 capture 안에서만 생김. 서로 다른 환자의 cell로 만든 가짜 doublet은 존재할 수 없는 cell\
 ⚠️ **Homotypic doublet은 expression 기반 방법으로는 다 못 잡음.** 어느 정도 남는 건 감수\
-⚠️ **Cluster 해석 전에 할 것.** Doublet cluster는 두 부모 cluster 사이에 놓임 → transitional state로 착각하기 쉬움\
-💡 **설계가 알고리즘보다 나음.** Donor 여러 명을 한 lane에 pooling하고 genotype(`demuxlet`, `souporcell`, `vireo`)이나 hashtag antibody로 demultiplexing하면 donor 간 doublet은 전부 직접 식별, lane당 cell도 더 많이 loading 가능
+⚠️ **Cluster 해석 전에 할 것.** Doublet cluster는 두 부모 cluster 사이에 놓여서 transitional state로 착각하기 쉬움\
+💡 **설계가 알고리즘보다 나음.** Donor 여러 명을 한 lane에 pooling하고 genotype(`demuxlet`, `souporcell`, `vireo`)이나 hashtag antibody로 demultiplexing하면 donor 간 doublet을 전부 직접 식별할 수 있고, lane당 cell도 더 많이 loading 가능
 :::
 
 ### ③ Recap
@@ -363,15 +363,15 @@ ad.obs.doublet.value_counts()
 
 두 tool의 공식 문서가 서로 반대:
 
--   **DoubletFinder**: low-quality cluster를 **먼저** 제거 — 가짜 doublet과 PCA를 왜곡하니까
--   **scDblFinder**: 엄격한 QC **전에** doublet 찾기 — 예상 비율이 넣어준 cell 수로 계산되고, 좋은 cell + 나쁜 cell로 된 doublet은 나쁜 cell이 데이터에 남아 있어야 식별 가능
+-   **DoubletFinder**: low-quality cluster를 **먼저** 제거. 가짜 doublet과 PCA를 왜곡하기 때문
+-   **scDblFinder**: 엄격한 QC **전에** doublet 찾기. 예상 비율이 넣어준 cell 수로 계산되고, 좋은 cell + 나쁜 cell로 된 doublet은 나쁜 cell이 데이터에 남아 있어야 식별 가능
 
-✅ 둘을 절충한 순서 — 위의 ① → ②, pipeline 그림과 같음:
+✅ 둘을 절충한 순서(위의 ① → ②, pipeline 그림과 같음):
 
-1.  **Primary QC, 느슨하게** — 명백한 쓰레기만: 거의 빈 barcode, 극단적인 mito
+1.  **Primary QC, 느슨하게**: 명백한 쓰레기만 제거(거의 빈 barcode, 극단적인 mito)
 2.  **Doublet detection**, sample별로
 3.  **최종 threshold**, data-driven (MAD)
-4.  **Clustering 후 secondary QC** — mito·stress gene으로 정의되거나 양립 불가한 marker 두 세트를 가진 cluster를 통째로 제거 (§4.4)
+4.  **Clustering 후 secondary QC**: mito·stress gene으로 정의되거나 양립 불가한 marker 두 세트를 가진 cluster를 통째로 제거 (§4.4)
 
 💡 어느 순서든 명시만 하면 OK. 안 되는 것: upper `nFeature` cutoff **하나만으로** doublet 거르기
 :::
@@ -389,47 +389,47 @@ QC 후: **cell 수천 개** × gene \~20,000개, 대부분 0
 | **Scale** | gene마다 평균 빼고 SD로 나눔 | 발현량이 크다는 이유만으로 PCA의 결과를 좌우하지 않게 | `ScaleData()` |
 
 ::: {.callout-note collapse="true"}
-💡 대안: **SCTransform**(regularised negative binomial model의 Pearson residual — 세 단계를 한 번에), **scran** pooled size factor. 대규모 benchmark 결과 단순한 shifted log + [**PCA가**]{.underline} 정교한 방법들과 비슷하거나 더 좋음 (Ahlmann-Eltze & Huber 2023)\
+💡 대안: **SCTransform**(regularised negative binomial model의 Pearson residual, 세 단계를 한 번에), **scran** pooled size factor. 대규모 benchmark 결과 단순한 shifted log + [**PCA가**]{.underline} 정교한 방법들과 비슷하거나 더 좋음 (Ahlmann-Eltze & Huber 2023)\
 ⚠️ `ScaleData(vars.to.regress = ...)`로 mito %, depth, cell-cycle score를 regress out 가능. 아껴서 쓸 것: 그 "nuisance"가 biology와 상관있으면 (증식성 질환의 cycling cell) biology까지 같이 빠짐\
-⚠️ 이제 같은 matrix의 버전 3개가 나란히 존재. §5.1은 뭐가 뭔지 아는 데서 출발:
+⚠️ 이제 같은 matrix의 버전 3개가 나란히 존재. §5.1을 이해하려면 각각이 무엇인지 알아야 함:
 
--   `counts` — raw UMI
--   `data` — log-normalised
--   `scale.data` — z-score, HVG만
+-   `counts`: raw UMI
+-   `data`: log-normalised
+-   `scale.data`: z-score, HVG만
 :::
 
 ### ② PCA: dimension reduction
 
-HVG 2,000개 → **principal component 10–50개**. PC 하나는 함께 변하는 gene들의 가중 조합 — gene이 아니라 *program*
+HVG 2,000개 → **principal component 10–50개**. PC 하나는 함께 변하는 gene들의 가중 조합. 즉 gene 하나가 아니라 *program*
 
--   **Denoising** — gene 하나는 noisy, 상관된 program은 그렇지 않음. 상위 PC는 biology, 뒤쪽 PC는 대부분 noise
--   **속도** — 이후 모든 단계(neighbour, clustering, UMAP, batch correction)가 gene이 아니라 PC 위에서 돌아감
--   **몇 개?** `ElbowPlot()` — variance explained가 평평해지는 지점. 10–50 사이에서는 결과가 꽤 안정적; 적게보다는 넉넉하게 (rare population이 PC 25에 있을 수도)
+-   **Denoising**: gene 하나는 noisy하지만 상관된 program은 그렇지 않음. 상위 PC는 biology, 뒤쪽 PC는 대부분 noise
+-   **속도**: 이후 모든 단계(neighbour, clustering, UMAP, batch correction)가 gene이 아니라 PC 위에서 돌아감
+-   **몇 개?** `ElbowPlot()`에서 variance explained가 평평해지는 지점. 10–50 사이에서는 결과가 꽤 안정적. 적게 잡기보다는 넉넉하게 (rare population이 PC 25에 있을 수도)
 
 ✅ **상위 PC를 결정하는 요인 확인.** PC1이 `nCount_RNA`나 `percent.mt`를 따라가면 주된 변이 축이 기술적인 것이므로 QC로 복귀. `VizDimLoadings()`로 gene 확인\
-💡 PCA는 linear, 거리에 의미가 있음 — UMAP과 다름(§4.3). 실제 분석은 PC space에서, UMAP은 보는 용도일 뿐
+💡 PCA는 linear이고 거리에 의미가 있음. 이 점이 UMAP과 다름(§4.3). 실제 분석은 PC space에서 하고, UMAP은 보는 용도일 뿐
 
 ### ③ batch correction
 
 Sample이 여러 개면 cell이 cell type보다 **donor나 batch**별로 먼저 뭉치는 경우가 많음. 보정은 count가 아니라 **embedding**에서:
 
--   **Harmony** — PC를 반복적으로 조정
--   **scVI** — batch를 covariate로 넣고 [raw count로부터]{.underline} 새 latent space를 학습
--   **Seurat CCA / RPCA** — dataset 간 matched cell을 anchor로
+-   **Harmony**: PC를 반복적으로 조정
+-   **scVI**: batch를 covariate로 넣고 [raw count로부터]{.underline} 새 latent space를 학습
+-   **Seurat CCA / RPCA**: dataset 간 matched cell을 anchor로 사용
 
-→ neighbour, clustering, UMAP에 사용
+보정된 embedding은 neighbour, clustering, UMAP에 사용
 
-✅ **필요한지부터 확인.** 보정 전 UMAP을 sample별로 색칠 → 이미 cell type이 sample 간에 섞여 있으면 생략\
-⚠️ **보정된 값은 cell을 묶는 용도, gene 검정용 x.** DE는 donor를 model에 넣고 raw count로 돌아가서 (§5.1)\
-⚠️ 과보정하면 질환 특이적인 state가 지워질 수 있음 → 🔗 [W6 §1](w6_scrna_dynamics.qmd#w6-s1)
+✅ **필요한지부터 확인.** 보정 전 UMAP을 sample별로 색칠해 봄. 이미 cell type이 sample 간에 섞여 있으면 생략\
+⚠️ **보정된 값은 cell을 묶는 용도, gene 검정용 x.** DE는 raw count로 돌아가 donor를 model에 넣고 수행 (§5.1)\
+⚠️ 과보정하면 질환 특이적인 state가 지워질 수 있음 (🔗 [W6 §1](w6_scrna_dynamics.qmd#w6-s1))
 
 ::: {.callout-note collapse="true"}
-## VI universe — 엔진 하나, model 여러 개
+## VI universe: 엔진 하나, model 여러 개
 
-scVI = 한 family(**scvi-tools** library)의 첫 번째 member. 모두 같은 엔진:
+scVI는 한 family(**scvi-tools** library)의 첫 번째 member. 모두 같은 엔진을 씀:
 
--   **Variational autoencoder (VAE)** — neural network가 cell의 **raw count**를 latent 숫자 \~10–30개로 압축하고, decoder가 **negative binomial** model로 count를 재구성
--   **Batch를 decoder에 input으로** 넣음 → latent space가 batch 정보를 담을 필요 x — 이게 integration
+-   **Variational autoencoder (VAE)**: neural network가 cell의 **raw count**를 latent 숫자 \~10–30개로 압축하고, decoder가 **negative binomial** model로 count를 재구성
+-   **Batch를 decoder에 input으로** 넣음. 그래서 latent space가 batch 정보를 담을 필요 x. 이게 integration
 -   Likelihood를 바꾸거나 modality를 추가하면 새 model이 됨
 
 | Model | Data | 용도 | 이 수업에서 |
@@ -464,17 +464,17 @@ scVI = 한 family(**scvi-tools** library)의 첫 번째 member. 모두 같은 �
 
 ## 1) cell을 묶기 위한 neighbor {#w5-s4-1}
 
-> Clustering과 UMAP은 gene을 직접 안 봄. PC space에서 만든 **누가 누구와 가까운지의 graph**를 봄
+> Clustering과 UMAP은 gene을 직접 안 봄. PC space에서 만든, **어느 cell이 어느 cell과 가까운지를 나타낸 graph**를 봄
 
 ![](../../../assets/img/w5/knn_graph.svg){fig-align="center"}
 
--   **Neighbour** — cell마다 PC space에서 가장 가까운 *k*개 cell (상위 PC에서의 Euclidean distance)
--   **kNN graph** — cell = node; 각 cell을 *k*개 neighbour와 연결. Seurat은 두 cell이 neighbour를 얼마나 **공유**하는지로 link 가중치를 다시 매김 (SNN graph) → outlier 영향 감소
--   **왜 graph?** — cell population은 동그란 덩어리인 경우가 드묾. Graph는 길쭉하거나 갈라지거나 연속적인 population까지 데이터 모양을 그대로 따라가고, cell 수백만 개까지 확장 가능
+-   **Neighbour**: cell마다 PC space에서 가장 가까운 *k*개 cell (상위 PC에서의 Euclidean distance)
+-   **kNN graph**: cell이 node이고, 각 cell을 *k*개 neighbour와 연결. Seurat은 두 cell이 neighbour를 얼마나 **공유**하는지로 link 가중치를 다시 매김 (SNN graph). 그러면 outlier의 영향이 줄어듦
+-   **왜 graph?** Cell population은 동그란 덩어리인 경우가 드묾. Graph는 길쭉하거나 갈라지거나 연속적인 population까지 데이터 모양을 그대로 따라가고, cell 수백만 개까지 확장 가능
 
 ⚠️ "kNN clustering"은 잘못된 표현. kNN은 graph를 **만들기만** 하고, 다음 단계인 clustering이 그걸 community로 **자름**. *k*-means도 아님 (cluster 수를 미리 정해야 하고 동그란 cluster를 가정)
 
-⚠️ *k*가 scale을 정함 (Seurat `k.param = 20`, scanpy `n_neighbors = 15`). *k*가 작으면 → 세밀한 local 구조, 조각이 많아짐. *k*가 크면 → 매끄러운 graph. 다만 *k*보다 작은 population은 자기 neighbourhood를 못 만들어서 구성원이 바깥과 연결될 수밖에 없음
+⚠️ *k*가 scale을 정함 (Seurat `k.param = 20`, scanpy `n_neighbors = 15`). *k*가 작으면 local 구조가 세밀해지고 조각이 많아짐. *k*가 크면 graph가 매끄러워짐. 다만 *k*보다 작은 population은 자기 neighbourhood를 못 만들어서 구성원이 바깥과 연결될 수밖에 없음
 
 ## 2) clustering {#w5-s4-2}
 
@@ -482,13 +482,13 @@ scVI = 한 family(**scvi-tools** library)의 첫 번째 member. 모두 같은 �
 
 ### ① leiden vs. louvain
 
-개념만 — 이름을 알아보고 뭘 최적화하는지만 알면 됨, 구현은 x
+개념만: 이름을 알아보고 뭘 최적화하는지만 알면 됨. 구현은 x
 
 -   둘 다 **community detection**: 우연히 기대되는 것보다 서로 더 촘촘히 연결된 그룹으로 graph를 자름 (**modularity** 최대화)
--   **Louvain**(2008) — 각 cell을 modularity를 가장 많이 올리는 이웃 community로 greedy하게 이동 → community 하나를 node 하나로 합침 → 반복
--   ⚠️ 알려진 결함: **연결이 약하거나 아예 끊긴** community가 나올 수 있음 — 조각끼리 graph에서 이어지지 않은 cluster
--   **Leiden**(2019) — refinement 단계를 추가해 모든 community가 내부적으로 연결됨을 보장. 더 빠름
--   기본값: scanpy → Leiden. Seurat `FindClusters()` → Louvain(`algorithm = 1`); Leiden은 `algorithm = 4`
+-   **Louvain**(2008): 각 cell을 modularity를 가장 많이 올리는 이웃 community로 greedy하게 이동 → community 하나를 node 하나로 합침 → 반복
+-   ⚠️ 알려진 결함: **연결이 약하거나 아예 끊긴** community가 나올 수 있음. 즉 조각끼리 graph에서 이어지지 않은 cluster가 생김
+-   **Leiden**(2019): refinement 단계를 추가해 모든 community가 내부적으로 연결됨을 보장. 더 빠름
+-   기본값: scanpy는 Leiden, Seurat `FindClusters()`는 Louvain(`algorithm = 1`). Leiden은 `algorithm = 4`
 
 💡 Biology 측면에선 어느 걸 쓰든 결론이 거의 안 바뀜. 바뀌는 건 **resolution**. 둘 다 보고할 것
 
@@ -498,7 +498,7 @@ scVI = 한 family(**scvi-tools** library)의 첫 번째 member. 모두 같은 �
 
 > key parameter for clustering: **resolution**
 
-Resolution = modularity score 안의 항. 값이 클수록 작은 community를 선호 → cluster 수 ↑
+Resolution은 modularity score 안의 항. 값이 클수록 작은 community를 선호해서 cluster 수가 늘어남
 
 ⚠️ 최적의 판단기준은 본인이...
 
@@ -509,7 +509,7 @@ Resolution = modularity score 안의 항. 값이 클수록 작은 community를 �
 ::: {.callout-note collapse="true"}
 ## Cluster는 cell type이 아니다
 
-Cluster는 아래가 반영됨:
+Cluster에는 아래와 같은 것도 반영될 수 있음:
 
 -   Cell **state**(activated vs resting)
 -   Cell-cycle phase
@@ -529,10 +529,10 @@ Cluster는 아래가 반영됨:
 
 복잡한 조직에서 UMAP이 기본이 된 이유:
 
--   **Clustering과 같은 kNN graph를 펼침**(§4.1) → island가 대개 cluster와 일치
+-   **Clustering과 같은 kNN graph를 펼침**(§4.1). 그래서 island가 대개 cluster와 일치
 -   **Neighbour끼리 당기는 힘이 강함**. 그 결과 island가 단단해지고 간격이 뚜렷해짐. t-SNE는 group들을 둥근 구름에 고르게 퍼뜨림
--   **Graph 자체의 (spectral) layout에서 출발**, 무작위 위치 x → 관련된 population끼리 가까이 놓이는 경향, 다시 돌려도 비슷
--   **빠름** — cell 수백만 개도 OK. t-SNE는 느림
+-   **Graph 자체의 (spectral) layout에서 출발**, 무작위 위치 x. 그래서 관련된 population끼리 가까이 놓이는 경향이 있고, 다시 돌려도 결과가 비슷
+-   **빠름**: cell 수백만 개도 OK. t-SNE는 느림
 
 ⚠️ t-SNE가 둥글게 보이는 건 t-분포 때문이 아님. 오히려 heavy tail 덕분에 간격이 생김. 둥글고 느슨한 모양은 **neighbour끼리 당기는 힘이 약해서**이고, 배치가 제멋대로인 건 **random start** 때문. t-SNE를 PCA로 시작하고 당기는 힘을 키우면 UMAP처럼 보임
 
@@ -541,14 +541,14 @@ Cluster는 아래가 반영됨:
 
 ❌ **Cluster 사이 거리 중요x.** 멀리 떨어진 두 cluster가 가까운 두 cluster보다 더 다르다 (x)\
 ❌ **Cluster 면적 중요x.** 크기 from embedding, not from cell number\
-❌ (**보통) 가운데 bridge != trajectory.** 중간에 희끄무리한 건 보통 doublet, ambient RNA 또는 parameter artifact. cell-to-cell intermediate 아님!\
+❌ (**보통) 가운데 bridge는 trajectory가 아님.** 중간에 희끄무리한 건 보통 doublet, ambient RNA 또는 parameter artifact. cell-to-cell intermediate 아님!\
 ⚠️ **Parameter와 random seed에 따라 바뀜.** `n_neighbors` / `min_dist`
 
-→ UMAP은 시각화일뿐. 통계 분석은 high-dimensional space에서 계산한 숫자로
+UMAP은 시각화일 뿐. 통계 분석은 high-dimensional space에서 계산한 숫자로 할 것
 :::
 
 ::: {.callout-note collapse="true"}
-**PCA, t-SNE, UMAP — 그리고 새로 나온 것들**
+**PCA, t-SNE, UMAP, 그리고 새로 나온 것들**
 
 | 방법 | 연도 | 보존하는 것 | 주로 보이는 곳 |
 |------------|---------|------------------------|----------------------|
@@ -559,19 +559,19 @@ Cluster는 아래가 반영됨:
 | **densMAP** | 2021 | local **density**까지(균질한 population은 촘촘하게, 이질적인 건 넓게 퍼짐) | 이 population이 얼마나 다양한지가 중요할 때 |
 | **PaCMAP** | 2021 | local과 global 구조의 균형 | 범용; single-cell 논문에선 아직 드묾 |
 
-💡 UMAP이 t-SNE보다 global 구조를 더 잘 보존한다는 평판은 대부분 알고리즘이 아니라 **initialisation** 덕분; PCA에서 시작한 t-SNE도 비슷한 수준 (Kobak & Linderman 2021)
+💡 UMAP이 t-SNE보다 global 구조를 더 잘 보존한다는 평판은 대부분 알고리즘이 아니라 **initialisation** 덕분. PCA에서 시작한 t-SNE도 비슷한 수준 (Kobak & Linderman 2021)
 
 ⚠️ 결국 전부 2D 그림. 새로운 방법은 한 가지 왜곡을 다른 왜곡과 맞바꿀 뿐이고, 2D 거리를 측정값으로 만들어 주는 방법은 없음 (Chari & Pachter 2023)
 :::
 
 ## 4) Annotation {#w5-s4-4}
 
--   **Marker 기반** — cluster별로 알려진 marker 확인.\
+-   **Marker 기반**: cluster별로 알려진 marker 확인.\
     ✅ 깔끔.\
     ⚠️ 순환적. 알려진 cell type만 가능
--   **Reference 기반** — annotated atlas(Azimuth, SingleR, scANVI)에 mapping.\
+-   **Reference 기반**: annotated atlas(Azimuth, SingleR, scANVI)에 mapping.\
     ✅ 빠르고 일관됨.\
-    ⚠️ Reference의 cell type이 있는 것만, 그대로
+    ⚠️ Reference에 있는 cell type 이름만 그대로 붙일 수 있음
 
 💡 두 방법 모두 사용 권장. **두 방법이 불일치? –\>** novel cell population vs. artifacts
 
@@ -585,20 +585,20 @@ Cluster는 아래가 반영됨:
 
 | 값 | 위치 | ✅ 용도 | ❌ 쓰면 안 되는 곳 |
 |-----------------|----------------------|-----------------|-----------------|
-| **Raw UMI count** (또는 ambient 보정 count) | `counts` layer (Seurat), `.layers["counts"]` (scanpy) | **pseudobulk DE**(§5.3), count model 전반 | cell끼리 직접 비교 — depth가 다름 |
+| **Raw UMI count** (또는 ambient 보정 count) | `counts` layer (Seurat), `.layers["counts"]` (scanpy) | **pseudobulk DE**(§5.3), count model 전반 | cell끼리 직접 비교(depth가 다름) |
 | **Log-normalised** | `data` layer (Seurat), `normalize_total` + `log1p` 후의 `.X` (scanpy) | 한 dataset 안의 cluster marker(§5.2), feature plot | cell을 *n*으로 하는 condition 비교 |
 | **Scaled (z-score)** | `scale.data` layer (Seurat), `sc.pp.scale` 후의 `.X` (scanpy) | PCA, heatmap | DE 전부 |
 | **Batch-corrected** (Harmony / scVI) | reduction, 예: `harmony` (Seurat), `.obsm["X_pca_harmony"]`, `.obsm["X_scVI"]` (scanpy) | neighbour, clustering, UMAP | DE 전부 |
 | **scVI normalised / denoised expression** | `get_normalized_expression()` 출력, 보통 `.layers`에 저장 (scvi-tools) | 시각화; scVI 자체 DE | [관측 count]{.underline}를 가정하는 표준 검정 |
 
 ::: {.callout-tip collapse="true"}
-⚠️ scanpy 함정: `normalize_total`, `log1p`, `scale`은 **`.X`를 그 자리에서 덮어씀**. Normalise **전에** raw count를 `.layers["counts"]`에 복사해 둘 것 — 안 그러면 사라짐, pseudobulk할 게 없음
+⚠️ scanpy 함정: `normalize_total`, `log1p`, `scale`은 **`.X`를 그 자리에서 덮어씀**. Normalise **전에** raw count를 `.layers["counts"]`에 복사해 둘 것. 안 그러면 raw count가 사라져서 pseudobulk할 게 없음
 
 **Cell type 하나만 subset한 뒤 다시 normalise?**
 
--   **Sub-clustering이면 — 부분적으로 yes.** Subset에서 HVG 선택, scaling, PCA를 다시: 전체 조직의 HVG는 주로 cell type끼리를 가르지, 한 type 안의 state를 가르진 않음
--   **Log-normalisation 자체는 — no.** Cell 단위로 계산되므로 subset해도 안 바뀜
--   **DE면 — 상관없음.** Pseudobulk는 raw count에서 시작하고, DESeq2/edgeR이 pseudo-sample 간 normalise를 알아서 함
+-   **Sub-clustering이면 부분적으로 yes.** Subset에서 HVG 선택, scaling, PCA를 다시 함. 전체 조직의 HVG는 주로 cell type끼리를 가르지, 한 type 안의 state를 가르진 않음
+-   **Log-normalisation 자체는 no.** Cell 단위로 계산되므로 subset해도 안 바뀜
+-   **DE면 상관없음.** Pseudobulk는 raw count에서 시작하고, DESeq2/edgeR이 pseudo-sample 간 normalise를 알아서 함
 
 ⚠️ 예외: SCTransform residual은 fitting한 데이터에 의존. SCT model이 여러 개면(merge한 sample) 검정 전에 `PrepSCTFindMarkers()` 실행
 :::
@@ -616,7 +616,7 @@ Donor 6명에서 나온 cell 5,400개에 Wilcoxon test를 적용하면 cell을 5
 
 -   p-value가 여러 order of magnitude만큼 부풀려짐
 -   Cell을 추가할수록 p-value가 끝없이 작아짐
--   그 결과 연구한 사람이 몇 명인지가 아니라 **loading한 cell이 몇 개인지** 측정하게 됨
+-   결국 연구한 사람이 몇 명인지가 아니라 **loading한 cell이 몇 개인지** 측정하게 됨
 
 ⚠️ Seurat의 기본 `FindMarkers`가 이런 방식임..
 
@@ -675,11 +675,11 @@ pb.shape   # (cell type, donor) pseudo-samples × genes
 -   Benchmark에서 pseudobulk는 per-cell test보다 false positive가 훨씬 적음
 -   Donor random effect를 사용하는 **mixed model**도 합리적임. Power를 더 유지하지만 계산량이 많음
 
-## 4) Differential abundance = compositional {#w5-s5-4}
+## 4) Differential abundance: compositional data {#w5-s5-4}
 
 흥미로운 결과는 cell type의 expression 변화가 아니라 **양의 증가 또는 감소**
 
-⚠️ Proportion = **compositional data**. Cell type 하나가 늘면 생물학적 변화가 없어도 단순한 산술 때문에 나머지 모든 proportion이 줄어듦 (서로 연결되어있음 = multivariate)
+⚠️ Proportion은 **compositional data**. Cell type 하나가 늘면 생물학적 변화가 없어도 단순한 산술 때문에 나머지 모든 proportion이 줄어듦 (서로 연결되어 있으므로 multivariate)
 
 -   ✅ 이를 다루는 방법: `scCODA`, `miloR`, `propeller`, Dirichlet-multinomial model
 -   ❌ Cell count에 대한 χ² test (please never...)
@@ -827,7 +827,7 @@ ad.write_h5ad("analysis/5_pbmc_annotated.h5ad")
 
 :::
 
-**W6 — trajectory, cell–cell communication, multi-sample integration.**
+**W6: trajectory, cell–cell communication, multi-sample integration.**
 
 ::: {.panel-tabset group="lang"}
 
@@ -854,18 +854,18 @@ install.packages(c("harmony", "CellChat"))
 
 # 📝 요약
 
--   하나의 bulk fold change = 전체의 균일한 변화, 반응하는 드문 subpopulation, **순수한 composition 변화** 모두 가능
+-   하나의 bulk fold change는 전체의 균일한 변화, 반응하는 드문 subpopulation, **순수한 composition 변화** 중 어느 것에서도 나올 수 있음
 -   ✅ 많은 환자를 sorting + deep bulk하는 쪽이 적은 환자의 whole-tissue single cell보다 나은 경우가 많음
 -   ⚠️ **Fresh냐 frozen이냐는 수집할 때 결정.** scRNA-seq vs snRNA-seq 선택이 그때 고정됨
 -   ⚠️ **Dissociation은 stress gene을 유도하고 특정 cell을 선택적으로 파괴.** *FOS*/*JUN* cluster는 대개 artifact, depletion 주장은 자세히 볼 것
 -   UMI는 read가 아니라 molecule을 셈. Matrix의 90% 이상이 0이고, 0 하나의 의미는 제한적
--   Cell calling과 ambient RNA 제거에는 빈 droplet까지 포함된 **raw** matrix가 필요 — 꼭 보관
--   ⚠️ Doublet detection은 **sample별로**; homotypic doublet은 expression 기반 방법으로는 못 잡음
--   ⚠️ **모든 QC threshold는 실제 population을 삭제함.** Mito 5% → cardiomyocyte, min.features 500 → platelet
+-   Cell calling과 ambient RNA 제거에는 빈 droplet까지 포함된 **raw** matrix가 필요하므로 꼭 보관
+-   ⚠️ Doublet detection은 **sample별로**. Homotypic doublet은 expression 기반 방법으로는 못 잡음
+-   ⚠️ **모든 QC threshold는 실제 population을 삭제함.** Mito 5%는 cardiomyocyte를, min.features 500은 platelet을 지움
 -   PC space의 kNN graph가 clustering과 UMAP을 둘 다 결정. Leiden vs Louvain보다 resolution이 훨씬 중요
 -   ❌ UMAP의 거리, cluster 면적, bridge는 **해석 불가**
 -   ⚠️ Clustering resolution은 임의적. Marker와 stability를 확인하고 **사용한 값을 보고**
--   ⚠️ Scaled·batch-corrected 값은 cell을 묶는 용도, **DE에는 절대 x** — 검정은 raw count로
+-   ⚠️ Scaled·batch-corrected 값은 cell을 묶는 용도, **DE에는 절대 x**. 검정은 raw count로
 -   ⚠️ **Condition 간 per-cell differential expression은 무효.** Pseudobulk 사용. n은 **donor 수**
 -   ⚠️ Cell-type proportion은 compositional이어서 cell count에 χ² test는 무효
 
@@ -884,7 +884,7 @@ install.packages(c("harmony", "CellChat"))
 | Doublet | 하나의 액적에 두 세포가 함께 포착된 상태 |
 | Homotypic / heterotypic doublet | 같은 유형끼리의 doublet(거의 검출 불가) / 다른 유형끼리의 doublet(혼합 profile) |
 | pANN | DoubletFinder의 점수: 세포의 최근접 이웃 중 인공 doublet의 비율 |
-| MAD | 중앙값 절대 편차 — 시료별, 데이터 기반 QC cutoff의 기준 |
+| MAD | 중앙값 절대 편차: 시료별, 데이터 기반 QC cutoff의 기준 |
 | snRNA-seq | 세포 전체가 아니라 핵의 전사체를 분석하는 방법 |
 | Dissociation artifact | 생물학적 현상이 아니라 조직 해리 과정이 유도한 유전자 발현 |
 | Log-normalisation | 세포마다 총합을 같게 맞춘 뒤 log(1 + x) 변환 |

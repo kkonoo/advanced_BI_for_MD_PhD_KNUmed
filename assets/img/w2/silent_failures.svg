@@ -20,7 +20,7 @@
   <text x="64" y="238" font-family="monospace" font-size="12" fill="#666">res |&gt; filter(pvalue &lt; .05) |&gt; mutate(padj = p.adjust(pvalue))</text>
   <text x="540" y="238" font-size="12.5" fill="#a05a3f">denominator is now 812, not 20,000</text>
   <text x="52" y="270" font-size="12.5" fill="#666">Runs. Produces a padj column. The correction is meaningless and far too permissive.</text>
-  <text x="52" y="290" font-size="12.5" font-weight="700" fill="#0F6E56">✅ Guard: adjust across <tspan font-weight="700">all</tspan> tests performed, then filter. Order is not cosmetic.</text>
+  <text x="52" y="290" font-size="12.5" font-weight="700" fill="#0F6E56">✅ Guard: adjust across <tspan font-weight="700">all</tspan> tests performed, then filter. The order matters.</text>
 
   <!-- ③ recode -->
   <rect x="24" y="314" width="832" height="122" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
@@ -34,5 +34,5 @@
 
   <!-- footer -->
   <rect x="24" y="448" width="832" height="0" fill="none"/>
-  <text x="24" y="462" font-size="12.5" fill="#8A7FA3">The common shape: a plausible object of the right class, with the wrong contents. Type-checking cannot catch it — only you can.</text>
+  <text x="24" y="462" font-size="12.5" fill="#8A7FA3">What all three share: a plausible object of the right class, with the wrong contents. Type-checking cannot catch it. Only you can.</text>
 </svg>

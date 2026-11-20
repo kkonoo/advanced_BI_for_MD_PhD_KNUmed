@@ -21,7 +21,7 @@ execute:
 -   연구 질문에 따라 질량분석과 affinity panel 중 하나를 선택할 수 있다
 -   ⚠️ 거짓 pQTL을 만드는 epitope artifact를 알아볼 수 있다
 -   discovery 후보가 임상 검사가 되기까지의 과정과 heavy-isotope standard의 역할을 설명할 수 있다
--   multiplexed tissue imaging이 무엇을 측정하며 W7–W8의 어떤 주의점을 물려받는지 말할 수 있다
+-   multiplexed tissue imaging이 무엇을 측정하며 W7–W8의 어떤 주의점이 그대로 적용되는지 말할 수 있다
 -   Proteomics 분석 전에 고려할 세 가지(platform, batch design, input)를 말할 수 있다
 :::
 
@@ -37,7 +37,7 @@ execute:
 
 ![](../../../assets/img/w9/mrna_vs_protein.svg){fig-align="center"}
 
-한 sample 안에서 gene별 mRNA vs protein abundance 상관 = 보통 **r = 0.4–0.6** 정도. Gene 하나를 여러 sample에 걸쳐 본 상관은 gene마다 천차만별. 강한 gene도 있고, 사실상 0인 gene도 있음
+한 sample 안에서 gene별 mRNA vs protein abundance 상관은 보통 **r = 0.4–0.6** 정도. Gene 하나를 여러 sample에 걸쳐 본 상관은 gene마다 천차만별. 강한 gene도 있고, 사실상 0인 gene도 있음
 
 ::: {.callout-important collapse="true"}
 ## 동기 질문의 두 결과, 둘 다 틀리지 않음
@@ -82,14 +82,14 @@ mRNA 3배 ↑인데 protein 변화 x = translation이나 기타 뭔가가 일어
 
 -   **Peptide를 재고 protein을 추론.** Family끼리 공유하는 peptide → 모호함
 -   **Protein identification은 DB에 의존.** DB에 없으면 protein 못 찾음
--   **정량은 상대적** — 표지된 표준물질(spike-in) 필요
+-   **정량은 상대적.** 표지된 표준물질(spike-in) 필요
 
 ## 2) DDA vs DIA {#w9-s2-2}
 
 ![](../../../assets/img/w9/dda_vs_dia.svg){fig-align="center"}
 
--   **DDA** (data-dependent acquisition) — 매 cycle마다 신호가 가장 센 precursor 몇 개만 골라 fragment
--   **DIA** (data-independent acquisition) — 정해진 m/z 구간(window)마다 그 안의 precursor를 전부 fragment
+-   **DDA** (data-dependent acquisition): 매 cycle마다 신호가 가장 센 precursor 몇 개만 골라 fragment
+-   **DIA** (data-independent acquisition): 정해진 m/z 구간(window)마다 그 안의 precursor를 전부 fragment
 
 ::: {.callout-warning collapse="true"}
 ## DDA의 missing이 위험한 이유
@@ -100,7 +100,7 @@ DDA = 매 cycle마다 장비가 intensity 가장 높은 precursor를 고름. 뭐
 -   ⚠️ Cohort 전체로 보면, 어떤 protein이 측정됐는지가 총 protein 양, chromatography drift, run 순서와 상관됨
 -   ⚠️ 환자군과 대조군을 다른 batch에서 돌렸다면(🔗 [W1 §3.3](../part1/w1_intro.qmd#w1-s3-3)) → missing 자체가 군 간 차이가 됨
 
-→ ✅ **DIA = 고정된 window 안의 모든 것을 fragment** → 모든 run에서 같은 protein이 정량됨. 임상 cohort라면 이게 기본값. 남의 dataset을 볼 때도 제일 먼저 물어볼 것
+✅ **DIA는 고정된 window 안의 모든 것을 fragment**해서 모든 run에서 같은 protein이 정량됨. 임상 cohort라면 이게 기본값. 남의 dataset을 볼 때도 제일 먼저 물어볼 것
 :::
 
 ## 3) Label-free vs TMT {#w9-s2-3}
@@ -108,7 +108,7 @@ DDA = 매 cycle마다 장비가 intensity 가장 높은 precursor를 고름. 뭐
 ![TMT = sample 16–18개를 한 run으로. 그 한 run이 곧 batch 하나](../../../assets/img/w9/tmt_plex.svg){fig-align="center"}
 
 -   **Label-free**: sample마다 LC-MS run 하나씩 (DDA든 DIA든). ✅ Sample 수 제한 x. ⚠️ Run 순서, 장비 drift가 batch
--   **TMT** (tandem mass tag, isobaric labelling) — sample마다 peptide에 서로 다른 mass tag → 16–18개를 섞어 한 번에 run. Tag는 fragment된 뒤에야 갈라짐 (reporter ion)
+-   **TMT** (tandem mass tag, isobaric labelling): sample마다 peptide에 서로 다른 mass tag → 16–18개를 섞어 한 번에 run. Tag는 fragment된 뒤에야 갈라짐 (reporter ion)
     -   ✅ 한 plex 안에선 모든 sample을 같은 peptide로 측정 → missing 문제가 sample별에서 plex별로 옮겨감
     -   ⚠️ **Plex = batch.** Cohort 100명 = plex 6–7개. Plex 안에선 비교가 잘 되지만, plex 사이는 훨씬 덜
     -   ⚠️ **Ratio compression**: 같이 분리된 다른 peptide가 모든 비율을 1 쪽으로 끌어당김 → fold change 과소추정 (MS3나 좁은 isolation window가 도움)
@@ -144,7 +144,7 @@ DDA = 매 cycle마다 장비가 intensity 가장 높은 precursor를 고름. 뭐
 
 ![](../../../assets/img/w9/ms_vs_affinity.svg){fig-align="center"}
 
-Affinity platform끼리, 또는 affinity vs MS를 비교한 연구 → 상당수 target에서 상관이 낮게 나오는 게 보통
+Affinity platform끼리, 또는 affinity vs MS를 비교한 연구를 보면 상당수 target에서 상관이 낮게 나오는 게 보통
 
 -   ⚠️ 같은 protein에 다른 결과를 낸 두 논문이, 각자 잰 것에 대해선 둘 다 맞을 수 있음
 -   ✅ 중요한 결과면 두 가지 platform으로 validation
@@ -163,17 +163,17 @@ W7–W8의 spatial 논리를 RNA 대신 protein으로:
 -   ✅ **FFPE**에서 됨(🔗 [W7 §2.2](../part4/w7_spatial_basics.qmd#w7-s2-2)), 실제로 기능하는 분자 자체를 측정, 병리의사는 이미 IHC를 읽음
 -   분석 = W7–W8 그대로: **segmentation → marker intensity로 cell phenotyping → neighbourhood** (🔗 [W8 §2](../part4/w8_spatial_integration.qmd#w8-s2)). 예) 대장암 CODEX 연구(Schürch 2020)
 -   ⚠️ **여전히 affinity**: marker 하나하나가 항체라서 내 조직, 내 고정 조건에서 항체마다 검증 (§3.1 문제의 slide 버전)
--   ⚠️ **여전히 segmentation** — cell 경계가 어긋나면 membrane marker signal이 이웃 cell 값으로 들어감 = spillover. Transcript와 같은 문제 (🔗 [W7 §3.2](../part4/w7_spatial_basics.qmd#w7-s3-2))
+-   ⚠️ **여전히 segmentation**: cell 경계가 어긋나면 membrane marker signal이 이웃 cell 값으로 들어감 = spillover. Transcript와 같은 문제 (🔗 [W7 §3.2](../part4/w7_spatial_basics.qmd#w7-s3-2))
 -   **Suspension에선:** CITE-seq = 항체–oligo tag를 RNA와 같은 cell barcode로 읽음 (🔗 [W5 §3.2](../part3/w5_scrna_qc.qmd#w5-s3-2)) → 한 cell에서 protein + RNA
 
 ## 2) Targeted MS: Discovery에서 임상 assay까지 {#w9-s4-2}
 
 ![](../../../assets/img/w9/discovery_to_assay.svg){fig-align="center"}
 
-Discovery proteomics(DIA, TMT) = sample 수십 개에서 protein 수천 개 → 결과물 = **후보 목록**이지 검사가 아님
+Discovery proteomics(DIA, TMT)는 sample 수십 개에서 protein 수천 개를 측정함. 결과물은 **후보 목록**이지 검사가 아님
 
--   **Targeted MS** (PRM = parallel reaction monitoring, MRM = multiple reaction monitoring) — 미리 정한 peptide만 측정 → 정밀도 ↑, sample 수 ↑, 대신 protein 수 ↓
--   **Heavy-isotope standard** — 같은 peptide를 무거운 동위원소로 만들어 정해진 양을 spike-in. Light / heavy 비율 × 넣은 양 = **절대 농도**
+-   **Targeted MS** (PRM = parallel reaction monitoring, MRM = multiple reaction monitoring): 미리 정한 peptide만 측정 → 정밀도 ↑, sample 수 ↑, 대신 protein 수 ↓
+-   **Heavy-isotope standard**: 같은 peptide를 무거운 동위원소로 만들어 정해진 양을 spike-in. Light / heavy 비율 × 넣은 양 = **절대 농도**
 -   ✅ 항체 대신 peptide 질량으로 잼 → 항체가 잘못 붙거나 못 붙는 문제가 없음 (§3.1 epitope 문제 포함)
     -   예) 갑상선암 추적 검사의 thyroglobulin(Tg). 환자에게 anti-Tg 자가항체가 있으면 면역측정(immunoassay) 수치가 실제보다 낮게 나옴 → 병원 검사실은 LC-MS/MS로 측정 (trypsin이 자가항체까지 다 잘라버려서 방해 x)
 -   ⚠️ 단계마다 **새롭고, 더 크고, 독립적인 cohort**가 필요. Discovery 후보 대부분은 마지막 단계까지 가지 못함 (🔗 [W10 §3](w10_clinical_proteomics.qmd#w10-s3))
@@ -191,7 +191,7 @@ Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 pro
 
 -   ⚠️ **MS with Depletion (x)** → albumin이 대부분..
 -   ⚠️ **MS with Depletion (o)** → 많은 protein을 없애긴 함.. albuminome (albumin에 붙어있던 우리가 원하는 proteins 등)
--   ✅ **Affinity panel** (Olink, SomaScan — 결합한 양을 DNA 신호로 바꿔 읽음): 고른 protein만 표적 → tube 안에 뭐가 더 있든 상관 x. 요즘 대규모 plasma biomarker 연구 대부분에서 사용
+-   ✅ **Affinity panel** (Olink, SomaScan: 결합한 양을 DNA 신호로 바꿔 읽음): 고른 protein만 표적 → tube 안에 뭐가 더 있든 상관 x. 요즘 대규모 plasma biomarker 연구 대부분에서 사용
 -   ✅ **조직은 plasma보다 훨씬 쉬움.** Biopsy 가능하다면 → 그냥 바로 MS
 
 💡 "plasma proteomics"? → platform 결정/확인
@@ -227,7 +227,7 @@ Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 pro
 
 -   ① 어떤 조직, 어떤 cell type에서 발현? 임상에서 말하는 만큼 특이적인가?
 -   ② 같은 페이지에서 **RNA**와 **protein** 조직 profile 비교. 어디서 안 맞나?
--   ③ Pathology 항목 보기 — 어떤 암에서든 발현이 생존과 연관되나?
+-   ③ Pathology 항목 보기: 어떤 암에서든 발현이 생존과 연관되나?
 
 ## 2) Proteomics dataset 믿기 전에 확인하기 {#w9-s7-2}
 
@@ -251,7 +251,7 @@ Plasma protein 농도 범위 = **10자릿수 이상**. Albumin 하나가 총 pro
 
 # 📝 요약
 
--   ⚠️ mRNA vs protein 상관 ≈ **r = 0.4–0.6** — 그 차이 = RNA-seq로는 모르는 단백질 조절 등
+-   ⚠️ mRNA vs protein 상관 ≈ **r = 0.4–0.6**. 그 차이 = RNA-seq로는 모르는 단백질 조절 등
 -   Transcript와 protein의 불일치 = 오류 아님
 -   MS = peptide 질량을 재고 protein을 추론. 식별은 database 의존, 정량은 대개 상대적
 -   ⚠️ **DDA는 intensity 가장 높은 precursor를 고름** → run마다 missing이 달라지고 군 간 차이처럼 보일 수 있음

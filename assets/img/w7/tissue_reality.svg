@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
   <rect width="880" height="400" fill="#fcfcfb"/>
-  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Spatial data fails in ways that are visible on the slide — and invisible in the count matrix.</text>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Spatial data fails in ways that are visible on the slide but invisible in the count matrix.</text>
 
   <!-- panel 1: fold -->
   <rect x="24" y="46" width="200" height="216" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="1.8"/>

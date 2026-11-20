@@ -61,6 +61,6 @@
   <text x="608.0" y="296.0" font-size="11.5" fill="#666">digestion removes them before</text>
   <text x="608.0" y="312.0" font-size="11.5" fill="#0F6E56" font-weight="700">the peptide is weighed</text>
   <rect x="24" y="338" width="832" height="70" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
-  <text x="48.0" y="362.0" font-size="12.5" fill="#7a5f2a" font-weight="700">⚠️ A discovery hit is a candidate, not a test — each stage needs a new, larger, independent cohort (W10 §3).</text>
+  <text x="48.0" y="362.0" font-size="12.5" fill="#7a5f2a" font-weight="700">⚠️ A discovery hit is a candidate, not a test. Each stage needs a new, larger, independent cohort (W10 §3).</text>
   <text x="48.0" y="388.0" font-size="12.5" fill="#7a5f2a">💡 Your hospital lab already runs LC-MS/MS: thyroglobulin, steroid hormones, vitamin D, drug monitoring.</text>
 </svg>

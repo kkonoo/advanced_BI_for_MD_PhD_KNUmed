@@ -23,9 +23,9 @@
   </g>
 
   <text x="48" y="244" font-size="12.5" font-weight="700" fill="#4A3D6B">AUC = 0.94 🎉</text>
-  <text x="48" y="266" font-size="12" fill="#666">And it is real — those two groups differ enormously.</text>
+  <text x="48" y="266" font-size="12" fill="#666">And it is real: those two groups differ enormously.</text>
   <text x="48" y="288" font-size="12" fill="#a05a3f">⚠️ But they differ in cachexia, inflammation, medication,</text>
-  <text x="48" y="306" font-size="12" fill="#a05a3f">nutrition, age — and in how the blood was collected.</text>
+  <text x="48" y="306" font-size="12" fill="#a05a3f">nutrition, age, and in how the blood was collected.</text>
   <text x="48" y="326" font-size="12" font-weight="700" fill="#a8401d">You built a detector for "being very ill".</text>
 
   <!-- RIGHT -->
@@ -53,7 +53,7 @@
   <!-- rule -->
   <rect x="24" y="350" width="832" height="94" rx="10" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
   <text x="48" y="374" font-size="13.5" font-weight="700" fill="#4A3D6B">The rule: your control group is whoever you would actually have to tell apart</text>
-  <text x="48" y="398" font-size="12.5" fill="#555">✅ Recruit cases and controls <tspan font-weight="700" fill="#4A3D6B">at the same point in the care pathway</tspan> — same clinic, same symptoms, same tubes, same day.</text>
+  <text x="48" y="398" font-size="12.5" fill="#555">✅ Recruit cases and controls <tspan font-weight="700" fill="#4A3D6B">at the same point in the care pathway</tspan>: same clinic, same symptoms, same tubes, same day.</text>
   <text x="48" y="418" font-size="12.5" fill="#555">✅ Sample at the stage where the test would be <tspan font-weight="700" fill="#4A3D6B">used</tspan>, not the stage where the disease is most obvious.</text>
-  <text x="48" y="438" font-size="12.5" fill="#8A7FA3">💡 As a clinician you can see this design error faster than any statistician can. It is one of the things you are for.</text>
+  <text x="48" y="438" font-size="12.5" fill="#8A7FA3">💡 As a clinician you can see this design error faster than any statistician can. Spotting it is part of your job.</text>
 </svg>

@@ -33,31 +33,31 @@ knitr:
 
 # 1. ⚠️ 그림이 과장하는 네 가지 방식 📉 {#w13-s1}
 
-![넷 다 부정직한 건 아님. 전부 기본 설정일 뿐](../../../assets/img/w13/figure_traps.svg){fig-align="center"}
+![넷 중 부정직한 것은 없음. 전부 기본 설정으로 그리면 나오는 것](../../../assets/img/w13/figure_traps.svg){fig-align="center"}
 
 ::: {.callout-important collapse="true"}
 ## 동기 질문으로 돌아가기
 
 Heatmap을 믿기 전에 알아야 할 세 가지:
 
--   ① **Gene 50개를 어떻게 골랐나?** 군 간에 다르다는 *이유로* 골랐다면 → block은 무조건 나옴. 선택이 pattern을 만든 것 = circular selection, 아주 흔함
--   ② **Row scaling 했나?** 행마다 z-score → 모든 gene이 색 범위 전체를 쓰게 강제됨 → noise도 구조처럼 보임
+-   ① **Gene 50개를 어떻게 골랐나?** 군 간에 다르다는 *이유로* 골랐다면 block은 무조건 나옴. 고르는 과정이 pattern을 만든 것이고, 이를 circular selection이라 함. 아주 흔함
+-   ② **Row scaling 했나?** 행마다 z-score로 바꾸면 모든 gene이 색 범위 전체를 쓰게 되어서 noise도 구조처럼 보임
 -   ③ **색 척도는? 중심은 제대로 잡혔나?** 중심이 치우친 diverging scale은 한쪽 방향을 과장함
 
-→ ✅ 정직한 방법: data의 한쪽 split에서 gene을 고르고, 다른 split으로 보여주기. 또는 고르지 않은 gene 세트를 나란히 보여주기
+✅ 정직한 방법: data를 둘로 나눠 한쪽에서 gene을 고르고, 다른 쪽 data로 보여주기. 또는 고르지 않은 gene 세트를 나란히 보여주기
 :::
 
 ## 1) 나머지 셋, 짧게 {#w13-s1-1}
 
--   ⚠️ **Truncated axis.** 막대는 항상 0에서 시작 — 막대 길이 *자체*가 값. 0이 의미 없으면 막대 대신 point나 dot plot
--   ⚠️ **Rainbow color map.** 지각적으로 순서가 없고, 매끄러운 data에 없는 경계를 만들고, 흑백·색각이상에서 망가짐. ✅ 크기엔 한 색조의 sequential ramp, 부호 있는 값엔 중립 중앙점을 가진 두 색조 diverging ramp
--   ⚠️ **n을 숨기는 막대.** n ≤ 10이면 ✅ 개별 point를 그리기. n = 3에 막대 + SEM은 있지도 않은 정밀도를 암시함
+-   ⚠️ **Truncated axis.** 막대는 항상 0에서 시작해야 함. 막대 길이 *자체*가 값이기 때문. 0이 의미 없으면 막대 대신 point나 dot plot
+-   ⚠️ **Rainbow color map.** 색의 순서가 눈으로 읽히지 않고, 매끄러운 data에 없는 경계를 만들고, 흑백 인쇄나 색각이상에서는 구분이 안 됨. ✅ 크기엔 한 색조의 sequential ramp, 부호 있는 값엔 가운데가 중립색인 두 색조 diverging ramp
+-   ⚠️ **n을 숨기는 막대.** n ≤ 10이면 ✅ 개별 point를 그리기. n = 3인데 막대와 SEM으로 그리면 있지도 않은 정밀도가 있는 것처럼 보임
 
 ------------------------------------------------------------------------
 
 # 2. 형식 고르기 📐 {#w13-s2}
 
-습관이 아니라 그림이 할 **일**로 chart 고르기
+습관대로 고르지 말고 그림이 할 **일**에 맞춰 chart 고르기
 
 | 그림이 할 일 | 형식 |
 |--------------------------|----------------------------------------------|
@@ -69,13 +69,13 @@ Heatmap을 믿기 전에 알아야 할 세 가지:
 | 시간에 따른 변화 | Line, n이 허락하면 환자마다 선 하나 |
 | 핵심 숫자 하나 | ✅ 그냥 숫자를 쓰기. 모든 결과에 chart가 필요한 건 아님 |
 
-⚠️ **이중 y축은 절대 x.** 척도 두 개를 한 그림에 쓰면 저자가 보이는 관계를 마음대로 고를 수 있음. panel 두 개로 나누거나, 둘 다 같은 baseline으로 index화
+⚠️ **이중 y축은 절대 x.** 척도 두 개를 한 그림에 쓰면 저자가 보이는 관계를 마음대로 고를 수 있음. Panel 두 개로 나누거나, 둘 다 같은 baseline에 맞춘 index로 바꿔 그리기
 
 ::: {.callout-tip collapse="true"}
 ## 오믹스 그림 대부분을 고치는 세 가지 습관
 
 -   ✅ **환자를 보여주기.** 다른 걸로 색칠하지 않은 환자별 point가 어떤 요약통계보다 나음
--   ✅ **Direct labelling.** Series가 2–4개면 그림 위에 바로 이름 쓰기 > 눈이 왔다 갔다 해야 하는 legend
+-   ✅ **Direct labelling.** Series가 2–4개면 그림 위에 바로 이름을 쓰는 편이 눈이 왔다 갔다 해야 하는 legend보다 나음
 -   ✅ **배경 요소는 뒤로.** Grid와 축은 연한 회색, 진한 건 data뿐
 :::
 
@@ -83,14 +83,14 @@ Heatmap을 믿기 전에 알아야 할 세 가지:
 
 # 3. ⚠️ Enrichment 분석 🧾 {#w13-s3}
 
-![Term은 일곱 개, 사실은 하나. 그 하나도 background가 만든 artifact일 수 있음](../../../assets/img/w13/enrichment_traps.svg){fig-align="center"}
+![Term은 일곱 개지만 내용은 하나. 그 하나도 background 때문에 생긴 artifact일 수 있음](../../../assets/img/w13/enrichment_traps.svg){fig-align="center"}
 
 ## 1) Background가 결과를 좌우함 {#w13-s3-1}
 
-Enrichment = 내 gene 목록에 어떤 category가 **어떤 universe에서 우연히 기대되는 것보다** 많은가? Universe를 바꾸면 답도 바뀜
+Enrichment는 내 gene 목록에 어떤 category가 **어떤 universe에서 우연히 기대되는 것보다** 많은지 묻는 검정. Universe를 바꾸면 답도 바뀜
 
--   ❌ 기본값 "모든 사람 gene". 내 조직에서 발현 안 되는 gene은 애초에 목록에 들어올 수가 없었음
--   ✅ Universe = **실제로 검정한 gene**: 기준 이상 발현되고 filter를 통과한 것
+-   ❌ 기본값은 "사람의 모든 gene". 하지만 내 조직에서 발현 안 되는 gene은 애초에 목록에 들어올 수가 없었음
+-   ✅ Universe는 **실제로 검정한 gene**으로: 기준 이상 발현되고 filter를 통과한 gene
 -   ⚠️ 조직 특이적 data에선 universe가 보통 절반으로 줄고, "유의한" category 하나가 통째로 사라지기도 함
 
 ::: {.panel-tabset group="lang"}
@@ -144,7 +144,7 @@ print(ego.results.sort_values("Adjusted P-value")[["Term", "Odds Ratio", "Adjust
 
 ## 2) 순위 목록으로 GSEA {#w13-s3-2}
 
-✅ Over-representation test보다 나은 경우가 많음: 잘라낸 목록이 아니라 전체 순위를 씀 → 자의적인 cut-off x, 작지만 같이 움직이는 변화도 잡힘
+✅ Over-representation test보다 나은 경우가 많음. 잘라낸 목록이 아니라 전체 순위를 쓰기 때문에 자의적인 cut-off x, 작지만 함께 움직이는 변화도 잡힘
 
 ::: {.panel-tabset group="lang"}
 
@@ -175,13 +175,13 @@ gseaGO.res2d[["Term", "NES", "FDR q-val"]].head(6)
 
 ## 3) ⚠️ 그다음 gene 이름을 쓰기 {#w13-s3-3}
 
-"면역반응 enrichment"는 거의 모든 염증 조직에 해당함. **"*IFI44L*, *ISG15*, *MX1*이 이끄는 interferon signalling"** 은 독자가 써먹고 확인할 수 있는 문장
+"면역반응 enrichment"는 거의 모든 염증 조직에 해당함. **"*IFI44L*, *ISG15*, *MX1*이 주도하는 interferon signalling"** 은 독자가 써먹고 확인할 수 있는 문장
 
 ------------------------------------------------------------------------
 
 # 4. 그림 하나에 메시지 하나 🎯 {#w13-s4}
 
-![왼쪽 = 분석이 만든 것, 오른쪽 = 독자에게 필요한 것](../../../assets/img/w13/one_message.svg){fig-align="center"}
+![왼쪽은 분석에서 나온 그대로, 오른쪽은 독자에게 필요한 것](../../../assets/img/w13/one_message.svg){fig-align="center"}
 
 ✅ **Caption부터 쓰기.** 숫자 자리만 비운 한 문장으로 그림의 요점을 말할 수 없다면 그림이 아직 준비 안 된 것. 어쩌면 분석도
 
@@ -289,19 +289,19 @@ plt.show()
 
 ## 4) 다음 주 전까지 {#w13-s5-4}
 
-**[W14 — 나만의 프로젝트](w14_project_design.qmd).** 한 문장짜리 연구 질문 + 현실적으로 구할 수 있는 data에 대한 메모 가져오기
+**[W14: 나만의 프로젝트](w14_project_design.qmd).** 한 문장짜리 연구 질문과, 현실적으로 구할 수 있는 data를 적은 메모 가져오기
 
 ------------------------------------------------------------------------
 
 # 📝 요약
 
 -   ⚠️ 흔한 과장 네 가지: **truncated axis**, **rainbow color map**, **n을 숨기는 막대**, **골라낸 gene을 row scaling한 heatmap**
--   ⚠️ 차이 나는 gene을 골라서 heatmap으로 보여주면 block을 **만들어냄** = circular selection
--   ✅ 할 일로 형식 고르기. 이중 y축은 절대 x
+-   ⚠️ 차이 나는 gene을 골라서 heatmap으로 보여주면 block을 **만들어냄**. 이것이 circular selection
+-   ✅ 할 일에 맞춰 형식 고르기. 이중 y축은 절대 x
 -   ✅ 환자를 보여주고, direct labelling하고, grid는 뒤로
 -   ⚠️ **Enrichment background가 결과를 좌우함.** Genome 전체가 아니라 실제로 검정한 gene으로
--   ✅ 중복 GO term은 합치고, 순위 목록 GSEA를 선호하고, 구체적인 gene set을 선호
--   ✅ **그다음 gene 이름 쓰기.** "면역반응"보다 "*ISG15*가 이끄는 interferon signalling"
+-   ✅ 중복 GO term은 합치기. 되도록 순위 목록으로 GSEA를 하고, 구체적인 gene set을 쓰기
+-   ✅ **그다음 gene 이름 쓰기.** "면역반응"보다 "*ISG15*가 주도하는 interferon signalling"이 나음
 -   ✅ **Caption부터 쓰기.** 방향, n, 숫자를 한 문장에
 -   ✅ 그림 하나에 메시지 하나. QC는 supplement로
 
@@ -313,7 +313,7 @@ plt.show()
 |-------------------------|-----------------------------------------|
 | Truncated axis | 0에서 시작하지 않아 차이를 과장하는 막대그래프의 축 |
 | Sequential ramp | 하나의 색조가 밝은색에서 어두운색으로 변함. 크기에 사용 |
-| Diverging ramp | 중립 중앙점을 가진 두 색조. 부호 있는 값에 사용 |
+| Diverging ramp | 가운데가 중립색인 두 색조. 부호 있는 값에 사용 |
 | Row scaling (z-score) | 각 행의 척도를 다시 설정해 잡음이 구조처럼 보이게 할 수 있는 처리 |
 | Circular selection | 나중에 보여줄 효과를 기준으로 변수를 미리 고르는 것 |
 | Over-representation test | 특정 범주가 우연히 기대되는 빈도보다 자주 나타나는지 검정하는 방법 |

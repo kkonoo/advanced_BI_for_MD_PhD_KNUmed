@@ -17,7 +17,7 @@
 
     <rect x="24" y="166" width="832" height="56" rx="8" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
     <rect x="24" y="166" width="6" height="56" rx="3" fill="#D85A30"/>
-    <text x="52" y="190" font-size="13" font-weight="700" fill="#4A3D6B">② Ligand–receptor inference — a nomination</text>
+    <text x="52" y="190" font-size="13" font-weight="700" fill="#4A3D6B">② Ligand–receptor inference — a candidate</text>
     <text x="52" y="210" font-size="12" fill="#666">⚠️ Co-expression only. The cells may never have met, and the protein may never have been made (W6 §3).</text>
     <rect x="700" y="180" width="140" height="28" rx="14" fill="#fbeee8"/>
     <text x="770" y="199" font-size="12" font-weight="700" fill="#a8401d" text-anchor="middle">hypothesis</text>
@@ -39,11 +39,11 @@
     <rect x="24" y="364" width="832" height="56" rx="8" fill="#ffffff" stroke="#185FA5" stroke-width="2"/>
     <rect x="24" y="364" width="6" height="56" rx="3" fill="#185FA5"/>
     <text x="52" y="388" font-size="13" font-weight="700" fill="#4A3D6B">⑤ Perturbation — blocking it changes the outcome</text>
-    <text x="52" y="408" font-size="12" fill="#666">✅ Receptor blockade or co-culture abolishes the activation programme. Only now is "drives" the right verb.</text>
+    <text x="52" y="408" font-size="12" fill="#666">✅ Receptor blockade or co-culture abolishes the activation programme. "Drives" is the right verb only here.</text>
     <rect x="700" y="378" width="140" height="28" rx="14" fill="#eaf1f8"/>
     <text x="770" y="397" font-size="12" font-weight="700" fill="#185FA5" text-anchor="middle">demonstrated</text>
   </g>
 
-  <text x="24" y="446" font-size="12.5" fill="#666">💡 Most published omics papers stop at ② or ③ and write the verb from ⑤. Your capstone (W14) does not have to reach ⑤ —</text>
-  <text x="24" y="464" font-size="12.5" font-weight="700" fill="#4A3D6B">it has to name the rung it reached, and specify the next one.</text>
+  <text x="24" y="446" font-size="12.5" fill="#666">💡 Most published omics papers stop at ② or ③ and write the verb from ⑤. Your capstone (W14) does not have to reach ⑤,</text>
+  <text x="24" y="464" font-size="12.5" font-weight="700" fill="#4A3D6B">but it has to name the rung it reached, and specify the next one.</text>
 </svg>

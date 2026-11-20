@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
 <rect width="880" height="400" fill="#fcfcfb"/>
-<text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Same cells, same algorithm, one parameter moved. Which one is the truth?</text>
+<text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Same cells, same algorithm, one parameter changed. Which one is the truth?</text>
 <rect x="24" y="46" width="400" height="300" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
 <text x="48" y="74" font-size="13" font-weight="700" fill="#4A3D6B">resolution = 0.3</text>
 <text x="400" y="74" font-size="12" fill="#8A7FA3" text-anchor="end">4 clusters</text>
@@ -1248,5 +1248,5 @@
 <circle cx="668.6" cy="222.1" r="2.4" fill="#2b8fa8" fill-opacity="0.82"/>
 <circle cx="635.4" cy="202.9" r="2.4" fill="#5B4D80" fill-opacity="0.82"/>
 <rect x="24" y="358" width="832" height="0" fill="none"/>
-<text x="24" y="374" font-size="12.5" fill="#666">⚠️ There is <tspan font-weight="700" fill="#4A3D6B">no statistical criterion</tspan> that settles this. Check markers and stability instead — and report the resolution you used.</text>
+<text x="24" y="374" font-size="12.5" fill="#666">⚠️ There is <tspan font-weight="700" fill="#4A3D6B">no statistical criterion</tspan> that settles this. Check markers and stability instead, and report the resolution you used.</text>
 </svg>

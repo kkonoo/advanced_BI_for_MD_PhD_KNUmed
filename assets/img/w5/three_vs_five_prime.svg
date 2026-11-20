@@ -35,7 +35,7 @@
   <text x="212" y="204" font-size="10.5" font-weight="700" fill="#a8401d" text-anchor="middle">V(D)J: no reads ❌</text>
   <text x="40" y="206" font-size="11" fill="#8A7FA3">where the</text>
   <text x="40" y="221" font-size="11" fill="#8A7FA3">reads land</text>
-  <text x="616" y="76" font-size="14" font-weight="700" fill="#185FA5">3′ kit — the default</text>
+  <text x="616" y="76" font-size="14" font-weight="700" fill="#185FA5">3′ kit: the default</text>
   <text x="616" y="100" font-size="12" fill="#555">bead: <tspan fill="#1D9E75" font-weight="700">barcode</tspan> · <tspan fill="#BA7517" font-weight="700">UMI</tspan> · <tspan fill="#5B4D80" font-weight="700">poly(dT)</tspan></text>
   <text x="616" y="126" font-size="12" fill="#555">poly(dT) on the bead grabs the</text>
   <text x="616" y="143" font-size="12" fill="#555">poly(A) tail → the barcode joins</text>
@@ -74,7 +74,7 @@
   <text x="262" y="420" font-size="10.5" font-weight="700" fill="#0F6E56">← V(D)J covered ✅</text>
   <text x="40" y="418" font-size="11" fill="#8A7FA3">where the</text>
   <text x="40" y="433" font-size="11" fill="#8A7FA3">reads land</text>
-  <text x="616" y="288" font-size="14" font-weight="700" fill="#534AB7">5′ kit — immune repertoire</text>
+  <text x="616" y="288" font-size="14" font-weight="700" fill="#534AB7">5′ kit: immune repertoire</text>
   <text x="616" y="312" font-size="12" fill="#555">bead: <tspan fill="#1D9E75" font-weight="700">barcode</tspan> · <tspan fill="#BA7517" font-weight="700">UMI</tspan> · <tspan fill="#3a8fd0" font-weight="700">TSO</tspan></text>
   <text x="616" y="338" font-size="12" fill="#555">A free poly(dT) primer starts RT;</text>
   <text x="616" y="355" font-size="12" fill="#555">at the cap the enzyme switches onto</text>

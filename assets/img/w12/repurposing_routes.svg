@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
   <rect width="880" height="450" fill="#fcfcfb"/>
-  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Three ways to get from your gene to an existing drug — and what each one is worth.</text>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Three ways to get from your gene to an existing drug, and what each one is worth.</text>
 
   <!-- route 1 -->
   <rect x="24" y="46" width="272" height="290" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="2"/>
@@ -33,7 +33,7 @@
   <text x="344" y="194" font-size="11.5" font-weight="700" fill="#4A3D6B">→ rank by anti-correlation</text>
   <text x="330" y="228" font-size="12" font-weight="700" fill="#8a6a1f">⚠️ Hypothesis-generating only</text>
   <text x="330" y="248" font-size="12" fill="#a08850">Reference profiles come from cell</text>
-  <text x="330" y="266" font-size="12" fill="#a08850">lines at high doses — not patients,</text>
+  <text x="330" y="266" font-size="12" fill="#a08850">lines at high doses, not patients,</text>
   <text x="330" y="284" font-size="12" fill="#a08850">not your tissue, not your dose.</text>
   <text x="330" y="310" font-size="12" font-weight="700" fill="#a8401d">⚠️ Reversing a signature is not</text>
   <text x="330" y="328" font-size="12" font-weight="700" fill="#a8401d">the same as treating a disease.</text>

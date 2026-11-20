@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
   <rect width="880" height="440" fill="#fcfcfb"/>
-  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Why the same protein is missing in some samples and not others — and it is not biology.</text>
+  <text x="24" y="28" font-size="15" font-weight="700" fill="#4A3D6B">Why the same protein is missing in some samples but not in others. It is not biology.</text>
 
   <!-- DDA -->
   <rect x="24" y="46" width="400" height="290" rx="10" fill="#ffffff" stroke="#BA7517" stroke-width="2"/>
@@ -73,6 +73,6 @@
   <!-- footer -->
   <rect x="24" y="350" width="832" height="72" rx="9" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
   <text x="48" y="374" font-size="13" font-weight="700" fill="#4A3D6B">The one question to ask about any proteomics dataset before you analyse it</text>
-  <text x="48" y="396" font-size="12.5" fill="#555">"Was this DDA or DIA?" — because it decides whether your missing values are a measurement artifact or a biological signal (W10 §1).</text>
+  <text x="48" y="396" font-size="12.5" fill="#555">"Was this DDA or DIA?" The answer decides whether your missing values are a measurement artifact or a biological signal (W10 §1).</text>
   <text x="48" y="414" font-size="12.5" fill="#555">💡 For a clinical cohort of more than a handful of samples, DIA is almost always the right answer.</text>
 </svg>

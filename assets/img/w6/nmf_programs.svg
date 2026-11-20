@@ -143,8 +143,8 @@
   <rect x="255.0" y="132.0" width="8.5" height="10.0" fill="#BA7517" fill-opacity="0.2"/>
   <rect x="264.5" y="132.0" width="8.5" height="10.0" fill="#BA7517" fill-opacity="0.1"/>
   <text x="236.0" y="157.0" font-size="10" fill="#8A7FA3" text-anchor="middle">programs × genes</text>
-  <text x="42.0" y="252.0" font-size="11" fill="#666">All values ≥ 0 → programs only add up,</text>
-  <text x="42.0" y="268.0" font-size="11" fill="#666">they never cancel each other out</text>
+  <text x="42.0" y="252.0" font-size="11" fill="#666">All values ≥ 0, so programs only add up</text>
+  <text x="42.0" y="268.0" font-size="11" fill="#666">and never cancel each other out</text>
   <text x="42.0" y="296.0" font-size="11.5" fill="#a8401d" font-weight="700">k = number of programs (your choice)</text>
   <text x="42.0" y="312.0" font-size="11" fill="#666">cNMF: rerun many times, keep the consensus</text>
   <path d="M292 186 L297 186" stroke="#b9b0cc" stroke-width="2"/>
@@ -486,8 +486,8 @@
   <text x="660.0" y="240.0" font-size="10.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">by cluster</text>
   <text x="784.0" y="240.0" font-size="10.5" fill="#BA7517" font-weight="700" text-anchor="middle">by cell-cycle usage</text>
   <text x="608.0" y="296.0" font-size="11.5" fill="#666">The cycling program sits in</text>
-  <text x="608.0" y="312.0" font-size="11.5" fill="#0F6E56" font-weight="700">both clusters — no cluster shows it</text>
+  <text x="608.0" y="312.0" font-size="11.5" fill="#0F6E56" font-weight="700">both clusters, so no cluster shows it</text>
   <rect x="24" y="338" width="832" height="70" rx="8" fill="#fbf7ee" stroke="#e5d3b3" stroke-width="1.5"/>
-  <text x="48.0" y="362.0" font-size="12.5" fill="#7a5f2a" font-weight="700">⚠️ k is a choice, like clustering resolution — check stability. A program is not a pathway until you annotate it.</text>
+  <text x="48.0" y="362.0" font-size="12.5" fill="#7a5f2a" font-weight="700">⚠️ k is a choice, like clustering resolution, so check stability. A program is not a pathway until you annotate it.</text>
   <text x="48.0" y="388.0" font-size="12.5" fill="#7a5f2a">💡 WGCNA (bulk) does a similar job with hard modules; in single cells it needs metacells, one cell type at a time.</text>
 </svg>

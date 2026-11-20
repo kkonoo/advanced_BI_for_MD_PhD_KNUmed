@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
   <rect width="880" height="420" fill="#fcfcfb"/>
-  <text x="24.0" y="28.0" font-size="15" fill="#4A3D6B" font-weight="700">On imaging platforms a cell is not measured — it is drawn. The line decides what the cell expresses.</text>
+  <text x="24.0" y="28.0" font-size="15" fill="#4A3D6B" font-weight="700">On imaging platforms a cell is not measured but drawn. The outline determines what the cell expresses.</text>
   <rect x="24" y="46" width="266" height="280" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
   <text x="42.0" y="72.0" font-size="13" fill="#4A3D6B" font-weight="700">① What is measured</text>
   <text x="42.0" y="90.0" font-size="10.5" fill="#8A7FA3">molecules at coordinates + a nuclear stain</text>
@@ -191,7 +191,7 @@
   <text x="52.0" y="262.0" font-size="10" fill="#555">EPCAM, KRT8 (tumour)</text>
   <circle cx="174" cy="258" r="4" fill="#185FA5"/>
   <text x="182.0" y="262.0" font-size="10" fill="#555">CD68, CD163 (macro)</text>
-  <text x="42.0" y="296.0" font-size="11.5" fill="#666">Only nuclei and molecule positions —</text>
+  <text x="42.0" y="296.0" font-size="11.5" fill="#666">Only nuclei and molecule positions, so</text>
   <text x="42.0" y="312.0" font-size="11.5" fill="#4A3D6B" font-weight="700">the cell boundary has to be inferred</text>
   <path d="M292 186 L297 186" stroke="#b9b0cc" stroke-width="2"/>
   <path d="M305 186 l-9 -5 v10 z" fill="#b9b0cc"/>
@@ -384,7 +384,7 @@
   <text x="440.0" y="238.0" font-size="10" fill="#8A7FA3" text-anchor="middle">nucleus + fixed expansion, split halfway</text>
   <text x="325.0" y="270.0" font-size="11.5" fill="#666">Tumour cells lose their outer cytoplasm</text>
   <text x="325.0" y="296.0" font-size="11.5" fill="#666">The thin cell's outline reaches into</text>
-  <text x="325.0" y="312.0" font-size="11.5" fill="#a8401d" font-weight="700">both neighbours → takes their dots</text>
+  <text x="325.0" y="312.0" font-size="11.5" fill="#a8401d" font-weight="700">both neighbours and takes their dots</text>
   <path d="M575 186 L580 186" stroke="#b9b0cc" stroke-width="2"/>
   <path d="M588 186 l-9 -5 v10 z" fill="#b9b0cc"/>
   <rect x="590" y="46" width="266" height="280" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>

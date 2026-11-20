@@ -50,5 +50,5 @@
 
   <!-- footer -->
   <rect x="24" y="362" width="832" height="42" rx="8" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
-  <text x="48" y="388" font-size="13" fill="#555">Numbered files run in order. Named sections (<tspan font-family="monospace" fill="#4A3D6B"># Load ----</tspan>) appear in RStudio's outline pane — navigation without scrolling.</text>
+  <text x="48" y="388" font-size="13" fill="#555">Numbered files run in order. Named sections (<tspan font-family="monospace" fill="#4A3D6B"># Load ----</tspan>) appear in RStudio's outline pane, so you can jump without scrolling.</text>
 </svg>
