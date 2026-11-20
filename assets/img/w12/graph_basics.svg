@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 392" width="880" height="392" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8A7FA3"/></marker></defs>
+<rect x="0" y="0" width="880" height="392" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" fill="#4A3D6B" font-weight="700">A graph writes a network down as nodes and edges.</text>
+<rect x="24" y="46" width="214" height="278" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<rect x="267" y="46" width="360" height="278" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<rect x="656" y="46" width="200" height="278" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="42" y="72" font-size="13.5" fill="#4A3D6B" font-weight="700">① In the cell</text>
+<text x="42" y="90" font-size="12" fill="#8A7FA3">proteins that bind each other</text>
+<path d="M100.8 218.8 L101.0 222.1 L100.5 225.5 L99.3 228.7 L97.4 231.5 L94.9 233.9 L92.0 235.9 L88.9 237.3 L85.7 238.3 L82.5 239.0 L79.5 239.5 L76.5 240.0 L73.4 240.3 L70.3 240.6 L67.0 240.7 L63.6 240.6 L60.1 240.0 L56.7 238.9 L53.5 237.1 L50.7 234.8 L48.6 232.0 L47.2 228.8 L46.5 225.4 L46.5 222.1 L47.1 218.8 L48.1 215.7 L49.4 212.9 L50.9 210.2 L52.5 207.7 L54.2 205.2 L56.1 202.8 L58.2 200.5 L60.6 198.4 L63.4 196.6 L66.5 195.2 L69.9 194.3 L73.4 194.1 L76.9 194.4 L80.3 195.3 L83.4 196.7 L86.2 198.4 L88.8 200.4 L91.1 202.5 L93.2 204.8 L95.2 207.2 L97.1 209.8 L98.7 212.6 L100.0 215.6 Z" fill="#dce8f5" stroke="#185FA5" stroke-width="1.3"/>
+<path d="M142.5 197.6 L142.2 200.8 L141.2 203.9 L139.7 206.8 L137.8 209.4 L135.6 211.7 L133.3 213.8 L130.8 215.7 L128.2 217.5 L125.4 219.2 L122.4 220.7 L119.2 221.9 L115.7 222.7 L112.1 223.0 L108.4 222.7 L104.9 221.7 L101.7 220.0 L98.9 217.8 L96.7 215.1 L95.1 212.2 L94.0 209.2 L93.4 206.2 L93.0 203.3 L92.7 200.4 L92.5 197.6 L92.4 194.8 L92.4 191.9 L92.6 188.8 L93.2 185.7 L94.4 182.6 L96.1 179.6 L98.5 177.0 L101.5 174.9 L104.8 173.4 L108.4 172.7 L112.1 172.5 L115.7 173.0 L119.1 173.9 L122.3 175.2 L125.2 176.6 L128.0 178.2 L130.6 179.8 L133.1 181.6 L135.6 183.6 L137.8 185.9 L139.8 188.5 L141.3 191.3 L142.2 194.4 Z" fill="#dce8f5" stroke="#185FA5" stroke-width="1.3"/>
+<path d="M166.6 156.8 L165.7 160.0 L164.4 163.0 L162.8 165.7 L161.0 168.3 L159.0 170.7 L156.9 173.0 L154.5 175.1 L152.0 177.1 L149.2 178.8 L146.1 180.2 L142.7 181.1 L139.2 181.5 L135.7 181.2 L132.4 180.3 L129.2 178.9 L126.4 177.1 L124.0 175.0 L121.8 172.7 L119.9 170.4 L118.2 167.9 L116.6 165.4 L115.1 162.7 L113.8 159.8 L112.7 156.8 L112.2 153.5 L112.2 150.1 L112.9 146.7 L114.4 143.6 L116.6 140.8 L119.4 138.5 L122.6 136.8 L126.0 135.7 L129.5 135.2 L132.9 135.0 L136.1 135.1 L139.2 135.3 L142.3 135.6 L145.3 136.0 L148.4 136.4 L151.6 137.1 L154.8 138.1 L157.9 139.5 L160.8 141.5 L163.3 144.0 L165.2 146.9 L166.4 150.1 L166.8 153.4 Z" fill="#dce8f5" stroke="#185FA5" stroke-width="1.3"/>
+<path d="M186.9 197.6 L186.2 200.5 L185.3 203.2 L184.5 205.9 L183.4 208.7 L182.2 211.4 L180.6 214.1 L178.6 216.7 L176.1 219.0 L173.2 220.9 L169.9 222.2 L166.3 222.8 L162.7 222.9 L159.2 222.3 L155.9 221.2 L152.8 219.7 L150.0 218.0 L147.3 216.1 L144.9 214.0 L142.6 211.8 L140.5 209.4 L138.7 206.8 L137.1 204.0 L136.1 200.9 L135.6 197.6 L135.8 194.4 L136.6 191.2 L138.2 188.3 L140.2 185.7 L142.6 183.4 L145.3 181.6 L148.0 180.0 L150.8 178.7 L153.6 177.4 L156.5 176.3 L159.5 175.3 L162.7 174.4 L166.1 173.7 L169.7 173.6 L173.4 173.9 L177.0 174.9 L180.3 176.6 L183.1 178.9 L185.2 181.7 L186.7 184.9 L187.5 188.2 L187.7 191.5 L187.4 194.7 Z" fill="#dce8f5" stroke="#185FA5" stroke-width="1.3"/>
+<path d="M212.7 235.2 L213.2 238.2 L213.5 241.4 L213.3 244.7 L212.5 248.0 L211.1 251.1 L208.9 253.9 L206.1 256.3 L202.8 258.0 L199.3 259.0 L195.6 259.4 L192.0 259.2 L188.6 258.6 L185.4 257.7 L182.3 256.6 L179.5 255.5 L176.6 254.3 L173.9 252.9 L171.1 251.3 L168.5 249.4 L166.1 247.2 L164.0 244.6 L162.5 241.7 L161.7 238.5 L161.5 235.2 L161.9 232.0 L163.0 228.9 L164.5 226.1 L166.4 223.5 L168.5 221.1 L170.8 218.9 L173.2 216.8 L175.8 214.9 L178.6 213.2 L181.7 211.7 L185.1 210.6 L188.6 210.0 L192.2 210.0 L195.7 210.7 L199.1 212.0 L202.0 213.8 L204.5 216.1 L206.5 218.7 L208.1 221.5 L209.3 224.2 L210.3 227.0 L211.2 229.7 L212.0 232.4 Z" fill="#dce8f5" stroke="#185FA5" stroke-width="1.3"/>
+<text x="73.425" y="223.295" font-size="13" fill="#185FA5" font-weight="700" text-anchor="middle">A</text>
+<text x="115.725" y="202.145" font-size="13" fill="#185FA5" font-weight="700" text-anchor="middle">B</text>
+<text x="139.225" y="161.255" font-size="13" fill="#185FA5" font-weight="700" text-anchor="middle">C</text>
+<text x="162.725" y="202.145" font-size="13" fill="#185FA5" font-weight="700" text-anchor="middle">D</text>
+<text x="188.575" y="239.745" font-size="13" fill="#185FA5" font-weight="700" text-anchor="middle">E</text>
+<line x1="92.3389" y1="203.748" x2="96.8111" y2="212.692" stroke="#4A3D6B" stroke-width="2.2"/>
+<line x1="123.14" y1="174.709" x2="131.81" y2="179.691" stroke="#4A3D6B" stroke-width="2.2"/>
+<line x1="139.225" y1="192.645" x2="139.225" y2="202.645" stroke="#4A3D6B" stroke-width="2.2"/>
+<line x1="155.31" y1="174.709" x2="146.64" y2="179.691" stroke="#4A3D6B" stroke-width="2.2"/>
+<line x1="179.77" y1="213.612" x2="171.53" y2="219.278" stroke="#4A3D6B" stroke-width="2.2"/>
+<text x="131" y="300" font-size="11" fill="#8A7FA3" text-anchor="middle">each dark mark: one binding contact</text>
+<text x="285" y="72" font-size="13.5" fill="#4A3D6B" font-weight="700">② As a graph</text>
+<text x="285" y="90" font-size="12" fill="#8A7FA3">the same five, the same layout</text>
+<line x1="312.6" y1="239.04" x2="370.2" y2="210.24" stroke="#4A3D6B" stroke-width="2.8"/>
+<line x1="370.2" y1="210.24" x2="402.2" y2="154.56" stroke="#4A3D6B" stroke-width="2.8"/>
+<line x1="370.2" y1="210.24" x2="434.2" y2="210.24" stroke="#4A3D6B" stroke-width="2.8"/>
+<line x1="402.2" y1="154.56" x2="434.2" y2="210.24" stroke="#8A7FA3" stroke-width="2"/>
+<line x1="434.2" y1="210.24" x2="469.4" y2="261.44" stroke="#8A7FA3" stroke-width="2"/>
+<circle cx="312.6" cy="239.04" r="14" fill="#185FA5" stroke="#ffffff" stroke-width="2"/>
+<text x="312.6" y="243.54" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">A</text>
+<circle cx="370.2" cy="210.24" r="14" fill="#185FA5" stroke="#ffffff" stroke-width="2"/>
+<text x="370.2" y="214.74" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">B</text>
+<circle cx="402.2" cy="154.56" r="14" fill="#185FA5" stroke="#ffffff" stroke-width="2"/>
+<text x="402.2" y="159.06" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">C</text>
+<circle cx="434.2" cy="210.24" r="14" fill="#185FA5" stroke="#ffffff" stroke-width="2"/>
+<text x="434.2" y="214.74" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">D</text>
+<circle cx="469.4" cy="261.44" r="14" fill="#185FA5" stroke="#ffffff" stroke-width="2"/>
+<text x="469.4" y="265.94" font-size="13" fill="#ffffff" font-weight="700" text-anchor="middle">E</text>
+<line x1="419.2" y1="154.56" x2="445.2" y2="154.56" stroke="#8A7FA3" stroke-width="1"/>
+<text x="450.2" y="151.56" font-size="12"><tspan fill="#4A3D6B" font-weight="700">node</tspan><tspan fill="#5B4D80">: a protein</tspan></text>
+<text x="450.2" y="167.56" font-size="11.5" fill="#8A7FA3">(or a gene, cell, patient, drug)</text>
+<line x1="445.464" y1="230.624" x2="445.464" y2="280" stroke="#8A7FA3" stroke-width="1"/>
+<text x="405.464" y="294" font-size="12"><tspan fill="#4A3D6B" font-weight="700">edge</tspan><tspan fill="#5B4D80">: a relationship</tspan></text>
+<text x="405.464" y="310" font-size="11.5" fill="#8A7FA3">(binding, regulation, correlation)</text>
+<line x1="359.7" y1="199.74" x2="330.2" y2="170.24" stroke="#8A7FA3" stroke-width="1"/>
+<text x="326.2" y="152.24" font-size="12" fill="#4A3D6B" font-weight="700" text-anchor="middle">degree of B = 3</text>
+<text x="326.2" y="166.24" font-size="11" fill="#8A7FA3" text-anchor="middle">edges to A, C, D</text>
+<text x="674" y="72" font-size="13.5" fill="#4A3D6B" font-weight="700">③ As a table</text>
+<text x="674" y="90" font-size="12" fill="#8A7FA3">an edge list</text>
+<rect x="692" y="108" width="128" height="132" rx="6" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.2"/>
+<rect x="692.6" y="108.6" width="126.8" height="21.4" rx="5.5" fill="#f3f0f8"/>
+<line x1="692" y1="130" x2="820" y2="130" stroke="#d8d2e4" stroke-width="1.2"/>
+<line x1="756" y1="108" x2="756" y2="240" stroke="#ece8f2" stroke-width="1"/>
+<text x="724" y="123" font-size="11" fill="#8A7FA3" font-weight="700" text-anchor="middle">node 1</text>
+<text x="788" y="123" font-size="11" fill="#8A7FA3" font-weight="700" text-anchor="middle">node 2</text>
+<text x="724" y="145.5" font-size="12.5" fill="#185FA5" font-weight="700" text-anchor="middle">A</text>
+<text x="788" y="145.5" font-size="12.5" fill="#185FA5" font-weight="700" text-anchor="middle">B</text>
+<line x1="698" y1="152" x2="814" y2="152" stroke="#f0edf5" stroke-width="1"/>
+<text x="724" y="167.5" font-size="12.5" fill="#185FA5" font-weight="700" text-anchor="middle">B</text>
+<text x="788" y="167.5" font-size="12.5" fill="#185FA5" font-weight="700" text-anchor="middle">C</text>
+<line x1="698" y1="174" x2="814" y2="174" stroke="#f0edf5" stroke-width="1"/>
+<text x="724" y="189.5" font-size="12.5" fill="#185FA5" font-weight="700" text-anchor="middle">B</text>
+<text x="788" y="189.5" font-size="12.5" fill="#185FA5" font-weight="700" text-anchor="middle">D</text>
+<line x1="698" y1="196" x2="814" y2="196" stroke="#f0edf5" stroke-width="1"/>
+<text x="724" y="211.5" font-size="12.5" fill="#185FA5" font-weight="700" text-anchor="middle">C</text>
+<text x="788" y="211.5" font-size="12.5" fill="#185FA5" font-weight="700" text-anchor="middle">D</text>
+<line x1="698" y1="218" x2="814" y2="218" stroke="#f0edf5" stroke-width="1"/>
+<text x="724" y="233.5" font-size="12.5" fill="#185FA5" font-weight="700" text-anchor="middle">D</text>
+<text x="788" y="233.5" font-size="12.5" fill="#185FA5" font-weight="700" text-anchor="middle">E</text>
+<text x="674" y="260" font-size="11.5" fill="#8A7FA3" font-weight="600">5 edges, 5 rows</text>
+<text x="674" y="280" font-size="11.5" fill="#8A7FA3">the same graph can also be</text>
+<text x="674" y="295" font-size="11.5" fill="#8A7FA3">stored as a matrix</text>
+<text x="674" y="310" font-size="11.5" fill="#8A7FA3">(adjacency matrix)</text>
+<line x1="244" y1="196" x2="262" y2="196" stroke="#8A7FA3" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="633" y1="196" x2="651" y2="196" stroke="#8A7FA3" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="24" y="352" font-size="13" fill="#4A3D6B" font-weight="700">The algorithm sees only nodes and edges. Gene names, expression and tissue are labels you attach.</text>
+<text x="24" y="373" font-size="12" fill="#8A7FA3">Familiar from the clinic: in contact tracing, people are nodes and contacts are edges.</text>
+</svg>

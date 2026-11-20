@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 644" width="880" height="644" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8A7FA3"/></marker></defs>
+<rect x="0" y="0" width="880" height="644" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" fill="#4A3D6B" font-weight="700">Direction of effect decides whether you inhibit or activate the target.</text>
+<rect x="24" y="46" width="832" height="196" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="44" y="70" font-size="13.5" fill="#4A3D6B" font-weight="700">① Risk allele and target level</text>
+<text x="572" y="70" font-size="11.5" fill="#8A7FA3" font-weight="700">what to do</text>
+<circle cx="52" cy="106" r="10" fill="#efecf4"/>
+<text x="52" y="110.5" font-size="12.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">a</text>
+<rect x="74" y="92" width="88" height="28" rx="14" fill="#4A3D6B"/>
+<text x="118" y="110.5" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">risk allele</text>
+<line x1="166" y1="106" x2="191" y2="106" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="196" y="89" width="156" height="34" rx="8" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.2"/>
+<rect x="202" y="93" width="26" height="26" rx="6" fill="#e7eff8"/>
+<line x1="215" y1="114" x2="215" y2="106" stroke="#185FA5" stroke-width="3.2"/>
+<path d="M208.5 106 L221.5 106 L215 98 Z" fill="#185FA5" stroke="none" stroke-width="1.2"/>
+<text x="236" y="110.5" font-size="12.5" fill="#4A3D6B" font-weight="700">target activity</text>
+<line x1="356" y1="106" x2="381" y2="106" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="386" y="89" width="136" height="34" rx="8" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.2"/>
+<rect x="392" y="93" width="26" height="26" rx="6" fill="#efedf9"/>
+<line x1="405" y1="114" x2="405" y2="106" stroke="#534AB7" stroke-width="3.2"/>
+<path d="M398.5 106 L411.5 106 L405 98 Z" fill="#534AB7" stroke="none" stroke-width="1.2"/>
+<text x="426" y="110.5" font-size="12.5" fill="#4A3D6B" font-weight="700">disease risk</text>
+<line x1="526" y1="106" x2="567" y2="106" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="572" y="91" width="165.9" height="30" rx="8" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.4"/>
+<circle cx="589" cy="106" r="8.5" fill="#1D9E75"/>
+<path d="M585.175 106.17 L588.15 109.23 L593.08 102.94" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+<text x="605" y="110.5" font-size="12"><tspan fill="#0F6E56" font-weight="700">inhibitor / antagonist</tspan></text>
+<circle cx="52" cy="182" r="10" fill="#efecf4"/>
+<text x="52" y="186.5" font-size="12.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">b</text>
+<rect x="74" y="168" width="88" height="28" rx="14" fill="#4A3D6B"/>
+<text x="118" y="186.5" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">risk allele</text>
+<line x1="166" y1="182" x2="191" y2="182" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="196" y="165" width="156" height="34" rx="8" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.2"/>
+<rect x="202" y="169" width="26" height="26" rx="6" fill="#e7eff8"/>
+<line x1="215" y1="174" x2="215" y2="182" stroke="#185FA5" stroke-width="3.2"/>
+<path d="M208.5 182 L221.5 182 L215 190 Z" fill="#185FA5" stroke="none" stroke-width="1.2"/>
+<text x="236" y="186.5" font-size="12.5" fill="#4A3D6B" font-weight="700">target activity</text>
+<line x1="356" y1="182" x2="381" y2="182" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="386" y="165" width="136" height="34" rx="8" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.2"/>
+<rect x="392" y="169" width="26" height="26" rx="6" fill="#efedf9"/>
+<line x1="405" y1="190" x2="405" y2="182" stroke="#534AB7" stroke-width="3.2"/>
+<path d="M398.5 182 L411.5 182 L405 174 Z" fill="#534AB7" stroke="none" stroke-width="1.2"/>
+<text x="426" y="186.5" font-size="12.5" fill="#4A3D6B" font-weight="700">disease risk</text>
+<path d="M526 182 C548 182 546 163 567 163" fill="none" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="572" y="148" width="264" height="30" rx="8" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.4"/>
+<circle cx="589" cy="163" r="8.5" fill="#1D9E75"/>
+<path d="M585.175 163.17 L588.15 166.23 L593.08 159.94" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+<text x="605" y="167.5" font-size="12"><tspan fill="#0F6E56" font-weight="700">activator / agonist, or replacement</tspan></text>
+<path d="M526 182 C548 182 546 201 567 201" fill="none" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="572" y="186" width="264" height="30" rx="8" fill="#fbeee8" stroke="#D85A30" stroke-width="1.6"/>
+<circle cx="589" cy="201" r="8.5" fill="#D85A30"/>
+<path d="M585.77 197.77 L592.23 204.23 M592.23 197.77 L585.77 204.23" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+<text x="605" y="205.5" font-size="12"><tspan fill="#a8401d" font-weight="700">inhibitor here makes patients worse</tspan></text>
+<path d="M202 204 L202 210 L516 210 L516 204" fill="none" stroke="#8A7FA3" stroke-width="1.2"/>
+<text x="359" y="227" font-size="12.5" fill="#185FA5" font-weight="700" text-anchor="middle">the target is protective</text>
+<line x1="44" y1="136" x2="836" y2="136" stroke="#eee9f3" stroke-width="1.2"/>
+<rect x="24" y="254" width="832" height="196" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="44" y="278" font-size="13.5" fill="#4A3D6B" font-weight="700">② Incoherence</text>
+<text x="572" y="278" font-size="11.5" fill="#8A7FA3" font-weight="700">what to do</text>
+<text x="74" y="296" font-size="11.5" fill="#8A7FA3" font-weight="700">genetics</text>
+<rect x="74" y="306" width="88" height="28" rx="14" fill="#4A3D6B"/>
+<text x="118" y="324.5" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">risk allele</text>
+<line x1="166" y1="320" x2="191" y2="320" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="196" y="303" width="156" height="34" rx="8" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.2"/>
+<rect x="202" y="307" width="26" height="26" rx="6" fill="#e7eff8"/>
+<line x1="215" y1="312" x2="215" y2="320" stroke="#185FA5" stroke-width="3.2"/>
+<path d="M208.5 320 L221.5 320 L215 328 Z" fill="#185FA5" stroke="none" stroke-width="1.2"/>
+<text x="236" y="324.5" font-size="12.5" fill="#4A3D6B" font-weight="700">gene X</text>
+<line x1="356" y1="320" x2="381" y2="320" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="386" y="303" width="136" height="34" rx="8" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.2"/>
+<rect x="392" y="307" width="26" height="26" rx="6" fill="#efedf9"/>
+<line x1="405" y1="328" x2="405" y2="320" stroke="#534AB7" stroke-width="3.2"/>
+<path d="M398.5 320 L411.5 320 L405 312 Z" fill="#534AB7" stroke="none" stroke-width="1.2"/>
+<text x="426" y="324.5" font-size="12.5" fill="#4A3D6B" font-weight="700">disease risk</text>
+<path d="M202 342 L202 348 L516 348 L516 342" fill="none" stroke="#8A7FA3" stroke-width="1.2"/>
+<text x="359" y="365" font-size="12.5" fill="#185FA5" font-weight="700" text-anchor="middle">so X is protective</text>
+<line x1="526" y1="320" x2="567" y2="320" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="572" y="305" width="230.9" height="30" rx="8" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.4"/>
+<circle cx="589" cy="320" r="8.5" fill="#1D9E75"/>
+<path d="M585.175 320.17 L588.15 323.23 L593.08 316.94" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+<text x="605" y="324.5" font-size="12"><tspan fill="#0F6E56">read from the genetics: </tspan><tspan fill="#0F6E56" font-weight="700">support X</tspan></text>
+<line x1="44" y1="372" x2="836" y2="372" stroke="#eee9f3" stroke-width="1.2"/>
+<line x1="74" y1="422" x2="162" y2="422" stroke="#cfc9dd" stroke-width="1.2"/>
+<rect x="82" y="410" width="30" height="12" rx="2" fill="#a9c3df"/>
+<rect x="124" y="386" width="30" height="36" rx="2" fill="#185FA5"/>
+<text x="97" y="436" font-size="10.5" fill="#8A7FA3" text-anchor="middle">control</text>
+<text x="139" y="436" font-size="10.5" fill="#8A7FA3" text-anchor="middle">patient</text>
+<text x="196" y="404" font-size="12.5"><tspan fill="#4A3D6B" font-weight="700">X is high in patient tissue</tspan></text>
+<text x="196" y="421" font-size="11.5" fill="#8A7FA3">(a protective response that is not enough)</text>
+<line x1="526" y1="406" x2="567" y2="406" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="572" y="391" width="239.1" height="30" rx="8" fill="#f6f4f9" stroke="#cfc9dd" stroke-width="1.2" stroke-dasharray="4 3"/>
+<circle cx="589" cy="406" r="8.5" fill="#9a93ab"/>
+<path d="M585.77 402.77 L592.23 409.23 M592.23 402.77 L585.77 409.23" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+<text x="605" y="410.5" font-size="12"><tspan fill="#666">read from the fold change: </tspan><tspan fill="#666" font-weight="700">inhibit X</tspan></text>
+<rect x="24" y="462" width="832" height="136" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="44" y="486" font-size="13.5" fill="#4A3D6B" font-weight="700">③ Tissue specificity</text>
+<text x="194" y="486" font-size="12" fill="#8A7FA3">the same allele, two tissues</text>
+<rect x="74" y="529" width="88" height="28" rx="14" fill="#4A3D6B"/>
+<text x="118" y="547.5" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">risk allele</text>
+<path d="M166 543.0 C182 543.0 176 522 191 522" fill="none" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="196" y="504" width="326" height="36" rx="8" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.2"/>
+<text x="210" y="526.5" font-size="12.5" fill="#4A3D6B" font-weight="700">tissue 1</text>
+<text x="262.5" y="526.5" font-size="12" fill="#8A7FA3">(e.g. blood)</text>
+<rect x="459" y="509" width="26" height="26" rx="6" fill="#e7eff8"/>
+<line x1="472" y1="530" x2="472" y2="522" stroke="#185FA5" stroke-width="3.2"/>
+<path d="M465.5 522 L478.5 522 L472 514 Z" fill="#185FA5" stroke="none" stroke-width="1.2"/>
+<text x="492" y="526.5" font-size="13" fill="#4A3D6B" font-weight="700">X</text>
+<path d="M166 543.0 C182 543.0 176 564 191 564" fill="none" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="196" y="546" width="326" height="36" rx="8" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.6"/>
+<text x="210" y="568.5" font-size="12.5" fill="#4A3D6B" font-weight="700">tissue 2</text>
+<text x="264.3" y="568.5" font-size="12" fill="#8A7FA3">where the disease happens</text>
+<rect x="459" y="551" width="26" height="26" rx="6" fill="#e7eff8"/>
+<line x1="472" y1="556" x2="472" y2="564" stroke="#185FA5" stroke-width="3.2"/>
+<path d="M465.5 564 L478.5 564 L472 572 Z" fill="#185FA5" stroke="none" stroke-width="1.2"/>
+<text x="492" y="568.5" font-size="13" fill="#4A3D6B" font-weight="700">X</text>
+<line x1="526" y1="564" x2="567" y2="564" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<text x="572" y="561" font-size="12.5" fill="#0F6E56" font-weight="700">use the direction in the tissue</text>
+<text x="572" y="578" font-size="12.5" fill="#0F6E56" font-weight="700">where the disease happens</text>
+<text x="24" y="626" font-size="13" fill="#0F6E56" font-weight="700">✅ Set the direction from genetics and MR in the disease tissue, not from a fold change in patient tissue.</text>
+</svg>

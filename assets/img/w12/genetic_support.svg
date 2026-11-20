@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 488" width="880" height="488" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8A7FA3"/></marker></defs>
+<rect x="0" y="0" width="880" height="488" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" fill="#4A3D6B" font-weight="700">A variant in the target gene works like a trial that started at conception.</text>
+<rect x="24" y="46" width="832" height="134" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="44" y="70" font-size="13.5" fill="#4A3D6B" font-weight="700">① Randomised trial</text>
+<circle cx="66" cy="98" r="3.6" fill="#a79dc0"/>
+<path d="M59.6 110.3 Q59.6 102.8 66 102.8 Q72.4 102.8 72.4 110.3 Z" fill="#a79dc0" stroke="none" stroke-width="1.2"/>
+<circle cx="84" cy="98" r="3.6" fill="#a79dc0"/>
+<path d="M77.6 110.3 Q77.6 102.8 84 102.8 Q90.4 102.8 90.4 110.3 Z" fill="#a79dc0" stroke="none" stroke-width="1.2"/>
+<circle cx="102" cy="98" r="3.6" fill="#a79dc0"/>
+<path d="M95.6 110.3 Q95.6 102.8 102 102.8 Q108.4 102.8 108.4 110.3 Z" fill="#a79dc0" stroke="none" stroke-width="1.2"/>
+<circle cx="66" cy="118" r="3.6" fill="#a79dc0"/>
+<path d="M59.6 130.3 Q59.6 122.8 66 122.8 Q72.4 122.8 72.4 130.3 Z" fill="#a79dc0" stroke="none" stroke-width="1.2"/>
+<circle cx="84" cy="118" r="3.6" fill="#a79dc0"/>
+<path d="M77.6 130.3 Q77.6 122.8 84 122.8 Q90.4 122.8 90.4 130.3 Z" fill="#a79dc0" stroke="none" stroke-width="1.2"/>
+<circle cx="102" cy="118" r="3.6" fill="#a79dc0"/>
+<path d="M95.6 130.3 Q95.6 122.8 102 122.8 Q108.4 122.8 108.4 130.3 Z" fill="#a79dc0" stroke="none" stroke-width="1.2"/>
+<text x="84" y="154" font-size="12.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">patients</text>
+<line x1="120" y1="120" x2="152" y2="120" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="158" y="98" width="144" height="44" rx="8" fill="#f6f4f9" stroke="#d8d2e4" stroke-width="1.2"/>
+<text x="230" y="116" font-size="12" fill="#4A3D6B" font-weight="700" text-anchor="middle">randomised by</text>
+<text x="230" y="133" font-size="12" fill="#4A3D6B" font-weight="700" text-anchor="middle">the investigator</text>
+<path d="M302 120 C324 120 320 105.0 340 105.0" fill="none" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<path d="M302 120 C324 120 320 150.0 340 150.0" fill="none" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="344" y="82" width="354" height="46" rx="8" fill="#e7eff8" stroke="#185FA5" stroke-width="1.4"/>
+<text x="358" y="109.5" font-size="12.5" fill="#185FA5" font-weight="700">drug arm</text>
+<rect x="570.2" y="92" width="119.8" height="26" rx="6" fill="#ffffff" stroke="#b9cfe6" stroke-width="1"/>
+<line x1="585.2" y1="97" x2="585.2" y2="105" stroke="#185FA5" stroke-width="3.2"/>
+<path d="M578.7 105 L591.7 105 L585.2 113 Z" fill="#185FA5" stroke="none" stroke-width="1.2"/>
+<text x="599.2" y="109" font-size="11.5" fill="#185FA5" font-weight="700">target lowered</text>
+<rect x="344" y="136" width="354" height="28" rx="8" fill="#f6f4f9" stroke="#d8d2e4" stroke-width="1.2"/>
+<text x="358" y="154.5" font-size="12.5" fill="#666" font-weight="700">placebo arm</text>
+<path d="M698 105.0 C718 105.0 718 120 734 120" fill="none" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<path d="M698 150.0 C718 150.0 718 120 734 120" fill="none" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="738" y="98" width="98" height="44" rx="8" fill="#ffffff" stroke="#4A3D6B" stroke-width="1.4"/>
+<text x="787" y="116" font-size="12" fill="#4A3D6B" font-weight="700" text-anchor="middle">compare</text>
+<text x="787" y="133" font-size="12" fill="#4A3D6B" font-weight="700" text-anchor="middle">outcomes</text>
+<rect x="24" y="192" width="832" height="134" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="44" y="216" font-size="13.5" fill="#4A3D6B" font-weight="700">② Mendelian randomisation</text>
+<text x="234.6" y="216" font-size="12" fill="#8A7FA3">no lifestyle confounding: the allele was assigned before any of it</text>
+<circle cx="66" cy="244" r="3.6" fill="#a79dc0"/>
+<path d="M59.6 256.3 Q59.6 248.8 66 248.8 Q72.4 248.8 72.4 256.3 Z" fill="#a79dc0" stroke="none" stroke-width="1.2"/>
+<circle cx="84" cy="244" r="3.6" fill="#a79dc0"/>
+<path d="M77.6 256.3 Q77.6 248.8 84 248.8 Q90.4 248.8 90.4 256.3 Z" fill="#a79dc0" stroke="none" stroke-width="1.2"/>
+<circle cx="102" cy="244" r="3.6" fill="#a79dc0"/>
+<path d="M95.6 256.3 Q95.6 248.8 102 248.8 Q108.4 248.8 108.4 256.3 Z" fill="#a79dc0" stroke="none" stroke-width="1.2"/>
+<circle cx="66" cy="264" r="3.6" fill="#a79dc0"/>
+<path d="M59.6 276.3 Q59.6 268.8 66 268.8 Q72.4 268.8 72.4 276.3 Z" fill="#a79dc0" stroke="none" stroke-width="1.2"/>
+<circle cx="84" cy="264" r="3.6" fill="#a79dc0"/>
+<path d="M77.6 276.3 Q77.6 268.8 84 268.8 Q90.4 268.8 90.4 276.3 Z" fill="#a79dc0" stroke="none" stroke-width="1.2"/>
+<circle cx="102" cy="264" r="3.6" fill="#a79dc0"/>
+<path d="M95.6 276.3 Q95.6 268.8 102 268.8 Q108.4 268.8 108.4 276.3 Z" fill="#a79dc0" stroke="none" stroke-width="1.2"/>
+<text x="84" y="300" font-size="12.5" fill="#4A3D6B" font-weight="700" text-anchor="middle">people</text>
+<line x1="120" y1="266" x2="152" y2="266" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="158" y="244" width="144" height="44" rx="8" fill="#f6f4f9" stroke="#d8d2e4" stroke-width="1.2"/>
+<text x="230" y="262" font-size="12" fill="#4A3D6B" font-weight="700" text-anchor="middle">alleles assigned</text>
+<text x="230" y="279" font-size="12" fill="#4A3D6B" font-weight="700" text-anchor="middle">at conception</text>
+<path d="M302 266 C324 266 320 251.0 340 251.0" fill="none" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<path d="M302 266 C324 266 320 296.0 340 296.0" fill="none" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="344" y="228" width="354" height="46" rx="8" fill="#e7eff8" stroke="#185FA5" stroke-width="1.4"/>
+<text x="358" y="247.5" font-size="12.5" fill="#185FA5" font-weight="700">carriers of a loss-of-function</text>
+<text x="358" y="263.5" font-size="12.5" fill="#185FA5" font-weight="700">allele in the target gene</text>
+<rect x="570.2" y="230.5" width="119.8" height="41" rx="6" fill="#ffffff" stroke="#b9cfe6" stroke-width="1"/>
+<line x1="585.2" y1="243" x2="585.2" y2="251" stroke="#185FA5" stroke-width="3.2"/>
+<path d="M578.7 251 L591.7 251 L585.2 259 Z" fill="#185FA5" stroke="none" stroke-width="1.2"/>
+<text x="599.2" y="247.5" font-size="11.5" fill="#185FA5" font-weight="700">target lowered</text>
+<text x="599.2" y="262.5" font-size="11.5" fill="#185FA5">all their life</text>
+<rect x="344" y="282" width="354" height="28" rx="8" fill="#f6f4f9" stroke="#d8d2e4" stroke-width="1.2"/>
+<text x="358" y="300.5" font-size="12.5" fill="#666" font-weight="700">non-carriers</text>
+<path d="M698 251.0 C718 251.0 718 266 734 266" fill="none" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<path d="M698 296.0 C718 296.0 718 266 734 266" fill="none" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="738" y="244" width="98" height="44" rx="8" fill="#ffffff" stroke="#4A3D6B" stroke-width="1.4"/>
+<text x="787" y="262" font-size="12" fill="#4A3D6B" font-weight="700" text-anchor="middle">compare</text>
+<text x="787" y="279" font-size="12" fill="#4A3D6B" font-weight="700" text-anchor="middle">outcomes</text>
+<rect x="24" y="338" width="832" height="104" rx="10" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="44" y="362" font-size="13.5" fill="#4A3D6B" font-weight="700">③ Example: PCSK9</text>
+<rect x="44" y="378" width="124.2" height="48" rx="8" fill="#e7eff8" stroke="#185FA5" stroke-width="1.4"/>
+<text x="106.1" y="398.5" font-size="12.5" fill="#185FA5" font-weight="700" text-anchor="middle">loss-of-function</text>
+<text x="106.1" y="414.5" font-size="12.5" fill="#185FA5" font-weight="700" text-anchor="middle">carriers</text>
+<line x1="173.2" y1="402" x2="180.6" y2="402" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="185.6" y="378" width="136.6" height="48" rx="8" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.2"/>
+<rect x="197.6" y="389" width="26" height="26" rx="6" fill="#e7eff8"/>
+<line x1="210.6" y1="394" x2="210.6" y2="402" stroke="#185FA5" stroke-width="3.2"/>
+<path d="M204.1 402 L217.1 402 L210.6 410 Z" fill="#185FA5" stroke="none" stroke-width="1.2"/>
+<text x="231.6" y="398.5" font-size="12.5" fill="#4A3D6B" font-weight="700">lower PCSK9</text>
+<text x="231.6" y="414.5" font-size="12.5" fill="#4A3D6B" font-weight="700">activity</text>
+<line x1="327.2" y1="402" x2="334.6" y2="402" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="339.6" y="378" width="117.9" height="48" rx="8" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.2"/>
+<rect x="351.6" y="389" width="26" height="26" rx="6" fill="#f8f0e2"/>
+<line x1="364.6" y1="394" x2="364.6" y2="402" stroke="#BA7517" stroke-width="3.2"/>
+<path d="M358.1 402 L371.1 402 L364.6 410 Z" fill="#BA7517" stroke="none" stroke-width="1.2"/>
+<text x="385.6" y="406.5" font-size="12.5" fill="#4A3D6B" font-weight="700">lower LDL</text>
+<line x1="462.5" y1="402" x2="469.9" y2="402" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="474.9" y="378" width="149.7" height="48" rx="8" fill="#ffffff" stroke="#d8d2e4" stroke-width="1.2"/>
+<rect x="486.9" y="389" width="26" height="26" rx="6" fill="#efedf9"/>
+<line x1="499.9" y1="394" x2="499.9" y2="402" stroke="#534AB7" stroke-width="3.2"/>
+<path d="M493.4 402 L506.4 402 L499.9 410 Z" fill="#534AB7" stroke="none" stroke-width="1.2"/>
+<text x="520.9" y="398.5" font-size="12.5" fill="#4A3D6B" font-weight="700">fewer coronary</text>
+<text x="520.9" y="414.5" font-size="12.5" fill="#4A3D6B" font-weight="700">events</text>
+<line x1="629.6" y1="402" x2="637" y2="402" stroke="#8A7FA3" stroke-width="1.4" marker-end="url(#arr)"/>
+<rect x="642" y="378" width="194" height="48" rx="8" fill="#e8f5f0" stroke="#1D9E75" stroke-width="1.4"/>
+<circle cx="664" cy="402" r="9" fill="#1D9E75"/>
+<path d="M659.95 402.18 L663.1 405.42 L668.32 398.76" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+<text x="682" y="398.5" font-size="12.5" fill="#0F6E56" font-weight="700">PCSK9 inhibitors work</text>
+<text x="682" y="414.5" font-size="11.5" fill="#8A7FA3">(evolocumab, alirocumab)</text>
+<text x="24" y="472" font-size="13" fill="#0F6E56" font-weight="700">✅ Targets with human genetic support are about twice as likely to reach approval (Nelson 2015; King 2019).</text>
+</svg>
