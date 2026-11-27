@@ -237,7 +237,7 @@
 <text x="42.0" y="397.0" font-size="10" fill="#b0573f">✗ avoid: pie charts, 3D</text>
 <rect x="305" y="234" width="270" height="178" rx="10" fill="#ffffff" stroke="#e1dde8" stroke-width="1.2"/>
 <rect x="305" y="234" width="5" height="178" rx="2" fill="#3E9A60"/>
-<text x="323.0" y="258.0" font-size="13.5" fill="#222" font-weight="700">Ranking & effect size</text>
+<text x="323.0" y="258.0" font-size="13.5" fill="#222" font-weight="700">Ranking &amp; effect size</text>
 <text x="323.0" y="275.0" font-size="10.5" fill="#777">Which differ most, and by how much?</text>
 <line x1="323.0" y1="288.0" x2="323.0" y2="352.0" stroke="#ccc" stroke-width="0.8"/>
 <line x1="323.0" y1="294.0" x2="387.4" y2="294.0" stroke="#3E9A60" stroke-width="1.2"/><circle cx="387.4" cy="294.0" r="3.0" fill="#3E9A60"/>
@@ -469,7 +469,7 @@
 <text x="42.0" y="585.0" font-size="10" fill="#b0573f">✗ avoid: a mean line that hides the patients</text>
 <rect x="305" y="422" width="270" height="178" rx="10" fill="#ffffff" stroke="#e1dde8" stroke-width="1.2"/>
 <rect x="305" y="422" width="5" height="178" rx="2" fill="#7E2B45"/>
-<text x="323.0" y="446.0" font-size="13.5" fill="#222" font-weight="700">Connection & flow</text>
+<text x="323.0" y="446.0" font-size="13.5" fill="#222" font-weight="700">Connection &amp; flow</text>
 <text x="323.0" y="463.0" font-size="10.5" fill="#777">What is linked to what?</text>
 <line x1="358.0" y1="504.8" x2="337.0" y2="488.8" stroke="#b5b5b5" stroke-width="1"/>
 <line x1="358.0" y1="504.8" x2="333.5" y2="520.8" stroke="#b5b5b5" stroke-width="1"/>
