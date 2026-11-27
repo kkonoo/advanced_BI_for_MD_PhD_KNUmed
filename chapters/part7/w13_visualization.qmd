@@ -113,10 +113,11 @@ To cut 40 plots down to five main figures:
 
 # 2. Example I: GSEA and a Heatmap of the Key Genes 🧾 {#w13-s2}
 
-A standard figure in RNA-seq papers: DE between patients and controls → GSEA to find the pathway → a heatmap of the genes that drive it (the **leading edge**).
+A standard figure in RNA-seq papers: DE between patients and controls → GSEA to find the gene sets that move most (a) → the running score of one of them (b) → a heatmap of the genes that drive it, the **leading edge** (c).
 
-![Panel a shows which programme; panel b shows which genes drive it. The evidence for a group difference is the NES and FDR in a.](/assets/img/w13/leading_edge.svg){fig-align="center"}
+![Panel a shows which gene sets move, b how one of them is enriched, and c which genes drive it. The evidence for a group difference is the NES and FDR in a and b.](/assets/img/w13/leading_edge.svg){fig-align="center"}
 
+-   ✅ Show only a few top gene sets in a. Bars start at zero (NES), and the accent colour goes only to the set examined in b
 -   ✅ The **leading edge** is the set of genes that push the running enrichment score up to its peak. It lets you name genes instead of a pathway
 -   ✅ One column per sample in the heatmap, grouped, with n shown. A patient who barely responds stays visible
 -   ✅ Conclusion sentence: *"Patients show an interferon-α response (NES 2.4, FDR < 0.001), led by IFI44L, ISG15 and MX1 (n = 6 vs 6)."*
@@ -129,7 +130,7 @@ Making this one figure involves both **figure traps** and **analysis traps**.
 
 Where they turn up in this example:
 
--   ⚠️ **Truncated axis.** An enrichment bar chart (−log~10~ FDR) or a bar chart of key-gene expression that does not start at zero inflates the difference, because a bar's length *is* the value. If zero is uninformative, use points or a dot plot instead
+-   ⚠️ **Truncated axis.** A bar chart of the top gene sets (NES or −log~10~ FDR, as in panel a) or of key-gene expression that does not start at zero inflates the difference, because a bar's length *is* the value. If zero is uninformative, use points or a dot plot instead
 -   ⚠️ **Rainbow colour map** on the heatmap. Not perceptually ordered, invents boundaries where data is smooth, and fails in greyscale and for colour-vision deficiency. ✅ Use a single-hue sequential ramp for magnitude, and a two-hue diverging ramp with a neutral midpoint for signed values such as z-scores
 -   ⚠️ **Bars that hide n.** A qPCR check of the key genes (n = 3) drawn as bar plus SEM implies a precision you do not have. ✅ With n ≤ 10, plot the individual points
 -   ⚠️ **Row-scaled heatmap.** Row scaling forces every gene to span the full colour range, so noise looks structured. A diverging scale with an off-centre midpoint exaggerates one direction. ✅ Say "z-score per gene" in the legend and centre the scale at zero
@@ -153,7 +154,7 @@ Enrichment asks whether your gene list contains more of a category than expected
 -   ❌ Default "all human genes". But genes not expressed in your tissue could never have been in your list
 -   ✅ The universe is **the genes you actually tested**: expressed above threshold, passing filters
 -   ⚠️ In tissue-specific data this typically halves the universe, and it can remove an entire "significant" category
--   ✅ GO terms are nested, so one finding is reported many times. Collapse them with `simplify()` or REVIGO before plotting
+-   ✅ GO terms are nested, so one finding is reported many times. Collapse them with `simplify()` or REVIGO before plotting. Gene sets whose leading edges almost coincide, like IFN-α and IFN-γ in panel a, are also one finding
 
 ::: {.panel-tabset group="lang"}
 
@@ -206,7 +207,7 @@ print(ego.results.sort_values("Adjusted P-value")[["Term", "Odds Ratio", "Adjust
 
 ### ③ GSEA on the ranked list, not a cut-off list
 
-✅ Often better than an over-representation test: it uses the whole ranking rather than a thresholded list, so there is no arbitrary cut-off, and modest coordinated shifts are detectable. The leading edge in panel a above comes from here.
+✅ Often better than an over-representation test: it uses the whole ranking rather than a thresholded list, so there is no arbitrary cut-off, and modest coordinated shifts are detectable. The leading edge in panel b above comes from here.
 
 ::: {.panel-tabset group="lang"}
 

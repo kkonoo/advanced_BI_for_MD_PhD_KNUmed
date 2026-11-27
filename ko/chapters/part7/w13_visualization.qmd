@@ -113,10 +113,11 @@ knitr:
 
 # 2. 예시 I: GSEA와 핵심 gene heatmap 🧾 {#w13-s2}
 
-RNA-seq 논문의 단골 그림. 환자 vs 대조군 DE → GSEA로 pathway 찾기 → 그 pathway를 이끄는 gene(**leading edge**)을 heatmap으로
+RNA-seq 논문의 단골 그림. 환자 vs 대조군 DE → GSEA로 많이 움직인 gene set 찾기(a) → 그중 하나의 running score(b) → 그 gene set을 이끄는 gene(**leading edge**)을 heatmap으로(c)
 
-![a는 어떤 program인지, b는 어떤 gene이 이끄는지 보여 줌. 군 간 차이의 증거는 a의 NES와 FDR](../../../assets/img/w13/leading_edge.svg){fig-align="center"}
+![a는 어떤 gene set이 움직였는지, b는 그중 하나가 어떻게 enrich됐는지, c는 어떤 gene이 이끄는지 보여 줌. 군 간 차이의 증거는 a·b의 NES와 FDR](../../../assets/img/w13/leading_edge.svg){fig-align="center"}
 
+-   ✅ a에는 top gene set 몇 개만. 막대는 0(NES)에서 시작하고, b에서 자세히 볼 하나에만 강조색
 -   ✅ **Leading edge** = running enrichment score가 최고점에 이르기까지 기여한 gene. Pathway 이름 대신 gene 이름을 쓸 수 있게 해 줌
 -   ✅ Heatmap은 sample마다 한 열. 군별로 묶고 n을 보이기. 반응이 약한 환자도 그대로 보임
 -   ✅ 결론 문장: *"Patients show an interferon-α response (NES 2.4, FDR < 0.001), led by IFI44L, ISG15 and MX1 (n = 6 vs 6)."*
@@ -129,7 +130,7 @@ RNA-seq 논문의 단골 그림. 환자 vs 대조군 DE → GSEA로 pathway 찾�
 
 이 예시에서 나오는 곳:
 
--   ⚠️ **Truncated axis.** Enrichment 막대(−log~10~ FDR)나 핵심 gene 발현 막대를 0이 아닌 곳에서 시작하면 차이가 부풀려짐. 막대는 길이 *자체*가 값이기 때문. 0이 의미 없으면 막대 대신 point나 dot plot
+-   ⚠️ **Truncated axis.** Top gene set 막대(그림 a의 NES나 −log~10~ FDR)나 핵심 gene 발현 막대를 0이 아닌 곳에서 시작하면 차이가 부풀려짐. 막대는 길이 *자체*가 값이기 때문. 0이 의미 없으면 막대 대신 point나 dot plot
 -   ⚠️ **Rainbow color map.** Heatmap 색 척도. 색의 순서가 눈으로 읽히지 않고, 매끄러운 data에 없는 경계를 만들고, 흑백 인쇄나 색각이상에서는 구분이 안 됨. ✅ 크기엔 한 색조 sequential ramp, z-score처럼 부호 있는 값엔 가운데가 중립색인 diverging ramp
 -   ⚠️ **n을 숨기는 막대.** 핵심 gene을 qPCR로 확인한 그림(n = 3)을 막대와 SEM으로 그리면 있지도 않은 정밀도가 있는 것처럼 보임. ✅ n ≤ 10이면 개별 point를 그리기
 -   ⚠️ **Row-scaled heatmap.** 행마다 z-score로 바꾸면 모든 gene이 색 범위 전체를 쓰게 되어서 noise도 구조처럼 보임. 중심이 치우친 diverging 척도는 한쪽 방향을 과장함. ✅ Legend에 "z-score per gene"이라고 쓰고 척도 중심을 0에
@@ -153,7 +154,7 @@ Enrichment는 내 gene 목록에 어떤 category가 **어떤 universe에서 우�
 -   ❌ 기본값은 "사람의 모든 gene". 하지만 내 조직에서 발현 안 되는 gene은 애초에 목록에 들어올 수가 없었음
 -   ✅ Universe는 **실제로 검정한 gene**으로: 기준 이상 발현되고 filter를 통과한 gene
 -   ⚠️ 조직 특이적 data에선 universe가 보통 절반으로 줄고, "유의한" category 하나가 통째로 사라지기도 함
--   ✅ GO term은 서로 포함 관계라 같은 결과를 여러 번 보고함. `simplify()`나 REVIGO로 합친 뒤 그리기
+-   ✅ GO term은 서로 포함 관계라 같은 결과를 여러 번 보고함. `simplify()`나 REVIGO로 합친 뒤 그리기. 그림 a의 IFN-α와 IFN-γ처럼 leading edge가 거의 겹치는 gene set도 결과는 하나
 
 ::: {.panel-tabset group="lang"}
 
@@ -206,7 +207,7 @@ print(ego.results.sort_values("Adjusted P-value")[["Term", "Odds Ratio", "Adjust
 
 ### ③ 잘라낸 목록보다 순위 목록으로 GSEA
 
-✅ Over-representation test보다 나은 경우가 많음. 잘라낸 목록이 아니라 전체 순위를 쓰기 때문에 자의적인 cut-off x, 작지만 함께 움직이는 변화도 잡힘. 위 그림 a의 leading edge도 여기서 나옴
+✅ Over-representation test보다 나은 경우가 많음. 잘라낸 목록이 아니라 전체 순위를 쓰기 때문에 자의적인 cut-off x, 작지만 함께 움직이는 변화도 잡힘. 위 그림 b의 leading edge도 여기서 나옴
 
 ::: {.panel-tabset group="lang"}
 
