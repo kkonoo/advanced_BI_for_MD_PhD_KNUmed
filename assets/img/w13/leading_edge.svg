@@ -1,0 +1,237 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 486" width="880" height="486" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<rect width="880" height="486" fill="#fcfcfb"/>
+<text x="24.0" y="30.0" font-size="15" fill="#4A3D6B" font-weight="700">Example I: GSEA names the programme; the leading-edge heatmap names the genes.</text>
+<text x="856.0" y="52.0" font-size="11" fill="#8A7FA3" text-anchor="end">(illustration: simulated data)</text>
+<text x="24.0" y="76.0" font-size="15" fill="#222" font-weight="700">a</text><text x="42.0" y="76.0" font-size="12.5" fill="#333" font-weight="600">GSEA: interferon-α response, patients vs controls</text>
+<rect x="60.0" y="96.0" width="51.2" height="202.0" fill="#fbeee8"/>
+<line x1="60.0" y1="244.7" x2="400.0" y2="244.7" stroke="#bbb" stroke-width="0.8"/>
+<line x1="60.0" y1="96.0" x2="60.0" y2="246.0" stroke="#999" stroke-width="0.8"/>
+<text x="55.0" y="248.2" font-size="9.5" fill="#666" text-anchor="end">0</text>
+<text x="55.0" y="200.6" font-size="9.5" fill="#666" text-anchor="end">0.25</text>
+<text x="55.0" y="152.9" font-size="9.5" fill="#666" text-anchor="end">0.5</text>
+<text x="55.0" y="105.3" font-size="9.5" fill="#666" text-anchor="end">0.75</text>
+<text x="28.0" y="171.0" font-size="9.5" fill="#555" text-anchor="middle" transform="rotate(-90 28 171.0)">running enrichment score</text>
+<path d="M60.0,245.7 L61.6,233.4 L63.1,221.4 L64.7,209.6 L66.2,210.5 L67.8,198.8 L69.3,187.2 L70.9,188.2 L72.4,176.7 L74.0,165.3 L75.5,166.3 L77.1,155.0 L78.6,156.0 L80.2,145.4 L81.7,146.4 L83.3,136.0 L84.8,136.9 L86.4,137.9 L87.9,127.9 L89.5,128.8 L91.1,129.8 L92.6,130.8 L94.2,121.0 L95.7,122.0 L97.3,122.9 L98.8,123.9 L100.4,124.9 L101.9,115.5 L103.5,116.4 L105.0,117.4 L106.6,118.4 L108.1,119.4 L109.7,120.3 L111.2,111.9 L112.8,112.9 L114.3,113.9 L115.9,114.9 L117.4,115.8 L119.0,116.8 L120.5,117.8 L122.1,118.7 L123.7,119.7 L125.2,120.7 L126.8,121.7 L128.3,122.6 L129.9,123.6 L131.4,124.6 L133.0,125.6 L134.5,126.5 L136.1,127.5 L137.6,120.8 L139.2,121.8 L140.7,122.8 L142.3,123.7 L143.8,124.7 L145.4,125.7 L146.9,126.7 L148.5,127.6 L150.0,128.6 L151.6,129.6 L153.2,130.6 L154.7,131.5 L156.3,132.5 L157.8,133.5 L159.4,134.4 L160.9,135.4 L162.5,136.4 L164.0,137.4 L165.6,138.3 L167.1,139.3 L168.7,140.3 L170.2,141.3 L171.8,142.2 L173.3,143.2 L174.9,139.0 L176.4,140.0 L178.0,141.0 L179.5,142.0 L181.1,142.9 L182.6,143.9 L184.2,144.9 L185.8,145.8 L187.3,146.8 L188.9,147.8 L190.4,148.8 L192.0,149.7 L193.5,150.7 L195.1,151.7 L196.6,152.7 L198.2,153.6 L199.7,154.6 L201.3,155.6 L202.8,156.5 L204.4,154.6 L205.9,152.7 L207.5,153.7 L209.0,151.9 L210.6,152.9 L212.1,153.9 L213.7,154.8 L215.3,155.8 L216.8,156.8 L218.4,157.8 L219.9,158.7 L221.5,159.7 L223.0,160.7 L224.6,161.7 L226.1,162.6 L227.7,163.6 L229.2,164.6 L230.8,165.5 L232.3,166.5 L233.9,167.5 L235.4,168.5 L237.0,169.4 L238.5,170.4 L240.1,171.4 L241.6,172.4 L243.2,173.3 L244.7,174.3 L246.3,175.3 L247.9,174.1 L249.4,175.1 L251.0,176.0 L252.5,177.0 L254.1,178.0 L255.6,179.0 L257.2,179.9 L258.7,180.9 L260.3,178.7 L261.8,179.7 L263.4,180.6 L264.9,181.6 L266.5,182.6 L268.0,183.5 L269.6,184.5 L271.1,185.5 L272.7,186.5 L274.2,183.2 L275.8,184.2 L277.4,185.2 L278.9,186.1 L280.5,187.1 L282.0,188.1 L283.6,189.1 L285.1,190.0 L286.7,191.0 L288.2,192.0 L289.8,193.0 L291.3,193.9 L292.9,194.9 L294.4,195.9 L296.0,196.8 L297.5,197.8 L299.1,198.8 L300.6,199.8 L302.2,200.7 L303.7,201.7 L305.3,202.7 L306.8,203.7 L308.4,204.6 L310.0,205.6 L311.5,206.6 L313.1,207.5 L314.6,208.5 L316.2,209.5 L317.7,210.5 L319.3,203.9 L320.8,204.9 L322.4,205.9 L323.9,206.9 L325.5,207.8 L327.0,208.8 L328.6,209.8 L330.1,210.7 L331.7,211.7 L333.2,212.7 L334.8,213.7 L336.3,214.6 L337.9,215.6 L339.5,216.6 L341.0,217.6 L342.6,218.5 L344.1,219.5 L345.7,220.5 L347.2,221.4 L348.8,222.4 L350.3,223.4 L351.9,224.4 L353.4,215.6 L355.0,216.5 L356.5,217.5 L358.1,218.5 L359.6,219.4 L361.2,220.4 L362.7,221.4 L364.3,222.4 L365.8,223.3 L367.4,224.3 L368.9,225.3 L370.5,226.3 L372.1,227.2 L373.6,228.2 L375.2,229.2 L376.7,230.1 L378.3,231.1 L379.8,232.1 L381.4,233.1 L382.9,234.0 L384.5,235.0 L386.0,236.0 L387.6,237.0 L389.1,237.9 L390.7,238.9 L392.2,239.9 L393.8,240.8 L395.3,241.8 L396.9,242.8 L398.4,243.8 L400.0,244.7" fill="none" stroke="#3E9A60" stroke-width="2"/>
+<line x1="111.2" y1="96.0" x2="111.2" y2="246.0" stroke="#C8503F" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="115.2" y="239.7" font-size="10" fill="#a8401d">peak</text>
+<text x="400.0" y="120.0" font-size="12" fill="#222" text-anchor="end" font-weight="700">NES = 2.4</text>
+<text x="400.0" y="136.0" font-size="12" fill="#222" text-anchor="end" font-weight="700">FDR &lt; 0.001</text>
+<line x1="61.6" y1="252.0" x2="61.6" y2="268.0" stroke="#C8503F" stroke-width="1.2"/>
+<line x1="63.1" y1="252.0" x2="63.1" y2="268.0" stroke="#C8503F" stroke-width="1.2"/>
+<line x1="64.7" y1="252.0" x2="64.7" y2="268.0" stroke="#C8503F" stroke-width="1.2"/>
+<line x1="67.8" y1="252.0" x2="67.8" y2="268.0" stroke="#C8503F" stroke-width="1.2"/>
+<line x1="69.3" y1="252.0" x2="69.3" y2="268.0" stroke="#C8503F" stroke-width="1.2"/>
+<line x1="72.4" y1="252.0" x2="72.4" y2="268.0" stroke="#C8503F" stroke-width="1.2"/>
+<line x1="74.0" y1="252.0" x2="74.0" y2="268.0" stroke="#C8503F" stroke-width="1.2"/>
+<line x1="77.1" y1="252.0" x2="77.1" y2="268.0" stroke="#C8503F" stroke-width="1.2"/>
+<line x1="80.2" y1="252.0" x2="80.2" y2="268.0" stroke="#C8503F" stroke-width="1.2"/>
+<line x1="83.3" y1="252.0" x2="83.3" y2="268.0" stroke="#C8503F" stroke-width="1.2"/>
+<line x1="87.9" y1="252.0" x2="87.9" y2="268.0" stroke="#C8503F" stroke-width="1.2"/>
+<line x1="94.2" y1="252.0" x2="94.2" y2="268.0" stroke="#C8503F" stroke-width="1.2"/>
+<line x1="101.9" y1="252.0" x2="101.9" y2="268.0" stroke="#C8503F" stroke-width="1.2"/>
+<line x1="111.2" y1="252.0" x2="111.2" y2="268.0" stroke="#C8503F" stroke-width="1.2"/>
+<line x1="137.6" y1="252.0" x2="137.6" y2="268.0" stroke="#333" stroke-width="1.2"/>
+<line x1="174.9" y1="252.0" x2="174.9" y2="268.0" stroke="#333" stroke-width="1.2"/>
+<line x1="204.4" y1="252.0" x2="204.4" y2="268.0" stroke="#333" stroke-width="1.2"/>
+<line x1="205.9" y1="252.0" x2="205.9" y2="268.0" stroke="#333" stroke-width="1.2"/>
+<line x1="209.0" y1="252.0" x2="209.0" y2="268.0" stroke="#333" stroke-width="1.2"/>
+<line x1="247.9" y1="252.0" x2="247.9" y2="268.0" stroke="#333" stroke-width="1.2"/>
+<line x1="260.3" y1="252.0" x2="260.3" y2="268.0" stroke="#333" stroke-width="1.2"/>
+<line x1="274.2" y1="252.0" x2="274.2" y2="268.0" stroke="#333" stroke-width="1.2"/>
+<line x1="319.3" y1="252.0" x2="319.3" y2="268.0" stroke="#333" stroke-width="1.2"/>
+<line x1="353.4" y1="252.0" x2="353.4" y2="268.0" stroke="#333" stroke-width="1.2"/>
+<path d="M60,295.0 L60.0,279.1 L61.6,279.4 L63.1,279.7 L64.7,279.9 L66.2,280.0 L67.8,280.1 L69.3,280.3 L70.9,280.3 L72.4,280.4 L74.0,280.4 L75.5,280.6 L77.1,280.7 L78.6,281.0 L80.2,281.5 L81.7,281.6 L83.3,281.7 L84.8,281.8 L86.4,282.1 L87.9,282.2 L89.5,282.3 L91.1,282.4 L92.6,282.4 L94.2,282.5 L95.7,282.6 L97.3,282.7 L98.8,282.8 L100.4,282.9 L101.9,283.0 L103.5,283.1 L105.0,283.2 L106.6,284.0 L108.1,284.2 L109.7,284.3 L111.2,284.3 L112.8,284.8 L114.3,284.8 L115.9,284.8 L117.4,284.8 L119.0,284.9 L120.5,284.9 L122.1,285.1 L123.7,285.3 L125.2,285.4 L126.8,285.5 L128.3,285.6 L129.9,285.7 L131.4,286.0 L133.0,286.1 L134.5,286.2 L136.1,286.4 L137.6,286.5 L139.2,286.6 L140.7,286.7 L142.3,286.7 L143.8,286.8 L145.4,287.1 L146.9,287.1 L148.5,287.4 L150.0,287.4 L151.6,287.4 L153.2,287.6 L154.7,287.8 L156.3,288.2 L157.8,288.3 L159.4,288.4 L160.9,288.6 L162.5,288.7 L164.0,288.7 L165.6,288.8 L167.1,289.0 L168.7,289.3 L170.2,289.3 L171.8,289.4 L173.3,289.5 L174.9,289.7 L176.4,289.7 L178.0,289.8 L179.5,289.8 L181.1,289.9 L182.6,290.1 L184.2,290.1 L185.8,290.2 L187.3,290.4 L188.9,290.8 L190.4,290.8 L192.0,291.0 L193.5,291.2 L195.1,291.2 L196.6,291.6 L198.2,291.8 L199.7,292.1 L201.3,292.3 L202.8,292.4 L204.4,292.5 L205.9,292.6 L207.5,292.7 L209.0,292.7 L210.6,292.9 L212.1,293.1 L213.7,293.2 L215.3,293.3 L216.8,293.3 L218.4,293.7 L219.9,294.1 L221.5,294.2 L223.0,294.3 L224.6,294.3 L226.1,294.3 L227.7,294.7 L229.2,294.7 L230.8,295.0 L232.3,295.1 L233.9,295.1 L235.4,295.2 L237.0,295.5 L238.5,295.5 L240.1,295.7 L241.6,295.8 L243.2,295.8 L244.7,296.2 L246.3,296.2 L247.9,296.5 L249.4,296.7 L251.0,296.7 L252.5,296.7 L254.1,297.1 L255.6,297.1 L257.2,297.2 L258.7,297.4 L260.3,297.8 L261.8,297.8 L263.4,297.8 L264.9,298.3 L266.5,298.5 L268.0,298.8 L269.6,298.9 L271.1,299.0 L272.7,299.1 L274.2,299.1 L275.8,299.1 L277.4,299.1 L278.9,299.3 L280.5,299.4 L282.0,299.4 L283.6,299.5 L285.1,299.6 L286.7,299.7 L288.2,300.0 L289.8,300.2 L291.3,300.2 L292.9,300.7 L294.4,300.8 L296.0,300.9 L297.5,301.0 L299.1,301.1 L300.6,301.2 L302.2,301.3 L303.7,301.8 L305.3,301.9 L306.8,301.9 L308.4,302.1 L310.0,302.2 L311.5,302.4 L313.1,302.9 L314.6,303.1 L316.2,303.1 L317.7,303.1 L319.3,303.3 L320.8,303.4 L322.4,303.5 L323.9,303.6 L325.5,303.9 L327.0,304.1 L328.6,304.3 L330.1,304.5 L331.7,304.5 L333.2,304.6 L334.8,304.7 L336.3,305.1 L337.9,305.2 L339.5,305.3 L341.0,305.5 L342.6,305.5 L344.1,305.5 L345.7,305.6 L347.2,305.9 L348.8,305.9 L350.3,306.0 L351.9,306.1 L353.4,306.2 L355.0,306.3 L356.5,306.3 L358.1,306.5 L359.6,306.5 L361.2,307.0 L362.7,307.2 L364.3,307.5 L365.8,307.6 L367.4,307.8 L368.9,308.0 L370.5,308.0 L372.1,308.1 L373.6,308.3 L375.2,308.4 L376.7,308.4 L378.3,308.7 L379.8,308.8 L381.4,308.8 L382.9,309.0 L384.5,309.0 L386.0,309.1 L387.6,309.3 L389.1,309.3 L390.7,309.5 L392.2,309.8 L393.8,309.8 L395.3,310.0 L396.9,310.3 L398.4,310.9 L400.0,312.0 L400,295.0 Z" fill="#bdbdbd" stroke="none" stroke-width="1"/>
+<text x="60.0" y="326.0" font-size="10" fill="#C8503F">← higher in patients</text>
+<text x="400.0" y="326.0" font-size="10" fill="#2F6DB0" text-anchor="end">higher in controls →</text>
+<text x="230.0" y="342.0" font-size="10" fill="#555" text-anchor="middle">genes ranked by the patient-vs-control statistic</text>
+<text x="119.2" y="206.6" font-size="10.5" fill="#a8401d" font-weight="700">◀ leading edge</text>
+<text x="119.2" y="220.6" font-size="10" fill="#a05a3f">14 genes before the peak</text>
+<text x="456.0" y="76.0" font-size="15" fill="#222" font-weight="700">b</text><text x="474.0" y="76.0" font-size="12.5" fill="#333" font-weight="600">Leading-edge genes, every sample</text>
+<rect x="546.0" y="96.0" width="113.0" height="6.0" fill="#9a9a9a"/><rect x="668.0" y="96.0" width="113.0" height="6.0" fill="#C8503F"/>
+<text x="603.0" y="90.0" font-size="10.5" fill="#555" text-anchor="middle">Control (n = 6)</text>
+<text x="725.0" y="90.0" font-size="10.5" fill="#a8401d" text-anchor="middle">Patient (n = 6)</text>
+<text x="540.0" y="130.0" font-size="10.5" fill="#222" text-anchor="end" font-style="italic">IFI44L</text>
+<rect x="546.0" y="118.0" width="18.0" height="16.0" fill="#a2bedc"/>
+<rect x="565.0" y="118.0" width="18.0" height="16.0" fill="#749dca"/>
+<rect x="584.0" y="118.0" width="18.0" height="16.0" fill="#afc7e1"/>
+<rect x="603.0" y="118.0" width="18.0" height="16.0" fill="#c1d3e7"/>
+<rect x="622.0" y="118.0" width="18.0" height="16.0" fill="#9ebbda"/>
+<rect x="641.0" y="118.0" width="18.0" height="16.0" fill="#b8cde4"/>
+<rect x="668.0" y="118.0" width="18.0" height="16.0" fill="#df998f"/>
+<rect x="687.0" y="118.0" width="18.0" height="16.0" fill="#d47568"/>
+<rect x="706.0" y="118.0" width="18.0" height="16.0" fill="#f1d3cf"/>
+<rect x="725.0" y="118.0" width="18.0" height="16.0" fill="#dd9388"/>
+<rect x="744.0" y="118.0" width="18.0" height="16.0" fill="#ecc2bc"/>
+<rect x="763.0" y="118.0" width="18.0" height="16.0" fill="#fefcfc"/>
+<text x="540.0" y="147.0" font-size="10.5" fill="#222" text-anchor="end" font-style="italic">ISG15</text>
+<rect x="546.0" y="135.0" width="18.0" height="16.0" fill="#c4d6e9"/>
+<rect x="565.0" y="135.0" width="18.0" height="16.0" fill="#a3bedc"/>
+<rect x="584.0" y="135.0" width="18.0" height="16.0" fill="#adc5e0"/>
+<rect x="603.0" y="135.0" width="18.0" height="16.0" fill="#a9c3de"/>
+<rect x="622.0" y="135.0" width="18.0" height="16.0" fill="#acc5df"/>
+<rect x="641.0" y="135.0" width="18.0" height="16.0" fill="#a0bddb"/>
+<rect x="668.0" y="135.0" width="18.0" height="16.0" fill="#e4aba2"/>
+<rect x="687.0" y="135.0" width="18.0" height="16.0" fill="#e7b2ab"/>
+<rect x="706.0" y="135.0" width="18.0" height="16.0" fill="#f2d4d0"/>
+<rect x="725.0" y="135.0" width="18.0" height="16.0" fill="#c95443"/>
+<rect x="744.0" y="135.0" width="18.0" height="16.0" fill="#e2a49b"/>
+<rect x="763.0" y="135.0" width="18.0" height="16.0" fill="#c6d7e9"/>
+<text x="540.0" y="164.0" font-size="10.5" fill="#222" text-anchor="end" font-style="italic">MX1</text>
+<rect x="546.0" y="152.0" width="18.0" height="16.0" fill="#aec6e0"/>
+<rect x="565.0" y="152.0" width="18.0" height="16.0" fill="#b6cce3"/>
+<rect x="584.0" y="152.0" width="18.0" height="16.0" fill="#bfd2e7"/>
+<rect x="603.0" y="152.0" width="18.0" height="16.0" fill="#a1bddb"/>
+<rect x="622.0" y="152.0" width="18.0" height="16.0" fill="#bacfe5"/>
+<rect x="641.0" y="152.0" width="18.0" height="16.0" fill="#bcd0e5"/>
+<rect x="668.0" y="152.0" width="18.0" height="16.0" fill="#e3a59c"/>
+<rect x="687.0" y="152.0" width="18.0" height="16.0" fill="#de958a"/>
+<rect x="706.0" y="152.0" width="18.0" height="16.0" fill="#f0cfca"/>
+<rect x="725.0" y="152.0" width="18.0" height="16.0" fill="#db8b80"/>
+<rect x="744.0" y="152.0" width="18.0" height="16.0" fill="#d9887c"/>
+<rect x="763.0" y="152.0" width="18.0" height="16.0" fill="#84a8d0"/>
+<text x="540.0" y="181.0" font-size="10.5" fill="#222" text-anchor="end" font-style="italic">RSAD2</text>
+<rect x="546.0" y="169.0" width="18.0" height="16.0" fill="#a9c2de"/>
+<rect x="565.0" y="169.0" width="18.0" height="16.0" fill="#9fbbda"/>
+<rect x="584.0" y="169.0" width="18.0" height="16.0" fill="#9ebbda"/>
+<rect x="603.0" y="169.0" width="18.0" height="16.0" fill="#b3cae2"/>
+<rect x="622.0" y="169.0" width="18.0" height="16.0" fill="#d1dfed"/>
+<rect x="641.0" y="169.0" width="18.0" height="16.0" fill="#b2c9e2"/>
+<rect x="668.0" y="169.0" width="18.0" height="16.0" fill="#e2a299"/>
+<rect x="687.0" y="169.0" width="18.0" height="16.0" fill="#e19e95"/>
+<rect x="706.0" y="169.0" width="18.0" height="16.0" fill="#ecc2bc"/>
+<rect x="725.0" y="169.0" width="18.0" height="16.0" fill="#ce6455"/>
+<rect x="744.0" y="169.0" width="18.0" height="16.0" fill="#e9b9b2"/>
+<rect x="763.0" y="169.0" width="18.0" height="16.0" fill="#a8c2de"/>
+<text x="540.0" y="198.0" font-size="10.5" fill="#222" text-anchor="end" font-style="italic">IFI27</text>
+<rect x="546.0" y="186.0" width="18.0" height="16.0" fill="#9bb9d9"/>
+<rect x="565.0" y="186.0" width="18.0" height="16.0" fill="#9fbcdb"/>
+<rect x="584.0" y="186.0" width="18.0" height="16.0" fill="#97b6d8"/>
+<rect x="603.0" y="186.0" width="18.0" height="16.0" fill="#d9e5f1"/>
+<rect x="622.0" y="186.0" width="18.0" height="16.0" fill="#c6d7e9"/>
+<rect x="641.0" y="186.0" width="18.0" height="16.0" fill="#b6cce3"/>
+<rect x="668.0" y="186.0" width="18.0" height="16.0" fill="#d78074"/>
+<rect x="687.0" y="186.0" width="18.0" height="16.0" fill="#e4a89f"/>
+<rect x="706.0" y="186.0" width="18.0" height="16.0" fill="#e6b0a8"/>
+<rect x="725.0" y="186.0" width="18.0" height="16.0" fill="#d37467"/>
+<rect x="744.0" y="186.0" width="18.0" height="16.0" fill="#f4dcd8"/>
+<rect x="763.0" y="186.0" width="18.0" height="16.0" fill="#a7c1de"/>
+<text x="540.0" y="215.0" font-size="10.5" fill="#222" text-anchor="end" font-style="italic">OAS1</text>
+<rect x="546.0" y="203.0" width="18.0" height="16.0" fill="#8caed3"/>
+<rect x="565.0" y="203.0" width="18.0" height="16.0" fill="#cedded"/>
+<rect x="584.0" y="203.0" width="18.0" height="16.0" fill="#dde7f2"/>
+<rect x="603.0" y="203.0" width="18.0" height="16.0" fill="#81a7cf"/>
+<rect x="622.0" y="203.0" width="18.0" height="16.0" fill="#d4e1ef"/>
+<rect x="641.0" y="203.0" width="18.0" height="16.0" fill="#a0bcdb"/>
+<rect x="668.0" y="203.0" width="18.0" height="16.0" fill="#dd9287"/>
+<rect x="687.0" y="203.0" width="18.0" height="16.0" fill="#d88478"/>
+<rect x="706.0" y="203.0" width="18.0" height="16.0" fill="#e8b6af"/>
+<rect x="725.0" y="203.0" width="18.0" height="16.0" fill="#e09d94"/>
+<rect x="744.0" y="203.0" width="18.0" height="16.0" fill="#e9bab4"/>
+<rect x="763.0" y="203.0" width="18.0" height="16.0" fill="#9dbada"/>
+<text x="540.0" y="232.0" font-size="10.5" fill="#222" text-anchor="end" font-style="italic">IFIT1</text>
+<rect x="546.0" y="220.0" width="18.0" height="16.0" fill="#afc7e1"/>
+<rect x="565.0" y="220.0" width="18.0" height="16.0" fill="#e1eaf4"/>
+<rect x="584.0" y="220.0" width="18.0" height="16.0" fill="#f5f8fb"/>
+<rect x="603.0" y="220.0" width="18.0" height="16.0" fill="#96b5d7"/>
+<rect x="622.0" y="220.0" width="18.0" height="16.0" fill="#6b97c7"/>
+<rect x="641.0" y="220.0" width="18.0" height="16.0" fill="#94b4d6"/>
+<rect x="668.0" y="220.0" width="18.0" height="16.0" fill="#efcdc8"/>
+<rect x="687.0" y="220.0" width="18.0" height="16.0" fill="#cf6657"/>
+<rect x="706.0" y="220.0" width="18.0" height="16.0" fill="#ebbfb9"/>
+<rect x="725.0" y="220.0" width="18.0" height="16.0" fill="#e3a79e"/>
+<rect x="744.0" y="220.0" width="18.0" height="16.0" fill="#e3a59c"/>
+<rect x="763.0" y="220.0" width="18.0" height="16.0" fill="#cfdded"/>
+<text x="540.0" y="249.0" font-size="10.5" fill="#222" text-anchor="end" font-style="italic">IFIT3</text>
+<rect x="546.0" y="237.0" width="18.0" height="16.0" fill="#85a9d1"/>
+<rect x="565.0" y="237.0" width="18.0" height="16.0" fill="#a6c1dd"/>
+<rect x="584.0" y="237.0" width="18.0" height="16.0" fill="#afc7e1"/>
+<rect x="603.0" y="237.0" width="18.0" height="16.0" fill="#b7cce4"/>
+<rect x="622.0" y="237.0" width="18.0" height="16.0" fill="#bacfe5"/>
+<rect x="641.0" y="237.0" width="18.0" height="16.0" fill="#acc5df"/>
+<rect x="668.0" y="237.0" width="18.0" height="16.0" fill="#e1a198"/>
+<rect x="687.0" y="237.0" width="18.0" height="16.0" fill="#e4a9a0"/>
+<rect x="706.0" y="237.0" width="18.0" height="16.0" fill="#f5dfdc"/>
+<rect x="725.0" y="237.0" width="18.0" height="16.0" fill="#cc5c4c"/>
+<rect x="744.0" y="237.0" width="18.0" height="16.0" fill="#e5aba3"/>
+<rect x="763.0" y="237.0" width="18.0" height="16.0" fill="#e0e9f3"/>
+<text x="540.0" y="266.0" font-size="10.5" fill="#222" text-anchor="end" font-style="italic">HERC5</text>
+<rect x="546.0" y="254.0" width="18.0" height="16.0" fill="#7ba2cd"/>
+<rect x="565.0" y="254.0" width="18.0" height="16.0" fill="#a8c2de"/>
+<rect x="584.0" y="254.0" width="18.0" height="16.0" fill="#c8d8ea"/>
+<rect x="603.0" y="254.0" width="18.0" height="16.0" fill="#85a9d0"/>
+<rect x="622.0" y="254.0" width="18.0" height="16.0" fill="#d1dfed"/>
+<rect x="641.0" y="254.0" width="18.0" height="16.0" fill="#a1bddb"/>
+<rect x="668.0" y="254.0" width="18.0" height="16.0" fill="#e1a198"/>
+<rect x="687.0" y="254.0" width="18.0" height="16.0" fill="#e2a299"/>
+<rect x="706.0" y="254.0" width="18.0" height="16.0" fill="#edc4bf"/>
+<rect x="725.0" y="254.0" width="18.0" height="16.0" fill="#d06a5c"/>
+<rect x="744.0" y="254.0" width="18.0" height="16.0" fill="#eec9c3"/>
+<rect x="763.0" y="254.0" width="18.0" height="16.0" fill="#fefdfd"/>
+<text x="540.0" y="283.0" font-size="10.5" fill="#222" text-anchor="end" font-style="italic">EPSTI1</text>
+<rect x="546.0" y="271.0" width="18.0" height="16.0" fill="#9dbada"/>
+<rect x="565.0" y="271.0" width="18.0" height="16.0" fill="#99b7d8"/>
+<rect x="584.0" y="271.0" width="18.0" height="16.0" fill="#cbdaeb"/>
+<rect x="603.0" y="271.0" width="18.0" height="16.0" fill="#95b4d7"/>
+<rect x="622.0" y="271.0" width="18.0" height="16.0" fill="#aac3df"/>
+<rect x="641.0" y="271.0" width="18.0" height="16.0" fill="#d0deed"/>
+<rect x="668.0" y="271.0" width="18.0" height="16.0" fill="#dc9186"/>
+<rect x="687.0" y="271.0" width="18.0" height="16.0" fill="#f3dad7"/>
+<rect x="706.0" y="271.0" width="18.0" height="16.0" fill="#ecc1bb"/>
+<rect x="725.0" y="271.0" width="18.0" height="16.0" fill="#ce6253"/>
+<rect x="744.0" y="271.0" width="18.0" height="16.0" fill="#e19f96"/>
+<rect x="763.0" y="271.0" width="18.0" height="16.0" fill="#c5d6e9"/>
+<rect x="800.0" y="128.0" width="10.0" height="3.2" fill="#c8503f"/>
+<rect x="800.0" y="131.0" width="10.0" height="3.2" fill="#cb5949"/>
+<rect x="800.0" y="134.0" width="10.0" height="3.2" fill="#ce6253"/>
+<rect x="800.0" y="137.0" width="10.0" height="3.2" fill="#d06b5d"/>
+<rect x="800.0" y="140.0" width="10.0" height="3.2" fill="#d37466"/>
+<rect x="800.0" y="143.0" width="10.0" height="3.2" fill="#d67d70"/>
+<rect x="800.0" y="146.0" width="10.0" height="3.2" fill="#d9867a"/>
+<rect x="800.0" y="149.0" width="10.0" height="3.2" fill="#dc8f84"/>
+<rect x="800.0" y="152.0" width="10.0" height="3.2" fill="#df988e"/>
+<rect x="800.0" y="155.0" width="10.0" height="3.2" fill="#e1a198"/>
+<rect x="800.0" y="158.0" width="10.0" height="3.2" fill="#e4aaa1"/>
+<rect x="800.0" y="161.0" width="10.0" height="3.2" fill="#e7b3ab"/>
+<rect x="800.0" y="164.0" width="10.0" height="3.2" fill="#eabcb5"/>
+<rect x="800.0" y="167.0" width="10.0" height="3.2" fill="#edc5bf"/>
+<rect x="800.0" y="170.0" width="10.0" height="3.2" fill="#efcec9"/>
+<rect x="800.0" y="173.0" width="10.0" height="3.2" fill="#f2d7d3"/>
+<rect x="800.0" y="176.0" width="10.0" height="3.2" fill="#f5e0dd"/>
+<rect x="800.0" y="179.0" width="10.0" height="3.2" fill="#f8e9e6"/>
+<rect x="800.0" y="182.0" width="10.0" height="3.2" fill="#fbf2f0"/>
+<rect x="800.0" y="185.0" width="10.0" height="3.2" fill="#fefbfa"/>
+<rect x="800.0" y="188.0" width="10.0" height="3.2" fill="#fafbfd"/>
+<rect x="800.0" y="191.0" width="10.0" height="3.2" fill="#eff4f9"/>
+<rect x="800.0" y="194.0" width="10.0" height="3.2" fill="#e4ecf5"/>
+<rect x="800.0" y="197.0" width="10.0" height="3.2" fill="#dae5f1"/>
+<rect x="800.0" y="200.0" width="10.0" height="3.2" fill="#cfdded"/>
+<rect x="800.0" y="203.0" width="10.0" height="3.2" fill="#c4d6e9"/>
+<rect x="800.0" y="206.0" width="10.0" height="3.2" fill="#bacee5"/>
+<rect x="800.0" y="209.0" width="10.0" height="3.2" fill="#afc7e1"/>
+<rect x="800.0" y="212.0" width="10.0" height="3.2" fill="#a4bfdd"/>
+<rect x="800.0" y="215.0" width="10.0" height="3.2" fill="#9ab8d9"/>
+<rect x="800.0" y="218.0" width="10.0" height="3.2" fill="#8fb0d4"/>
+<rect x="800.0" y="221.0" width="10.0" height="3.2" fill="#84a9d0"/>
+<rect x="800.0" y="224.0" width="10.0" height="3.2" fill="#7aa1cc"/>
+<rect x="800.0" y="227.0" width="10.0" height="3.2" fill="#6f9ac8"/>
+<rect x="800.0" y="230.0" width="10.0" height="3.2" fill="#6492c4"/>
+<rect x="800.0" y="233.0" width="10.0" height="3.2" fill="#5a8bc0"/>
+<rect x="800.0" y="236.0" width="10.0" height="3.2" fill="#4f83bc"/>
+<rect x="800.0" y="239.0" width="10.0" height="3.2" fill="#447cb8"/>
+<rect x="800.0" y="242.0" width="10.0" height="3.2" fill="#3a74b4"/>
+<rect x="800.0" y="245.0" width="10.0" height="3.2" fill="#2f6db0"/>
+<text x="814.0" y="131.5" font-size="9.5" fill="#555">2</text>
+<text x="814.0" y="191.5" font-size="9.5" fill="#555">0</text>
+<text x="814.0" y="251.5" font-size="9.5" fill="#555">−2</text>
+<text x="798.0" y="120.0" font-size="9.5" fill="#555">z-score</text>
+<text x="798.0" y="264.0" font-size="9.5" fill="#555">per gene,</text>
+<text x="798.0" y="276.0" font-size="9.5" fill="#555">centred at 0</text>
+<text x="472.0" y="308.0" font-size="10.5" fill="#3d7a68">rows: leading-edge genes in rank order, named</text>
+<text x="472.0" y="324.0" font-size="10.5" fill="#3d7a68">columns: one per sample, grouped, n shown</text>
+<text x="472.0" y="340.0" font-size="10.5" fill="#3d7a68">patient 6 barely responds; you see it because</text>
+<text x="472.0" y="356.0" font-size="10.5" fill="#3d7a68">every sample has its own column</text>
+<rect x="24" y="398" width="832" height="74" rx="9" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="48.0" y="421.0" font-size="12.5" fill="#555">✅ Caption: "Patients show an interferon-α response (NES 2.4, FDR &lt; 0.001), led by <tspan font-style="italic">IFI44L</tspan>, <tspan font-style="italic">ISG15</tspan> and <tspan font-style="italic">MX1</tspan> (n = 6 vs 6)."</text>
+<text x="48.0" y="443.0" font-size="12.5" fill="#555">⚠️ The genes in <tspan font-weight="700">b</tspan> were chosen by the GSEA, so <tspan font-weight="700">b</tspan> will always look split. It shows which genes drive the score;</text>
+<text x="48.0" y="461.0" font-size="12.5" fill="#555">    the evidence that the groups differ is the NES and FDR in <tspan font-weight="700">a</tspan>.</text>
+</svg>
