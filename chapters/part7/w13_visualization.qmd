@@ -189,6 +189,43 @@ gseaGO.res2d[["Term", "NES", "FDR q-val"]].head(6)
 -   ✅ QC panels are not wasted; they belong in the supplement
 -   ⚠️ A six-panel "characterisation" figure asks the reader to do your interpreting for you
 
+## 1) Case ①: which cell type changes most? {#w13-s4-1}
+
+Almost every scRNA-seq paper has a figure comparing cell composition between conditions. The two cases below rebuild a revision from a real analysis with simulated data (infected vs control mouse spleen).
+
+![Same data, same bars. Sorting and labelling alone put the answer in the first row.](/assets/img/w13/composition_celltypes.svg){fig-align="center"}
+
+The question is "which cell type changes most between conditions?", so the figure should show that answer first.
+
+-   ✅ **Sort by the number the question asks about.** Alphabetical or cluster order is just the order of the analysis. Sorted by fold, the top row is the answer
+-   ✅ **Drop the grey count panel; put the cell number under each name.** Cell numbers are reference information and do not need a panel of their own
+-   ✅ **Write the fold as a number.** Don't make the reader compare bar ends by eye
+-   ⚠️ **Scale both samples to the same size before splitting the bar.** On raw counts, every bar leans toward the sample with more cells, and 0.5 no longer means "no change"
+
+## 2) Case ②: what grows within neutrophils? {#w13-s4-2}
+
+Neutrophils changed most, so the next question is which neutrophils. The data has the same form as in case ① (composition by condition), but now the subsets are the subject.
+
+![With the same template, the subsets are buried in the axis labels. Colour the subsets and put the conditions side by side.](/assets/img/w13/composition_subsets.svg){fig-align="center"}
+
+-   ✅ **Colour goes to what you compare.** Here that is the subsets, so they get the colour and the conditions sit side by side on the x-axis
+-   ✅ **Ordered subsets get one sequential hue.** Maturation stages have an order, so darker means less mature, and the immature subsets you want to stress stand out on their own
+-   ✅ **Compute shares within the parent population.** On the left, 68% of mature neutrophils come from the infected sample, which looks like an increase. It only reflects nearly three times more neutrophils overall: within neutrophils, the mature share fell from 67% to 50%
+-   ⚠️ **Check the cell numbers behind each fold.** Only 13 control neutrophils are proliferating. A fold resting on a handful of cells needs a per-animal check such as FACS. With one library per condition, a fold describes; it does not test
+
+::: {.callout-tip collapse="true"}
+## Same composition, different figure
+
+| | Case ① All cell types | Case ② Neutrophil subsets |
+|--------------|-----------------------------|-----------------------------|
+| Question | Which cell type changes most? | Which maturation stages grow within neutrophils? |
+| Colour | Condition | Subset (one hue, in maturation order) |
+| Axis | Cell types, sorted by fold | The two conditions side by side |
+| Numbers | Cell number under each name, fold on the right | % inside the bars, fold on the right |
+
+✅ The question decides the figure, not the shape of the data. Put what the reader must compare closest together and give it the strongest colour.
+:::
+
 ------------------------------------------------------------------------
 
 # 5. Hands-On 💻 {#w13-s5}
@@ -304,6 +341,7 @@ plt.show()
 -   ✅ **Then name genes.** "Interferon signalling, driven by *ISG15*" beats "immune response"
 -   ✅ **Write the caption first.** Direction, n, number, in one sentence
 -   ✅ One message per figure; QC goes to the supplement
+-   ✅ Even for the same composition data, the question decides the figure: colour what you compare, sort by the number the question asks about
 
 ------------------------------------------------------------------------
 

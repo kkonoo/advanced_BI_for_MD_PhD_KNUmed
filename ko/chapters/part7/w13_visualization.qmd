@@ -189,6 +189,43 @@ gseaGO.res2d[["Term", "NES", "FDR q-val"]].head(6)
 -   ✅ QC panel은 버리지 말고 supplement로
 -   ⚠️ 6-panel짜리 "characterisation" 그림은 해석을 독자에게 떠넘기는 것
 
+## 1) 사례 ①: 어느 cell type이 가장 많이 변했나 {#w13-s4-1}
+
+scRNA-seq 논문에는 거의 항상 condition별 cell 구성 그림이 들어감. 아래 두 사례는 실제 분석에서 그림을 고친 과정을 가상 data(감염 vs 대조군 mouse 비장)로 다시 만든 것
+
+![같은 data, 같은 막대. 정렬과 label만 바꿔도 첫 줄에 답이 보임](../../../assets/img/w13/composition_celltypes.svg){fig-align="center"}
+
+질문은 "condition에 따라 어느 cell type이 가장 많이 변했나". 그러면 그림도 그 답을 먼저 보여줘야 함
+
+-   ✅ **질문이 묻는 숫자로 정렬.** 알파벳이나 cluster 번호 순서는 분석한 순서일 뿐. Fold 순으로 놓으면 맨 위 줄이 답
+-   ✅ **회색 cell 수 panel은 빼고 이름 아래 한 줄로.** Cell 수는 참고 정보라 panel 하나를 차지할 이유가 없음
+-   ✅ **Fold는 숫자로 직접 쓰기.** 막대 끝을 눈으로 비교하게 하지 않기
+-   ⚠️ **두 sample을 같은 크기로 맞춘 뒤 나누기.** Raw count로 나누면 세포가 더 많이 잡힌 sample 쪽으로 모든 막대가 기울어서, 0.5가 "변화 없음"이 아니게 됨
+
+## 2) 사례 ②: Neutrophil 안에서는 무엇이 늘었나 {#w13-s4-2}
+
+Neutrophil이 가장 많이 늘었으니 다음 질문은 "어떤 neutrophil이 늘었나". Data 형태는 사례 ①과 같은 condition별 구성 비율이지만, 이번엔 subset이 주인공
+
+![같은 template을 그대로 쓰면 subset은 축 이름에 묻힘. 색은 subset에 주고 condition은 나란히](../../../assets/img/w13/composition_subsets.svg){fig-align="center"}
+
+-   ✅ **색은 비교할 대상에.** 이번엔 subset을 비교하니 색을 subset에 주고, condition은 x축에 나란히 두기
+-   ✅ **순서 있는 subset엔 한 색조 sequential.** 성숙 단계엔 순서가 있으니 덜 성숙할수록 진하게. 강조하려는 미성숙 subset이 저절로 눈에 띔
+-   ✅ **부모 집단 안에서 비율 계산.** 왼쪽에선 mature의 68%가 감염 쪽이라 늘어난 것처럼 보이지만, neutrophil 전체가 거의 3배로 늘어서 생긴 착시. Neutrophil 안의 비율은 67% → 50%로 오히려 줄었음
+-   ⚠️ **Fold 뒤의 세포 수 확인.** 대조군의 proliferating은 13개뿐. 세포 몇 개로 정해진 fold는 FACS처럼 개체 단위 실험으로 확인. 조건당 library가 하나면 fold는 기술일 뿐 검정이 아님
+
+::: {.callout-tip collapse="true"}
+## 같은 composition, 다른 그림
+
+| | 사례 ① 전체 cell type | 사례 ② Neutrophil subset |
+|--------------|-----------------------------|-----------------------------|
+| 질문 | 어느 cell type이 가장 많이 변했나 | Neutrophil 안에서 어느 단계가 늘었나 |
+| 색 | Condition | Subset (성숙 순서대로 한 색조) |
+| 축 | Cell type, fold 순 | Condition 두 개를 나란히 |
+| 숫자 | Cell 수는 이름 아래, fold는 오른쪽 | %는 막대 안, fold는 오른쪽 |
+
+✅ 그림을 정하는 건 data의 형태가 아니라 질문. 독자가 비교해야 할 것을 가장 가까이 두고 가장 눈에 띄는 색을 주기
+:::
+
 ------------------------------------------------------------------------
 
 # 5. 실습 💻 {#w13-s5}
@@ -304,6 +341,7 @@ plt.show()
 -   ✅ **그다음 gene 이름 쓰기.** "면역반응"보다 "*ISG15*가 주도하는 interferon signalling"이 나음
 -   ✅ **Caption부터 쓰기.** 방향, n, 숫자를 한 문장에
 -   ✅ 그림 하나에 메시지 하나. QC는 supplement로
+-   ✅ 같은 composition data라도 질문이 그림을 정함. 색은 비교할 대상에, 정렬은 질문이 묻는 숫자로
 
 ------------------------------------------------------------------------
 

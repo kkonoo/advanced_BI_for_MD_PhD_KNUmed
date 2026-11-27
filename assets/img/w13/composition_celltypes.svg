@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 568" width="880" height="568" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<rect width="880" height="568" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" fill="#4A3D6B" font-weight="700">Q: which cell type changes most with infection?</text>
+<text x="856" y="28" font-size="11" fill="#8A7FA3" text-anchor="end">(illustration: simulated data)</text>
+<rect x="24" y="46" width="400" height="440" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="2"/>
+<rect x="24" y="46" width="400" height="38" rx="10" fill="#fbeee8"/>
+<rect x="24" y="74" width="400" height="10" fill="#fbeee8"/>
+<text x="48" y="71" font-size="13.5" fill="#a8401d" font-weight="700">❌ Default</text>
+<text x="400" y="71" font-size="11.5" fill="#b58272" text-anchor="end">cluster order, extra count panel</text>
+<rect x="456" y="46" width="400" height="440" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="2"/>
+<rect x="456" y="46" width="400" height="38" rx="10" fill="#e8f5f0"/>
+<rect x="456" y="74" width="400" height="10" fill="#e8f5f0"/>
+<text x="480" y="71" font-size="13.5" fill="#0F6E56" font-weight="700">✅ For this question</text>
+<text x="832" y="71" font-size="11.5" fill="#7fa89a" text-anchor="end">sorted by fold, n in the label</text>
+<text x="174" y="112" font-size="9.5" fill="#333">dataset</text>
+<rect x="212.0" y="103.0" width="11.0" height="11.0" fill="#2F6DB0"/><text x="227" y="112" font-size="9" fill="#333">Infected</text>
+<rect x="272.0" y="103.0" width="11.0" height="11.0" fill="#F2A35E"/><text x="287" y="112" font-size="9" fill="#333">Control</text>
+<rect x="128" y="124" width="172" height="233" fill="none" stroke="#bbb" stroke-width="0.8"/>
+<rect x="320" y="124" width="88" height="233" fill="none" stroke="#bbb" stroke-width="0.8"/>
+<line x1="174.0" y1="124" x2="174.0" y2="357" stroke="#eee" stroke-width="0.8"/>
+<line x1="214.0" y1="124" x2="214.0" y2="357" stroke="#eee" stroke-width="0.8"/>
+<line x1="254.0" y1="124" x2="254.0" y2="357" stroke="#eee" stroke-width="0.8"/>
+<line x1="344.5" y1="124" x2="344.5" y2="357" stroke="#eee" stroke-width="0.8"/>
+<line x1="365.0" y1="124" x2="365.0" y2="357" stroke="#eee" stroke-width="0.8"/>
+<line x1="385.5" y1="124" x2="385.5" y2="357" stroke="#eee" stroke-width="0.8"/>
+<text x="46" y="240.5" font-size="9" fill="#333" text-anchor="middle" transform="rotate(-90 46 240.5)">Cluster number</text>
+<rect x="134.0" y="131.5" width="95.7" height="18.0" fill="#F2A35E"/>
+<rect x="229.7" y="131.5" width="64.3" height="18.0" fill="#2F6DB0"/>
+<text x="128" y="143.7" font-size="9" fill="#555" text-anchor="end">B cells</text>
+<rect x="324.0" y="131.5" width="77.7" height="18.0" fill="#9a9a9a"/>
+<rect x="134.0" y="156.5" width="95.1" height="18.0" fill="#F2A35E"/>
+<rect x="229.1" y="156.5" width="64.9" height="18.0" fill="#2F6DB0"/>
+<text x="128" y="168.7" font-size="9" fill="#555" text-anchor="end">CD4+ T cells</text>
+<rect x="324.0" y="156.5" width="71.2" height="18.0" fill="#9a9a9a"/>
+<rect x="134.0" y="181.5" width="100.5" height="18.0" fill="#F2A35E"/>
+<rect x="234.5" y="181.5" width="59.5" height="18.0" fill="#2F6DB0"/>
+<text x="128" y="193.7" font-size="9" fill="#555" text-anchor="end">CD8+ T cells</text>
+<rect x="324.0" y="181.5" width="66.7" height="18.0" fill="#9a9a9a"/>
+<rect x="134.0" y="206.5" width="84.5" height="18.0" fill="#F2A35E"/>
+<rect x="218.5" y="206.5" width="75.5" height="18.0" fill="#2F6DB0"/>
+<text x="128" y="218.7" font-size="9" fill="#555" text-anchor="end">Dendritic cells</text>
+<rect x="324.0" y="206.5" width="50.9" height="18.0" fill="#9a9a9a"/>
+<rect x="134.0" y="231.5" width="75.0" height="18.0" fill="#F2A35E"/>
+<rect x="209.0" y="231.5" width="85.0" height="18.0" fill="#2F6DB0"/>
+<text x="128" y="243.7" font-size="9" fill="#555" text-anchor="end">Macrophages</text>
+<rect x="324.0" y="231.5" width="49.4" height="18.0" fill="#9a9a9a"/>
+<rect x="134.0" y="256.5" width="55.3" height="18.0" fill="#F2A35E"/>
+<rect x="189.3" y="256.5" width="104.7" height="18.0" fill="#2F6DB0"/>
+<text x="128" y="268.7" font-size="9" fill="#555" text-anchor="end">Monocytes</text>
+<rect x="324.0" y="256.5" width="58.3" height="18.0" fill="#9a9a9a"/>
+<rect x="134.0" y="281.5" width="93.9" height="18.0" fill="#F2A35E"/>
+<rect x="227.9" y="281.5" width="66.1" height="18.0" fill="#2F6DB0"/>
+<text x="128" y="293.7" font-size="9" fill="#555" text-anchor="end">NK cells</text>
+<rect x="324.0" y="281.5" width="59.7" height="18.0" fill="#9a9a9a"/>
+<rect x="134.0" y="306.5" width="41.6" height="18.0" fill="#F2A35E"/>
+<rect x="175.6" y="306.5" width="118.4" height="18.0" fill="#2F6DB0"/>
+<text x="128" y="318.7" font-size="9" fill="#555" text-anchor="end">Neutrophils</text>
+<rect x="324.0" y="306.5" width="63.4" height="18.0" fill="#9a9a9a"/>
+<rect x="134.0" y="331.5" width="63.6" height="18.0" fill="#F2A35E"/>
+<rect x="197.6" y="331.5" width="96.4" height="18.0" fill="#2F6DB0"/>
+<text x="128" y="343.7" font-size="9" fill="#555" text-anchor="end">Plasma cells</text>
+<rect x="324.0" y="331.5" width="50.9" height="18.0" fill="#9a9a9a"/>
+<text x="134" y="369" font-size="8" fill="#666" text-anchor="middle">0.00</text>
+<text x="174" y="369" font-size="8" fill="#666" text-anchor="middle">0.25</text>
+<text x="214" y="369" font-size="8" fill="#666" text-anchor="middle">0.50</text>
+<text x="254" y="369" font-size="8" fill="#666" text-anchor="middle">0.75</text>
+<text x="294" y="369" font-size="8" fill="#666" text-anchor="middle">1.00</text>
+<text x="324" y="369" font-size="8" fill="#666" text-anchor="middle">1</text>
+<text x="344.513" y="369" font-size="8" fill="#666" text-anchor="middle">10</text>
+<text x="365.026" y="369" font-size="8" fill="#666" text-anchor="middle">100</text>
+<text x="385.538" y="369" font-size="8" fill="#666" text-anchor="middle">1000</text>
+<text x="214" y="383" font-size="9" fill="#333" text-anchor="middle">Fraction of cells in each dataset</text>
+<text x="364" y="383" font-size="9" fill="#333" text-anchor="middle">Cells per cluster, log10</text>
+<text x="48" y="413" font-size="11.5" fill="#a05a3f">The reader has to hunt for neutrophils, judge bar</text>
+<text x="48" y="430" font-size="11.5" fill="#a05a3f">ends by eye and read cell numbers off a log axis.</text>
+<text x="48" y="447" font-size="11.5" fill="#a8401d" font-weight="700">Raw counts: the larger Control sample (8,000 vs</text>
+<text x="48" y="464" font-size="11.5" fill="#a8401d" font-weight="700">6,500 cells) pulls every bar toward Control.</text>
+<rect x="626.0" y="88.0" width="12.0" height="12.0" fill="#F2A35E"/><text x="643" y="98" font-size="11" fill="#333">Control</text>
+<rect x="708.0" y="88.0" width="12.0" height="12.0" fill="#2F6DB0"/><text x="725" y="98" font-size="11" fill="#333">Infected</text>
+<text x="836" y="121" font-size="9.5" fill="#888" text-anchor="end">Infected / Control</text>
+<rect x="586.0" y="131.5" width="45.8" height="18.0" fill="#F2A35E"/>
+<rect x="631.8" y="131.5" width="160.2" height="18.0" fill="#2F6DB0"/>
+<text x="580" y="139.5" font-size="11" fill="#222" text-anchor="end">Neutrophils</text>
+<text x="580" y="150" font-size="8.5" fill="#888" text-anchor="end">1,230 cells</text>
+<text x="836" y="144.5" font-size="12" fill="#111" text-anchor="end" font-weight="700">3.5×</text>
+<rect x="586.0" y="156.5" width="61.8" height="18.0" fill="#F2A35E"/>
+<rect x="647.8" y="156.5" width="144.2" height="18.0" fill="#2F6DB0"/>
+<text x="580" y="164.5" font-size="11" fill="#222" text-anchor="end">Monocytes</text>
+<text x="580" y="175" font-size="8.5" fill="#888" text-anchor="end">695 cells</text>
+<text x="836" y="169.5" font-size="12" fill="#111" text-anchor="end" font-weight="700">2.3×</text>
+<rect x="586.0" y="181.5" width="71.9" height="18.0" fill="#F2A35E"/>
+<rect x="657.9" y="181.5" width="134.1" height="18.0" fill="#2F6DB0"/>
+<text x="580" y="189.5" font-size="11" fill="#222" text-anchor="end">Plasma cells</text>
+<text x="580" y="200" font-size="8.5" fill="#888" text-anchor="end">302 cells</text>
+<text x="836" y="194.5" font-size="12" fill="#111" text-anchor="end" font-weight="700">1.9×</text>
+<rect x="586.0" y="206.5" width="86.0" height="18.0" fill="#F2A35E"/>
+<rect x="672.0" y="206.5" width="120.0" height="18.0" fill="#2F6DB0"/>
+<text x="580" y="214.5" font-size="11" fill="#222" text-anchor="end">Macrophages</text>
+<text x="580" y="225" font-size="8.5" fill="#888" text-anchor="end">256 cells</text>
+<text x="836" y="219.5" font-size="12" fill="#111" text-anchor="end" font-weight="700">1.4×</text>
+<rect x="586.0" y="231.5" width="98.1" height="18.0" fill="#F2A35E"/>
+<rect x="684.1" y="231.5" width="107.9" height="18.0" fill="#2F6DB0"/>
+<text x="580" y="239.5" font-size="11" fill="#222" text-anchor="end">Dendritic cells</text>
+<text x="580" y="250" font-size="8.5" fill="#888" text-anchor="end">303 cells</text>
+<text x="836" y="244.5" font-size="12" fill="#111" text-anchor="end" font-weight="700">1.1×</text>
+<rect x="586.0" y="256.5" width="110.4" height="18.0" fill="#F2A35E"/>
+<rect x="696.4" y="256.5" width="95.6" height="18.0" fill="#2F6DB0"/>
+<text x="580" y="264.5" font-size="11" fill="#222" text-anchor="end">NK cells</text>
+<text x="580" y="275" font-size="8.5" fill="#888" text-anchor="end">818 cells</text>
+<text x="836" y="269.5" font-size="12" fill="#111" text-anchor="end" font-weight="700">0.9×</text>
+<rect x="586.0" y="281.5" width="111.9" height="18.0" fill="#F2A35E"/>
+<rect x="697.9" y="281.5" width="94.1" height="18.0" fill="#2F6DB0"/>
+<text x="580" y="289.5" font-size="11" fill="#222" text-anchor="end">CD4+ T cells</text>
+<text x="580" y="300" font-size="8.5" fill="#888" text-anchor="end">2,962 cells</text>
+<text x="836" y="294.5" font-size="12" fill="#111" text-anchor="end" font-weight="700">0.8×</text>
+<rect x="586.0" y="306.5" width="112.8" height="18.0" fill="#F2A35E"/>
+<rect x="698.8" y="306.5" width="93.2" height="18.0" fill="#2F6DB0"/>
+<text x="580" y="314.5" font-size="11" fill="#222" text-anchor="end">B cells</text>
+<text x="580" y="325" font-size="8.5" fill="#888" text-anchor="end">6,151 cells</text>
+<text x="836" y="319.5" font-size="12" fill="#111" text-anchor="end" font-weight="700">0.8×</text>
+<rect x="586.0" y="331.5" width="119.2" height="18.0" fill="#F2A35E"/>
+<rect x="705.2" y="331.5" width="86.8" height="18.0" fill="#2F6DB0"/>
+<text x="580" y="339.5" font-size="11" fill="#222" text-anchor="end">CD8+ T cells</text>
+<text x="580" y="350" font-size="8.5" fill="#888" text-anchor="end">1,783 cells</text>
+<text x="836" y="344.5" font-size="12" fill="#111" text-anchor="end" font-weight="700">0.7×</text>
+<line x1="689.0" y1="124" x2="689.0" y2="356" stroke="#333" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="586" y1="356" x2="792" y2="356" stroke="#999" stroke-width="0.8"/>
+<text x="586" y="370" font-size="9.5" fill="#555" text-anchor="middle">0</text>
+<text x="689" y="370" font-size="9.5" fill="#555" text-anchor="middle">0.5</text>
+<text x="792" y="370" font-size="9.5" fill="#555" text-anchor="middle">1</text>
+<text x="689" y="384" font-size="9.5" fill="#333" text-anchor="middle">Fraction, each sample scaled to the same size</text>
+<text x="480" y="413" font-size="11.5" fill="#3d7a68">Read from the top: neutrophils 3.5×, monocytes 2.3×.</text>
+<text x="480" y="430" font-size="11.5" fill="#3d7a68">Cell numbers sit under each name; the dashed line</text>
+<text x="480" y="447" font-size="11.5" fill="#3d7a68">at 0.5 marks no change.</text>
+<text x="480" y="464" font-size="11.5" fill="#0F6E56" font-weight="700">The answer is in the first row.</text>
+<rect x="24" y="498" width="832" height="56" rx="9" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="48" y="520" font-size="12.5" fill="#555">💡 Grey count panel → one line under each name. Alphabetical order → sorted by the number the question asks for.</text>
+<text x="48" y="540" font-size="12.5" fill="#555">✅ Scale each sample to the same size before you split the bar. Then <tspan font-weight="700" fill="#4A3D6B">0.5 means no change</tspan>, whatever the cell numbers.</text>
+</svg>

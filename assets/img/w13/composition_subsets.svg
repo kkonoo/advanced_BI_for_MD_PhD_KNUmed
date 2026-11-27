@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 568" width="880" height="568" font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+<rect width="880" height="568" fill="#fcfcfb"/>
+<text x="24" y="28" font-size="15" fill="#4A3D6B" font-weight="700">Q: within neutrophils, which maturation stages expand with infection?</text>
+<text x="856" y="28" font-size="11" fill="#8A7FA3" text-anchor="end">(illustration: simulated data)</text>
+<rect x="24" y="46" width="400" height="440" rx="10" fill="#ffffff" stroke="#D85A30" stroke-width="2"/>
+<rect x="24" y="46" width="400" height="38" rx="10" fill="#fbeee8"/>
+<rect x="24" y="74" width="400" height="10" fill="#fbeee8"/>
+<text x="48" y="71" font-size="13.5" fill="#a8401d" font-weight="700">❌ Same template again</text>
+<text x="400" y="71" font-size="11.5" fill="#b58272" text-anchor="end">colour still on condition</text>
+<rect x="456" y="46" width="400" height="440" rx="10" fill="#ffffff" stroke="#1D9E75" stroke-width="2"/>
+<rect x="456" y="46" width="400" height="38" rx="10" fill="#e8f5f0"/>
+<rect x="456" y="74" width="400" height="10" fill="#e8f5f0"/>
+<text x="480" y="71" font-size="13.5" fill="#0F6E56" font-weight="700">✅ Colour on the subsets</text>
+<text x="832" y="71" font-size="11.5" fill="#7fa89a" text-anchor="end">conditions side by side</text>
+<text x="174" y="112" font-size="9.5" fill="#333">dataset</text>
+<rect x="212.0" y="103.0" width="11.0" height="11.0" fill="#2F6DB0"/><text x="227" y="112" font-size="9" fill="#333">Infected</text>
+<rect x="272.0" y="103.0" width="11.0" height="11.0" fill="#F2A35E"/><text x="287" y="112" font-size="9" fill="#333">Control</text>
+<rect x="128" y="124" width="172" height="192" fill="none" stroke="#bbb" stroke-width="0.8"/>
+<rect x="320" y="124" width="88" height="192" fill="none" stroke="#bbb" stroke-width="0.8"/>
+<line x1="174.0" y1="124" x2="174.0" y2="316" stroke="#eee" stroke-width="0.8"/>
+<line x1="214.0" y1="124" x2="214.0" y2="316" stroke="#eee" stroke-width="0.8"/>
+<line x1="254.0" y1="124" x2="254.0" y2="316" stroke="#eee" stroke-width="0.8"/>
+<line x1="344.5" y1="124" x2="344.5" y2="316" stroke="#eee" stroke-width="0.8"/>
+<line x1="365.0" y1="124" x2="365.0" y2="316" stroke="#eee" stroke-width="0.8"/>
+<line x1="385.5" y1="124" x2="385.5" y2="316" stroke="#eee" stroke-width="0.8"/>
+<text x="46" y="220" font-size="9" fill="#333" text-anchor="middle" transform="rotate(-90 46 220.0)">Cluster number</text>
+<rect x="134.0" y="134.0" width="82.1" height="34.0" fill="#F2A35E"/>
+<rect x="216.1" y="134.0" width="77.9" height="34.0" fill="#2F6DB0"/>
+<text x="128" y="154.2" font-size="9" fill="#555" text-anchor="end">Aged</text>
+<rect x="324.0" y="134.0" width="42.1" height="34.0" fill="#9a9a9a"/>
+<rect x="134.0" y="180.0" width="16.7" height="34.0" fill="#F2A35E"/>
+<rect x="150.7" y="180.0" width="143.3" height="34.0" fill="#2F6DB0"/>
+<text x="128" y="200.2" font-size="9" fill="#555" text-anchor="end">Immature</text>
+<rect x="324.0" y="180.0" width="51.8" height="34.0" fill="#9a9a9a"/>
+<rect x="134.0" y="226.0" width="51.2" height="34.0" fill="#F2A35E"/>
+<rect x="185.2" y="226.0" width="108.8" height="34.0" fill="#2F6DB0"/>
+<text x="128" y="246.2" font-size="9" fill="#555" text-anchor="end">Mature</text>
+<rect x="324.0" y="226.0" width="58.0" height="34.0" fill="#9a9a9a"/>
+<rect x="134.0" y="272.0" width="18.4" height="34.0" fill="#F2A35E"/>
+<rect x="152.4" y="272.0" width="141.6" height="34.0" fill="#2F6DB0"/>
+<text x="128" y="292.2" font-size="9" fill="#555" text-anchor="end">Proliferating</text>
+<rect x="324.0" y="272.0" width="42.1" height="34.0" fill="#9a9a9a"/>
+<text x="134" y="328" font-size="8" fill="#666" text-anchor="middle">0.00</text>
+<text x="174" y="328" font-size="8" fill="#666" text-anchor="middle">0.25</text>
+<text x="214" y="328" font-size="8" fill="#666" text-anchor="middle">0.50</text>
+<text x="254" y="328" font-size="8" fill="#666" text-anchor="middle">0.75</text>
+<text x="294" y="328" font-size="8" fill="#666" text-anchor="middle">1.00</text>
+<text x="324" y="328" font-size="8" fill="#666" text-anchor="middle">1</text>
+<text x="344.513" y="328" font-size="8" fill="#666" text-anchor="middle">10</text>
+<text x="365.026" y="328" font-size="8" fill="#666" text-anchor="middle">100</text>
+<text x="385.538" y="328" font-size="8" fill="#666" text-anchor="middle">1000</text>
+<text x="214" y="342" font-size="9" fill="#333" text-anchor="middle">Fraction of cells in each dataset</text>
+<text x="364" y="342" font-size="9" fill="#333" text-anchor="middle">Cells per cluster, log10</text>
+<text x="48" y="372" font-size="11.5" fill="#a05a3f">The subsets, which are the point, are only axis labels.</text>
+<text x="48" y="389" font-size="11.5" fill="#a05a3f">Mature looks Infected-heavy (68% of the bar) only because</text>
+<text x="48" y="406" font-size="11.5" fill="#a05a3f">Infected has nearly three times more neutrophils.</text>
+<text x="48" y="423" font-size="11.5" fill="#a8401d" font-weight="700">Within neutrophils, Mature actually falls: 67% → 50%.</text>
+<line x1="512" y1="116" x2="512" y2="340" stroke="#999" stroke-width="0.8"/>
+<line x1="508" y1="340.0" x2="512" y2="340.0" stroke="#999" stroke-width="0.8"/>
+<text x="505" y="343.5" font-size="9.5" fill="#555" text-anchor="end">0</text>
+<line x1="508" y1="284.0" x2="512" y2="284.0" stroke="#999" stroke-width="0.8"/>
+<text x="505" y="287.5" font-size="9.5" fill="#555" text-anchor="end">25</text>
+<line x1="508" y1="228.0" x2="512" y2="228.0" stroke="#999" stroke-width="0.8"/>
+<text x="505" y="231.5" font-size="9.5" fill="#555" text-anchor="end">50</text>
+<line x1="508" y1="172.0" x2="512" y2="172.0" stroke="#999" stroke-width="0.8"/>
+<text x="505" y="175.5" font-size="9.5" fill="#555" text-anchor="end">75</text>
+<line x1="508" y1="116.0" x2="512" y2="116.0" stroke="#999" stroke-width="0.8"/>
+<text x="505" y="119.5" font-size="9.5" fill="#555" text-anchor="end">100</text>
+<text x="482" y="228" font-size="10" fill="#333" text-anchor="middle" transform="rotate(-90 482 228.0)">% of neutrophils</text>
+<rect x="536.0" y="299.4" width="64.0" height="40.6" fill="#E6E1F0" stroke="#fff" stroke-width="1"/>
+<text x="568" y="323.7" font-size="10.5" fill="#2e2450" text-anchor="middle" font-weight="700">18%</text>
+<rect x="536.0" y="149.6" width="64.0" height="149.8" fill="#B9AFD6" stroke="#fff" stroke-width="1"/>
+<text x="568" y="228.5" font-size="10.5" fill="#2e2450" text-anchor="middle" font-weight="700">67%</text>
+<rect x="536.0" y="125.1" width="64.0" height="24.5" fill="#6E5BA6" stroke="#fff" stroke-width="1"/>
+<text x="568" y="141.35" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="700">11%</text>
+<rect x="536.0" y="116.0" width="64.0" height="9.1" fill="#3E2F6E" stroke="#fff" stroke-width="1"/>
+<text x="568" y="357" font-size="11" fill="#222" text-anchor="middle">Control</text>
+<text x="568" y="371" font-size="9.5" fill="#666" text-anchor="middle">320 cells</text>
+<rect x="650.0" y="326.5" width="64.0" height="13.5" fill="#E6E1F0" stroke="#fff" stroke-width="1"/>
+<text x="682" y="337.231" font-size="10.5" fill="#2e2450" text-anchor="middle" font-weight="700">6%</text>
+<rect x="650.0" y="214.5" width="64.0" height="112.0" fill="#B9AFD6" stroke="#fff" stroke-width="1"/>
+<text x="682" y="274.462" font-size="10.5" fill="#2e2450" text-anchor="middle" font-weight="700">50%</text>
+<rect x="650.0" y="140.6" width="64.0" height="73.8" fill="#6E5BA6" stroke="#fff" stroke-width="1"/>
+<text x="682" y="181.538" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="700">33%</text>
+<rect x="650.0" y="116.0" width="64.0" height="24.6" fill="#3E2F6E" stroke="#fff" stroke-width="1"/>
+<text x="682" y="132.308" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="700">11%</text>
+<text x="682" y="357" font-size="11" fill="#222" text-anchor="middle">Infected</text>
+<text x="682" y="371" font-size="9.5" fill="#666" text-anchor="middle">910 cells</text>
+<polygon points="600,340.0 650,340.0 650,326.5 600,299.4" fill="#E6E1F0" opacity="0.35"/>
+<polygon points="600,299.4 650,326.5 650,214.5 600,149.6" fill="#B9AFD6" opacity="0.35"/>
+<polygon points="600,149.6 650,214.5 650,140.6 600,125.1" fill="#6E5BA6" opacity="0.35"/>
+<polygon points="600,125.1 650,140.6 650,116.0 600,116.0" fill="#3E2F6E" opacity="0.35"/>
+<text x="836" y="106" font-size="9.5" fill="#888" text-anchor="end">Infected / Control</text>
+<line x1="717" y1="128.3" x2="725" y2="128.3" stroke="#aaa" stroke-width="0.8"/>
+<text x="728" y="132.308" font-size="11" fill="#222">Proliferating</text>
+<text x="836" y="132.308" font-size="12" fill="#111" text-anchor="end" font-weight="700">2.7×</text>
+<line x1="717" y1="177.5" x2="725" y2="177.5" stroke="#aaa" stroke-width="0.8"/>
+<text x="728" y="181.538" font-size="11" fill="#222">Immature</text>
+<text x="836" y="181.538" font-size="12" fill="#111" text-anchor="end" font-weight="700">3.0×</text>
+<line x1="717" y1="270.5" x2="725" y2="270.5" stroke="#aaa" stroke-width="0.8"/>
+<text x="728" y="274.462" font-size="11" fill="#222">Mature</text>
+<text x="836" y="274.462" font-size="12" fill="#111" text-anchor="end" font-weight="700">0.7×</text>
+<line x1="717" y1="333.2" x2="725" y2="333.2" stroke="#aaa" stroke-width="0.8"/>
+<text x="728" y="337.231" font-size="11" fill="#222">Aged</text>
+<text x="836" y="337.231" font-size="12" fill="#111" text-anchor="end" font-weight="700">0.3×</text>
+<text x="480" y="400" font-size="11.5" fill="#3d7a68">Proliferating + immature: 15% → 44% of neutrophils.</text>
+<text x="480" y="417" font-size="11.5" fill="#3d7a68">Stages have an order, so one hue: darker = less mature.</text>
+<text x="480" y="434" font-size="11.5" fill="#3d7a68">Bands between the columns show which share grew.</text>
+<text x="480" y="451" font-size="11.5" fill="#0F6E56" font-weight="700">Colour now marks what the question is about.</text>
+<rect x="24" y="498" width="832" height="56" rx="9" fill="#f7f5fa" stroke="#d8d2e4" stroke-width="1.5"/>
+<text x="48" y="520" font-size="12.5" fill="#555">💡 Same kind of data as the cell-type figure, a different question, so a different layout: <tspan font-weight="700" fill="#4A3D6B">colour goes to what you compare</tspan>.</text>
+<text x="48" y="540" font-size="12.5" fill="#555">⚠️ Only 13 Control neutrophils are proliferating. A fold that rests on a handful of cells needs a per-animal check (e.g. FACS).</text>
+</svg>
